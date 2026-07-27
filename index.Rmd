@@ -32,13 +32,9 @@ knitr::include_graphics("img/teoria.png")
 ## Módulos
 
 
-<div class="image-crop-modulos">
-
-```{r, echo=FALSE, out.width="100%", fig.align = "center"}
+```{r, echo=FALSE, out.width="70%", fig.align = "center"}
 knitr::include_graphics("img/modulos.png")
 ```
-
-</div>
 
 <br/><br/>
 

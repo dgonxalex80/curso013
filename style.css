@@ -13,25 +13,6 @@ h6,
 }
 
 
-/* Recorta el espacio vacío incorporado en la imagen de módulos */
-.image-crop-modulos {
-  width: 70%;
-  aspect-ratio: 2555 / 665;
-  overflow: hidden;
-  margin: 0 auto 0.75rem;
-}
-
-.image-crop-modulos p {
-  margin: 0;
-}
-
-.image-crop-modulos img {
-  display: block;
-  width: 100%;
-  height: auto;
-  margin: 0 !important;
-}
-
 /* Ritmo vertical global */
 body {
   line-height: 1.65;
@@ -114,8 +95,20 @@ h6 { margin-top: 0.7rem; }
 
 /* Las imágenes conservan su proporción y no desbordan el contenido */
 .main-container img {
-  max-width: 100%;
-  height: auto;
+  display: block;
+  max-width: 100% !important;
+  height: auto !important;
+  max-height: none !important;
+  object-fit: contain !important;
+  object-position: center;
+  clip-path: none !important;
+}
+
+.main-container .figure,
+.main-container p:has(> img) {
+  height: auto !important;
+  max-height: none !important;
+  overflow: visible !important;
 }
 
 /* Tablas, gráficos y bloques de código */
