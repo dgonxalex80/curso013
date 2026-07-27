@@ -16,7 +16,6 @@ knitr::opts_chunk$set(echo = TRUE)
 source("init.R")
 ```
 
-
 ```{r, echo=FALSE, out.width="100%", fig.align = "center"}
 if (file.exists("img/recurso1.png")) knitr::include_graphics("img/recurso1.png")
 ```
@@ -84,6 +83,7 @@ Datos de iris (de Fisher o Anderson)
 Base de datos estadísticos se estructura mediante arreglo de filas y columnas (matriz) donde por lo general las columnas representan las variables y las filas los registros de los objetos de estudio
 
 *Una base de datos es un conjunto de datos pertenecientes a un mismo contexto y almacenados sistemáticamente para su posterior uso.*
+
 <div class="box2">
 
 Wikipedia
@@ -149,12 +149,9 @@ DT::datatable(head(iris, 150),fillContainer = FALSE, options = list(pageLength =
 
 Las siguientes etapas comprenden el ciclo de los datos desde la importación hasta la comunicación. Estas etapas suceden al interior de la Metodología Estadística antes mencionada y constituyen una parte muy importante del proceso, pues de la calidad de los datos, depende la calidad de los resultados.
 
-
-
 ```{r, echo=FALSE, out.width="70%", fig.align = "center"}
  knitr::include_graphics("img/etapas.png")
 ```
-
 
 Imagen tomada de : https://bitsandbricks.github.io/ciencia_de_datos_gente_sociable/
 Utilizaremos para este proceso el lenguaje estadístico **R** , bajo **RStudio**
@@ -268,6 +265,7 @@ El formato **csv** es uno de los mas utilizados para el almacenamiento de datos 
 + RStudio usando ventanas : **File/ Import Dataset / From Text (base)...**
 
 + RStudio usando comandos : 
+
 <div class="box4 with-label">
 <div class="label">Código R</div>
 
@@ -287,9 +285,12 @@ En este ejemplo se utiliza la base **FIFA World Cup 2026 Dataset**, que contiene
 
 + La base se puede consultar y descargar desde [Hugging Face](https://huggingface.co/datasets/Mominullptr/fifa-world-cup-2026-dataset/blob/main/squads_and_players.csv).
 
++ [Descargar `squads_and_players.csv` directamente desde GitHub](https://raw.githubusercontent.com/mominullptr/FIFA-World-Cup-2026-Dataset/main/squads_and_players.csv). Al abrir el enlace, se puede guardar el archivo con **Ctrl+S** o **Guardar como**.
+
 + El archivo se descarga con el nombre `squads_and_players.csv` y se guarda en la carpeta `data/`.
 
 + Finalmente se importa en RStudio con la función `read_csv()`. 
+
 <div class="box4 with-label">
 <div class="label">Código R</div>
 
@@ -317,12 +318,11 @@ La API de datos abiertos de Socrata le permite acceder mediante programación a 
 https://dev.socrata.com/
 
 Cargar la base de datos de COVID-19 Colombia
+
 <div class="box4 with-label">
 <div class="label">Código R</div>
 
 <pre>
-<br/><br/>
-
 # install.packages("RSocrata")
 
  library(RSocrata)
@@ -332,7 +332,6 @@ Cargar la base de datos de COVID-19 Colombia
 </pre>
 
 </div>
-
 
 ```{r, eval=FALSE}
 # install.packages("RSocrata")
