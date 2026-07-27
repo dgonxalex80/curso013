@@ -1,6 +1,6 @@
 ---
 title: <span style="color:#F6A623">Teoría de Probabilidades</span>
-author: "dgonzalez"
+author: <span style="color:#F6A623">dgonzalez</span>
 output:
   html_document:
     toc: no

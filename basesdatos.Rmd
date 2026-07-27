@@ -1,6 +1,6 @@
 ---
 title: <span style="color:#E85A67">Teoría de Probabilidades</span>
-author: "dgonzalez "
+author: <span style="color:#E85A67">dgonzalez</span>
 subtitle: " "
 output:
   html_document:
@@ -53,7 +53,7 @@ Continuaremos con una parte importante de esta metodología que está relacionad
 <br/><br/>
 
 ```{r, echo=FALSE, out.width="100%", fig.align = "center"}
- knitr::include_graphics("img/dataset.png")
+ knitr::include_graphics("img/bases.png")
 ```
 
 <br/><br/>

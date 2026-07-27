@@ -13,7 +13,7 @@ navbar:
         - text: "Sumatoria"
           href: sumatoria.html
         - text: "Productoria"
-        
+          href: productoria.html        
           
     - text: "Módulo 1"
       menu:
