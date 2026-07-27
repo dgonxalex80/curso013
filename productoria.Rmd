@@ -8,7 +8,9 @@ output:
     toc_float: yes
     code_folding: hide
     theme: flatly
-    css: style.css
+    css:
+      - style.css
+      - cajas.css
 ---
 
  
@@ -36,7 +38,6 @@ source("colores.R")
 # PRODUCTORIA
 
 
-
 El productorio o productoria, también conocido como multiplicatorio, multiplicatoria o simplemente producto es una notación matemática que representa una multiplicación de una cantidad arbitraria finita o infinita.
  
 Wikipedia
@@ -46,9 +47,7 @@ Este operador será utilizado para desarrollar el método de estimación de Máx
 
 
 
-<div class="box2">
-
-<br/><br/>
+<div class="box box1">
 
 ## Definición
 
@@ -80,9 +79,6 @@ $$\exp\Bigg\{\displaystyle\sum_{i=1}^{n} x_{i}\Bigg\}$$
 
 
 
-<div class="box1 with-label">
-<div class="label">Problema 1</div>
-
 Encontrar la multiplicación de los 10 primeros números
 
 $$\displaystyle\prod_{x=1}^n x = 1 \times 2 \times 3 \times 4 \times 5 \times 6 \times 7 \times 8 \times 9 \times 10 $$
@@ -90,10 +86,6 @@ $$\displaystyle\prod_{x=1}^n x = 1 \times 2 \times 3 \times 4 \times 5 \times 6 
 ```{r}
 prod(1:10)
 ```
-
-</div>
-
-
 
 
 <br/><br/>

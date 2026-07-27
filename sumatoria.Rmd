@@ -8,7 +8,9 @@ output:
     toc_float: yes
     code_folding: hide
     theme: flatly
-    css: style.css
+    css:
+      - style.css
+      - cajas.css
 ---
 
   
@@ -35,27 +37,20 @@ source("colores.R")
 
 # SUMATORIA
 
-
-
-
-
 El **sumatorio** o **sumatoria** también conocida como operador de suma, notación sigma o símbolo de suma, es una notación matemática que permite representar una suma de varios sumandos, n o incluso infinitos sumandos son colocar puntos suspensivos. Se expresa mediante la letra sigma mayúscula.
 
 Wikipedia
 
 Este operador será utilizado en el curso en la construcción de conceptos como media aritmética, varianza, covarianza, correlación, estimación de los coeficientes del modelo de regresión entre otros
 
-
-
-<div class="box2">
-
-<br/><br/>
+<div class="box box1">
 
 ## Definición
 
 Se define como 
  
  $$\sum_{i=1}^{n} a_{i} = a_{1} + a_{2} + a_{3} + \cdots + a_{n}$$
+
 </div>
 
 
@@ -77,19 +72,13 @@ sum(1:100)
 ```
 
 
-
-
-<!-- ![](img/ej1.png){width=10%}     -->
-<div class="box1 with-label">
-<div class="label">Ejemplo 1</div>
-
 Si se tienen las notas de un examen de 12 estudiantes como:
 
 3.4, 4.2, 2.5, 4.1, 3.0, 4.2, 4.7, 3.3, 4.5, 5.0, 2.5, 4.8
  
 Y se desea calcular la media de las notas, primero se deben sumar todas las notas y el resultado dividirlo por el numero de notas. 
  
-</div> 
+ 
 
 $$\bar{x} = \dfrac{1}{12}\displaystyle\sum_{i=1}^{12} x_{i}$$
 En este caso $3.4$ representa el primer termino de la suma $x_1$ , el segundo término $x_2 = 4.2$, asi, hasta el final donde $4.8$ representa $x_{12}$. Lo cual equivale a :
@@ -104,13 +93,13 @@ sum(x)/12
 ```
 
 
-
-<div class="box2">
-
 <br/><br/>
 
-## Propiedades 
 
+<div class="box box1">
+
+
+## Propiedades 
 
 
 + $\displaystyle\sum_{i=1}^{n} k = nk$, 

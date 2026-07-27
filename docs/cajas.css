@@ -1,0 +1,169 @@
+/*=========================================================
+ THEME.CSS
+ Sistema de diseño para cursos (Quarto / RMarkdown / Shiny)
+=========================================================*/
+
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Andika:wght@400;700&family=Shadows+Into+Light&display=swap');
+
+:root{
+
+/*======================
+PALETA
+======================*/
+--c11:#F6A623;
+--c12:#F7DFC1;
+
+--c21:#E85A67;
+--c22:#F8DCE0;
+
+--c31:#3498C9;
+--c32:#DCEFF8;
+
+--c41:#476885;
+--c42:#E2EAF1;
+
+--c51:#67C1A8;
+--c52:#DDF3EC;
+
+--white:#FFFFFF;
+--text:#333333;
+
+--font-title:'Anton',sans-serif;
+--font-body:'Andika',sans-serif;
+--font-note:'Shadows Into Light',cursive;
+
+--radius:12px;
+--shadow:0 4px 10px rgba(0,0,0,.12);
+
+}
+
+/*======================
+GENERAL
+======================*/
+
+body{
+    font-family:var(--font-body);
+    color:var(--text);
+    background:#fafafa;
+    line-height:1.7;
+}
+
+h1,h2,h3,h4,h5,h6{
+    font-family:var(--font-title);
+    color:var(--c41);
+}
+
+/*======================
+CAJA BASE
+======================*/
+
+.box{
+    position:relative;
+    padding:1.5rem;
+    margin:1.5rem 0;
+    border-radius:var(--radius);
+    border:2px solid;
+    background:#fff;
+    box-shadow:var(--shadow);
+}
+
+.box .label{
+    position:absolute;
+    top:-14px;
+    left:16px;
+    padding:.35rem .8rem;
+    border-radius:8px;
+    color:#fff;
+    font-weight:bold;
+    font-size:.95rem;
+}
+
+/*=========================================================
+ CAJA 1
+=========================================================*/
+
+.box1{
+    border-color:var(--c11);
+    background:var(--c12);
+}
+.box1 .label{
+    background:var(--c11);
+}
+.box1 .label::before{
+    content:"Caja 1";
+}
+
+/*=========================================================
+ CAJA 2
+=========================================================*/
+
+.box2{
+    border-color:var(--c21);
+    background:var(--c22);
+}
+.box2 .label{
+    background:var(--c21);
+}
+.box2 .label::before{
+    content:"Caja 2";
+}
+
+/*=========================================================
+ CAJA 3
+=========================================================*/
+
+.box3{
+    border-color:var(--c31);
+    background:var(--c32);
+}
+.box3 .label{
+    background:var(--c31);
+}
+.box3 .label::before{
+    content:"Caja 3";
+}
+
+/*=========================================================
+ CAJA 4
+=========================================================*/
+
+.box4{
+    border-color:var(--c41);
+    background:var(--c42);
+}
+.box4 .label{
+    background:var(--c41);
+}
+.box4 .label::before{
+    content:"Caja 4";
+}
+
+/*=========================================================
+ CAJA 5
+=========================================================*/
+
+.box5{
+    border-color:var(--c51);
+    background:var(--c52);
+}
+.box5 .label{
+    background:var(--c51);
+}
+.box5 .label::before{
+    content:"Caja 5";
+}
+
+/*=========================================================
+ CAJA 6
+=========================================================*/
+
+.box6{
+    border-color:#999999;
+    background:#F5F5F5;
+}
+.box6 .label{
+    background:#999999;
+}
+.box6 .label::before{
+    content:"Caja 6";
+}

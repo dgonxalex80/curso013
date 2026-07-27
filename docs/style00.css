@@ -14,9 +14,13 @@ h6,
 
 
 /* Ritmo vertical global */
-body {line-height: 1.65; }
+body {
+  line-height: 1.65;
+}
 
-p {margin-bottom: 0.8rem; }
+p {
+  margin-bottom: 0.8rem;
+}
 
 ul,
 ol {

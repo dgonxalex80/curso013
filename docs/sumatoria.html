@@ -63,6 +63,7 @@ if (window.hljs) {
 
 
 <link rel="stylesheet" href="style.css" type="text/css" />
+<link rel="stylesheet" href="cajas.css" type="text/css" />
 
 
 
@@ -394,14 +395,11 @@ expresa mediante la letra sigma mayúscula.</p>
 <p>Este operador será utilizado en el curso en la construcción de
 conceptos como media aritmética, varianza, covarianza, correlación,
 estimación de los coeficientes del modelo de regresión entre otros</p>
-<div class="box2">
-<p><br/><br/></p>
-<div id="definición" class="section level2">
+<div id="definición" class="section level2 box box1">
 <h2>Definición</h2>
 <p>Se define como</p>
 <p><span class="math display">\[\sum_{i=1}^{n} a_{i} = a_{1} + a_{2} +
 a_{3} + \cdots + a_{n}\]</span></p>
-</div>
 </div>
 <p>Esta forma de expresión matemática nos ayuda a resumir la escritura
 de series de sucesiones matemáticas, las cuales puede ser finitas o
@@ -418,16 +416,10 @@ enteros se escribe:</p>
 <p><span class="math display">\[\sum_{i=1}^{100} x = 1 + 2 + 3 + 4 + 5 +
 \cdots + 99 +100\]</span></p>
 <pre class="r"><code>sum(1:100)</code></pre>
-<!-- ![](img/ej1.png){width=10%}     -->
-<div class="box1 with-label">
-<div class="label">
-Ejemplo 1
-</div>
 <p>Si se tienen las notas de un examen de 12 estudiantes como:</p>
 <p>3.4, 4.2, 2.5, 4.1, 3.0, 4.2, 4.7, 3.3, 4.5, 5.0, 2.5, 4.8</p>
 <p>Y se desea calcular la media de las notas, primero se deben sumar
 todas las notas y el resultado dividirlo por el numero de notas.</p>
-</div>
 <p><span class="math display">\[\bar{x} =
 \dfrac{1}{12}\displaystyle\sum_{i=1}^{12} x_{i}\]</span> En este caso
 <span class="math inline">\(3.4\)</span> representa el primer termino de
@@ -440,9 +432,8 @@ class="math inline">\(x_{12}\)</span>. Lo cual equivale a :</p>
 4.8)}{12}=\dfrac{46.2}{12}\]</span></p>
 <pre class="r"><code>x=c(3.4, 4.2, 2.5, 4.1 , 3.0, 4.2, 4.7, 3.3, 4.5, 5.0, 2.5, 4.8)
 sum(x)/12</code></pre>
-<div class="box2">
 <p><br/><br/></p>
-<div id="propiedades" class="section level2">
+<div id="propiedades" class="section level2 box box1">
 <h2>Propiedades</h2>
 <ul>
 <li><p><span class="math inline">\(\displaystyle\sum_{i=1}^{n} k =
@@ -459,7 +450,6 @@ class="math inline">\(b\)</span> son constantes y <span
 class="math inline">\(x_i\)</span> y <span
 class="math inline">\(y_{i}\)</span> corresponden a lod terminod i-esimo
 de los conjuntos de datos</p>
-</div>
 </div>
 <p><br/><br/></p>
 <div id="problemas-propuestos" class="section level2">

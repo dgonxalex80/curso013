@@ -89,10 +89,12 @@ ggplot(grupo013, aes(x = carrera, y = promedio, fill = carrera)) +
 
 # Métodología Estadística
 
+<div class="box1">
+
 ```{r, echo=FALSE, out.width="80%", fig.align = "center"}
  knitr::include_graphics("img/metodologiaestadistica.png")
 ```
-
+<div/>
 
 <br/><br/>
 

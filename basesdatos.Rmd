@@ -158,7 +158,7 @@ DT::datatable(head(iris, 150),fillContainer = FALSE, options = list(pageLength =
 Las siguientes etapas comprenden el ciclo de los datos desde la importación hasta la comunicación. Estas etapas suceden al interior de la Metodología Estadística antes mencionada y constituyen una parte muy importante del proceso, pues de la calidad de los datos, depende la calidad de los resultados.
 
 ```{r, echo=FALSE, out.width="70%", fig.align = "center"}
- knitr::include_graphics("img/etapas.png")
+ knitr::include_graphics("img/proceso_datos.png")
 ```
 
 Imagen tomada de : https://bitsandbricks.github.io/ciencia_de_datos_gente_sociable/
