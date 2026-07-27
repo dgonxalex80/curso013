@@ -20,6 +20,9 @@ source("init.R")
 if (file.exists("img/recurso1.png")) knitr::include_graphics("img/recurso1.png")
 ```
 
+
+<br/><br/>
+
 ```{r datos-estudiantes, include=FALSE}
 knitr::opts_chunk$set(comment = NA)
 
@@ -47,18 +50,24 @@ grupo013$carrera <- factor(grupo013$carrera)
 Para abordar las primeras etapas se plantea la **actividad 101**, donde se plantea la necesidad de definir un problema, definir unos objetivos y determinar las variables que serán empleadas para poder cumplir con los objetivos planteados.
 Continuaremos con una parte importante de esta metodología que está relacionada con la obtención de la información y la construcción de la base de datos.
 
+<br/><br/>
+
 ```{r, echo=FALSE, out.width="100%", fig.align = "center"}
  knitr::include_graphics("img/dataset.png")
 ```
+
+<br/><br/>
 
 ```{r, echo=FALSE, out.width="50%", fig.align = "center"}
  knitr::include_graphics("img/basesdatos.png")
 ```
 
-*Una base de datos es un conjunto de datos pertenecientes a un mismo contexto y almacenados sistemáticamente para su posterior uso.* Wikipedia
+*Una base de datos es un conjunto de datos pertenecientes a un mismo contexto y almacenados sistemáticamente para su posterior uso.* 
+Wikipedia
 Una base de datos en estadística es un conjunto de información relacionada con una población organizada en filas y columnas. Las columnas corresponden a las variables y las filas están relacionadas con los individuos u objetos de estudio.  
 Es importante indicar que variables como: número de la encuesta, número de identificación, teléfono, dirección, entre otros, no constituyen variables estadística, aun que pueden ser utilizadas para la identificación de la persona u objeto  de donde proviene la información. 
 Existen repositorio de bases de datos para uso general como: 
+
 * [dataset en RStudio](https://stat.ethz.ch/R-manual/R-devel/library/datasets/html/00Index.html)
 
 * [Portal Bases de datos abiertos Colombia](https://www.datos.gov.co/)
@@ -69,7 +78,7 @@ Existen repositorio de bases de datos para uso general como:
 
 <br/><br/>
 
-## **Base datos iris (dataset R)**
+## Base datos iris (dataset R)
 
 ```{r ,warning=FALSE, message=FALSE}
 data(iris)
@@ -84,21 +93,19 @@ Base de datos estadísticos se estructura mediante arreglo de filas y columnas (
 
 *Una base de datos es un conjunto de datos pertenecientes a un mismo contexto y almacenados sistemáticamente para su posterior uso.*
 
-<div class="box2">
-
 Wikipedia
 
 Una base de datos en estadística es un conjunto de información relacionada con una población organizada en filas y columnas. Las columnas corresponden a las variables y las filas están relacionadas con los individuos u objetos de estudio.
 
-</div>
+<br/>
 
 Existen repositorio de bases de datos para uso general
 
 <br/><br/>
 
-## **Repositorios**
 
-<div class="box2">
+## Repositorios
+
 
 * [dataset en RStudio](https://stat.ethz.ch/R-manual/R-devel/library/datasets/html/00Index.html)   (bases de datos dentro de los paquetes de R)
 
@@ -135,7 +142,8 @@ Existen repositorio de bases de datos para uso general
 * [NIST Data Repository](https://data.nist.gov/sdp/#/)
 
 * [Biodiversidad del Global Biodiversity Information Facility (GBIF)](https://www.gbif.org/dataset/search)
-</div>
+
+<br/><br/>
 
 ```{r }
 data(iris)
@@ -145,7 +153,7 @@ DT::datatable(head(iris, 150),fillContainer = FALSE, options = list(pageLength =
 
 <br/><br/>
 
-# **Etapas del proceso de datos**
+# Etapas del proceso de datos
 
 Las siguientes etapas comprenden el ciclo de los datos desde la importación hasta la comunicación. Estas etapas suceden al interior de la Metodología Estadística antes mencionada y constituyen una parte muy importante del proceso, pues de la calidad de los datos, depende la calidad de los resultados.
 
@@ -158,11 +166,11 @@ Utilizaremos para este proceso el lenguaje estadístico **R** , bajo **RStudio**
 
 <br/><br/>
 
-# **Importar datos**
+# Importar datos
 
 <br/><br/>
 
-##  **Origen de los datos**
+##  Origen de los datos
 
 Los datos pueden proceder de diferentes fuentes (tanto primarias como secundarias), dentro de las cuales pueden ser:
 * Encuesta personal (datos primarios)
@@ -189,7 +197,7 @@ Los datos pueden proceder de diferentes fuentes (tanto primarias como secundaria
 
 <br/><br/>
 
-##  **Herramientas computacionales**
+##  Herramientas computacionales
 
 Algunas de las herramientas utiliziadas en el manejo de información  son :
 + Excel
@@ -198,14 +206,14 @@ Algunas de las herramientas utiliziadas en el manejo de información  son :
 + SAS
 + Julia 
 
-+ R,  RStudio
++ R,  RStudio, Positron
 + Python
 
 En nuestro caso haremos uso del lenguaje estadístico **R*
 
 <br/><br/>
 
-## **Limpieza de datos**
+## Limpieza de datos
 
 Es importante después de haber importado la base de datos, hacer una revisión de cada una de las variables con el fin de poder detectar:
 
@@ -219,7 +227,7 @@ Existen metodologías para corregir estos problemas sin afectar la información 
 
 <br/><br/>
 
-# **Ficha técnica**
+# Ficha técnica
 
 Las bases de datos debe estar acompañadas de una ficha técnica donde si indican sus principales características :
 
@@ -229,7 +237,7 @@ Las bases de datos debe estar acompañadas de una ficha técnica donde si indica
 
 <br/><br/>
 
-# **Importar bases de datos**
+# Importar bases de datos
 
 Los datos se pueden importar de diferentes formas :
 + Desde el menú de RStudio
@@ -241,7 +249,7 @@ Los datos se pueden importar de diferentes formas :
 
 <br/><br/>
 
-### **Importar datos desde la dataset de R**
+### Importar datos desde la dataset de R
 
 ```{r, echo=TRUE, warning=FALSE, message=FALSE}
 data("mtcars")
@@ -250,7 +258,7 @@ head(mtcars, n=3)
 
 <br/><br/>
 
-## **Importar los datos en formato xlsx**
+## Importar los datos en formato xlsx
 
 + RStudio usando ventanas : **File/ Import Dataset / From Excel...**
 
@@ -258,7 +266,7 @@ head(mtcars, n=3)
 
 <br/><br/>
 
-## **Importar datos en formato csv**
+## Importar datos en formato csv
 
 El formato **csv** es uno de los mas utilizados para el almacenamiento de datos estructurados (agrupados en filas y columnas)  . El termino csv significa *"valores separados por comas"* 
 
@@ -266,14 +274,16 @@ El formato **csv** es uno de los mas utilizados para el almacenamiento de datos 
 
 + RStudio usando comandos : 
 
-<div class="box4 with-label">
-<div class="label">Código R</div>
+<br/><br/>
+
+### Código R
 
 <pre>
 library(readr)
 casas <- read_delim("data/casas.csv", delim = ";", escape_double = FALSE, trim_ws = TRUE)
 </pre>
-</div>
+
+<br/><br/>
 
 ```{r, message=FALSE, warning=FALSE}
 library(readr)
@@ -291,8 +301,9 @@ En este ejemplo se utiliza la base **FIFA World Cup 2026 Dataset**, que contiene
 
 + Finalmente se importa en RStudio con la función `read_csv()`. 
 
-<div class="box4 with-label">
-<div class="label">Código R</div>
+<br/><br/>
+
+### Código R
 
 <pre>
 library(DT)
@@ -300,7 +311,7 @@ fifa2026 <- read.csv("data/squads_and_players.csv")
 datatable(head(fifa2026, 100), fillContainer = FALSE, options = list(pageLength = 5))
 </pre>
 
-</div>
+<br/><br/>
 
 ```{r, echo=TRUE, warning=FALSE, message=FALSE, results='hide'}
 library(DT)
@@ -311,7 +322,7 @@ datatable(head(fifa2026, 100), fillContainer = FALSE, options = list(pageLength 
 
 <br/><br/>
 
-## **Importar datos de manera automática**
+## Importar datos de manera automática
 
 La API de datos abiertos de Socrata le permite acceder mediante programación a una gran cantidad de recursos de datos abiertos de gobiernos, organizaciones sin fines de lucro y ONG de todo el mundo. Haga clic en el enlace de abajo y pruebe un ejemplo en vivo ahora mismo.
 
@@ -319,8 +330,9 @@ https://dev.socrata.com/
 
 Cargar la base de datos de COVID-19 Colombia
 
-<div class="box4 with-label">
-<div class="label">Código R</div>
+<br/><br/>
+
+### Código R
 
 <pre>
 # install.packages("RSocrata")
@@ -331,7 +343,7 @@ Cargar la base de datos de COVID-19 Colombia
  saveRDS(Colombia,"data/Colombia.RDS")
 </pre>
 
-</div>
+<br/><br/>
 
 ```{r, eval=FALSE}
 # install.packages("RSocrata")
@@ -343,10 +355,11 @@ Cargar la base de datos de COVID-19 Colombia
  # 25-07-2025 - 10:13
 ```
 
-<div class="box3 with-label">
-<div class="label">Nota</div>
+<br/><br/>
+
+### Nota
 
 Se requiere solicitar token en la pagina de los datos
 
-</div>
+<br/><br/>
 
