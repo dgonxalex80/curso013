@@ -1,0 +1,55 @@
+---
+title: <span style="color:#F6A623">Teoría de Probabilidades</span>
+author: "dgonzalez "
+subtitle:  
+output:
+  html_document:
+    toc: no
+    toc_depth: 2
+    toc_float: yes
+    theme: flatly
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+source("init.R")
+```
+
+
+```{r, echo=FALSE, out.width="100%", fig.align = "center"}
+knitr::include_graphics("img/modulo0.png")
+```
+
+
+
+
+<br/><br/>
+
+# Introducción
+
+Este módulo contiene aquellos conceptos que se consideran necesarios para abordar los temas propuestos en  el curso. En caso de no recordarlos o de no  haberlos trabajado  previamente, te  recomiendo revisar el  contenido de esta modulo.
+
+Son ellos: 
+
+* Sumatoria y productoria (Módulo 1), 
+
+* Teoría de conjuntos  (Módulo 2), 
+
+* Técnicas de conteo  (Módulo 2), 
+
+* Función exponencial (Módulo 3), 
+
+* Función Logarítmica (Módulo 3), 
+
+* Derivación  (Módulo 4) e 
+
+* Integración (Módulo 4).
+
+
+
+<br/><br/>
+
+# Objetivo
+
+Al finalizar este modulo los estudiantes RECORDARAN los conceptos de SUMATORIA, PRODUCTORIA, TEORIA DE CONJUNTOS, TECNCAS DE CONTEO, FUNCION EXOPNENCIAL y LOGARÍTMICA, DERIVACIÓN e INTEGRACIÓN, conceptos que serán requeridos para la mejor comprensión de los conceptos planteados en el curso.

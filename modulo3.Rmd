@@ -1,0 +1,68 @@
+---
+title: <span style="color:#476885">Teoría de Probabilidades</span>
+author: "dgonzalez "
+subtitle:  
+output:
+  html_document:
+    toc: no
+    toc_depth: 2
+    toc_float: yes
+    theme: flatly
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+source("init.R")
+```
+
+
+```{r, echo=FALSE, out.width="100%", fig.align = "center"}
+knitr::include_graphics("img/modulo3.png")
+```
+
+
+
+<br/><br/>
+
+# Introducción
+
+En este módulo se establece el vínculo entre los resultados de un experimento aleatorio y su representación numérica mediante el concepto de variable aleatoria. A partir de los fundamentos de probabilidad estudiados en el Módulo 2, se abordarán las variables aleatorias discretas y continuas, sus funciones de probabilidad, densidad y distribución acumulada, así como las medidas que permiten caracterizarlas.
+
+También se estudiarán variables aleatorias conjuntas, distribuciones marginales y condicionales, covarianza, correlación y combinaciones lineales. Estos conceptos permitirán modelar, analizar y simular situaciones reales con apoyo de software estadístico.
+
+
+
+<br/><br/>
+
+# Objetivo
+
+Al finalizar este módulo, el estudiante estará en capacidad de CARACTERIZAR e INTERPRETAR VARIABLES ALEATORIAS DISCRETAS, CONTINUAS Y CONJUNTAS mediante sus funciones de probabilidad, medidas de tendencia y variabilidad y relaciones de dependencia, para RESOLVER y SIMULAR problemas con apoyo de software estadístico.
+
+
+
+<br/><br/>
+
+# Contenidos
+
+* Concepto y clasificación de variable aleatoria.
+
+* Distribución de probabilidad de una variable aleatoria discreta.
+
+* Función de densidad y función de distribución acumulada de una variable aleatoria continua.
+
+* Media, valor esperado y varianza de una variable aleatoria.
+
+* Distribuciones conjuntas, marginales y condicionales.
+
+* Covarianza y coeficiente de correlación.
+
+* Media y varianza de combinaciones lineales.
+
+* Esperanza y varianza condicional.
+
+* Simulación y análisis mediante software estadístico.
+
+
+
+

@@ -1,0 +1,151 @@
+@import url("https://fonts.googleapis.com/css2?family=Anton&display=swap");
+
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.title,
+.subtitle {
+  font-family: "Anton", sans-serif;
+}
+
+
+/* Recorta el espacio vacío incorporado en la imagen de módulos */
+.image-crop-modulos {
+  width: 70%;
+  aspect-ratio: 2555 / 665;
+  overflow: hidden;
+  margin: 0 auto 0.75rem;
+}
+
+.image-crop-modulos p {
+  margin: 0;
+}
+
+.image-crop-modulos img {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 0 !important;
+}
+
+/* Ritmo vertical global */
+body {
+  line-height: 1.65;
+}
+
+p {
+  margin-bottom: 0.8rem;
+}
+
+ul,
+ol {
+  margin-top: 0.5rem;
+  margin-bottom: 0.8rem;
+}
+
+li {
+  margin-bottom: 0.45rem;
+}
+
+/* Separación entre secciones de todos los niveles */
+.section {
+  margin-bottom: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  line-height: 1.25;
+  margin-bottom: 0.3rem;
+}
+
+h1 { margin-top: 0.5rem; }
+h2 { margin-top: 0.7rem; }
+h3 { margin-top: 0.6rem; }
+h4,
+h5,
+h6 { margin-top: 0.7rem; }
+
+/* Evita el espacio de anclaje calculado con la altura de la barra */
+.section h1,
+.section h2,
+.section h3,
+.section h4,
+.section h5,
+.section h6 {
+  padding-top: 0 !important;
+  scroll-margin-top: 70px;
+  clear: both;
+}
+
+.section h1 { margin-top: 0.5rem !important; }
+.section h2 { margin-top: 0.7rem !important; }
+.section h3 { margin-top: 0.6rem !important; }
+.section h4,
+.section h5,
+.section h6 { margin-top: 0.7rem !important; }
+
+/* Mantiene la navegación en una fila y evita una altura exagerada */
+.navbar .container,
+.navbar .container-fluid {
+  width: 100%;
+  max-width: none;
+}
+
+.navbar-nav > li > a {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+/* Evita espacio excesivo al comienzo del documento */
+.main-container > .section:first-child > :first-child,
+.section > h1:first-child,
+.section > h2:first-child,
+.section > h3:first-child {
+  margin-top: 0;
+}
+
+/* Las imágenes conservan su proporción y no desbordan el contenido */
+.main-container img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Tablas, gráficos y bloques de código */
+table,
+.figure,
+pre,
+blockquote {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+/* Índice lateral flotante */
+.tocify-item {
+  line-height: 1.4;
+}
+
+.tocify-item a {
+  display: block;
+  padding-top: 0.45rem;
+  padding-bottom: 0.45rem;
+}
+
+.tocify-subheader .tocify-item a {
+  padding-top: 0.35rem;
+  padding-bottom: 0.35rem;
+}
+
+
+@media (max-width: 767px) {
+  .section { margin-bottom: 0; }
+  h1 { margin-top: 0.5rem; }
+  h2 { margin-top: 0.6rem; }
+}

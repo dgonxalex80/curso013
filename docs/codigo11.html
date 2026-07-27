@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="dgonzalez" />
+
+
+<title>Teoría de Probabilidades</title>
+
+<script src="site_libs/header-attrs-2.31/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-6.5.2/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html"> </a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">
+    <span class="fa fa-home"></span>
+     
+    Estadística
+  </a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 0
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo0.html">Módulo 0</a>
+    </li>
+    <li>
+      <a href="sumatoria.html">Sumatoria</a>
+    </li>
+    <li class="dropdown-header">Productoria</li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 1
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo1.html">Módulo 1</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="guia11.html">Guía 1.1</a>
+    </li>
+    <li>
+      <a href="recurso101.html">Recursos 1.1</a>
+    </li>
+    <li>
+      <a href="basesdatos.html">Bases de datos</a>
+    </li>
+    <li>
+      <a href="introduccionR.html">Introducción a R</a>
+    </li>
+    <li>
+      <a href="codigo11.html">Código 1.1</a>
+    </li>
+    <li class="divider"></li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 2
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo2.html">Módulo 2</a>
+    </li>
+    <li class="divider"></li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 3
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo3.html">Módulo 3</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 4
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo4.html">Módulo 4</a>
+    </li>
+    <li class="divider"></li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Proyecto
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="enconstruccion.html">Guía proyecto</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore"><span style="color:#E85A67">Teoría de
+Probabilidades</span></h1>
+<h4 class="author">dgonzalez</h4>
+
+</div>
+
+
+<p><img src="img/codigo1.png" alt="" width="100%" style="display: block; margin: auto;" /></p>
+<p><br/><br/></p>
+<div id="importar-datos-en-r" class="section level1">
+<h1><strong>Importar datos en R</strong></h1>
+<p>Se puede realizar de formas diferentes :</p>
+<ol style="list-style-type: decimal">
+<li>Utilizando el menú RStudio</li>
+</ol>
+<ul>
+<li>Caso formato .csv : <em>File /Import Dataset/From text
+(base)</em>.</li>
+</ul>
+<iframe width="800" height="450" src="https://www.youtube.com/embed/g8p_Rn8C6oU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+</iframe>
+<ul>
+<li>Caso formato .xlsx : <em>File/ Import Dataset/ From Excel</em>.</li>
+</ul>
+<iframe width="800" height="450" src="https://www.youtube.com/embed/wB7zmFKRjFk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+</iframe>
+<ol start="2" style="list-style-type: decimal">
+<li>Utilizando el paquete Rcmdr y RcomdrMisc que activa una interfas de
+R que trabaja con menus y ventanas con un proceso parecido al
+anterio</li>
+</ol>
+<p>Los anteriores caso implican que tengamos la base de datos descargada
+en una carpeta de nuestro PC</p>
+<ol start="3" style="list-style-type: decimal">
+<li>Podemos importar la base de datos de un repositorio que maneje API
+que es un permiso a traves de un token. En este caso debemos solicitar
+el token e instalar el paquete RSocrata</li>
+</ol>
+<p>Por ejemplo</p>
+<p>Instalación de paquetes requeridos</p>
+<pre class="r"><code># install.packages(&quot;RSocrata&quot;, dependencies = TRUE)   # instalación de paquete RSocrata
+ library(RSocrata)    # llamado de libreria
+ # token &lt;- &quot;zxMsD6eXc0zlEMryRGW87Hwrz&quot;  # token
+ # Colombia &lt;- read.socrata(&quot;https://www.datos.gov.co/resource/gt2j-8ykr.json&quot;, app_token = token) # lectura </code></pre>
+<p>Este proceso tarde unos minutos pues la base es grande</p>
+<p>También podemos leer directamente un archivo CSV. En este caso se
+utiliza la base de jugadores y selecciones de FIFA 2026 ubicada en la
+carpeta <code>data/</code>.</p>
+<p><br/><br/></p>
+<div id="dónde-encontrar-y-descargar-la-base-de-jugadores"
+class="section level2">
+<h2><strong>¿Dónde encontrar y descargar la base de
+jugadores?</strong></h2>
+<p>El archivo <code>squads_and_players.csv</code> forma parte del
+proyecto <strong>FIFA World Cup 2026 Dataset</strong>, creado por MD
+Mominul Islam. La base contiene 1.248 jugadores pertenecientes a las 48
+selecciones del torneo. Se puede consultar o descargar desde:</p>
+<ul>
+<li><a
+href="https://huggingface.co/datasets/Mominullptr/fifa-world-cup-2026-dataset/blob/main/squads_and_players.csv">Hugging
+Face: descarga del archivo squads_and_players.csv</a>. En la página se
+debe seleccionar <strong>Download</strong>.</li>
+<li><a
+href="https://github.com/mominullptr/FIFA-World-Cup-2026-Dataset">GitHub:
+repositorio FIFA World Cup 2026 Dataset</a>. Se puede seleccionar el
+archivo y luego <strong>Download raw file</strong>, o descargar todo el
+repositorio desde <strong>Code / Download ZIP</strong>.</li>
+<li><a
+href="https://www.kaggle.com/datasets/mominullptr/fifa-world-cup-2026-dataset">Kaggle:
+FIFA World Cup 2026 Dataset</a>. Kaggle puede solicitar una cuenta para
+realizar la descarga.</li>
+</ul>
+<p>Las listas de jugadores también se pueden consultar en la <a
+href="https://www.fifa.com/es/articles/listas-convocados-mundial-2026-oficiales">página
+oficial de convocados de FIFA</a>. Esta página sirve para contrastar las
+convocatorias oficiales, mientras que el archivo CSV utilizado en este
+documento proviene del proyecto de datos mencionado anteriormente.</p>
+<p>Después de descargar el archivo, se debe guardar con el nombre
+<code>squads_and_players.csv</code> dentro de la carpeta
+<code>data/</code> del proyecto. También es posible leer la versión más
+reciente directamente desde Hugging Face:</p>
+<pre class="r"><code>url_jugadores &lt;- &quot;https://huggingface.co/datasets/Mominullptr/fifa-world-cup-2026-dataset/resolve/main/squads_and_players.csv&quot;
+fifa2026 &lt;- read_csv(url_jugadores, show_col_types = FALSE)</code></pre>
+<p>Para trabajar con la copia local descargada utilizamos:</p>
+<pre class="r"><code>fifa2026 &lt;- read_csv(&quot;data/squads_and_players.csv&quot;, show_col_types = FALSE)</code></pre>
+<ol start="4" style="list-style-type: decimal">
+<li>Podemos trabajar con Dataset disponible en los paquetes de R. Para
+ello solo utilizamos la función data</li>
+</ol>
+<pre class="r"><code>data(iris)  # data set iris
+data(cars)  # data set cars</code></pre>
+<p>Ahora si tengo un archivo en mi PC, puedo utilizar la siguinte
+función para conocer la ruta donde esta el archivo y luego copiando la
+ruta obtenida con Ctrl+C,</p>
+<pre class="r"><code>file.choose()</code></pre>
+<p>En este caso la ruta es data/squads_and_players.csv.</p>
+<pre class="r"><code>fifa2026 &lt;- read_csv(&quot;data/squads_and_players.csv&quot;)</code></pre>
+<p><br/><br/></p>
+</div>
+</div>
+<div id="revisión-y-arreglo-de-los-datos" class="section level1">
+<h1><strong>Revisión y arreglo de los datos</strong></h1>
+<p>Después de bajar la data es necesario revisar que no tenga problemas
+como:</p>
+<ul>
+<li>variables con cadenas escritas de diferente forma, p.ej.: casa,
+CASA, Casa. esta revisión la podemos hacer rápidamente con la función
+<em>summary()</em></li>
+</ul>
+<pre class="r"><code>summary(iris)</code></pre>
+<pre><code>##   Sepal.Length    Sepal.Width     Petal.Length    Petal.Width   
+##  Min.   :4.300   Min.   :2.000   Min.   :1.000   Min.   :0.100  
+##  1st Qu.:5.100   1st Qu.:2.800   1st Qu.:1.600   1st Qu.:0.300  
+##  Median :5.800   Median :3.000   Median :4.350   Median :1.300  
+##  Mean   :5.843   Mean   :3.057   Mean   :3.758   Mean   :1.199  
+##  3rd Qu.:6.400   3rd Qu.:3.300   3rd Qu.:5.100   3rd Qu.:1.800  
+##  Max.   :7.900   Max.   :4.400   Max.   :6.900   Max.   :2.500  
+##        Species  
+##  setosa    :50  
+##  versicolor:50  
+##  virginica :50  
+##                 
+##                 
+## </code></pre>
+<pre class="r"><code>summary(cars)</code></pre>
+<pre><code>##      speed           dist       
+##  Min.   : 4.0   Min.   :  2.00  
+##  1st Qu.:12.0   1st Qu.: 26.00  
+##  Median :15.0   Median : 36.00  
+##  Mean   :15.4   Mean   : 42.98  
+##  3rd Qu.:19.0   3rd Qu.: 56.00  
+##  Max.   :25.0   Max.   :120.00</code></pre>
+<pre><code>##    player_id         team_id         player_name        position   
+##  Min.   :   1.0   Min.   : 1.00   Length   :1248   Length   :1248  
+##  1st Qu.: 312.8   1st Qu.:12.75   N.unique :1241   N.unique :   4  
+##  Median : 624.5   Median :24.50   N.blank  :   0   N.blank  :   0  
+##  Mean   : 624.5   Mean   :24.50   Min.nchar:   2   Min.nchar:   2  
+##  3rd Qu.: 936.2   3rd Qu.:36.25   Max.nchar:  42   Max.nchar:   3  
+##  Max.   :1248.0   Max.   :48.00                                    
+##      club_team    market_value_eur         caps        date_of_birth       
+##  Length   :1248   Min.   :    25000   Min.   :  0.00   Min.   :1982-12-31  
+##  N.unique : 450   1st Qu.:  2605922   1st Qu.: 11.00   1st Qu.:1995-10-22  
+##  N.blank  :   0   Median :  6537974   Median : 26.00   Median :1998-10-14  
+##  Min.nchar:   3   Mean   : 15487473   Mean   : 34.99   Mean   :1998-07-04  
+##  Max.nchar:  31   3rd Qu.: 18000000   3rd Qu.: 50.00   3rd Qu.:2001-06-21  
+##                   Max.   :200000000   Max.   :229.00   Max.   :2008-10-14  
+##    height_cm         goals        
+##  Min.   :160.0   Min.   :  0.000  
+##  1st Qu.:178.0   1st Qu.:  0.000  
+##  Median :183.0   Median :  1.000  
+##  Mean   :182.8   Mean   :  4.523  
+##  3rd Qu.:188.0   3rd Qu.:  4.000  
+##  Max.   :205.0   Max.   :143.000</code></pre>
+<p>Por otro lado la función <em>View()</em> permite visualizar la base
+en una ventana de manera separada</p>
+<pre class="r"><code>View(fifa2026)  </code></pre>
+<pre class="r"><code>View(iris)</code></pre>
+<p>Podemos visualizar los primeros 6 registros con el nombre de las
+variables</p>
+<pre class="r"><code>head(iris) </code></pre>
+<pre><code>##   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+## 1          5.1         3.5          1.4         0.2  setosa
+## 2          4.9         3.0          1.4         0.2  setosa
+## 3          4.7         3.2          1.3         0.2  setosa
+## 4          4.6         3.1          1.5         0.2  setosa
+## 5          5.0         3.6          1.4         0.2  setosa
+## 6          5.4         3.9          1.7         0.4  setosa</code></pre>
+<p>y los últimos seis registros</p>
+<pre class="r"><code>tail(iris)</code></pre>
+<pre><code>##     Sepal.Length Sepal.Width Petal.Length Petal.Width   Species
+## 145          6.7         3.3          5.7         2.5 virginica
+## 146          6.7         3.0          5.2         2.3 virginica
+## 147          6.3         2.5          5.0         1.9 virginica
+## 148          6.5         3.0          5.2         2.0 virginica
+## 149          6.2         3.4          5.4         2.3 virginica
+## 150          5.9         3.0          5.1         1.8 virginica</code></pre>
+<p>Para realizar una revisión de una variable cualitativa utilizamos la
+función <em>table()</em>, la cual construye una tabla de frecuencias. En
+esta base revisamos la posición de los jugadores:</p>
+<pre class="r"><code>table(fifa2026[[&quot;position&quot;]])</code></pre>
+<pre><code>## 
+## DEF FWD  GK MID 
+## 421 313 145 369</code></pre>
+<p>Las categorías corresponden a arquero (<code>GK</code>), defensa
+(<code>DEF</code>), volante (<code>MID</code>) y delantero
+(<code>FWD</code>). Para evitar diferencias causadas por espacios o
+mayúsculas, estandarizamos las variables de texto.</p>
+<pre class="r"><code>fifa2026 &lt;- fifa2026 %&gt;%
+  mutate(
+    player_name = str_squish(player_name),
+    club_team = str_squish(club_team),
+    position = str_to_upper(str_trim(position))
+  )
+
+table(fifa2026[[&quot;position&quot;]], useNA = &quot;ifany&quot;)</code></pre>
+<pre><code>## 
+## DEF FWD  GK MID 
+## 421 313 145 369</code></pre>
+<p>La fecha de nacimiento fue importada como texto. La convertimos al
+formato <code>Date</code> y calculamos la edad que tendrá cada jugador
+al 11 de junio de 2026, fecha de inicio del torneo:</p>
+<pre class="r"><code>class(fifa2026[[&quot;date_of_birth&quot;]])</code></pre>
+<pre><code>## [1] &quot;Date&quot;</code></pre>
+<pre class="r"><code>fifa2026 &lt;- fifa2026 %&gt;%
+  mutate(
+    date_of_birth = as.Date(date_of_birth),
+    age_2026 = floor(
+      as.numeric(as.Date(&quot;2026-06-11&quot;) - date_of_birth) / 365.2425
+    )
+  )
+class(fifa2026[[&quot;date_of_birth&quot;]])</code></pre>
+<pre><code>## [1] &quot;Date&quot;</code></pre>
+<p>Verificamos que los identificadores y las variables cuantitativas
+tengan formato numérico:</p>
+<pre class="r"><code>fifa2026 &lt;- fifa2026 %&gt;%
+  mutate(across(
+    c(player_id, team_id, market_value_eur, caps, height_cm, goals),
+    as.numeric
+  ))
+
+glimpse(fifa2026)</code></pre>
+<pre><code>## Rows: 1,248
+## Columns: 11
+## $ player_id        &lt;dbl&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16…
+## $ team_id          &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,…
+## $ player_name      &lt;chr&gt; &quot;José Raúl Rangel&quot;, &quot;Jorge Eduardo Sanchez&quot;, &quot;César J…
+## $ position         &lt;chr&gt; &quot;GK&quot;, &quot;DEF&quot;, &quot;DEF&quot;, &quot;DEF&quot;, &quot;DEF&quot;, &quot;MID&quot;, &quot;MID&quot;, &quot;MID&quot;…
+## $ club_team        &lt;chr&gt; &quot;CD Guadalajara&quot;, &quot;PAOK Saloniki&quot;, &quot;FC Lokomotiv Mosc…
+## $ market_value_eur &lt;dbl&gt; 8933646, 24628639, 10912552, 10875943, 18265363, 2152…
+## $ caps             &lt;dbl&gt; 15, 59, 69, 100, 47, 26, 62, 5, 127, 53, 47, 7, 153, …
+## $ date_of_birth    &lt;date&gt; 2000-02-25, 1997-12-10, 1997-02-24, 1997-10-24, 1998…
+## $ height_cm        &lt;dbl&gt; 190, 176, 191, 180, 182, 172, 183, 175, 188, 175, 180…
+## $ goals            &lt;dbl&gt; 0, 3, 4, 7, 3, 0, 4, 0, 46, 7, 6, 0, 0, 1, 2, 3, 12, …
+## $ age_2026         &lt;dbl&gt; 26, 28, 29, 28, 27, 26, 31, 29, 35, 28, 25, 30, 40, 2…</code></pre>
+<pre class="r"><code>summary(select(fifa2026, market_value_eur, caps, height_cm, goals, age_2026))</code></pre>
+<pre><code>##  market_value_eur         caps          height_cm         goals        
+##  Min.   :    25000   Min.   :  0.00   Min.   :160.0   Min.   :  0.000  
+##  1st Qu.:  2605922   1st Qu.: 11.00   1st Qu.:178.0   1st Qu.:  0.000  
+##  Median :  6537974   Median : 26.00   Median :183.0   Median :  1.000  
+##  Mean   : 15487473   Mean   : 34.99   Mean   :182.8   Mean   :  4.523  
+##  3rd Qu.: 18000000   3rd Qu.: 50.00   3rd Qu.:188.0   3rd Qu.:  4.000  
+##  Max.   :200000000   Max.   :229.00   Max.   :205.0   Max.   :143.000  
+##     age_2026    
+##  Min.   :17.00  
+##  1st Qu.:24.00  
+##  Median :27.00  
+##  Mean   :27.45  
+##  3rd Qu.:30.00  
+##  Max.   :43.00</code></pre>
+<p><strong>YA ESTA LISTA LA BASE !!!! </strong></p>
+<p><br/><br/></p>
+</div>
+<div id="guardar-la-base-de-datos" class="section level1">
+<h1>Guardar la base de datos</h1>
+<p>Este un trabajo que demanda mucho tiempo, pero que es necesario para
+tener una buena calidad en los datos. Cuando la base esta bien, podemos
+continuar con los demás procesos y también guardar la base transformada
+para una posterior procesamiento</p>
+<p>En este caso la se guarda en formato <em>csv</em></p>
+<pre class="r"><code>write_csv(fifa2026, &quot;data/squads_and_players_clean.csv&quot;)</code></pre>
+<p>o en formato RDS</p>
+<pre class="r"><code>saveRDS(fifa2026, file = &quot;data/squads_and_players_clean.RDS&quot;)</code></pre>
+<p><strong>LISITO !!!! </strong></p>
+<p><strong>TENEMOS LA BASE DE JUGADORES DE FIFA 2026 REVISADA Y
+ARREGLADA</strong></p>
+<p>En caso de querer seleccionar una parte de la data, por ejemplo los
+arqueros, utilizamos el siguiente código:</p>
+<pre class="r"><code>arqueros &lt;- fifa2026[fifa2026[[&quot;position&quot;]] == &quot;GK&quot;, ]</code></pre>
+<pre class="r"><code>jugadores_equipo_1 &lt;- subset(fifa2026, team_id == 1)</code></pre>
+<p><br/><br/></p>
+<div id="quitar-atipicos" class="section level2">
+<h2>Quitar atipicos</h2>
+<p><a href="https://rpubs.com/ydmarinb/429759"
+class="uri">https://rpubs.com/ydmarinb/429759</a></p>
+<p><br/><br/></p>
+</div>
+<div id="manejo-de-mayusculas-y-minusculas" class="section level2">
+<h2>Manejo de MAYUSCULAS y minusculas</h2>
+<pre class="r"><code>library(stringr)
+texto &lt;- &quot;probabilidad y estadística es importante en la formación de todo profesional&quot;
+str_to_upper(texto)</code></pre>
+<pre><code>## [1] &quot;PROBABILIDAD Y ESTADÍSTICA ES IMPORTANTE EN LA FORMACIÓN DE TODO PROFESIONAL&quot;</code></pre>
+<pre class="r"><code>#[1] &quot;PROBABILIDAD Y ESTADISTICA ES UNA ASIGNATURA IMPORTANTE EN LA FORMACIÓN DE TODO PROFESIONAL&quot;
+str_to_lower(texto)</code></pre>
+<pre><code>## [1] &quot;probabilidad y estadística es importante en la formación de todo profesional&quot;</code></pre>
+<pre class="r"><code>#[1] &quot;probabilidad y estadística es una asignatura importante en la formación de todo profesional&quot;
+str_to_title(texto)</code></pre>
+<pre><code>## [1] &quot;Probabilidad Y Estadística Es Importante En La Formación De Todo Profesional&quot;</code></pre>
+<pre class="r"><code>#[1] &quot;Probabilidad Y Estadística Es Una Asignatura Importante En La Formación De Todo Profesional&quot;
+str_to_sentence(texto)</code></pre>
+<pre><code>## [1] &quot;Probabilidad y estadística es importante en la formación de todo profesional&quot;</code></pre>
+<pre class="r"><code>#[1] &quot;Probabilidad y estadística es una asignatura importante en la formación de todo profesional&quot;</code></pre>
+<p><br/><br/></p>
+</div>
+</div>
+<div id="algunos-sitios-de-interés" class="section level1">
+<h1>Algunos sitios de interés</h1>
+<p><a
+href="https://estadistica-dma.ulpgc.es/cursoR4ULPGC/5-librerias.html">Librerías
+en R</a></p>
+<p><a
+href="https://estadistica-dma.ulpgc.es/cursoR4ULPGC/16-crearPaquetes.html">Creación
+de paquetes R con Rstudio</a></p>
+<p><a href="https://rstudio.github.io/learnr/">Tutoriales interactivos
+con R</a></p>
+<p><br/><br/></p>
+</div>
+<div id="código-resumen-fifa-2026" class="section level1">
+<h1>Código resumen FIFA 2026</h1>
+<pre class="r"><code>install.packages(&quot;tidyverse&quot;)
+library(tidyverse)
+
+fifa2026 &lt;- read_csv(&quot;data/squads_and_players.csv&quot;)
+
+fifa2026 &lt;- fifa2026 %&gt;%
+  mutate(
+    player_name = str_squish(player_name),
+    club_team = str_squish(club_team),
+    position = str_to_upper(str_trim(position)),
+    date_of_birth = as.Date(date_of_birth),
+    age_2026 = floor(
+      as.numeric(as.Date(&quot;2026-06-11&quot;) - date_of_birth) / 365.2425
+    )
+  )
+
+table(fifa2026[[&quot;position&quot;]])
+summary(select(fifa2026, market_value_eur, caps, height_cm, goals, age_2026))
+
+arqueros &lt;- filter(fifa2026, position == &quot;GK&quot;)
+jugadores_equipo_1 &lt;- filter(fifa2026, team_id == 1)
+
+write_csv(fifa2026, &quot;data/squads_and_players_clean.csv&quot;)
+saveRDS(fifa2026, file = &quot;data/squads_and_players_clean.RDS&quot;)
+#-----------------------------------------------------</code></pre>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

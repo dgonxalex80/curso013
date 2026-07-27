@@ -1,0 +1,43 @@
+---
+title: <span style="color:#3498C9">Teoría de Probabilidades</span>
+author: "dgonzalez "
+subtitle:  
+output:
+  html_document:
+    toc: no
+    toc_depth: 2
+    toc_float: yes
+    theme: flatly
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+source("init.R")
+```
+
+
+```{r, echo=FALSE, out.width="100%", fig.align = "center"}
+knitr::include_graphics("img/modulo2.png")
+```
+
+
+
+<br/><br/>
+
+# Introducción
+
+El concepto de probabilidad constituye uno de los  pilares de la estadística que permiten la construcción de  conceptos posteriores como el de  variable aleatoria e inferencia estadística. Se parte de  los  conceptos básicos para lo cual se requiere revisar los temas de teoría de  conjuntos y técnicas de conteo del módulo 0.
+
+
+
+<br/><br/>
+
+# Objetivo
+
+Al finalizar el módulo el estudiante estará en capacidad de DESARROLLAR el pensamiento probabilístico mediante el cálculo e interpretación de probabilidades mediante la  comprensión de los CONCEPTOS BASICOS, los diferentes ENFOQUES y TIPOS de probabilidad  que le ayuden en la valoración del riesgo para la toma de decisiones.
+
+
+
+
+

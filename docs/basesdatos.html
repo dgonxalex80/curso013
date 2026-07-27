@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="dgonzalez" />
+
+
+<title>Teoría de Probabilidades</title>
+
+<script src="site_libs/header-attrs-2.31/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/htmltools-fill-0.5.9/fill.css" rel="stylesheet" />
+<script src="site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<link href="site_libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
+<script src="site_libs/datatables-binding-0.34.0/datatables.js"></script>
+<link href="site_libs/dt-core-1.13.6/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="site_libs/dt-core-1.13.6/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="site_libs/dt-core-1.13.6/js/jquery.dataTables.min.js"></script>
+<link href="site_libs/crosstalk-1.2.2/css/crosstalk.min.css" rel="stylesheet" />
+<script src="site_libs/crosstalk-1.2.2/js/crosstalk.min.js"></script>
+<link href="site_libs/font-awesome-6.5.2/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html"> </a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">
+    <span class="fa fa-home"></span>
+     
+    Estadística
+  </a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 0
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo0.html">Módulo 0</a>
+    </li>
+    <li>
+      <a href="sumatoria.html">Sumatoria</a>
+    </li>
+    <li class="dropdown-header">Productoria</li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 1
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo1.html">Módulo 1</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="guia11.html">Guía 1.1</a>
+    </li>
+    <li>
+      <a href="recurso101.html">Recursos 1.1</a>
+    </li>
+    <li>
+      <a href="basesdatos.html">Bases de datos</a>
+    </li>
+    <li>
+      <a href="introduccionR.html">Introducción a R</a>
+    </li>
+    <li>
+      <a href="codigo11.html">Código 1.1</a>
+    </li>
+    <li class="divider"></li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 2
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo2.html">Módulo 2</a>
+    </li>
+    <li class="divider"></li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 3
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo3.html">Módulo 3</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 4
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo4.html">Módulo 4</a>
+    </li>
+    <li class="divider"></li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Proyecto
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="enconstruccion.html">Guía proyecto</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore"><span style="color:#E85A67">Teoría de
+Probabilidades</span></h1>
+<h4 class="author">dgonzalez</h4>
+
+</div>
+
+
+<p><img src="img/recurso1.png" alt="" width="100%" style="display: block; margin: auto;" /></p>
+<p>Para abordar las primeras etapas se plantea la <strong>actividad
+101</strong>, donde se plantea la necesidad de definir un problema,
+definir unos objetivos y determinar las variables que serán empleadas
+para poder cumplir con los objetivos planteados. Continuaremos con una
+parte importante de esta metodología que está relacionada con la
+obtención de la información y la construcción de la base de datos.</p>
+<p><img src="img/dataset.png" alt="" width="100%" style="display: block; margin: auto;" /></p>
+<p><img src="img/basesdatos.png" alt="" width="50%" style="display: block; margin: auto;" /></p>
+<p><em>Una base de datos es un conjunto de datos pertenecientes a un
+mismo contexto y almacenados sistemáticamente para su posterior
+uso.</em> Wikipedia Una base de datos en estadística es un conjunto de
+información relacionada con una población organizada en filas y
+columnas. Las columnas corresponden a las variables y las filas están
+relacionadas con los individuos u objetos de estudio.<br />
+Es importante indicar que variables como: número de la encuesta, número
+de identificación, teléfono, dirección, entre otros, no constituyen
+variables estadística, aun que pueden ser utilizadas para la
+identificación de la persona u objeto de donde proviene la información.
+Existen repositorio de bases de datos para uso general como: * <a
+href="https://stat.ethz.ch/R-manual/R-devel/library/datasets/html/00Index.html">dataset
+en RStudio</a></p>
+<ul>
+<li><p><a href="https://www.datos.gov.co/">Portal Bases de datos
+abiertos Colombia</a></p></li>
+<li><p><a href="https://datos.bancomundial.org/">Datos Banco
+mundial</a></p></li>
+<li><p><a href="https://opendata.esri.es/">Portal de Datos Abiertos de
+Esri España</a></p></li>
+</ul>
+<p><br/><br/></p>
+<div id="base-datos-iris-dataset-r" class="section level2">
+<h2><strong>Base datos iris (dataset R)</strong></h2>
+<pre class="r"><code>data(iris)
+head(iris)</code></pre>
+<pre><code>  Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+1          5.1         3.5          1.4         0.2  setosa
+2          4.9         3.0          1.4         0.2  setosa
+3          4.7         3.2          1.3         0.2  setosa
+4          4.6         3.1          1.5         0.2  setosa
+5          5.0         3.6          1.4         0.2  setosa
+6          5.4         3.9          1.7         0.4  setosa</code></pre>
+<p>Datos de iris (de Fisher o Anderson) + longitud y ancho del sépalo +
+largo y ancho de pétalos + especies: setosa, versicolor y virginica.
+Base de datos estadísticos se estructura mediante arreglo de filas y
+columnas (matriz) donde por lo general las columnas representan las
+variables y las filas los registros de los objetos de estudio</p>
+<em>Una base de datos es un conjunto de datos pertenecientes a un mismo
+contexto y almacenados sistemáticamente para su posterior uso.</em>
+<div class="box2">
+<p>Wikipedia</p>
+<p>Una base de datos en estadística es un conjunto de información
+relacionada con una población organizada en filas y columnas. Las
+columnas corresponden a las variables y las filas están relacionadas con
+los individuos u objetos de estudio.</p>
+</div>
+<p>Existen repositorio de bases de datos para uso general</p>
+<p><br/><br/></p>
+</div>
+<div id="repositorios" class="section level2">
+<h2><strong>Repositorios</strong></h2>
+<div class="box2">
+<ul>
+<li><p><a
+href="https://stat.ethz.ch/R-manual/R-devel/library/datasets/html/00Index.html">dataset
+en RStudio</a> (bases de datos dentro de los paquetes de R)</p></li>
+<li><p><a href="https://www.datos.gov.co/">Portal Bases de datos
+abiertos Colombia</a></p></li>
+<li><p><a
+href="https://www.medicinalegal.gov.co/observatorio">Observatorio de
+violencia - Instituto de Medicina Legal</a></p></li>
+<li><p><a href="https://datos.bancomundial.org/">Datos Banco
+mundial</a></p></li>
+<li><p><a href="https://opendata.esri.es/">Portal de Datos Abiertos de
+Esri España</a></p></li>
+<li><p><a href="https://www.kaggle.com">kaggle</a></p></li>
+<li><p><a
+href="https://data.fivethirtyeight.com/">FiveThirtyEight</a></p></li>
+<li><p><a href="https://datos.cali.gov.co/">Datos abiertos
+Cali</a></p></li>
+<li><p><a href="https://www.data.gov/">The home of the U.S. Government’s
+open data</a></p></li>
+<li><p><a href="https://data.worldbank.org/">World Bank Open
+Data</a></p></li>
+<li><p><a href="https://datos.gob.es/en">Open data initiative of the
+Government of Spain</a></p></li>
+<li><p><a
+href="https://opendatabarometer.org/4thedition/report/?lang=es">Open
+Data Barometer</a></p></li>
+<li><p><a href="https://www.ncbi.nlm.nih.gov/">NCBI (National Center for
+Biotechnology Information)</a></p></li>
+<li><p><a href="https://www.ebi.ac.uk/">EBI (European Bioinformatics
+Institute)</a></p></li>
+<li><p><a href="https://data.gov/">Data.gov</a></p></li>
+<li><p><a href="https://data.nasa.gov/">NASA Open Data
+Portal</a></p></li>
+<li><p><a href="https://data.nist.gov/sdp/#/">NIST Data
+Repository</a></p></li>
+<li><p><a href="https://www.gbif.org/dataset/search">Biodiversidad del
+Global Biodiversity Information Facility (GBIF)</a></p></li>
+</ul>
+</div>
+<pre class="r"><code>data(iris)
+library(DT)
+DT::datatable(head(iris, 150),fillContainer = FALSE, options = list(pageLength = 8))</code></pre>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-0ebfc2710e314a45f2cd" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-0ebfc2710e314a45f2cd">{"x":{"filter":"none","vertical":false,"fillContainer":false,"data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31","32","33","34","35","36","37","38","39","40","41","42","43","44","45","46","47","48","49","50","51","52","53","54","55","56","57","58","59","60","61","62","63","64","65","66","67","68","69","70","71","72","73","74","75","76","77","78","79","80","81","82","83","84","85","86","87","88","89","90","91","92","93","94","95","96","97","98","99","100","101","102","103","104","105","106","107","108","109","110","111","112","113","114","115","116","117","118","119","120","121","122","123","124","125","126","127","128","129","130","131","132","133","134","135","136","137","138","139","140","141","142","143","144","145","146","147","148","149","150"],[5.1,4.9,4.7,4.6,5,5.4,4.6,5,4.4,4.9,5.4,4.8,4.8,4.3,5.8,5.7,5.4,5.1,5.7,5.1,5.4,5.1,4.6,5.1,4.8,5,5,5.2,5.2,4.7,4.8,5.4,5.2,5.5,4.9,5,5.5,4.9,4.4,5.1,5,4.5,4.4,5,5.1,4.8,5.1,4.6,5.3,5,7,6.4,6.9,5.5,6.5,5.7,6.3,4.9,6.6,5.2,5,5.9,6,6.1,5.6,6.7,5.6,5.8,6.2,5.6,5.9,6.1,6.3,6.1,6.4,6.6,6.8,6.7,6,5.7,5.5,5.5,5.8,6,5.4,6,6.7,6.3,5.6,5.5,5.5,6.1,5.8,5,5.6,5.7,5.7,6.2,5.1,5.7,6.3,5.8,7.1,6.3,6.5,7.6,4.9,7.3,6.7,7.2,6.5,6.4,6.8,5.7,5.8,6.4,6.5,7.7,7.7,6,6.9,5.6,7.7,6.3,6.7,7.2,6.2,6.1,6.4,7.2,7.4,7.9,6.4,6.3,6.1,7.7,6.3,6.4,6,6.9,6.7,6.9,5.8,6.8,6.7,6.7,6.3,6.5,6.2,5.9],[3.5,3,3.2,3.1,3.6,3.9,3.4,3.4,2.9,3.1,3.7,3.4,3,3,4,4.4,3.9,3.5,3.8,3.8,3.4,3.7,3.6,3.3,3.4,3,3.4,3.5,3.4,3.2,3.1,3.4,4.1,4.2,3.1,3.2,3.5,3.6,3,3.4,3.5,2.3,3.2,3.5,3.8,3,3.8,3.2,3.7,3.3,3.2,3.2,3.1,2.3,2.8,2.8,3.3,2.4,2.9,2.7,2,3,2.2,2.9,2.9,3.1,3,2.7,2.2,2.5,3.2,2.8,2.5,2.8,2.9,3,2.8,3,2.9,2.6,2.4,2.4,2.7,2.7,3,3.4,3.1,2.3,3,2.5,2.6,3,2.6,2.3,2.7,3,2.9,2.9,2.5,2.8,3.3,2.7,3,2.9,3,3,2.5,2.9,2.5,3.6,3.2,2.7,3,2.5,2.8,3.2,3,3.8,2.6,2.2,3.2,2.8,2.8,2.7,3.3,3.2,2.8,3,2.8,3,2.8,3.8,2.8,2.8,2.6,3,3.4,3.1,3,3.1,3.1,3.1,2.7,3.2,3.3,3,2.5,3,3.4,3],[1.4,1.4,1.3,1.5,1.4,1.7,1.4,1.5,1.4,1.5,1.5,1.6,1.4,1.1,1.2,1.5,1.3,1.4,1.7,1.5,1.7,1.5,1,1.7,1.9,1.6,1.6,1.5,1.4,1.6,1.6,1.5,1.5,1.4,1.5,1.2,1.3,1.4,1.3,1.5,1.3,1.3,1.3,1.6,1.9,1.4,1.6,1.4,1.5,1.4,4.7,4.5,4.9,4,4.6,4.5,4.7,3.3,4.6,3.9,3.5,4.2,4,4.7,3.6,4.4,4.5,4.1,4.5,3.9,4.8,4,4.9,4.7,4.3,4.4,4.8,5,4.5,3.5,3.8,3.7,3.9,5.1,4.5,4.5,4.7,4.4,4.1,4,4.4,4.6,4,3.3,4.2,4.2,4.2,4.3,3,4.1,6,5.1,5.9,5.6,5.8,6.6,4.5,6.3,5.8,6.1,5.1,5.3,5.5,5,5.1,5.3,5.5,6.7,6.9,5,5.7,4.9,6.7,4.9,5.7,6,4.8,4.9,5.6,5.8,6.1,6.4,5.6,5.1,5.6,6.1,5.6,5.5,4.8,5.4,5.6,5.1,5.1,5.9,5.7,5.2,5,5.2,5.4,5.1],[0.2,0.2,0.2,0.2,0.2,0.4,0.3,0.2,0.2,0.1,0.2,0.2,0.1,0.1,0.2,0.4,0.4,0.3,0.3,0.3,0.2,0.4,0.2,0.5,0.2,0.2,0.4,0.2,0.2,0.2,0.2,0.4,0.1,0.2,0.2,0.2,0.2,0.1,0.2,0.2,0.3,0.3,0.2,0.6,0.4,0.3,0.2,0.2,0.2,0.2,1.4,1.5,1.5,1.3,1.5,1.3,1.6,1,1.3,1.4,1,1.5,1,1.4,1.3,1.4,1.5,1,1.5,1.1,1.8,1.3,1.5,1.2,1.3,1.4,1.4,1.7,1.5,1,1.1,1,1.2,1.6,1.5,1.6,1.5,1.3,1.3,1.3,1.2,1.4,1.2,1,1.3,1.2,1.3,1.3,1.1,1.3,2.5,1.9,2.1,1.8,2.2,2.1,1.7,1.8,1.8,2.5,2,1.9,2.1,2,2.4,2.3,1.8,2.2,2.3,1.5,2.3,2,2,1.8,2.1,1.8,1.8,1.8,2.1,1.6,1.9,2,2.2,1.5,1.4,2.3,2.4,1.8,1.8,2.1,2.4,2.3,1.9,2.3,2.5,2.3,1.9,2,2.3,1.8],["setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Sepal.Length<\/th>\n      <th>Sepal.Width<\/th>\n      <th>Petal.Length<\/th>\n      <th>Petal.Width<\/th>\n      <th>Species<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":8,"columnDefs":[{"className":"dt-right","targets":[1,2,3,4]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Sepal.Length","targets":1},{"name":"Sepal.Width","targets":2},{"name":"Petal.Length","targets":3},{"name":"Petal.Width","targets":4},{"name":"Species","targets":5}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[8,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+<p><br/><br/></p>
+</div>
+<div id="etapas-del-proceso-de-datos" class="section level1">
+<h1><strong>Etapas del proceso de datos</strong></h1>
+<p>Las siguientes etapas comprenden el ciclo de los datos desde la
+importación hasta la comunicación. Estas etapas suceden al interior de
+la Metodología Estadística antes mencionada y constituyen una parte muy
+importante del proceso, pues de la calidad de los datos, depende la
+calidad de los resultados.</p>
+<p><img src="img/etapas.png" alt="" width="70%" style="display: block; margin: auto;" /></p>
+<p>Imagen tomada de : <a
+href="https://bitsandbricks.github.io/ciencia_de_datos_gente_sociable/"
+class="uri">https://bitsandbricks.github.io/ciencia_de_datos_gente_sociable/</a>
+Utilizaremos para este proceso el lenguaje estadístico
+<strong>R</strong> , bajo <strong>RStudio</strong></p>
+<p><br/><br/></p>
+</div>
+<div id="importar-datos" class="section level1">
+<h1><strong>Importar datos</strong></h1>
+<p><br/><br/></p>
+<div id="origen-de-los-datos" class="section level2">
+<h2><strong>Origen de los datos</strong></h2>
+<p>Los datos pueden proceder de diferentes fuentes (tanto primarias como
+secundarias), dentro de las cuales pueden ser: * Encuesta personal
+(datos primarios)</p>
+<ul>
+<li><p>Online ( utilizando sistemas como REDCap, Office 365 -
+forms)</p></li>
+<li><p>Entrevista cara a cara</p></li>
+<li><p>Entrevista telefónica</p></li>
+<li><p>Investigación propia ( observaciones en laboratorios)</p></li>
+<li><p>Sistema automático de recolección de datos (
+webscraping)</p></li>
+<li><p>Fuente externa (datos secundarios : bases de datos
+abiertos)</p></li>
+<li><p>DANE (o entidades gubernamentales)</p></li>
+<li><p>Cámara de Comercio</p></li>
+<li><p>Agremiaciones (observatorios de gremios)</p></li>
+<li><p>Bancos de datos abiertos</p></li>
+</ul>
+<p><br/><br/></p>
+</div>
+<div id="herramientas-computacionales" class="section level2">
+<h2><strong>Herramientas computacionales</strong></h2>
+<p>Algunas de las herramientas utiliziadas en el manejo de información
+son : + Excel + SQL + Oracle + SAS + Julia</p>
+<ul>
+<li>R, RStudio</li>
+<li>Python</li>
+</ul>
+<p>En nuestro caso haremos uso del lenguaje estadístico **R*</p>
+<p><br/><br/></p>
+</div>
+<div id="limpieza-de-datos" class="section level2">
+<h2><strong>Limpieza de datos</strong></h2>
+<p>Es importante después de haber importado la base de datos, hacer una
+revisión de cada una de las variables con el fin de poder detectar:</p>
+<ul>
+<li><p>Datos faltantes (NA)</p></li>
+<li><p>Datos anómalos o raros</p></li>
+<li><p>Etiquetas mal colocadas ( minúsculas, MAYÚSCULAS,
+Titulo…)</p></li>
+</ul>
+<p>Existen metodologías para corregir estos problemas sin afectar la
+información contenida en la data, para lo cual debemos realizar una
+verificación inicial mediante la construcción de tablas y resumen de
+datos.</p>
+<p><br/><br/></p>
+</div>
+</div>
+<div id="ficha-técnica" class="section level1">
+<h1><strong>Ficha técnica</strong></h1>
+<p>Las bases de datos debe estar acompañadas de una ficha técnica donde
+si indican sus principales características :</p>
+<ul>
+<li><p><a
+href="https://drive.google.com/file/d/1O1eaS8y6olf5o_42ehgDgVZ4q1dganbd/view">Ficha
+tecnica</a></p></li>
+<li><p><a
+href="https://www.datos.gov.co/Salud-y-Protecci-n-Social/Casos-positivos-de-COVID-19-en-Colombia/gt2j-8ykr">Casos
+positivos de COVID-19 en Colombia</a></p></li>
+</ul>
+<p><br/><br/></p>
+</div>
+<div id="importar-bases-de-datos" class="section level1">
+<h1><strong>Importar bases de datos</strong></h1>
+<p>Los datos se pueden importar de diferentes formas : + Desde el menú
+de RStudio</p>
+<ul>
+<li><p>Desde la consola de R o RStudio</p></li>
+<li><p>De manera automática <a
+href="https://bookdown.org/gboccardo/manual-ED-UCH/gestion-de-bases-de-datos.html"><strong>Ayudas:</strong></a></p></li>
+</ul>
+<p><br/><br/></p>
+<div id="importar-datos-desde-la-dataset-de-r" class="section level3">
+<h3><strong>Importar datos desde la dataset de R</strong></h3>
+<pre class="r"><code>data(&quot;mtcars&quot;)
+head(mtcars, n=3)</code></pre>
+<pre><code>               mpg cyl disp  hp drat    wt  qsec vs am gear carb
+Mazda RX4     21.0   6  160 110 3.90 2.620 16.46  0  1    4    4
+Mazda RX4 Wag 21.0   6  160 110 3.90 2.875 17.02  0  1    4    4
+Datsun 710    22.8   4  108  93 3.85 2.320 18.61  1  1    4    1</code></pre>
+<p><br/><br/></p>
+</div>
+<div id="importar-los-datos-en-formato-xlsx" class="section level2">
+<h2><strong>Importar los datos en formato xlsx</strong></h2>
+<ul>
+<li><p>RStudio usando ventanas : <strong>File/ Import Dataset / From
+Excel…</strong></p></li>
+<li><p>RStudio usando comandos :</p></li>
+</ul>
+<p><br/><br/></p>
+</div>
+<div id="importar-datos-en-formato-csv" class="section level2">
+<h2><strong>Importar datos en formato csv</strong></h2>
+<p>El formato <strong>csv</strong> es uno de los mas utilizados para el
+almacenamiento de datos estructurados (agrupados en filas y columnas) .
+El termino csv significa <em>“valores separados por comas”</em></p>
+<ul>
+<li><p>RStudio usando ventanas : <strong>File/ Import Dataset / From
+Text (base)…</strong></p></li>
+<li><p>RStudio usando comandos :</p>
+<div class="box4 with-label">
+<div class="label">
+Código R
+</div>
+</div></li>
+</ul>
+<pre>
+library(readr)
+casas <- read_delim("data/casas.csv", delim = ";", escape_double = FALSE, trim_ws = TRUE)
+</pre>
+</div>
+<pre class="r"><code>library(readr)
+fifa2026 &lt;- read_csv(&quot;data/squads_and_players.csv&quot;, show_col_types = FALSE)
+head(fifa2026)</code></pre>
+<pre><code># A tibble: 6 × 10
+  player_id team_id player_name        position club_team market_value_eur  caps
+      &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;              &lt;chr&gt;    &lt;chr&gt;                &lt;dbl&gt; &lt;dbl&gt;
+1         1       1 José Raúl Rangel   GK       CD Guada…          8933646    15
+2         2       1 Jorge Eduardo San… DEF      PAOK Sal…         24628639    59
+3         3       1 César Jasib Montes DEF      FC Lokom…         10912552    69
+4         4       1 Edson Omar Alvarez DEF      Fenerbah…         10875943   100
+5         5       1 Johan Felipe Vasq… DEF      Genoa CFC         18265363    47
+6         6       1 Erik Antonio Lira  MID      CF Cruz …         21520963    26
+# ℹ 3 more variables: date_of_birth &lt;date&gt;, height_cm &lt;dbl&gt;, goals &lt;dbl&gt;</code></pre>
+<p>En este ejemplo se utiliza la base <strong>FIFA World Cup 2026
+Dataset</strong>, que contiene información de los jugadores de las 48
+selecciones participantes.</p>
+<ul>
+<li><p>La base se puede consultar y descargar desde <a
+href="https://huggingface.co/datasets/Mominullptr/fifa-world-cup-2026-dataset/blob/main/squads_and_players.csv">Hugging
+Face</a>.</p></li>
+<li><p>El archivo se descarga con el nombre
+<code>squads_and_players.csv</code> y se guarda en la carpeta
+<code>data/</code>.</p></li>
+<li><p>Finalmente se importa en RStudio con la función
+<code>read_csv()</code>.</p>
+<div class="box4 with-label">
+<div class="label">
+Código R
+</div>
+</div></li>
+</ul>
+<pre>
+library(DT)
+fifa2026 <- read.csv("data/squads_and_players.csv")
+datatable(head(fifa2026, 100), fillContainer = FALSE, options = list(pageLength = 5))
+</pre>
+</div>
+<pre class="r"><code>library(DT)
+library(readr)
+fifa2026 &lt;- read_csv(&quot;data/squads_and_players.csv&quot;, show_col_types = FALSE)
+datatable(head(fifa2026, 100), fillContainer = FALSE, options = list(pageLength = 5))</code></pre>
+<p><br/><br/></p>
+</div>
+<div id="importar-datos-de-manera-automática" class="section level2">
+<h2><strong>Importar datos de manera automática</strong></h2>
+<p>La API de datos abiertos de Socrata le permite acceder mediante
+programación a una gran cantidad de recursos de datos abiertos de
+gobiernos, organizaciones sin fines de lucro y ONG de todo el mundo.
+Haga clic en el enlace de abajo y pruebe un ejemplo en vivo ahora
+mismo.</p>
+<p><a href="https://dev.socrata.com/"
+class="uri">https://dev.socrata.com/</a></p>
+Cargar la base de datos de COVID-19 Colombia
+<div class="box4 with-label">
+<div class="label">
+Código R
+</div>
+<pre>
+<br/><br/>
+
+# install.packages("RSocrata")
+
+ library(RSocrata)
+ token ="ew2rEMuESuzWPqMkyPfOSGJgE"
+ Colombia= read.socrata("https://www.datos.gov.co/resource/gt2j-8ykr.json", app_token = token)
+ saveRDS(Colombia,"data/Colombia.RDS")
+</pre>
+</div>
+<pre class="r"><code># install.packages(&quot;RSocrata&quot;)
+
+ library(RSocrata)
+ token =&quot;ew2rEMuESuzWPqMkyPfOSGJgE&quot;
+ Colombia= read.socrata(&quot;https://www.datos.gov.co/resource/gt2j-8ykr.json&quot;, app_token = token)
+ saveRDS(Colombia,&quot;data/Colombia.RDS&quot;)
+ # 25-07-2025 - 10:13</code></pre>
+<div class="box3 with-label">
+<div class="label">
+Nota
+</div>
+<p>Se requiere solicitar token en la pagina de los datos</p>
+</div>
+</div>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

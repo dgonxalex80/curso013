@@ -1,0 +1,315 @@
+---
+title: <span style="color:#E85A67">Teoría de Probabilidades</span>
+author: "dgonzalez "
+subtitle: " "
+output:
+  html_document:
+    toc: no
+    toc_depth: 2
+    toc_float: yes
+    theme: flatly
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+source("init.R")
+
+library(tidyverse)
+```
+
+
+```{r, echo=FALSE, out.width="100%", fig.align = "center"}
+knitr::include_graphics("img/codigo1.png")
+```  
+
+
+
+<br/><br/>
+
+# **Importar datos en R**    
+
+
+ Se puede realizar de formas diferentes :
+ 
+1. Utilizando el menú RStudio 
+
++ Caso formato .csv : *File /Import Dataset/From text (base)*. 
+
+<iframe width="800" height="450" src="https://www.youtube.com/embed/g8p_Rn8C6oU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+
++ Caso formato .xlsx : *File/ Import Dataset/ From Excel*. 
+
+<iframe width="800" height="450" src="https://www.youtube.com/embed/wB7zmFKRjFk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+ 
+2. Utilizando el paquete Rcmdr y RcomdrMisc que activa una interfas de R que trabaja con menus y ventanas con un proceso parecido al anterio
+
+Los anteriores caso implican que tengamos la base de datos descargada en una carpeta de nuestro PC
+
+3. Podemos importar la base de datos de un repositorio que maneje API que es un permiso a traves de un token. En este caso debemos solicitar el token e instalar el paquete RSocrata
+
+Por ejemplo
+
+Instalación de paquetes requeridos
+
+```{r, eval=FALSE }
+# install.packages("RSocrata", dependencies = TRUE)   # instalación de paquete RSocrata
+ library(RSocrata)    # llamado de libreria
+ # token <- "zxMsD6eXc0zlEMryRGW87Hwrz"  # token
+ # Colombia <- read.socrata("https://www.datos.gov.co/resource/gt2j-8ykr.json", app_token = token) # lectura 
+```
+
+Este proceso tarde unos minutos pues  la base es grande
+
+También podemos leer directamente un archivo CSV. En este caso se utiliza la base de jugadores y selecciones de FIFA 2026 ubicada en la carpeta `data/`.
+
+<br/><br/>
+
+## **¿Dónde encontrar y descargar la base de jugadores?**
+
+El archivo `squads_and_players.csv` forma parte del proyecto **FIFA World Cup 2026 Dataset**, creado por MD Mominul Islam. La base contiene 1.248 jugadores pertenecientes a las 48 selecciones del torneo. Se puede consultar o descargar desde:
+
++ [Hugging Face: descarga del archivo squads_and_players.csv](https://huggingface.co/datasets/Mominullptr/fifa-world-cup-2026-dataset/blob/main/squads_and_players.csv). En la página se debe seleccionar **Download**.
++ [GitHub: repositorio FIFA World Cup 2026 Dataset](https://github.com/mominullptr/FIFA-World-Cup-2026-Dataset). Se puede seleccionar el archivo y luego **Download raw file**, o descargar todo el repositorio desde **Code / Download ZIP**.
++ [Kaggle: FIFA World Cup 2026 Dataset](https://www.kaggle.com/datasets/mominullptr/fifa-world-cup-2026-dataset). Kaggle puede solicitar una cuenta para realizar la descarga.
+
+Las listas de jugadores también se pueden consultar en la [página oficial de convocados de FIFA](https://www.fifa.com/es/articles/listas-convocados-mundial-2026-oficiales). Esta página sirve para contrastar las convocatorias oficiales, mientras que el archivo CSV utilizado en este documento proviene del proyecto de datos mencionado anteriormente.
+
+Después de descargar el archivo, se debe guardar con el nombre `squads_and_players.csv` dentro de la carpeta `data/` del proyecto. También es posible leer la versión más reciente directamente desde Hugging Face:
+
+```{r, eval=FALSE}
+url_jugadores <- "https://huggingface.co/datasets/Mominullptr/fifa-world-cup-2026-dataset/resolve/main/squads_and_players.csv"
+fifa2026 <- read_csv(url_jugadores, show_col_types = FALSE)
+```
+
+Para trabajar con la copia local descargada utilizamos:
+
+```{r}
+fifa2026 <- read_csv("data/squads_and_players.csv", show_col_types = FALSE)
+```
+
+4. Podemos trabajar con Dataset disponible en los paquetes de R. Para ello solo utilizamos la función data
+
+```{r}
+data(iris)  # data set iris
+data(cars)  # data set cars
+```
+
+
+Ahora si tengo un archivo en mi PC, puedo utilizar la siguinte función para conocer la ruta donde esta  el archivo  y luego copiando la ruta obtenida con Ctrl+C, 
+
+```{r, eval=FALSE, warning=FALSE, message=FALSE}
+file.choose()
+```
+
+En este caso la ruta es data/squads_and_players.csv.
+
+
+```{r, eval=FALSE}
+fifa2026 <- read_csv("data/squads_and_players.csv")
+```
+
+
+<br/><br/>
+
+# **Revisión y arreglo de los datos**   
+
+
+Después de bajar la data es necesario revisar que no tenga problemas como:
+
++ variables con cadenas escritas de diferente forma, p.ej.: casa, CASA, Casa. esta revisión la podemos hacer rápidamente con la función *summary()*
+
+```{r}
+summary(iris)
+```
+
+
+```{r}
+summary(cars)
+```
+
+```{r, echo=FALSE}
+summary(fifa2026)
+```
+
+
+Por otro lado la función *View()* permite visualizar la base en una ventana de manera separada
+
+
+```{r, eval=FALSE}
+View(fifa2026)  
+```
+
+```{r,eval=FALSE}
+View(iris)
+```
+
+Podemos visualizar los primeros 6 registros con el nombre de las variables
+
+```{r}
+head(iris) 
+```
+
+y los últimos seis registros  
+
+```{r}
+tail(iris)
+```
+
+Para realizar una revisión de una variable cualitativa utilizamos la función *table()*, la cual construye una tabla de frecuencias. En esta base revisamos la posición de los jugadores:
+
+```{r}
+table(fifa2026[["position"]])
+```
+
+Las categorías corresponden a arquero (`GK`), defensa (`DEF`), volante (`MID`) y delantero (`FWD`). Para evitar diferencias causadas por espacios o mayúsculas, estandarizamos las variables de texto.
+
+```{r}
+fifa2026 <- fifa2026 %>%
+  mutate(
+    player_name = str_squish(player_name),
+    club_team = str_squish(club_team),
+    position = str_to_upper(str_trim(position))
+  )
+
+table(fifa2026[["position"]], useNA = "ifany")
+```
+
+La fecha de nacimiento fue importada como texto. La convertimos al formato `Date` y calculamos la edad que tendrá cada jugador al 11 de junio de 2026, fecha de inicio del torneo:
+
+```{r}
+class(fifa2026[["date_of_birth"]])
+fifa2026 <- fifa2026 %>%
+  mutate(
+    date_of_birth = as.Date(date_of_birth),
+    age_2026 = floor(
+      as.numeric(as.Date("2026-06-11") - date_of_birth) / 365.2425
+    )
+  )
+class(fifa2026[["date_of_birth"]])
+```
+
+Verificamos que los identificadores y las variables cuantitativas tengan formato numérico:
+
+```{r}
+fifa2026 <- fifa2026 %>%
+  mutate(across(
+    c(player_id, team_id, market_value_eur, caps, height_cm, goals),
+    as.numeric
+  ))
+
+glimpse(fifa2026)
+summary(select(fifa2026, market_value_eur, caps, height_cm, goals, age_2026))
+```
+
+
+**YA ESTA LISTA LA BASE !!!! **
+
+
+<br/><br/>
+
+#  Guardar la base de datos 
+
+Este un trabajo que demanda mucho tiempo, pero que es necesario para  tener una buena calidad en los datos. Cuando la base esta bien, podemos continuar con los demás procesos y también  guardar  la base transformada para una posterior procesamiento 
+
+En este caso la se guarda en formato *csv*
+
+```{r, eval=FALSE}
+write_csv(fifa2026, "data/squads_and_players_clean.csv")
+```
+
+o en formato RDS
+
+```{r, eval=FALSE}
+saveRDS(fifa2026, file = "data/squads_and_players_clean.RDS")
+```
+
+
+**LISITO !!!! **
+
+**TENEMOS LA BASE DE JUGADORES DE FIFA 2026 REVISADA Y ARREGLADA**
+
+
+En caso de querer seleccionar una parte de la data, por ejemplo los arqueros, utilizamos el siguiente código:
+
+```{r}
+arqueros <- fifa2026[fifa2026[["position"]] == "GK", ]
+```
+
+
+```{r}
+jugadores_equipo_1 <- subset(fifa2026, team_id == 1)
+```
+
+
+<br/><br/>
+
+## Quitar atipicos
+
+https://rpubs.com/ydmarinb/429759
+
+
+<br/><br/>
+
+## Manejo de MAYUSCULAS y minusculas
+
+```{r}
+library(stringr)
+texto <- "probabilidad y estadística es importante en la formación de todo profesional"
+str_to_upper(texto)
+#[1] "PROBABILIDAD Y ESTADISTICA ES UNA ASIGNATURA IMPORTANTE EN LA FORMACIÓN DE TODO PROFESIONAL"
+str_to_lower(texto)
+#[1] "probabilidad y estadística es una asignatura importante en la formación de todo profesional"
+str_to_title(texto)
+#[1] "Probabilidad Y Estadística Es Una Asignatura Importante En La Formación De Todo Profesional"
+str_to_sentence(texto)
+#[1] "Probabilidad y estadística es una asignatura importante en la formación de todo profesional"
+```
+
+
+<br/><br/>
+
+# Algunos sitios de interés 
+
+
+[Librerías en R](https://estadistica-dma.ulpgc.es/cursoR4ULPGC/5-librerias.html)
+
+[Creación de paquetes R con Rstudio](https://estadistica-dma.ulpgc.es/cursoR4ULPGC/16-crearPaquetes.html)
+
+[Tutoriales interactivos con R](https://rstudio.github.io/learnr/)
+
+
+<br/><br/>
+
+# Código resumen FIFA 2026
+
+```{r, eval=FALSE}
+install.packages("tidyverse")
+library(tidyverse)
+
+fifa2026 <- read_csv("data/squads_and_players.csv")
+
+fifa2026 <- fifa2026 %>%
+  mutate(
+    player_name = str_squish(player_name),
+    club_team = str_squish(club_team),
+    position = str_to_upper(str_trim(position)),
+    date_of_birth = as.Date(date_of_birth),
+    age_2026 = floor(
+      as.numeric(as.Date("2026-06-11") - date_of_birth) / 365.2425
+    )
+  )
+
+table(fifa2026[["position"]])
+summary(select(fifa2026, market_value_eur, caps, height_cm, goals, age_2026))
+
+arqueros <- filter(fifa2026, position == "GK")
+jugadores_equipo_1 <- filter(fifa2026, team_id == 1)
+
+write_csv(fifa2026, "data/squads_and_players_clean.csv")
+saveRDS(fifa2026, file = "data/squads_and_players_clean.RDS")
+#-----------------------------------------------------
+```
+

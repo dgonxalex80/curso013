@@ -1,0 +1,68 @@
+---
+title: <span style="color:#67C1A8">Teoría de Probabilidades</span>
+author: "dgonzalez "
+subtitle:  
+output:
+  html_document:
+    toc: no
+    toc_depth: 2
+    toc_float: yes
+    theme: flatly
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+source("init.R")
+```
+
+
+```{r, echo=FALSE, out.width="100%", fig.align = "center"}
+knitr::include_graphics("img/modulo4.png")
+```
+
+
+
+<br/><br/>
+
+# Introducción
+
+En este módulo se integran los conceptos de probabilidad y variable aleatoria desarrollados en los módulos anteriores para estudiar modelos de probabilidad de uso frecuente. Estos modelos permiten representar fenómenos asociados con conteos, ocurrencia de eventos, tiempos de espera, mediciones continuas, confiabilidad y probabilidad de fallas.
+
+Se estudiarán distribuciones discretas como la uniforme, Bernoulli, binomial, hipergeométrica, Poisson y Pascal; y distribuciones continuas como la uniforme, normal, gamma, exponencial y Weibull. También se introducirán las distribuciones t de Student, chi-cuadrado y F de Snedecor, fundamentales para desarrollos posteriores de inferencia estadística, así como la distribución de Kernel para aproximar el comportamiento de datos observados.
+
+
+
+<br/><br/>
+
+# Objetivo
+
+Al finalizar este módulo, el estudiante estará en capacidad de SELECCIONAR, APLICAR e INTERPRETAR MODELOS DE PROBABILIDAD DISCRETOS Y CONTINUOS para CALCULAR probabilidades, analizar riesgos y resolver problemas reales mediante procedimientos analíticos, simulación y software estadístico.
+
+
+
+<br/><br/>
+
+# Contenidos
+
+* Distribución uniforme discreta.
+
+* Ensayos de Bernoulli y distribución binomial.
+
+* Distribuciones hipergeométrica, Poisson y Pascal.
+
+* Distribución uniforme continua.
+
+* Distribución normal y estandarización.
+
+* Distribuciones gamma, exponencial y Weibull.
+
+* Modelación de tiempos de espera y probabilidad de fallas.
+
+* Distribución t de Student.
+
+* Distribuciones chi-cuadrado y F de Snedecor.
+
+* Distribución de Kernel.
+
+* Selección, ajuste, interpretación y simulación de modelos mediante software estadístico.

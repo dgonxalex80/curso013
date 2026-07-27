@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="dgonzalez" />
+
+
+<title>Teoría de Probabilidades</title>
+
+<script src="site_libs/header-attrs-2.31/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-6.5.2/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html"> </a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">
+    <span class="fa fa-home"></span>
+     
+    Estadística
+  </a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 0
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo0.html">Módulo 0</a>
+    </li>
+    <li>
+      <a href="sumatoria.html">Sumatoria</a>
+    </li>
+    <li class="dropdown-header">Productoria</li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 1
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo1.html">Módulo 1</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="guia11.html">Guía 1.1</a>
+    </li>
+    <li>
+      <a href="recurso101.html">Recursos 1.1</a>
+    </li>
+    <li>
+      <a href="basesdatos.html">Bases de datos</a>
+    </li>
+    <li>
+      <a href="introduccionR.html">Introducción a R</a>
+    </li>
+    <li>
+      <a href="codigo11.html">Código 1.1</a>
+    </li>
+    <li class="divider"></li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 2
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo2.html">Módulo 2</a>
+    </li>
+    <li class="divider"></li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 3
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo3.html">Módulo 3</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 4
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo4.html">Módulo 4</a>
+    </li>
+    <li class="divider"></li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Proyecto
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="enconstruccion.html">Guía proyecto</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore"><span style="color:#E85A67">Teoría de
+Probabilidades</span></h1>
+<h4 class="author">dgonzalez</h4>
+
+</div>
+
+
+<p><img src="img/modulo1.png" alt="" width="100%" style="display: block; margin: auto;" /></p>
+<p><br/><br/></p>
+<div id="introducción-a-r" class="section level1">
+<h1>INTRODUCCIÓN A “R”</h1>
+<p><br/><br/></p>
+</div>
+<div id="qué-es-r" class="section level1">
+<h1>Qué es R</h1>
+<p>Es un lenguaje para la computación estadística, utilizado para el
+procesamiento de información y la generación de modelos. Entre las
+principales características están:</p>
+<ul>
+<li><p>Licencia (GNU GPL) abierta y gratuita</p></li>
+<li><p>Creciente popularidad en ciencia de datos</p></li>
+<li><p>Multiplataforma (UNIX, Windows, macOS)</p></li>
+<li><p>Ross Ihaka y Robert Gentleman (U. Auckland - Nueva Zelanda),
+1993</p></li>
+<li><p>Lenguaje multiparadigma</p></li>
+<li><p>Código construido en C y Fortran</p></li>
+<li><p>Gran comunidad muy activa</p></li>
+<li><p>Más de 7000 paquetes</p></li>
+</ul>
+<p><img src="img/Rt.png" alt="" width="70%" style="display: block; margin: auto;" /></p>
+<p>En el siguiente enlace se pueden obtener los archivos para su
+instalación: <a href="https://www.r-project.org/"
+class="uri">https://www.r-project.org/</a></p>
+<p>Podemos usar este lenguaje utilizando una terminal o mediante un
+entorno de desarrollo integrado (IDE) como <strong>RStudio</strong>, que
+integra herramientas para escribir, ejecutar y organizar proyectos en
+R.</p>
+<p>Una forma sencilla de recordarlo: <strong>R es el lenguaje</strong>,
+y <strong>RStudio es el programa</strong> (IDE) donde escribimos y
+ejecutamos el código con mayor comodidad.</p>
+<p><img src="img/logoRStudio.png" alt="" width="20%" style="display: block; margin: auto auto auto 0;" /></p>
+<p>Esta interfaz está conformada por varias ventanas, como se muestra en
+la siguiente imagen:</p>
+<p><img src="img/VRStudio.png" width="800"></p>
+<ol style="list-style-type: decimal">
+<li>Fuente (Source): ventana donde se trabajan los scripts con código
+que se guardan para posterior utilización.</li>
+<li>Consola (Console): ventana donde se pueden escribir comandos de
+manera directa.</li>
+<li>Ambiente (Environment): ventana donde se pueden observar las
+variables y objetos creados.</li>
+<li>Archivos (Files): ventana que muestra el directorio y los archivos
+en el que estamos trabajando.</li>
+<li>Gráficos (Plots): ventana que presenta los gráficos
+construidos.</li>
+<li>Paquetes (Packages): ventana que permite instalar los paquetes
+requeridos.</li>
+<li>Ayudas (Help): ventana en la que podemos pedir ayuda sobre la
+sintaxis de funciones.</li>
+</ol>
+<p>En los siguientes enlaces se pueden descargar los programas,
+dependiendo el sistema operativo :</p>
+<ul>
+<li><p><a href="https://cran.r-project.org/">R download</a></p></li>
+<li><p><a href="https://posit.co/downloads/">RStudio
+download</a></p></li>
+</ul>
+<p><br/><br/></p>
+<div id="bibliografía-recomendada" class="section level3">
+<h3>Bibliografía recomendada:</h3>
+<ul>
+<li><p><a
+href="https://cran.r-project.org/doc/contrib/rdebuts_es.pdf"><strong>R
+para principiantes</strong></a></p></li>
+<li><p><a
+href="https://fhernanb.github.io/Manual-de-R/index.html"><strong>Manual
+de R</strong></a></p></li>
+<li><p><a
+href="https://www.youtube.com/watch?v=k3tiNvTmug8&amp;list=PLbDLkhJ5sFvCWFbP4tAFALHkNWNFo_FiL"><strong>Curso
+de R</strong> - Videos -Rafa Gonzalez Gouveia</a></p></li>
+</ul>
+<p>A continuación se relacionan algunas ayudas para la iniciación del
+lenguaje</p>
+<p><br/><br/></p>
+</div>
+</div>
+<div id="primeros-pasos-recomendados-en-r-y-rstudio"
+class="section level1">
+<h1>Primeros pasos recomendados en R y RStudio</h1>
+<p>Si es tu primera vez, estos pasos te ayudan a organizarte y evitar
+errores comunes:</p>
+<ol style="list-style-type: decimal">
+<li><strong>Crea un proyecto</strong>: en RStudio ve a
+<code>File &gt; New Project</code> y elige una carpeta. Esto facilita el
+manejo de rutas y archivos.</li>
+<li><strong>Guarda tus scripts</strong>: trabaja siempre en el panel
+<em>Source</em> y guarda tus archivos <code>.R</code> o
+<code>.Rmd</code>.</li>
+<li><strong>Conoce tu directorio de trabajo</strong>: es la carpeta
+desde donde R lee y guarda archivos.</li>
+<li><strong>Pide ayuda</strong>: usa <code>?función</code> o
+<code>help("función")</code> para leer la documentación.</li>
+</ol>
+<p>Ejemplos básicos:</p>
+<pre class="r"><code>getwd()           # muestra el directorio de trabajo
+setwd(&quot;ruta&quot;)     # cambia el directorio de trabajo
+list.files()      # lista archivos en el directorio actual
+
+?mean            # ayuda de la función mean
+help(&quot;plot&quot;)     # ayuda de la función plot</code></pre>
+<p><br/><br/></p>
+</div>
+<div id="tipos-de-datos-en-r" class="section level1">
+<h1>Tipos de datos en R</h1>
+<p><br/><br/></p>
+<div id="vector" class="section level2">
+<h2>Vector</h2>
+<p>Arreglo unidimensional de valores, caracteres o cadenas</p>
+<pre class="r"><code>x=c(1,2,3,4,5)         #&lt;&lt;
+x</code></pre>
+<pre><code>## [1] 1 2 3 4 5</code></pre>
+<pre class="r"><code>y=c(&quot;Muy regular&quot;, &quot;Regular&quot;, &quot;Bueno&quot;, &quot;Muy bueno&quot;, &quot;Excelente&quot;)
+y</code></pre>
+<pre><code>## [1] &quot;Muy regular&quot; &quot;Regular&quot;     &quot;Bueno&quot;       &quot;Muy bueno&quot;   &quot;Excelente&quot;</code></pre>
+<p><br/><br/></p>
+</div>
+<div id="matriz" class="section level2">
+<h2>Matriz</h2>
+<p>Arreglo bidimensional de valores</p>
+<pre class="r"><code>x=1:9
+m=matrix(x,nrow=3)   #&lt;&lt;
+m</code></pre>
+<pre><code>##      [,1] [,2] [,3]
+## [1,]    1    4    7
+## [2,]    2    5    8
+## [3,]    3    6    9</code></pre>
+<p><br/><br/></p>
+</div>
+<div id="arrays" class="section level2">
+<h2>Arrays</h2>
+<p>Arreglos multimensionales de valores. En el siguiente ejemplo se
+representa un arreglo de 3 matrices 3x3 que conformarian en 3D un cubo
+de datos</p>
+<pre class="r"><code>x=1:9
+y=10:18
+z=19:27
+mn=array(c(x,y),dim=c(3,3,3)) #&lt;&lt;
+mn</code></pre>
+<pre><code>## , , 1
+## 
+##      [,1] [,2] [,3]
+## [1,]    1    4    7
+## [2,]    2    5    8
+## [3,]    3    6    9
+## 
+## , , 2
+## 
+##      [,1] [,2] [,3]
+## [1,]   10   13   16
+## [2,]   11   14   17
+## [3,]   12   15   18
+## 
+## , , 3
+## 
+##      [,1] [,2] [,3]
+## [1,]    1    4    7
+## [2,]    2    5    8
+## [3,]    3    6    9</code></pre>
+<p><br/><br/></p>
+</div>
+<div id="factores" class="section level2">
+<h2>Factores</h2>
+<p>Vector de variables categóricas, por lo general se utilizan para
+dividir una base en subgrupos</p>
+<pre class="r"><code>x=c(&quot;rojo&quot;, &quot;verde&quot;, &quot;azul&quot;)
+y=rep(x, times=4)
+x</code></pre>
+<pre><code>## [1] &quot;rojo&quot;  &quot;verde&quot; &quot;azul&quot;</code></pre>
+<pre class="r"><code>y</code></pre>
+<pre><code>##  [1] &quot;rojo&quot;  &quot;verde&quot; &quot;azul&quot;  &quot;rojo&quot;  &quot;verde&quot; &quot;azul&quot;  &quot;rojo&quot;  &quot;verde&quot; &quot;azul&quot; 
+## [10] &quot;rojo&quot;  &quot;verde&quot; &quot;azul&quot;</code></pre>
+<p><br/><br/></p>
+</div>
+<div id="listas" class="section level2">
+<h2>Listas</h2>
+<p>Colección de objetos cada uno de tipos diferentes. El objeto de esta
+clase guarda valores en diferentes formatos.</p>
+<p>En el siguiente ejemplo se construye un objeto <strong>h</strong> que
+contiene varios elementos dentro de sí, todos relacionados con un
+histograma</p>
+<pre class="r"><code>h=hist(rnorm(100,25,10)) #&lt;&lt;
+h$breaks
+h$counts
+h$density
+h$mids
+h$xname
+h$equidist</code></pre>
+<p><br/><br/></p>
+</div>
+<div id="fata.frames" class="section level2">
+<h2>Fata.frames</h2>
+<p>Estructura de datos de dos dimensiones - filas y columnas - base de
+datos. En este caso se puede obtener una fila (data[1,]), una columna
+(data[,1]) o un elemento de la data directamente (data[20,2]).</p>
+<pre class="r"><code>data(iris) #&lt;&lt;
+head(iris)
+iris[1,]
+iris[1,5]</code></pre>
+<p><br/><br/></p>
+</div>
+<div id="funciones" class="section level2">
+<h2>Funciones</h2>
+<p>Para construir una función utilizamos la palabra <em>function</em>,
+entre paréntesis los valores de entrada y entre corchetes la fórmula que
+conforma la función. Por ejemplo:</p>
+<p><span class="math display">\[f(x)=\dfrac{1}{(x-1)^{2}} \]</span></p>
+<pre class="r"><code>fx=function(x){1/(x-1)^2} #&lt;&lt;
+fx(100) # función evaluada en x=100</code></pre>
+<pre><code>## [1] 0.0001020304</code></pre>
+<p>En este caso la función es evaluada dentro de un otra función en la
+construcción de un gráfico</p>
+<pre class="r"><code>x=seq(from=2,to=10, by=0.01)  # genera secuencia de numeros entre 2 y 10 con paso 0.01
+plot(x, fx(x), type=&quot;l&quot;, col=c11, las=1) # genera gráfica</code></pre>
+<p><img src="introduccionR_files/figure-html/unnamed-chunk-13-1.png" alt="" width="672" /></p>
+<p>El siguiente ejemplo construye una función para la realización de un
+gráfico. En este caso los valores de entrada están conformados por un
+vector de datos y un color</p>
+<pre class="r"><code>y=sample(1:6,100, replace = T)  # generación de datos
+# función definida para la construcción de gráficos
+grafica=function(x,color){
+        barplot(x,
+                col=color, las=1)
+        grid()
+}
+
+z=table(y) # generación de tabla de datos
+grafica(z,&quot;#899DB9&quot;)  # evalúa la función en los datos z y color rojo</code></pre>
+<p><img src="introduccionR_files/figure-html/unnamed-chunk-14-1.png" alt="" width="672" /></p>
+<pre class="r"><code>w=round(prop.table(z)*100,2)  # genera datos y construye tabla en porcentaje
+grafica(w,c21)  # evalúa la función con w y color azul</code></pre>
+<p><img src="introduccionR_files/figure-html/unnamed-chunk-15-1.png" alt="" width="672" /></p>
+<p><br/><br/></p>
+</div>
+<div id="ts" class="section level2">
+<h2>ts</h2>
+<p>Objeto para series de tiempo</p>
+<p><br/><br/></p>
+</div>
+</div>
+<div id="operadores-en-r" class="section level1">
+<h1>Operadores en R</h1>
+<table>
+<colgroup>
+<col width="8%" />
+<col width="27%" />
+<col width="8%" />
+<col width="27%" />
+<col width="10%" />
+<col width="17%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center"></th>
+<th align="left">Aritméticos</th>
+<th align="center"></th>
+<th align="left">Comparativos</th>
+<th align="center"></th>
+<th align="left">Lógicos</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">+</td>
+<td align="left">adición</td>
+<td align="center">&lt;</td>
+<td align="left">menor que</td>
+<td align="center">!x</td>
+<td align="left">NO lógico</td>
+</tr>
+<tr class="even">
+<td align="center">-</td>
+<td align="left">substracción</td>
+<td align="center">&gt;</td>
+<td align="left">mayor que</td>
+<td align="center">x &amp; y</td>
+<td align="left">Y lógico</td>
+</tr>
+<tr class="odd">
+<td align="center">*</td>
+<td align="left">multiplicación</td>
+<td align="center">&lt;=</td>
+<td align="left">menor o igual que</td>
+<td align="center">x</td>
+<td align="left">y</td>
+</tr>
+<tr class="even">
+<td align="center">/</td>
+<td align="left">división</td>
+<td align="center">&gt;=</td>
+<td align="left">mayor o igual que</td>
+<td align="center">x or y</td>
+<td align="left">O exclusivo</td>
+</tr>
+<tr class="odd">
+<td align="center">^</td>
+<td align="left">potencia</td>
+<td align="center">==</td>
+<td align="left">igual</td>
+<td align="center"></td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="center">%%</td>
+<td align="left">módulo</td>
+<td align="center">!=</td>
+<td align="left">diferente de</td>
+<td align="center"></td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="center">%/%</td>
+<td align="left">división enteros</td>
+<td align="center"></td>
+<td align="left"></td>
+<td align="center"></td>
+<td align="left"></td>
+</tr>
+</tbody>
+</table>
+<p><br/><br/></p>
+</div>
+<div id="instalación-de-paquetes-en-r" class="section level1">
+<h1>Instalación de paquetes en R</h1>
+<p>El lenguaje <strong>R</strong> está conformado por miles de paquetes
+o <strong>Packages</strong> construidos por investigadores en diversos
+temas y áreas del conocimiento.</p>
+<p>Al instalar inicialmente R contiene una serie de funciones listas
+para ser utilizadas, las que llamamos <strong>base</strong>, con las que
+R funciona de manera adecuada para dar respuesta a problemas básicos.
+Sin embargo, en algunos casos es necesario instalar paquetes
+adicionales, los cuales iremos anunciando en la medida que sean
+necesarios.</p>
+<p>Para instalar un paquete lo podemos hacer de dos formas :</p>
+<ol style="list-style-type: decimal">
+<li>Utilizando la ventana <strong>Packages</strong> ubicada en la parte
+inferior derecha de RStudio</li>
+</ol>
+<center>
+<iframe width="800" height="450" src="https://www.youtube.com/embed/D5MfQu__FJU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+</iframe>
+</center>
+<ol start="2" style="list-style-type: decimal">
+<li>Digitando en la consola la función <strong>install.packages
+()</strong></li>
+</ol>
+<pre class="r"><code>install.packages(&quot;ggplot2&quot;)</code></pre>
+<center>
+<iframe width="800" height="450" src="https://www.youtube.com/embed/4KY2xFm05JA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+</iframe>
+</center>
+<p><br/><br/></p>
+<div id="paquetes-más-utilizados" class="section level3">
+<h3>Paquetes más utilizados</h3>
+<p><br/><br/></p>
+<div id="análisis-descriptivo" class="section level4">
+<h4>Análisis descriptivo</h4>
+<ul>
+<li><p>agricolae</p></li>
+<li><p>psych</p></li>
+<li><p>summarytools</p></li>
+<li><p>ggplot2</p></li>
+<li><p>flexdashboard</p></li>
+<li><p>rmarkdown</p></li>
+</ul>
+<p><a href="https://gallery.shinyapps.io/087-crandash/">Paquetes
+RStudio</a></p>
+<p><br/><br/></p>
+</div>
+</div>
+</div>
+<div id="introducción-a-positron" class="section level1">
+<h1>Introducción a Positron</h1>
+<p><strong>Positron</strong> es un IDE gratuito y de nueva generación
+creado por <strong>Posit</strong> para ciencia de datos. Está pensado
+para trabajar con <strong>R y Python</strong> en el mismo entorno y
+combina edición moderna de código con herramientas interactivas para
+análisis.</p>
+<p>Principales ideas para empezar:</p>
+<ol style="list-style-type: decimal">
+<li><strong>Editor moderno</strong>: basado en Code OSS (la base de
+Visual Studio Code), con extensiones y personalización.</li>
+<li><strong>Exploración de datos</strong>: visor de variables y data
+frames con filtros y resúmenes.</li>
+<li><strong>Consola interactiva</strong>: ejecutar líneas o bloques de
+código sin salir del editor.</li>
+<li><strong>Notebooks y Quarto</strong>: soporte integrado para
+documentos y reportes reproducibles.</li>
+<li><strong>Apps de datos</strong>: ejecución y vista previa de Shiny,
+Streamlit o Dash desde el IDE.</li>
+</ol>
+<p>Si ya usas RStudio, puedes probar Positron para flujos más modernos o
+proyectos que mezclen R y Python. RStudio sigue vigente y optimizado
+para R, mientras que Positron apunta a un entorno unificado de ciencia
+de datos.</p>
+<p>Descarga e información oficial: <a href="https://positron.posit.co/"
+class="uri">https://positron.posit.co/</a></p>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("hide" === "show");
+});
+</script>
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

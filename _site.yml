@@ -1,0 +1,65 @@
+name: " "
+output_dir: "docs"
+navbar:
+  title: " "
+  left:
+    - text: "Estadística"
+      icon: fa-home
+      href: index.html
+    - text: "Módulo 0"
+      menu:
+        - text: "Módulo 0"
+          href: modulo0.html
+        - text: "Sumatoria"
+          href: sumatoria.html
+        - text: "Productoria"
+        
+          
+    - text: "Módulo 1"
+      menu:
+        - text: "Módulo 1"
+          href: modulo1.html
+        - text: "---------"  
+        - text: "Guía 1.1"
+          href: guia11.html        
+        - text: "Recursos 1.1"
+          href: recurso101.html
+        - text: "Bases de datos"
+          href: basesdatos.html
+        - text: "Introducción a R"
+          href: introduccionR.html
+        - text: "Código 1.1"  
+          href: codigo11.html
+        - text: "--------"
+ 
+    - text: "Módulo 2"
+      menu:
+        - text: "Módulo 2"
+          href: modulo2.html
+        - text: "--------" 
+         
+        
+    - text: "Módulo 3"
+      menu:
+        - text: "Módulo 3"
+          href: modulo3.html
+  
+
+    - text: "Módulo 4"
+      menu:
+        - text: "Módulo 4"
+          href: modulo4.html
+        - text: "---------" 
+
+    - text: "Proyecto"
+      menu:
+        - text: "Guía proyecto"
+          href: enconstruccion.html
+
+output:  
+ html_document:
+    theme: spacelab
+    css: style.css         
+                  
+        
+        

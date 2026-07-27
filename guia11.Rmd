@@ -1,0 +1,138 @@
+---
+title: <span style="color:#E85A67">Teoría de Probabilidades</span>
+author: "dgonzalez "
+subtitle: " "
+output:
+  html_document:
+    toc: no
+    toc_depth: 2
+    toc_float: yes
+    theme: flatly
+---
+
+
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,comment = NA)
+library(ggplot2)
+
+# colores
+source("init.R")
+```
+
+
+```{r, echo=FALSE, out.width="100%", fig.align = "center"}
+if (file.exists("img/recurso1.png")) knitr::include_graphics("img/guia1.png")
+```
+
+
+
+<br/><br/>
+
+
+<br/><br/>
+
+# Introducción
+
+
+
+En esta unidad se  presenta  la **Metodología Estadística** como  estrategia que  permite  visualizar las diferentes etapas presentes en una investigación  o análisis de  datos :
+
+
+
+1. Definición del problema
+2. Definición de los objetivos
+3. Definición de las variables de interés
+4. Diseño del experimento
+5. Recolección de la información
+6. Procesamiento de información
+7. Análisis descriptivo
+8. Inferencia estadística
+9. Recomendaciones y conclusiones
+
+
+
+
+
+Tambien se hará especial referencia a reconocer la relación existente entre el planteamiento del problema, el planteamiento de los objetivos y la identificación de las variables que genere propuetas y/o recomendaciones encaminadas a la solución del problema a traves del cumplimiento de los objetivos planteados.
+
+Adicionalmente empezaremos con la instalación del lenguaje estadístico lenguaje **R** y su IDE **RStudio**.
+
+
+<br/><br/>
+
+# Objetivos de la unidad
+
+
+
+Al finalizar la unidad los estudiantes estarán  en  capacidad de  RECONOCER los  pasos de la Metodología Estadística y podrán CONSTRUIR e IDENTIFICAR lo referente al planteamiento de problemas, objetivos y las variables de interes.  
+
+
+<br/><br/>
+
+# Duración
+
+
+
+La presente  unidad será desarrollada durante la  primera semana del semestre ( 23 al 29 de enero de 2023). Ademas del material suministrado  se podrá contar con el acompañamiento del profesor en tres sesiones (Lunes, Miércoles y Viernes) y de un monitor. Los documentos requeridos para esta unidad deberán ser entregados a través de la plataforma **Brightspace** hasta el  29 de enero. 
+
+Para alcanzar los objetivos planteados se propone realizar la siguiente actividad:
+
+
+
+<br/><br/>
+
+# Cronograma de trabajo
+
+
+
+|Actividad101   | Descripción                    | 
+|:--------------|:-----------------------------  |
+|Individual     |  **Metodología estadística:** : Formular un  problema que le permita  desarrollar un  ejercicio académico durante  el  semestre a través de  la recolección  de información (primaria o secundaria), Ademas de establecer los  objetivos y las  variables de  interés asociadas en dicho problema e identificar el tipo de  variable  y su  escala  de medición.  El resultado  de esta actividad deberá se entregado  en **archivo en formato pdf** con  nombre: **actividad101.pdf** en enlace ubicado en la plataforma Bs |
+| Fecha         | 3 de agosto de 2026 |
+| Hora          | 23:59                |
+
+
+
+|Actividad102   | Descripción                    | 
+|:--------------|:-----------------------------  |
+|Individual     |**Instalación de R, RStudio y Positron** : Para el  desarrollo  de las  actividades del curso deberán instalar [R CRAN](https://www.r-project.org/) y   [RStudio](https://rstudio.com/). Para su correcta instalación  existen varios videos en  YouTube que le permitirán realizarlo de una manera correcta   | 
+|Recursos       | [Descargar e instalar R y RStudio 2021 -Video Rafa Gonzalez Gouveia](https://www.youtube.com/watch?v=Nmu4WPdJBRo) |
+|               | [R download](https://cran.r-project.org/) |
+|               | [RStudio download](https://rstudio.com/products/rstudio/download/) |
+| Fecha         | 3 de agosto 2026 |
+| Hora          | 23:59 hora local |
+
+
+
+<br/><br/>
+
+# Criterios de evaluación
+
+
+
+* Reconocer la relación existente ente la  definición del problema, el planteamiento de los objetivos y la  definición de las variables de interés dentro de la  Metodología Estadística.
+
+* Reconocer e identificar los diferentes tipos de variables  y sus respectivas escalas de medición.
+
+
+
+El entregable completo y enviado dentro de los tiempos establecidos  otorgarán un total de 50 puntos. 
+
+
+
+<br/><br/>
+
+# Entregables 
+
+
+
+| Entregable |  Descripción                    |
+|:--------------|:-----------------------------|
+|**actividad101.pdf** | Documento que contenga: Formulación de problema propuesto, definición  de los objetivos y definición de variables de interés. En este último caso detallar para cada variable su  tipo ( cualitativa o cuantitativa ) y su escala de medición ( nominal, ordinal, de intervalo o de razón).|
+|||
+|**Fecha** | 3 de agosto  2026 |
+|**Hora límite**| 23:59  hora  local|
+|||
+

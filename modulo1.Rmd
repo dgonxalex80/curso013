@@ -1,0 +1,44 @@
+---
+title: <span style="color:#E85A67">Teoría de Probabilidades</span>
+author: "dgonzalez "
+subtitle:  
+output:
+  html_document:
+    toc: no
+    toc_depth: 2
+    toc_float: yes
+    theme: flatly
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+source("init.R")
+```
+
+
+```{r, echo=FALSE, out.width="100%", fig.align = "center"}
+knitr::include_graphics("img/modulo1.png")
+```
+
+
+
+
+<br/><br/>
+
+# Introducción
+
+Este primer módulo te permitirá recorrer los  pasos de la metodología estadística  y realizar un análisis descriptivos de tus datos, empleando para ellos software estadístico y diversas bases de datos disponibles en internet.  Para lograrlo se plantean tres unidades : Bases de datos, Tablas de frecuencia e indicadores descriptivos y por último la representación  gráfica o visualización de  datos.  Requiere revisar los conceptos de sumatoria  y productoria contenidos en  el Modulo 0
+
+
+
+<br/><br/>
+
+# Objetivo
+
+Al finalizar este módulo el estudiante estará en capacidad de RESUMIR e INTERPRETAR información mediante la construcción de TABLAS DE FRECUENCIA, INDICADORES DESCRIPTIVOS Y GRAFICOS para la interpretación  y construcción de informes estadísticos descriptivos 
+
+
+
+
+
