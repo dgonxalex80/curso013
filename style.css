@@ -10,6 +10,12 @@ h6,
 .title,
 .subtitle {
   font-family: "Anton", sans-serif;
+  color: #000 !important;
+}
+
+.title span,
+.subtitle span {
+  color: #000 !important;
 }
 
 
@@ -105,6 +111,30 @@ h6 { margin-top: 0.7rem; }
   height: auto !important;
   max-height: none !important;
   overflow: visible !important;
+}
+
+/* Identidad visual de cada módulo */
+.main-container:has(.title span[style*="#F6A623"]) { --module-color: #F6A623; }
+.main-container:has(.title span[style*="#E85A67"]) { --module-color: #E85A67; }
+.main-container:has(.title span[style*="#3498C9"]) { --module-color: #3498C9; }
+.main-container:has(.title span[style*="#476885"]) { --module-color: #476885; }
+.main-container:has(.title span[style*="#67C1A8"]) { --module-color: #67C1A8; }
+
+/* Banners de módulo con esquinas redondeadas */
+.main-container img[src^="img/modulo"]:not([src*="modulos."]) {
+  border-radius: 18px;
+}
+
+/* Línea decorativa de los títulos de nivel 1 */
+.main-container:has(.title span[style*="color:"]) .section > h1::after {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 4px;
+  margin-top: 0.45rem;
+  margin-bottom: 0.75rem;
+  border-radius: 999px;
+  background-color: var(--module-color);
 }
 
 /* Tablas, gráficos y bloques de código */
