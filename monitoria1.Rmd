@@ -75,11 +75,11 @@ Para cada una de las siguientes variables, indique si es cualitativa o cuantitat
 |10. |Grado de satisfacción de los clientes ante el servicio de mantenimiento de un taller mecánico |
 |11. |Nota obtenida en el  examen  de  estadística |
 |12. |Nivel de estrés de un estudiante antes de presentar una prueba escrita. |
-|13. |Marca del teléfono móvil utilizado por cada estudiante de un curso. |
+|13. |Marca del teléfono móvil de un estudiante universitario. |
 |14. |Número de llamadas recibidas por hora en un centro de atención al cliente. |
 |15. |Año de fabricación de los vehículos que ingresan a un taller. |
-|16. |Distancia recorrida, en kilómetros, por un vehículo durante una jornada. |
-|17. |Nivel de prioridad asignado a una solicitud: bajo, medio, alto o urgente. |
+|16. |Distancia recorrida, en kilómetros, por un vehículo durante un dia. |
+|17. |Nivel de prioridad asignado a una solicitud de medicamentos. |
 |18. |Código de identificación asignado a cada máquina de una planta de producción. |
 
 </div>

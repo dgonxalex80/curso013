@@ -150,3 +150,91 @@ El entregable completo y enviado dentro de los tiempos establecidos  otorgarán 
 |**Hora límite**| 23:59  hora  local|
 |||
 
+
+<br/><br/>
+
+# Ficha técnica
+
+<div class="ficha-tecnica">
+
+<p class="ficha-intro">Complete la siguiente información para describir de manera clara la base de datos seleccionada.</p>
+
+<div class="ficha-campo">
+<h3>Título de la base de datos</h3>
+<p class="ficha-ayuda">Escriba un título breve que permita identificarla.</p>
+<div class="linea-respuesta"></div>
+</div>
+
+<div class="ficha-campo">
+<h3>Concepto o contexto</h3>
+<p class="ficha-ayuda">Explique el tema que aborda la base de datos y su propósito.</p>
+<div class="area-respuesta"></div>
+</div>
+
+<div class="ficha-grid">
+<div class="ficha-campo">
+<h3>Población</h3>
+<p class="ficha-ayuda">Grupo del cual se obtuvo la información.</p>
+<div class="linea-respuesta"></div>
+</div>
+
+<div class="ficha-campo">
+<h3>Tamaño de la muestra</h3>
+<p class="ficha-ayuda">Número de observaciones registradas.</p>
+<div class="linea-respuesta"></div>
+</div>
+
+<div class="ficha-campo">
+<h3>Instrumento de recolección</h3>
+<p class="ficha-ayuda">Por ejemplo: encuesta, formulario, planilla o registro administrativo.</p>
+<div class="linea-respuesta"></div>
+</div>
+
+<div class="ficha-campo">
+<h3>Ubicación espacio-temporal</h3>
+<p class="ficha-ayuda">Lugar y periodo en los que se recogió la información.</p>
+<div class="linea-respuesta"></div>
+</div>
+</div>
+
+<div class="ficha-campo">
+<h3>Unidad estadística</h3>
+<p class="ficha-ayuda">Persona, objeto o entidad de la cual se obtiene cada observación.</p>
+<div class="linea-respuesta"></div>
+</div>
+
+<div class="ficha-variables">
+<h3>Descripción de las variables</h3>
+<p>Registre el nombre de cada variable, su tipo y su escala de medición.</p>
+<table>
+<colgroup>
+<col class="variable-nombre" />
+<col class="variable-tipo" />
+<col class="variable-escala" />
+</colgroup>
+<thead>
+<tr>
+<th>Nombre de la variable</th>
+<th>Tipo de variable</th>
+<th>Escala de medición</th>
+</tr>
+</thead>
+<tbody>
+<tr><td></td><td></td><td></td></tr>
+<tr><td></td><td></td><td></td></tr>
+<tr><td></td><td></td><td></td></tr>
+<tr><td></td><td></td><td></td></tr>
+<tr><td></td><td></td><td></td></tr>
+<tr><td></td><td></td><td></td></tr>
+<tr><td></td><td></td><td></td></tr>
+<tr><td></td><td></td><td></td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="ficha-firma">
+<strong>Nombre del estudiante</strong>
+<div class="linea-respuesta"></div>
+</div>
+
+</div>

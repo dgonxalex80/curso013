@@ -32,3 +32,67 @@
   .main-container table thead th, .main-container table tbody td { min-width: 145px; padding: .8rem; }
   .main-container table thead th:last-child, .main-container table tbody td:last-child { min-width: 420px; }
 }
+
+
+/* Ficha técnica */
+.ficha-tecnica {
+  margin: 1.5rem 0 2.5rem;
+  padding: 1.75rem;
+  border: 1px solid #DCEFF8;
+  border-top: 6px solid #2C5697;
+  border-radius: 16px;
+  background: #F7F9FC;
+  box-shadow: 0 8px 24px rgba(44, 86, 151, .08);
+}
+.ficha-intro { margin: 0 0 1.5rem; color: #465568; font-size: 1.05rem; }
+.ficha-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+.ficha-campo {
+  margin-bottom: 1rem;
+  padding: 1rem 1.1rem;
+  border: 1px solid #DCEFF8;
+  border-radius: 10px;
+  background: #FFFFFF;
+}
+.ficha-campo h3 { margin: 0 0 .25rem; color: #2C5697; font-size: 1.05rem; }
+.ficha-ayuda {
+  min-height: 2.8em;
+  margin: 0 0 .8rem;
+  color: #687789;
+  font-size: .92rem;
+  line-height: 1.4;
+}
+.linea-respuesta { min-height: 1.7rem; border-bottom: 1px solid #9FB4C8; }
+.area-respuesta {
+  min-height: 4rem;
+  border-bottom: 1px solid #9FB4C8;
+  background: repeating-linear-gradient(to bottom, transparent 0, transparent 1.9rem, #DCE5ED 1.95rem, #DCE5ED 2rem);
+}
+.ficha-variables { margin-top: 1.5rem; }
+.ficha-variables h2 { margin-bottom: .35rem; color: #2C5697; font-size: 1.3rem; }
+.main-container .ficha-variables table { margin: 1rem 0 1.5rem; table-layout: fixed; }
+.main-container .ficha-variables table col:nth-child(1) { width: 42% !important; }
+.main-container .ficha-variables table col:nth-child(2) { width: 29% !important; }
+.main-container .ficha-variables table col:nth-child(3) { width: 29% !important; }
+.main-container .ficha-variables table tbody td,
+.main-container .ficha-variables table tbody td:first-child,
+.main-container .ficha-variables table tbody tr:nth-child(even) td:first-child {
+  height: 2.8rem;
+  background: #FFFFFF;
+  color: inherit;
+  font-weight: 400;
+  vertical-align: middle;
+}
+.main-container .ficha-variables table tbody tr:nth-child(even) td { background: #F7F9FC; }
+.ficha-firma { max-width: 55%; margin-top: 2rem; color: #2C5697; }
+@media (max-width: 767px) {
+  .ficha-tecnica { padding: 1rem; }
+  .ficha-grid { grid-template-columns: 1fr; gap: 0; }
+  .ficha-ayuda { min-height: 0; }
+  .main-container .ficha-variables table thead th:last-child,
+  .main-container .ficha-variables table tbody td:last-child { min-width: 170px; }
+  .ficha-firma { max-width: 100%; }
+}
