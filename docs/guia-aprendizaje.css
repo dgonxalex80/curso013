@@ -1,0 +1,34 @@
+/* Tablas para guías de aprendizaje */
+.main-container table {
+  width: 100%; margin: 1.75rem 0 2.25rem; border: 1px solid #DCEFF8;
+  border-collapse: separate; border-spacing: 0; border-radius: 14px;
+  background: #FFFFFF; overflow: hidden; table-layout: fixed;
+}
+.main-container table col:first-child { width: 24% !important; }
+.main-container table col:last-child { width: 76% !important; }
+.main-container table thead th {
+  padding: 1rem 1.15rem; border: 0; background: #2C5697; color: #FFFFFF;
+  font-size: 1.05rem; font-weight: 700; line-height: 1.35; vertical-align: middle;
+}
+.main-container table thead th:first-child { background: #2C5697; }
+.main-container table tbody td {
+  padding: .9rem 1.15rem; border: 0; border-top: 1px solid #DCEFF8;
+  background: #FFFFFF; line-height: 1.55; vertical-align: top;
+}
+.main-container table tbody tr:nth-child(even) td { background: #F7F9FC; }
+.main-container table tbody td:first-child {
+  background: #E2EAF1; color: #2C5697; font-weight: 700;
+}
+.main-container table tbody tr:nth-child(even) td:first-child { background: #DCEFF8; }
+.main-container table tbody td:empty:first-child { border-top-color: transparent; }
+.main-container table tbody tr:has(td:empty:first-child):has(td:empty:last-child) { display: none; }
+.main-container table a {
+  color: #2C5697; font-weight: 700; text-decoration: underline;
+  text-decoration-color: #3498C9; text-decoration-thickness: 2px; text-underline-offset: 3px;
+}
+.main-container table strong { color: #2C5697; }
+@media (max-width: 767px) {
+  .main-container table { display: block; overflow-x: auto; table-layout: auto; white-space: normal; }
+  .main-container table thead th, .main-container table tbody td { min-width: 145px; padding: .8rem; }
+  .main-container table thead th:last-child, .main-container table tbody td:last-child { min-width: 420px; }
+}

@@ -120,7 +120,8 @@ h6 { margin-top: 0.7rem; }
 .main-container:has(.title span[style*="#476885"]) { --module-color: #476885; }
 .main-container:has(.title span[style*="#67C1A8"]) { --module-color: #67C1A8; }
 
-/* Banners de módulo con esquinas redondeadas */
+/* Banner principal de cada página con esquinas redondeadas */
+.main-container #header + p > img,
 .main-container img[src^="img/modulo"]:not([src*="modulos."]) {
   border-radius: 18px;
 }
@@ -144,6 +145,27 @@ pre,
 blockquote {
   margin-top: 1rem;
   margin-bottom: 1rem;
+}
+
+/* Caja para notas y fórmulas importantes */
+.note-box {
+  margin: 1.5rem 0;
+  padding: 1.25rem 1.5rem 1rem;
+  border: 3px solid var(--module-color, #E85A67);
+  border-radius: 6px;
+  background: #fff;
+}
+
+.note-box-title {
+  margin-bottom: 0.65rem;
+  font-family: "Anton", sans-serif;
+  font-size: 1.35rem;
+  line-height: 1;
+  color: var(--module-color, #E85A67);
+}
+
+.note-box > :last-child {
+  margin-bottom: 0;
 }
 
 /* Índice lateral flotante */

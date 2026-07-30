@@ -8,6 +8,9 @@ output:
     toc_depth: 2
     toc_float: yes
     theme: flatly
+    css:
+      - style.css
+      - guia-aprendizaje.css
 ---
 
 
@@ -87,15 +90,26 @@ Para alcanzar los objetivos planteados se propone realizar la siguiente activida
 
 
 
-|Actividad101   | Descripción                    | 
+|Actividad111   | Descripción                    | 
 |:--------------|:-----------------------------  |
 |Individual     |  **Metodología estadística:** : Formular un  problema que le permita  desarrollar un  ejercicio académico durante  el  semestre a través de  la recolección  de información (primaria o secundaria), Ademas de establecer los  objetivos y las  variables de  interés asociadas en dicho problema e identificar el tipo de  variable  y su  escala  de medición.  El resultado  de esta actividad deberá se entregado  en **archivo en formato pdf** con  nombre: **actividad101.pdf** en enlace ubicado en la plataforma Bs |
-| Fecha         | 5 de agosto de 2026 |
+| Fecha         | 4 de agosto de 2026 |
 | Hora          | 23:59                |
 
 
+|Actividad112   | Descripción                    | 
+|:--------------|:-----------------------------  |
+|Individual     | **Base de datos**: Cada estudiante deberá buscar una base de datos de su interés, depurarla y documentarla si es necesario. A partir de la información recolectada deberá construir la ficha técnica de la base. El resultado de esta actividad deberá ser entregado en **archivo en formato pdf** con nombre: **actividad112.pdf** |
+| Recurso       | Video: [**Cómo descargar datos abiertos**](https://youtu.be/lRftK2mL3Sw)
+|               | Formato ficha : **Ficha técnica** |
+|               | Excel |
+|               | RStudio |
+|Fecha          | 4 de agosto 2026 |
+|Hora           | 23:59 hora local |
 
-|Actividad102   | Descripción                    | 
+
+
+|Actividad113   | Descripción                    | 
 |:--------------|:-----------------------------  |
 |Individual     |**Instalación de R, RStudio y Positron** : Para el  desarrollo  de las  actividades del curso deberán instalar [R CRAN](https://www.r-project.org/) y   [RStudio](https://rstudio.com/). Para su correcta instalación  existen varios videos en  YouTube que le permitirán realizarlo de una manera correcta   | 
 |Recursos       | [Descargar e instalar R y RStudio 2021 -Video Rafa Gonzalez Gouveia](https://www.youtube.com/watch?v=Nmu4WPdJBRo) |

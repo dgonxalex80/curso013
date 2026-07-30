@@ -1,7 +1,7 @@
 ---
-title: <span style="color:#E85A67">Teoría de Probabilidades</span>
-author: <span style="color:#E85A67">dgonzalez</span>
-subtitle:  
+title: <span style="color:#235784">**Problemas** </span>  
+subtitle: <span style="color:#235784">**Unidad 1.1**</span> 
+author: "dgonzalez "
 output:
   html_document:
     toc: no
