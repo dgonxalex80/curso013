@@ -1,0 +1,220 @@
+---
+title: "Solución del caso 1: análisis descriptivo de beer2"
+author: "dgonzalez"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    code_folding: hide
+    theme: flatly
+    css: style.css
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+library(readr)
+library(dplyr)
+library(ggplot2)
+library(knitr)
+
+beer2 <- read_csv("data/beer2.csv")
+
+moda <- function(x) {
+  frecuencias <- table(x, useNA = "no")
+  names(frecuencias)[which.max(frecuencias)]
+}
+
+tabla_frecuencias <- function(datos, variable) {
+  datos |>
+    count({{ variable }}, name = "frecuencia", sort = TRUE) |>
+    mutate(
+      porcentaje = round(100 * frecuencia / sum(frecuencia), 2),
+      acumulado = round(cumsum(porcentaje), 2)
+    )
+}
+```
+
+# Objetivo
+
+Describir las características comerciales, nutricionales, geográficas y de valoración contenidas en `beer2.csv`, mediante tablas de frecuencias, indicadores estadísticos y gráficos apropiados para cada tipo de variable.
+
+# Revisión de la base
+
+```{r revision}
+revision <- data.frame(
+  indicador = c("Registros", "Variables", "Valores faltantes", "Cervezas diferentes", "Marcas diferentes"),
+  resultado = c(
+    nrow(beer2),
+    ncol(beer2),
+    sum(is.na(beer2)),
+    n_distinct(beer2$id),
+    n_distinct(beer2$marca)
+  )
+)
+kable(revision, format.args = list(big.mark = ".", decimal.mark = ","))
+```
+
+La unidad de observación es una **reseña**. En consecuencia, `id`, `marca` y `nombre_cerveza` pueden repetirse cuando una cerveza ha recibido varias valoraciones. El identificador `id` no se utiliza para calcular indicadores estadísticos.
+
+# Variables cualitativas
+
+## Tipo de cerveza
+
+```{r tabla-tipo}
+frecuencia_tipo <- tabla_frecuencias(beer2, tipo)
+kable(frecuencia_tipo, col.names = c("Tipo", "Frecuencia", "Porcentaje (%)", "Acumulado (%)"), format.args = list(big.mark = ".", decimal.mark = ","))
+```
+
+```{r grafico-tipo, fig.width=9, fig.height=5}
+ggplot(frecuencia_tipo, aes(x = reorder(tipo, frecuencia), y = frecuencia, fill = tipo)) +
+  geom_col(show.legend = FALSE) +
+  coord_flip() +
+  scale_y_continuous(labels = scales::label_number(big.mark = ".")) +
+  labs(title = "Reseñas por tipo de cerveza", x = NULL, y = "Frecuencia") +
+  theme_minimal()
+```
+
+El tipo más frecuente es **`r moda(beer2$tipo)`**, con `r format(max(frecuencia_tipo$frecuencia), big.mark = ".", decimal.mark = ",")` reseñas (`r max(frecuencia_tipo$porcentaje)`%).
+
+## Origen comercial
+
+```{r tabla-origen}
+frecuencia_origen <- tabla_frecuencias(beer2, origen)
+kable(frecuencia_origen, col.names = c("Origen", "Frecuencia", "Porcentaje (%)", "Acumulado (%)"), format.args = list(big.mark = ".", decimal.mark = ","))
+```
+
+La categoría modal de origen es **`r moda(beer2$origen)`**, que representa `r max(frecuencia_origen$porcentaje)`% de las reseñas.
+
+## Nacionalidad de la cervecería
+
+```{r tabla-nacionalidad}
+frecuencia_nacionalidad <- tabla_frecuencias(beer2, nacionalidad)
+kable(frecuencia_nacionalidad, col.names = c("Nacionalidad", "Frecuencia", "Porcentaje (%)", "Acumulado (%)"), format.args = list(big.mark = ".", decimal.mark = ","))
+```
+
+La nacionalidad más frecuente es **`r moda(beer2$nacionalidad)`**. Esta variable fue simulada y, por tanto, su interpretación se limita a la estructura construida para el ejercicio.
+
+## Marcas más reseñadas
+
+```{r tabla-marcas}
+frecuencia_marca <- tabla_frecuencias(beer2, marca)
+kable(head(frecuencia_marca, 10), col.names = c("Marca", "Frecuencia", "Porcentaje (%)", "Acumulado (%)"), format.args = list(big.mark = ".", decimal.mark = ","))
+```
+
+Debido al gran número de marcas, se presentan solamente las diez con más reseñas. La marca con mayor frecuencia es **`r frecuencia_marca$marca[1]`**.
+
+# Valoraciones ordinales
+
+Las puntuaciones de calificación, aroma, apariencia, paladar y sabor son variables ordinales. Se resumen mediante sus distribuciones y la mediana; la media se incluye como referencia comparativa por tratarse de puntuaciones numéricas con intervalos uniformes.
+
+```{r resumen-valoraciones}
+variables_valoracion <- c("calificacion", "aroma", "apariencia", "paladar", "sabor")
+
+resumen_valoraciones <- lapply(variables_valoracion, function(v) {
+  x <- beer2[[v]]
+  data.frame(
+    variable = v,
+    mínimo = min(x),
+    mediana = median(x),
+    moda = as.numeric(moda(x)),
+    media = mean(x),
+    máximo = max(x)
+  )
+}) |>
+  bind_rows() |>
+  mutate(across(where(is.numeric), ~ round(.x, 2)))
+
+kable(resumen_valoraciones, col.names = c("Variable", "Mínimo", "Mediana", "Moda", "Media", "Máximo"))
+```
+
+```{r frecuencias-calificacion}
+tabla_calificacion <- tabla_frecuencias(beer2, calificacion)
+kable(tabla_calificacion, col.names = c("Calificación general", "Frecuencia", "Porcentaje (%)", "Acumulado (%)"), format.args = list(big.mark = ".", decimal.mark = ","))
+```
+
+La mediana de la calificación general es **`r median(beer2$calificacion)`** y su nivel más frecuente es **`r moda(beer2$calificacion)`**. Entre los cinco aspectos, la mayor media corresponde a **`r resumen_valoraciones$variable[which.max(resumen_valoraciones$media)]`**.
+
+# Variables cuantitativas
+
+```{r resumen-cuantitativas}
+variables_cuantitativas <- c("precio", "alcohol", "carbohidratos", "calorias")
+
+resumen_cuantitativas <- lapply(variables_cuantitativas, function(v) {
+  x <- beer2[[v]]
+  data.frame(
+    variable = v,
+    mínimo = min(x),
+    q1 = quantile(x, 0.25),
+    mediana = median(x),
+    media = mean(x),
+    q3 = quantile(x, 0.75),
+    máximo = max(x),
+    desviación = sd(x),
+    cv_porcentaje = 100 * sd(x) / mean(x)
+  )
+}) |>
+  bind_rows() |>
+  mutate(across(where(is.numeric), ~ round(.x, 2)))
+
+kable(
+  resumen_cuantitativas,
+  col.names = c("Variable", "Mínimo", "Q1", "Mediana", "Media", "Q3", "Máximo", "Desviación", "CV (%)")
+)
+```
+
+El precio medio simulado es **`r round(mean(beer2$precio), 2)`**, con una mediana de **`r median(beer2$precio)`**. Una porción de 355 ml contiene en promedio **`r round(mean(beer2$alcohol), 2)` gramos de alcohol**, **`r round(mean(beer2$carbohidratos), 2)` gramos de carbohidratos** y **`r round(mean(beer2$calorias), 2)` calorías**.
+
+```{r histogramas, fig.width=10, fig.height=7}
+beer2 |>
+  select(all_of(variables_cuantitativas)) |>
+  tidyr::pivot_longer(everything(), names_to = "variable", values_to = "valor") |>
+  ggplot(aes(x = valor, fill = variable)) +
+  geom_histogram(bins = 40, show.legend = FALSE) +
+  facet_wrap(~ variable, scales = "free", ncol = 2) +
+  labs(title = "Distribución de las variables cuantitativas", x = NULL, y = "Frecuencia") +
+  theme_minimal()
+```
+
+# Comparaciones
+
+## Calificación por tipo de cerveza
+
+```{r comparacion-tipo}
+resumen_tipo <- beer2 |>
+  group_by(tipo) |>
+  summarise(
+    reseñas = n(),
+    calificación_media = mean(calificacion),
+    mediana_calificación = median(calificacion),
+    alcohol_medio = mean(alcohol),
+    calorías_medias = mean(calorias),
+    .groups = "drop"
+  ) |>
+  mutate(across(where(is.numeric), ~ round(.x, 2))) |>
+  arrange(desc(calificación_media))
+
+kable(resumen_tipo, format.args = list(big.mark = ".", decimal.mark = ","))
+```
+
+El tipo con la mayor calificación media es **`r resumen_tipo$tipo[1]`**, con un promedio de **`r resumen_tipo$calificación_media[1]`** puntos. Este resultado es descriptivo y no demuestra que el tipo de cerveza sea la causa de la valoración.
+
+## Relación entre alcohol y calorías
+
+```{r correlacion}
+cor_alcohol_calorias <- cor(beer2$alcohol, beer2$calorias)
+data.frame(
+  variables = "Alcohol y calorías",
+  correlación = round(cor_alcohol_calorias, 3)
+) |>
+  kable()
+```
+
+La correlación entre alcohol y calorías es **`r round(cor_alcohol_calorias, 3)`**. La asociación es positiva porque el alcohol aporta energía al contenido calórico total; además, las calorías fueron construidas usando el alcohol y los carbohidratos.
+
+# Conclusiones
+
+1. La base contiene `r format(nrow(beer2), big.mark = ".", decimal.mark = ",")` reseñas completas y permite analizar tanto características del producto como valoraciones de los consumidores.
+2. El tipo de cerveza predominante es **`r moda(beer2$tipo)`** y el origen predominante es **`r moda(beer2$origen)`**.
+3. La calificación general típica, medida mediante la mediana, es **`r median(beer2$calificacion)`** puntos.
+4. El precio y varias características nutricionales fueron simulados; por ello, sus resultados describen esta base académica y no deben interpretarse como precios o composiciones oficiales del mercado.
+5. Los resultados son descriptivos. Para hacer inferencias causales o generalizar a todos los consumidores sería necesario conocer el diseño de muestreo y controlar la repetición de reseñas por cerveza y por usuario.

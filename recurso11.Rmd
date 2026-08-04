@@ -36,8 +36,8 @@ grupo013 <- read.csv(
   stringsAsFactors = FALSE
 )
 
-# Ajustar tipos de variables para el análisis
-grupo013$grupo <- factor(grupo013$grupo)
+# Ajustar tipos de variables para el análisis.
+# El archivo ya corresponde al grupo A y no contiene una columna `grupo`.
 grupo013$carrera <- factor(grupo013$carrera)
 
 ```

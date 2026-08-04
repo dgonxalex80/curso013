@@ -37,6 +37,8 @@ navbar:
           href: recurso12.html
         - text: "Código 1.2"  
           href: codigo12.html
+        - text: "Caso 1"  
+          href: caso1.html          
         - text: "--------"       
         - text: "Monitoria 1"  
           href: monitoria1.html       

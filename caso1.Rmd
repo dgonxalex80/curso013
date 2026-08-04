@@ -1,6 +1,6 @@
 ---
-title: " "  
-subtitle: " " 
+title: " "
+subtitle: " "
 author: "dgonzalez "
 output:
   html_document:
@@ -10,7 +10,7 @@ output:
     code_folding: hide
     theme: flatly
     css: style.css
----     
+---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE, comment = NA)
@@ -40,71 +40,85 @@ source("init.R")
 ```
 
 ```{r, echo=FALSE, out.width="100%", fig.align = "center"}
-knitr::include_graphics("img/modulo1.png")
+knitr::include_graphics("img/caso1.png")
 ```
 
 <br/><br/>
 
-## **Enunciado**
+# Enunciado
+
+<br/>
 
 <!-- ![](img/cerveza.png) -->
 
-La base de datos **beer** contiene 69 registros, uno por cada marca de cerveza, y 6 variables. No presenta datos faltantes. Su propósito es describir y comparar las principales características comerciales y nutricionales de los productos.
+La presente investigación surge del interés de una empresa del sector cervecero por comprender las preferencias expresadas por los consumidores y reconocer qué características de las cervezas se relacionan con mejores valoraciones. Conocer las diferencias según el tipo, el origen, la composición nutricional, el precio y los atributos sensoriales puede aportar evidencia para orientar la selección del portafolio, la comunicación de los productos y futuras decisiones comerciales. En esta primera aproximación se realizará un análisis descriptivo; por tanto, los resultados permitirán identificar patrones y formular nuevas hipótesis, pero no establecer relaciones causales.
 
-El director de investigación solicita su apoyo en la primera etapa del estudio, que consiste en resumir la información mediante tablas e indicadores estadísticos para evaluar sus hipótesis iniciales.
+Para desarrollar el estudio se dispone de la base de datos **beer2.csv**, que contiene **1.586.614 reseñas de cerveza** y **15 variables**. Cada fila corresponde a una reseña; por esta razón, una misma cerveza puede aparecer en varios registros. La base no presenta datos faltantes y reúne información de identificación, características nutricionales, procedencia y valoraciones de los productos. La variable `precio` es simulada.
 
 La composición de la base de datos es la siguiente:  
 
-+ <span style="color:#b0394a">**marca**</span>: variable cualitativa nominal que identifica cada marca de cerveza (69 categorías).
++ <span style="color:#b0394a">**id**</span>: identificador numérico de la cerveza reseñada. Sirve para reconocer el producto y no constituye una variable estadística de interés.
 
-+ <span style="color:#b0394a">**precio**</span>: variable cuantitativa que registra el precio de una caja de seis botellas de 12 onzas.
++ <span style="color:#b0394a">**marca**</span>: variable cualitativa nominal que identifica la cervecería o marca productora.
 
-+ <span style="color:#b0394a">**calorias**</span>: variable cuantitativa que indica la cantidad de calorías contenidas en una botella de 12 onzas.
++ <span style="color:#b0394a">**precio**</span>: variable cuantitativa continua, simulada, que registra el precio de referencia de una caja de seis botellas de 355 ml.
 
-+ <span style="color:#b0394a">**poralcoh**</span>: variable cuantitativa que representa el porcentaje de alcohol por volumen.
++ <span style="color:#b0394a">**alcohol**</span>: variable cuantitativa continua que indica los gramos de alcohol puro contenidos en 355 ml de cerveza.
 
-+ <span style="color:#b0394a">**tipo**</span>: variable cualitativa nominal codificada en cinco categorías: 1 = lager artesanal, 2 = clara artesanal, 3 = lager importada, 4 = cerveza normal y helada, y 5 = cerveza baja en calorías o sin alcohol.
++ <span style="color:#b0394a">**carbohidratos**</span>: variable cuantitativa continua que estima los gramos de carbohidratos contenidos en 355 ml.
 
-+ <span style="color:#b0394a">**origen**</span>: variable cualitativa nominal dicotómica que identifica la procedencia de la cerveza: 0 = importada y 1 = nacional.
++ <span style="color:#b0394a">**calorias**</span>: variable cuantitativa discreta que estima las calorías totales contenidas en 355 ml.
 
-Su trabajo consiste en elaborar un informe descriptivo que incluya tablas de frecuencias para las variables cualitativas, indicadores estadísticos apropiados para las variables cuantitativas y una interpretación de los resultados obtenidos.
++ <span style="color:#b0394a">**nacionalidad**</span>: variable cualitativa nominal que indica el país asignado a la cervecería.
+
++ <span style="color:#b0394a">**calificacion**</span>: variable cualitativa ordinal que valora la experiencia general con la cerveza mediante una puntuación numérica.
+
++ <span style="color:#b0394a">**aroma**</span>: variable cualitativa ordinal que valora el aroma de la cerveza.
+
++ <span style="color:#b0394a">**apariencia**</span>: variable cualitativa ordinal que valora la apariencia de la cerveza.
+
++ <span style="color:#b0394a">**paladar**</span>: variable cualitativa ordinal que valora la sensación de la cerveza en el paladar.
+
++ <span style="color:#b0394a">**sabor**</span>: variable cualitativa ordinal que valora el sabor de la cerveza.
+
++ <span style="color:#b0394a">**nombre_cerveza**</span>: variable cualitativa nominal que registra el nombre comercial de la cerveza reseñada.
+
++ <span style="color:#b0394a">**tipo**</span>: variable cualitativa nominal que clasifica el producto como cerveza normal y helada, baja en calorías o sin alcohol, lager importada, clara artesanal o lager artesanal.
+
++ <span style="color:#b0394a">**origen**</span>: variable cualitativa nominal dicotómica que clasifica la cerveza como nacional o importada.
+
+El director de investigación le encarga, en calidad de analista de datos, elaborar un informe descriptivo que sirva como diagnóstico inicial. Para las variables cualitativas y ordinales deberá construir tablas de frecuencias absolutas y relativas e identificar la moda; para las variables cuantitativas deberá calcular indicadores de tendencia central, posición y dispersión, seleccionando aquellos que resulten apropiados según la distribución observada. También deberá comparar los indicadores entre tipos y orígenes de cerveza e interpretar los resultados en relación con el propósito de la investigación. El informe debe señalar los principales patrones encontrados, advertir que las variables simuladas describen únicamente esta base académica y evitar conclusiones causales.
 
 <br/><br/>
 
-## **Cargar datos** 
+# Cargar datos 
 
-
-<pre>
-install.packages("devtools") # solo una vez
-devtools::install_github("dgonxalex80/paqueteDEG") # descarga paqueteDEG
-library(paqueteDEG) # activa paqueteDEG
-data("beer", package = "paqueteDEG") # carga la base beer
-
-# Opcional: guarda una copia del CSV en la carpeta de trabajo
-descargar_beer("beer.csv")
-</pre>
+<br/>
 
 ```{r, eval=FALSE}
-install.packages("devtools") # solo una vez
-devtools::install_github("dgonxalex80/paqueteDEG") # descarga paqueteDEG
-library(paqueteDEG) # activa paqueteDEG
-data("beer", package = "paqueteDEG") # carga la base beer
-
-# Opcional: guarda una copia del CSV en la carpeta de trabajo
-descargar_beer("beer.csv")
+library(readr)
+beer2 <- read_csv("data/beer2.csv")
 ```
+
+<pre>
+library(readr)
+beer2 &lt;- read_csv("data/beer2.csv")
+</pre>
 
 <br/><br/>
 
-## **Base de datos**
+## Base de datos
+
+<br/>
+
 ```{r}
 library(DT)
 # Cargar los datos
-library(paqueteDEG)
-data("beer", package = "paqueteDEG")
+library(readr)
+beer2 <- read_csv("data/beer2.csv")
 # Mostrar la tabla con DataTable
 DT::datatable(
-  head(beer),
+  head(beer2),
   fillContainer = FALSE,
   options = list(pageLength = 8)
 )
@@ -112,38 +126,34 @@ DT::datatable(
 ```
 <br/>
 
-<center>
-<iframe width="560" height="315" src="https://www.youtube.com/embed/lVQ5MjSpi4E?si=Rlta13udaInGPPQj" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-</center>
+<!-- <br/><br/> -->
+<!-- " frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-sh -->
+<!-- <center> -->
+<!-- <iframe width="560" height="315" src="https://www.youtube.com/embed/lVQ5MjSpi4E?si=Rlta13udaInGPPQj" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe> -->
+<!-- </center> -->
+
+
+<!-- <br/><br/> -->
+
+<!-- <center> -->
+<!-- <iframe width="560" height="315" src="https://www.youtube.com/embed/sAwkejZDgBk?si=ITGRZE1g5hh96ZUg" title="YouTube video playerare" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe> -->
+<!-- </center> -->
+
+
+<!-- <br/><br/> -->
+
+<!-- ## [Tablero](https://rpubs.com/dgonzalez80/caso1) -->
+
+<!-- <br/> -->
+
+
+<!-- ## [Flexdashboard](https://rstudio.github.io/flexdashboard/articles/using.html)  -->
+
+
+<!-- <br/> -->
+
+
+<!-- ## [icons](https://ionic.io/ionicons/v2/cheatsheet.html) -->
 
 
 <br/><br/>
-
-<center>
-<iframe width="560" height="315" src="https://www.youtube.com/embed/sAwkejZDgBk?si=ITGRZE1g5hh96ZUg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-</center>
-
-
-<br/><br/>
-
-<center>
-
-</center>
-
-
-### [**Tablero**](https://rpubs.com/dgonzalez80/caso1)
-
-<br/>
-
-
-### [**Flexdashboard**](https://rstudio.github.io/flexdashboard/articles/using.html) 
-k
-
-
-<br/>
-
-
-### [**icons**](https://ionic.io/ionicons/v2/cheatsheet.html)
-
-
-
