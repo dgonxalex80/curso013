@@ -190,3 +190,68 @@ blockquote {
   h1 { margin-top: 0.5rem; }
   h2 { margin-top: 0.6rem; }
 }
+
+
+/* Tablas y banners alineados con el curso018 */
+:root {
+  --curso-fondo: #F7F7F7;
+  --curso-borde: #DDE3EA;
+}
+
+/* Banners de apertura */
+.main-container img[src^="img/estadistica."],
+.main-container img[src^="img/modulo"],
+.main-container img[src^="img/guia"],
+.main-container img[src^="img/codigo"],
+.main-container img[src^="img/recurso"],
+.main-container img[src^="img/monitoria"],
+.main-container img[src^="img/proyecto."] {
+  display: block;
+  max-width: 100% !important;
+  height: auto !important;
+  margin-right: auto !important;
+  margin-left: auto !important;
+  border-radius: 12px !important;
+  clip-path: inset(0 round 12px) !important;
+}
+
+/* Tablas */
+.main-container table {
+  width: 100%;
+  margin: 2rem 0;
+  border-collapse: separate;
+  border-spacing: 0;
+  border: 1px solid var(--curso-borde);
+  border-radius: 8px;
+  overflow: hidden;
+}
+.main-container thead {
+  color: #fff;
+  background: var(--module-color, #2C5697);
+}
+.main-container th { font-weight: 700; }
+.main-container th,
+.main-container td {
+  padding: .75rem .9rem !important;
+  vertical-align: top !important;
+}
+.main-container tbody tr:nth-child(even) {
+  background: var(--curso-fondo);
+}
+
+@media (max-width: 767px) {
+  .main-container table {
+    display: block;
+    overflow-x: auto;
+    white-space: normal;
+  }
+}
+
+
+/* Imágenes de contenido con esquinas redondeadas, como en curso018 */
+.main-container .figure img,
+.main-container .figure-img,
+.main-container p > img:only-child {
+  border-radius: 8px !important;
+  clip-path: inset(0 round 8px);
+}

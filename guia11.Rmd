@@ -1,16 +1,14 @@
 ---
-title: <span style="color:#E85A67">Teoría de Probabilidades</span>
-author: <span style="color:#E85A67">dgonzalez</span>
-subtitle: " "
+title: <span style="color:#f9ceca"> </span>  
+author: <span style="color:#f9ceca">dgonzalez</span> 
+subtitle: <span style="color:#f9ceca"> </span> 
 output:
   html_document:
     toc: no
     toc_depth: 2
     toc_float: yes
+    code_folding: hide
     theme: flatly
-    css:
-      - style.css
-      - guia-aprendizaje.css
 ---
 
 
@@ -30,14 +28,9 @@ if (file.exists("img/recurso1.png")) knitr::include_graphics("img/guia1.png")
 ```
 
 
-
-<br/><br/>
-
-
 <br/><br/>
 
 # Introducción
-
 
 
 En esta unidad se  presenta  la **Metodología Estadística** como  estrategia que  permite  visualizar las diferentes etapas presentes en una investigación  o análisis de  datos :

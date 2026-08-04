@@ -1,0 +1,117 @@
+---
+title:  " "
+subtitle: "Estadística para la toma de decisiones"
+author: "dgonzalez"
+output:
+  html_document:
+    toc: no
+    toc_depth: 2
+    toc_float: yes
+    code_folding: hide
+    theme: flatly
+    css: style.css
+---
+
+  
+
+
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,comment = NA)
+library(ggplot2)
+
+
+
+
+## colores
+source("colores.R")
+```
+
+<br/><br/>
+
+
+
+```{r, echo=FALSE, out.width="100%", fig.align = "center"}
+knitr::include_graphics("img/guia1.png")
+```
+
+
+<br/><br/>
+
+
+## **Introducción**
+
+La representación gráfica de información constituye una de las herramientas mas importantes de la estadística. Con ella podemos observar lo  ocurrido  en  el pasado, el  presente y lo que  podría ocurrir en el futuro y de esta forma orientar nuestras decisiones. 
+
+Es necesario realizar una  correcta visualización de los datos y para ello requerimos seleccionar la gráfica o representación apropiada, conociendo el tipo de variable, su escala de medición y sobre todo lo que queremos resaltar en ella. 
+
+Las gráficas pueden formar parte de un informe en un estudio, para lo cual es necesario conocer los lineamientos exigidos por las normas que los rigen AP, EEE, entre otros. En todos los casos los gráficos deben tener una  enumeración que los permita citar, titulo que permita visualizar lo que están  representando, fuente,  que indique de donde  son extraídos los datos que  la originan. En esta unidad se trataran las diferentes  formas de visualización de datos.
+
+<br/><br/>
+
+## **Objetivos de la unidad**
+
+Al finalizar la unidad los estudiantes estarán  en  capacidad de  RECONOCER los  tipos de gráficos estadísticos y podrán REPRESENTAR e INTERPRETAR  información a  través  de las diferentes formas, que les permita complementar un  análisis de datos estadístico.
+
+<br/><br/>
+
+## **Duración**
+
+La presente unidad será desarrollada durante la tercera semana del semestre. Además del material suministrado, contarán con el acompañamiento del profesor en las sesiones y, de manera asincrónica, en las actividades de apoyo. Los entregables para esta unidad podrán enviarse a través de la plataforma Brightspace hasta el 16 de febrero.
+
+Para alcanzar los objetivos planteados se propone realizar las siguientes actividades
+
+<br/><br/>
+
+## **Cronograma de trabajo**
+
+
+|Actividad 131   | Descripción                 | 
+|:--------------|:-----------------------------|
+|Trabajo individual | A partir de la base de datos trabajada en las dos unidades anteriores construya un **tablero** (Dashboard)  que contenga gráficos e indicadores estaísticos  de las variables contenidas  en la base de datos seleccionada en la Actividad 112 de la unidad 1.1. Realice una descripción con los resultados obtenidos en el tablero. |
+| Recurso       |  Código 13.R  y TableroM1 |
+|               | [flexdashboard](https://rstudio.github.io/flexdashboard/index.html)|
+|               | [Rmarkdown](https://rstudio.github.io/cheatsheets/html/rmarkdown.html) |
+|               | [ggplot2](https://rstudio.github.io/cheatsheets/html/data-visualization.html) |
+|Fecha  | 16  de febrero de 2026  |
+|Hora   | 23:59 hora local |
+
+|Actividad 132   | Descripción                   | 
+|:--------------|:-----------------------------  |
+|Trabajo equipo|  Deben construir un **mapa mental** del *Módulo 1*  que resuma los conceptos más importantes del Módulo 1. El mapa debe ser construido a mano en medio pliego de cartulina. Los equipos podrán estar conformados por 3  estudiantes - Se sugiere que cada estudiante lleve su mapa mental como aporte a la construcción colectiva |
+|Fecha  | **18 de febrero de 2026** - al finalizar la sesión|
+|Hora   | al final de la sesión |
+
+<br/><br/>
+
+## **Criterios de evaluación**
+
++ Reconocer los principales elementos de un  análisis descriptivo de datos y su incidencia en la toma de decisiones.
+
++ Reconocer e identificar los diferentes tipos de representaciones gráficas y sus respectivas interpretación.
+
++ Utilizar herramientas computacionales para el procesamiento de la información.
+
+<br/><br/>
+
+## **Entregables** 
+
+
+| Entregable    | Descripción                   | 
+|:--------------|:------------------------------|
+| Actividad131  | Tablero Acompañado de descripción de los resultados |
+| Fecha         | 16  de febrero de 2026             |
+|Hora límite    | 23:59  hora  local            |
+|Activiada132   | Mapa mental |
+|Fecha          | **18 de febrero de  2026**         |
+|Hora límite    | al finalizar la sesión        |
+|               |                               |
+
+<br/><br/><br/><br/>
+
+
+
+
+
+

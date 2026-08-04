@@ -1,0 +1,93 @@
+---
+title: <span style="color:#E85A67">Teoría de Probabilidades</span>
+author: <span style="color:#E85A67">dgonzalez</span>
+subtitle: " "
+output:
+  html_document:
+    toc: no
+    toc_depth: 2
+    toc_float: yes
+    theme: flatly
+    css:
+      - style.css
+      - guia-aprendizaje.css
+---
+
+
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,comment = NA)
+library(ggplot2)
+
+# colores
+source("init.R")
+```
+
+
+```{r, echo=FALSE, out.width="100%", fig.align = "center"}
+if (file.exists("img/recurso1.png")) knitr::include_graphics("img/guia1.png")
+```
+
+
+
+<br/><br/>
+
+
+<br/><br/>
+
+# Introducción
+
+
+
+
+
+<br/><br/>
+
+# Objetivos de la unidad
+
+
+
+
+
+<br/><br/>
+
+# Duración
+
+
+
+<br/><br/>
+
+# Cronograma de trabajo
+
+
+
+|Actividad      | Descripción                    | 
+|:--------------|:-----------------------------  |
+|Individual     |                                |
+| Fecha         | 4 de agosto de 2026            |
+| Hora          | 23:59                          |
+
+
+
+<br/><br/>
+
+# Criterios de evaluación
+
+
+<br/><br/>
+
+# Entregables 
+
+
+
+| Entregable       |  Descripción                 |
+|:-----------------|:-----------------------------|
+|**actividad.pdf** | Documento que contenga:      |
+|                  |                              |
+|**Fecha**         | 5 de agosto  2026            |
+|**Hora límite**   | 23:59  hora  local           |
+|||
+
+
+<br/><br/>

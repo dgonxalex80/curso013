@@ -1,0 +1,1238 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="dgonzalez" />
+
+
+<title> </title>
+
+<script src="site_libs/header-attrs-2.31/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/tabwid-1.1.3/tabwid.css" rel="stylesheet" />
+<script src="site_libs/tabwid-1.1.3/tabwid.js"></script>
+<link href="site_libs/font-awesome-6.5.2/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html"> </a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">
+    <span class="fa fa-home"></span>
+     
+    Estadística
+  </a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 0
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo0.html">Módulo 0</a>
+    </li>
+    <li>
+      <a href="sumatoria.html">Sumatoria</a>
+    </li>
+    <li>
+      <a href="productoria.html">Productoria</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 1
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo1.html">Módulo 1</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="guia11.html">Guía 1.1</a>
+    </li>
+    <li>
+      <a href="recurso11.html">Recursos 1.1</a>
+    </li>
+    <li>
+      <a href="basesdatos.html">Bases de datos</a>
+    </li>
+    <li>
+      <a href="introduccionR.html">Introducción a R</a>
+    </li>
+    <li>
+      <a href="codigo11.html">Código 1.1</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="guia12.html">Guía 1.2</a>
+    </li>
+    <li>
+      <a href="recurso12.html">Recursos 1.2</a>
+    </li>
+    <li>
+      <a href="codigo12.html">Código 1.2</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="monitoria1.html">Monitoria 1</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 2
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo2.html">Módulo 2</a>
+    </li>
+    <li class="divider"></li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 3
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo3.html">Módulo 3</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 4
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo4.html">Módulo 4</a>
+    </li>
+    <li class="divider"></li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Proyecto
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="enconstruccion.html">Guía proyecto</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore"><span style="color#f9ceca"> </span></h1>
+<h3 class="subtitle"><span style="color:#f9ceca"> </span></h3>
+<h4 class="author"><span style="color:#f9ceca">dgonzalez</span></h4>
+
+</div>
+
+
+<p><img src="img/codigo1.png" alt="" width="100%" style="display: block; margin: auto;" />
+<br/><br/></p>
+<div id="introducción" class="section level1">
+<h1>Introducción</h1>
+<p><br/></p>
+<p>Al tener una base de datos se requiere resumirlos en una tabla o en
+indicadores que faciliten su análisis, dependiendo el tipo de variable (
+cualitativas o cuantitativas) la tabla puede tener diferentes
+columnas.</p>
+<p>En el caso de los indicadores las variables cualitativas se les
+resumen en el nivel con mayor frecuencias a la que se le llama
+<strong>MODA</strong></p>
+<p>Las variables cuantitativas tiene un gran número de indicadores que
+se dividien en tres categorias:</p>
+<ul>
+<li>Indicadores de tendencia central</li>
+<li>Indicadores de dispersión</li>
+<li>Indicadores de forma</li>
+</ul>
+<p>A continuación se indica como realizar el proceso utilizando RStudio,
+bajo el supuesto que se cuenta con una base de datos que se ha importado
+en RStudio.</p>
+<p><br/><br/></p>
+<p><img src="img/summarytools.png" width="90">
+<img src="img/flextable.png" width="90">
+<img src="img/gt.png" width="120"></p>
+<p><br/><br/></p>
+<div id="instalación-de-summarytools" class="section level2">
+<h2>Instalación de summarytools</h2>
+<p>Uno de los paquetes de R utilizados para la construcción de tablas de
+frecuencia e indicadores descriptivos es summarytools, a continuación se
+comparte código para su instalación :</p>
+<p><br/></p>
+<pre>
+install.packages("remotes")        # se puede también utilizar el paquete devtools
+library(remotes)
+install_github("rapporter/pander") # repositorio recomendado
+install_github("dcomtois/summarytools", build_vignettes = TRUE)
+</pre>
+<pre class="r"><code># install.packages(&quot;remotes&quot;)        # se puede también utilizar el paquete devtools
+# library(remotes)
+# install_github(&quot;rapporter/pander&quot;) # repositorio recomendado
+# install_github(&quot;dcomtois/summarytools&quot;, build_vignettes = TRUE)</code></pre>
+<p><br/><br/></p>
+</div>
+</div>
+<div id="tablas-de-frecuencia" class="section level1">
+<h1>Tablas de frecuencia</h1>
+<p>Resumir los datos en tablas facilita su análisis y también su
+representación gráfica. Varios gráficos están basados en tablas de
+frecuencia como veremos en la unidad 1.3</p>
+<p><br/></p>
+<div id="tablas-variables-cualitativas" class="section level2">
+<h2>Tablas variables cualitativas</h2>
+<p>Iniciaremos con la construcción de tablas para variables cualitativas
+en escala nominal. Recordemos que las variables medidas en esta escala
+no presentan orden especial y en algunos casos son ordenadas de mayor a
+menor frecuencia</p>
+<p>Utilizaremos en este caso la función <code>table()</code></p>
+<pre class="r"><code>table(clientes$categoria_preferida)</code></pre>
+<pre><code>
+  Alimentos    Deportes Electrónica       Hogar        Ropa 
+        199         210         215         206         170 </code></pre>
+<p><br/></p>
+<pre class="r"><code>#install.packages(&quot;AER&quot;)
+library(AER)
+
+data(&quot;BankWages&quot;)
+table(BankWages$job)</code></pre>
+<pre><code>
+custodial     admin    manage 
+       27       363        84 </code></pre>
+<p><br/></p>
+<pre class="r"><code>library(readxl)
+ventas &lt;- read_excel(&quot;data/ventas.xlsx&quot;)
+table(ventas$Metodo_Pago)</code></pre>
+<pre><code>
+American Express         Discover       MasterCard        Star Card 
+               4                8               28              140 
+            Visa 
+              20 </code></pre>
+<p><br/></p>
+<p>En todos los casos podemos elaborar una tabla acompañada con los
+porcentajes (frecuencia relativa)</p>
+<p><br/></p>
+<div id="paquete-flextable" class="section level3">
+<h3>Paquete flextable</h3>
+<pre class="r"><code># install.packages(&quot;flextable&quot;)
+library(flextable)</code></pre>
+<pre class="r"><code>ft1=table(ventas$Metodo_Pago)%&gt;% 
+        as.data.frame()
+colnames(ft1)=c(&quot;Tipo de tarjeta&quot;, &quot;Frecuencia Absoluta&quot;)
+ft1=flextable(ft1)
+
+set_flextable_defaults(
+  font.size = 10, font.family = &quot;Helvetica&quot;,
+  font.color = &quot;#333333&quot;,
+  table.layout = &quot;fixed&quot;,
+  border.color = &quot;gray&quot;,
+  padding.top = 3, padding.bottom = 3,
+  padding.left = 4, padding.right = 4)
+
+ft1 &lt;- ft1 %&gt;%
+    width(j = 1,  width = 2) %&gt;%
+    width(j = 2, width = 1)
+ft1</code></pre>
+<div class="tabwid"><style>.cl-fcc3f300{}.cl-fcba453a{font-family:'DejaVu Sans';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-fcbe52f6{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-fcbe5314{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-fcbe8a64{width:2in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-fcbe8a78{width:1in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-fcbe8a8c{width:2in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-fcbe8aa0{width:1in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-fcbe8abe{width:2in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-fcbe8afa{width:1in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing='true' class='cl-fcc3f300'><thead><tr style="overflow-wrap:break-word;"><th class="cl-fcbe8a64"><p class="cl-fcbe52f6"><span class="cl-fcba453a">Tipo de tarjeta</span></p></th><th class="cl-fcbe8a78"><p class="cl-fcbe5314"><span class="cl-fcba453a">Frecuencia Absoluta</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-fcbe8a8c"><p class="cl-fcbe52f6"><span class="cl-fcba453a">American Express</span></p></td><td class="cl-fcbe8aa0"><p class="cl-fcbe5314"><span class="cl-fcba453a">4</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-fcbe8a8c"><p class="cl-fcbe52f6"><span class="cl-fcba453a">Discover</span></p></td><td class="cl-fcbe8aa0"><p class="cl-fcbe5314"><span class="cl-fcba453a">8</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-fcbe8a8c"><p class="cl-fcbe52f6"><span class="cl-fcba453a">MasterCard</span></p></td><td class="cl-fcbe8aa0"><p class="cl-fcbe5314"><span class="cl-fcba453a">28</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-fcbe8a8c"><p class="cl-fcbe52f6"><span class="cl-fcba453a">Star Card</span></p></td><td class="cl-fcbe8aa0"><p class="cl-fcbe5314"><span class="cl-fcba453a">140</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-fcbe8abe"><p class="cl-fcbe52f6"><span class="cl-fcba453a">Visa</span></p></td><td class="cl-fcbe8afa"><p class="cl-fcbe5314"><span class="cl-fcba453a">20</span></p></td></tr></tbody></table></div>
+<p><br/></p>
+<p>El resultado corresponde a un conteo de cada uno de los valores de la
+variable. En caso de que se requiera calcular la proporción que
+corresponde cada caso utilizamos la función : <code>prop.table()</code>
+y se la aplicamos a la tabla anterior</p>
+<p><br/><br/></p>
+<pre class="r"><code>ft2=table(ventas$Metodo_Pago)%&gt;%
+       prop.table() %&gt;% 
+          as.data.frame()
+colnames(ft2)=c(&quot;Tipo de tarjeta&quot;, &quot;Frecuencia relativa&quot;)
+ft2=flextable(ft2)
+
+set_flextable_defaults(
+  font.size = 10, font.family = &quot;Helvetica&quot;,
+  font.color = &quot;#333333&quot;,
+  table.layout = &quot;fixed&quot;,
+  border.color = &quot;gray&quot;,
+  padding.top = 3, padding.bottom = 3,
+  padding.left = 4, padding.right = 4)
+
+ft2 &lt;- ft2 %&gt;%
+    width(j = 1,  width = 2) %&gt;%
+    width(j = 2, width = 1)
+ft2</code></pre>
+<div class="tabwid"><style>.cl-fcd7388e{}.cl-fcd02f9e{font-family:'Helvetica';font-size:10pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(51, 51, 51, 1.00);background-color:transparent;}.cl-fcd344b8{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:3pt;padding-top:3pt;padding-left:4pt;padding-right:4pt;line-height: 1;background-color:transparent;}.cl-fcd344d6{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:3pt;padding-top:3pt;padding-left:4pt;padding-right:4pt;line-height: 1;background-color:transparent;}.cl-fcd36ea2{width:2in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(190, 190, 190, 1.00);border-top: 1.5pt solid rgba(190, 190, 190, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-fcd36eb6{width:1in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(190, 190, 190, 1.00);border-top: 1.5pt solid rgba(190, 190, 190, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-fcd36eca{width:2in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-fcd36ed4{width:1in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-fcd36ef2{width:2in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(190, 190, 190, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-fcd36f06{width:1in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(190, 190, 190, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing='true' class='cl-fcd7388e'><thead><tr style="overflow-wrap:break-word;"><th class="cl-fcd36ea2"><p class="cl-fcd344b8"><span class="cl-fcd02f9e">Tipo de tarjeta</span></p></th><th class="cl-fcd36eb6"><p class="cl-fcd344d6"><span class="cl-fcd02f9e">Frecuencia relativa</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-fcd36eca"><p class="cl-fcd344b8"><span class="cl-fcd02f9e">American Express</span></p></td><td class="cl-fcd36ed4"><p class="cl-fcd344d6"><span class="cl-fcd02f9e">0.02</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-fcd36eca"><p class="cl-fcd344b8"><span class="cl-fcd02f9e">Discover</span></p></td><td class="cl-fcd36ed4"><p class="cl-fcd344d6"><span class="cl-fcd02f9e">0.04</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-fcd36eca"><p class="cl-fcd344b8"><span class="cl-fcd02f9e">MasterCard</span></p></td><td class="cl-fcd36ed4"><p class="cl-fcd344d6"><span class="cl-fcd02f9e">0.14</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-fcd36eca"><p class="cl-fcd344b8"><span class="cl-fcd02f9e">Star Card</span></p></td><td class="cl-fcd36ed4"><p class="cl-fcd344d6"><span class="cl-fcd02f9e">0.70</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-fcd36ef2"><p class="cl-fcd344b8"><span class="cl-fcd02f9e">Visa</span></p></td><td class="cl-fcd36f06"><p class="cl-fcd344d6"><span class="cl-fcd02f9e">0.10</span></p></td></tr></tbody></table></div>
+<p><br/></p>
+<p>Si utilizamos la función <code>freq</code> del paquete
+<code>summarytools</code>, la salida es una tabla más elaborada</p>
+<p><br/></p>
+<pre class="r"><code>summarytools::freq(ventas$Metodo_Pago, cumul = F)</code></pre>
+<pre>
+Show in New Window
+Frequencies  
+ventas$Metodo_Pago  
+Type: Character  
+
+                         Freq   % Valid   % Total
+---------------------- ------ --------- ---------
+      American Express      4      2.00      2.00
+              Discover      8      4.00      4.00
+            MasterCard     28     14.00     14.00
+             Star Card    140     70.00     70.00
+                  Visa     20     10.00     10.00
+                  <NA>      0                0.00
+                 Total    200    100.00    100.00
+</pre>
+<p><br/><br/></p>
+</div>
+</div>
+<div id="tablas-variables-cuantitativas" class="section level2">
+<h2>Tablas variables cuantitativas</h2>
+<p><br/></p>
+<p>Para el caso de las variables cuantitativas que presentan muchos
+valores difentes construir una tabla como las anteriores no tiene
+sentido, pues salen muchas categorias probablemente con frecuencia
+uno.</p>
+<p>En este caso es necesario construir rangos que den sentido y que
+permitan resumir la información para una facil interpretación.</p>
+<p>El ejemplo a continuación da cuenta de ello.</p>
+<p>Supongamos que queremos analizar la variable edad y para ello debemos
+establecer los limites y cuantos intervalo vamos aconstruir. En este
+caso tenemos tres alternativas posible_</p>
+<ol style="list-style-type: decimal">
+<li>Tomar los intervalos construidos en un estudio anterior con cual
+queremos comparar los nuestros</li>
+<li>Tomar intervalos de acuerdo a estudios anteriores o teorías sobre el
+tema</li>
+<li>Tomar intervalos de igual longitud. En este caso existen diferentes
+alternativas para establecer el número de intervalos a construir. Uno de
+ellos indica como respuesta a este interrogante la fórmula construida
+por Sturgues (se puede conocer mediante la función
+nclass.Sturges(variable)) que es utilizada por otras funciones en R</li>
+</ol>
+<p>En el caso de la variable Edad podríamos proceder así:</p>
+<p><br/><br/></p>
+<pre class="r"><code> clientes$edadR &lt;- NA_character_
+ clientes$edadR[clientes$edad_cliente&lt;=20]&lt;-&quot;1. (18  a 20  años]&quot;
+ clientes$edadR[clientes$edad_cliente&gt;20.1 &amp;  clientes$edad_cliente&lt;=30]&lt;-&quot;2. (20 a 30 años]&quot;
+ clientes$edadR[clientes$edad_cliente&gt;30.1 &amp;  clientes$edad_cliente&lt;=40]&lt;-&quot;3. (30 a 40 años]&quot; 
+ clientes$edadR[clientes$edad_cliente&gt;40.1 &amp;  clientes$edad_cliente&lt;=50]&lt;-&quot;4. (40 a 50 años]&quot;
+ clientes$edadR[clientes$edad_cliente&gt;50.1 &amp;  clientes$edad_cliente&lt;=60]&lt;-&quot;5. (50 a 60 años]&quot;
+ clientes$edadR[clientes$edad_cliente&gt;60.1]&lt;-&quot;6. (Más de 60 años]&quot;
+summarytools::freq(clientes$edadR)</code></pre>
+<pre>
+Frequencies  
+clientes$edadR  
+Type: Character  
+
+                            Freq   % Valid   % Valid Cum.   % Total   % Total Cum.
+------------------------- ------ --------- -------------- --------- --------------
+      1. (18  a 20  años]     61      6.10           6.10      6.10           6.10
+       2. (20 a 30 años]    193     19.30          25.40     19.30          25.40
+        3. (30 a 40 años]    167     16.70          42.10     16.70          42.10
+        4. (40 a 50 años]    205     20.50          62.60     20.50          62.60
+        5. (50 a 60 años]    197     19.70          82.30     19.70          82.30
+      6. (Más de 60 años]    177     17.70         100.00     17.70         100.00
+                     <NA>      0                               0.00         100.00
+                    Total   1000    100.00         100.00    100.00         100.00
+</pre>
+<p>Esta tabla nos permite identificar los rangos de mayor frecuencia</p>
+<p>También podemos realizar una tabla sin tener que realizar la
+recodificación. Esto se logra con la función <strong>hist()</strong></p>
+<p><br/><br/></p>
+<pre class="r"><code>h=hist(clientes$edad_cliente)</code></pre>
+<p><img src="codigo12_files/figure-html/unnamed-chunk-11-1.png" alt="" width="672" /></p>
+<pre class="r"><code>h$breaks   # puntos de corte</code></pre>
+<pre><code> [1] 15 20 25 30 35 40 45 50 55 60 65 70</code></pre>
+<pre class="r"><code>h$counts   # frecuencias absolutas en cada intervalo</code></pre>
+<pre><code> [1]  61  83 110  88  79  99 106  99  98 105  72</code></pre>
+<pre class="r"><code>h$density  # densidad en cada intervalo</code></pre>
+<pre><code> [1] 0.0122 0.0166 0.0220 0.0176 0.0158 0.0198 0.0212 0.0198 0.0196 0.0210
+[11] 0.0144</code></pre>
+<p>Sería de interés también construir una tabla con las edades de las
+personas fallecidas por covid en Colombia, para lo cual debemos primero
+seleccionar la base de datos de las fallecidas y luego construir la
+tabla.</p>
+<p>En este caso vamos a seleccionar los rangos de edad y luego
+construimos la tabla</p>
+<pre class="r"><code>clientes_jovenes=subset(clientes, edad_cliente&lt;30)
+breaks=seq(17,30, by=4)
+Edad.jovenes=cut(clientes_jovenes$edad_cliente, breaks)
+table(Edad.jovenes, useNA = &quot;ifany&quot;)</code></pre>
+<pre><code>Edad.jovenes
+(17,21] (21,25] (25,29] 
+     75      69      80 </code></pre>
+<p><br/><br/></p>
+<p><br/><br/></p>
+</div>
+<div id="tablas-de-doble-entrada" class="section level2">
+<h2>Tablas de doble entrada</h2>
+<pre class="r"><code>#CAMBIAR DATA----------------------------------------
+table(clientes$genero_cliente, clientes$categoria_preferida)</code></pre>
+<pre><code>           
+            Alimentos Deportes Electrónica Hogar Ropa
+  Femenino         79       77          78    79   68
+  Masculino       105      118         108   108   89
+  Otro             15       15          29    19   13</code></pre>
+<pre class="r"><code>tabla1=table(clientes$edadR,clientes$categoria_preferida ) %&gt;% 
+            prop.table()*100 
+            
+                         
+tabla1</code></pre>
+<pre><code>                     
+                      Alimentos Deportes Electrónica Hogar Ropa
+  1. (18 a 20 años]         1.3      1.0         1.3   1.2  1.3
+  2. (20 a 30 años]         3.6      4.0         4.6   4.0  3.1
+  3. (30 a 40 años]         3.7      4.3         3.5   3.2  2.0
+  4. (40 a 50 años]         4.0      3.4         4.4   5.1  3.6
+  5. (50 a 60 años]         4.2      4.0         4.2   3.9  3.4
+  6. (Más de 60 años]       3.1      4.3         3.5   3.2  3.6</code></pre>
+<p><br/><br/></p>
+</div>
+</div>
+<div id="indicadores-descriptivos" class="section level1">
+<h1>Indicadores descriptivos</h1>
+<p>Un indicador es un número que resume o representa un grupo de
+valores. El poder resumir una gran cantidad de valores en unos pocos
+facilita realizar un análisis de ellos.</p>
+<p>En el caso de las variables cualitativas en escala nominal, se pueden
+representar por el valor más frecuente. A este valor se le conoce como
+<strong>Moda</strong> y lo podemos ver claramente en una tabla de
+frecuencias.</p>
+<p>En el caso de las variables cuantitativas tenemos varias alternativas
+para construirlos</p>
+<p>Utilizando la función <code>summary</code> :</p>
+<pre class="r"><code>#CAMBIAR DATA----------------------------------------
+summary(clientes$ingresos)</code></pre>
+<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  30000   82072  108972  103606  127957  150000 </code></pre>
+<p><br/><br/></p>
+<p>Utilizando la función describe del paquete psych:</p>
+<pre class="r"><code>#CAMBIAR DATA----------------------------------------
+psych::describe(clientes$ingresos)</code></pre>
+<pre><code>   vars    n     mean       sd median  trimmed     mad   min    max  range skew
+X1    1 1000 103606.1 29607.83 108972 105625.4 32412.6 30000 150000 120000 -0.5
+   kurtosis     se
+X1    -0.75 936.28</code></pre>
+<p><br/><br/></p>
+<p>Utilizando la función <code>describe.by</code> del paquete
+<code>psych</code>, que nos permite el calculo de las descritivas para
+varios grupos :</p>
+<pre class="r"><code>psych::describe.by(clientes$ingresos, group = clientes$genero_cliente)</code></pre>
+<pre><code>
+ Descriptive statistics by group 
+group: Femenino
+    vars   n   mean     sd median trimmed   mad min max range  skew kurtosis
+X1*    1 381 187.79 107.24    190  187.86 136.4   1 374   373 -0.01    -1.18
+      se
+X1* 5.49
+------------------------------------------------------------ 
+group: Masculino
+    vars   n  mean     sd median trimmed    mad min max range  skew kurtosis
+X1*    1 528 260.9 148.84  264.5  261.12 189.03   1 519   518 -0.02    -1.18
+      se
+X1* 6.48
+------------------------------------------------------------ 
+group: Otro
+    vars  n mean    sd median trimmed  mad min max range skew kurtosis   se
+X1*    1 91   46 26.41     46      46 34.1   1  91    90    0    -1.24 2.77</code></pre>
+<p><br/><br/></p>
+<p>Utilizando la función <code>descr</code> del paquete
+<code>summaytools</code> :</p>
+<pre class="r"><code>summarytools::descr(clientes$ingresos)</code></pre>
+<pre>
+Descriptive Statistics  
+clientes$ingresos  
+N: 1000  
+
+                     ingresos
+----------------- -----------
+             Mean   103606.09
+          Std.Dev    29607.83
+              Min    30000.00
+               Q1    82034.00
+           Median   108972.00
+               Q3   127977.50
+              Max   150000.00
+              MAD    32412.60
+              IQR    45884.25
+               CV        0.29
+         Skewness       -0.50
+      SE.Skewness        0.08
+         Kurtosis       -0.75
+          N.Valid     1000.00
+                N     1000.00
+        Pct.Valid      100.00
+</pre>
+<p><br/><br/></p>
+<p><strong>YA ESTAMOS LISTOS PARA INTERPRETAR LA INFORMACIÓN
+!!</strong></p>
+<p><br/><br/><br/></p>
+</div>
+<div id="documentos-pdf-con-rmd" class="section level1">
+<h1>Documentos pdf con Rmd</h1>
+<p>A través de RStudio se pueden construir documentos en formatos
+<strong>PDF</strong>, <strong>DOC</strong>, <strong>HTML</strong> entre
+otros. En esta ocasión se describe como realizar un informe utilizando
+para ello un archivo Rmd en RStudio.</p>
+<p>Inicialmente en RStudio abrimos un nuevo archivo en formato Rmd</p>
+<p>File/New File/ R Markdown…</p>
+<p>Al hacerlo se despliega la siguiente ventana</p>
+<p><img src="img/Rmd1.png" width="300" /></p>
+<p>En este caso seleccionamos <strong>PDF</strong> para abrir una
+plantilla que nos ofrece el programa para orientar nuestros primeros
+pasos</p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/rl1xsFMxJuY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+</iframe>
+<p><br/><br/><br/></p>
+<pre><code>---
+title: &quot;Untitled&quot;
+author: &quot;dgonzalez&quot;
+date: &quot;3/2/2022&quot;
+output: pdf_document
+---</code></pre>
+<p><br/></p>
+<p>El primer bloque contiene información sobre el titulo del documento,
+el autor, la fecha y el formato de salida</p>
+<p>Podemos también agregar un subtítulo: subtitle: “Subtítulo”</p>
+<p>Despues de este bloque encontramos el cuerpo del documento que puede
+contener texto escrito de manera normal, código html, código Markdown y
+LaTeX</p>
+<p>Algunas de las principales instrucciones para empezar son</p>
+<div id="titulos" class="section level3">
+<h3>Titulos</h3>
+<pre><code># Título 1
+## Título 2
+### Título 3
+#### Título 4
+##### Título 5
+#####  Título 6</code></pre>
+</div>
+<div id="listas" class="section level3">
+<h3>Listas</h3>
+<pre><code>+ Punto 1
++ Punto 2
++ Punto 3
+  + Punto 3.1
+  + Punto 3.2</code></pre>
+<p>También se pueden hacer numeradas</p>
+<pre><code>1. Punto 1
+2. Punto 2
+3. Punto 3</code></pre>
+<ol style="list-style-type: decimal">
+<li>Punto 1</li>
+<li>Punto 2</li>
+<li>Punto 3</li>
+</ol>
+<p>Permite también escribir ecuaciones en código LaTeX, como por
+ejemplo</p>
+<pre><code>$$\dfrac{1}{n}\sum_{i=1}^{n} x_{i} = \bar{x}$$</code></pre>
+<p><span class="math display">\[\dfrac{1}{n}\sum_{i=1}^{n} x_{i} =
+\bar{x}\]</span></p>
+<p>Una de sus principales ventajas es permitir correr código
+<strong>R</strong> y de otros lenguajes como Python, SQL, entre
+otros.</p>
+<p>Para ello utilizamos el botón <strong>+c</strong> ubicado en la barra
+superior de la ventana <strong>Source</strong></p>
+<p><img src="img/Rmd2.png" width="120" /></p>
+<p>Dentro de este bloque podemos correr codigo R y asi ubicar dentro del
+documento tablas, indicadores o gráficos</p>
+<p><img src="img/Rmd3.png" width="400" /></p>
+<p>En la siguiente página pueden encotrar resumen de varios paquetes de
+R dentro de los cuales está RMardown</p>
+<p><a href="https://www.rstudio.com/resources/cheatsheets/"
+class="uri">https://www.rstudio.com/resources/cheatsheets/</a></p>
+<p><br/><br/></p>
+</div>
+<div id="otros-formatos-de-tablas" class="section level2">
+<h2>Otros formatos de tablas</h2>
+<pre class="r"><code>df &lt;- data.frame(
+  id = 1:10,
+  nombre = c(&quot;Juan&quot;, &quot;Carlos&quot;, &quot;James&quot;, &quot;David&quot;, &quot;Jenny&quot;, &quot;Harold&quot;, &quot;Leonardo&quot;, &quot;John&quot;, &quot;Ana&quot;, &quot;Luz&quot;),
+  edad = c(18, 25, 22, 30, 21, 23, 25, 20, 21, 20),
+  grado = c(&quot;C&quot;, &quot;A&quot;, &quot;A&quot;, &quot;C&quot;, &quot;B&quot;, &quot;B&quot;, &quot;A&quot;, &quot;C&quot;, &quot;C&quot;, &quot;C&quot;),
+  Examen1 = c(3.2, 4.1, 4.0, 3.9, 4.0, 4.3, 3.6, 3.7, 3.8, 3.8),
+  Examen2 = c(3.3, 3.9, 4.0, 3.9, 3.8, 3.6, 4.0, 4.0, 3.9, 3.8),
+  Promedio = c(3.3, 4.0, 4.1, 3.6, 3.7, 4.6, 3.5, 3.6, 3.8, 3.7),
+  Entrevista = c(TRUE, FALSE, TRUE, FALSE, TRUE, TRUE, TRUE, FALSE, FALSE, FALSE),
+  stringsAsFactors = FALSE
+)
+
+df</code></pre>
+<pre><code>   id   nombre edad grado Examen1 Examen2 Promedio Entrevista
+1   1     Juan   18     C     3.2     3.3      3.3       TRUE
+2   2   Carlos   25     A     4.1     3.9      4.0      FALSE
+3   3    James   22     A     4.0     4.0      4.1       TRUE
+4   4    David   30     C     3.9     3.9      3.6      FALSE
+5   5    Jenny   21     B     4.0     3.8      3.7       TRUE
+6   6   Harold   23     B     4.3     3.6      4.6       TRUE
+7   7 Leonardo   25     A     3.6     4.0      3.5       TRUE
+8   8     John   20     C     3.7     4.0      3.6      FALSE
+9   9      Ana   21     C     3.8     3.9      3.8      FALSE
+10 10      Luz   20     C     3.8     3.8      3.7      FALSE</code></pre>
+<p><br/><br/></p>
+<pre class="r"><code># colnames(df1)=c(&quot;Id&quot;, &quot;Nombre&quot;, &quot;Edad&quot;,&quot;grado&quot;, &quot;Nota1&quot;, &quot;Nota2&quot;, &quot;Nota_Final&quot;, &quot;Entrevista&quot;)
+df1=flextable(df)
+df1</code></pre>
+<div class="tabwid"><style>.cl-fd0c91aa{}.cl-fd048fbe{font-family:'Helvetica';font-size:10pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(51, 51, 51, 1.00);background-color:transparent;}.cl-fd07dd40{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:3pt;padding-top:3pt;padding-left:4pt;padding-right:4pt;line-height: 1;background-color:transparent;}.cl-fd07dd5e{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:3pt;padding-top:3pt;padding-left:4pt;padding-right:4pt;line-height: 1;background-color:transparent;}.cl-fd0801e4{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(190, 190, 190, 1.00);border-top: 1.5pt solid rgba(190, 190, 190, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-fd080202{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(190, 190, 190, 1.00);border-top: 1.5pt solid rgba(190, 190, 190, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-fd08020c{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-fd080220{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-fd080234{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(190, 190, 190, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-fd080248{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(190, 190, 190, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing='true' class='cl-fd0c91aa'><thead><tr style="overflow-wrap:break-word;"><th class="cl-fd0801e4"><p class="cl-fd07dd40"><span class="cl-fd048fbe">id</span></p></th><th class="cl-fd080202"><p class="cl-fd07dd5e"><span class="cl-fd048fbe">nombre</span></p></th><th class="cl-fd0801e4"><p class="cl-fd07dd40"><span class="cl-fd048fbe">edad</span></p></th><th class="cl-fd080202"><p class="cl-fd07dd5e"><span class="cl-fd048fbe">grado</span></p></th><th class="cl-fd0801e4"><p class="cl-fd07dd40"><span class="cl-fd048fbe">Examen1</span></p></th><th class="cl-fd0801e4"><p class="cl-fd07dd40"><span class="cl-fd048fbe">Examen2</span></p></th><th class="cl-fd0801e4"><p class="cl-fd07dd40"><span class="cl-fd048fbe">Promedio</span></p></th><th class="cl-fd0801e4"><p class="cl-fd07dd40"><span class="cl-fd048fbe">Entrevista</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-fd08020c"><p class="cl-fd07dd40"><span class="cl-fd048fbe">1</span></p></td><td class="cl-fd080220"><p class="cl-fd07dd5e"><span class="cl-fd048fbe">Juan</span></p></td><td class="cl-fd08020c"><p class="cl-fd07dd40"><span class="cl-fd048fbe">18</span></p></td><td class="cl-fd080220"><p class="cl-fd07dd5e"><span class="cl-fd048fbe">C</span></p></td><td class="cl-fd08020c"><p class="cl-fd07dd40"><span class="cl-fd048fbe">3.2</span></p></td><td class="cl-fd08020c"><p class="cl-fd07dd40"><span class="cl-fd048fbe">3.3</span></p></td><td class="cl-fd08020c"><p class="cl-fd07dd40"><span class="cl-fd048fbe">3.3</span></p></td><td class="cl-fd08020c"><p class="cl-fd07dd40"><span class="cl-fd048fbe">true</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-fd08020c"><p class="cl-fd07dd40"><span class="cl-fd048fbe">2</span></p></td><td class="cl-fd080220"><p class="cl-fd07dd5e"><span class="cl-fd048fbe">Carlos</span></p></td><td class="cl-fd08020c"><p class="cl-fd07dd40"><span class="cl-fd048fbe">25</span></p></td><td class="cl-fd080220"><p class="cl-fd07dd5e"><span class="cl-fd048fbe">A</span></p></td><td class="cl-fd08020c"><p class="cl-fd07dd40"><span class="cl-fd048fbe">4.1</span></p></td><td class="cl-fd08020c"><p class="cl-fd07dd40"><span class="cl-fd048fbe">3.9</span></p></td><td class="cl-fd08020c"><p class="cl-fd07dd40"><span class="cl-fd048fbe">4.0</span></p></td><td class="cl-fd08020c"><p class="cl-fd07dd40"><span class="cl-fd048fbe">false</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-fd08020c"><p class="cl-fd07dd40"><span class="cl-fd048fbe">3</span></p></td><td class="cl-fd080220"><p class="cl-fd07dd5e"><span class="cl-fd048fbe">James</span></p></td><td class="cl-fd08020c"><p class="cl-fd07dd40"><span class="cl-fd048fbe">22</span></p></td><td class="cl-fd080220"><p class="cl-fd07dd5e"><span class="cl-fd048fbe">A</span></p></td><td class="cl-fd08020c"><p class="cl-fd07dd40"><span class="cl-fd048fbe">4.0</span></p></td><td class="cl-fd08020c"><p class="cl-fd07dd40"><span class="cl-fd048fbe">4.0</span></p></td><td class="cl-fd08020c"><p class="cl-fd07dd40"><span class="cl-fd048fbe">4.1</span></p></td><td class="cl-fd08020c"><p class="cl-fd07dd40"><span class="cl-fd048fbe">true</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-fd08020c"><p class="cl-fd07dd40"><span class="cl-fd048fbe">4</span></p></td><td class="cl-fd080220"><p class="cl-fd07dd5e"><span class="cl-fd048fbe">David</span></p></td><td class="cl-fd08020c"><p class="cl-fd07dd40"><span class="cl-fd048fbe">30</span></p></td><td class="cl-fd080220"><p class="cl-fd07dd5e"><span class="cl-fd048fbe">C</span></p></td><td class="cl-fd08020c"><p class="cl-fd07dd40"><span class="cl-fd048fbe">3.9</span></p></td><td class="cl-fd08020c"><p class="cl-fd07dd40"><span class="cl-fd048fbe">3.9</span></p></td><td class="cl-fd08020c"><p class="cl-fd07dd40"><span class="cl-fd048fbe">3.6</span></p></td><td class="cl-fd08020c"><p class="cl-fd07dd40"><span class="cl-fd048fbe">false</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-fd08020c"><p class="cl-fd07dd40"><span class="cl-fd048fbe">5</span></p></td><td class="cl-fd080220"><p class="cl-fd07dd5e"><span class="cl-fd048fbe">Jenny</span></p></td><td class="cl-fd08020c"><p class="cl-fd07dd40"><span class="cl-fd048fbe">21</span></p></td><td class="cl-fd080220"><p class="cl-fd07dd5e"><span class="cl-fd048fbe">B</span></p></td><td class="cl-fd08020c"><p class="cl-fd07dd40"><span class="cl-fd048fbe">4.0</span></p></td><td class="cl-fd08020c"><p class="cl-fd07dd40"><span class="cl-fd048fbe">3.8</span></p></td><td class="cl-fd08020c"><p class="cl-fd07dd40"><span class="cl-fd048fbe">3.7</span></p></td><td class="cl-fd08020c"><p class="cl-fd07dd40"><span class="cl-fd048fbe">true</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-fd08020c"><p class="cl-fd07dd40"><span class="cl-fd048fbe">6</span></p></td><td class="cl-fd080220"><p class="cl-fd07dd5e"><span class="cl-fd048fbe">Harold</span></p></td><td class="cl-fd08020c"><p class="cl-fd07dd40"><span class="cl-fd048fbe">23</span></p></td><td class="cl-fd080220"><p class="cl-fd07dd5e"><span class="cl-fd048fbe">B</span></p></td><td class="cl-fd08020c"><p class="cl-fd07dd40"><span class="cl-fd048fbe">4.3</span></p></td><td class="cl-fd08020c"><p class="cl-fd07dd40"><span class="cl-fd048fbe">3.6</span></p></td><td class="cl-fd08020c"><p class="cl-fd07dd40"><span class="cl-fd048fbe">4.6</span></p></td><td class="cl-fd08020c"><p class="cl-fd07dd40"><span class="cl-fd048fbe">true</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-fd08020c"><p class="cl-fd07dd40"><span class="cl-fd048fbe">7</span></p></td><td class="cl-fd080220"><p class="cl-fd07dd5e"><span class="cl-fd048fbe">Leonardo</span></p></td><td class="cl-fd08020c"><p class="cl-fd07dd40"><span class="cl-fd048fbe">25</span></p></td><td class="cl-fd080220"><p class="cl-fd07dd5e"><span class="cl-fd048fbe">A</span></p></td><td class="cl-fd08020c"><p class="cl-fd07dd40"><span class="cl-fd048fbe">3.6</span></p></td><td class="cl-fd08020c"><p class="cl-fd07dd40"><span class="cl-fd048fbe">4.0</span></p></td><td class="cl-fd08020c"><p class="cl-fd07dd40"><span class="cl-fd048fbe">3.5</span></p></td><td class="cl-fd08020c"><p class="cl-fd07dd40"><span class="cl-fd048fbe">true</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-fd08020c"><p class="cl-fd07dd40"><span class="cl-fd048fbe">8</span></p></td><td class="cl-fd080220"><p class="cl-fd07dd5e"><span class="cl-fd048fbe">John</span></p></td><td class="cl-fd08020c"><p class="cl-fd07dd40"><span class="cl-fd048fbe">20</span></p></td><td class="cl-fd080220"><p class="cl-fd07dd5e"><span class="cl-fd048fbe">C</span></p></td><td class="cl-fd08020c"><p class="cl-fd07dd40"><span class="cl-fd048fbe">3.7</span></p></td><td class="cl-fd08020c"><p class="cl-fd07dd40"><span class="cl-fd048fbe">4.0</span></p></td><td class="cl-fd08020c"><p class="cl-fd07dd40"><span class="cl-fd048fbe">3.6</span></p></td><td class="cl-fd08020c"><p class="cl-fd07dd40"><span class="cl-fd048fbe">false</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-fd08020c"><p class="cl-fd07dd40"><span class="cl-fd048fbe">9</span></p></td><td class="cl-fd080220"><p class="cl-fd07dd5e"><span class="cl-fd048fbe">Ana</span></p></td><td class="cl-fd08020c"><p class="cl-fd07dd40"><span class="cl-fd048fbe">21</span></p></td><td class="cl-fd080220"><p class="cl-fd07dd5e"><span class="cl-fd048fbe">C</span></p></td><td class="cl-fd08020c"><p class="cl-fd07dd40"><span class="cl-fd048fbe">3.8</span></p></td><td class="cl-fd08020c"><p class="cl-fd07dd40"><span class="cl-fd048fbe">3.9</span></p></td><td class="cl-fd08020c"><p class="cl-fd07dd40"><span class="cl-fd048fbe">3.8</span></p></td><td class="cl-fd08020c"><p class="cl-fd07dd40"><span class="cl-fd048fbe">false</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-fd080234"><p class="cl-fd07dd40"><span class="cl-fd048fbe">10</span></p></td><td class="cl-fd080248"><p class="cl-fd07dd5e"><span class="cl-fd048fbe">Luz</span></p></td><td class="cl-fd080234"><p class="cl-fd07dd40"><span class="cl-fd048fbe">20</span></p></td><td class="cl-fd080248"><p class="cl-fd07dd5e"><span class="cl-fd048fbe">C</span></p></td><td class="cl-fd080234"><p class="cl-fd07dd40"><span class="cl-fd048fbe">3.8</span></p></td><td class="cl-fd080234"><p class="cl-fd07dd40"><span class="cl-fd048fbe">3.8</span></p></td><td class="cl-fd080234"><p class="cl-fd07dd40"><span class="cl-fd048fbe">3.7</span></p></td><td class="cl-fd080234"><p class="cl-fd07dd40"><span class="cl-fd048fbe">false</span></p></td></tr></tbody></table></div>
+<pre class="r"><code>library(formattable)
+
+formattable(df, list(
+  edad = color_tile(&quot;transparent&quot;, &quot;#5D7A9C&quot;),
+  Examen1 = color_bar(&quot;#F7B983&quot;),
+  Examen2 = color_bar(&quot;#F7D18B&quot;),
+  Promedio = color_bar(&quot;#F6E8D9&quot;))
+)</code></pre>
+<table class="table table-condensed">
+<thead>
+<tr>
+<th style="text-align:right;">
+id
+</th>
+<th style="text-align:right;">
+nombre
+</th>
+<th style="text-align:right;">
+edad
+</th>
+<th style="text-align:right;">
+grado
+</th>
+<th style="text-align:right;">
+Examen1
+</th>
+<th style="text-align:right;">
+Examen2
+</th>
+<th style="text-align:right;">
+Promedio
+</th>
+<th style="text-align:right;">
+Entrevista
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+Juan
+</td>
+<td style="text-align:right;">
+<span
+style="display: block; padding: 0 4px; border-radius: 4px; background-color: #ffffff">18</span>
+</td>
+<td style="text-align:right;">
+C
+</td>
+<td style="text-align:right;">
+<span
+style="display: inline-block; direction: rtl; unicode-bidi: plaintext; border-radius: 4px; padding-right: 2px; background-color: #F7B983; width: 74.42%">3.2</span>
+</td>
+<td style="text-align:right;">
+<span
+style="display: inline-block; direction: rtl; unicode-bidi: plaintext; border-radius: 4px; padding-right: 2px; background-color: #F7D18B; width: 82.50%">3.3</span>
+</td>
+<td style="text-align:right;">
+<span
+style="display: inline-block; direction: rtl; unicode-bidi: plaintext; border-radius: 4px; padding-right: 2px; background-color: #F6E8D9; width: 71.74%">3.3</span>
+</td>
+<td style="text-align:right;">
+TRUE
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+Carlos
+</td>
+<td style="text-align:right;">
+<span
+style="display: block; padding: 0 4px; border-radius: 4px; background-color: #a0b1c5">25</span>
+</td>
+<td style="text-align:right;">
+A
+</td>
+<td style="text-align:right;">
+<span
+style="display: inline-block; direction: rtl; unicode-bidi: plaintext; border-radius: 4px; padding-right: 2px; background-color: #F7B983; width: 95.35%">4.1</span>
+</td>
+<td style="text-align:right;">
+<span
+style="display: inline-block; direction: rtl; unicode-bidi: plaintext; border-radius: 4px; padding-right: 2px; background-color: #F7D18B; width: 97.50%">3.9</span>
+</td>
+<td style="text-align:right;">
+<span
+style="display: inline-block; direction: rtl; unicode-bidi: plaintext; border-radius: 4px; padding-right: 2px; background-color: #F6E8D9; width: 86.96%">4.0</span>
+</td>
+<td style="text-align:right;">
+FALSE
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+James
+</td>
+<td style="text-align:right;">
+<span
+style="display: block; padding: 0 4px; border-radius: 4px; background-color: #c9d2de">22</span>
+</td>
+<td style="text-align:right;">
+A
+</td>
+<td style="text-align:right;">
+<span
+style="display: inline-block; direction: rtl; unicode-bidi: plaintext; border-radius: 4px; padding-right: 2px; background-color: #F7B983; width: 93.02%">4.0</span>
+</td>
+<td style="text-align:right;">
+<span
+style="display: inline-block; direction: rtl; unicode-bidi: plaintext; border-radius: 4px; padding-right: 2px; background-color: #F7D18B; width: 100.00%">4.0</span>
+</td>
+<td style="text-align:right;">
+<span
+style="display: inline-block; direction: rtl; unicode-bidi: plaintext; border-radius: 4px; padding-right: 2px; background-color: #F6E8D9; width: 89.13%">4.1</span>
+</td>
+<td style="text-align:right;">
+TRUE
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+David
+</td>
+<td style="text-align:right;">
+<span
+style="display: block; padding: 0 4px; border-radius: 4px; background-color: #5d7a9c">30</span>
+</td>
+<td style="text-align:right;">
+C
+</td>
+<td style="text-align:right;">
+<span
+style="display: inline-block; direction: rtl; unicode-bidi: plaintext; border-radius: 4px; padding-right: 2px; background-color: #F7B983; width: 90.70%">3.9</span>
+</td>
+<td style="text-align:right;">
+<span
+style="display: inline-block; direction: rtl; unicode-bidi: plaintext; border-radius: 4px; padding-right: 2px; background-color: #F7D18B; width: 97.50%">3.9</span>
+</td>
+<td style="text-align:right;">
+<span
+style="display: inline-block; direction: rtl; unicode-bidi: plaintext; border-radius: 4px; padding-right: 2px; background-color: #F6E8D9; width: 78.26%">3.6</span>
+</td>
+<td style="text-align:right;">
+FALSE
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+Jenny
+</td>
+<td style="text-align:right;">
+<span
+style="display: block; padding: 0 4px; border-radius: 4px; background-color: #d6dde6">21</span>
+</td>
+<td style="text-align:right;">
+B
+</td>
+<td style="text-align:right;">
+<span
+style="display: inline-block; direction: rtl; unicode-bidi: plaintext; border-radius: 4px; padding-right: 2px; background-color: #F7B983; width: 93.02%">4.0</span>
+</td>
+<td style="text-align:right;">
+<span
+style="display: inline-block; direction: rtl; unicode-bidi: plaintext; border-radius: 4px; padding-right: 2px; background-color: #F7D18B; width: 95.00%">3.8</span>
+</td>
+<td style="text-align:right;">
+<span
+style="display: inline-block; direction: rtl; unicode-bidi: plaintext; border-radius: 4px; padding-right: 2px; background-color: #F6E8D9; width: 80.43%">3.7</span>
+</td>
+<td style="text-align:right;">
+TRUE
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+6
+</td>
+<td style="text-align:right;">
+Harold
+</td>
+<td style="text-align:right;">
+<span
+style="display: block; padding: 0 4px; border-radius: 4px; background-color: #bbc7d5">23</span>
+</td>
+<td style="text-align:right;">
+B
+</td>
+<td style="text-align:right;">
+<span
+style="display: inline-block; direction: rtl; unicode-bidi: plaintext; border-radius: 4px; padding-right: 2px; background-color: #F7B983; width: 100.00%">4.3</span>
+</td>
+<td style="text-align:right;">
+<span
+style="display: inline-block; direction: rtl; unicode-bidi: plaintext; border-radius: 4px; padding-right: 2px; background-color: #F7D18B; width: 90.00%">3.6</span>
+</td>
+<td style="text-align:right;">
+<span
+style="display: inline-block; direction: rtl; unicode-bidi: plaintext; border-radius: 4px; padding-right: 2px; background-color: #F6E8D9; width: 100.00%">4.6</span>
+</td>
+<td style="text-align:right;">
+TRUE
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+7
+</td>
+<td style="text-align:right;">
+Leonardo
+</td>
+<td style="text-align:right;">
+<span
+style="display: block; padding: 0 4px; border-radius: 4px; background-color: #a0b1c5">25</span>
+</td>
+<td style="text-align:right;">
+A
+</td>
+<td style="text-align:right;">
+<span
+style="display: inline-block; direction: rtl; unicode-bidi: plaintext; border-radius: 4px; padding-right: 2px; background-color: #F7B983; width: 83.72%">3.6</span>
+</td>
+<td style="text-align:right;">
+<span
+style="display: inline-block; direction: rtl; unicode-bidi: plaintext; border-radius: 4px; padding-right: 2px; background-color: #F7D18B; width: 100.00%">4.0</span>
+</td>
+<td style="text-align:right;">
+<span
+style="display: inline-block; direction: rtl; unicode-bidi: plaintext; border-radius: 4px; padding-right: 2px; background-color: #F6E8D9; width: 76.09%">3.5</span>
+</td>
+<td style="text-align:right;">
+TRUE
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+8
+</td>
+<td style="text-align:right;">
+John
+</td>
+<td style="text-align:right;">
+<span
+style="display: block; padding: 0 4px; border-radius: 4px; background-color: #e4e8ee">20</span>
+</td>
+<td style="text-align:right;">
+C
+</td>
+<td style="text-align:right;">
+<span
+style="display: inline-block; direction: rtl; unicode-bidi: plaintext; border-radius: 4px; padding-right: 2px; background-color: #F7B983; width: 86.05%">3.7</span>
+</td>
+<td style="text-align:right;">
+<span
+style="display: inline-block; direction: rtl; unicode-bidi: plaintext; border-radius: 4px; padding-right: 2px; background-color: #F7D18B; width: 100.00%">4.0</span>
+</td>
+<td style="text-align:right;">
+<span
+style="display: inline-block; direction: rtl; unicode-bidi: plaintext; border-radius: 4px; padding-right: 2px; background-color: #F6E8D9; width: 78.26%">3.6</span>
+</td>
+<td style="text-align:right;">
+FALSE
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+9
+</td>
+<td style="text-align:right;">
+Ana
+</td>
+<td style="text-align:right;">
+<span
+style="display: block; padding: 0 4px; border-radius: 4px; background-color: #d6dde6">21</span>
+</td>
+<td style="text-align:right;">
+C
+</td>
+<td style="text-align:right;">
+<span
+style="display: inline-block; direction: rtl; unicode-bidi: plaintext; border-radius: 4px; padding-right: 2px; background-color: #F7B983; width: 88.37%">3.8</span>
+</td>
+<td style="text-align:right;">
+<span
+style="display: inline-block; direction: rtl; unicode-bidi: plaintext; border-radius: 4px; padding-right: 2px; background-color: #F7D18B; width: 97.50%">3.9</span>
+</td>
+<td style="text-align:right;">
+<span
+style="display: inline-block; direction: rtl; unicode-bidi: plaintext; border-radius: 4px; padding-right: 2px; background-color: #F6E8D9; width: 82.61%">3.8</span>
+</td>
+<td style="text-align:right;">
+FALSE
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:right;">
+Luz
+</td>
+<td style="text-align:right;">
+<span
+style="display: block; padding: 0 4px; border-radius: 4px; background-color: #e4e8ee">20</span>
+</td>
+<td style="text-align:right;">
+C
+</td>
+<td style="text-align:right;">
+<span
+style="display: inline-block; direction: rtl; unicode-bidi: plaintext; border-radius: 4px; padding-right: 2px; background-color: #F7B983; width: 88.37%">3.8</span>
+</td>
+<td style="text-align:right;">
+<span
+style="display: inline-block; direction: rtl; unicode-bidi: plaintext; border-radius: 4px; padding-right: 2px; background-color: #F7D18B; width: 95.00%">3.8</span>
+</td>
+<td style="text-align:right;">
+<span
+style="display: inline-block; direction: rtl; unicode-bidi: plaintext; border-radius: 4px; padding-right: 2px; background-color: #F6E8D9; width: 80.43%">3.7</span>
+</td>
+<td style="text-align:right;">
+FALSE
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("hide" === "show");
+});
+</script>
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

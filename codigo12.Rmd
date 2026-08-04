@@ -1,0 +1,551 @@
+---
+title: <span style="color#f9ceca"> </span>  
+author: <span style="color:#f9ceca">dgonzalez</span> 
+subtitle: <span style="color:#f9ceca"> </span> 
+output:
+  html_document:
+    toc: no
+    toc_depth: 2
+    toc_float: yes
+    code_folding: hide
+    theme: flatly
+---    
+    
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE, comment = NA)
+library(psych)
+library(summarytools)
+
+# install.packages("devtools")
+#devtools::install_github("dgonxalex80/paqueteDEG")
+#library(paqueteDEG)
+
+# colores
+source("colores.R")
+
+# install.packages('gtools')
+# install.packages("TeachingSampling")
+
+#load library
+#library(gtools)
+#library(TeachingSampling)
+#library(readr)
+#base_muestreo <- read_delim("data/base_muestreo.csv", 
+#    delim = ";", escape_double = FALSE, col_types = cols(ID = col_integer()), 
+#    trim_ws = TRUE)
+
+
+library(readr)
+clientes <- read_csv("data/clientes.csv")
+
+library(readxl)
+ventas <- read_excel("data/ventas.xlsx")
+
+
+library(tidyverse)
+library(flextable)
+```
+
+```{r, echo=FALSE, out.width="100%", fig.align = "center"}
+knitr::include_graphics("img/codigo1.png")
+```
+<br/><br/>
+
+# Introducción 
+
+<br/>
+
+Al tener una base de datos se requiere resumirlos en una tabla o en indicadores que faciliten su análisis, dependiendo el tipo de variable ( cualitativas o cuantitativas) la tabla puede tener diferentes columnas. 
+
+En el caso de los indicadores las variables cualitativas se les resumen en el nivel con mayor frecuencias a la que se le llama **MODA**
+
+Las variables cuantitativas tiene un gran número de indicadores que se dividien en tres categorias:
+
++ Indicadores de tendencia central
++ Indicadores de dispersión
++ Indicadores de forma
+
+A continuación se indica como realizar el proceso utilizando RStudio, bajo el supuesto que se cuenta con una base de datos que se ha importado en RStudio.
+
+<br/><br/>
+
+<img src="img/summarytools.png" width="90">
+<img src="img/flextable.png" width="90">
+<img src="img/gt.png" width="120"> 
+
+<br/><br/>
+
+
+
+
+## Instalación de summarytools
+
+Uno de los paquetes de R utilizados para la construcción de tablas de frecuencia e indicadores descriptivos es summarytools, a continuación se comparte código para su instalación :
+
+<br/>
+
+
+<pre>
+install.packages("remotes")        # se puede también utilizar el paquete devtools
+library(remotes)
+install_github("rapporter/pander") # repositorio recomendado
+install_github("dcomtois/summarytools", build_vignettes = TRUE)
+</pre>
+
+```{r, eval=FALSE}
+# install.packages("remotes")        # se puede también utilizar el paquete devtools
+# library(remotes)
+# install_github("rapporter/pander") # repositorio recomendado
+# install_github("dcomtois/summarytools", build_vignettes = TRUE)
+```
+
+
+<br/><br/>
+
+# Tablas de frecuencia
+
+Resumir los datos en tablas facilita su análisis y también su representación  gráfica. Varios gráficos están basados en tablas de frecuencia como veremos en la unidad 1.3
+
+<br/>
+
+## Tablas variables cualitativas
+
+Iniciaremos con la construcción de tablas para variables cualitativas en escala nominal. Recordemos que las variables medidas en esta escala no presentan orden especial y en algunos casos son ordenadas de mayor a menor frecuencia
+
+Utilizaremos en este caso  la función `table()`
+
+
+```{r}
+table(clientes$categoria_preferida)
+```
+
+<br/>
+
+```{r, message=FALSE, warning=FALSE}
+#install.packages("AER")
+library(AER)
+
+data("BankWages")
+table(BankWages$job)
+```
+
+<br/>
+
+```{r, message=FALSE, warning=FALSE}
+library(readxl)
+ventas <- read_excel("data/ventas.xlsx")
+table(ventas$Metodo_Pago)
+```
+
+<br/>
+
+En todos los casos  podemos elaborar una tabla acompañada con los porcentajes (frecuencia  relativa)
+
+<br/>
+
+### Paquete flextable
+
+```{r, eval=FALSE}
+# install.packages("flextable")
+library(flextable)
+```
+
+
+```{r}
+ft1=table(ventas$Metodo_Pago)%>% 
+        as.data.frame()
+colnames(ft1)=c("Tipo de tarjeta", "Frecuencia Absoluta")
+ft1=flextable(ft1)
+
+set_flextable_defaults(
+  font.size = 10, font.family = "Helvetica",
+  font.color = "#333333",
+  table.layout = "fixed",
+  border.color = "gray",
+  padding.top = 3, padding.bottom = 3,
+  padding.left = 4, padding.right = 4)
+
+ft1 <- ft1 %>%
+    width(j = 1,  width = 2) %>%
+    width(j = 2, width = 1)
+ft1
+
+
+```
+
+<br/>
+
+El resultado corresponde a un conteo de cada uno de los valores de la variable.  En caso de que se requiera calcular la proporción que corresponde cada caso utilizamos la función : `prop.table()` y se la aplicamos a la tabla anterior
+
+<br/><br/>
+
+```{r}
+ft2=table(ventas$Metodo_Pago)%>%
+       prop.table() %>% 
+          as.data.frame()
+colnames(ft2)=c("Tipo de tarjeta", "Frecuencia relativa")
+ft2=flextable(ft2)
+
+set_flextable_defaults(
+  font.size = 10, font.family = "Helvetica",
+  font.color = "#333333",
+  table.layout = "fixed",
+  border.color = "gray",
+  padding.top = 3, padding.bottom = 3,
+  padding.left = 4, padding.right = 4)
+
+ft2 <- ft2 %>%
+    width(j = 1,  width = 2) %>%
+    width(j = 2, width = 1)
+ft2
+
+```
+
+<br/>
+
+Si utilizamos la función `freq` del paquete `summarytools`, la salida es una tabla más elaborada 
+
+<br/>
+
+```{r, eval=FALSE}
+summarytools::freq(ventas$Metodo_Pago, cumul = F)
+```
+<pre>
+Show in New Window
+Frequencies  
+ventas$Metodo_Pago  
+Type: Character  
+
+                         Freq   % Valid   % Total
+---------------------- ------ --------- ---------
+      American Express      4      2.00      2.00
+              Discover      8      4.00      4.00
+            MasterCard     28     14.00     14.00
+             Star Card    140     70.00     70.00
+                  Visa     20     10.00     10.00
+                  <NA>      0                0.00
+                 Total    200    100.00    100.00
+</pre>
+<br/><br/>
+
+## Tablas variables cuantitativas
+
+<br/>
+
+Para el caso de las variables cuantitativas que presentan muchos valores difentes construir una tabla como las anteriores no tiene sentido, pues salen muchas categorias probablemente con frecuencia uno.
+
+En este caso es necesario construir rangos que den sentido y que permitan resumir la información para una facil interpretación.
+
+El ejemplo a continuación da cuenta de ello.
+
+Supongamos que queremos analizar la variable edad y para ello debemos establecer los limites y cuantos intervalo vamos aconstruir. En este caso tenemos tres alternativas posible_
+
+1. Tomar los intervalos construidos en un estudio anterior con cual queremos comparar los nuestros
+2. Tomar intervalos de acuerdo a estudios anteriores o teorías sobre el tema
+3. Tomar intervalos de igual longitud. En este caso existen diferentes alternativas para establecer el número de intervalos a construir. Uno de ellos indica como respuesta a este interrogante la fórmula construida por Sturgues (se puede conocer mediante la función nclass.Sturges(variable)) que es utilizada por otras funciones en R 
+
+En el caso de la variable Edad podríamos proceder así: 
+
+
+<br/><br/>
+
+```{r, eval=FALSE}
+ clientes$edadR <- NA_character_
+ clientes$edadR[clientes$edad_cliente<=20]<-"1. (18  a 20  años]"
+ clientes$edadR[clientes$edad_cliente>20.1 &  clientes$edad_cliente<=30]<-"2. (20 a 30 años]"
+ clientes$edadR[clientes$edad_cliente>30.1 &  clientes$edad_cliente<=40]<-"3. (30 a 40 años]" 
+ clientes$edadR[clientes$edad_cliente>40.1 &  clientes$edad_cliente<=50]<-"4. (40 a 50 años]"
+ clientes$edadR[clientes$edad_cliente>50.1 &  clientes$edad_cliente<=60]<-"5. (50 a 60 años]"
+ clientes$edadR[clientes$edad_cliente>60.1]<-"6. (Más de 60 años]"
+summarytools::freq(clientes$edadR)
+```
+
+```{r crear-edadR, include=FALSE}
+clientes$edadR <- cut(
+  clientes$edad_cliente,
+  breaks = c(-Inf, 20, 30, 40, 50, 60, Inf),
+  labels = c(
+    "1. (18 a 20 años]", "2. (20 a 30 años]",
+    "3. (30 a 40 años]", "4. (40 a 50 años]",
+    "5. (50 a 60 años]", "6. (Más de 60 años]"
+  )
+)
+```
+
+<pre>
+Frequencies  
+clientes$edadR  
+Type: Character  
+
+                            Freq   % Valid   % Valid Cum.   % Total   % Total Cum.
+------------------------- ------ --------- -------------- --------- --------------
+      1. (18  a 20  años]     61      6.10           6.10      6.10           6.10
+       2. (20 a 30 años]    193     19.30          25.40     19.30          25.40
+        3. (30 a 40 años]    167     16.70          42.10     16.70          42.10
+        4. (40 a 50 años]    205     20.50          62.60     20.50          62.60
+        5. (50 a 60 años]    197     19.70          82.30     19.70          82.30
+      6. (Más de 60 años]    177     17.70         100.00     17.70         100.00
+                     <NA>      0                               0.00         100.00
+                    Total   1000    100.00         100.00    100.00         100.00
+</pre>
+
+Esta tabla nos permite identificar los rangos de mayor frecuencia 
+
+También podemos realizar una tabla sin tener que realizar la recodificación. Esto se logra con la función **hist()**
+
+<br/><br/>
+
+```{r}
+h=hist(clientes$edad_cliente)
+```
+
+```{r}
+h$breaks   # puntos de corte
+h$counts   # frecuencias absolutas en cada intervalo
+h$density  # densidad en cada intervalo
+```
+
+Sería de interés también construir una tabla con las edades de las personas fallecidas por covid en Colombia, para lo cual debemos primero seleccionar la base de datos de las fallecidas y luego construir la tabla.
+
+En este caso vamos a seleccionar los rangos de edad y luego construimos la tabla
+
+```{r}
+
+clientes_jovenes=subset(clientes, edad_cliente<30)
+breaks=seq(17,30, by=4)
+Edad.jovenes=cut(clientes_jovenes$edad_cliente, breaks)
+table(Edad.jovenes, useNA = "ifany")
+```
+
+<br/><br/>
+
+
+
+<br/><br/>
+
+## Tablas de doble entrada
+
+```{r}
+#CAMBIAR DATA----------------------------------------
+table(clientes$genero_cliente, clientes$categoria_preferida)
+```
+
+
+```{r}
+
+tabla1=table(clientes$edadR,clientes$categoria_preferida ) %>% 
+            prop.table()*100 
+            
+                         
+tabla1
+```
+
+
+<br/><br/>
+
+# Indicadores descriptivos
+
+Un indicador es un número que resume o representa un grupo de valores. El poder resumir una gran cantidad de valores en unos pocos facilita realizar un análisis de ellos. 
+
+En el caso de las variables cualitativas en escala nominal, se pueden representar por el valor más frecuente. A este valor se le conoce como **Moda** y lo podemos ver claramente en una tabla de frecuencias.
+
+En el caso de las variables cuantitativas tenemos varias alternativas para construirlos 
+
+Utilizando la función `summary` :
+
+```{r}
+#CAMBIAR DATA----------------------------------------
+summary(clientes$ingresos)
+```
+
+<br/><br/>
+
+Utilizando la función describe del paquete psych:
+
+```{r}
+#CAMBIAR DATA----------------------------------------
+psych::describe(clientes$ingresos)
+```
+
+<br/><br/>
+
+Utilizando la función `describe.by` del paquete `psych`,  que nos permite el calculo de las descritivas para varios grupos :
+
+```{r}
+
+psych::describe.by(clientes$ingresos, group = clientes$genero_cliente)
+```
+
+<br/><br/>
+
+Utilizando la función `descr` del paquete `summaytools` : 
+
+```{r, eval=FALSE}
+
+summarytools::descr(clientes$ingresos)
+```
+<pre>
+Descriptive Statistics  
+clientes$ingresos  
+N: 1000  
+
+                     ingresos
+----------------- -----------
+             Mean   103606.09
+          Std.Dev    29607.83
+              Min    30000.00
+               Q1    82034.00
+           Median   108972.00
+               Q3   127977.50
+              Max   150000.00
+              MAD    32412.60
+              IQR    45884.25
+               CV        0.29
+         Skewness       -0.50
+      SE.Skewness        0.08
+         Kurtosis       -0.75
+          N.Valid     1000.00
+                N     1000.00
+        Pct.Valid      100.00
+</pre>
+
+<br/><br/>
+
+**YA ESTAMOS LISTOS PARA INTERPRETAR LA INFORMACIÓN  !!**
+
+<br/><br/><br/>
+
+# Documentos pdf con Rmd
+
+A través de RStudio se pueden construir documentos en formatos **PDF**, **DOC**, **HTML** entre otros. En esta ocasión se describe como realizar un informe utilizando para ello un archivo Rmd en RStudio.
+
+Inicialmente en RStudio abrimos un nuevo archivo en formato Rmd 
+
+File/New File/ R Markdown...
+
+Al hacerlo se despliega la siguiente ventana
+
+![](img/Rmd1.png){width=300px}
+
+En este caso seleccionamos  **PDF** para abrir una plantilla que nos ofrece el programa para orientar nuestros primeros pasos
+
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/rl1xsFMxJuY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+<br/><br/><br/>
+
+```
+---
+title: "Untitled"
+author: "dgonzalez"
+date: "3/2/2022"
+output: pdf_document
+---
+```
+<br/>
+
+El primer bloque contiene información sobre el titulo del documento, el autor, la fecha y el formato de salida 
+
+Podemos también agregar un subtítulo: subtitle: "Subtítulo"
+
+
+Despues de este bloque encontramos el cuerpo del documento que puede contener texto escrito de manera normal, código html, código Markdown y LaTeX
+
+Algunas de las principales instrucciones para empezar son 
+
+### Titulos 
+
+```
+# Título 1
+## Título 2
+### Título 3
+#### Título 4
+##### Título 5
+#####  Título 6
+```
+### Listas
+
+```
++ Punto 1
++ Punto 2
++ Punto 3
+  + Punto 3.1
+  + Punto 3.2
+```
+
+  
+También se pueden hacer numeradas
+
+```
+1. Punto 1
+2. Punto 2
+3. Punto 3
+```
+1. Punto 1
+2. Punto 2
+3. Punto 3
+
+Permite también escribir ecuaciones en código LaTeX, como por ejemplo
+ 
+```
+$$\dfrac{1}{n}\sum_{i=1}^{n} x_{i} = \bar{x}$$
+```
+
+$$\dfrac{1}{n}\sum_{i=1}^{n} x_{i} = \bar{x}$$
+
+Una de sus principales ventajas es permitir correr código **R** y de otros lenguajes como Python, SQL, entre otros.
+
+Para ello utilizamos el botón **+c** ubicado en la barra superior de la ventana **Source** 
+
+![](img/Rmd2.png){width=120px}
+
+
+Dentro de este bloque podemos correr codigo R y asi ubicar dentro del documento tablas, indicadores o gráficos
+
+![](img/Rmd3.png){width=400px} 
+
+En la siguiente página pueden encotrar resumen de varios paquetes de R dentro de los cuales está RMardown
+
+https://www.rstudio.com/resources/cheatsheets/
+
+<br/><br/>
+
+## Otros formatos de tablas
+
+```{r}
+df <- data.frame(
+  id = 1:10,
+  nombre = c("Juan", "Carlos", "James", "David", "Jenny", "Harold", "Leonardo", "John", "Ana", "Luz"),
+  edad = c(18, 25, 22, 30, 21, 23, 25, 20, 21, 20),
+  grado = c("C", "A", "A", "C", "B", "B", "A", "C", "C", "C"),
+  Examen1 = c(3.2, 4.1, 4.0, 3.9, 4.0, 4.3, 3.6, 3.7, 3.8, 3.8),
+  Examen2 = c(3.3, 3.9, 4.0, 3.9, 3.8, 3.6, 4.0, 4.0, 3.9, 3.8),
+  Promedio = c(3.3, 4.0, 4.1, 3.6, 3.7, 4.6, 3.5, 3.6, 3.8, 3.7),
+  Entrevista = c(TRUE, FALSE, TRUE, FALSE, TRUE, TRUE, TRUE, FALSE, FALSE, FALSE),
+  stringsAsFactors = FALSE
+)
+
+df
+```
+
+<br/><br/>
+
+```{r}
+# colnames(df1)=c("Id", "Nombre", "Edad","grado", "Nota1", "Nota2", "Nota_Final", "Entrevista")
+df1=flextable(df)
+df1
+```
+
+
+```{r}
+library(formattable)
+
+formattable(df, list(
+  edad = color_tile("transparent", "#5D7A9C"),
+  Examen1 = color_bar("#F7B983"),
+  Examen2 = color_bar("#F7D18B"),
+  Promedio = color_bar("#F6E8D9"))
+)
+
+```

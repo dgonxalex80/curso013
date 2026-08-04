@@ -1,0 +1,149 @@
+---
+title: " "  
+subtitle: " " 
+author: "dgonzalez "
+output:
+  html_document:
+    toc: no
+    toc_depth: 2
+    toc_float: yes
+    code_folding: hide
+    theme: flatly
+    css: style.css
+---     
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE, comment = NA)
+library(psych)
+library(summarytools)
+
+# install.packages("devtools")
+# devtools::install_github("dgonxalex80/paqueteDEG")
+# El paquete se carga en la sección de datos.
+
+# colores
+source("init.R")
+
+# install.packages('gtools')
+# install.packages("TeachingSampling")
+
+#load library
+#library(gtools)
+#library(TeachingSampling)
+#library(readr)
+#base_muestreo <- read_delim("data/base_muestreo.csv", 
+#    delim = ";", escape_double = FALSE, col_types = cols(ID = col_integer()), 
+#    trim_ws = TRUE)
+
+
+
+```
+
+```{r, echo=FALSE, out.width="100%", fig.align = "center"}
+knitr::include_graphics("img/modulo1.png")
+```
+
+<br/><br/>
+
+## **Enunciado**
+
+<!-- ![](img/cerveza.png) -->
+
+La base de datos **beer** contiene 69 registros, uno por cada marca de cerveza, y 6 variables. No presenta datos faltantes. Su propósito es describir y comparar las principales características comerciales y nutricionales de los productos.
+
+El director de investigación solicita su apoyo en la primera etapa del estudio, que consiste en resumir la información mediante tablas e indicadores estadísticos para evaluar sus hipótesis iniciales.
+
+La composición de la base de datos es la siguiente:  
+
++ <span style="color:#b0394a">**marca**</span>: variable cualitativa nominal que identifica cada marca de cerveza (69 categorías).
+
++ <span style="color:#b0394a">**precio**</span>: variable cuantitativa que registra el precio de una caja de seis botellas de 12 onzas.
+
++ <span style="color:#b0394a">**calorias**</span>: variable cuantitativa que indica la cantidad de calorías contenidas en una botella de 12 onzas.
+
++ <span style="color:#b0394a">**poralcoh**</span>: variable cuantitativa que representa el porcentaje de alcohol por volumen.
+
++ <span style="color:#b0394a">**tipo**</span>: variable cualitativa nominal codificada en cinco categorías: 1 = lager artesanal, 2 = clara artesanal, 3 = lager importada, 4 = cerveza normal y helada, y 5 = cerveza baja en calorías o sin alcohol.
+
++ <span style="color:#b0394a">**origen**</span>: variable cualitativa nominal dicotómica que identifica la procedencia de la cerveza: 0 = importada y 1 = nacional.
+
+Su trabajo consiste en elaborar un informe descriptivo que incluya tablas de frecuencias para las variables cualitativas, indicadores estadísticos apropiados para las variables cuantitativas y una interpretación de los resultados obtenidos.
+
+<br/><br/>
+
+## **Cargar datos** 
+
+
+<pre>
+install.packages("devtools") # solo una vez
+devtools::install_github("dgonxalex80/paqueteDEG") # descarga paqueteDEG
+library(paqueteDEG) # activa paqueteDEG
+data("beer", package = "paqueteDEG") # carga la base beer
+
+# Opcional: guarda una copia del CSV en la carpeta de trabajo
+descargar_beer("beer.csv")
+</pre>
+
+```{r, eval=FALSE}
+install.packages("devtools") # solo una vez
+devtools::install_github("dgonxalex80/paqueteDEG") # descarga paqueteDEG
+library(paqueteDEG) # activa paqueteDEG
+data("beer", package = "paqueteDEG") # carga la base beer
+
+# Opcional: guarda una copia del CSV en la carpeta de trabajo
+descargar_beer("beer.csv")
+```
+
+<br/><br/>
+
+## **Base de datos**
+```{r}
+library(DT)
+# Cargar los datos
+library(paqueteDEG)
+data("beer", package = "paqueteDEG")
+# Mostrar la tabla con DataTable
+DT::datatable(
+  head(beer),
+  fillContainer = FALSE,
+  options = list(pageLength = 8)
+)
+
+```
+<br/>
+
+<center>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/lVQ5MjSpi4E?si=Rlta13udaInGPPQj" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+</center>
+
+
+<br/><br/>
+
+<center>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/sAwkejZDgBk?si=ITGRZE1g5hh96ZUg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+</center>
+
+
+<br/><br/>
+
+<center>
+
+</center>
+
+
+### [**Tablero**](https://rpubs.com/dgonzalez80/caso1)
+
+<br/>
+
+
+### [**Flexdashboard**](https://rstudio.github.io/flexdashboard/articles/using.html) 
+k
+
+
+<br/>
+
+
+### [**icons**](https://ionic.io/ionicons/v2/cheatsheet.html)
+
+
+

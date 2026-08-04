@@ -1,0 +1,1530 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="dgonzalez" />
+
+
+<title>recurso13.knit</title>
+
+<script src="site_libs/header-attrs-2.31/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/htmltools-fill-0.5.9/fill.css" rel="stylesheet" />
+<script src="site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<script src="site_libs/proj4js-2.3.15/proj4.js"></script>
+<link href="site_libs/highcharts-9.3.1/css/motion.css" rel="stylesheet" />
+<script src="site_libs/highcharts-9.3.1/highcharts.js"></script>
+<script src="site_libs/highcharts-9.3.1/highcharts-3d.js"></script>
+<script src="site_libs/highcharts-9.3.1/highcharts-more.js"></script>
+<script src="site_libs/highcharts-9.3.1/modules/stock.js"></script>
+<script src="site_libs/highcharts-9.3.1/modules/map.js"></script>
+<script src="site_libs/highcharts-9.3.1/modules/data.js"></script>
+<script src="site_libs/highcharts-9.3.1/modules/exporting.js"></script>
+<script src="site_libs/highcharts-9.3.1/modules/offline-exporting.js"></script>
+<script src="site_libs/highcharts-9.3.1/modules/drilldown.js"></script>
+<script src="site_libs/highcharts-9.3.1/modules/item-series.js"></script>
+<script src="site_libs/highcharts-9.3.1/modules/overlapping-datalabels.js"></script>
+<script src="site_libs/highcharts-9.3.1/modules/annotations.js"></script>
+<script src="site_libs/highcharts-9.3.1/modules/export-data.js"></script>
+<script src="site_libs/highcharts-9.3.1/modules/funnel.js"></script>
+<script src="site_libs/highcharts-9.3.1/modules/heatmap.js"></script>
+<script src="site_libs/highcharts-9.3.1/modules/treemap.js"></script>
+<script src="site_libs/highcharts-9.3.1/modules/sankey.js"></script>
+<script src="site_libs/highcharts-9.3.1/modules/dependency-wheel.js"></script>
+<script src="site_libs/highcharts-9.3.1/modules/organization.js"></script>
+<script src="site_libs/highcharts-9.3.1/modules/solid-gauge.js"></script>
+<script src="site_libs/highcharts-9.3.1/modules/streamgraph.js"></script>
+<script src="site_libs/highcharts-9.3.1/modules/sunburst.js"></script>
+<script src="site_libs/highcharts-9.3.1/modules/vector.js"></script>
+<script src="site_libs/highcharts-9.3.1/modules/wordcloud.js"></script>
+<script src="site_libs/highcharts-9.3.1/modules/xrange.js"></script>
+<script src="site_libs/highcharts-9.3.1/modules/tilemap.js"></script>
+<script src="site_libs/highcharts-9.3.1/modules/venn.js"></script>
+<script src="site_libs/highcharts-9.3.1/modules/gantt.js"></script>
+<script src="site_libs/highcharts-9.3.1/modules/timeline.js"></script>
+<script src="site_libs/highcharts-9.3.1/modules/parallel-coordinates.js"></script>
+<script src="site_libs/highcharts-9.3.1/modules/bullet.js"></script>
+<script src="site_libs/highcharts-9.3.1/modules/coloraxis.js"></script>
+<script src="site_libs/highcharts-9.3.1/modules/dumbbell.js"></script>
+<script src="site_libs/highcharts-9.3.1/modules/lollipop.js"></script>
+<script src="site_libs/highcharts-9.3.1/modules/series-label.js"></script>
+<script src="site_libs/highcharts-9.3.1/plugins/motion.js"></script>
+<script src="site_libs/highcharts-9.3.1/custom/reset.js"></script>
+<script src="site_libs/highcharts-9.3.1/modules/boost.js"></script>
+<script src="site_libs/highchart-binding-0.9.5/highchart.js"></script>
+<link href="site_libs/ggiraphjs-0.9.4/girafe.css" rel="stylesheet" />
+<script src="site_libs/ggiraphjs-0.9.4/girafe.js"></script>
+<script src="site_libs/girafe-binding-0.9.6/girafe.js"></script>
+<link href="site_libs/liberation-sans-0.5.0/css/liberation-sans.css" rel="stylesheet" />
+<link href="site_libs/liberation-serif-0.5.0/css/liberation-serif.css" rel="stylesheet" />
+<link href="site_libs/liberation-mono-0.5.0/css/liberation-mono.css" rel="stylesheet" />
+<script src="site_libs/plotly-binding-4.12.0/plotly.js"></script>
+<script src="site_libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="site_libs/crosstalk-1.2.2/css/crosstalk.min.css" rel="stylesheet" />
+<script src="site_libs/crosstalk-1.2.2/js/crosstalk.min.js"></script>
+<link href="site_libs/plotly-htmlwidgets-css-2.25.2/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="site_libs/plotly-main-2.25.2/plotly-latest.min.js"></script>
+<link href="site_libs/font-awesome-6.5.2/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html"> </a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">
+    <span class="fa fa-home"></span>
+     
+    Estadística
+  </a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 0
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo0.html">Módulo 0</a>
+    </li>
+    <li>
+      <a href="sumatoria.html">Sumatoria</a>
+    </li>
+    <li>
+      <a href="productoria.html">Productoria</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 1
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo1.html">Módulo 1</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="guia11.html">Guía 1.1</a>
+    </li>
+    <li>
+      <a href="recurso11.html">Recursos 1.1</a>
+    </li>
+    <li>
+      <a href="basesdatos.html">Bases de datos</a>
+    </li>
+    <li>
+      <a href="introduccionR.html">Introducción a R</a>
+    </li>
+    <li>
+      <a href="codigo11.html">Código 1.1</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="guia12.html">Guía 1.2</a>
+    </li>
+    <li>
+      <a href="recurso12.html">Recursos 1.2</a>
+    </li>
+    <li>
+      <a href="codigo12.html">Código 1.2</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="monitoria1.html">Monitoria 1</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 2
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo2.html">Módulo 2</a>
+    </li>
+    <li class="divider"></li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 3
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo3.html">Módulo 3</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 4
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo4.html">Módulo 4</a>
+    </li>
+    <li class="divider"></li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Proyecto
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="enconstruccion.html">Guía proyecto</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
+
+
+
+</div>
+
+
+<p><br/><br/></p>
+<p><img src="img/recurso1.png" alt="" width="100%" style="display: block; margin: auto;" /></p>
+<p><br/><br/></p>
+<div id="introducción" class="section level2">
+<h2><strong>Introducción</strong></h2>
+<blockquote>
+<p>Una gráfica o una representación gráfica o un gráfico, es un tipo de
+representación de datos, generalmente cuantitativos, mediante recursos
+visuales (líneas, vectores, superficies o símbolos), para que se
+manifieste visualmente la relación matemática o correlación estadística
+que guardan entre sí.</p>
+</blockquote>
+<p>Wikipedia</p>
+<p>En esta unidad vamos a revisar cómo elegir y construir gráficos que
+apoyen el análisis en administración y mercadeo. La idea es que cada
+visualización responda a una pregunta concreta (por ejemplo: ¿qué
+producto vende más?, ¿cómo se comporta la demanda en el tiempo?, ¿qué
+segmentos son diferentes?) y no sea solo un adorno.</p>
+</div>
+<div id="paquetes-de-r-para-gráficos" class="section level2">
+<h2><strong>Paquetes de R para gráficos</strong></h2>
+<p>R posee una serie de paquetes construido para la visualización de
+datos que hacen que tengan una excelente presentación. Empezando por
+funciones del núcleo base, hasta paquetes que elaboran gráficos
+interactivos</p>
+<p>En el trabajo profesional, el objetivo es comunicar hallazgos a
+equipos y directivos. Por eso aquí verás opciones desde gráficos rápidos
+en R base hasta alternativas más flexibles e interactivas, útiles para
+reportes ejecutivos y tableros.</p>
+<p><img src="img/RStudio.jpeg" width="90">
+<img src="img/ggplot2.png" width="80">
+<img src="img/highcharter.png" width="80">
+<img src="img/shiny.png" width="80">
+<img src="img/plotly.png" width="80">
+<img src="img/dashboard.png" width="80"></p>
+</div>
+<div id="paquetes-de-r-para-gráficos-y-soluciones-gráficas"
+class="section level2">
+<h2>Paquetes de R para gráficos y soluciones gráficas</h2>
+<table>
+<colgroup>
+<col width="33%" />
+<col width="33%" />
+<col width="33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Categoría</th>
+<th>Paquetes (ejemplos)</th>
+<th>¿Para qué sirven?</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Gráficos base / extensiones de <strong>ggplot2</strong></td>
+<td><code>ggthemes</code>, <code>ggrepel</code>, <code>patchwork</code>,
+<code>cowplot</code>, <code>ggpubr</code>, <code>ggridges</code>,
+<code>GGally</code></td>
+<td>Mejorar estética, etiquetas, combinar gráficos, figuras tipo
+“paper”, ridgelines, matrices de dispersión</td>
+</tr>
+<tr class="even">
+<td>Dashboards y reportes</td>
+<td><code>rmarkdown</code>, <code>quarto</code>,
+<code>shinydashboard</code>, <code>bslib</code>, <code>golem</code>,
+<code>htmlwidgets</code></td>
+<td>Reportes reproducibles, dashboards en Shiny, estilos Bootstrap,
+estructura profesional de apps, widgets embebibles</td>
+</tr>
+<tr class="odd">
+<td>Interactivos (además de plotly)</td>
+<td><code>leaflet</code>, <code>mapview</code>, <code>DT</code>,
+<code>echarts4r</code>, <code>apexcharter</code>,
+<code>ggiraph</code></td>
+<td>Mapas interactivos, tablas interactivas, gráficos web modernos,
+interactividad (hover/click) sobre ggplot</td>
+</tr>
+<tr class="even">
+<td>Mapas y análisis espacial</td>
+<td><code>sf</code>, <code>terra</code>, <code>raster</code>,
+<code>tmap</code>, <code>ggspatial</code></td>
+<td>Manejo de datos espaciales (vectores/raster), cartografía
+estática/interactiva, elementos cartográficos en ggplot</td>
+</tr>
+<tr class="odd">
+<td>Redes y diagramas</td>
+<td><code>igraph</code>, <code>ggraph</code>, <code>DiagrammeR</code>,
+<code>networkD3</code></td>
+<td>Redes (nodos/aristas), grafos con gramática tipo ggplot, diagramas
+de flujo, redes interactivas tipo D3</td>
+</tr>
+<tr class="even">
+<td>Visualizaciones “especiales”</td>
+<td><code>corrplot</code>, <code>ggcorrplot</code>,
+<code>pheatmap</code>, <code>ComplexHeatmap</code>,
+<code>treemapify</code>, <code>waffle</code></td>
+<td>Correlaciones, heatmaps avanzados, treemaps, gráficos waffle</td>
+</tr>
+</tbody>
+</table>
+<p>Elegir el gráfico adecuado es muy importante pues existen diferentes
+alternativos y se debe escoger el apropiado para representar los datos.
+El tipo de dato determina el tipo de grafico asi:</p>
+<p>Antes de graficar, identifica la variable principal (cualitativa o
+cuantitativa) y el objetivo del análisis (comparar, describir
+distribución, identificar tendencias, etc.). Esa decisión guía el tipo
+de gráfico.</p>
+<p>En términos prácticos, los gráficos se pueden agrupar según la
+pregunta que quieres responder:</p>
+<ul>
+<li><strong>Comparación</strong>: barras y columnas para contrastar
+categorías (marcas, productos, canales).</li>
+<li><strong>Composición</strong>: tortas o barras apiladas para mostrar
+participación o cuota.</li>
+<li><strong>Distribución</strong>: histogramas, densidades y cajas para
+entender cómo se dispersan los datos.</li>
+<li><strong>Relación</strong>: dispersión para ver asociaciones entre
+dos variables (precio vs. demanda).</li>
+<li><strong>Evolución en el tiempo</strong>: líneas o series de tiempo
+para observar tendencias y estacionalidad.</li>
+</ul>
+<p>También es clave considerar el público. Si el gráfico va dirigido a
+directivos o clientes, prioriza claridad y mensajes clave. Si es para
+análisis técnico, puedes incluir más detalle (como distribución o
+valores atípicos).</p>
+<p>Ejemplos aplicados:</p>
+<ul>
+<li>Comparación: ventas por línea de producto en un trimestre.</li>
+<li>Composición: participación de mercado por marca en un sector.</li>
+<li>Distribución: variabilidad del ticket promedio por cliente.</li>
+<li>Relación: inversión en pauta digital vs. conversiones.</li>
+<li>Evolución en el tiempo: visitas al sitio web mes a mes y picos en
+campañas.</li>
+</ul>
+<pre class="r"><code># Comparación: ventas por línea de producto
+ventas_prod &lt;- data.frame(
+  producto = c(&quot;A&quot;, &quot;B&quot;, &quot;C&quot;, &quot;D&quot;),
+  ventas = c(120, 95, 140, 80)
+)
+barplot(
+  ventas_prod$ventas,
+  names.arg = ventas_prod$producto,
+  col = c11,
+  main = &quot;Ventas por línea de producto&quot;,
+  ylab = &quot;Unidades&quot;
+)</code></pre>
+<p><img src="recurso13_files/figure-html/unnamed-chunk-2-1.png" alt="" width="672" /></p>
+<pre class="r"><code># Composición: participación de mercado por marca
+participacion &lt;- data.frame(
+  marca = c(&quot;Marca 1&quot;, &quot;Marca 2&quot;, &quot;Marca 3&quot;, &quot;Otros&quot;),
+  share = c(35, 25, 20, 20)
+)
+pie(
+  participacion$share,
+  labels = paste0(participacion$marca, &quot; (&quot;, participacion$share, &quot;%)&quot;),
+  main = &quot;Participación de mercado por marca&quot;,
+  col = paleta4
+)</code></pre>
+<p><img src="recurso13_files/figure-html/unnamed-chunk-3-1.png" alt="" width="672" /></p>
+<pre class="r"><code># Distribución: ticket promedio por cliente
+set.seed(123)
+ticket &lt;- rnorm(120, mean = 85, sd = 20)
+hist(
+  ticket,
+  col = c21,
+  main = &quot;Distribución del ticket promedio&quot;,
+  xlab = &quot;Ticket (miles de $)&quot;,
+  ylab = &quot;Frecuencia&quot;
+)</code></pre>
+<p><img src="recurso13_files/figure-html/unnamed-chunk-4-1.png" alt="" width="672" /></p>
+<pre class="r"><code># Relación: inversión en pauta digital vs conversiones
+inv &lt;- c(10, 15, 20, 25, 30, 35, 40)
+conv &lt;- c(120, 150, 190, 210, 260, 300, 330)
+plot(
+  inv, conv,
+  pch = 19, col = c11,
+  main = &quot;Inversión vs conversiones&quot;,
+  xlab = &quot;Inversión (millones)&quot;,
+  ylab = &quot;Conversiones&quot;
+)</code></pre>
+<p><img src="recurso13_files/figure-html/unnamed-chunk-5-1.png" alt="" width="672" /></p>
+<pre class="r"><code># Evolución en el tiempo: visitas al sitio web
+mes &lt;- c(&quot;Ene&quot;,&quot;Feb&quot;,&quot;Mar&quot;,&quot;Abr&quot;,&quot;May&quot;,&quot;Jun&quot;,&quot;Jul&quot;,&quot;Ago&quot;,&quot;Sep&quot;,&quot;Oct&quot;,&quot;Nov&quot;,&quot;Dic&quot;)
+visitas &lt;- c(12, 14, 15, 18, 22, 25, 30, 28, 24, 20, 18, 16)
+plot(
+  visitas,
+  type = &quot;o&quot;, col = c31, lwd = 2, pch = 19,
+  xaxt = &quot;n&quot;,
+  main = &quot;Visitas al sitio web por mes&quot;,
+  xlab = &quot;Mes&quot;,
+  ylab = &quot;Miles de visitas&quot;
+)
+axis(1, at = 1:12, labels = mes)</code></pre>
+<p><img src="recurso13_files/figure-html/unnamed-chunk-6-1.png" alt="" width="672" /></p>
+<p><img src="img/graficos.png" alt="" width="100%" style="display: block; margin: auto;" /></p>
+<!-- |Tipo de variable  | Escala          | Gráfico                                   | -->
+<!-- |:-----------------|:----------------|:------------------------------------------| -->
+<!-- |Cualitativas      |                 |                                           | -->
+<!-- |                  |Nominal          | torta                                     | -->
+<!-- |                  |Ordinal          | barras                                    | -->
+<!-- |                  |                 |                                           | -->
+<!-- |Cuantitativas     |Intervalo-razón  | diagrama de tallos y hojas                | -->
+<!-- |                  |                 | histograma                                | -->
+<!-- |                  |                 | diagrama de cajas                         | -->
+<!-- |                  |                 | diagrama de densidad                      | -->
+<!-- |                  |                 | diagrama de puntos                        | -->
+<!-- |                  |                 | diagrama de lineas                        | -->
+<!-- |                  |                 | diagrama de radar                         | -->
+<!-- |                  |                 | gráfico likert                            | -->
+<!-- |                  |                 | mapa de calor                             | -->
+<p><br/><br/></p>
+<div id="gráficos-variables-cualitativas-con-r-base"
+class="section level3">
+<h3><strong>Gráficos variables cualitativas con R base</strong></h3>
+<p>Gráfico de tortas</p>
+<p>Este gráfico es útil para mostrar participaciones o cuotas de
+mercado. Se recomienda cuando hay pocas categorías y se desea resaltar
+la proporción de cada una.</p>
+<pre class="r"><code>a=rep(&quot;Cultural&quot;, 360145)
+b=rep(&quot;Pastoral&quot;, 61496)
+c=rep(&quot;Bienestar&quot;,49912)
+d=rep(&quot;Deportivo&quot;,11777)
+data=c(a,b,c,d)
+t=table(data)
+lbs=c(&quot;Cultural&quot;, &quot;Pastoral&quot;, &quot;Bienestar&quot;, &quot;Deportivo&quot;)
+pct=round(t/sum(t)*100)
+labs=paste(lbs, pct)
+labs=paste(labs, &quot;%&quot;, sep = &quot; &quot;) 
+pie(t, labels=labs, main=&quot; Participación eventos Medio Universitario&quot;,
+    col = paleta4)</code></pre>
+<p><img src="recurso13_files/figure-html/unnamed-chunk-8-1.png" alt="" width="672" /></p>
+<p><br/><br/></p>
+</div>
+<div id="diagrama-de-barras" class="section level3">
+<h3><strong>Diagrama de barras</strong></h3>
+<p>Las barras permiten comparar categorías con facilidad. En mercadeo se
+usan, por ejemplo, para comparar niveles de satisfacción o respuestas a
+encuestas por opciones.</p>
+<pre class="r"><code>ev=c(4,  8, 12, 43, 32)
+names(ev)=c(&quot;Muy regular&quot;, &quot;Regular&quot;, &quot;Bueno&quot;, &quot;Muy bueno&quot;,&quot;Excelente&quot;)
+barplot(ev, col=c(&quot;#ff5b00&quot;,&quot;#dcf600&quot;,&quot;#7dbd00&quot;,&quot;#659cef&quot;,&quot;#2956b2&quot;), main = &quot;Evaluación proceso de inducción&quot;)</code></pre>
+<p><img src="recurso13_files/figure-html/unnamed-chunk-9-1.png" alt="" width="672" /></p>
+<p><br/><br/></p>
+</div>
+<div id="diagrama-de-barras-dos-variables" class="section level3">
+<h3><strong>Diagrama de barras dos variables</strong></h3>
+<p>Cuando se cruzan dos variables categóricas, las barras agrupadas
+permiten comparar combinaciones (p. ej., tipo de producto vs. canal).
+Esto ayuda a detectar patrones por segmento.</p>
+<pre class="r"><code>set.seed(123)
+canal &lt;- sample(c(&quot;Digital&quot;, &quot;Tienda fisica&quot;), 150, replace = TRUE, prob = c(0.6, 0.4))
+categoria &lt;- sample(c(&quot;Aseo&quot;, &quot;Bebidas&quot;, &quot;Snacks&quot;), 150, replace = TRUE)
+counts &lt;- table(canal, categoria)
+barplot(
+  counts,
+  main = &quot;Ventas por categoría y canal&quot;,
+  xlab = &quot;Categoría de producto&quot;,
+  col = c(c11, c41),
+  legend = rownames(counts)
+)</code></pre>
+<p><img src="recurso13_files/figure-html/unnamed-chunk-10-1.png" alt="" width="672" /></p>
+<p><br/><br/></p>
+</div>
+<div id="gráficas-variables-cuantitativas-con-r-base"
+class="section level3">
+<h3><strong>Gráficas variables cuantitativas con R base</strong></h3>
+<p>En variables numéricas nos interesa describir la distribución, la
+tendencia y la dispersión. Los siguientes gráficos ayudan a responder
+preguntas como: ¿hay valores atípicos?, ¿la distribución es simétrica?,
+¿existen agrupaciones?</p>
+<p><br/><br/></p>
+</div>
+<div id="diagrama-de-árbol" class="section level3">
+<h3><strong>Diagrama de árbol</strong></h3>
+<p>El diagrama de tallos y hojas permite ver valores individuales y su
+frecuencia sin perder detalle. Es una buena alternativa cuando el
+conjunto de datos no es muy grande.</p>
+<pre class="r"><code>nf=c(4.1, 2.7, 3.1, 3.2, 3.0, 3.2, 2.0, 2.4, 1.6, 3.2, 3.1, 2.6, 2.0, 2.4, 2.8, 3.3, 4.0, 3.4, 3.0, 3.1, 2.7, 2.7, 3.0, 3.8, 3.2, 2.2, 3.5, 3.5, 3.8, 3.5, 3.9, 4.2, 4.3, 3.9, 3.2, 3.5, 3.5, 3.7, 4.1, 3.7, 3.5, 3.6, 3.2, 3.1, 3.4, 3.0, 3.0, 3.0, 2.7, 1.7, 3.6, 2.1, 2.4, 3.0, 3.1, 2.5, 2.5, 3.6, 2.2, 2.4, 3.1, 3.3, 2.7, 3.7, 3.0, 2.7, 3.0, 3.2, 3.1, 2.4, 3.0, 2.7, 2.5, 3.0, 3.0, 3.0, 3.2, 3.1, 3.8, 4.1, 3.7, 3.5, 3.0, 3.7, 3.7, 4.1, 3.7, 3.9, 3.7, 2.0)
+stem(nf)</code></pre>
+<pre><code>
+  The decimal point is at the |
+
+  1 | 67
+  2 | 00012244444
+  2 | 555677777778
+  3 | 0000000000000011111111222222223344
+  3 | 555555566677777777888999
+  4 | 0111123</code></pre>
+<p>Este diagrama ordena los datos y permite identificar rápidamente el
+mínimo, el máximo y el rango donde se concentra la mayor parte del
+ticket promedio por cliente.</p>
+<p><br/><br/></p>
+</div>
+<div id="histograma" class="section level3">
+<h3><strong>Histograma</strong></h3>
+<p>El histograma resume la distribución de una variable. En contextos de
+negocio puede servir para ver la dispersión de tiempos de entrega o el
+rango de ventas por cliente.</p>
+<pre class="r"><code>nf=c(4.1, 2.7, 3.1, 3.2, 3.0, 3.2, 2.0, 2.4, 1.6, 3.2, 3.1, 2.6, 2.0, 2.4, 2.8, 3.3, 4.0, 3.4, 3.0, 3.1, 2.7, 2.7, 3.0, 3.8, 3.2, 2.2, 3.5, 3.5, 3.8, 3.5, 3.9, 4.2, 4.3, 3.9, 3.2, 3.5, 3.5, 3.7, 4.1, 3.7, 3.5, 3.6, 3.2, 3.1, 3.4, 3.0, 3.0, 3.0, 2.7, 1.7, 3.6, 2.1, 2.4, 3.0, 3.1, 2.5, 2.5, 3.6, 2.2, 2.4, 3.1, 3.3, 2.7, 3.7, 3.0, 2.7, 3.0, 3.2, 3.1, 2.4, 3.0, 2.7, 2.5, 3.0, 3.0, 3.0, 3.2, 3.1, 3.8, 4.1, 3.7, 3.5, 3.0, 3.7, 3.7, 4.1, 3.7, 3.9, 3.7, 2.0)
+
+h1 = hist(nf, main = &quot;Distribución del ticket promedio por cliente&quot;, xlab = &quot;ticket (decenas de miles COP)&quot;, ylab=&quot;frecuencias absolutas&quot;, labels=TRUE, col=c21, ylim = c(0,30))
+abline(v=3,col=c31, lwd=2)</code></pre>
+<p><img src="recurso13_files/figure-html/unnamed-chunk-12-1.png" alt="" width="672" /></p>
+<pre class="r"><code>h1</code></pre>
+<pre><code>$breaks
+[1] 1.5 2.0 2.5 3.0 3.5 4.0 4.5
+
+$counts
+[1]  5 11 23 27 18  6
+
+$density
+[1] 0.1111111 0.2444444 0.5111111 0.6000000 0.4000000 0.1333333
+
+$mids
+[1] 1.75 2.25 2.75 3.25 3.75 4.25
+
+$xname
+[1] &quot;nf&quot;
+
+$equidist
+[1] TRUE
+
+attr(,&quot;class&quot;)
+[1] &quot;histogram&quot;</code></pre>
+<p><br/><br/></p>
+</div>
+<div id="diagrama-de-densidad" class="section level3">
+<h3><strong>Diagrama de densidad</strong></h3>
+<p>La densidad muestra la forma general de la distribución suavizada. Es
+útil para comparar rápidamente perfiles de consumo o niveles de
+gasto.</p>
+<pre class="r"><code>nf=c(4.1, 2.7, 3.1, 3.2, 3.0, 3.2, 2.0, 2.4, 1.6, 3.2, 3.1, 2.6, 2.0, 2.4, 2.8, 3.3, 4.0, 3.4, 3.0, 3.1, 2.7, 2.7, 3.0, 3.8, 3.2, 2.2, 3.5, 3.5, 3.8, 3.5, 3.9, 4.2, 4.3, 3.9, 3.2, 3.5, 3.5, 3.7, 4.1, 3.7, 3.5, 3.6, 3.2, 3.1, 3.4, 3.0, 3.0, 3.0, 2.7, 1.7, 3.6, 2.1, 2.4, 3.0, 3.1, 2.5, 2.5, 3.6, 2.2, 2.4, 3.1, 3.3, 2.7, 3.7, 3.0, 2.7, 3.0, 3.2, 3.1, 2.4, 3.0, 2.7, 2.5, 3.0, 3.0, 3.0, 3.2, 3.1, 3.8, 4.1, 3.7, 3.5, 3.0, 3.7, 3.7, 4.1, 3.7, 3.9, 3.7, 2.0)
+plot(density(nf), main=&quot;Distribución del ticket promedio de clientes&quot;, col=c21, lwd=2)</code></pre>
+<p><img src="recurso13_files/figure-html/unnamed-chunk-13-1.png" alt="" width="672" /></p>
+<p><br/><br/></p>
+</div>
+<div id="diagrama-de-cajas" class="section level3">
+<h3><strong>Diagrama de cajas</strong></h3>
+<p>El boxplot resume mediana, cuartiles y valores atípicos. Es ideal
+para comparar desempeño entre productos, tiendas o periodos.</p>
+<pre class="r"><code>nf=c(4.1, 2.7, 3.1, 3.2, 3.0, 3.2, 2.0, 2.4, 1.6, 3.2, 3.1, 2.6, 2.0, 2.4, 2.8, 3.3, 4.0, 3.4, 3.0, 3.1, 2.7, 2.7, 3.0, 3.8, 3.2, 2.2, 3.5, 3.5, 3.8, 3.5, 3.9, 4.2, 4.3, 3.9, 3.2, 3.5, 3.5, 3.7, 4.1, 3.7, 3.5, 3.6, 3.2, 3.1, 3.4, 3.0, 3.0, 3.0, 2.7, 1.7, 3.6, 2.1, 2.4, 3.0, 3.1, 2.5, 2.5, 3.6, 2.2, 2.4, 3.1, 3.3, 2.7, 3.7, 3.0, 2.7, 3.0, 3.2, 3.1, 2.4, 3.0, 2.7, 2.5, 3.0, 3.0, 3.0, 3.2, 3.1, 3.8, 4.1, 3.7, 3.5, 3.0, 3.7, 3.7, 4.1, 3.7, 3.9, 3.7, 2.0)
+boxplot(nf, main=&quot;Ticket promedio por cliente&quot;,col=c21, las=1)
+abline(h=3, col=c41)</code></pre>
+<p><img src="recurso13_files/figure-html/unnamed-chunk-14-1.png" alt="" width="672" /></p>
+<p><br/><br/></p>
+</div>
+<div id="diagrama-de-cajas-1" class="section level3">
+<h3><strong>Diagrama de cajas</strong></h3>
+<p>Aquí se compara la distribución por grupos. Esta lógica es muy útil
+para comparar resultados por canal, sede, segmento o región.</p>
+<pre class="r"><code>nf=c(4.1, 2.7, 3.1, 3.2, 3.0, 3.2, 2.0, 2.4, 1.6, 3.2, 3.1, 2.6, 2.0, 2.4, 2.8, 3.3, 4.0, 3.4, 3.0, 3.1, 2.7, 2.7, 3.0, 3.8, 3.2, 2.2, 3.5, 3.5, 3.8, 3.5, 3.9, 4.2, 4.3, 3.9, 3.2, 3.5, 3.5, 3.7, 4.1, 3.7, 3.5, 3.6, 3.2, 3.1, 3.4, 3.0, 3.0, 3.0, 2.7, 1.7, 3.6, 2.1, 2.4, 3.0, 3.1, 2.5, 2.5, 3.6, 2.2, 2.4, 3.1, 3.3, 2.7, 3.7, 3.0, 2.7, 3.0, 3.2, 3.1, 2.4, 3.0, 2.7, 2.5, 3.0, 3.0, 3.0, 3.2, 3.1, 3.8, 4.1, 3.7, 3.5, 3.0, 3.7, 3.7, 4.1, 3.7, 3.9, 3.7, 2.0)
+set.seed(123)
+canal &lt;- sample(c(&quot;Digital&quot;, &quot;Tienda física&quot;, &quot;Mayorista&quot;), length(nf), replace = TRUE)
+labs=c(&quot;Digital&quot;,&quot;Tienda física&quot;,&quot;Mayorista&quot;)
+boxplot((nf~canal),main=&quot;Ticket promedio por canal de venta&quot;, 
+        col=c(c21,c51,c41), names=labs, xlab = &quot;canal&quot;, ylab = &quot;ticket&quot;)
+abline(h=3, col=c31,  lwd=2)
+abline(h=4, col=c11, lwd=2)</code></pre>
+<p><img src="recurso13_files/figure-html/unnamed-chunk-15-1.png" alt="" width="672" /></p>
+<p><br/><br/></p>
+</div>
+<div id="diagrama-de-dispersión" class="section level3">
+<h3><strong>Diagrama de dispersión</strong></h3>
+<p>Este gráfico permite analizar la relación entre dos variables
+numéricas. En administración es clave para explorar asociaciones como
+inversión publicitaria vs. ventas.</p>
+<pre class="r"><code>set.seed(123)
+inversion_digital &lt;- runif(90, 8, 40)
+ventas_mensuales &lt;- 60 + 9 * inversion_digital + rnorm(90, 0, 25)
+plot(inversion_digital, ventas_mensuales, main=&quot;Inversión digital vs ventas&quot;, xlab = &quot;Inversión (millones COP)&quot;, ylab = &quot;Ventas (millones COP)&quot;,col=c11,pch=19)
+grid()</code></pre>
+<p><img src="recurso13_files/figure-html/unnamed-chunk-16-1.png" alt="" width="672" /></p>
+<p><br/><br/></p>
+</div>
+<div id="gráfica-de-series-de-tiempo" class="section level3">
+<h3><strong>Gráfica de series de tiempo</strong></h3>
+<p>Las series de tiempo muestran el comportamiento a lo largo de meses o
+años. Son fundamentales para analizar tendencias, estacionalidad y
+cambios en la demanda.</p>
+<pre class="r"><code>ventas_ts &lt;- ts(c(120, 132, 128, 140, 155, 162, 170, 168, 160, 158, 166, 180), frequency = 12, start = c(2025, 1))
+plot(ventas_ts, main=&quot;Ventas mensuales de la compañía&quot;, ylab = &quot;Ventas (millones COP)&quot;, xlab = &quot;Mes&quot;, col=c31, lwd = 2)</code></pre>
+<p><img src="recurso13_files/figure-html/unnamed-chunk-17-1.png" alt="" width="672" /></p>
+<p><br/><br/></p>
+</div>
+<div id="resumen" class="section level3">
+<h3><strong>Resumen</strong></h3>
+<p>El siguiente bloque resume varios tipos de gráficos en una sola
+vista. Úsalo como referencia rápida de qué gráfico elegir según el tipo
+de variable y el objetivo del análisis.</p>
+<pre class="r"><code>x=rnorm(100,100,20)
+y=rnorm(100,100,25)
+z=rbinom(100,4,0.30)
+t=1:100
+par(mfrow=c(2, 2))
+pie(table(z))
+barplot(table(z))
+stem(x)</code></pre>
+<pre><code>
+  The decimal point is 1 digit(s) to the right of the |
+
+   6 | 89
+   7 | 01114445556899
+   8 | 0002345566688999
+   9 | 00001122333344555668899
+  10 | 11122244566779
+  11 | 01122344455568
+  12 | 01223556
+  13 | 3489
+  14 | 0234
+  15 | 
+  16 | 5</code></pre>
+<pre class="r"><code>hist(x)
+boxplot(x)</code></pre>
+<p><img src="recurso13_files/figure-html/unnamed-chunk-18-1.png" alt="" width="672" /></p>
+<pre class="r"><code>plot(x,y)
+plot(t,y, type=&quot;l&quot;)
+plot(density(x))
+par(mfrow=c(1, 1))</code></pre>
+<p><img src="recurso13_files/figure-html/unnamed-chunk-18-2.png" alt="" width="672" /></p>
+<p><br/><br/></p>
+</div>
+</div>
+<div id="gráficos-con-ggplot2" class="section level2">
+<h2><strong>Gráficos con ggplot2</strong></h2>
+<p><code>ggplot2</code> es el paquete más usado en R para visualización.
+Su lógica por capas facilita construir gráficos claros y consistentes,
+lo cual es muy útil para reportes académicos y corporativos.</p>
+<p><br/></p>
+<ul>
+<li><p><strong>Data</strong>: capa de los datos. Aquí defines el
+dataset, por ejemplo una tabla de ventas, clientes o campañas.</p></li>
+<li><p><strong>Aesthetics</strong>: capa estética
+(<strong>aes</strong>), definimos las variables a utilizar en el
+gráfico. Ejemplo: <code>x = mes</code>, <code>y = ventas</code>,
+<code>color = canal</code>.</p></li>
+<li><p><strong>Geometries</strong>: capa de geometrías, se define el
+tipo de gráfica a realizar. Por ejemplo barras para comparar productos o
+líneas para ver tendencias.</p></li>
+<li><p><strong>Facets</strong>: capa de facetas, permite detallar la
+gráfica por categorías. Útil para comparar sedes, segmentos de clientes
+o regiones.</p></li>
+<li><p><strong>Statistics</strong>: capa de estadística, permite agregar
+modelos. Por ejemplo, una línea de tendencia para evaluar crecimiento de
+ingresos.</p></li>
+<li><p><strong>Coordinates</strong>: capa de coordenadas, permite
+ajustar las escalas de los ejes. Ayuda a enfocar rangos relevantes
+(p. ej. solo 2023-2025).</p></li>
+<li><p><strong>Theme</strong>: capas de características del gráfico que
+no dependen de los datos. Se usa para estilos y legibilidad en reportes
+ejecutivos.</p></li>
+</ul>
+<p><br/><br/></p>
+<div
+id="gráfico-data-aesthetics-geometries-facets-statistics-coordinates-themes"
+class="section level4">
+<h4>gráfico = data + aesthetics + geometries + facets + statistics +
+coordinates + themes</h4>
+<p><br/><br/></p>
+</div>
+<div id="primer-paso-instalar-y-cargar-la-libreria"
+class="section level4">
+<h4>Primer paso: <strong>Instalar y cargar la libreria</strong></h4>
+<p>Primero instalamos y cargamos la librería. Esto se hace una sola vez
+por equipo (instalación) y luego se carga en cada sesión de trabajo.</p>
+<pre class="r"><code># Instalar ggplot2 si no lo tienes
+install.packages(&quot;ggplot2&quot;)
+
+# Cargar la librería ggplot2
+library(ggplot2)</code></pre>
+<pre>
+# Instalar ggplot2 si no lo tienes
+install.packages("ggplot2")
+
+# Cargar la librería ggplot2
+library(ggplot2)
+
+</pre>
+<p></br></br></p>
+</div>
+<div id="segundo-paso-declarar-la-base-de-datos-y-las-varibles"
+class="section level4">
+<h4>Segundo paso : <strong>Declarar la base de datos y las
+varibles</strong></h4>
+<p>Aquí definimos la base y las variables que vamos a comparar. En este
+ejemplo, relacionamos inversión en pauta y ventas, segmentando por
+canal.</p>
+<pre class="r"><code>campanas &lt;- tibble(
+  inversion = c(8, 10, 12, 15, 18, 20, 22, 25, 28, 30, 35, 40),
+  ventas = c(95, 102, 110, 128, 133, 141, 150, 162, 170, 178, 191, 205),
+  canal = factor(c(&quot;Digital&quot;, &quot;Digital&quot;, &quot;Retail&quot;, &quot;Retail&quot;, &quot;Mayorista&quot;, &quot;Digital&quot;,
+                   &quot;Retail&quot;, &quot;Mayorista&quot;, &quot;Digital&quot;, &quot;Retail&quot;, &quot;Mayorista&quot;, &quot;Digital&quot;))
+)
+p &lt;- ggplot(campanas, aes(x = inversion, y = ventas))
+p</code></pre>
+<p><img src="recurso13_files/figure-html/unnamed-chunk-20-1.png" alt="" width="672" /></p>
+<p></br></br></p>
+</div>
+<div id="tercer-paso-crear-grafico-base-con-las-diferentes-geometrías"
+class="section level4">
+<h4>Tercer paso : <strong>Crear grafico base</strong> con las diferentes
+geometrías</h4>
+<p>Con la geometría definimos el tipo de gráfico. El
+<code>geom_point()</code> crea el diagrama de dispersión, muy usado para
+visualizar relaciones entre variables.</p>
+<pre class="r"><code>p &lt;- p + geom_point()  
+p</code></pre>
+<p><img src="recurso13_files/figure-html/unnamed-chunk-21-1.png" alt="" width="672" /></p>
+<p></br></br></p>
+<table>
+<colgroup>
+<col width="23%" />
+<col width="24%" />
+<col width="25%" />
+<col width="26%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td align="left">geo_point()</td>
+<td align="left">geom_bar()</td>
+<td align="left">geom_col()</td>
+<td align="left">stat_count()</td>
+</tr>
+<tr class="even">
+<td align="left">geom_boxplot()</td>
+<td align="left">stat_boxplot()</td>
+<td align="left">geom_density()</td>
+<td align="left">stat_density()</td>
+</tr>
+<tr class="odd">
+<td align="left">geom_histogram()</td>
+<td align="left">geom_violin()</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+</tbody>
+</table>
+<p></br></br></p>
+</div>
+<div id="cuarto-paso-agregar-caracteristicas-adicionales"
+class="section level4">
+<h4>Cuarto paso : <strong>Agregar caracteristicas
+adicionales</strong></h4>
+<p>Se pueden incluir colores, tamaños y transparencia para resaltar
+grupos o categorías. Esto ayuda a hacer comparaciones por segmentos.</p>
+<pre class="r"><code>p &lt;- ggplot(campanas, aes(x = inversion, y = ventas, color = canal)) +
+          geom_point(size = 2, alpha = 0.7)  # Tamaño y transparencia de los puntos
+p</code></pre>
+<p><img src="recurso13_files/figure-html/unnamed-chunk-22-1.png" alt="" width="672" /></p>
+<p></br></br></p>
+</div>
+<div
+id="sexto-paso-agregar-títilo-etiquetas-a-los-ejes-leyenda-aclararoria"
+class="section level4">
+<h4>Sexto paso : <strong>Agregar títilo, etiquetas a los ejes leyenda
+aclararoria</strong></h4>
+<p>Los títulos y etiquetas convierten un gráfico técnico en uno
+comunicativo. En contextos de negocio, esto facilita que el lector
+entienda el mensaje sin leer el código.</p>
+<pre class="r"><code>p &lt;- p + labs(title = &quot;Relación entre inversión y ventas&quot;,
+              subtitle = &quot;Clasificación por canal comercial&quot;,
+              x = &quot;Inversión en pauta (millones COP)&quot;,
+              y = &quot;Ventas (millones COP)&quot;,
+              color = &quot;Canal&quot;
+              )
+p</code></pre>
+<p><img src="recurso13_files/figure-html/unnamed-chunk-23-1.png" alt="" width="672" /></p>
+<p></br></br></p>
+</div>
+<div id="septimo-paso-agregar-una-línea-de-tendencia"
+class="section level4">
+<h4>Septimo paso : <strong>Agregar una línea de tendencia</strong></h4>
+<p>La línea de tendencia resume la relación general entre las variables.
+Es útil para explicar patrones de crecimiento o caída en términos
+gerenciales.</p>
+<pre class="r"><code>p &lt;- p + geom_smooth(method = &quot;lm&quot;, se = FALSE, linetype = &quot;dashed&quot;, color = c31)
+p</code></pre>
+<p><img src="recurso13_files/figure-html/unnamed-chunk-24-1.png" alt="" width="672" /></p>
+<p></br></br></p>
+</div>
+<div id="octavo-paso-agreagar-un-tema-o-fondo" class="section level4">
+<h4>Octavo paso : <strong>Agreagar un tema o fondo</strong></h4>
+<p>El tema define el estilo visual. Un tema limpio mejora la
+legibilidad, especialmente en presentaciones o informes.</p>
+<pre class="r"><code>p &lt;- p + theme_minimal(base_size = 14)
+p</code></pre>
+<pre><code>`geom_smooth()` using formula = &#39;y ~ x&#39;</code></pre>
+<p><img src="recurso13_files/figure-html/unnamed-chunk-25-1.png" alt="" width="672" /></p>
+<p></br></br></p>
+</div>
+<div id="noveno-paso-ajustar-la-escala-de-colores"
+class="section level3">
+<h3>Noveno paso : <strong>Ajustar la escala de colores</strong></h3>
+<p>La escala de color debe ser coherente y fácil de interpretar. En
+dashboards o reportes, colores consistentes ayudan a comparar gráficos
+entre sí.</p>
+<pre class="r"><code>library(ggplot2)
+
+# Crear el gráfico desde cero
+p &lt;- ggplot(campanas, aes(x = inversion, y = ventas, color = canal)) +
+  geom_point(size = 4, alpha = 0.7) +  # Agregar puntos
+  scale_color_brewer(palette = &quot;Set1&quot;) +  # Aplicar escala de color discreta
+  labs(
+    title = &quot;Relación entre inversión y ventas&quot;,
+    subtitle = &quot;Clasificación por canal comercial&quot;,
+    x = &quot;Inversión en pauta (millones COP)&quot;,
+    y = &quot;Ventas (millones COP)&quot;,
+    color = &quot;Canal&quot;
+  ) +
+  theme_minimal(base_size = 12)
+
+# Mostrar el gráfico
+p</code></pre>
+<p><img src="recurso13_files/figure-html/unnamed-chunk-26-1.png" alt="" width="672" /></p>
+<div id="gráfico-completo" class="section level4">
+<h4>gráfico completo !!</h4>
+<p></br></br></p>
+</div>
+</div>
+</div>
+<div id="otros-gráficos" class="section level2">
+<h2>Otros gráficos</h2>
+<p>A continuación se muestran ejemplos adicionales para ampliar el
+repertorio. La idea es que puedas reconocer qué gráfico usar según la
+pregunta del análisis.</p>
+<pre class="r"><code>library(ggplot2)
+data=data.frame(linea_producto=c(&quot;Aseo&quot;,&quot;Bebidas&quot;,&quot;Snacks&quot;,&quot;Hogar&quot;,&quot;Tecnología&quot;,&quot;Mascotas&quot;),frecuencia=c(48, 59, 65, 41, 36, 28))
+
+ggplot(data, aes(x=linea_producto, y=frecuencia)) +
+  geom_bar(stat=&quot;identity&quot;, fill=c11)+
+  geom_text(aes(label=frecuencia), vjust=2.5, color=&quot;white&quot;, size=4)+
+  labs(x = &quot;Línea de producto&quot;, y = &quot;Ventas (miles de unidades)&quot;) +
+  theme_minimal()</code></pre>
+<p><img src="recurso13_files/figure-html/unnamed-chunk-27-1.png" alt="" width="672" /></p>
+<p></br></br></p>
+<pre class="r"><code>set.seed(123)
+df_ticket &lt;- tibble(ticket = rlnorm(500, meanlog = log(90), sdlog = 0.35))
+ggplot(df_ticket, aes(ticket)) +
+       geom_histogram(bins = 7, fill = c11, color = c41, alpha = 0.9) +
+       theme_minimal() +
+       labs(x = &quot;Ticket promedio (miles COP)&quot;, y = &quot;frecuencia absoluta&quot;) +
+       ggtitle(&quot;Distribución del ticket de compra&quot;)</code></pre>
+<p><img src="recurso13_files/figure-html/unnamed-chunk-28-1.png" alt="" width="672" /></p>
+<p></br></br></p>
+<pre class="r"><code>set.seed(123)
+df_canal &lt;- tibble(
+  canal = sample(c(&quot;Digital&quot;, &quot;Tienda física&quot;, &quot;Mayorista&quot;), 400, replace = TRUE),
+  ticket = rlnorm(400, meanlog = log(95), sdlog = 0.3)
+)
+ggplot(df_canal, aes(x=ticket, y=canal)) +
+  geom_boxplot(fill=c(c12,c32,c42),  # color de relleno
+               color = c41,    # color de lineas
+               alpha=0.5)+
+  geom_point(color=c11,alpha=0.2) +
+  labs(x = &quot;Ticket promedio (miles COP)&quot;, y = &quot;Canal&quot;)</code></pre>
+<p><img src="recurso13_files/figure-html/unnamed-chunk-29-1.png" alt="" width="672" /></p>
+<p></br></br></p>
+</div>
+<div id="gráficos-con-plotly" class="section level2">
+<h2><strong>Gráficos con plotly</strong></h2>
+<p><code>plotly</code> permite convertir gráficos en interactivos. Esto
+es útil para presentaciones donde el usuario puede pasar el mouse y ver
+detalles sin saturar la pantalla.</p>
+<pre class="r"><code># Instalar paquetes si es necesario
+# install.packages(&quot;plotly&quot;)
+
+# Cargar librerías necesarias
+library(ggplot2)
+library(plotly)
+
+# Crear base ejemplo para campañas
+campanas &lt;- tibble(
+  inversion = c(8, 10, 12, 15, 18, 20, 22, 25, 28, 30, 35, 40),
+  ventas = c(95, 102, 110, 128, 133, 141, 150, 162, 170, 178, 191, 205),
+  canal = factor(c(&quot;Digital&quot;, &quot;Digital&quot;, &quot;Retail&quot;, &quot;Retail&quot;, &quot;Mayorista&quot;, &quot;Digital&quot;,
+                   &quot;Retail&quot;, &quot;Mayorista&quot;, &quot;Digital&quot;, &quot;Retail&quot;, &quot;Mayorista&quot;, &quot;Digital&quot;))
+)
+
+# Crear gráfico base con ggplot2
+p &lt;- ggplot(campanas, aes(
+  x = inversion, y = ventas, color = canal,
+  text = paste(
+    &quot;Canal:&quot;, canal, &quot;&lt;br&gt;&quot;,
+    &quot;Inversión:&quot;, inversion, &quot; millones COP&lt;br&gt;&quot;,
+    &quot;Ventas:&quot;, ventas, &quot; millones COP&quot;
+  )
+)) +
+  geom_point(size = 2, alpha = 0.7) +  # Agregar puntos
+  scale_color_brewer(palette = &quot;Set1&quot;) +  # Escala de color
+  labs(
+    title = &quot;Relación entre inversión y ventas&quot;,
+    subtitle = &quot;Datos de campañas comerciales&quot;,
+    x = &quot;Inversión en pauta (millones COP)&quot;,
+    y = &quot;Ventas (millones COP)&quot;,
+    color = &quot;Canal&quot;
+  ) +
+  theme_minimal(base_size = 14)
+
+# Convertir el gráfico de ggplot2 a un gráfico interactivo con Plotly
+p_interactivo &lt;- ggplotly(p, tooltip = &quot;text&quot;)
+
+# Mostrar el gráfico interactivo
+p_interactivo</code></pre>
+<p><a href="https://gganimate.com/"
+class="uri">https://gganimate.com/</a></p>
+<p><a href="https://rafalab.github.io/dslibro/ggplot2.html">Anàlisis de
+datos con R Cap,7 ggplot2</a><br/> <a
+href="https://rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf">ggplot2
+resumen</a></p>
+</div>
+<div id="gráficos-con-highcharter" class="section level2">
+<h2><strong>Gráficos con highcharter</strong></h2>
+<p><code>highcharter</code> es otra opción para gráficos interactivos
+con estética profesional. Suele usarse en tableros ejecutivos por su
+estilo limpio y opciones de personalización.</p>
+<pre class="r"><code># Instalar paquetes si es necesario
+# install.packages(&quot;highcharter&quot;)
+# install.packages(&quot;dplyr&quot;)
+
+# Cargar librerías necesarias
+library(highcharter)
+library(dplyr)
+
+# Crear base para campañas comerciales
+campanas &lt;- tibble(
+  inversion = c(8, 10, 12, 15, 18, 20, 22, 25, 28, 30, 35, 40),
+  ventas = c(95, 102, 110, 128, 133, 141, 150, 162, 170, 178, 191, 205),
+  canal = factor(c(&quot;Digital&quot;, &quot;Digital&quot;, &quot;Retail&quot;, &quot;Retail&quot;, &quot;Mayorista&quot;, &quot;Digital&quot;,
+                   &quot;Retail&quot;, &quot;Mayorista&quot;, &quot;Digital&quot;, &quot;Retail&quot;, &quot;Mayorista&quot;, &quot;Digital&quot;))
+)
+
+# Crear gráfico interactivo con highcharter
+hchart(campanas, &quot;scatter&quot;, hcaes(x = inversion, y = ventas, group = canal, name = canal)) %&gt;%
+  hc_title(text = &quot;Relación entre inversión y ventas&quot;) %&gt;%
+  hc_subtitle(text = &quot;Datos de campañas comerciales por canal&quot;) %&gt;%
+  hc_xAxis(title = list(text = &quot;Inversión (millones COP)&quot;)) %&gt;%
+  hc_yAxis(title = list(text = &quot;Ventas (millones COP)&quot;)) %&gt;%
+  hc_tooltip(
+    useHTML = TRUE,
+    pointFormat = &quot;&lt;b&gt;Canal:&lt;/b&gt; {point.name}&lt;br&gt;
+                   &lt;b&gt;Inversión:&lt;/b&gt; {point.x} millones COP&lt;br&gt;
+                   &lt;b&gt;Ventas:&lt;/b&gt; {point.y} millones COP&quot;
+  ) %&gt;%
+  hc_chart(zoomType = &quot;xy&quot;)</code></pre>
+<div class="highchart html-widget html-fill-item" id="htmlwidget-eb22e27a2806c27c11a2" style="width:672px;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-eb22e27a2806c27c11a2">{"x":{"hc_opts":{"chart":{"reflow":true,"zoomType":"xy"},"title":{"text":"Relación entre inversión y ventas"},"yAxis":{"title":{"text":"Ventas (millones COP)"},"type":"linear"},"credits":{"enabled":false},"exporting":{"enabled":false},"boost":{"enabled":false},"plotOptions":{"series":{"label":{"enabled":false},"turboThreshold":0,"showInLegend":true},"treemap":{"layoutAlgorithm":"squarified"},"scatter":{"marker":{"symbol":"circle"}}},"series":[{"name":"Digital","data":[{"inversion":8,"ventas":95,"canal":"Digital","x":8,"y":95,"name":"Digital"},{"inversion":10,"ventas":102,"canal":"Digital","x":10,"y":102,"name":"Digital"},{"inversion":20,"ventas":141,"canal":"Digital","x":20,"y":141,"name":"Digital"},{"inversion":28,"ventas":170,"canal":"Digital","x":28,"y":170,"name":"Digital"},{"inversion":40,"ventas":205,"canal":"Digital","x":40,"y":205,"name":"Digital"}],"type":"scatter"},{"name":"Mayorista","data":[{"inversion":18,"ventas":133,"canal":"Mayorista","x":18,"y":133,"name":"Mayorista"},{"inversion":25,"ventas":162,"canal":"Mayorista","x":25,"y":162,"name":"Mayorista"},{"inversion":35,"ventas":191,"canal":"Mayorista","x":35,"y":191,"name":"Mayorista"}],"type":"scatter"},{"name":"Retail","data":[{"inversion":12,"ventas":110,"canal":"Retail","x":12,"y":110,"name":"Retail"},{"inversion":15,"ventas":128,"canal":"Retail","x":15,"y":128,"name":"Retail"},{"inversion":22,"ventas":150,"canal":"Retail","x":22,"y":150,"name":"Retail"},{"inversion":30,"ventas":178,"canal":"Retail","x":30,"y":178,"name":"Retail"}],"type":"scatter"}],"xAxis":{"type":"linear","title":{"text":"Inversión (millones COP)"}},"subtitle":{"text":"Datos de campañas comerciales por canal"},"tooltip":{"useHTML":true,"pointFormat":"<b>Canal:<\/b> {point.name}<br>\n                   <b>Inversión:<\/b> {point.x} millones COP<br>\n                   <b>Ventas:<\/b> {point.y} millones COP"}},"theme":{"chart":{"backgroundColor":"transparent"},"colors":["#7cb5ec","#434348","#90ed7d","#f7a35c","#8085e9","#f15c80","#e4d354","#2b908f","#f45b5b","#91e8e1"]},"conf_opts":{"global":{"Date":null,"VMLRadialGradientURL":"http =//code.highcharts.com/list(version)/gfx/vml-radial-gradient.png","canvasToolsURL":"http =//code.highcharts.com/list(version)/modules/canvas-tools.js","getTimezoneOffset":null,"timezoneOffset":0,"useUTC":true},"lang":{"contextButtonTitle":"Chart context menu","decimalPoint":".","downloadCSV":"Download CSV","downloadJPEG":"Download JPEG image","downloadPDF":"Download PDF document","downloadPNG":"Download PNG image","downloadSVG":"Download SVG vector image","downloadXLS":"Download XLS","drillUpText":"◁ Back to {series.name}","exitFullscreen":"Exit from full screen","exportData":{"annotationHeader":"Annotations","categoryDatetimeHeader":"DateTime","categoryHeader":"Category"},"hideData":"Hide data table","invalidDate":null,"loading":"Loading...","months":["January","February","March","April","May","June","July","August","September","October","November","December"],"noData":"No data to display","numericSymbolMagnitude":1000,"numericSymbols":["k","M","G","T","P","E"],"printChart":"Print chart","resetZoom":"Reset zoom","resetZoomTitle":"Reset zoom level 1:1","shortMonths":["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"shortWeekdays":["Sat","Sun","Mon","Tue","Wed","Thu","Fri"],"thousandsSep":" ","viewData":"View data table","viewFullscreen":"View in full screen","weekdays":["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]}},"type":"chart","fonts":[],"debug":false},"evals":[],"jsHooks":[]}</script>
+<p><br/><br/></p>
+</div>
+<div id="estética-en-la-visualización" class="section level2">
+<h2><strong>Estética en la visualización</strong></h2>
+<p>Además de la elección del gráfico, el diseño visual influye en la
+interpretación. Una buena estética mejora la comprensión y evita
+confusiones en la lectura de resultados.</p>
+<p>La <strong>estética</strong> juega un papel fundamental en la
+visualización de datos, ya que ayuda a hacer que la información sea más
+comprensible y atractiva para el espectador. Entre las diferentes formas
+de estética utilizadas en la visualización, se encuentran:</p>
+<ul>
+<li>Forma</li>
+<li>Tamaño</li>
+<li>Color</li>
+<li>Ancho línea</li>
+<li>Tipo línea</li>
+<li>1D, 2D, 3D</li>
+</ul>
+<p><br/><br/></p>
+<p>La <strong>posición</strong> se refiere a la ubicación de los
+elementos dentro de la visualización y es fundamental para transmitir
+información espacial. Por lo general haciendo referencia al plano
+cartesiano (2D) e indicando relaciones de asociación y correlación entre
+variables.</p>
+<p>La <strong>forma</strong> se refiere a la apariencia de los
+elementos, que puede ser útil para representar categorías o para
+resaltar ciertos datos, como pueden ser: circulos, cuadrados,
+triangulos, estrellas, entre otras formas.</p>
+<p>El <strong>tamaño</strong>, por otro lado, se utiliza para indicar
+magnitudes y hacer que ciertos elementos destaquen sobre otros.</p>
+<p>El <strong>color</strong> es una de las estéticas más poderosas en la
+visualización, ya que puede transmitir información de manera rápida y
+efectiva. Se puede utilizar para representar categorías, resaltar
+elementos importantes o crear jerarquías visuales. Tambien reforzando el
+significado de la variable, por ejemplo en presentación de resultados de
+clima laboral se utilizan colores relacionados con el semaforo (escalas
+entre rojo y verde), para representar magnitudes desde colores suaves a
+colores fuertes para indicar grandes cantidades. Por último tambien se
+emplean colores para resaltar un nivel u objeto dentro de todo el
+grupo.</p>
+<p>El <strong>ancho de línea</strong> y el <strong>tipo de
+línea</strong> se utilizan para diferenciar entre elementos y resaltar
+ciertos aspectos de la visualización.</p>
+<p>La dimensión (1D, 2D, 3D) se refiere a la cantidad de dimensiones que
+se utilizan en la visualización. Mientras que las visualizaciones 1D se
+limitan a una sola dimensión, como una línea de tiempo, las
+visualizaciones 2D y 3D pueden representar información en dos o tres
+dimensiones, lo que permite una representación más detallada y compleja
+de los datos. Es recomendable no utilizar 3D para que las
+visializaciones sean más limpias y sencillas</p>
+<p><br/><br/></p>
+<div id="formas" class="section level4">
+<h4><strong>Formas</strong></h4>
+<p>Es posible utilizar circulos, cuadrados, triangulos y en general
+figuras geométricas para resaltar puntos que represente valores
+numéricos en un plano 2D y de esta forma representar una secuencia o
+tendencia de la información.</p>
+<p><br/><br/></p>
+<p><img src="img/formas.png" alt="" width="70%" style="display: block; margin: auto;" /></p>
+<p><br/><br/></p>
+</div>
+<div id="paletas" class="section level4">
+<h4><strong>Paletas</strong></h4>
+<p>Las paletas ayudan a mantener consistencia y a diferenciar
+categorías. En mercadeo, una paleta bien elegida refuerza la identidad
+visual del informe.</p>
+<p><img src="img/paleta0.png" alt="" width="50%" style="display: block; margin: auto;" />
+Tomada de Pinteres</p>
+<p></br></br></p>
+</div>
+</div>
+<div id="normas-apa" class="section level2">
+<h2><strong>Normas APA</strong></h2>
+<p>En trabajos académicos y corporativos es clave seguir normas de
+presentación. Esto asegura que los gráficos sean claros, comparables y
+bien documentados.</p>
+<p>Aquí tienes el texto <strong>ajustado al enfoque de las normas APA
+(7.ª edición) para figuras y gráficos</strong>, manteniendo una
+estructura similar a la que tenías:</p>
+<p>Las <strong>normas APA</strong> orientan la elaboración y
+presentación de <strong>figuras</strong> (gráficos, diagramas, mapas,
+etc.) para asegurar <strong>claridad, precisión y consistencia</strong>
+en la comunicación académica. En términos prácticos, estas
+recomendaciones se reflejan en los siguientes criterios:</p>
+<p></br></p>
+<div id="claridad-y-legibilidad" class="section level3">
+<h3>Claridad y legibilidad</h3>
+<p>El gráfico debe entenderse con rapidez y sin esfuerzo. Evita
+elementos decorativos innecesarios y prioriza un diseño limpio. Usa
+<strong>tipografías legibles</strong>, tamaños adecuados y un contraste
+suficiente entre elementos (líneas, puntos, barras y texto).</p>
+<p></br></p>
+</div>
+<div id="precisión-y-fidelidad-de-los-datos" class="section level3">
+<h3>Precisión y fidelidad de los datos</h3>
+<p>La figura debe representar los datos de manera exacta, sin
+distorsiones. Utiliza escalas apropiadas y proporcionales, indica
+<strong>unidades de medida</strong>, y cuida que las comparaciones
+visuales sean correctas. Si se presentan porcentajes, verifica
+coherencia (por ejemplo, totales consistentes cuando aplique).</p>
+<p></br></p>
+</div>
+<div id="rotulación-y-organización-según-apa" class="section level3">
+<h3>Rotulación y organización según APA</h3>
+<p>En APA, un gráfico se presenta como <strong>Figura</strong> y debe
+incluir:</p>
+<ul>
+<li><strong>Número de figura</strong> (por ejemplo, <em>Figura
+1</em>).</li>
+<li><strong>Título de la figura</strong> (claro y descriptivo).</li>
+<li>El gráfico (contenido visual).</li>
+<li><strong>Nota de figura</strong> si es necesaria (para aclarar
+abreviaturas, describir símbolos, indicar fuente o explicar detalles
+metodológicos).</li>
+</ul>
+<p></br></p>
+</div>
+<div id="consistencia-y-estilo-académico" class="section level3">
+<h3>Consistencia y estilo académico</h3>
+<p>Mantén coherencia en el formato a lo largo del informe: mismos
+estilos de ejes, tamaños de letra, criterios de color y formato de
+leyendas. Las etiquetas de ejes deben ser claras, con nombres completos
+(o abreviaturas explicadas en nota).</p>
+<p></br></p>
+</div>
+<div id="accesibilidad-y-uso-del-color" class="section level3">
+<h3>Accesibilidad y uso del color</h3>
+<p>Usa el color solo cuando aporte información. Evita combinaciones que
+dificulten la lectura y procura que el gráfico sea interpretable incluso
+en escala de grises (por ejemplo, con patrones, formas o distintos tipos
+de línea). Esto mejora la accesibilidad y la calidad de impresión.</p>
+<p></br></br></p>
+</div>
+</div>
+<div id="ejemplos" class="section level2">
+<h2><strong>Ejemplos</strong></h2>
+<pre class="r"><code>set.seed(123)
+ventas_dia &lt;- tibble(ventas = rlnorm(400, meanlog = log(2.6), sdlog = 0.35))
+ggplot(ventas_dia, aes(x = ventas)) +
+  geom_histogram(fill = &quot;steelblue&quot;, bins = 10, color = &quot;black&quot;, alpha = 0.7) +
+  labs(
+    title = &quot;Distribución de ventas por transacción&quot;,
+    x = &quot;Ventas por transacción (millones COP)&quot;,
+    y = &quot;Frecuencia&quot;,
+    caption = &quot;Fuente: Datos simulados de ventas&quot;
+  ) +
+  theme_minimal()</code></pre>
+<p><img src="recurso13_files/figure-html/unnamed-chunk-34-1.png" alt="" width="672" /></p>
+<p></br></br></p>
+<p>Este ejemplo muestra cómo incluir títulos, ejes y fuente, cumpliendo
+criterios de claridad y fidelidad en la presentación de datos.</p>
+<pre class="r"><code>set.seed(123)
+camp &lt;- tibble(
+  inversion = runif(120, 8, 45),
+  ventas = 65 + 8.5 * inversion + rnorm(120, 0, 30)
+)
+ggplot(camp, aes(x = inversion, y = ventas)) +
+  geom_point(color = &quot;#3B5B8A&quot;, size = 2, alpha = 0.7) +
+  geom_smooth(method = &quot;lm&quot;, se = FALSE, color = &quot;#F2B33D&quot;, linetype = &quot;dashed&quot;) +
+  labs(
+    title = &quot;Relación entre inversión publicitaria y ventas&quot;,
+    x = &quot;Inversión (millones COP)&quot;,
+    y = &quot;Ventas (millones COP)&quot;,
+    caption = &quot;Fuente: Datos simulados de campañas&quot;
+  ) +
+  theme_minimal()</code></pre>
+<p><img src="recurso13_files/figure-html/unnamed-chunk-35-1.png" alt="" width="672" /></p>
+<p></br></br></p>
+<p>Este segundo ejemplo integra una tendencia lineal para apoyar la
+interpretación, algo útil en análisis de productividad o eficiencia.</p>
+<pre class="r"><code>library(ggplot2)
+library(ggthemes)
+
+ggplot(campanas, aes(inversion, ventas)) +
+  geom_point(size=2) +
+  theme_economist() +
+  labs(title=&quot;ggthemes: inversión vs ventas&quot;)</code></pre>
+<p><img src="recurso13_files/figure-html/unnamed-chunk-36-1.png" alt="" width="672" style="display: block; margin: auto;" /></p>
+<p></br></br></p>
+<pre class="r"><code>library(ggplot2)
+library(ggrepel)
+
+df &lt;- campanas
+df$campana &lt;- paste0(&quot;Campaña &quot;, seq_len(nrow(df)))
+
+ggplot(df, aes(inversion, ventas, label = campana)) +
+  geom_point(size=2) +
+  geom_text_repel() +
+  labs(title=&quot;ggrepel: etiquetas de campañas&quot;)</code></pre>
+<p><img src="recurso13_files/figure-html/unnamed-chunk-37-1.png" alt="" width="672" style="display: block; margin: auto;" /></p>
+<p></br></br></p>
+<pre class="r"><code>library(ggplot2)
+library(ggiraph)
+par(mar=c(5,16,4,2)+0.1)
+p &lt;- ggplot(campanas, aes(inversion, ventas, tooltip = canal)) +
+  geom_point_interactive(size=2) +
+  theme_minimal()
+
+girafe(ggobj = p)</code></pre>
+<div class="girafe html-widget html-fill-item" id="htmlwidget-71dac67bc3cb5f7e8f25" style="width:672px;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-71dac67bc3cb5f7e8f25">{"x":{"html":"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='ggiraph-svg' role='graphics-document' id='svg_01b0818c17b0fec2' viewBox='0 0 504 360'>\n <defs id='svg_01b0818c17b0fec2_defs'>\n  <clipPath id='svg_01b0818c17b0fec2_c1'>\n   <rect x='0' y='0' width='504' height='360'/>\n  <\/clipPath>\n  <clipPath id='svg_01b0818c17b0fec2_c2'>\n   <rect x='37.69' y='5.48' width='460.83' height='323.64'/>\n  <\/clipPath>\n <\/defs>\n <g id='svg_01b0818c17b0fec2_rootg' class='ggiraph-svg-rootg'>\n  <g clip-path='url(#svg_01b0818c17b0fec2_c1)'>\n   <rect x='0' y='0' width='504' height='360' fill='#FFFFFF' fill-opacity='1' stroke='#FFFFFF' stroke-opacity='1' stroke-width='0.75' stroke-linejoin='round' stroke-linecap='round' class='ggiraph-svg-bg'/>\n   <rect x='0' y='0' width='504' height='360' fill='#FFFFFF' fill-opacity='1' stroke='none'/>\n  <\/g>\n  <g clip-path='url(#svg_01b0818c17b0fec2_c2)'>\n   <polyline points='37.69,287.66 498.52,287.66' fill='none' stroke='#EBEBEB' stroke-opacity='1' stroke-width='0.53' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='37.69,207.42 498.52,207.42' fill='none' stroke='#EBEBEB' stroke-opacity='1' stroke-width='0.53' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='37.69,127.18 498.52,127.18' fill='none' stroke='#EBEBEB' stroke-opacity='1' stroke-width='0.53' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='37.69,46.94 498.52,46.94' fill='none' stroke='#EBEBEB' stroke-opacity='1' stroke-width='0.53' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='150.28,329.12 150.28,5.48' fill='none' stroke='#EBEBEB' stroke-opacity='1' stroke-width='0.53' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='281.20,329.12 281.20,5.48' fill='none' stroke='#EBEBEB' stroke-opacity='1' stroke-width='0.53' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='412.11,329.12 412.11,5.48' fill='none' stroke='#EBEBEB' stroke-opacity='1' stroke-width='0.53' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='37.69,327.78 498.52,327.78' fill='none' stroke='#EBEBEB' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='37.69,247.54 498.52,247.54' fill='none' stroke='#EBEBEB' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='37.69,167.30 498.52,167.30' fill='none' stroke='#EBEBEB' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='37.69,87.06 498.52,87.06' fill='none' stroke='#EBEBEB' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='37.69,6.82 498.52,6.82' fill='none' stroke='#EBEBEB' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='84.82,329.12 84.82,5.48' fill='none' stroke='#EBEBEB' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='215.74,329.12 215.74,5.48' fill='none' stroke='#EBEBEB' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='346.66,329.12 346.66,5.48' fill='none' stroke='#EBEBEB' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='477.57,329.12 477.57,5.48' fill='none' stroke='#EBEBEB' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='butt'/>\n   <circle id='svg_01b0818c17b0fec2_e1' cx='58.64' cy='314.4' r='1.87pt' fill='#000000' fill-opacity='1' stroke='#000000' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Digital'/>\n   <circle id='svg_01b0818c17b0fec2_e2' cx='84.82' cy='295.68' r='1.87pt' fill='#000000' fill-opacity='1' stroke='#000000' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Digital'/>\n   <circle id='svg_01b0818c17b0fec2_e3' cx='111' cy='274.28' r='1.87pt' fill='#000000' fill-opacity='1' stroke='#000000' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Retail'/>\n   <circle id='svg_01b0818c17b0fec2_e4' cx='150.28' cy='226.14' r='1.87pt' fill='#000000' fill-opacity='1' stroke='#000000' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Retail'/>\n   <circle id='svg_01b0818c17b0fec2_e5' cx='189.55' cy='212.77' r='1.87pt' fill='#000000' fill-opacity='1' stroke='#000000' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Mayorista'/>\n   <circle id='svg_01b0818c17b0fec2_e6' cx='215.74' cy='191.37' r='1.87pt' fill='#000000' fill-opacity='1' stroke='#000000' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Digital'/>\n   <circle id='svg_01b0818c17b0fec2_e7' cx='241.92' cy='167.3' r='1.87pt' fill='#000000' fill-opacity='1' stroke='#000000' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Retail'/>\n   <circle id='svg_01b0818c17b0fec2_e8' cx='281.2' cy='135.2' r='1.87pt' fill='#000000' fill-opacity='1' stroke='#000000' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Mayorista'/>\n   <circle id='svg_01b0818c17b0fec2_e9' cx='320.47' cy='113.8' r='1.87pt' fill='#000000' fill-opacity='1' stroke='#000000' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Digital'/>\n   <circle id='svg_01b0818c17b0fec2_e10' cx='346.66' cy='92.41' r='1.87pt' fill='#000000' fill-opacity='1' stroke='#000000' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Retail'/>\n   <circle id='svg_01b0818c17b0fec2_e11' cx='412.11' cy='57.64' r='1.87pt' fill='#000000' fill-opacity='1' stroke='#000000' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Mayorista'/>\n   <circle id='svg_01b0818c17b0fec2_e12' cx='477.57' cy='20.19' r='1.87pt' fill='#000000' fill-opacity='1' stroke='#000000' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' title='Digital'/>\n  <\/g>\n  <g clip-path='url(#svg_01b0818c17b0fec2_c1)'>\n   <text x='22.96' y='330.81' font-size='6.6pt' font-family='Liberation Sans' fill='#4D4D4D' fill-opacity='1'>90<\/text>\n   <text x='18.07' y='250.57' font-size='6.6pt' font-family='Liberation Sans' fill='#4D4D4D' fill-opacity='1'>120<\/text>\n   <text x='18.07' y='170.33' font-size='6.6pt' font-family='Liberation Sans' fill='#4D4D4D' fill-opacity='1'>150<\/text>\n   <text x='18.07' y='90.08' font-size='6.6pt' font-family='Liberation Sans' fill='#4D4D4D' fill-opacity='1'>180<\/text>\n   <text x='18.07' y='9.84' font-size='6.6pt' font-family='Liberation Sans' fill='#4D4D4D' fill-opacity='1'>210<\/text>\n   <text x='79.92' y='340.1' font-size='6.6pt' font-family='Liberation Sans' fill='#4D4D4D' fill-opacity='1'>10<\/text>\n   <text x='210.84' y='340.1' font-size='6.6pt' font-family='Liberation Sans' fill='#4D4D4D' fill-opacity='1'>20<\/text>\n   <text x='341.76' y='340.1' font-size='6.6pt' font-family='Liberation Sans' fill='#4D4D4D' fill-opacity='1'>30<\/text>\n   <text x='472.68' y='340.1' font-size='6.6pt' font-family='Liberation Sans' fill='#4D4D4D' fill-opacity='1'>40<\/text>\n   <text x='246.09' y='352.24' font-size='8.25pt' font-family='Liberation Sans'>inversion<\/text>\n   <text transform='translate(13.05,183.51) rotate(-90.00)' font-size='8.25pt' font-family='Liberation Sans'>ventas<\/text>\n  <\/g>\n <\/g>\n<\/svg>","js":null,"uid":"svg_01b0818c17b0fec2","ratio":1.4,"settings":{"tooltip":{"css":".tooltip_SVGID_ { padding:5px;background:black;color:white;border-radius:2px;text-align:left; ; position:absolute;pointer-events:none;z-index:9999;}","placement":"doc","opacity":0.9,"offx":10,"offy":10,"use_cursor_pos":true,"use_fill":false,"use_stroke":false,"delay_over":200,"delay_out":500},"hover":{"css":".hover_data_SVGID_ { fill:orange;stroke:black;cursor:pointer; }\ntext.hover_data_SVGID_ { stroke:none;fill:orange; }\ncircle.hover_data_SVGID_ { fill:orange;stroke:black; }\nline.hover_data_SVGID_, polyline.hover_data_SVGID_ { fill:none;stroke:orange; }\nrect.hover_data_SVGID_, polygon.hover_data_SVGID_, path.hover_data_SVGID_ { fill:orange;stroke:none; }\nimage.hover_data_SVGID_ { stroke:orange; }","reactive":true,"nearest_distance":null,"linked":false},"hover_inv":{"css":""},"hover_key":{"css":".hover_key_SVGID_ { fill:orange;stroke:black;cursor:pointer; }\ntext.hover_key_SVGID_ { stroke:none;fill:orange; }\ncircle.hover_key_SVGID_ { fill:orange;stroke:black; }\nline.hover_key_SVGID_, polyline.hover_key_SVGID_ { fill:none;stroke:orange; }\nrect.hover_key_SVGID_, polygon.hover_key_SVGID_, path.hover_key_SVGID_ { fill:orange;stroke:none; }\nimage.hover_key_SVGID_ { stroke:orange; }","reactive":true},"hover_theme":{"css":".hover_theme_SVGID_ { fill:orange;stroke:black;cursor:pointer; }\ntext.hover_theme_SVGID_ { stroke:none;fill:orange; }\ncircle.hover_theme_SVGID_ { fill:orange;stroke:black; }\nline.hover_theme_SVGID_, polyline.hover_theme_SVGID_ { fill:none;stroke:orange; }\nrect.hover_theme_SVGID_, polygon.hover_theme_SVGID_, path.hover_theme_SVGID_ { fill:orange;stroke:none; }\nimage.hover_theme_SVGID_ { stroke:orange; }","reactive":true},"select":{"css":".select_data_SVGID_ { fill:red;stroke:black;cursor:pointer; }\ntext.select_data_SVGID_ { stroke:none;fill:red; }\ncircle.select_data_SVGID_ { fill:red;stroke:black; }\nline.select_data_SVGID_, polyline.select_data_SVGID_ { fill:none;stroke:red; }\nrect.select_data_SVGID_, polygon.select_data_SVGID_, path.select_data_SVGID_ { fill:red;stroke:none; }\nimage.select_data_SVGID_ { stroke:red; }","type":"multiple","only_shiny":true,"selected":[],"linked":false},"select_inv":{"css":""},"select_key":{"css":".select_key_SVGID_ { fill:red;stroke:black;cursor:pointer; }\ntext.select_key_SVGID_ { stroke:none;fill:red; }\ncircle.select_key_SVGID_ { fill:red;stroke:black; }\nline.select_key_SVGID_, polyline.select_key_SVGID_ { fill:none;stroke:red; }\nrect.select_key_SVGID_, polygon.select_key_SVGID_, path.select_key_SVGID_ { fill:red;stroke:none; }\nimage.select_key_SVGID_ { stroke:red; }","type":"single","only_shiny":true,"selected":[]},"select_theme":{"css":".select_theme_SVGID_ { fill:red;stroke:black;cursor:pointer; }\ntext.select_theme_SVGID_ { stroke:none;fill:red; }\ncircle.select_theme_SVGID_ { fill:red;stroke:black; }\nline.select_theme_SVGID_, polyline.select_theme_SVGID_ { fill:none;stroke:red; }\nrect.select_theme_SVGID_, polygon.select_theme_SVGID_, path.select_theme_SVGID_ { fill:red;stroke:none; }\nimage.select_theme_SVGID_ { stroke:red; }","type":"single","only_shiny":true,"selected":[]},"zoom":{"min":1,"max":1,"duration":300,"default_on":false},"toolbar":{"position":"topright","pngname":"diagram","tooltips":null,"fixed":false,"hidden":[],"delay_over":200,"delay_out":500},"sizing":{"rescale":true,"width":1}}},"evals":[],"jsHooks":[]}</script>
+<p><br/><br/></p>
+<pre class="r"><code># install.packages(&quot;likert&quot;)
+library(likert)
+par(mar=c(5,16,4,2)+0.1)
+# Datos simulados (respuestas tipo Likert)
+set.seed(123)
+n &lt;- 120
+datos &lt;- data.frame(
+  Servicio = factor(sample(c(&quot;Totalmente en desacuerdo&quot;,&quot;En desacuerdo&quot;,&quot;Neutral&quot;,
+                             &quot;De acuerdo&quot;,&quot;Totalmente de acuerdo&quot;), n, TRUE),
+                    levels = c(&quot;Totalmente en desacuerdo&quot;,&quot;En desacuerdo&quot;,&quot;Neutral&quot;,
+                               &quot;De acuerdo&quot;,&quot;Totalmente de acuerdo&quot;),
+                    ordered = TRUE),
+  Precio   = factor(sample(c(&quot;Totalmente en desacuerdo&quot;,&quot;En desacuerdo&quot;,&quot;Neutral&quot;,
+                             &quot;De acuerdo&quot;,&quot;Totalmente de acuerdo&quot;), n, TRUE),
+                    levels = c(&quot;Totalmente en desacuerdo&quot;,&quot;En desacuerdo&quot;,&quot;Neutral&quot;,
+                               &quot;De acuerdo&quot;,&quot;Totalmente de acuerdo&quot;),
+                    ordered = TRUE),
+  Calidad  = factor(sample(c(&quot;Totalmente en desacuerdo&quot;,&quot;En desacuerdo&quot;,&quot;Neutral&quot;,
+                             &quot;De acuerdo&quot;,&quot;Totalmente de acuerdo&quot;), n, TRUE),
+                    levels = c(&quot;Totalmente en desacuerdo&quot;,&quot;En desacuerdo&quot;,&quot;Neutral&quot;,
+                               &quot;De acuerdo&quot;,&quot;Totalmente de acuerdo&quot;),
+                    ordered = TRUE)
+)
+
+# Construir objeto Likert y graficar
+lk &lt;- likert(datos)
+
+p =plot(lk,
+     centered = TRUE,
+     main = &quot;Encuesta de satisfacción (Likert)&quot;,
+     xlab = &quot;Porcentaje de respuestas&quot;)
+p +
+  theme(
+    legend.text = element_text(angle = 0, hjust = 1, vjust = 1)
+  )</code></pre>
+<p><img src="recurso13_files/figure-html/unnamed-chunk-39-1.png" alt="" width="672" style="display: block; margin: auto;" /></p>
+<p><br/><br/></p>
+<pre class="r"><code># install.packages(&quot;plotly&quot;)
+library(plotly)
+
+set.seed(123)
+df &lt;- data.frame(
+  Edad   = round(rnorm(100, mean = 35, sd = 5),0),
+  Ingreso = rnorm(100, mean = 5500, sd = 1000),
+  Grupo  = sample(c(&quot;A&quot;, &quot;B&quot;, &quot;C&quot;), 100, replace = TRUE)
+)
+
+p &lt;- plot_ly(
+  data = df,
+  x = ~Edad, y = ~Ingreso,
+  type = &quot;scatter&quot;, mode = &quot;markers&quot;,
+  color = ~Grupo,
+  text = ~paste0(&quot;Grupo: &quot;, Grupo,
+                 &quot;&lt;br&gt;Edad: &quot;, round(Edad, 1),
+                 &quot;&lt;br&gt;Ingreso: &quot;, round(Ingreso, 0)),
+  hoverinfo = &quot;text&quot;,
+  marker = list(size = 10, opacity = 0.8)
+) %&gt;%
+  layout(
+    title = &quot;Dispersión interactiva (Plotly)&quot;,
+    xaxis = list(title = &quot;Edad (años)&quot;),
+    yaxis = list(title = &quot;Ingreso (COP)&quot;)
+  )
+
+p</code></pre>
+<div class="plotly html-widget html-fill-item" id="htmlwidget-e8cafd13166b08ed7988" style="width:672px;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-e8cafd13166b08ed7988">{"x":{"visdat":{"77275970938":["function () ","plotlyVisDat"]},"cur_data":"77275970938","attrs":{"77275970938":{"x":{},"y":{},"mode":"markers","text":{},"hoverinfo":"text","marker":{"size":10,"opacity":0.80000000000000004},"color":{},"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"scatter"}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"title":"Dispersión interactiva (Plotly)","xaxis":{"domain":[0,1],"automargin":true,"title":"Edad (años)"},"yaxis":{"domain":[0,1],"automargin":true,"title":"Ingreso (COP)"},"hovermode":"closest","showlegend":true},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"data":[{"x":[35,36,33,36,32,44,39,33,34,32,27,37,38,33,46,29,33,36,38,37,32,40,33,23,40,29,37,40,33,32,32,46,30],"y":[5152.4574006022667,4548.3814327349846,6418.9966090607659,5444.4380344754609,6019.4072039434623,5801.153362166714,4650.2956539664174,4475.8712093950871,4552.5253858151982,7343.8620052322076,4848.0500983045413,6944.5508584233485,4039.3599290751781,7409.1035692174828,3985.3323462182489,4969.0934778296969,6187.9167729758274,6287.7388474751779,5127.5612438961707,6552.7114655793321,4450.8229933339344,6016.8620443136087,5284.6194923583062,5565.293033525315,5465.9327462615356,5810.480749443137,5302.824105651448,6609.9202897136402,6254.053785184522,4604.6366420224585,7497.2133847479663,6100.7088236724176,4314.5199154026895],"mode":"markers","text":["Grupo: A<br>Edad: 35<br>Ingreso: 5152","Grupo: A<br>Edad: 36<br>Ingreso: 4548","Grupo: A<br>Edad: 33<br>Ingreso: 6419","Grupo: A<br>Edad: 36<br>Ingreso: 5444","Grupo: A<br>Edad: 32<br>Ingreso: 6019","Grupo: A<br>Edad: 44<br>Ingreso: 5801","Grupo: A<br>Edad: 39<br>Ingreso: 4650","Grupo: A<br>Edad: 33<br>Ingreso: 4476","Grupo: A<br>Edad: 34<br>Ingreso: 4553","Grupo: A<br>Edad: 32<br>Ingreso: 7344","Grupo: A<br>Edad: 27<br>Ingreso: 4848","Grupo: A<br>Edad: 37<br>Ingreso: 6945","Grupo: A<br>Edad: 38<br>Ingreso: 4039","Grupo: A<br>Edad: 33<br>Ingreso: 7409","Grupo: A<br>Edad: 46<br>Ingreso: 3985","Grupo: A<br>Edad: 29<br>Ingreso: 4969","Grupo: A<br>Edad: 33<br>Ingreso: 6188","Grupo: A<br>Edad: 36<br>Ingreso: 6288","Grupo: A<br>Edad: 38<br>Ingreso: 5128","Grupo: A<br>Edad: 37<br>Ingreso: 6553","Grupo: A<br>Edad: 32<br>Ingreso: 4451","Grupo: A<br>Edad: 40<br>Ingreso: 6017","Grupo: A<br>Edad: 33<br>Ingreso: 5285","Grupo: A<br>Edad: 23<br>Ingreso: 5565","Grupo: A<br>Edad: 40<br>Ingreso: 5466","Grupo: A<br>Edad: 29<br>Ingreso: 5810","Grupo: A<br>Edad: 37<br>Ingreso: 5303","Grupo: A<br>Edad: 40<br>Ingreso: 6610","Grupo: A<br>Edad: 33<br>Ingreso: 6254","Grupo: A<br>Edad: 32<br>Ingreso: 4605","Grupo: A<br>Edad: 32<br>Ingreso: 7497","Grupo: A<br>Edad: 46<br>Ingreso: 6101","Grupo: A<br>Edad: 30<br>Ingreso: 4315"],"hoverinfo":["text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text"],"marker":{"color":"rgba(102,194,165,1)","size":10,"opacity":0.80000000000000004,"line":{"color":"rgba(102,194,165,1)"}},"type":"scatter","name":"A","textfont":{"color":"rgba(102,194,165,1)"},"error_y":{"color":"rgba(102,194,165,1)"},"error_x":{"color":"rgba(102,194,165,1)"},"line":{"color":"rgba(102,194,165,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":[37,32,41,37,37,31,36,41,34,39,35,33,32,34,29,41,33,35,35,34,36,30,37,37,35,45,31,32,36,34,34,41,40,36,34],"y":[4715.0955305429243,5119.7734797122375,4924.6530373916084,6107.9643222250334,3882.1172917108361,5243.9078078017528,5577.9608495637103,5428.6919138764015,5951.5040530792148,5077.5031676603749,6239.9475108773349,4056.1068390282007,6201.7843353747112,5237.8025105975321,3927.8558408545123,3898.4638264254063,4038.2444150041001,4212.9695239648208,5832.2025789501176,5380.5473933693411,6476.9733866856204,8741.0399349424042,5798.2275915407154,6136.569674033849,5016.2193742912568,5868.9645273850856,7628.4518990161814,4758.6639037271716,5936.5234789101833,5041.634667288894,5263.7204310589032,5000.7079828277392,5714.4453095816016,5594.5835281735717,4888.8340833195789],"mode":"markers","text":["Grupo: B<br>Edad: 37<br>Ingreso: 4715","Grupo: B<br>Edad: 32<br>Ingreso: 5120","Grupo: B<br>Edad: 41<br>Ingreso: 4925","Grupo: B<br>Edad: 37<br>Ingreso: 6108","Grupo: B<br>Edad: 37<br>Ingreso: 3882","Grupo: B<br>Edad: 31<br>Ingreso: 5244","Grupo: B<br>Edad: 36<br>Ingreso: 5578","Grupo: B<br>Edad: 41<br>Ingreso: 5429","Grupo: B<br>Edad: 34<br>Ingreso: 5952","Grupo: B<br>Edad: 39<br>Ingreso: 5078","Grupo: B<br>Edad: 35<br>Ingreso: 6240","Grupo: B<br>Edad: 33<br>Ingreso: 4056","Grupo: B<br>Edad: 32<br>Ingreso: 6202","Grupo: B<br>Edad: 34<br>Ingreso: 5238","Grupo: B<br>Edad: 29<br>Ingreso: 3928","Grupo: B<br>Edad: 41<br>Ingreso: 3898","Grupo: B<br>Edad: 33<br>Ingreso: 4038","Grupo: B<br>Edad: 35<br>Ingreso: 4213","Grupo: B<br>Edad: 35<br>Ingreso: 5832","Grupo: B<br>Edad: 34<br>Ingreso: 5381","Grupo: B<br>Edad: 36<br>Ingreso: 6477","Grupo: B<br>Edad: 30<br>Ingreso: 8741","Grupo: B<br>Edad: 37<br>Ingreso: 5798","Grupo: B<br>Edad: 37<br>Ingreso: 6137","Grupo: B<br>Edad: 35<br>Ingreso: 5016","Grupo: B<br>Edad: 45<br>Ingreso: 5869","Grupo: B<br>Edad: 31<br>Ingreso: 7628","Grupo: B<br>Edad: 32<br>Ingreso: 4759","Grupo: B<br>Edad: 36<br>Ingreso: 5937","Grupo: B<br>Edad: 34<br>Ingreso: 5042","Grupo: B<br>Edad: 34<br>Ingreso: 5264","Grupo: B<br>Edad: 41<br>Ingreso: 5001","Grupo: B<br>Edad: 40<br>Ingreso: 5714","Grupo: B<br>Edad: 36<br>Ingreso: 5595","Grupo: B<br>Edad: 34<br>Ingreso: 4889"],"hoverinfo":["text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text"],"marker":{"color":"rgba(252,141,98,1)","size":10,"opacity":0.80000000000000004,"line":{"color":"rgba(252,141,98,1)"}},"type":"scatter","name":"B","textfont":{"color":"rgba(252,141,98,1)"},"error_y":{"color":"rgba(252,141,98,1)"},"error_x":{"color":"rgba(252,141,98,1)"},"line":{"color":"rgba(252,141,98,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":[32,34,43,44,29,37,25,30,30,39,29,39,39,38,39,35,42,43,27,36,33,30,40,34,35,37,33,38,37,38,42,43],"y":[4789.5934363006991,5756.8837091565292,5253.308121537626,5454.9722751910795,3832.0580634118633,5605.6761941489431,4859.2939916946234,5617.6465971001262,5009.442556299332,5735.3865722848568,4538.1433658698716,5541.2329219929397,3446.7527784594845,6631.3372134141755,7600.1089405256716,6269.0422410009096,4491.623391722992,5219.6046648297533,6062.9895332204796,5125.4191422329859,4239.8447552418875,5083.142411839568,4404.0037329253364,5537.7883991710787,4436.6738660288092,6763.1851760894897,5150.3496120464451,4634.4871373466258,5584.7372921971964,5175.3140885091652,4189.1984666720282,4248.7286383750561],"mode":"markers","text":["Grupo: C<br>Edad: 32<br>Ingreso: 4790","Grupo: C<br>Edad: 34<br>Ingreso: 5757","Grupo: C<br>Edad: 43<br>Ingreso: 5253","Grupo: C<br>Edad: 44<br>Ingreso: 5455","Grupo: C<br>Edad: 29<br>Ingreso: 3832","Grupo: C<br>Edad: 37<br>Ingreso: 5606","Grupo: C<br>Edad: 25<br>Ingreso: 4859","Grupo: C<br>Edad: 30<br>Ingreso: 5618","Grupo: C<br>Edad: 30<br>Ingreso: 5009","Grupo: C<br>Edad: 39<br>Ingreso: 5735","Grupo: C<br>Edad: 29<br>Ingreso: 4538","Grupo: C<br>Edad: 39<br>Ingreso: 5541","Grupo: C<br>Edad: 39<br>Ingreso: 3447","Grupo: C<br>Edad: 38<br>Ingreso: 6631","Grupo: C<br>Edad: 39<br>Ingreso: 7600","Grupo: C<br>Edad: 35<br>Ingreso: 6269","Grupo: C<br>Edad: 42<br>Ingreso: 4492","Grupo: C<br>Edad: 43<br>Ingreso: 5220","Grupo: C<br>Edad: 27<br>Ingreso: 6063","Grupo: C<br>Edad: 36<br>Ingreso: 5125","Grupo: C<br>Edad: 33<br>Ingreso: 4240","Grupo: C<br>Edad: 30<br>Ingreso: 5083","Grupo: C<br>Edad: 40<br>Ingreso: 4404","Grupo: C<br>Edad: 34<br>Ingreso: 5538","Grupo: C<br>Edad: 35<br>Ingreso: 4437","Grupo: C<br>Edad: 37<br>Ingreso: 6763","Grupo: C<br>Edad: 33<br>Ingreso: 5150","Grupo: C<br>Edad: 38<br>Ingreso: 4634","Grupo: C<br>Edad: 37<br>Ingreso: 5585","Grupo: C<br>Edad: 38<br>Ingreso: 5175","Grupo: C<br>Edad: 42<br>Ingreso: 4189","Grupo: C<br>Edad: 43<br>Ingreso: 4249"],"hoverinfo":["text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text"],"marker":{"color":"rgba(141,160,203,1)","size":10,"opacity":0.80000000000000004,"line":{"color":"rgba(141,160,203,1)"}},"type":"scatter","name":"C","textfont":{"color":"rgba(141,160,203,1)"},"error_y":{"color":"rgba(141,160,203,1)"},"error_x":{"color":"rgba(141,160,203,1)"},"line":{"color":"rgba(141,160,203,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+<p><br/><br/><br/><br/></p>
+<p><img src="img/pujcali.jpeg" /></p>
+<p></br></br></p>
+<div id="una-imagen-dice-mas-que-mil-palabras" class="section level3">
+<h3><strong>Una imagen dice mas que mil palabras…</strong></h3>
+<p>Las imágenes también comunican contexto y refuerzan la narrativa del
+informe. En presentaciones de mercadeo, una foto puede conectar datos
+con la realidad del entorno.</p>
+<p>Daniel Enrique González Gómez</p>
+<p>Imagen tomada de :<a
+href="https://javerianacali.edu.co/noticias/la-javeriana-bogota-y-cali-1-de-colombia"
+class="uri">https://javerianacali.edu.co/noticias/la-javeriana-bogota-y-cali-1-de-colombia</a></p>
+</div>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("hide" === "show");
+});
+</script>
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

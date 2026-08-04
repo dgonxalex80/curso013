@@ -1,0 +1,125 @@
+---
+title: " "
+subtitle: " "
+author: <span style="color:#E85A67">dgonzalez</span>
+output:
+  html_document:
+    toc: no
+    toc_depth: 2
+    toc_float: yes
+    theme: flatly
+    css:
+      - style.css
+      - guia-aprendizaje.css
+---
+
+     
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE, comment = NA)
+library(psych)
+library(summarytools)
+
+# install.packages("devtools")
+#devtools::install_github("dgonxalex80/paqueteDEG")
+#library(paqueteDEG)
+
+
+## colores
+source("colores.R")
+
+# install.packages('gtools')
+# install.packages("TeachingSampling")
+
+#load library
+#library(gtools)
+#library(TeachingSampling)
+#library(readr)
+#base_muestreo <- read_delim("data/base_muestreo.csv", 
+#    delim = ";", escape_double = FALSE, col_types = cols(ID = col_integer()), 
+#    trim_ws = TRUE)
+
+
+
+```
+
+```{r, echo=FALSE, out.width="100%", fig.align = "center"}
+knitr::include_graphics("img/guia1.png")
+```
+
+<br/>
+
+## Introducción
+
+<br/>
+
+El **Análisis Descriptivo** permite examinar información contenida en una base de datos, procesarla y mediante la construcción de tablas, indicadores y gráficos y con esto elementos realizar un primer análisis de la información, permitiendo así tener una primera impresión de lo que dicen los datos, con la cual se pueden construir hipótesis que luego podrán ser verificadas.
+
+En este proceso es importante conocer el tipo de variable (cualitativa o cuantitativa) y su tipo de escala (nominal, ordinal en el caso de las cualitativas o de intervalo, de razón en el caso de las cuantitativas), con el fin de seleccionar la manera adecuada de construir tablas que resuman la información e indicadores en cada caso.
+
+En esta unidad se tratará en primer lugar el resumen de información mediante tablas de frecuencia y en una segunda parte lo relacionado con los indicadores de posición, centro o tendencia, dispersión e indicadores de forma.
+
+<br/><br/>
+
+## Objetivos de la unidad
+
+Al finalizar esta unidad el estudiante estará en capacidad de RESUMIR e INTERPRETAR información mediante la construcción de TABLAS DE FRECUENCIA, INDICADORES DESCRIPTIVOS que permitan un correcto análisis de datos.
+
+<br/><br/>
+
+## Duración
+
+La presente unidad será desarrollada durante la segunda semana del semestre. Además del material suministrado contarán con el acompañamiento del profesor en dos sesiones y de manera asincrónica con foro de actividades académicas. Los entregables para esta unidad deberán enviarse a través de la plataforma Brightspace hasta el 11 de agosto.
+
+
+Para alcanzar los objetivos planteados se propone realizar las siguientes actividades
+
+
+<br/><br/>
+
+## Cronograma de trabajo
+
+
+|Actividad121   | Descripción                    | 
+|:--------------|:-----------------------------  |
+|Trabajo individual| **Actividad 121** - **Caso 1**: Realice las actividades consignadas en el enunciado, publique el informe final medianet la platarorma **Publish** que se ubica en la parte derecha del menú de RStudio. Pegue el enlace URL generado en  la plataforma de Brightspace.  |
+|Recursos       |[Video indicadores estadísticos](https://www.youtube.com/watch?v=dWVs-M7oCh4)         |
+|               | [Vídeo calculo indicadores con tablas de distribución](https://www.youtube.com/watch?v=n2UCDZNncls)|
+| Fecha         | 11 de agosto de 2026           |
+| Hora          | 23:59 hora local                        |
+
+<br/> 
+
+|Actividad122   | Descripción                    | 
+|:--------------|:-----------------------------  |
+|Trabajo individual| **Actividad 122**: A partir de la información contenida en la **base de datos seleccionada en la Actividad 112**, realice un análisis de al menos dos variables cualitativas y dos cuantitativas teniendo como soporte las tablas de frecuencia y los indicadores estadísticos correspondientes.  publique el informe final medianet la platarorma Publish que se ubica en la parte derecha del menú de RStudio. Coloque el enlace URL generado en  la plataforma de Brightspace|
+|Recursos| Base de datos actividad-1 Unidad 1.1|
+|               |Excel                |
+|               |RStudio              |
+||Código u1.2                         |
+|Fecha          | 11 de agosto 2026|
+|Hora           |  23:59 hora local   |
+
+
+<br/><br/>
+
+## Criterios de evaluación
+
++ Reconocer e interpretar las diferentes formas de resumir los datos a través de tablas de frecuencia para los casos de variables cuantitativas y para variables cualitativas.
+
++ Calcular e interpretar los diferentes indicadores de posición, tendencia, dispersión y forma que permitan un correcto análisis de los datos
+
++ Utilizar herramientas computacionales para el procesamiento de la información.
+
+
+
+<br/><br/>
+
+## Entregables 
+
+| Entregable    |  Descripción                   |
+|:--------------|:-------------------------------|
+|**Actividad121.html**|  Desarrollo del Caso 1    |
+|**Actividad122.html**|  Aplicar lo aprendido en la unidad 1.2 a la base de datos seleccionada para la actividad112    |
+|Fecha          | 11 de agosto  de 2026   | 
+|Hora límite    | 23:59  hora  local             |
