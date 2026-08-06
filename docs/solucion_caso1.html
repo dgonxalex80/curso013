@@ -971,7 +971,7 @@ kable(
   resumen_cuantitativas,
   col.names = c(&quot;Variable&quot;, &quot;Mínimo&quot;, &quot;Q1&quot;, &quot;Mediana&quot;, &quot;Media&quot;, &quot;Q3&quot;, &quot;Máximo&quot;, &quot;Desviación&quot;, &quot;CV (%)&quot;)
 )</code></pre>
-<table>
+<table style="width:100%;">
 <colgroup>
 <col width="9%" />
 <col width="16%" />
@@ -980,7 +980,7 @@ kable(
 <col width="9%" />
 <col width="8%" />
 <col width="8%" />
-<col width="9%" />
+<col width="8%" />
 <col width="13%" />
 <col width="8%" />
 </colgroup>
@@ -1002,57 +1002,57 @@ kable(
 <tr class="odd">
 <td align="left">25%…1</td>
 <td align="left">precio</td>
-<td align="right">2.36</td>
-<td align="right">4.05</td>
-<td align="right">4.96</td>
-<td align="right">4.97</td>
-<td align="right">5.87</td>
-<td align="right">7.80</td>
-<td align="right">1.30</td>
-<td align="right">26.10</td>
+<td align="right">2.37</td>
+<td align="right">4.36</td>
+<td align="right">5.00</td>
+<td align="right">5.00</td>
+<td align="right">5.64</td>
+<td align="right">7.72</td>
+<td align="right">0.89</td>
+<td align="right">17.71</td>
 </tr>
 <tr class="even">
 <td align="left">25%…2</td>
 <td align="left">alcohol</td>
 <td align="right">0.03</td>
-<td align="right">14.56</td>
-<td align="right">18.21</td>
-<td align="right">19.59</td>
-<td align="right">23.81</td>
-<td align="right">161.61</td>
-<td align="right">6.44</td>
-<td align="right">32.89</td>
+<td align="right">14.28</td>
+<td align="right">17.67</td>
+<td align="right">18.71</td>
+<td align="right">22.63</td>
+<td align="right">59.45</td>
+<td align="right">5.46</td>
+<td align="right">29.16</td>
 </tr>
 <tr class="odd">
 <td align="left">25%…3</td>
 <td align="left">carbohidratos</td>
-<td align="right">2.00</td>
-<td align="right">11.00</td>
+<td align="right">3.50</td>
+<td align="right">12.40</td>
 <td align="right">13.80</td>
-<td align="right">14.82</td>
-<td align="right">17.60</td>
-<td align="right">115.30</td>
-<td align="right">5.14</td>
-<td align="right">34.68</td>
+<td align="right">14.05</td>
+<td align="right">15.60</td>
+<td align="right">30.20</td>
+<td align="right">2.38</td>
+<td align="right">16.91</td>
 </tr>
 <tr class="even">
 <td align="left">25%…4</td>
 <td align="left">calorias</td>
-<td align="right">14.00</td>
-<td align="right">154.00</td>
-<td align="right">186.00</td>
-<td align="right">202.42</td>
-<td align="right">241.00</td>
-<td align="right">1598.00</td>
-<td align="right">65.13</td>
-<td align="right">32.18</td>
+<td align="right">21.00</td>
+<td align="right">157.00</td>
+<td align="right">182.00</td>
+<td align="right">193.17</td>
+<td align="right">224.00</td>
+<td align="right">541.00</td>
+<td align="right">46.57</td>
+<td align="right">24.11</td>
 </tr>
 </tbody>
 </table>
-<p>El precio medio simulado es <strong>4.97</strong>, con una mediana de
-<strong>4.96</strong>. Una porción de 355 ml contiene en promedio
-<strong>19.59 gramos de alcohol</strong>, <strong>14.82 gramos de
-carbohidratos</strong> y <strong>202.42 calorías</strong>.</p>
+<p>El precio medio simulado es <strong>5</strong>, con una mediana de
+<strong>5</strong>. Una porción de 355 ml contiene en promedio
+<strong>18.71 gramos de alcohol</strong>, <strong>14.05 gramos de
+carbohidratos</strong> y <strong>193.17 calorías</strong>.</p>
 <pre class="r"><code>beer2 |&gt;
   select(all_of(variables_cuantitativas)) |&gt;
   tidyr::pivot_longer(everything(), names_to = &quot;variable&quot;, values_to = &quot;valor&quot;) |&gt;
@@ -1106,40 +1106,40 @@ kable(resumen_tipo, format.args = list(big.mark = &quot;.&quot;, decimal.mark = 
 <td align="right">483.464</td>
 <td align="right">3,88</td>
 <td align="right">4</td>
-<td align="right">18,90</td>
-<td align="right">195,59</td>
+<td align="right">18,15</td>
+<td align="right">191,10</td>
 </tr>
 <tr class="even">
 <td align="left">cerveza normal y helada</td>
 <td align="right">839.088</td>
 <td align="right">3,86</td>
 <td align="right">4</td>
-<td align="right">21,19</td>
-<td align="right">219,35</td>
+<td align="right">20,10</td>
+<td align="right">203,82</td>
 </tr>
 <tr class="odd">
 <td align="left">lager artesanal</td>
 <td align="right">22.725</td>
 <td align="right">3,64</td>
 <td align="right">4</td>
-<td align="right">16,13</td>
-<td align="right">165,09</td>
+<td align="right">15,67</td>
+<td align="right">169,88</td>
 </tr>
 <tr class="even">
 <td align="left">lager importada</td>
 <td align="right">219.194</td>
 <td align="right">3,61</td>
 <td align="right">4</td>
-<td align="right">16,34</td>
-<td align="right">167,13</td>
+<td align="right">15,86</td>
+<td align="right">167,84</td>
 </tr>
 <tr class="odd">
 <td align="left">baja en calorías / sin alcohol</td>
 <td align="right">22.143</td>
 <td align="right">2,95</td>
 <td align="right">3</td>
-<td align="right">9,95</td>
-<td align="right">97,18</td>
+<td align="right">9,84</td>
+<td align="right">109,52</td>
 </tr>
 </tbody>
 </table>
@@ -1166,11 +1166,11 @@ data.frame(
 <tbody>
 <tr class="odd">
 <td align="left">Alcohol y calorías</td>
-<td align="right">0.996</td>
+<td align="right">0.994</td>
 </tr>
 </tbody>
 </table>
-<p>La correlación entre alcohol y calorías es <strong>0.996</strong>. La
+<p>La correlación entre alcohol y calorías es <strong>0.994</strong>. La
 asociación es positiva porque el alcohol aporta energía al contenido
 calórico total; además, las calorías fueron construidas usando el
 alcohol y los carbohidratos.</p>
