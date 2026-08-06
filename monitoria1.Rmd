@@ -421,7 +421,7 @@ Pct.Valid  100.00
 
 <div class="box1 with-label">
 
-Los pesos en libra de 54 paquetes de hamburguesas fueron obtenidos en el mostrador de un supermercado de cadena de la ciudad (`mín = 0.75`, `máx = 14.1` )
+Los pesos en libra de 54 paquetes de hamburguesas fueron obtenidos en el mostrador de un supermercado de cadena de la ciudad (`mín = 0.75`, `máx = 1.41` )
 
 ```{r, echo=FALSE}
 peso=c(1.08,0.99,0.97,1.18,1.41,1.28,0.83,1.06,1.14,1.38,
@@ -432,6 +432,8 @@ peso=c(1.08,0.99,0.97,1.18,1.41,1.28,0.83,1.06,1.14,1.38,
        1.24,1.28,1.38,1.41)
 
 stem(peso)
+min(peso)
+max(peso)
 ```
 <br/><br/>
 
