@@ -84,9 +84,7 @@ Para cada una de las siguientes variables, indique si es cualitativa o cuantitat
 
 </div>
 
-<br/><br/><br/>
-
-
+<br/><br/>
 
 ## Problema 2
 
@@ -120,10 +118,7 @@ Indique el concepto referido en cada uno de los siguientes enunciados:
 
 </div>
 
-<br/><br/><br/>
-
-
-
+<br/><br/>
 
 ## Problema 3
 
@@ -156,10 +151,7 @@ Responda F (falso) o V (verdadero). Justifique las respuestas falsas y escriba, 
 
 </div>
 
-<br/><br/><br/>
-
-
-
+<br/><br/>
 
 ## Problema 4
 
@@ -185,8 +177,7 @@ stem(x)
 
 </div>
 
-<br/><br/><br/>
-
+<br/><br/>
 
 ## Problema 5
 
@@ -210,10 +201,7 @@ Un vendedor convierte  los  pesos de los paquetes que se producen en  su empresa
 
 </div>
 
-
-
-<br/><br/><br/>
-
+<br/><br/>
 
 ## Problema 6
 
@@ -256,9 +244,7 @@ notas Alonso
 
 </div>
 
-<br/><br/><br/>
-
-
+<br/><br/>
 
 ## Problema 7
 
@@ -345,7 +331,7 @@ Tomado de Arroyo(2012)
 
 </div>
 
-<br/><br/><br/>
+<br/><br/>
 
 ## Problema 8
 
@@ -372,9 +358,7 @@ grid()
 
 </div>
 
-<br/><br/><br/>
-
-
+<br/><br/>
 
 ## Problema 9
 
@@ -411,11 +395,7 @@ Pct.Valid  100.00
 
 </div>
 
-<br/><br/><br/>
-
-
-
-
+<br/><br/>
 
 ## Problema 10
 
@@ -432,8 +412,8 @@ peso=c(1.08,0.99,0.97,1.18,1.41,1.28,0.83,1.06,1.14,1.38,
        1.24,1.28,1.38,1.41)
 
 stem(peso)
-min(peso)
-max(peso)
+cat("peso mínimo:",min(peso))
+cat("peso máximo:",max(peso))
 ```
 <br/><br/>
 
@@ -454,7 +434,9 @@ $\displaystyle\sum_{i=1}^{54}x_{i}^2 = 61.2377$
 
 <br/><br/>
 
-+ Construya un diagrama de cajas y a partir de este resultado determine si su forma es simétrica
+Construya un diagrama de cajas y a partir de este resultado determine si su forma es simétrica
+
+<br/>
 
 Para construir el diagrama de cajas se emplean los cuartiles ($Q_{1}$, $Q_{2}$ y $Q_3$). Ellos determinan la caja central del diagrama. Las lineas a lado y lado 
 
@@ -468,10 +450,7 @@ Para construir el diagrama de cajas se emplean los cuartiles ($Q_{1}$, $Q_{2}$ y
 
 </div>
 
-<br/><br/><br/>
-
-
-
+<br/><br/>
 
 ## Problema 11
 
@@ -504,11 +483,7 @@ A partir de la información responda los siguientes interrogantes:
 
 </div>
 
-<br/><br/><br/>
-
-
-
-
+<br/><br/>
 
 ## Problema 12
 
@@ -531,10 +506,7 @@ Con base en la información, cuál proveedor escogería? Justifique su respuesta
 
 </div>
 
-<br/><br/><br/>
-
-
-
+<br/><br/>
 
 ## Problema 13
 
@@ -571,7 +543,7 @@ Debido a que la muestra obtenida constituye una muestra representativa del proce
 
 </div>
 
-<br/><br/><br/>
+<br/><br/>
 
 ## Problema 14
 
@@ -598,8 +570,7 @@ De a cuerdo con los valoresa obtenidos es posible afirmar que existen diferencia
 
 </div>
 
-<br/><br/><br/>
-
+<br/><br/>
 
 ## Problema 15
 
@@ -623,7 +594,7 @@ Determine el valor de verdad (verdadera - V, falsa - F) para cada una de las sig
 
 </div>
 
-<br/><br/><br/>
+<br/><br/>
 
 
 ## Problema 16
@@ -642,7 +613,7 @@ x
 * Calcules la media y la mediana.
 * ¿Cual de los indicadores es más representativo de la información como indicador de tendencia central? Justifique  su respuesta.
 
-<br/><br/><br/>
+<br/><br/>
 
 </div>
 
@@ -673,7 +644,7 @@ Construye un ejemplo específico para el caso de:
 
 </div>
 
-<br/><br/><br/>
+<br/><br/>
 
 
 ## Problema 19
@@ -705,7 +676,7 @@ Realice un bosquejo de su representación gráfica y de la posición de los indi
 
 </div>
 
-<br/><br/><br/>
+<br/><br/>
 
 ## Problema 21
 
@@ -756,7 +727,7 @@ Pct.Valid   100.00    100.00  100.00   100.00 100.00
 
 
 
-<br/><br/><br/>
+<br/><br/>
 
 
 ## Problema 22
@@ -801,7 +772,7 @@ grid()
 
 
 
-<br/><br/><br/>
+<br/><br/>
 
 ## Problema 23
 
@@ -900,7 +871,7 @@ El responsable de la auditoría le pide revise cada uno de los lineamientos y su
 
 
 
-<br/><br/><br/>
+<br/><br/>
 
 ## Problema 24
 
