@@ -65,6 +65,14 @@ knitr::include_graphics("img/metodologia.png")
 ```
 
 
+<br/><br/>
+
+## Evaluaciones
+
+```{r, echo=FALSE, out.width="50%", fig.align = "center"}
+knitr::include_graphics("img/evaluaciones.png")
+```
+
 
 <br/><br/>
 

@@ -40,7 +40,7 @@ knitr::include_graphics("img/guia1.png")
 <br/><br/>
 
 
-## **Introducción**
+# Introducción
 
 La representación gráfica de información constituye una de las herramientas mas importantes de la estadística. Con ella podemos observar lo  ocurrido  en  el pasado, el  presente y lo que  podría ocurrir en el futuro y de esta forma orientar nuestras decisiones. 
 
@@ -50,21 +50,21 @@ Las gráficas pueden formar parte de un informe en un estudio, para lo cual es n
 
 <br/><br/>
 
-## **Objetivos de la unidad**
+# Objetivos de la unidad
 
 Al finalizar la unidad los estudiantes estarán  en  capacidad de  RECONOCER los  tipos de gráficos estadísticos y podrán REPRESENTAR e INTERPRETAR  información a  través  de las diferentes formas, que les permita complementar un  análisis de datos estadístico.
 
 <br/><br/>
 
-## **Duración**
+# Duración
 
-La presente unidad será desarrollada durante la tercera semana del semestre. Además del material suministrado, contarán con el acompañamiento del profesor en las sesiones y, de manera asincrónica, en las actividades de apoyo. Los entregables para esta unidad podrán enviarse a través de la plataforma Brightspace hasta el 16 de febrero.
+La presente unidad será desarrollada durante la tercera semana del semestre. Además del material suministrado, contarán con el acompañamiento del profesor y de un monitor, en las actividades de apoyo. Los entregables para esta unidad podrán enviarse a través de la plataforma Brightspace hasta el domingo 23 de agosto.
 
 Para alcanzar los objetivos planteados se propone realizar las siguientes actividades
 
 <br/><br/>
 
-## **Cronograma de trabajo**
+# Cronograma de trabajo
 
 
 |Actividad 131   | Descripción                 | 
@@ -74,18 +74,18 @@ Para alcanzar los objetivos planteados se propone realizar las siguientes activi
 |               | [flexdashboard](https://rstudio.github.io/flexdashboard/index.html)|
 |               | [Rmarkdown](https://rstudio.github.io/cheatsheets/html/rmarkdown.html) |
 |               | [ggplot2](https://rstudio.github.io/cheatsheets/html/data-visualization.html) |
-|Fecha  | 16  de febrero de 2026  |
+|Fecha  | 23   de agosto de 2026  |
 |Hora   | 23:59 hora local |
 
 |Actividad 132   | Descripción                   | 
 |:--------------|:-----------------------------  |
 |Trabajo equipo|  Deben construir un **mapa mental** del *Módulo 1*  que resuma los conceptos más importantes del Módulo 1. El mapa debe ser construido a mano en medio pliego de cartulina. Los equipos podrán estar conformados por 3  estudiantes - Se sugiere que cada estudiante lleve su mapa mental como aporte a la construcción colectiva |
-|Fecha  | **18 de febrero de 2026** - al finalizar la sesión|
+|Fecha  | **20 de agosto de 2026** - al finalizar la sesión|
 |Hora   | al final de la sesión |
 
 <br/><br/>
 
-## **Criterios de evaluación**
+# Criterios de evaluación
 
 + Reconocer los principales elementos de un  análisis descriptivo de datos y su incidencia en la toma de decisiones.
 
@@ -95,16 +95,16 @@ Para alcanzar los objetivos planteados se propone realizar las siguientes activi
 
 <br/><br/>
 
-## **Entregables** 
+# Entregables 
 
 
 | Entregable    | Descripción                   | 
 |:--------------|:------------------------------|
 | Actividad131  | Tablero Acompañado de descripción de los resultados |
-| Fecha         | 16  de febrero de 2026             |
+| Fecha         | 23 de agosto de 2026             |
 |Hora límite    | 23:59  hora  local            |
 |Activiada132   | Mapa mental |
-|Fecha          | **18 de febrero de  2026**         |
+|Fecha          | **20 de agosto de  2026**         |
 |Hora límite    | al finalizar la sesión        |
 |               |                               |
 

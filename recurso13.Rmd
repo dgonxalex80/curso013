@@ -68,7 +68,7 @@ Wikipedia
 
 En esta unidad vamos a revisar cómo elegir y construir gráficos que apoyen el análisis en administración y mercadeo. La idea es que cada visualización responda a una pregunta concreta (por ejemplo: ¿qué producto vende más?, ¿cómo se comporta la demanda en el tiempo?, ¿qué segmentos son diferentes?) y no sea solo un adorno.
 
-## **Paquetes de R para gráficos**
+## Paquetes de R para gráficos
 
 R posee una serie de paquetes construido para la visualización de datos que hacen que tengan una excelente presentación. Empezando por funciones del núcleo base, hasta paquetes que elaboran gráficos interactivos
 
@@ -210,7 +210,7 @@ knitr::include_graphics("img/graficos.png")
 
 <br/><br/>
 
-### **Gráficos variables cualitativas con R base**
+### Gráficos variables cualitativas con R base
 
 Gráfico de tortas
 
@@ -265,13 +265,13 @@ barplot(
 
 <br/><br/>
 
-### **Gráficas variables cuantitativas con R base**
+### Gráficas variables cuantitativas con R base
 
 En variables numéricas nos interesa describir la distribución, la tendencia y la dispersión. Los siguientes gráficos ayudan a responder preguntas como: ¿hay valores atípicos?, ¿la distribución es simétrica?, ¿existen agrupaciones?
 
 <br/><br/>
 
-### **Diagrama de árbol**
+### Diagrama de árbol
 
 El diagrama de tallos y hojas permite ver valores individuales y su frecuencia sin perder detalle. Es una buena alternativa cuando el conjunto de datos no es muy grande.
 
@@ -284,7 +284,7 @@ Este diagrama ordena los datos y permite identificar rápidamente el mínimo, el
 
 <br/><br/>
 
-### **Histograma**
+### Histograma
 
 El histograma resume la distribución de una variable. En contextos de negocio puede servir para ver la dispersión de tiempos de entrega o el rango de ventas por cliente.
 
@@ -301,7 +301,7 @@ h1
 
 <br/><br/>
 
-### **Diagrama de densidad**
+### Diagrama de densidad
 
 La densidad muestra la forma general de la distribución suavizada. Es útil para comparar rápidamente perfiles de consumo o niveles de gasto.
 
