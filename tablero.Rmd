@@ -205,7 +205,7 @@ knitr::include_graphics("img/tablero29.png")
 
 
 <html>
-<button id="dl-rmd-1" style="background:c50;color:#fff;padding:7px 20px;border:0;border-radius:6px;cursor:pointer">
+<button id="dl-rmd-1" class="download-button" type="button">
   📥 Descargar código tablero1.Rmd
 </button>
 <script>
@@ -246,7 +246,7 @@ knitr::include_graphics("img/tablero30.png")
 
 
 <html>
-<button id="dl-rmd-2" style="background:c50;color:#fff;padding:7px 20px;border:0;border-radius:6px;cursor:pointer">
+<button id="dl-rmd-2" class="download-button" type="button">
   📥 Descargar código tablero2.Rmd
 </button>
 <script>
@@ -272,7 +272,6 @@ knitr::include_graphics("img/tablero30.png")
 })();
 </script>
 </html>
-
 
 
 

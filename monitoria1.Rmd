@@ -953,7 +953,7 @@ El director de operaciones del banco ha solicitado una revisión de estos criter
 <br/>
 
 <div style="margin: 8px 0 18px 0;">
-  <button id="dl-rmd" style="background:#c50;color:#fff;padding:8px 20px;border:0;border-radius:6px;cursor:pointer;font-weight:600;">
+  <button id="dl-rmd" class="download-button" type="button">
     Descargar codigo practica_m1.Rmd
   </button>
 </div>

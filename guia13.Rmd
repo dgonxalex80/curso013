@@ -1,6 +1,6 @@
 ---
 title:  " "
-subtitle: "Estadística para la toma de decisiones"
+subtitle: " "
 author: "dgonzalez"
 output:
   html_document:
@@ -58,7 +58,7 @@ Al finalizar la unidad los estudiantes estarán  en  capacidad de  RECONOCER los
 
 # Duración
 
-La presente unidad será desarrollada durante la tercera semana del semestre. Además del material suministrado, contarán con el acompañamiento del profesor y de un monitor, en las actividades de apoyo. Los entregables para esta unidad podrán enviarse a través de la plataforma Brightspace hasta el domingo 23 de agosto.
+La presente unidad será desarrollada durante la tercera semana del semestre. Además del material suministrado, contarán con el acompañamiento del profesor y de un monitor, en las actividades de apoyo. Los entregables para esta unidad podrán enviarse a través de la plataforma Brightspace hasta el 17 de agosto.
 
 Para alcanzar los objetivos planteados se propone realizar las siguientes actividades
 
@@ -74,7 +74,7 @@ Para alcanzar los objetivos planteados se propone realizar las siguientes activi
 |               | [flexdashboard](https://rstudio.github.io/flexdashboard/index.html)|
 |               | [Rmarkdown](https://rstudio.github.io/cheatsheets/html/rmarkdown.html) |
 |               | [ggplot2](https://rstudio.github.io/cheatsheets/html/data-visualization.html) |
-|Fecha  | 23   de agosto de 2026  |
+|Fecha  | 17   de agosto de 2026  |
 |Hora   | 23:59 hora local |
 
 |Actividad 132   | Descripción                   | 
@@ -101,7 +101,7 @@ Para alcanzar los objetivos planteados se propone realizar las siguientes activi
 | Entregable    | Descripción                   | 
 |:--------------|:------------------------------|
 | Actividad131  | Tablero Acompañado de descripción de los resultados |
-| Fecha         | 23 de agosto de 2026             |
+| Fecha         | 17 de agosto de 2026             |
 |Hora límite    | 23:59  hora  local            |
 |Activiada132   | Mapa mental |
 |Fecha          | **20 de agosto de  2026**         |

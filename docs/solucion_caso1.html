@@ -12,7 +12,7 @@
 <meta name="author" content="dgonzalez" />
 
 
-<title>Solución del caso 1: análisis descriptivo de beer2</title>
+<title>solucion_caso1.knit</title>
 
 <script src="site_libs/header-attrs-2.31/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -30,9 +30,6 @@
        h6 {font-size: 12px;}
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
-<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
-<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
-<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <script src="site_libs/navigation-1.1/codefolding.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
@@ -230,69 +227,6 @@ $(document).ready(function () {
 
 
 
-<style type="text/css">
-
-#TOC {
-  margin: 25px 0px 20px 0px;
-}
-@media (max-width: 768px) {
-#TOC {
-  position: relative;
-  width: 100%;
-}
-}
-
-@media print {
-.toc-content {
-  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
-  float: right;
-}
-}
-
-.toc-content {
-  padding-left: 30px;
-  padding-right: 40px;
-}
-
-div.main-container {
-  max-width: 1200px;
-}
-
-div.tocify {
-  width: 20%;
-  max-width: 260px;
-  max-height: 85%;
-}
-
-@media (min-width: 768px) and (max-width: 991px) {
-  div.tocify {
-    width: 25%;
-  }
-}
-
-@media (max-width: 767px) {
-  div.tocify {
-    width: 100%;
-    max-width: none;
-  }
-}
-
-.tocify ul, .tocify li {
-  line-height: 20px;
-}
-
-.tocify-subheader .tocify-item {
-  font-size: 0.90em;
-}
-
-.tocify .list-group-item {
-  border-radius: 0px;
-}
-
-
-</style>
-
-
 
 </head>
 
@@ -300,16 +234,6 @@ div.tocify {
 
 
 <div class="container-fluid main-container">
-
-
-<!-- setup 3col/9col grid for toc_float and main content  -->
-<div class="row">
-<div class="col-xs-12 col-sm-4 col-md-3">
-<div id="TOC" class="tocify">
-</div>
-</div>
-
-<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -392,6 +316,16 @@ div.tocify {
     </li>
     <li class="divider"></li>
     <li>
+      <a href="guia13.html">Guía 1.3</a>
+    </li>
+    <li>
+      <a href="recurso13.html">Recursos 1.3</a>
+    </li>
+    <li>
+      <a href="codigo13.html">Código 1.3</a>
+    </li>
+    <li class="divider"></li>
+    <li>
       <a href="monitoria1.html">Monitoria 1</a>
     </li>
   </ul>
@@ -466,19 +400,22 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">Solución del caso 1: análisis descriptivo
-de beer2</h1>
-<h4 class="author">dgonzalez</h4>
 
 </div>
 
 
+<p><img src="img/caso1.png" alt="" width="100%" style="display: block; margin: auto;" /></p>
+<div id="solucionario---propuesta" class="section level1">
+<h1>Solucionario - propuesta</h1>
+<p><br/><br/></p>
+</div>
 <div id="objetivo" class="section level1">
 <h1>Objetivo</h1>
 <p>Describir las características comerciales, nutricionales, geográficas
 y de valoración contenidas en <code>beer2.csv</code>, mediante tablas de
 frecuencias, indicadores estadísticos y gráficos apropiados para cada
 tipo de variable.</p>
+<p><br/><br/></p>
 </div>
 <div id="revisión-de-la-base" class="section level1">
 <h1>Revisión de la base</h1>
@@ -528,6 +465,7 @@ consecuencia, <code>id</code>, <code>marca</code> y
 <code>nombre_cerveza</code> pueden repetirse cuando una cerveza ha
 recibido varias valoraciones. El identificador <code>id</code> no se
 utiliza para calcular indicadores estadísticos.</p>
+<p><br/><br/></p>
 </div>
 <div id="variables-cualitativas" class="section level1">
 <h1>Variables cualitativas</h1>
@@ -592,6 +530,7 @@ kable(frecuencia_tipo, col.names = c(&quot;Tipo&quot;, &quot;Frecuencia&quot;, &
 <p><img src="solucion_caso1_files/figure-html/grafico-tipo-1.png" alt="" width="864" /></p>
 <p>El tipo más frecuente es <strong>cerveza normal y helada</strong>,
 con 839.088 reseñas (52.89%).</p>
+<p><br/><br/></p>
 </div>
 <div id="origen-comercial" class="section level2">
 <h2>Origen comercial</h2>
@@ -623,6 +562,7 @@ kable(frecuencia_origen, col.names = c(&quot;Origen&quot;, &quot;Frecuencia&quot
 </table>
 <p>La categoría modal de origen es <strong>importada</strong>, que
 representa 89.02% de las reseñas.</p>
+<p><br/><br/></p>
 </div>
 <div id="nacionalidad-de-la-cervecería" class="section level2">
 <h2>Nacionalidad de la cervecería</h2>
@@ -703,6 +643,7 @@ kable(frecuencia_nacionalidad, col.names = c(&quot;Nacionalidad&quot;, &quot;Fre
 <p>La nacionalidad más frecuente es <strong>Austria</strong>. Esta
 variable fue simulada y, por tanto, su interpretación se limita a la
 estructura construida para el ejercicio.</p>
+<p><br/><br/></p>
 </div>
 <div id="marcas-más-reseñadas" class="section level2">
 <h2>Marcas más reseñadas</h2>
@@ -789,6 +730,7 @@ kable(head(frecuencia_marca, 10), col.names = c(&quot;Marca&quot;, &quot;Frecuen
 <p>Debido al gran número de marcas, se presentan solamente las diez con
 más reseñas. La marca con mayor frecuencia es <strong>Boston Beer
 Company (Samuel Adams)</strong>.</p>
+<p><br/><br/></p>
 </div>
 </div>
 <div id="valoraciones-ordinales" class="section level1">
@@ -868,6 +810,7 @@ kable(resumen_valoraciones, col.names = c(&quot;Variable&quot;, &quot;Mínimo&qu
 </tr>
 </tbody>
 </table>
+<p><br/><br/></p>
 <pre class="r"><code>tabla_calificacion &lt;- tabla_frecuencias(beer2, calificacion)
 kable(tabla_calificacion, col.names = c(&quot;Calificación general&quot;, &quot;Frecuencia&quot;, &quot;Porcentaje (%)&quot;, &quot;Acumulado (%)&quot;), format.args = list(big.mark = &quot;.&quot;, decimal.mark = &quot;,&quot;))</code></pre>
 <table>
@@ -945,6 +888,7 @@ kable(tabla_calificacion, col.names = c(&quot;Calificación general&quot;, &quot
 <p>La mediana de la calificación general es <strong>4</strong> y su
 nivel más frecuente es <strong>4</strong>. Entre los cinco aspectos, la
 mayor media corresponde a <strong>apariencia</strong>.</p>
+<p><br/><br/></p>
 </div>
 <div id="variables-cuantitativas" class="section level1">
 <h1>Variables cuantitativas</h1>
@@ -1002,14 +946,14 @@ kable(
 <tr class="odd">
 <td align="left">25%…1</td>
 <td align="left">precio</td>
-<td align="right">2.37</td>
-<td align="right">4.36</td>
-<td align="right">5.00</td>
-<td align="right">5.00</td>
-<td align="right">5.64</td>
-<td align="right">7.72</td>
-<td align="right">0.89</td>
-<td align="right">17.71</td>
+<td align="right">2.20</td>
+<td align="right">4.98</td>
+<td align="right">5.41</td>
+<td align="right">5.36</td>
+<td align="right">5.82</td>
+<td align="right">8.03</td>
+<td align="right">0.65</td>
+<td align="right">12.11</td>
 </tr>
 <tr class="even">
 <td align="left">25%…2</td>
@@ -1049,8 +993,8 @@ kable(
 </tr>
 </tbody>
 </table>
-<p>El precio medio simulado es <strong>5</strong>, con una mediana de
-<strong>5</strong>. Una porción de 355 ml contiene en promedio
+<p>El precio medio simulado es <strong>5.36</strong>, con una mediana de
+<strong>5.41</strong>. Una porción de 355 ml contiene en promedio
 <strong>18.71 gramos de alcohol</strong>, <strong>14.05 gramos de
 carbohidratos</strong> y <strong>193.17 calorías</strong>.</p>
 <pre class="r"><code>beer2 |&gt;
@@ -1062,6 +1006,7 @@ carbohidratos</strong> y <strong>193.17 calorías</strong>.</p>
   labs(title = &quot;Distribución de las variables cuantitativas&quot;, x = NULL, y = &quot;Frecuencia&quot;) +
   theme_minimal()</code></pre>
 <p><img src="solucion_caso1_files/figure-html/histogramas-1.png" alt="" width="960" /></p>
+<p><br/><br/></p>
 </div>
 <div id="comparaciones" class="section level1">
 <h1>Comparaciones</h1>
@@ -1147,6 +1092,7 @@ kable(resumen_tipo, format.args = list(big.mark = &quot;.&quot;, decimal.mark = 
 artesanal</strong>, con un promedio de <strong>3.88</strong> puntos.
 Este resultado es descriptivo y no demuestra que el tipo de cerveza sea
 la causa de la valoración.</p>
+<p><br/><br/></p>
 </div>
 <div id="relación-entre-alcohol-y-calorías" class="section level2">
 <h2>Relación entre alcohol y calorías</h2>
@@ -1174,6 +1120,7 @@ data.frame(
 asociación es positiva porque el alcohol aporta energía al contenido
 calórico total; además, las calorías fueron construidas usando el
 alcohol y los carbohidratos.</p>
+<p><br/><br/></p>
 </div>
 </div>
 <div id="conclusiones" class="section level1">
@@ -1199,8 +1146,6 @@ usuario.</li>
 
 
 
-</div>
-</div>
 
 </div>
 
@@ -1238,35 +1183,6 @@ $(document).ready(function () {
 });
 </script>
 
-<script>
-$(document).ready(function ()  {
-
-    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
-    $('.unlisted.unnumbered').addClass('toc-ignore')
-
-    // move toc-ignore selectors from section div to header
-    $('div.section.toc-ignore')
-        .removeClass('toc-ignore')
-        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
-
-    // establish options
-    var options = {
-      selectors: "h1,h2,h3",
-      theme: "bootstrap3",
-      context: '.toc-content',
-      hashGenerator: function (text) {
-        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
-      },
-      ignoreSelector: ".toc-ignore",
-      scrollTo: 0
-    };
-    options.showAndHide = true;
-    options.smoothScroll = true;
-
-    // tocify
-    var toc = $("#TOC").tocify(options).data("toc-tocify");
-});
-</script>
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>

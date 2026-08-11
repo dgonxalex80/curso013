@@ -1,10 +1,11 @@
 ---
-title:  "Código 13 - Gráficos en R"
+title:  " "
+pagetitle: "Código 1.3 — Gráficos en R"
 author: "dgonzalez "
 subtitle: " "
 output:
   html_document:
-    toc: true
+    toc: no
     toc_depth: 2
     toc_float: yes
     code_folding: hide
@@ -22,14 +23,15 @@ library(tidyr)
 library(readr)
 library(readxl)
 
-# Helper para cargar paquetes opcionales sin romper el Rmd
+# Helper silencioso para cargar paquetes opcionales sin ensuciar la salida
 load_pkg <- function(pkg) {
   if (!requireNamespace(pkg, quietly = TRUE)) {
-    message("Paquete no instalado: ", pkg)
-    return(FALSE)
+    return(invisible(FALSE))
   }
-  library(pkg, character.only = TRUE)
-  TRUE
+  suppressPackageStartupMessages(
+    library(pkg, character.only = TRUE)
+  )
+  invisible(TRUE)
 }
 
 Visitantes <- read_csv("data/Visitantes.csv")
@@ -57,7 +59,7 @@ knitr::include_graphics("img/codigo1.png")
 <br/><br/>
 
 
-# **Introducción**
+# Introducción
 
 La visualización de datos es una de las partes más importantes del análisis de datos, que permite de manera gráfica representar la información con el fin de poder resumirlos e interpretarlos 
 
@@ -92,9 +94,9 @@ Algunas consideraciones
 <br/><br/>
 
 
-# **Cualitativa-nominal**
+# Cualitativa-nominal
 
-## **1. Gráfico de tortas**
+## Diagrama circular - gráfico de tortas
 
 ```{r}
 t1 <- table(clientes$categoria_preferida)
@@ -126,9 +128,9 @@ pie(t1,
 
 <br/><br/><br/>
 
-# **Cualitativa-ordinal**
+# Cualitativa-ordinal
 
-## **2.Gráfico de barras**
+## Diagrama de barras
 
 ```{r}
 library(dplyr)
@@ -156,7 +158,7 @@ barplot(ev,
 ```
 <br/><br/><br/>
 
-## **3. Gráfico de barras 2 **
+## Diagrama de barras bivariados
 
 
 ```{r}
@@ -192,7 +194,7 @@ barplot(counts, main = "Método de pago por tipo de cliente",
 ```
 
 
-## **4. Diagrama de mosaico **
+## Diagrama de mosaico
 
 
 ```{r, message=FALSE, warning=FALSE}
@@ -222,9 +224,9 @@ par(op)
 
 <br/><br/><br/>
 
-# **Variables cuantitativas**
+# Variables cuantitativas
 
-## **5. Diagrama de tallos y hojas**
+## Diagrama de tallos y hojas
 
 ```{r}
 # Diagrama de tallos y hojas
@@ -233,7 +235,7 @@ stem(beer$calorias)
 
 <br/><br/><br/>
 
-## **6. Histograma**
+## Histograma
 
 ```{r}
 hist(beer$calorias)
@@ -255,7 +257,7 @@ grid()
 ```
 <br/><br/><br/>
 
-## **7. Diagrama de densidad**
+##  Diagrama de densidad
 
 ```{r}
 vn <- ventas$Ventas_Netas
@@ -277,7 +279,7 @@ plot(density(beer$calorias),
 
 <br/><br/><br/>
 
-## **8. Diagrama de cajas** 
+## 8. Diagrama de cajas 
 
 ```{r}
 boxplot(vn)
@@ -294,7 +296,7 @@ boxplot(beer$calorias, main="Calorías por unidad",
 
 <br/><br/><br/>
 
-## **9. Comparación diagrama de cajas**
+## Comparación diagrama de cajas
 
 ```{r}
 boxplot(Ventas_Netas ~ Tipo_Cliente, data = ventas)
@@ -315,7 +317,7 @@ abline(v = mean(ventas$Ventas_Netas), col = c31, lwd = 2)
 
 <br/><br/><br/>
 
-## **10. Gráfico de series de tiempo**
+## Gráfico de líneas - series de tiempo
 
 ```{r}
 ventas$fecha <- as.Date("2023-01-01") + 7 * (1:nrow(ventas))
@@ -331,7 +333,7 @@ plot(serie$mes, serie$Ventas_Netas, type = "l",
 
 <br/><br/><br/>
 
-## **11. Resumen**
+#  Resumen
 
 ```{r, eval=FALSE }
 x=rnorm(100,100,20)
@@ -350,13 +352,13 @@ plot(density(x))
 
 <br/><br/>
 
-# **Paquetes adicionales**
+# Paquetes adicionales
 
 Hasta el momento se ha utilizado R base para la elaboración de gráficos, a continuación se presentan algunos paquetes que mejoran la construcción de gráficos y su visualización :
 
 <br/><br/>
 
-## **ggplot2**. 
+## ggplot2 
 
 
 ```{r, echo=FALSE, out.width="10%", fig.align='left'}
@@ -546,7 +548,7 @@ ggplot(ventas, aes(x = Tipo_Cliente, y = Ventas_Netas, fill = Tipo_Cliente)) +
 
 
 
-## **highcharter**  
+## highcharter  
 
 
 ```{r, echo=FALSE, out.width="10%", fig.align='left'}
@@ -569,7 +571,6 @@ Inicialmente se instala el paquete por una única vez
 Luego se carga para utilizar sus funciones
 
 ```{r, message=FALSE,warning=FALSE}
-load_pkg("highcharter")
 ```
 
 
@@ -587,8 +588,6 @@ if (load_pkg("highcharter")) {
 # install.packages("ggplot2")
 library(ggplot2)
 # install.packages("ggbeeswarm")
-load_pkg("ggbeeswarm")
-
 # gráfico 
 if (load_pkg("ggbeeswarm")) {
   ggplot(ventas, aes(x = Tipo_Cliente, y = Ventas_Netas, color = Tipo_Cliente)) +
@@ -605,7 +604,6 @@ df <- cervezas[, c("tipo", "precio")]
 
 # instalacion de paquetes
 # install.packages("ggridges")
-load_pkg("ggridges")
 # install.packages("ggplot2")
 library(ggplot2)
 
@@ -644,7 +642,7 @@ polygon(deny, col = adjustcolor("#F05A4A", alpha.f = 0.6))
 
 <br/><br/>
 
-## **plotly**
+## plotly
 
 
 ```{r, echo=FALSE, out.width="10%", fig.align='left'}
@@ -685,7 +683,7 @@ p
 
 ```
 
-## **gganimate (GIF)** 
+## gganimate (GIF) 
 
 Ejemplo de gráfico dinámico que cambia en el tiempo y se exporta como GIF.
 
@@ -856,8 +854,6 @@ if (ok_anim) {
     renderer = gganimate::gifski_renderer()
   )
   gganimate::anim_save("img/poblacion_colombia.gif", gif)
-} else {
-  message("Bloque omitido: faltan paquetes para generar poblacion_colombia.gif")
 }
 
 ```
@@ -871,7 +867,7 @@ if (file.exists("img/poblacion_colombia.gif")) {
 }
 ```
 
-```{r, echo=FALSE}
+```{r ranking-animado, echo=FALSE, message=FALSE, warning=FALSE, results='hide'}
 ok_rank <- load_pkg("gapminder") && load_pkg("gganimate")
 
 if (ok_rank) {
@@ -902,9 +898,6 @@ if (ok_rank) {
     geom_rect(alpha = .7) +
     aes(fill = continent) +
     scale_fill_manual(values = c("#2C5697", "#F05A4A", "#F4B43C", "#A7ABB9")) +
-    scale_x_continuous(
-      limits = c(-800, 1400),
-      breaks = c(0, 400, 800, 1200)) +
     geom_text(col = "gray13",
               hjust = "right",
               aes(label = country),
@@ -927,28 +920,28 @@ if (ok_rank) {
               size = 10, col = "grey18") +
     aes(group = country) +
     gganimate::transition_time(year)
-} else {
-  message("Bloque omitido: faltan paquetes para animación por ranking")
 }
 
 
+```
+
+```{r mostrar-ranking-animado, echo=FALSE, out.width="100%", fig.align="center"}
+knitr::include_graphics(knitr::fig_chunk("ranking-animado", "gif"))
 ```
 
 
 
 
 
-## **fmsb** 
+## fmsb 
 
 <br/><br/>
 
-### **gráficos de radar** 
+### gráficos de radar 
 
 Paquete para el trabajo en Estadística Medica que se utiliza para la construcción de un diagrama de radar
 
 ```{r}
-# install.packages("fmsb")
-load_pkg("fmsb") # carga fmsb si está disponible
 
 if (load_pkg("fmsb")) {
   set.seed(1) # fija semilla
@@ -967,8 +960,6 @@ if (load_pkg("fmsb")) {
 <br/><br/>
 
 ```{r}
-# install.packages("fmsb")
-load_pkg("fmsb") # carga fmsb si está disponible
 # matriz de datos
 if (load_pkg("fmsb")) {
   df2 <- data.frame(rbind(rep(10, 8), rep(0, 8), # máximos y mínimos
@@ -999,7 +990,7 @@ if (load_pkg("fmsb")) {
 
 <br/><br/>
 
-### **gráfico de barras polar**
+### gráfico de barras polar
 
 
 ```{r, message=FALSE, warning=FALSE}
@@ -1010,131 +1001,121 @@ if (load_pkg("fmsb")) {
 
  <br/><br/><br/>
  
-# **Mapas** 
- 
-En el siguiente enlace encontrará los archivos para la construcción de los mapas en formato .shp (debe copiar los cuatro archivos)
+# Mapas 
 
-Archivos .shp : https://sites.google.com/site/seriescol/shapes
- 
-A continuación el código para el mapa de Cali sin información (usa `sf`).
- 
-<br/>
+Los mapas de esta sección se construyen con `sf`, el estándar actual para trabajar con datos vectoriales en R. Los archivos geográficos necesarios están incluidos en las carpetas `map/cali` y `map/colombia`, por lo que los ejemplos funcionan sin descargar recursos durante el render.
 
-### **Mapa de Cali** 
+Un shapefile está compuesto por varios archivos asociados (`.shp`, `.shx`, `.dbf` y `.prj`). Todos deben conservar el mismo nombre base y permanecer en la misma carpeta.
 
-```{r}
-load_pkg("sf") # carga sf si está disponible
+### Mapa de Cali 
 
-cali <- tryCatch( # intenta leer el shapefile
-  sf::st_read("map/cali/cali.shp", quiet = TRUE), # ruta del .shp
-  error = function(e) NULL # si falla, devuelve NULL
+El primer ejemplo muestra las 22 comunas de Cali. `st_make_valid()` corrige automáticamente las geometrías que puedan presentar inconsistencias topológicas.
+
+```{r mapa-cali-base, message=FALSE, warning=FALSE, fig.height=6}
+library(sf)
+
+cali <- st_read("map/cali/cali.shp", quiet = TRUE) |>
+  st_make_valid() |>
+  mutate(
+    comuna = as.integer(CODIGO),
+    nombre_comuna = paste("Comuna", comuna)
+  )
+
+ggplot(cali) +
+  geom_sf(fill = c12, color = c41, linewidth = 0.35) +
+  labs(
+    title = "División por comunas de Cali",
+    subtitle = paste(nrow(cali), "comunas representadas"),
+    caption = "Fuente cartográfica: Infraestructura de Datos Espaciales de Santiago de Cali"
+  ) +
+  theme_void() +
+  theme(
+    plot.title = element_text(face = "bold", color = c41),
+    plot.subtitle = element_text(color = c41),
+    plot.caption = element_text(color = c41, hjust = 0)
+  )
+```
+
+### Mapa de Cali con indicador
+
+Para crear una coropleta se agrega una variable numérica al objeto espacial. En este ejemplo se simula un índice de satisfacción reproducible para cada comuna.
+
+```{r mapa-cali-indicador, message=FALSE, warning=FALSE, fig.height=6}
+set.seed(1301)
+cali_indicador <- cali |>
+  mutate(satisfaccion = round(runif(n(), min = 55, max = 95), 1))
+
+ggplot(cali_indicador) +
+  geom_sf(aes(fill = satisfaccion), color = "white", linewidth = 0.3) +
+  scale_fill_gradientn(
+    colors = c(c42, c31, c61),
+    limits = c(50, 100),
+    name = "Satisfacción"
+  ) +
+  labs(
+    title = "Índice de satisfacción por comuna",
+    subtitle = "Valores simulados con fines didácticos",
+    caption = "Fuente cartográfica: Infraestructura de Datos Espaciales de Santiago de Cali"
+  ) +
+  theme_void() +
+  theme(
+    plot.title = element_text(face = "bold", color = c41),
+    plot.subtitle = element_text(color = c41),
+    plot.caption = element_text(color = c41, hjust = 0),
+    legend.position = "right"
+  )
+```
+
+### Mapa de Colombia
+
+El archivo de nivel administrativo 1 de GADM contiene los 32 departamentos y Bogotá, D. C. El campo `GID_1` funciona como identificador estable y `NAME_1` contiene el nombre de cada territorio.
+
+```{r mapa-colombia, message=FALSE, warning=FALSE, fig.height=7}
+mapco <- st_read("map/colombia/gadm41_COL_1.shp", quiet = TRUE) |>
+  st_make_valid()
+
+# Tabla independiente que luego se une por el identificador territorial
+set.seed(1302)
+indicadores <- tibble(
+  GID_1 = mapco$GID_1,
+  indice = round(runif(nrow(mapco), min = 50, max = 100), 1)
 )
 
-if (is.null(cali)) { # valida que se haya cargado
-  message("No se pudo leer map/cali/cali.shp. Verifique que exista el .dbf.") # aviso
-} else { # si existe, grafica
-  plot(sf::st_geometry(cali), col = "#FBE8C5" , border = "#2C5697", # geometría y colores
-       main = "Cali - mapa base") # título
-}
-```
- <br/>
- 
- 
+mapco_indicador <- mapco |>
+  left_join(indicadores, by = "GID_1")
 
- 
-### **Mapa de Cali con indice**
- 
-Para mostrar la información se debe incorporar un vector al objeto **cali** que contiene la información para el mapa. este objeto en formato lista tiene incorporada una data que contiene varias columnas al cual se le adiciona la información a publicar.  
-
-En el caso de Cali tiene 22 comunas se adiciona un vector con 22 valores con el nombre de indice
- 
-<br/><br/>
-
-```{r}
-if (!is.null(cali)) { # solo si el mapa existe
-  set.seed(1) # reproducibilidad
-  cali$indice <- runif(nrow(cali), min = 0, max = 100) # indicador simulado
-
-  ggplot(cali) + # inicia gráfico
-    geom_sf(aes(fill = indice), color = "white", linewidth = 0.2) + # polígonos
-    scale_fill_viridis_c(option = "C") + # paleta
-    labs(title = "Cali - índice simulado", fill = "Índice") + # etiquetas
-    theme_minimal() # tema
-}
+ggplot(mapco_indicador) +
+  geom_sf(aes(fill = indice), color = "white", linewidth = 0.15) +
+  scale_fill_gradientn(
+    colors = c(c42, c31, c61),
+    limits = c(50, 100),
+    name = "Índice"
+  ) +
+  labs(
+    title = "Indicador por departamento",
+    subtitle = paste(nrow(mapco_indicador), "territorios representados · valores simulados"),
+    caption = "Fuente cartográfica: GADM 4.1"
+  ) +
+  coord_sf(datum = NA) +
+  theme_void() +
+  theme(
+    plot.title = element_text(face = "bold", color = c41),
+    plot.subtitle = element_text(color = c41),
+    plot.caption = element_text(color = c41, hjust = 0),
+    legend.position = "right"
+  )
 ```
 
-
-
-<br/><br/>
-
-### **Mapa de Colombia**
-
-Para el caso de Colombia se obtiene el archivo `depto.shp` que contiene la información por departamentos (33). A continuación se simula un indicador y se presenta en el mapa.
-
-<br/><br/>
-```{r}
-load_pkg("sf") # carga sf si está disponible
-
-mapco <- tryCatch( # intenta leer el shapefile
-  sf::st_read("map/colombia/depto.shp", quiet = TRUE), # ruta del .shp
-  error = function(e) NULL # si falla, devuelve NULL
-)
-
-if (is.null(mapco)) { # valida que se haya cargado
-  message("No se pudo leer map/colombia/depto.shp.") # aviso
-} else { # si existe, simula y grafica
-  set.seed(2) # reproducibilidad
-  mapco$indice <- runif(nrow(mapco), min = 0, max = 100) # indicador simulado
-
-  ggplot(mapco) + # inicia gráfico
-    geom_sf(aes(fill = indice), color = "white", linewidth = 0.1) + # polígonos
-    scale_fill_viridis_c(option = "D") + # paleta
-    labs(title = "Colombia - indicador simulado", fill = "Índice") + # etiquetas
-    theme_minimal() # tema
-}
-```
-<br/>
-
-
-
-Para representar información en el mapa seden ingresar una vector con 33 valores, igual numero de departamentos en el mismo orden en que se encuentran los nombre de los departamento en el archivo mapco
-
-<br/>
-
-Si se quiere representar un mapa con un indicador real por departamento, se debe construir una tabla con los valores en el mismo orden del archivo **depto.shp** y adicionarla como variable al objeto `mapco`.
-
-En este ejemplo se simula un indicador para evitar depender de archivos externos:
- 
-
-<br/><br/>
-
-```{r}
-ok_sp <- load_pkg("sp") &&
-  load_pkg("rgdal") &&
-  load_pkg("raster") &&
-  load_pkg("RColorBrewer")
-
-if (ok_sp) {
-  mi.palette <- RColorBrewer::brewer.pal(n = 7, name = "OrRd")   # paleta de colores
-  mapco <- raster::shapefile("map/colombia/depto.shp")  # importa mapa en formato .shp
-
-  set.seed(3)
-  indicador <- round(runif(nrow(mapco@data), min = 50, max = 500)) # indicador simulado
-  mapco@data$indicador <- indicador # se adiciona variable con 33 valores = 33 dptos, en mismo orden
-
-  sp::spplot(mapco["indicador"], col.regions = mi.palette, cuts = 6)  # mapa
-} else {
-  message("Bloque omitido: faltan paquetes legacy de mapas (sp/rgdal/raster)")
-}
-```
-
+Para trabajar con indicadores reales, la tabla externa debe contener una fila por territorio y una columna compatible con `GID_1`, `ISO_1` o `NAME_1`. La unión por una clave explícita evita asignar valores al departamento equivocado.
 
 <br/><br/>
 
 
 <br/><br/><br/> 
 
-#  **Margenes de los gráficos**
+#  Parámetros en los gráficos
+
+## Margenes de los gráficos
 
 ```{r}
 # Grafico normal
@@ -1144,7 +1125,7 @@ plot(density(x))
 
 <br/> <br/> 
 
-### **margenes de la grafica  c(bottom, left, top, right)**
+### margenes de la grafica  c(bottom, left, top, right)
 
 ```{r}
 
@@ -1156,7 +1137,7 @@ plot(density(x))
 <br/> <br/> 
 
 
-###  **margenes de la gráfica**
+###  margenes de la gráfica
 
 ```{r}
 
@@ -1168,7 +1149,7 @@ plot(density(x))
 
 <br/> <br/> 
 
-### **Matriz de gráficos mfrow = c(2, 2)**
+### Matriz de gráficos mfrow = c(2, 2)
 
 ```{r}
 x=rnorm(100,100,20)
@@ -1185,7 +1166,7 @@ plot(x,y)
 
 <br/> <br/> 
 
-### **margenes exteriores c(bottom, left, top, right)**
+### margenes exteriores c(bottom, left, top, right)
 
 ```{r}
 
@@ -1200,7 +1181,7 @@ plot(x,y)
 
 <br/> <br/> 
 
-# **Tamaño texto**
+# Tamaño texto
 
 
 ```{r}
@@ -1217,7 +1198,9 @@ https://r-charts.com/es/r-base/margenes/
 
 <br/> <br/> <br/> 
 
-# **Flexdashboard**
+# Tableros
+
+## Flexdashboard
 
 Este paquete permite la construcción de tableros que pueden ser publicados en formato html. A continuación se describen las principales características y la forma que podemos construir un tablero
 
@@ -1258,7 +1241,7 @@ En este formato podemos distinguir varias partes :
 
 <br/> <br/> 
 
-## **Uso de color**
+# Uso de color
 
 https://r-charts.com/colors/
 
@@ -1266,13 +1249,13 @@ http://brandcolors.net/
 
 <br/> <br/> 
 
-## **Algunos paquetes**
+## Algunos paquetes
 
 [Selección de paquetes de Sharpm Machis](https://www.computerworld.com/article/2921176/great-r-packages-for-data-import-wrangling-visualization.html)
 
 <br/> <br/> <br/> 
 
-## **Ejemplo de tablero**
+## Ejemplo de tablero
 
 <br/> <br/> 
 
@@ -1284,7 +1267,7 @@ knitr::include_graphics("img/tablero-01.png")
 <br/> <br/> 
 
 <html>
-<button id="dl-rmd" style="background:c50;color:#fff;padding:7px 20px;border:0;border-radius:6px;cursor:pointer">
+<button id="dl-rmd" class="download-button" type="button">
   📥 Descargar código tablero02.Rmd
 </button>
 <script>
@@ -1313,7 +1296,7 @@ document.getElementById('dl-rmd').addEventListener('click', async () => {
 ## Descarga de practica
 
 <html>
-<button id="dl-practica" style="background:c50;color:#fff;padding:7px 20px;border:0;border-radius:6px;cursor:pointer">
+<button id="dl-practica" class="download-button" type="button">
   📥 Descargar práctica (R)
 </button>
 <script>
@@ -1330,7 +1313,7 @@ document.getElementById('dl-practica').addEventListener('click', async () => {
 ## Descarga de base de datos
 
 <html>
-<button id="dl-beer" style="background:c50;color:#fff;padding:7px 20px;border:0;border-radius:6px;cursor:pointer">
+<button id="dl-beer" class="download-button" type="button">
   📥 Descargar data beer.csv
 </button>
 <script>

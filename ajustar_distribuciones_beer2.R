@@ -3,11 +3,11 @@ library(data.table)
 ruta <- "data/beer2.csv"
 beer2 <- fread(ruta)
 
-# Evita aplicar dos veces las transformaciones sobre el mismo archivo.
+# La nutrición solo se transforma en la versión original (que tenía grandes
+# masas de valores repetidos). El precio, en cambio, se recalcula siempre a
+# partir de variables estables, de modo que este script sea idempotente.
 masa_precio_maxima <- max(tabulate(match(beer2$precio, unique(beer2$precio)))) / nrow(beer2)
-if (masa_precio_maxima < 0.01) {
-  stop("beer2.csv ya parece estar ajustado: no se realizaron cambios.")
-}
+ajustar_nutricion <- masa_precio_maxima >= 0.01
 
 # Las características comerciales y nutricionales corresponden a la cerveza,
 # no a cada reseña. Se genera un único valor por id y luego se replica.
@@ -15,22 +15,35 @@ cervezas <- beer2[, .(
   n_resenas = .N,
   alcohol_original = median(alcohol),
   tipo = tipo[1L],
-  origen = origen[1L]
+  origen = origen[1L],
+  calificacion_promedio = mean(calificacion)
 ), by = id]
 
-# Número pseudoaleatorio reproducible asociado al id, sin depender del orden
-# de las filas. Se usa para ordenar las cervezas y construir cuantiles ponderados.
-cervezas[, clave := (as.double(id) * 104729 + 12345) %% 1000003]
-setorder(cervezas, clave, id)
-cervezas[, u_precio := (cumsum(n_resenas) - n_resenas / 2) / sum(n_resenas)]
-
-# Precio de una caja de seis: beta simétrica escalada. Tiene forma acampanada,
-# soporte finito y densidad que cae suavemente cerca de los extremos.
-cervezas[, precio_nuevo := round(2.20 + 5.60 * qbeta(u_precio, 4.5, 4.5), 2)]
+# Precio de una caja de seis. Se incorporan relaciones comerciales esperables:
+# prima por importación, prima artesanal y asociación positiva con la valoración
+# media del producto. Un componente idiosincrático impide que el precio sea una
+# función mecánica de esas características.
+cervezas[, u_ruido := (((as.double(id) * 130363 + 7411) %% 1000003) + 0.5) / 1000003]
+cervezas[, ruido_precio := 0.42 * qnorm(u_ruido)]
+cervezas[, ajuste_tipo_precio := fifelse(
+  grepl("artesanal", tipo, ignore.case = TRUE), 0.45,
+  fifelse(grepl("baja", tipo, ignore.case = TRUE), -0.25, 0.0)
+)]
+cervezas[, precio_nuevo := round(pmax(
+  2.20,
+  4.00 +
+    1.10 * (origen == "importada") +
+    0.80 * (calificacion_promedio - 3.50) +
+    ajuste_tipo_precio + ruido_precio
+), 2)]
 
 # Comprimir suavemente únicamente la cola extrema del alcohol. A diferencia de
 # pmin/pmax, tanh no crea acumulaciones artificiales en un punto de corte.
-cervezas[, alcohol_nuevo := round(60 * tanh(alcohol_original / 60), 2)]
+cervezas[, alcohol_nuevo := if (ajustar_nutricion) {
+  round(60 * tanh(alcohol_original / 60), 2)
+} else {
+  alcohol_original
+}]
 
 # Variación determinista por cerveza para evitar una relación perfectamente
 # mecánica. Los estilos más densos reciben un pequeño ajuste de carbohidratos.
