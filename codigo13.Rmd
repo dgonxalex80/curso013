@@ -502,7 +502,7 @@ fig
 
 <br/><br/><br/>
 
-### **Otros ejemplos de ggplot2**
+### Otros ejemplos de ggplot2
 
 ```{r}
 ventas$Tipo_Cliente = as.factor(ventas$Tipo_Cliente)
@@ -930,6 +930,340 @@ knitr::include_graphics(knitr::fig_chunk("ranking-animado", "gif"))
 ```
 
 
+
+
+
+### Sismos más grandes por año
+
+El GIF muestra, para cada año, los 20 sismos de mayor magnitud registrados desde 1900 hasta ese momento. Los eventos permanecen en el ranking hasta que un sismo más fuerte los desplaza.
+
+
+```{r,  eval=FALSE}
+# Este bloque queda desactivado durante Knit.
+# Actívelo solamente para regenerar el archivo GIF.
+terremotos <- readr::read_csv(
+  "data/terremotos.csv",
+  show_col_types = FALSE
+) %>%
+  mutate(
+    anio_evento = as.integer(substr(time, 1, 4)),
+    pais_grafico = case_when(
+      pais != "Sin país identificado" ~ sub(" Earthquake$", "", pais),
+      grepl("Chile", place, ignore.case = TRUE) ~ "Chile",
+      grepl("Ecuador-Colombia", place, ignore.case = TRUE) ~ "Ecuador/Colombia",
+      grepl("Aleutian|Alaska", place, ignore.case = TRUE) ~ "Estados Unidos (Alaska)",
+      grepl("Sumatra|Banda Sea|Sulawesi|Ceram Sea|Wharton", place, ignore.case = TRUE) ~ "Indonesia",
+      grepl("Assam-Tibet", place, ignore.case = TRUE) ~ "India/China",
+      grepl("Papua New Guinea|Biak|Bougainville|New Britain|New Ireland|Bismarck", place, ignore.case = TRUE) ~ "Papúa Nueva Guinea",
+      grepl("Taiwan", place, ignore.case = TRUE) ~ "Taiwán",
+      grepl("Kuril|Okhotsk", place, ignore.case = TRUE) ~ "Rusia",
+      grepl("Tonga", place, ignore.case = TRUE) ~ "Tonga",
+      grepl("Vanuatu", place, ignore.case = TRUE) ~ "Vanuatu",
+      grepl("South Sandwich", place, ignore.case = TRUE) ~ "Islas Sandwich del Sur",
+      grepl("Bihar-Nepal", place, ignore.case = TRUE) ~ "India/Nepal",
+      grepl("Hyuganada|Toankai|Tokachi|Hokkaido", place, ignore.case = TRUE) ~ "Japón",
+      grepl("Makran", place, ignore.case = TRUE) ~ "Pakistán/Irán",
+      grepl("Haida Gwaii", place, ignore.case = TRUE) ~ "Canadá",
+      grepl("Samoa", place, ignore.case = TRUE) ~ "Samoa",
+      grepl("Solomon|Santa Cruz", place, ignore.case = TRUE) ~ "Islas Salomón",
+      grepl("Fiji", place, ignore.case = TRUE) ~ "Fiyi",
+      grepl("Venezuela", place, ignore.case = TRUE) ~ "Venezuela",
+      grepl("Costa Rica", place, ignore.case = TRUE) ~ "Costa Rica",
+      grepl("Loyalty Islands", place, ignore.case = TRUE) ~ "Nueva Caledonia",
+      grepl("Mariana Islands", place, ignore.case = TRUE) ~ "Islas Marianas del Norte",
+      grepl("Greece", place, ignore.case = TRUE) ~ "Grecia",
+      TRUE ~ "Región oceánica"
+    )
+  ) %>%
+  mutate(
+    pais_grafico = recode(
+      pais_grafico,
+      "Alaska" = "Estados Unidos (Alaska)",
+      "Japan" = "Japón",
+      "Russia" = "Rusia",
+      "Mexico" = "México"
+    )
+  )
+
+anios_animacion <- seq(
+  min(terremotos$anio_evento),
+  max(terremotos$anio_evento)
+)
+
+# Para cada año se seleccionan los 20 eventos más fuertes ocurridos
+# desde 1900 hasta ese momento.
+ranking_sismos <- bind_rows(lapply(anios_animacion, function(anio_actual) {
+  terremotos %>%
+    filter(anio_evento <= anio_actual) %>%
+    arrange(desc(mag), time) %>%
+    slice_head(n = 20) %>%
+    mutate(
+      anio_animacion = anio_actual,
+      rango = row_number(),
+      etiqueta_pais = paste0(pais_grafico, " (", anio_evento, ")")
+    )
+}))
+
+grafico_sismos <- ggplot(
+  ranking_sismos,
+  aes(group = id, fill = mag)
+) +
+  geom_rect(
+    aes(
+      xmin = 5.5,
+      xmax = mag,
+      ymin = rango - 0.20,
+      ymax = rango + 0.20
+    ),
+    colour = "white",
+    linewidth = 0.35
+  ) +
+  geom_text(
+    aes(x = 5.43, y = rango, label = etiqueta_pais),
+    hjust = 1,
+    colour = "#163A5F",
+    size = 3.2
+  ) +
+  geom_text(
+    aes(
+      x = mag + 0.05,
+      y = rango,
+      label = scales::number(mag, accuracy = 0.1, decimal.mark = ",")
+    ),
+    hjust = 0,
+    colour = "#163A5F",
+    fontface = "bold",
+    size = 3.2
+  ) +
+  scale_y_reverse(breaks = 1:20, labels = NULL) +
+  scale_x_continuous(
+    breaks = 6:10,
+    labels = scales::label_number(decimal.mark = ",")
+  ) +
+  scale_fill_gradientn(
+    colours = c("#21B5E4", "#F4B43C", "#F05A4A", "#A50026"),
+    limits = c(6, 9.5),
+    oob = scales::squish,
+    name = "Magnitud"
+  ) +
+  coord_cartesian(xlim = c(5.5, 10), clip = "off") +
+  labs(
+    title = "Los sismos más fuertes registrados",
+    subtitle = "Ranking acumulado hasta {closest_state}",
+    x = "Magnitud",
+    y = "País y año del evento",
+    caption = "Fuente: USGS Earthquake Catalog"
+  ) +
+  theme_minimal(base_size = 14) +
+  theme(
+    axis.text.y = element_blank(),
+    axis.ticks.y = element_blank(),
+    panel.grid.major.y = element_blank(),
+    panel.grid.minor = element_blank(),
+    plot.title = element_text(face = "bold", colour = "#2C5697"),
+    plot.subtitle = element_text(colour = "#526579"),
+    axis.title.y = element_text(margin = margin(r = 175)),
+    plot.margin = margin(15, 25, 20, 225),
+    legend.position = "bottom"
+  ) +
+  guides(
+    fill = guide_colorbar(
+      direction = "horizontal",
+      barwidth = grid::unit(12, "cm"),
+      barheight = grid::unit(0.35, "cm")
+    )
+  ) +
+  gganimate::transition_states(
+    anio_animacion,
+    transition_length = 1,
+    state_length = 3
+  ) +
+  gganimate::ease_aes("cubic-in-out")
+
+gif_sismos <- gganimate::animate(
+  grafico_sismos,
+  nframes = 508,
+  fps = 6,
+  width = 1400,
+  height = 1000,
+  res = 96,
+  end_pause = 18,
+  renderer = gganimate::gifski_renderer(loop = TRUE)
+)
+
+gganimate::anim_save(
+  "img/sismos_mas_grandes_por_anio.gif",
+  animation = gif_sismos
+)
+```
+
+```{r mostrar-gif-sismos, echo=FALSE, out.width="100%", fig.align="center"}
+knitr::include_graphics("img/sismos_mas_grandes_por_anio.gif")
+```
+
+
+
+### Sismos más fuertes de Colombia
+
+Este segundo GIF presenta el ranking acumulado de los 20 sismos de mayor magnitud asociados con Colombia, incluidos eventos fronterizos o costeros documentados por USGS y SGC. En el eje izquierdo se indica el lugar y el año de cada evento.
+
+```{r generar-gif-sismos-colombia, echo=FALSE, eval=FALSE, message=FALSE, warning=FALSE}
+# Este bloque queda desactivado durante Knit.
+# Actívelo solamente para regenerar el archivo GIF.
+sismos_colombia <- readr::read_csv(
+  "data/terremotos.csv",
+  show_col_types = FALSE
+) %>%
+  mutate(
+    anio_evento = as.integer(substr(time, 1, 4))
+  ) %>%
+  filter(
+    pais == "Colombia" |
+      grepl("Colombia", place, ignore.case = TRUE) |
+      id %in% c("iscgem900274", "iscgem883713", "usp00014ey")
+  ) %>%
+  mutate(
+    mag_usgs = mag,
+    mag = case_when(
+      id == "iscgem900274" ~ 7.9,
+      id == "iscgem883713" ~ 7.8,
+      id == "usp00014ey" ~ 8.1,
+      TRUE ~ mag
+    ),
+    fuente_magnitud = if_else(
+      id %in% c("iscgem900274", "iscgem883713", "usp00014ey"),
+      "SGC",
+      "USGS"
+    ),
+    lugar_corto = case_when(
+      id == "iscgem900274" ~ "Costa de Ecuador-Colombia",
+      id == "iscgem883713" ~ "Costa de Ecuador-Colombia",
+      id == "usp00014ey" ~ "Costa de Ecuador-Colombia",
+      TRUE ~ place
+    ),
+    lugar_corto = sub(", Colombia$", "", lugar_corto),
+    lugar_corto = sub("^[0-9]{4} ", "", lugar_corto),
+    lugar_corto = sub(" Earthquake$", "", lugar_corto),
+    lugar_corto = if_else(
+      nchar(lugar_corto) > 46,
+      paste0(substr(lugar_corto, 1, 45), "…"),
+      lugar_corto
+    )
+  )
+
+anios_colombia <- seq(
+  min(sismos_colombia$anio_evento),
+  max(sismos_colombia$anio_evento)
+)
+
+ranking_colombia <- bind_rows(lapply(anios_colombia, function(anio_actual) {
+  sismos_colombia %>%
+    filter(anio_evento <= anio_actual) %>%
+    arrange(desc(mag), time) %>%
+    slice_head(n = 20) %>%
+    mutate(
+      anio_animacion = anio_actual,
+      rango = row_number(),
+      etiqueta_evento = paste0(lugar_corto, " (", anio_evento, ")")
+    )
+}))
+
+grafico_sismos_colombia <- ggplot(
+  ranking_colombia,
+  aes(group = id, fill = mag)
+) +
+  geom_rect(
+    aes(
+      xmin = 5.8,
+      xmax = mag,
+      ymin = rango - 0.20,
+      ymax = rango + 0.20
+    ),
+    colour = "white",
+    linewidth = 0.35
+  ) +
+  geom_text(
+    aes(x = 5.73, y = rango, label = etiqueta_evento),
+    hjust = 1,
+    colour = "#163A5F",
+    size = 3.2
+  ) +
+  geom_text(
+    aes(
+      x = mag + 0.04,
+      y = rango,
+      label = scales::number(mag, accuracy = 0.1, decimal.mark = ",")
+    ),
+    hjust = 0,
+    colour = "#163A5F",
+    fontface = "bold",
+    size = 3.2
+  ) +
+  scale_y_reverse(breaks = 1:20, labels = NULL) +
+  scale_x_continuous(
+    breaks = 6:9,
+    labels = scales::label_number(decimal.mark = ",")
+  ) +
+  scale_fill_gradientn(
+    colours = c("#21B5E4", "#F4B43C", "#F05A4A", "#A50026"),
+    limits = c(6, 9),
+    oob = scales::squish,
+    name = "Magnitud"
+  ) +
+  coord_cartesian(xlim = c(5.8, 9.3), clip = "off") +
+  labs(
+    title = "Los sismos más fuertes asociados con Colombia",
+    subtitle = "Ranking acumulado hasta {closest_state}",
+    x = "Magnitud",
+    y = "Lugar y año del evento",
+    caption = "Fuentes: USGS Earthquake Catalog y SGC · Elaboración: dgonzalez"
+  ) +
+  theme_minimal(base_size = 14) +
+  theme(
+    axis.text.y = element_blank(),
+    axis.ticks.y = element_blank(),
+    panel.grid.major.y = element_blank(),
+    panel.grid.minor = element_blank(),
+    plot.title = element_text(face = "bold", colour = "#2C5697"),
+    plot.subtitle = element_text(colour = "#526579"),
+    axis.title.y = element_text(margin = margin(r = 205)),
+    plot.margin = margin(15, 25, 20, 315),
+    legend.position = "bottom"
+  ) +
+  guides(
+    fill = guide_colorbar(
+      direction = "horizontal",
+      barwidth = grid::unit(12, "cm"),
+      barheight = grid::unit(0.35, "cm")
+    )
+  ) +
+  gganimate::transition_states(
+    anio_animacion,
+    transition_length = 1,
+    state_length = 5
+  ) +
+  gganimate::ease_aes("cubic-in-out")
+
+gif_sismos_colombia <- gganimate::animate(
+  grafico_sismos_colombia,
+  nframes = length(anios_colombia) * 6,
+  fps = 6,
+  width = 1400,
+  height = 1000,
+  res = 96,
+  end_pause = 60,
+  renderer = gganimate::gifski_renderer(loop = TRUE)
+)
+
+gganimate::anim_save(
+  "img/sismos_colombia_por_anio.gif",
+  animation = gif_sismos_colombia
+)
+```
+
+```{r, echo=FALSE, out.width="100%", fig.align="center"}
+knitr::include_graphics("img/sismos_colombia_por_anio.gif")
+```
 
 
 

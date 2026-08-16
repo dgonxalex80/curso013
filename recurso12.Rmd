@@ -15,6 +15,15 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 
 source("colores.R")
+
+
+nf=c(4.1, 2.7, 3.1, 3.2, 3.0, 3.2, 2.0, 2.4, 1.6, 3.2, 3.1, 2.6, 2.0, 2.4, 2.8, 3.3, 4.0, 3.4, 3.0, 3.1, 2.7, 2.7, 3.0, 3.8, 3.2, 2.2, 3.5, 3.5, 3.8, 3.5, 3.9, 4.2, 4.3, 3.9, 3.2, 3.5, 3.5, 3.7, 4.1, 3.7, 3.5, 3.6, 3.2, 3.1, 3.4, 3.0, 3.0, 3.0, 2.7, 1.7, 3.6, 2.1, 2.4, 3.0, 3.1, 2.5, 2.5, 3.6, 2.2, 2.4, 3.1, 3.3, 2.7, 3.7, 3.0, 2.7, 3.0, 3.2, 3.1, 2.4, 3.0, 2.7, 2.5, 3.0, 3.0, 3.0, 3.2, 3.1, 3.8, 4.1, 3.7, 3.5, 3.0, 3.7, 3.7, 4.1, 3.7, 3.9, 3.7, 2.0)
+
+edad = c(41, 30, 68, 41, 43, 32, 56, 35, 30, 53, 43, 19, 20, 26, 36, 56, 33, 28, 64, 36, 41, 30, 67, 60, 53, 43, 26, 40, 27, 49, 69, 48, 52, 28, 38, 47, 44, 22, 21, 18, 62, 22, 45, 49, 33, 40, 18, 34, 67, 56)
+
+library(readr)
+clientes <- read_csv("data/clientes.csv")
+
 ```
 
 ```{r, echo=FALSE, out.width="100%", fig.align = "center"}
@@ -97,7 +106,15 @@ Las bases de datos utilizadas se encuentran en el directorio `data/` del curso.
  
 ### Tablas de frecuencia para variables cualitativas
 
+
 <br/>
+
+
+```{r, echo=FALSE, out.width="40%", fig.align = "center"} 
+knitr::include_graphics("img/tabla_frecuencias1.png")
+```
+
+
 <br/>
 
 Las distribuciones de frecuencia o también llamadas tablas de frecuencia nos sirven para agrupar los datos y así permitir resumir para poder tener una idea más clara de sus características.
@@ -155,12 +172,14 @@ Frequencies
 
 Para las variables cuantitativas las tablas de frecuencias tienen una presentación diferente a la vista anteriormente. Como se trata de variables con un gran número de valores diferentes, es necesario dividirlas por intervalos.
 
-Cuando tenemos los datos sin agrupar nos es difícil extraer información que nos permita hacer un análisis de los mismos
+Pensemos ahora en las notas de 90 estudiantes que cursaron Matemáticas Fundamentales en su primer semestre y obtuvieron las siguientes notas:
+
 
 ```{r}
 nf=c(4.1, 2.7, 3.1, 3.2, 3.0, 3.2, 2.0, 2.4, 1.6, 3.2, 3.1, 2.6, 2.0, 2.4, 2.8, 3.3, 4.0, 3.4, 3.0, 3.1, 2.7, 2.7, 3.0, 3.8, 3.2, 2.2, 3.5, 3.5, 3.8, 3.5, 3.9, 4.2, 4.3, 3.9, 3.2, 3.5, 3.5, 3.7, 4.1, 3.7, 3.5, 3.6, 3.2, 3.1, 3.4, 3.0, 3.0, 3.0, 2.7, 1.7, 3.6, 2.1, 2.4, 3.0, 3.1, 2.5, 2.5, 3.6, 2.2, 2.4, 3.1, 3.3, 2.7, 3.7, 3.0, 2.7, 3.0, 3.2, 3.1, 2.4, 3.0, 2.7, 2.5, 3.0, 3.0, 3.0, 3.2, 3.1, 3.8, 4.1, 3.7, 3.5, 3.0, 3.7, 3.7, 4.1, 3.7, 3.9, 3.7, 2.0)
 nf
 ```
+Cuando tenemos los datos sin agrupar nos es difícil extraer información que nos permita hacer un análisis de los mismos
 
 Una primera aproximación puede ser el diagrama de tallos y hojas, que consiste en separar los dígitos de los datos en dos: una primera parte que se repite, llamada tallo, y otra parte que tiene diversos valores. Este diagrama también nos permite ordenar los datos de menor a mayor.
 
@@ -169,6 +188,46 @@ Una primera aproximación puede ser el diagrama de tallos y hojas, que consiste 
 stem(nf)
 
 ```
+
+
+<br/>
+
+
+```{r, echo=FALSE, out.width="100%", fig.align = "center"} 
+knitr::include_graphics("img/tabla_frecuencias2.png")
+```
+<br/>
+
++ c1 : identificador del intervalo
++ c2 : límite inferior del intervalo
++ c3 : límite superior del intervalo
++ c4 : marca de clase, que corresponde al centro del intervalo 
++ c5 : Frecuencia absoluta, corresponde al número de valores contenidos dentro del intervalo
++ c6 : Frecuencia relativa, corresponde al porcentaje de valores contenidos dentro del intevalo
++ c7 : Frecuencia acumulada absoluta, correponde al número de valores contenidos desde el límite superior del intervalo hacia abajo 
++ c8: Frecuencia relativa acumulada, corresponde al porcentaje de valores ubicados por debajo del límite superior del intervalo 
+
+<br/><br/>
+
+### Nota:
+
+Vamos a leer la línea  4 de la tabla:
+
++ 1. id=4 indica que la línea corresponde al cuarto intervalo
+
++ 2. El intervalo va 3.0 a 3.5 . En este caso como se trata de calificaciones el intervalo se lee (3.0; 3.5]
+
++ 3. La marca de clase para este intervalo corresponde a 3.25. Este valor se emplea para calculos de indicadores como la media y la varianza a partir de los valores de la tabla
+
++ 4. $n_4=34$, indica que 34 estudiantes obtivieron notas entre 3.0 y 3.5
+
++ 5. $h_4= 37.78\%$, nos indica que el treinta y siete punto setenta y ocho porciento de los estudiantos obtuvieron notas entre 3.0 y 3.5
+
++ 6. $N_4=59$, indica que 59 estudiantes obtuvieron notas iguales o inferiores a 3.5
+
++ 7. $H_4=65.56\%$, india que el sesenta y cinco punto cincuenta y seis por ciento de los estudiantes obtuvieron una nota igual o inferior a 3.5
+
+<br/>
 
 Una forma de construir una tabla de frecuencias por intervalos es utilizando la función `graph.freq` del paquete agricolae.
 
@@ -183,14 +242,11 @@ colnames(t2) <- c("LI","LS","Marca_Clase","Frec.Abs","Frec.Rel","Frec.Abs.Ac","F
 t2
 
 ```
-Frec.Abs : Frecuencia absoluta <br/>
-Frec.Rel : Frecuencia relativa <br/><br/>
-Frec.Abs.Ac : Frecuencia Absoluta Acumulada <br/>
-Frec.Rel.Ac : Frecuencia Relativa Acumulada 
+
 
  <br/> <br/>
 
-Si se requiere dividir el rango en intervalos determinados se utiliza la función `cut` 
+En el caso de las notas se requiere un tratamiento especial al momento de contruir los intervalos, pues el intervalo 2.5 a 3.00, debe contener los estudiantes que perdieron, por tanto se tienen en cuenta hasta 2.99 y de esta forma no se incluyen los que obtuvieron como nota final 3.0, solo los de 2.5 a 2.99. En estos casos se emplea la función  `cut` 
  
 ```{r}
 
@@ -219,7 +275,7 @@ as.data.frame(table(nota))
 
  <br/>
  
-Es un número que divide la muestra en dos partes. $x$ % de los datos de la muestra son iguales o menores que $P_{x}$ y un $(100-x)$ % por encima de él.
+Es un *número que divide la muestra en dos partes*. $x$ % de los datos de la muestra son iguales o menores que $P_{x}$ y un $(100-x)$ % por encima de él.
 
 
 ```{r, echo=FALSE, out.width="70%", fig.align = "center"}
@@ -228,7 +284,8 @@ Es un número que divide la muestra en dos partes. $x$ % de los datos de la mues
 
  <br/>
  
- Para ilustrar el concepto, pensemos en que participamos de una carrera y que el grupo está conformado por 100 corredores. El percentil dará cuenta de mi posición dentro del grupo. Por ejemplo, si mi posición en la carrera en orden de llegada es la décima, indica que por detrás de mí están 90 atletas. Indica esto que soy el percentil 90 ($P_{90}$).
+ Para ilustrar el concepto, pensemos en que participamos de una carrera y que el grupo está conformado por 100 corredores. El percentil dará cuenta de mi posición dentro del grupo. Por ejemplo, si mi posición en la carrera en orden de llegada es la décima posicion, indica que depues de mi llegada lo hicieron 90 atletas. Indica esto que soy el percentil 90 ($P_{90}$).
+ 
  
  <br/> <br/>
  
@@ -334,34 +391,47 @@ p
 
 ```
  
+Este gráfico se contruye con los siguiente elementos
 
+
+* $LI =Q_1 - 1.5(Q_3-Q_1)$ : límite inferior, que determina si se contiene un valor atipico si existen valores inferiores a el 
+
+* $Q_1$ : cuartil 1 ($Q_1$) o percentil 25 ($P_25$)
+
+* $Q_2$ : cuartil 2 ($Q_2$), percentil 50 ($P_50$)  o tambien la Mediana
+
+* $Q_3$ : cuartil 3 ($Q_3$) o percentil 75 ($P_75$)
+
+* $LS =Q_3 + 1.5(Q_3-Q_1)$ : límite superior, que determina si se contiene un valor atipico si existen valores superiores  a el 
 
 <br/> <br/>
 
 Con ayuda del diagrama de tallos y hojas es posible ubicar los percentiles en un conjunto de datos
  
 ```{r}
-set.seed(567)
-edad = sample(clientes$edad_cliente, 50)
+#set.seed(567)
+# edad = sample(clientes$edad_cliente, 50)
+edad = c(41, 30, 68, 41, 43, 32, 56, 35, 30, 53, 43, 19, 20, 26, 36, 56, 33, 28, 64, 36, 41, 30, 67, 60, 53, 43, 26, 40, 27, 49, 69, 48, 52, 28, 38, 47, 44, 22, 21, 18, 62, 22, 45, 49, 33, 40, 18, 34, 67, 56)
 stem(edad)
 ```
  <br/> <br/>
  
-En este caso el valor mínimo y el máximo corresponden a los extremos observados de la variable.
+En este caso el valor mínimo (18) y el máximo (69) corresponden a los extremos observados de la variable.
 
  <br/> <br/>
  
 Ahora determine en este diagrama los percentiles :
 
++ $P_{10}$
 + $P_{25}$
 + $P_{50}$
 + $P_{75}$
-+ $P_{10}$
+
 
 Es más rápido utilizando la función de R : `quantile`
 
 ```{r}
-quantile(clientes$edad_cliente, c(.10,0.25,.50,0.75,0.90))
+quantile(edad, c(0.10, 0.25, 0.50, 0.75))
 ```
  
  <br/> <br/>
@@ -406,7 +476,7 @@ $$\bar{x}= \frac{1}{n} \sum_{i=1}^{n} x_{i}$$
 
  <br/>
  
-Es uno de los indicadores estadísticos más conocidos.
+Es uno de los indicadores estadísticos más conocidos y empleados por la gran mayoría de las personas
 
 Propiedades de la media :
 
@@ -429,8 +499,8 @@ Propiedades de la media :
 El promedio de edad de los clientes se obtiene con:
 
 ```{r}
-mean(clientes$edad_cliente,na.rm = TRUE)
-cat("media : ", mean(clientes$edad_cliente,na.rm = TRUE))
+mean(edad,na.rm = TRUE)
+cat("media : ", mean(edad,na.rm = TRUE))
 ```
 
  <br/> <br/>
@@ -440,7 +510,10 @@ cat("media : ", mean(clientes$edad_cliente,na.rm = TRUE))
 El valor promedio de ingresos de los clientes se obtiene con:
 
 ```{r}
-mean(clientes$ingresos, na.rm = TRUE)
+#ingresos = sample(clientes$ingresos, 50)
+ingresos = c(112050,  80072, 104099,  54530, 145251, 101929,  69718, 103675, 109683, 114460, 98434, 141044, 136072,  67489, 119350,  95647, 106056, 145291,  70400,  37984, 121469,  91926, 125635, 150000, 132742,  52620, 132933, 146043, 128391, 113604,  91400, 128127,  84802,  57368, 141404, 100410, 127152,  53548,  96133, 104872,  99625, 134255,  58500, 128575,  83955, 108677, 118430, 131466, 71134, 128893)
+
+mean(ingresos, na.rm = TRUE)
 ```
 
 <br/> <br/>
@@ -450,8 +523,9 @@ mean(clientes$ingresos, na.rm = TRUE)
 El promedio del conjunto de números enteros entre uno y diez es 5.5 
 
 ```{r}
-x=1:10
+x=sample(1:100, 10, replace = TRUE)
 x
+cat("suma  :", sum(x), "\n")
 cat("media :",mean(x))
 
 
@@ -615,6 +689,7 @@ $$H=\frac{n}{\frac{1}{x_1}+\frac{1}{x_2}+\frac{1}{x_3}}$$
 Calculamos:
 
 $$H=\frac{3}{\frac{1}{12}+\frac{1}{8}+\frac{1}{6}} = 8 \ \text{tareas/hora}$$
+
 
  <br/> <br/>
  

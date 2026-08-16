@@ -379,7 +379,7 @@ abline(h=4, col=c11, lwd=2)
 
 <br/><br/>
 
-### **Diagrama de dispersión**
+### Diagrama de dispersión
 
 Este gráfico permite analizar la relación entre dos variables numéricas. En administración es clave para explorar asociaciones como inversión publicitaria vs. ventas.
 
@@ -1115,7 +1115,7 @@ p
 <br/><br/><br/><br/>
 
 
-### **Una imagen dice mas que mil palabras...** 
+### Una imagen dice mas que mil palabras...
 
 Las imágenes también comunican contexto y refuerzan la narrativa del informe. En presentaciones de mercadeo, una foto puede conectar datos con la realidad del entorno.
 

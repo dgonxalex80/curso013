@@ -27,7 +27,7 @@ knitr::include_graphics("img/codigo1.png")
 
 <br/><br/>
 
-# **Importar datos en R**    
+# Importar datos en R
 
 
  Se puede realizar de formas diferentes :
@@ -67,7 +67,7 @@ También podemos leer directamente un archivo CSV. En este caso se utiliza la ba
 
 <br/><br/>
 
-## **¿Dónde encontrar y descargar la base de jugadores?**
+## ¿Dónde encontrar y descargar la base de jugadores?
 
 El archivo `squads_and_players.csv` forma parte del proyecto **FIFA World Cup 2026 Dataset**, creado por MD Mominul Islam. La base contiene 1.248 jugadores pertenecientes a las 48 selecciones del torneo. Se puede consultar o descargar desde:
 
@@ -114,7 +114,7 @@ fifa2026 <- read_csv("data/squads_and_players.csv")
 
 <br/><br/>
 
-# **Revisión y arreglo de los datos**   
+# Revisión y arreglo de los datos
 
 
 Después de bajar la data es necesario revisar que no tenga problemas como:
@@ -312,4 +312,3 @@ write_csv(fifa2026, "data/squads_and_players_clean.csv")
 saveRDS(fifa2026, file = "data/squads_and_players_clean.RDS")
 #-----------------------------------------------------
 ```
-

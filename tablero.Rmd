@@ -31,7 +31,7 @@ A continuación se darán las pautas para crear un tablero con el paquete de R `
 
 <br/><br/>
 
-#### **Paso 1**
+#### Paso 1
 
 Cree una carpeta tablero1. En ella guarde la base de datos cerveza.csv
 
@@ -44,7 +44,7 @@ knitr::include_graphics("img/tablero01.png")
 
 <br/><br/>
 
-#### **Paso 2**
+#### Paso 2
 
 Abra RStudio y cree un nuevo documento Rmarkdown con formato tablero
 
@@ -68,7 +68,7 @@ knitr::include_graphics("img/tablero03.png")
 
 <br/><br/>
 
-### **Paso 3**
+### Paso 3
 
 Cambie los parametros de la ventana
 
@@ -85,7 +85,7 @@ knitr::include_graphics("img/tablero04.png")
 
 <br/><br/>
 
-### **Paso 4** 
+### Paso 4
 
 En From Templete marque Flex Dashboard  {fkexdashboard}  y OK
 
@@ -107,7 +107,7 @@ knitr::include_graphics("img/tablero06.png")
 
 <br/><br/>
 
-### **Paso 5**
+### Paso 5
 
 Renderizamos (construimos el tablero en formato html) danto ente en la figural de obillo Knit
 
@@ -137,7 +137,7 @@ knitr::include_graphics("img/tablero09.png")
 
 <br/><br/>
 
-### **Paso 6**
+### Paso 6
 
 Cargar la base de datos desde el bloque setup
 
@@ -165,7 +165,7 @@ Ya tenemos la base de datos para que funcione dentro del tablero
 
 <br/><br/>
 
-### **Paso 7**
+### Paso 7
 
 Configuración de los espacios
 
@@ -272,7 +272,6 @@ knitr::include_graphics("img/tablero30.png")
 })();
 </script>
 </html>
-
 
 
 
