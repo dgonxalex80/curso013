@@ -1,0 +1,34 @@
+GID_1,departamento,pae_sismo_relativa_rango,pae_rel_min_permille,pae_rel_max_permille
+COL.1_2,Amazonas,"0,0 - 0,5",0,0.5
+COL.2_2,Antioquia,"5,0 - 6,0",5,6
+COL.3_2,Arauca,"3,0 - 4,0",3,4
+COL.4_2,Atlántico,"0,5 - 1,0",0.5,1
+COL.5_2,Bogotá D.C.,"2,0 - 2,5",2,2.5
+COL.6_2,Bolívar,"0,5 - 1,0",0.5,1
+COL.7_2,Boyacá,"5,0 - 6,0",5,6
+COL.8_2,Caldas,"> 6,0",6,
+COL.9_2,Caquetá,"1,5 - 2,0",1.5,2
+COL.10_2,Casanare,"3,0 - 4,0",3,4
+COL.11_2,Cauca,"> 6,0",6,
+COL.12_2,Cesar,"1,5 - 2,0",1.5,2
+COL.13_2,Chocó,"> 6,0",6,
+COL.14_2,Córdoba,"2,0 - 2,5",2,2.5
+COL.15_2,Cundinamarca,"3,0 - 4,0",3,4
+COL.16_2,Guainía,"0,0 - 0,5",0,0.5
+COL.17_2,Guaviare,"0,0 - 0,5",0,0.5
+COL.18_2,Huila,"5,0 - 6,0",5,6
+COL.19_2,La Guajira,"1,0 - 1,5",1,1.5
+COL.20_2,Magdalena,"1,0 - 1,5",1,1.5
+COL.21_2,Meta,"2,0 - 2,5",2,2.5
+COL.22_2,Nariño,"> 6,0",6,
+COL.23_2,Norte de Santander,"5,0 - 6,0",5,6
+COL.24_2,Putumayo,"3,0 - 4,0",3,4
+COL.25_2,Quindío,"4,0 - 5,0",4,5
+COL.26_2,Risaralda,"5,0 - 6,0",5,6
+COL.27_1,San Andrés y Providencia,"0,0 - 0,5",0,0.5
+COL.28_2,Santander,"4,0 - 5,0",4,5
+COL.29_2,Sucre,"1,5 - 2,0",1.5,2
+COL.30_2,Tolima,"4,0 - 5,0",4,5
+COL.31_2,Valle del Cauca,"5,0 - 6,0",5,6
+COL.32_2,Vaupés,"0,0 - 0,5",0,0.5
+COL.33_2,Vichada,"0,0 - 0,5",0,0.5
