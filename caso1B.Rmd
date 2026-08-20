@@ -122,24 +122,23 @@ DT::datatable(
 
 <br/><br/>
 
-<center>
+# Recursos
 
-</center>
+* [Tablero](https://rpubs.com/dgonzalez80/caso1)
 
+* [Flexdashboard](https://rstudio.github.io/flexdashboard/articles/using.html) 
 
-### [Tablero](https://rpubs.com/dgonzalez80/caso1)
+* [icons](https://ionic.io/ionicons/v2/cheatsheet.html)
 
-<br/>
+* [Tablero-00](https://github.com/dgonxalex80/curso013/blob/main/tablero1/tablero-00.Rmd)
 
+* [Tablero-01](https://github.com/dgonxalex80/curso013/blob/main/tablero1/tablero-01.Rmd)
 
-### [Flexdashboard](https://rstudio.github.io/flexdashboard/articles/using.html) 
-
-
-
-<br/>
+* [Tablero-02](https://github.com/dgonxalex80/curso013/blob/main/tablero1/tablero-02.Rmd)
 
 
-### [icons](https://ionic.io/ionicons/v2/cheatsheet.html)
+
+
 
 
 

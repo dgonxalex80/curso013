@@ -97,7 +97,7 @@ El director de investigación le encarga, en calidad de analista de datos, elabo
 
 <br/>
 
-```{r}
+```{r, eval=FALSE}
 library(DT)
 # Cargar los datos
 library(readr)
