@@ -274,6 +274,12 @@ $(document).ready(function () {
     <li>
       <a href="productoria.html">Productoria</a>
     </li>
+    <li>
+      <a href="conjuntos.html">Conjuntos</a>
+    </li>
+    <li>
+      <a href="conteo.html">Conteo</a>
+    </li>
   </ul>
 </li>
 <li class="dropdown">
@@ -313,7 +319,10 @@ $(document).ready(function () {
       <a href="codigo12.html">Código 1.2</a>
     </li>
     <li>
-      <a href="caso1.html">Caso 1</a>
+      <a href="caso1A.html">Caso 1</a>
+    </li>
+    <li>
+      <a href="caso1B.html">Caso 2</a>
     </li>
     <li class="divider"></li>
     <li>
@@ -324,6 +333,12 @@ $(document).ready(function () {
     </li>
     <li>
       <a href="codigo13.html">Código 1.3</a>
+    </li>
+    <li>
+      <a href="tablero_flexdashboard.html">Tablero con flexdashboard</a>
+    </li>
+    <li>
+      <a href="tablero_shiny.html">Tablero con Shiny</a>
     </li>
     <li class="divider"></li>
     <li>
@@ -411,12 +426,14 @@ Probabilidades</span></h1>
 <p><img src="img/recurso0.png" alt="" width="100%" style="display: block; margin: auto;" /></p>
 <p><br/><br/></p>
 <div id="productoria" class="section level1">
-<h1>PRODUCTORIA</h1>
+<h1>Productoria</h1>
+<blockquote>
 <p>El productorio o productoria, también conocido como multiplicatorio,
 multiplicatoria o simplemente producto es una notación matemática que
 representa una multiplicación de una cantidad arbitraria finita o
 infinita.</p>
 <p>Wikipedia</p>
+</blockquote>
 <p>Este operador será utilizado para desarrollar el método de estimación
 de Máxima Verosimilitud, soporte de la inferencia estadística abordado
 en la Unidad 4.1 del Módulo 4.</p>
@@ -426,17 +443,16 @@ en la Unidad 4.1 del Módulo 4.</p>
 <p><span class="math display">\[\displaystyle\prod_{i=1}^n a_{i}   = a_1
 \times a_2 \times a_3 \times  \cdots \times a_n\]</span></p>
 </div>
-<p>El operador consiste en multiplicar un numero de veces establecido
-los términos <span class="math inline">\(a_i\)</span> Una de las
-aplicaciones más conocida de la productoria son los números
-factoriales</p>
+<p>El operador consiste en multiplicar un número establecido de términos
+<span class="math inline">\(a_i\)</span>. Una de las aplicaciones más
+conocida de la productoria son los números factoriales</p>
 <p><span class="math display">\[n! = \displaystyle\prod_{i=1}^n i = 1
 \times 2 \times 3 \cdots \times n\]</span></p>
 <p>Este operador también se utiliza para multiplicar funciones, matrices
 como por ejemplo:</p>
 <p><span class="math display">\[\displaystyle\prod_{i=1}^n f(x_i) =
-f(x_1) \times f(x_2) \times f(x_3) \cdots \times f(x_n)\]</span><br />
-Para el caso de <span class="math inline">\(f(x) = \exp\{x\}\)</span>
+f(x_1) \times f(x_2) \times f(x_3) \cdots \times f(x_n)\]</span> Para el
+caso de <span class="math inline">\(f(x) = \exp\{x\}\)</span>
 tenemos:</p>
 <p><span class="math display">\[\displaystyle\prod_{i=1}^n \exp\{x_i\} =
 \exp\{x_1\} \times \exp\{x_2\} \times \exp\{x_3\} \cdots \times
@@ -446,9 +462,9 @@ obtiene al colocar la misma base y sumar los exponentes,</p>
 <p><span class="math display">\[\exp\Bigg\{\displaystyle\sum_{i=1}^{n}
 x_{i}\Bigg\}\]</span></p>
 <p>Encontrar la multiplicación de los 10 primeros números</p>
-<p><span class="math display">\[\displaystyle\prod_{x=1}^n x = 1 \times
-2 \times 3 \times 4 \times 5 \times 6 \times 7 \times 8 \times 9 \times
-10 \]</span></p>
+<p><span class="math display">\[\displaystyle\prod_{x=1}^{10} x = 1
+\times 2 \times 3 \times 4 \times 5 \times 6 \times 7 \times 8 \times 9
+\times 10 \]</span></p>
 <pre class="r"><code>prod(1:10)</code></pre>
 <pre><code>[1] 3628800</code></pre>
 <p><br/><br/></p>
@@ -469,8 +485,99 @@ f(x_{i})\)</span></p></li>
 <li><p><span class="math inline">\(f(x_{i}) =
 \dfrac{1}{x_{i}}\)</span></p></li>
 <li><p><span class="math inline">\(f(x_{i}) = \dfrac{1}{\sqrt{2\pi}}
-\exp\bigg\{\frac{1}{2}x^{2}\bigg\}\)</span></p></li>
+\exp\bigg\{-\frac{1}{2}x_i^{2}\bigg\}\)</span></p></li>
 </ul>
+<ol start="4" style="list-style-type: decimal">
+<li><p>Calcule <span
+class="math inline">\(\displaystyle\prod_{k=1}^{6}(k+1)\)</span> y
+escriba el producto de forma desarrollada.</p></li>
+<li><p>Evalúe <span
+class="math inline">\(\displaystyle\prod_{i=1}^{8}3\)</span> y exprese
+el resultado como una potencia.</p></li>
+<li><p>Utilice notación de productoria para representar <span
+class="math inline">\(10!\)</span> y compruebe el resultado con la
+función <code>factorial()</code> de R.</p></li>
+<li><p>Para <span class="math inline">\(x=(2,4,3,5,2)\)</span>, calcule
+<span class="math inline">\(\displaystyle\prod_{i=1}^{5}x_i\)</span> y
+verifique el resultado con la función <code>prod()</code>.</p></li>
+<li><p>Si <span
+class="math inline">\(\displaystyle\prod_{i=1}^{4}x_i=120\)</span>,
+determine <span
+class="math inline">\(\displaystyle\prod_{i=1}^{4}(2x_i)\)</span> sin
+conocer individualmente los valores de <span
+class="math inline">\(x_i\)</span>.</p></li>
+<li><p>Simplifique <span
+class="math inline">\(\displaystyle\prod_{i=1}^{n}(a b_i)\)</span> en
+términos de <span class="math inline">\(a\)</span> y de <span
+class="math inline">\(\displaystyle\prod_{i=1}^{n}b_i\)</span>. Luego
+evalúe el resultado para <span class="math inline">\(a=2\)</span>, <span
+class="math inline">\(n=4\)</span> y <span
+class="math inline">\(b=(1,3,2,5)\)</span>.</p></li>
+<li><p>Una inversión se multiplica cada año por los factores <span
+class="math inline">\(1.05\)</span>, <span
+class="math inline">\(1.04\)</span>, <span
+class="math inline">\(1.06\)</span>, <span
+class="math inline">\(1.03\)</span> y <span
+class="math inline">\(1.05\)</span>. Utilice una productoria para
+calcular el factor acumulado y el valor final de una inversión inicial
+de <span class="math inline">\(1\,000\,000\)</span> de pesos.</p></li>
+</ol>
+<div id="código-r" class="section level3 box1 with-label">
+<h3>Código R</h3>
+<pre class="r"><code># Ejercicio 1: calcula el producto de 2^k para k = 1, ..., 20.
+prod(2^(1:20))
+
+# Ejercicio 2: multiplica los términos k * 2^k para k = 1, ..., 20.
+prod((1:20) * 2^(1:20))
+
+# Ejercicio 3: define los valores donde se evaluarán las funciones.
+x &lt;- c(1, 2, 3, 4)
+n &lt;- length(x)  # Número de factores del producto.
+
+# Producto de la función constante f(x_i) = 1/60.
+prod(rep(1 / 60, n))
+
+# Producto de los recíprocos f(x_i) = 1/x_i.
+prod(1 / x)
+
+# Producto de las densidades normales estándar evaluadas en cada x_i.
+prod(dnorm(x))
+
+# Ejercicio 4: evalúa k + 1 para k = 1, ..., 6 y multiplica.
+prod((1:6) + 1)
+
+# Ejercicio 5: comprueba que multiplicar ocho factores 3 equivale a 3^8.
+prod(rep(3, 8))
+3^8
+
+# Ejercicio 6: compara la productoria de 1 a 10 con factorial(10).
+prod(1:10)
+factorial(10)
+
+# Ejercicio 7: multiplica todos los elementos del vector x.
+x &lt;- c(2, 4, 3, 5, 2)
+prod(x)
+
+# Ejercicio 8: usa prod(2x_i) = 2^n * prod(x_i).
+producto_x &lt;- 120
+n &lt;- 4
+2^n * producto_x
+
+# Ejercicio 9: verifica prod(a*b_i) = a^n * prod(b_i).
+a &lt;- 2
+b &lt;- c(1, 3, 2, 5)
+a^length(b) * prod(b)  # Resultado mediante la propiedad.
+prod(a * b)            # Comprobación mediante el producto directo.
+
+# Ejercicio 10: multiplica los factores anuales de crecimiento.
+factores &lt;- c(1.05, 1.04, 1.06, 1.03, 1.05)
+factor_acumulado &lt;- prod(factores)
+capital_inicial &lt;- 1000000
+
+# Muestra el factor acumulado y calcula el capital al final de cinco años.
+factor_acumulado
+capital_inicial * factor_acumulado</code></pre>
+</div>
 </div>
 </div>
 

@@ -10,6 +10,9 @@ output:
     toc_float: yes
     code_folding: hide
     theme: flatly
+    css:
+      - style.css
+      - cajas.css
 ---
 
 
@@ -1835,3 +1838,125 @@ document.getElementById('dl-beer').addEventListener('click', async () => {
 </html>
 
 <br/> <br/> 
+
+
+<br/><br/>
+
+# Código R
+
+El siguiente bloque reúne el código esencial para elaborar los principales gráficos estudiados en este documento.
+
+```{r codigo-r-graficos, eval=FALSE}
+library(readr)
+library(readxl)
+library(dplyr)
+library(ggplot2)
+
+# Importación de datos y colores del curso
+clientes <- read_csv("data/clientes.csv")
+ventas <- read_excel("data/ventas.xlsx")
+beer <- read_csv("data/beer.csv")
+source("colores.R")
+
+# Variable cualitativa nominal: gráfico circular
+frecuencia_categoria <- table(clientes$categoria_preferida)
+porcentaje <- round(prop.table(frecuencia_categoria) * 100, 1)
+etiquetas <- paste(names(frecuencia_categoria), porcentaje, "%")
+
+pie(
+  frecuencia_categoria,
+  labels = etiquetas,
+  col = paleta[seq_along(frecuencia_categoria)],
+  main = "Categoría preferida"
+)
+
+# Variable cualitativa ordinal: diagrama de barras
+clientes <- clientes |>
+  mutate(
+    grupo_edad = cut(
+      edad_cliente,
+      breaks = c(-Inf, 30, 60, Inf),
+      labels = c("Joven", "Adulto", "Mayor")
+    )
+  )
+
+barplot(
+  table(clientes$grupo_edad),
+  col = c(c31, c11, c51),
+  main = "Edad de los clientes",
+  ylab = "Frecuencia",
+  las = 1
+)
+
+# Dos variables cualitativas
+metodo_cliente <- table(ventas$Metodo_Pago, ventas$Tipo_Cliente)
+barplot(
+  metodo_cliente,
+  beside = TRUE,
+  col = paleta[seq_len(nrow(metodo_cliente))],
+  legend.text = rownames(metodo_cliente),
+  main = "Método de pago por tipo de cliente",
+  las = 1
+)
+
+# Variable cuantitativa: histograma, densidad y caja
+hist(
+  beer$calorias,
+  col = c31,
+  main = "Distribución de calorías",
+  xlab = "Calorías",
+  labels = TRUE
+)
+abline(v = mean(beer$calorias, na.rm = TRUE), col = c21, lwd = 2)
+
+plot(
+  density(beer$calorias, na.rm = TRUE),
+  col = c41,
+  lwd = 2,
+  main = "Densidad de calorías",
+  xlab = "Calorías"
+)
+
+boxplot(
+  Ventas_Netas ~ Tipo_Cliente,
+  data = ventas,
+  horizontal = TRUE,
+  col = c51,
+  main = "Ventas netas por tipo de cliente",
+  xlab = "Ventas netas"
+)
+
+# Serie de tiempo de ventas mensuales
+ventas_mensuales <- ventas |>
+  mutate(
+    fecha = as.Date("2023-01-01") + 7 * row_number(),
+    mes = as.Date(cut(fecha, "month"))
+  ) |>
+  group_by(mes) |>
+  summarise(
+    Ventas_Netas = sum(Ventas_Netas, na.rm = TRUE),
+    .groups = "drop"
+  )
+
+plot(
+  ventas_mensuales$mes,
+  ventas_mensuales$Ventas_Netas,
+  type = "l",
+  col = c41,
+  lwd = 2,
+  xlab = "Mes",
+  ylab = "Ventas netas",
+  main = "Ventas netas mensuales"
+)
+
+# Ejemplo equivalente con ggplot2
+ggplot(clientes, aes(x = grupo_edad, fill = grupo_edad)) +
+  geom_bar(show.legend = FALSE) +
+  scale_fill_manual(values = c(c31, c11, c51)) +
+  labs(
+    title = "Edad de los clientes",
+    x = "Grupo de edad",
+    y = "Frecuencia"
+  ) +
+  theme_minimal()
+```

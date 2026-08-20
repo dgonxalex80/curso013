@@ -1,13 +1,16 @@
 ---
-title: <span style="color:#235784">**Problemas** </span>  
-subtitle: <span style="color:#235784">**Unidad 1.1**</span> 
-author: "dgonzalez "
+title: <span style="color:#E85A67"> </span>
+author: <span style="color:#E85A67">dgonzalez</span>
+subtitle: " "
 output:
   html_document:
     toc: no
     toc_depth: 2
     toc_float: yes
     theme: flatly
+    css:
+      - style.css
+      - cajas.css
 ---
 
 ```{r setup, include=FALSE}

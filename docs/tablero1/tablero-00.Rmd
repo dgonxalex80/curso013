@@ -1,0 +1,59 @@
+---
+title: "Untitled"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    vertical_layout: fill
+---
+
+```{r setup, include=FALSE}
+library(flexdashboard)
+```
+
+Column {.tabset}
+-----------------------------------------------------------------------
+
+### Chart A
+
+```{r}
+
+```
+
+### Chart B
+
+```{r}
+
+```
+
+### Chart C
+
+```{r}
+
+```
+
+### Chart D
+
+```{r}
+
+```
+
+
+Column {.tabset}
+-----------------------------------------------------------------------
+
+### Chart E
+
+```{r}
+
+```
+
+### Chart F
+
+```{r}
+
+```
+
+
+Column {data-width=200}
+-----------------------------------------------------------------------
+

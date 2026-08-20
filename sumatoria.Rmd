@@ -13,7 +13,7 @@ output:
       - cajas.css
 ---
 
-  
+
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE,comment = NA)
@@ -35,7 +35,7 @@ source("colores.R")
 
 <br/><br/>
 
-# SUMATORIA
+# Sumatoria
 
 El **sumatorio** o **sumatoria** también conocida como operador de suma, notación sigma o símbolo de suma, es una notación matemática que permite representar una suma de varios sumandos, n o incluso infinitos sumandos son colocar puntos suspensivos. Se expresa mediante la letra sigma mayúscula.
 
@@ -44,11 +44,10 @@ Wikipedia
 Este operador será utilizado en el curso en la construcción de conceptos como media aritmética, varianza, covarianza, correlación, estimación de los coeficientes del modelo de regresión entre otros
 
 <div class="box box1">
+## Definición de sumatoria
 
-## Definición
+Se define como
 
-Se define como 
- 
  $$\sum_{i=1}^{n} a_{i} = a_{1} + a_{2} + a_{3} + \cdots + a_{n}$$
 
 </div>
@@ -56,17 +55,17 @@ Se define como
 
 
 Esta forma de expresión matemática nos ayuda a resumir la escritura de series de sucesiones matemáticas, las cuales puede ser finitas o infinitas como:
- 
+
  + Finita :  $\displaystyle\sum_{i=1}^{n} a_{i} = a_{1} + a_{2} + a_{3} + ... + a_{n}$
- 
+
  + Infinita :  $\displaystyle\sum_{i=1}^{n} a_{i} = a_{1} + a_{2} + a_{3} + ...$
- 
- 
+
+
  Ahora sí se quiere representar la suma de los primeros 100 números enteros se escribe:
- 
+
  $$\sum_{i=1}^{100} x = 1 + 2 + 3 + 4 + 5 + \cdots + 99 +100$$
 
- 
+
 ```{r, eval=FALSE}
 sum(1:100)
 ```
@@ -75,10 +74,10 @@ sum(1:100)
 Si se tienen las notas de un examen de 12 estudiantes como:
 
 3.4, 4.2, 2.5, 4.1, 3.0, 4.2, 4.7, 3.3, 4.5, 5.0, 2.5, 4.8
- 
-Y se desea calcular la media de las notas, primero se deben sumar todas las notas y el resultado dividirlo por el numero de notas. 
- 
- 
+
+Y se desea calcular la media de las notas, primero se deben sumar todas las notas y el resultado dividirlo por el número de notas.
+
+
 
 $$\bar{x} = \dfrac{1}{12}\displaystyle\sum_{i=1}^{12} x_{i}$$
 En este caso $3.4$ representa el primer termino de la suma $x_1$ , el segundo término $x_2 = 4.2$, asi, hasta el final donde $4.8$ representa $x_{12}$. Lo cual equivale a :
@@ -97,19 +96,17 @@ sum(x)/12
 
 
 <div class="box box1">
+## Propiedades de la sumatoria
 
 
-## Propiedades 
++ $\displaystyle\sum_{i=1}^{n} k = nk$,
 
-
-+ $\displaystyle\sum_{i=1}^{n} k = nk$, 
-
-+ $\displaystyle\sum_{i=1}^{n} kx_{i} = k \displaystyle\sum_{i=1}^{n} x_{i}$, 
++ $\displaystyle\sum_{i=1}^{n} kx_{i} = k \displaystyle\sum_{i=1}^{n} x_{i}$,
 
 + $\displaystyle\sum_{i=1}^{n} (ax_{i}+by_{i}) = a\displaystyle\sum_{i=1}^{n} x_{i} + b\displaystyle\sum_{i=1}^{n} y_{i}$
 
 
-donde $k$, $a$ y $b$ son constantes y $x_i$ y $y_{i}$ corresponden a lod terminod i-esimo de los conjuntos de datos
+donde $k$, $a$ y $b$ son constantes, y $x_i$ y $y_i$ corresponden a los términos i-ésimos de los conjuntos de datos.
 
 </div>
 
@@ -123,18 +120,18 @@ donde $k$, $a$ y $b$ son constantes y $x_i$ y $y_{i}$ corresponden a lod termino
 
 
 
-1. $\displaystyle\sum_{i=1}^{5} 3 = 15$, ¿ Porqué ?
+1. $\displaystyle\sum_{i=1}^{5} 3 = 15$, ¿por qué?
 
 
 
-2. $\displaystyle\sum_{i=1}^{10} 10x = 550$, ¿ Porqué ?
+2. $\displaystyle\sum_{i=1}^{10} 10i = 550$, ¿por qué?
 
 
 
-3. $\displaystyle\sum_{i=1}^{10} (3x_{i}+2y_{i}) =475$, ¿ Porqué ?
- 
- donde  $\displaystyle\sum_{i=1}^{10} x_{i} =55$ y $\displaystyle\sum_{i=1}^{10} y_{i}=155$ 
- 
+3. $\displaystyle\sum_{i=1}^{10} (3x_{i}+2y_{i}) =475$, ¿por qué?
+
+ donde  $\displaystyle\sum_{i=1}^{10} x_{i} =55$ y $\displaystyle\sum_{i=1}^{10} y_{i}=155$
+
 
 
 4. Calcular las siguientes sumatorias:
@@ -168,7 +165,7 @@ Determine los valores de :
 
 
 
-(b). $\displaystyle\sum_{w=1}^{15} y_{i}$
+(b). $\displaystyle\sum_{i=1}^{15} y_{i}$
 
 
 
@@ -184,7 +181,115 @@ Determine los valores de :
 
 
 
-(f). $\displaystyle\sum_{i=1}^{15} \dfrac{(x_{i}-3.5)(y_{i}-4.0)}{(x_{i}-3.5)^{2}}$
+(f). $\dfrac{\displaystyle\sum_{i=1}^{15}(x_i-3.5)(y_i-4.0)}{\sqrt{\displaystyle\sum_{i=1}^{15}(x_i-3.5)^2\displaystyle\sum_{i=1}^{15}(y_i-4.0)^2}}$
 
 
 
+
+6. Calcule $\displaystyle\sum_{i=1}^{20} i$ y compruebe el resultado mediante la fórmula $\dfrac{n(n+1)}{2}$.
+
+
+7. Evalúe las siguientes expresiones:
+
+(a). $\displaystyle\sum_{i=1}^{8} i^{2}$
+
+(b). $\displaystyle\sum_{i=1}^{6} (2i-1)$
+
+(c). $\displaystyle\sum_{i=0}^{5} \left(\dfrac{1}{2}\right)^i$
+
+
+8. Si $\displaystyle\sum_{i=1}^{8}x_i=120$, determine el valor de $\displaystyle\sum_{i=1}^{8}(2x_i-3)$ sin conocer individualmente los valores de $x_i$.
+
+
+9. Para los datos $z=(12,15,11,18,14)$, calcule $\bar z$ y verifique que $\displaystyle\sum_{i=1}^{5}(z_i-\bar z)=0$.
+
+
+10. Las ventas de una tienda durante seis días fueron $125, 140, 132, 160, 155$ y $148$ unidades. Exprese mediante notación de sumatoria y calcule:
+
+(a). El total de unidades vendidas.
+
+(b). El promedio diario de ventas.
+
+(c). La suma de las diferencias entre cada venta diaria y el promedio.
+
+
+
+<div class="box1 with-label">
+### Código R
+
+
+```{r codigo-sumatoria, eval=FALSE}
+# Ejercicio 1: repite la constante 3 cinco veces y suma los términos.
+sum(rep(3, 5))
+
+# Ejercicio 2: genera los índices del 1 al 10, los multiplica por 10 y suma.
+sum(10 * (1:10))
+
+# Ejercicio 3: aplica la propiedad de linealidad de la sumatoria.
+3 * 55 + 2 * 155
+
+# Ejercicio 4(a): evalúa 3i + 5 para i = 1, ..., 10 y suma.
+sum(3 * (1:10) + 5)
+
+# Ejercicio 4(b): suma las potencias de 2 para exponentes entre 0 y 2.
+sum(2^(0:2))
+
+# Ejercicio 4(c): calcula la suma de 3w^2 para w = 0, ..., 6.
+sum(3 * (0:6)^2)
+
+# Ejercicio 5: almacena los dos conjuntos de 15 observaciones.
+x <- c(3.6, 3.5, 3.6, 3.5, 3.0, 4.0, 3.2, 3.8,
+       3.5, 3.3, 3.4, 3.8, 3.4, 3.4, 3.1)
+y <- c(3.4, 4.3, 4.5, 4.1, 4.5, 4.1, 3.4, 4.0,
+       4.2, 4.6, 3.5, 3.8, 4.5, 3.5, 4.1)
+
+# Incisos (a) y (b): suma de los valores de x y de y.
+sum(x)
+sum(y)
+
+# Inciso (c): suma de cuadrados respecto de 4, dividida entre 14.
+sum((y - 4)^2) / 14
+
+# Inciso (d): suma de las desviaciones de x respecto de 3.5.
+sum(x - 3.5)
+
+# Inciso (e): suma de productos cruzados, dividida entre 14.
+sum((x - 3.5) * (y - 4)) / 14
+
+# Inciso (f): normaliza el producto cruzado mediante ambas sumas de cuadrados.
+sum((x - 3.5) * (y - 4)) /
+  sqrt(sum((x - 3.5)^2) * sum((y - 4)^2))
+
+# Ejercicio 6: compara la suma directa con la fórmula n(n + 1)/2.
+n <- 20
+sum(1:n)
+n * (n + 1) / 2
+
+# Ejercicio 7(a): suma de los cuadrados de los enteros del 1 al 8.
+sum((1:8)^2)
+
+# Ejercicio 7(b): suma de los seis primeros números impares.
+sum(2 * (1:6) - 1)
+
+# Ejercicio 7(c): suma geométrica desde el exponente 0 hasta el 5.
+sum((1 / 2)^(0:5))
+
+# Ejercicio 8: usa sum(2x_i - 3) = 2 sum(x_i) - 3n.
+n <- 8
+suma_x <- 120
+2 * suma_x - 3 * n
+
+# Ejercicio 9: calcula la media y verifica que las desviaciones sumen cero.
+z <- c(12, 15, 11, 18, 14)
+media_z <- mean(z)
+media_z
+sum(z - media_z)
+
+# Ejercicio 10: total, promedio y suma de desviaciones de las ventas.
+ventas <- c(125, 140, 132, 160, 155, 148)
+sum(ventas)
+mean(ventas)
+sum(ventas - mean(ventas))
+```
+
+</div>

@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="dgonzalez" />
+
+
+<title> </title>
+
+<script src="site_libs/header-attrs-2.31/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-6.5.2/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+<link rel="stylesheet" href="cajas.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html"> </a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">
+    <span class="fa fa-home"></span>
+     
+    Estadística
+  </a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 0
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo0.html">Módulo 0</a>
+    </li>
+    <li>
+      <a href="sumatoria.html">Sumatoria</a>
+    </li>
+    <li>
+      <a href="productoria.html">Productoria</a>
+    </li>
+    <li>
+      <a href="conjuntos.html">Conjuntos</a>
+    </li>
+    <li>
+      <a href="conteo.html">Conteo</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 1
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo1.html">Módulo 1</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="guia11.html">Guía 1.1</a>
+    </li>
+    <li>
+      <a href="recurso11.html">Recursos 1.1</a>
+    </li>
+    <li>
+      <a href="basesdatos.html">Bases de datos</a>
+    </li>
+    <li>
+      <a href="introduccionR.html">Introducción a R</a>
+    </li>
+    <li>
+      <a href="codigo11.html">Código 1.1</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="guia12.html">Guía 1.2</a>
+    </li>
+    <li>
+      <a href="recurso12.html">Recursos 1.2</a>
+    </li>
+    <li>
+      <a href="codigo12.html">Código 1.2</a>
+    </li>
+    <li>
+      <a href="caso1A.html">Caso 1</a>
+    </li>
+    <li>
+      <a href="caso1B.html">Caso 2</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="guia13.html">Guía 1.3</a>
+    </li>
+    <li>
+      <a href="recurso13.html">Recursos 1.3</a>
+    </li>
+    <li>
+      <a href="codigo13.html">Código 1.3</a>
+    </li>
+    <li>
+      <a href="tablero_flexdashboard.html">Tablero con flexdashboard</a>
+    </li>
+    <li>
+      <a href="tablero_shiny.html">Tablero con Shiny</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="monitoria1.html">Monitoria 1</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 2
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo2.html">Módulo 2</a>
+    </li>
+    <li class="divider"></li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 3
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo3.html">Módulo 3</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 4
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo4.html">Módulo 4</a>
+    </li>
+    <li class="divider"></li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Proyecto
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="enconstruccion.html">Guía proyecto</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore"><span style="color:#F6A623"> </span></h1>
+<h4 class="author"><span style="color:#F6A623">dgonzalez</span></h4>
+
+</div>
+
+
+<p><img src="img/recurso0.png" alt="" width="100%" style="display: block; margin: auto;" /></p>
+<p><br/><br/><br/></p>
+<div id="teoría-de-conjuntos" class="section level1">
+<h1>Teoría de conjuntos</h1>
+<p><br/><br/></p>
+</div>
+<div id="introducción" class="section level1">
+<h1>Introducción</h1>
+<p>A continuación se relacionan las principales características de los
+conjuntos y sus principales relaciones. Estos conceptos serán
+importantes al abordar los conceptos básicos de probabilidad que se
+expondrán en el Módulo 2.</p>
+<p>Empezaremos con su definición.</p>
+<p><br/><br/></p>
+<div id="definición-de-conjunto" class="section level3 box1 with-label">
+<h3>Definición de conjunto</h3>
+<p>Un conjunto es una colección de objetos que se denota con una letra
+mayúscula (comúnmente las primeras letras del alfabeto A,B,C..) .</p>
+</div>
+<p><br/><br/><br/></p>
+<p>Se pueden escribir por:</p>
+<ul>
+<li><p><strong>por extensión</strong> : <span
+class="math inline">\(A=\{0,1,2,3,4,5,6,7,8,9\}\)</span>, escribiendo
+todos los elementos que lo conforman.</p></li>
+<li><p><strong>por su nombre</strong> : los dígitos</p></li>
+<li><p><strong>por compresión</strong> : <span
+class="math inline">\(A=\{ x\in\mathbb{Z},  0\le x  \le
+9    \}\)</span>, utilizando nomenclatura matemática.</p></li>
+</ul>
+<p>Al comparar o combinar conjuntos debemos hacer uso de sus propiedades
+y operaciones, dentro de las cuales se encuentran <span
+class="math inline">\(A \cup B\)</span>, <span class="math inline">\(A
+\cap B\)</span>,</p>
+<p><br/><br/><br/></p>
+</div>
+<div id="unión-del-conjunto" class="section level1">
+<h1>Unión del conjunto</h1>
+<p>La unión del conjunto <span class="math inline">\(A\)</span> con el
+conjunto <span class="math inline">\(B\)</span> se denota por <span
+class="math inline">\(A \cup B\)</span>. La zona sombreada en la
+siguiente figura representa esta operación.</p>
+<p><img src="img/union.png" alt="" width="50%" style="display: block; margin: auto;" /></p>
+<div id="ejemplo" class="section level3 box1 with-label">
+<h3>Ejemplo</h3>
+<p>Supongamos los siguientes conjuntos</p>
+<ul>
+<li><span class="math inline">\(A = \{a,e,i,o,u \}\)</span> y</li>
+<li><span class="math inline">\(B =
+\{1,2,3,4,5,6,7,8,9,0\}\)</span></li>
+</ul>
+<p><span class="math display">\[A \cup B = \{a,e,i,o,u,
+1,2,3,4,5,6,7,8,9,0 \}\]</span></p>
+</div>
+<p><br/><br/><br/></p>
+</div>
+<div id="intersección" class="section level1">
+<h1>Intersección</h1>
+<p>La intersección entre el conjunto <span
+class="math inline">\(A\)</span> y el <span
+class="math inline">\(B\)</span> se denota por : <span
+class="math inline">\(A \cap B\)</span> y se representa por la siguiente
+zona sombreada</p>
+<p><img src="img/interseccion.png" alt="" width="50%" style="display: block; margin: auto;" /></p>
+<p><br/><br/></p>
+<div id="ejemplo-1" class="section level3 box1 with-label">
+<h3>Ejemplo</h3>
+<p>Supongamos los siguientes conjuntos:</p>
+<ul>
+<li><span class="math inline">\(A = \{1,2,3,4,5,6 \}\)</span> y</li>
+<li><span class="math inline">\(B = \{2,4,6,8,10,12,14,16,18,20
+\}\)</span></li>
+</ul>
+<p><span class="math display">\[A \cap B = \{ 2,4,6 \}\]</span></p>
+</div>
+<p><br/><br/><br/></p>
+</div>
+<div id="complemento" class="section level1">
+<h1>Complemento</h1>
+<p>El complemento del conjunto <span class="math inline">\(A\)</span> se
+escribe como: <span class="math inline">\(\overline{A}\)</span> y se
+representa por la siguiente zona sombreada</p>
+<p><img src="img/complemento.png" alt="" width="50%" style="display: block; margin: auto;" /></p>
+<p><br/><br/></p>
+<div id="ejemplo-2" class="section level3 box1 with-label">
+<h3>Ejemplo</h3>
+<p>Supongamos los siguientes conjuntos:</p>
+<ul>
+<li><span class="math inline">\(U = \{0,1,2,3,4,5,6,7,8,9\}\)</span>
+y</li>
+<li><span class="math inline">\(A = \{1,2,3,4,5,6\}\)</span>.</li>
+</ul>
+<p><span class="math display">\[\overline{A}  = \{0, 7, 8, 9
+\}\]</span></p>
+</div>
+<p><br/><br/><br/></p>
+</div>
+<div id="resta" class="section level1">
+<h1>Resta</h1>
+<p>La resta del conjunto <span class="math inline">\(B\)</span> menos el
+conjunto <span class="math inline">\(A\)</span> : <span
+class="math inline">\(B-A\)</span> , está representada por la zona
+sombreada en la siguiente figura</p>
+<p><img src="img/resta.png" alt="" width="50%" style="display: block; margin: auto;" /></p>
+<p><br/><br/></p>
+<div id="ejemplo-3" class="section level3 box1 with-label">
+<h3>Ejemplo</h3>
+<p>Supongamos los siguientes conjuntos</p>
+<ul>
+<li><span class="math inline">\(A = \{1,2,3,4,5,6 \}\)</span> y</li>
+<li><span class="math inline">\(B = \{2,4,6,8,10,12,14,16,18,20
+\}\)</span></li>
+</ul>
+<p><span class="math display">\[B-A =\{ 8,10,12,14,16,18,20
+\}\]</span></p>
+</div>
+<p><br/><br/></p>
+</div>
+<div id="ejercicios-propuestos" class="section level1">
+<h1>Ejercicios propuestos</h1>
+<ol style="list-style-type: decimal">
+<li>Escriba por extensión los siguientes conjuntos:</li>
+</ol>
+<p>(a). <span class="math inline">\(A=\{x\in\mathbb{N}:1\leq x\leq
+8\}\)</span>.</p>
+<p>(b). <span class="math inline">\(B=\{x\in\mathbb{Z}:-3\leq
+x&lt;4\}\)</span>.</p>
+<p>(c). <span class="math inline">\(C=\{x\in\mathbb{N}:x\text{ es par y
+}x&lt;15\}\)</span>.</p>
+<p><br/></p>
+<ol start="2" style="list-style-type: decimal">
+<li>Sean <span class="math inline">\(A=\{1,2,3,4,5,6\}\)</span> y <span
+class="math inline">\(B=\{4,5,6,7,8\}\)</span>. Calcule <span
+class="math inline">\(A\cup B\)</span>, <span
+class="math inline">\(A\cap B\)</span>, <span
+class="math inline">\(A-B\)</span> y <span
+class="math inline">\(B-A\)</span>.</li>
+</ol>
+<p><br/></p>
+<ol start="3" style="list-style-type: decimal">
+<li>Considere el conjunto universal <span
+class="math inline">\(U=\{1,2,3,4,5,6,7,8,9,10\}\)</span> y <span
+class="math inline">\(A=\{2,4,6,8,10\}\)</span>. Determine <span
+class="math inline">\(A^c\)</span> y compruebe que <span
+class="math inline">\(A\cup A^c=U\)</span>.</li>
+</ol>
+<p><br/></p>
+<ol start="4" style="list-style-type: decimal">
+<li>Para <span class="math inline">\(D=\{a,b,c\}\)</span>, escriba todos
+sus subconjuntos y determine la cardinalidad del conjunto potencia <span
+class="math inline">\(\mathcal{P}(D)\)</span>.</li>
+</ol>
+<p><br/></p>
+<ol start="5" style="list-style-type: decimal">
+<li>En un curso, 28 estudiantes practican fútbol, 18 practican
+baloncesto y 10 practican ambos deportes. ¿Cuántos practican al menos
+uno de los dos deportes?</li>
+</ol>
+<p><br/></p>
+<ol start="6" style="list-style-type: decimal">
+<li>Sean <span class="math inline">\(U=\{1,2,3,4,5,6,7,8,9\}\)</span>,
+<span class="math inline">\(A=\{1,2,3,4,5\}\)</span> y <span
+class="math inline">\(B=\{4,5,6,7\}\)</span>. Verifique las leyes de De
+Morgan calculando:</li>
+</ol>
+<p>(a). <span class="math inline">\((A\cup B)^c\)</span> y <span
+class="math inline">\(A^c\cap B^c\)</span>.</p>
+<p>(b). <span class="math inline">\((A\cap B)^c\)</span> y <span
+class="math inline">\(A^c\cup B^c\)</span>.</p>
+<p><br/></p>
+<ol start="7" style="list-style-type: decimal">
+<li>Si <span class="math inline">\(A=\{1,2,3\}\)</span> y <span
+class="math inline">\(B=\{x,y\}\)</span>, construya los productos
+cartesianos <span class="math inline">\(A\times B\)</span> y <span
+class="math inline">\(B\times A\)</span>. ¿Tienen los mismos
+elementos?</li>
+</ol>
+<p><br/></p>
+<ol start="8" style="list-style-type: decimal">
+<li>En una encuesta de 60 personas, 35 consumen café, 30 consumen té y
+15 consumen ambas bebidas. Determine cuántas personas consumen solamente
+café, solamente té y ninguna de las dos bebidas.</li>
+</ol>
+<p><br/></p>
+<ol start="9" style="list-style-type: decimal">
+<li>Determine si cada afirmación es verdadera o falsa y justifique su
+respuesta:</li>
+</ol>
+<p>(a). <span class="math inline">\(A\cap B\subseteq A\)</span>.</p>
+<p>(b). <span class="math inline">\(A\subseteq A\cup B\)</span>.</p>
+<p>(c). <span class="math inline">\(A-B=B-A\)</span> para cualesquiera
+conjuntos <span class="math inline">\(A\)</span> y <span
+class="math inline">\(B\)</span>.</p>
+<p>(d). <span class="math inline">\(A\cap\varnothing=A\)</span>.</p>
+<p><br/></p>
+<ol start="10" style="list-style-type: decimal">
+<li>Sean <span class="math inline">\(A=\{2,4,6,8,10,12\}\)</span>, <span
+class="math inline">\(B=\{3,6,9,12\}\)</span> y <span
+class="math inline">\(C=\{1,2,3,4,5,6\}\)</span>. Calcule y represente
+mediante un diagrama de Venn:</li>
+</ol>
+<p>(a). <span class="math inline">\((A\cup B)\cap C\)</span>.</p>
+<p>(b). <span class="math inline">\(A\cap(B\cup C)\)</span>.</p>
+<p>(c). <span class="math inline">\((A-B)\cup(B-C)\)</span>.</p>
+<p><br/><br/></p>
+<div id="código-r" class="section level3 box1 with-label">
+<h3>Código R</h3>
+<pre class="r"><code># Ejercicio 1: construye los conjuntos definidos por comprensión.
+A &lt;- 1:8                    # Números naturales entre 1 y 8.
+B &lt;- -3:3                   # Números enteros desde -3 hasta 3.
+C &lt;- seq(2, 14, by = 2)     # Números pares positivos menores que 15.
+
+# Ejercicio 2: define A y B para efectuar las operaciones básicas.
+A &lt;- c(1, 2, 3, 4, 5, 6)
+B &lt;- c(4, 5, 6, 7, 8)
+
+union(A, B)                 # Elementos que pertenecen a A o a B.
+intersect(A, B)             # Elementos comunes a ambos conjuntos.
+setdiff(A, B)               # Elementos de A que no pertenecen a B.
+setdiff(B, A)               # Elementos de B que no pertenecen a A.
+
+# Ejercicio 3: calcula el complemento de A respecto del universo U.
+U &lt;- 1:10
+A &lt;- c(2, 4, 6, 8, 10)
+Ac &lt;- setdiff(U, A)
+
+Ac
+setequal(union(A, Ac), U)   # Verifica que A unido con su complemento sea U.
+
+# Ejercicio 4: genera el conjunto potencia de un vector x.
+conjunto_potencia &lt;- function(x) {
+  # Para cada tamaño k, combn() obtiene todos los subconjuntos posibles.
+  unlist(
+    lapply(
+      0:length(x),
+      function(k) combn(x, k, simplify = FALSE)
+    ),
+    recursive = FALSE       # Conserva cada subconjunto como un vector separado.
+  )
+}
+
+D &lt;- c(&quot;a&quot;, &quot;b&quot;, &quot;c&quot;)
+P_D &lt;- conjunto_potencia(D)
+P_D                         # Muestra todos los subconjuntos de D.
+length(P_D)                 # Comprueba que hay 2^3 = 8 subconjuntos.
+
+# Ejercicio 5: aplica el principio de inclusión-exclusión.
+futbol &lt;- 28
+baloncesto &lt;- 18
+ambos &lt;- 10
+al_menos_uno &lt;- futbol + baloncesto - ambos
+
+# Ejercicio 6: define el universo y los conjuntos para verificar De Morgan.
+U &lt;- 1:9
+A &lt;- 1:5
+B &lt;- 4:7
+
+# Comprueba que el complemento de la unión sea la intersección de complementos.
+setequal(
+  setdiff(U, union(A, B)),
+  intersect(setdiff(U, A), setdiff(U, B))
+)
+
+# Comprueba que el complemento de la intersección sea la unión de complementos.
+setequal(
+  setdiff(U, intersect(A, B)),
+  union(setdiff(U, A), setdiff(U, B))
+)
+
+# Ejercicio 7: construye los productos cartesianos en ambos órdenes.
+A &lt;- c(1, 2, 3)
+B &lt;- c(&quot;x&quot;, &quot;y&quot;)
+AxB &lt;- expand.grid(A = A, B = B)
+BxA &lt;- expand.grid(B = B, A = A)
+
+# Ejercicio 8: separa los resultados de la encuesta por regiones del diagrama.
+total &lt;- 60
+cafe &lt;- 35
+te &lt;- 30
+ambas &lt;- 15
+
+solo_cafe &lt;- cafe - ambas
+solo_te &lt;- te - ambas
+ninguna &lt;- total - (cafe + te - ambas)
+
+# Ejercicio 9: una función auxiliar comprueba si A es subconjunto de B.
+es_subconjunto &lt;- function(A, B) all(A %in% B)
+
+es_subconjunto(intersect(A, B), A)       # A intersección B está contenido en A.
+es_subconjunto(A, union(A, B))           # A está contenido en A unión B.
+setequal(setdiff(A, B), setdiff(B, A))    # Evalúa si A-B y B-A son iguales.
+setequal(intersect(A, numeric(0)), A)     # Evalúa si A intersección vacío es A.
+
+# Ejercicio 10: redefine A, B y C y resuelve las operaciones combinadas.
+A &lt;- c(2, 4, 6, 8, 10, 12)
+B &lt;- c(3, 6, 9, 12)
+C &lt;- 1:6
+
+intersect(union(A, B), C)                 # (A unión B) intersección C.
+intersect(A, union(B, C))                 # A intersección (B unión C).
+union(setdiff(A, B), setdiff(B, C))       # (A-B) unión (B-C).</code></pre>
+</div>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("hide" === "show");
+});
+</script>
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

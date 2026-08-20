@@ -13,7 +13,7 @@ output:
       - cajas.css
 ---
 
- 
+
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE,comment = NA)
@@ -28,19 +28,19 @@ source("colores.R")
 
 ```{r, echo=FALSE, out.width="100%", fig.align = "center"}
  knitr::include_graphics("img/recurso0.png")
-``` 
+```
 
 
 
 
 <br/><br/>
 
-# PRODUCTORIA
+# Productoria
 
 
-El productorio o productoria, también conocido como multiplicatorio, multiplicatoria o simplemente producto es una notación matemática que representa una multiplicación de una cantidad arbitraria finita o infinita.
- 
-Wikipedia
+>El productorio o productoria, también conocido como multiplicatorio, multiplicatoria o simplemente producto es una notación matemática que representa una multiplicación de una cantidad arbitraria finita o infinita.
+>
+>Wikipedia
 
 
 Este operador será utilizado para desarrollar el método de estimación de Máxima Verosimilitud, soporte de la inferencia estadística abordado en la Unidad 4.1 del Módulo 4.
@@ -58,22 +58,22 @@ $$\displaystyle\prod_{i=1}^n a_{i}   = a_1 \times a_2 \times a_3 \times  \cdots 
 
 
 
-El operador consiste en multiplicar un numero de veces establecido los términos $a_i$
+El operador consiste en multiplicar un número establecido de términos $a_i$.
 Una de las aplicaciones más conocida de la productoria son los números factoriales
 
-$$n! = \displaystyle\prod_{i=1}^n i = 1 \times 2 \times 3 \cdots \times n$$    
+$$n! = \displaystyle\prod_{i=1}^n i = 1 \times 2 \times 3 \cdots \times n$$
 
 Este operador también se utiliza para multiplicar funciones, matrices como por ejemplo:
 
-$$\displaystyle\prod_{i=1}^n f(x_i) = f(x_1) \times f(x_2) \times f(x_3) \cdots \times f(x_n)$$    
+$$\displaystyle\prod_{i=1}^n f(x_i) = f(x_1) \times f(x_2) \times f(x_3) \cdots \times f(x_n)$$
 Para el caso de $f(x) = \exp\{x\}$ tenemos:
 
 
-$$\displaystyle\prod_{i=1}^n \exp\{x_i\} = \exp\{x_1\} \times \exp\{x_2\} \times \exp\{x_3\} \cdots \times \exp\{x_n\}$$    
+$$\displaystyle\prod_{i=1}^n \exp\{x_i\} = \exp\{x_1\} \times \exp\{x_2\} \times \exp\{x_3\} \cdots \times \exp\{x_n\}$$
 
 Al tener la misma base con diferente exponente, el resultado se obtiene al colocar la misma base y sumar los exponentes,
 
-$$\exp\Bigg\{\displaystyle\sum_{i=1}^{n} x_{i}\Bigg\}$$ 
+$$\exp\Bigg\{\displaystyle\sum_{i=1}^{n} x_{i}\Bigg\}$$
 
 
 
@@ -81,7 +81,7 @@ $$\exp\Bigg\{\displaystyle\sum_{i=1}^{n} x_{i}\Bigg\}$$
 
 Encontrar la multiplicación de los 10 primeros números
 
-$$\displaystyle\prod_{x=1}^n x = 1 \times 2 \times 3 \times 4 \times 5 \times 6 \times 7 \times 8 \times 9 \times 10 $$
+$$\displaystyle\prod_{x=1}^{10} x = 1 \times 2 \times 3 \times 4 \times 5 \times 6 \times 7 \times 8 \times 9 \times 10 $$
 
 ```{r}
 prod(1:10)
@@ -100,20 +100,104 @@ prod(1:10)
 
 
 
-3. $\displaystyle\prod_{i=1}^n f(x_{i})$ 
+3. $\displaystyle\prod_{i=1}^n f(x_{i})$
 
 
 
 para las siguientes funciones:
 
-  + $f(x) = \dfrac{1}{60}$ 
-  
+  + $f(x) = \dfrac{1}{60}$
 
-  
+
+
   + $f(x_{i}) = \dfrac{1}{x_{i}}$
-  
-
-  
-  + $f(x_{i}) = \dfrac{1}{\sqrt{2\pi}} \exp\bigg\{\frac{1}{2}x^{2}\bigg\}$
 
 
+
+  + $f(x_{i}) = \dfrac{1}{\sqrt{2\pi}} \exp\bigg\{-\frac{1}{2}x_i^{2}\bigg\}$
+
+
+
+4. Calcule $\displaystyle\prod_{k=1}^{6}(k+1)$ y escriba el producto de forma desarrollada.
+
+
+5. Evalúe $\displaystyle\prod_{i=1}^{8}3$ y exprese el resultado como una potencia.
+
+
+6. Utilice notación de productoria para representar $10!$ y compruebe el resultado con la función `factorial()` de R.
+
+
+7. Para $x=(2,4,3,5,2)$, calcule $\displaystyle\prod_{i=1}^{5}x_i$ y verifique el resultado con la función `prod()`.
+
+
+8. Si $\displaystyle\prod_{i=1}^{4}x_i=120$, determine $\displaystyle\prod_{i=1}^{4}(2x_i)$ sin conocer individualmente los valores de $x_i$.
+
+
+9. Simplifique $\displaystyle\prod_{i=1}^{n}(a b_i)$ en términos de $a$ y de $\displaystyle\prod_{i=1}^{n}b_i$. Luego evalúe el resultado para $a=2$, $n=4$ y $b=(1,3,2,5)$.
+
+
+10. Una inversión se multiplica cada año por los factores $1.05$, $1.04$, $1.06$, $1.03$ y $1.05$. Utilice una productoria para calcular el factor acumulado y el valor final de una inversión inicial de $1\,000\,000$ de pesos.
+
+
+
+<div class="box1 with-label">
+### Código R
+
+
+```{r codigo-productoria, eval=FALSE}
+# Ejercicio 1: calcula el producto de 2^k para k = 1, ..., 20.
+prod(2^(1:20))
+
+# Ejercicio 2: multiplica los términos k * 2^k para k = 1, ..., 20.
+prod((1:20) * 2^(1:20))
+
+# Ejercicio 3: define los valores donde se evaluarán las funciones.
+x <- c(1, 2, 3, 4)
+n <- length(x)  # Número de factores del producto.
+
+# Producto de la función constante f(x_i) = 1/60.
+prod(rep(1 / 60, n))
+
+# Producto de los recíprocos f(x_i) = 1/x_i.
+prod(1 / x)
+
+# Producto de las densidades normales estándar evaluadas en cada x_i.
+prod(dnorm(x))
+
+# Ejercicio 4: evalúa k + 1 para k = 1, ..., 6 y multiplica.
+prod((1:6) + 1)
+
+# Ejercicio 5: comprueba que multiplicar ocho factores 3 equivale a 3^8.
+prod(rep(3, 8))
+3^8
+
+# Ejercicio 6: compara la productoria de 1 a 10 con factorial(10).
+prod(1:10)
+factorial(10)
+
+# Ejercicio 7: multiplica todos los elementos del vector x.
+x <- c(2, 4, 3, 5, 2)
+prod(x)
+
+# Ejercicio 8: usa prod(2x_i) = 2^n * prod(x_i).
+producto_x <- 120
+n <- 4
+2^n * producto_x
+
+# Ejercicio 9: verifica prod(a*b_i) = a^n * prod(b_i).
+a <- 2
+b <- c(1, 3, 2, 5)
+a^length(b) * prod(b)  # Resultado mediante la propiedad.
+prod(a * b)            # Comprobación mediante el producto directo.
+
+# Ejercicio 10: multiplica los factores anuales de crecimiento.
+factores <- c(1.05, 1.04, 1.06, 1.03, 1.05)
+factor_acumulado <- prod(factores)
+capital_inicial <- 1000000
+
+# Muestra el factor acumulado y calcula el capital al final de cinco años.
+factor_acumulado
+capital_inicial * factor_acumulado
+```
+
+</div>

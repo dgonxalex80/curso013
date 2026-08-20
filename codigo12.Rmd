@@ -9,6 +9,9 @@ output:
     toc_float: yes
     code_folding: hide
     theme: flatly
+    css:
+      - style.css
+      - cajas.css
 ---    
     
 
@@ -548,4 +551,66 @@ formattable(df, list(
   Promedio = color_bar("#F6E8D9"))
 )
 
+```
+
+
+<br/><br/>
+
+# Código R
+
+El siguiente bloque reúne el código principal para construir tablas de frecuencia y calcular indicadores descriptivos con las bases utilizadas en este documento.
+
+```{r codigo-r-resumen, eval=FALSE}
+library(readr)
+library(readxl)
+library(dplyr)
+library(flextable)
+library(psych)
+library(summarytools)
+
+# Importación de datos
+clientes <- read_csv("data/clientes.csv")
+ventas <- read_excel("data/ventas.xlsx")
+
+# Tabla de frecuencias: variable cualitativa
+frecuencia_pago <- table(ventas$Metodo_Pago, useNA = "ifany")
+frecuencia_pago
+prop.table(frecuencia_pago) * 100
+
+# Presentación de la tabla con flextable
+tabla_pago <- as.data.frame(frecuencia_pago)
+colnames(tabla_pago) <- c("Método de pago", "Frecuencia")
+flextable(tabla_pago) |>
+  autofit()
+
+# Agrupación de una variable cuantitativa en intervalos
+clientes <- clientes |>
+  mutate(
+    edadR = cut(
+      edad_cliente,
+      breaks = c(-Inf, 20, 30, 40, 50, 60, Inf),
+      labels = c(
+        "18 a 20 años", "21 a 30 años", "31 a 40 años",
+        "41 a 50 años", "51 a 60 años", "Más de 60 años"
+      )
+    )
+  )
+
+table(clientes$edadR, useNA = "ifany")
+summarytools::freq(clientes$edadR)
+
+# Tabla de doble entrada y porcentajes
+tabla_doble <- table(clientes$edadR, clientes$categoria_preferida)
+tabla_doble
+prop.table(tabla_doble) * 100
+prop.table(tabla_doble, margin = 1) * 100
+
+# Indicadores descriptivos
+summary(clientes$ingresos)
+psych::describe(clientes$ingresos)
+psych::describe.by(
+  clientes$ingresos,
+  group = clientes$genero_cliente
+)
+summarytools::descr(clientes$ingresos)
 ```

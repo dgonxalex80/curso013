@@ -1,0 +1,259 @@
+---
+title: "Caso Cerveza"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    vertical_layout: fill
+---
+
+```{r setup, include=FALSE}
+library(flexdashboard)
+library(paquetePROB)
+data(beer)
+# https://rstudio.github.io/flexdashboard/articles/layouts.html
+# https://rstudio.github.io/flexdashboard/articles/using.html
+
+# Definir colores
+colores <- c(
+  "#C68642", # 1-lager artesanal - ámbar
+  "#F1C40F", # 2-clara artesanal - dorado
+  "#7B3F00", # 3-lager importada - marrón
+  "#F39C12", # 4-normal y helada - amarillo intenso
+  "#BDC3C7"  # 5-baja en alcohol - gris claro
+)
+
+# Etiquetas
+labs_tp <- c("lager artesanal","clara artesanal","lager importada",
+          "normal y helada","baja en alcohol")
+labs_or=c("nacional","importada") 
+
+# Tamaños estándar para todos los gráficos
+tam_titulo    <- 1.2
+tam_ejes      <- 0.9
+tam_etiquetas <- 0.8
+tam_subtitulo <- 0.9
+
+
+```
+
+
+
+Column {.tabset}
+-----------------------------------------------------------------------
+
+### Precio
+
+```{r}
+# margenes exteriores c(bottom, left, top, right)
+par(mai = c(1, 1.5, 1, .2)) # margenes del grafico
+# Boxplot con etiquetas en el eje X
+boxplot(beer$precio ~ beer$tipo,
+        horizontal = TRUE,
+        col = colores,
+        las = 1,
+        xlab = "Precio",
+        ylab = " ",
+        names = labs_tp,       # aquí van las etiquetas
+        main = "Distribución del precio por tipo de cerveza",
+        cex.main = tam_titulo,
+        cex.lab  = tam_ejes,
+        cex.axis = tam_etiquetas,
+        cex.sub  = tam_subtitulo)    # tamaño del subtitulo
+grid()
+```
+
+### Calorias
+```{r}
+# contendo de calorias contenidas en una unidad de 12 onzas,
+par(mai = c(1, 1.5, 1, .2)) # margenes del grafico
+# --- Boxplot: Contenido de calorías ---
+boxplot(beer$calorias ~ beer$tipo,
+        horizontal = TRUE,
+        col = colores,
+        las = 1,
+        xlab = "Calorías (por 12 oz)",
+        ylab = " ",
+        names = labs_tp,
+        main = "Distribución de calorías por tipo de cerveza",
+        cex.main = tam_titulo,
+        cex.lab  = tam_ejes,
+        cex.axis = tam_etiquetas,
+        cex.sub  = tam_subtitulo)
+grid()
+```
+
+
+
+
+### Alcohol
+```{r}
+# porcentaje de contenido de alcohol por 12 onzas de contenido,
+par(mai = c(1, 1.5, 1, .2)) # margenes del grafico
+# --- Boxplot: Contenido de alcohol ---
+boxplot(beer$poralcoh ~ beer$tipo,
+        horizontal = TRUE,
+        col = colores,
+        las = 1,
+        xlab = "Porcentaje de alcohol (%)",
+        ylab = " ",
+        names = labs_tp,
+        cex.main = tam_titulo,
+        cex.lab  = tam_ejes,
+        cex.axis = tam_etiquetas,
+        cex.sub  = tam_subtitulo)
+grid()
+```
+
+
+
+### Precio x Calorias
+
+```{r, warning=FALSE,message=FALSE}
+plot(beer$precio, beer$calorias,
+     pch = 21,
+     bg = "#F6A623",   # Color de fondo
+     col = "#7B3F00", # Color del borde
+     cex = 1,      # Tamaño del símbolo
+     lwd = 1,      # Ancho del borde
+     las=1,
+     xlab = "Calorias",
+        ylab = "Precio ",
+        names = labs_tp,
+        main = "Distribución del precios por calorias",
+        cex.main = tam_titulo,
+        cex.lab  = tam_ejes,
+        cex.axis = tam_etiquetas,
+        cex.sub  = tam_subtitulo)
+grid()
+```
+### Calorias x Alcohol
+
+
+```{r, warning=FALSE,message=FALSE}
+plot(beer$calorias, beer$poralcoh,
+     pch = 21,
+     bg = "#F6A623",   # Color de fondo
+     col = "#7B3F00", # Color del borde
+     cex = 1,      # Tamaño del símbolo
+     lwd = 1,      # Ancho del borde
+     las=1,
+     xlab = "Calorias",
+        ylab = "Alcohol",
+        names = labs_tp,
+        main = "Distribución de las Calorias por Alcohol",
+        cex.main = tam_titulo,
+        cex.lab  = tam_ejes,
+        cex.axis = tam_etiquetas,
+        cex.sub  = tam_subtitulo)    # tamaño del subtitulo
+
+grid()
+```
+
+### Descriptivas
+
+```{r}
+summarytools::descr(beer[,2:4])
+```
+
+
+Column {.tabset}
+-----------------------------------------------------------------------
+
+### Tipo
+
+```{r}
+t1 <- table(beer$tipo)
+
+# etiquetas (en el mismo orden que los niveles de 'tipo')
+labs <- c("1-lager artesanal","2-clara artesanal","3-lager importada",
+          "4-normal y helada","5-baja en alcohol")
+names(t1) <- labs_tp  # asigna etiquetas al vector
+# margenes exteriores c(bottom, left, top, right)
+par(mai = c(1.5, 1.5, 1.5, .2)) # margenes del grafico
+# colores que ya tienes definidos: c30, c41, c50, c01, c21
+barplot(t1,
+        horiz = TRUE,
+        las = 1,
+        main = "Distribución tipo de cerveza",
+        col = colores,
+        xlim = c(0,70),
+        cex.main = tam_titulo,
+        cex.lab  = tam_ejes,
+        cex.axis = tam_etiquetas,
+        cex.sub  = tam_subtitulo)
+
+```
+
+### Origen
+
+```{r}
+ #país de origen (0-nacional, 1- importada).
+
+t2 <- table(beer$origen)
+labs=c("nacional","importada") 
+pct=round(t2/sum(t2)*100) 
+labs=paste(labs, pct);labs=paste(labs, "%", sep = " ") 
+pie(t2, 
+    labels=labs, 
+    main=" Distribución por origen",
+    col=c("#F1C40F", "#F39C12"),
+    cex.main = tam_titulo,
+    cex.lab  = tam_ejes,
+    cex.axis = tam_etiquetas,
+    cex.sub  = tam_subtitulo)
+
+ 
+
+```
+
+### Data
+
+```{r}
+library(DT)
+DT::datatable(head(beer, 69),fillContainer = FALSE, options = list(pageLength = 8))
+```
+
+### Informe
+
+Aquí va el análisis de los datos
+
+Column {data-width=200}
+-----------------------------------------------------------------------
+
+### Mínimo precio unidad
+
+```{r}
+# https://ionic.io/ionicons/v2/cheatsheet.html
+pmin=min(beer$precio)
+valueBox(pmin, icon = "ion-beer")
+```
+
+### Máximo precio unidad
+
+```{r}
+pmax=max(beer$precio)
+valueBox(pmax, icon = "ion-beer")
+```
+
+### Promedio precio unidad
+
+```{r}
+pmean  =round(mean(beer$precio),2)
+valueBox(pmean, 
+         icon = "ion-beer",
+         color = ifelse(pmean > 10, "warning", "primary"))
+```
+
+### Cerveza importada
+
+```{r}
+# porcentaje de cervezas importadas
+beer$origen_lbl <- factor(beer$origen, levels=c(0,1),
+                          labels=c("nacional","importada"))
+t3 <- table(beer$origen_lbl)                 # ahora sí: "nacional", "importada"
+pct_import <- unname(100 * t3["importada"] / sum(t3))
+gauge(pct_import, min=0, max=100, symbol="%",
+      sectors=gaugeSectors(success=c(80,100), warning=c(40,79), danger=c(0,39)))
+
+```
+

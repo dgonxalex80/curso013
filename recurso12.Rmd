@@ -9,6 +9,9 @@ output:
     toc_float: yes
     code_folding: hide
     theme: flatly
+    css:
+      - style.css
+      - cajas.css
 ---
 
 ```{r setup, include=FALSE}

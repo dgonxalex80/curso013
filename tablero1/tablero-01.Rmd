@@ -1,0 +1,138 @@
+---
+title: "Caso Cerveza"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    vertical_layout: fill
+---
+
+```{r setup, include=FALSE}
+library(flexdashboard)
+library(paquetePROB)
+data(beer)
+# https://rstudio.github.io/flexdashboard/articles/layouts.html
+# https://rstudio.github.io/flexdashboard/articles/using.html
+
+# Definir colores
+
+# Etiquetas
+labs_tp <- c("lager artesanal","clara artesanal","lager importada",
+          "normal y helada","baja en alcohol")
+labs_or=c("nacional","importada") 
+
+# Tamaños estándar para todos los gráficos
+
+```
+
+
+
+Column {.tabset}
+-----------------------------------------------------------------------
+
+### Precio
+
+```{r}
+boxplot(beer$precio ~ beer$tipo)
+
+```
+
+### Calorias
+```{r}
+boxplot(beer$calorias ~ beer$tipo)
+```
+
+
+
+
+### Alcohol
+```{r}
+boxplot(beer$poralcoh ~ beer$tipo)
+```
+
+
+
+### Precio x Calorias
+
+```{r, warning=FALSE,message=FALSE}
+plot(beer$precio, beer$calorias)
+
+```
+### Calorias x Alcohol
+
+
+```{r, warning=FALSE,message=FALSE}
+plot(beer$calorias, beer$poralcoh)
+```
+
+### Descriptivas
+
+```{r}
+summarytools::descr(beer[,2:4])
+```
+
+
+Column {.tabset}
+-----------------------------------------------------------------------
+
+### Tipo
+
+```{r}
+t1 <- table(beer$tipo)
+barplot(t1)
+```
+
+### Origen
+
+```{r}
+ #país de origen (0-nacional, 1- importada).
+
+t2 <- table(beer$origen)
+pie(t2)
+```
+
+### Data
+
+```{r}
+library(DT)
+DT::datatable(head(beer, 69),fillContainer = FALSE, options = list(pageLength = 8))
+```
+
+### Informe
+
+Aquí va el análisis de los datos
+
+Column {data-width=200}
+-----------------------------------------------------------------------
+
+### Mínimo precio unidad
+
+
+
+
+```{r}
+# https://ionic.io/ionicons/v2/cheatsheet.html
+min(beer$precio)
+
+```
+
+### Máximo precio unidad
+
+```{r}
+max(beer$precio)
+
+```
+
+### Promedio precio unidad
+
+```{r}
+round(mean(beer$precio),2)
+
+```
+
+### Cerveza importada
+
+```{r}
+# porcentaje de cervezas importadas
+t5 = table(beer$origen)
+round(t5[2]/length(beer$origen)*100, 2)
+```

@@ -54,116 +54,156 @@ h1,h2,h3,h4,h5,h6{
 }
 
 /*======================
-CAJA BASE
+CAJAS DEL CURSO
 ======================*/
 
-.box{
+/*
+  Las cajas usan el color del módulo activo. El primer h2/h3 se mantiene
+  como un título normal dentro del contenido, sin pestañas ni numeración.
+*/
+.box,
+.box1,
+.box2,
+.box3,
+.box4,
+.box5,
+.box6 {
+    --box-color:var(--module-color, #2C5697);
     position:relative;
-    padding:1.5rem;
-    margin:1.5rem 0;
-    border-radius:var(--radius);
-    border:2px solid;
-    background:#fff;
-    box-shadow:var(--shadow);
-}
-
-.box .label{
-    position:absolute;
-    top:-14px;
-    left:16px;
-    padding:.35rem .8rem;
+    box-sizing:border-box;
+    margin:1.8rem 0;
+    padding:1.45rem 1.6rem;
+    border:2px solid var(--box-color);
     border-radius:8px;
-    color:#fff;
-    font-weight:bold;
-    font-size:.95rem;
+    color:var(--text);
+    background:var(--white);
+    box-shadow:0 5px 14px rgba(38,55,74,.12);
 }
 
-/*=========================================================
- CAJA 1
-=========================================================*/
-
-.box1{
-    border-color:var(--c11);
-    background:var(--c12);
-}
-.box1 .label{
-    background:var(--c11);
-}
-.box1 .label::before{
-    content:"Caja 1";
+/* Título normal, alineado con el color correspondiente al módulo. */
+:is(.box,.box1,.box2,.box3,.box4,.box5,.box6) > :is(h2,h3):first-child {
+    position:static;
+    margin:0 0 .8rem !important;
+    padding:0 !important;
+    border:0;
+    color:var(--box-color) !important;
+    background:transparent;
+    font-family:var(--font-title);
+    line-height:1.2;
+    text-align:left;
 }
 
-/*=========================================================
- CAJA 2
-=========================================================*/
-
-.box2{
-    border-color:var(--c21);
-    background:var(--c22);
-}
-.box2 .label{
-    background:var(--c21);
-}
-.box2 .label::before{
-    content:"Caja 2";
+:is(.box,.box1,.box2,.box3,.box4,.box5,.box6) > h2:first-child {
+    font-size:32px !important;
 }
 
-/*=========================================================
- CAJA 3
-=========================================================*/
-
-.box3{
-    border-color:var(--c31);
-    background:var(--c32);
-}
-.box3 .label{
-    background:var(--c31);
-}
-.box3 .label::before{
-    content:"Caja 3";
+:is(.box,.box1,.box2,.box3,.box4,.box5,.box6) > h3:first-child {
+    font-size:26px !important;
 }
 
-/*=========================================================
- CAJA 4
-=========================================================*/
-
-.box4{
-    border-color:var(--c41);
-    background:var(--c42);
-}
-.box4 .label{
-    background:var(--c41);
-}
-.box4 .label::before{
-    content:"Caja 4";
+/* Evita espacio extra al final y mantiene fórmulas dentro del marco. */
+:is(.box,.box1,.box2,.box3,.box4,.box5,.box6) > :last-child {
+    margin-bottom:0;
 }
 
-/*=========================================================
- CAJA 5
-=========================================================*/
-
-.box5{
-    border-color:var(--c51);
-    background:var(--c52);
-}
-.box5 .label{
-    background:var(--c51);
-}
-.box5 .label::before{
-    content:"Caja 5";
+:is(.box,.box1,.box2,.box3,.box4,.box5,.box6) .math.display {
+    overflow-x:auto;
+    overflow-y:hidden;
 }
 
-/*=========================================================
- CAJA 6
-=========================================================*/
+@media (max-width:640px) {
+    .box,
+    .box1,
+    .box2,
+    .box3,
+    .box4,
+    .box5,
+    .box6 {
+        padding:1.15rem 1rem;
+    }
+}
 
-.box6{
-    border-color:#999999;
-    background:#F5F5F5;
+
+/* Compatibilidad con el visor integrado de RStudio. */
+.main-container div.box,
+.main-container div.box1,
+.main-container div.box2,
+.main-container div.box3,
+.main-container div.box4,
+.main-container div.box5,
+.main-container div.box6 {
+    display:block;
+    position:relative;
+    box-sizing:border-box;
+    width:100%;
+    margin:1.8rem 0;
+    padding:1.45rem 1.6rem;
+    border-width:2px !important;
+    border-style:solid !important;
+    border-radius:8px !important;
+    background-color:#FFFFFF !important;
+    box-shadow:0 5px 14px rgba(38,55,74,.12);
 }
-.box6 .label{
-    background:#999999;
+
+.main-container div.box,
+.main-container div.box6 { border-color:#2C5697 !important; }
+.main-container div.box1 { border-color:#F6A623 !important; }
+.main-container div.box2 { border-color:#E85A67 !important; }
+.main-container div.box3 { border-color:#3498C9 !important; }
+.main-container div.box4 { border-color:#476885 !important; }
+.main-container div.box5 { border-color:#67C1A8 !important; }
+
+.main-container div.box > h2:first-child,
+.main-container div.box > h3:first-child,
+.main-container div.box1 > h2:first-child,
+.main-container div.box1 > h3:first-child,
+.main-container div.box2 > h2:first-child,
+.main-container div.box2 > h3:first-child,
+.main-container div.box3 > h2:first-child,
+.main-container div.box3 > h3:first-child,
+.main-container div.box4 > h2:first-child,
+.main-container div.box4 > h3:first-child,
+.main-container div.box5 > h2:first-child,
+.main-container div.box5 > h3:first-child,
+.main-container div.box6 > h2:first-child,
+.main-container div.box6 > h3:first-child {
+    position:static;
+    margin:0 0 .8rem !important;
+    padding:0 !important;
+    border:0 !important;
+    background:transparent !important;
+    font-family:var(--font-title, "Anton", sans-serif);
+    line-height:1.2;
+    text-align:left;
 }
-.box6 .label::before{
-    content:"Caja 6";
-}
+
+.main-container div.box > h2:first-child,
+.main-container div.box > h3:first-child,
+.main-container div.box6 > h2:first-child,
+.main-container div.box6 > h3:first-child { color:#2C5697 !important; }
+.main-container div.box1 > h2:first-child,
+.main-container div.box1 > h3:first-child { color:#F6A623 !important; }
+.main-container div.box2 > h2:first-child,
+.main-container div.box2 > h3:first-child { color:#E85A67 !important; }
+.main-container div.box3 > h2:first-child,
+.main-container div.box3 > h3:first-child { color:#3498C9 !important; }
+.main-container div.box4 > h2:first-child,
+.main-container div.box4 > h3:first-child { color:#476885 !important; }
+.main-container div.box5 > h2:first-child,
+.main-container div.box5 > h3:first-child { color:#67C1A8 !important; }
+
+.main-container div.box > h2:first-child,
+.main-container div.box1 > h2:first-child,
+.main-container div.box2 > h2:first-child,
+.main-container div.box3 > h2:first-child,
+.main-container div.box4 > h2:first-child,
+.main-container div.box5 > h2:first-child,
+.main-container div.box6 > h2:first-child { font-size:32px !important; }
+
+.main-container div.box > h3:first-child,
+.main-container div.box1 > h3:first-child,
+.main-container div.box2 > h3:first-child,
+.main-container div.box3 > h3:first-child,
+.main-container div.box4 > h3:first-child,
+.main-container div.box5 > h3:first-child,
+.main-container div.box6 > h3:first-child { font-size:26px !important; }

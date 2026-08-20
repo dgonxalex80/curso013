@@ -11,7 +11,9 @@ output:
       smooth_scroll: false
     code_folding: show
     theme: flatly
-    css: style.css
+    css:
+      - style.css
+      - cajas.css
 always_allow_html: true
 ---
 

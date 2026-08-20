@@ -1,0 +1,142 @@
+---
+title: " "
+subtitle: " "
+author: "dgonzalez "
+output:
+  html_document:
+    toc: no
+    toc_depth: 2
+    toc_float: yes
+    code_folding: hide
+    theme: flatly
+    css:
+      - style.css
+      - cajas.css
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE, comment = NA)
+library(psych)
+library(summarytools)
+
+# install.packages("devtools")
+# devtools::install_github("dgonxalex80/paqueteDEG")
+# El paquete se carga en la sección de datos.
+
+# colores
+source("init.R")
+
+# install.packages('gtools')
+# install.packages("TeachingSampling")
+
+#load library
+#library(gtools)
+#library(TeachingSampling)
+#library(readr)
+#base_muestreo <- read_delim("data/base_muestreo.csv", 
+#    delim = ";", escape_double = FALSE, col_types = cols(ID = col_integer()), 
+#    trim_ws = TRUE)
+
+
+
+```
+
+```{r, echo=FALSE, out.width="100%", fig.align = "center"}
+knitr::include_graphics("img/caso1.png")
+```
+
+<br/><br/>
+
+# Enunciado
+
+<br/>
+
+<!-- ![](img/cerveza.png) -->
+
+La presente investigación surge del interés de una empresa del sector cervecero por comprender las preferencias expresadas por los consumidores y reconocer qué características de las cervezas se relacionan con mejores valoraciones. Conocer las diferencias según el tipo, el origen, la composición nutricional, el precio y los atributos sensoriales puede aportar evidencia para orientar la selección del portafolio, la comunicación de los productos y futuras decisiones comerciales. En esta primera aproximación se realizará un análisis descriptivo; por tanto, los resultados permitirán identificar patrones y formular nuevas hipótesis, pero no establecer relaciones causales.
+
+Para desarrollar el estudio se dispone de la base de datos **beer2.csv**, que contiene **1.586.614 reseñas de cerveza** y **15 variables**. Cada fila corresponde a una reseña; por esta razón, una misma cerveza puede aparecer en varios registros. La base no presenta datos faltantes y reúne información de identificación, características nutricionales, procedencia y valoraciones de los productos. La variable `precio` es simulada.
+
+La composición de la base de datos es la siguiente:  
+
++ <span style="color:#b0394a">**id**</span>: identificador numérico de la cerveza reseñada. Sirve para reconocer el producto y no constituye una variable estadística de interés.
+
++ <span style="color:#b0394a">**marca**</span>: variable cualitativa nominal que identifica la cervecería o marca productora.
+
++ <span style="color:#b0394a">**precio**</span>: variable cuantitativa continua, simulada, que registra el precio de referencia de una caja de seis botellas de 355 ml.
+
++ <span style="color:#b0394a">**alcohol**</span>: variable cuantitativa continua que indica los gramos de alcohol puro contenidos en 355 ml de cerveza.
+
++ <span style="color:#b0394a">**carbohidratos**</span>: variable cuantitativa continua que estima los gramos de carbohidratos contenidos en 355 ml.
+
++ <span style="color:#b0394a">**calorias**</span>: variable cuantitativa discreta que estima las calorías totales contenidas en 355 ml.
+
++ <span style="color:#b0394a">**nacionalidad**</span>: variable cualitativa nominal que indica el país asignado a la cervecería.
+
++ <span style="color:#b0394a">**calificacion**</span>: variable cualitativa ordinal que valora la experiencia general con la cerveza mediante una puntuación numérica.
+
++ <span style="color:#b0394a">**aroma**</span>: variable cualitativa ordinal que valora el aroma de la cerveza.
+
++ <span style="color:#b0394a">**apariencia**</span>: variable cualitativa ordinal que valora la apariencia de la cerveza.
+
++ <span style="color:#b0394a">**paladar**</span>: variable cualitativa ordinal que valora la sensación de la cerveza en el paladar.
+
++ <span style="color:#b0394a">**sabor**</span>: variable cualitativa ordinal que valora el sabor de la cerveza.
+
++ <span style="color:#b0394a">**nombre_cerveza**</span>: variable cualitativa nominal que registra el nombre comercial de la cerveza reseñada.
+
++ <span style="color:#b0394a">**tipo**</span>: variable cualitativa nominal que clasifica el producto como cerveza normal y helada, baja en calorías o sin alcohol, lager importada, clara artesanal o lager artesanal.
+
++ <span style="color:#b0394a">**origen**</span>: variable cualitativa nominal dicotómica que clasifica la cerveza como nacional o importada.
+
+El director de investigación le encarga, en calidad de analista de datos, elaborar un informe descriptivo que sirva como diagnóstico inicial. Para las variables cualitativas y ordinales deberá construir tablas de frecuencias absolutas y relativas e identificar la moda; para las variables cuantitativas deberá calcular indicadores de tendencia central, posición y dispersión, seleccionando aquellos que resulten apropiados según la distribución observada. También deberá comparar los indicadores entre tipos y orígenes de cerveza e interpretar los resultados en relación con el propósito de la investigación. El informe debe señalar los principales patrones encontrados, advertir que las variables simuladas describen únicamente esta base académica y evitar conclusiones causales.
+
+<br/><br/>
+
+## Base de datos
+
+<br/>
+
+```{r}
+library(DT)
+# Cargar los datos
+library(readr)
+beer2 <- read_csv("data/beer2.csv")
+# Mostrar la tabla con DataTable
+DT::datatable(
+  head(beer2),
+  fillContainer = FALSE,
+  options = list(pageLength = 8)
+)
+
+```
+<br/>
+
+
+<br/><br/>
+
+#### [Tablero](https://rpubs.com/dgonzalez80/caso1)
+
+<br/>
+
+
+#### [Flexdashboard](https://rstudio.github.io/flexdashboard/articles/using.html)
+
+
+<br/>
+
+
+#### [icons](https://ionic.io/ionicons/v2/cheatsheet.html)
+
+
+<br/><br/>
+
+
+<div class="box2 with-label">
+### Código R
+
+
+```{r codigo-caso1, eval=FALSE}
+
+```
+

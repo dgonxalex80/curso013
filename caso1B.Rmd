@@ -1,0 +1,145 @@
+---
+title: " "
+subtitle: " "
+author: "dgonzalez "
+output:
+  html_document:
+    toc: no
+    toc_depth: 2
+    toc_float: yes
+    code_folding: hide
+    theme: flatly
+    css:
+      - style.css
+      - cajas.css
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE, comment = NA)
+library(psych)
+library(summarytools)
+
+# install.packages("devtools")
+# devtools::install_github("dgonxalex80/paqueteDEG")
+# El paquete se carga en la sección de datos.
+
+# colores
+source("init.R")
+
+# install.packages('gtools')
+# install.packages("TeachingSampling")
+
+#load library
+#library(gtools)
+#library(TeachingSampling)
+#library(readr)
+#base_muestreo <- read_delim("data/base_muestreo.csv", 
+#    delim = ";", escape_double = FALSE, col_types = cols(ID = col_integer()), 
+#    trim_ws = TRUE)
+
+
+
+```
+
+```{r, echo=FALSE, out.width="100%", fig.align = "center"}
+knitr::include_graphics("img/caso1.png")
+```
+
+<br/><br/>
+
+
+# Enunciado
+
+<!-- ![](img/cerveza.png) -->
+
+La siguiente información recoge cinco de las principales características de un grupo de marcas de cerveza que fue recogida con la finalizad de clasificar los productos y además permita realizar un análisis descriptivo de las 69 marcas recogidas
+
+Inicialmente el director de investigación desea su apoyo en una primera etapa del análisis que consiste en resumir la información suministrada en tablas e indicadores que le permitan validar algunas de sus hipótesis.
+
+La base compartida contiene información sobre 69 marcas de cervezas que son distribuidas en la ciudad. 
+Las variables recogidas corresponden a:  
+
++ <span style="color:#b0394a">**precio**</span>  de la presentación en caja de seis botellas de 12 onzas, 
+
++ contendo de <span style="color:#b0394a">**calorias**</span>  congtenidas en una unidad de 12 onzas, 
+
++ porcentaje de contenido de <span style="color:#b0394a">**alcohol**</span>  por 12 onzas de contenido, 
+
++ <span style="color:#b0394a">**tipo**</span>  de cerveza (1-lager artesanal, 2-clara artesanal, 3-lager importada, 4-cerveza normal y helada, y 5-cerveza baja en calorías y sin alcohol) y 
+
++ país de <span style="color:#b0394a">**origen**</span>  (0-nacional, 1- importada).
+
+Su trabajo consiste en escribir un primer informe basado en una evaluación descriptiva, que contenga las tablas que resumen la información para cada variable de base de datos y  resumen de sus indicadores estadísticos.
+
+Finalmente adjunte un análisis de los resultados obtenidos.
+
+<br/><br/>
+
+# Cargar datos 
+
+
+<pre>
+install.packages("devtools") # solo una vez
+devtools::install_github("dgonxalex80/paquetePROB") # descarga paquetePROB
+library(paquetePROB # activa paquetePROB
+data("beer") # carga la base beer
+</pre>
+
+```{r, eval=FALSE}
+install.packages("devtools") # solo una vez
+devtools::install_github("dgonxalex80/paquetePROB") # descarga paqueteDEG
+library(paquetePROB) # activa paqueteDEG
+data("beer") # carga la base beer
+```
+
+<br/><br/>
+
+# Base de datos
+```{r}
+library(DT)
+# Cargar los datos
+library(paquetePROB)
+data(beer)
+# Mostrar la tabla con DataTable
+DT::datatable(
+  head(beer, fillContainer = FALSE, options = list(pageLength = 8))
+)
+
+```
+<br/>
+
+<center>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/lVQ5MjSpi4E?si=Rlta13udaInGPPQj" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+</center>
+
+
+<br/><br/>
+
+<center>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/sAwkejZDgBk?si=ITGRZE1g5hh96ZUg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+</center>
+
+
+<br/><br/>
+
+<center>
+
+</center>
+
+
+### [Tablero](https://rpubs.com/dgonzalez80/caso1)
+
+<br/>
+
+
+### [Flexdashboard](https://rstudio.github.io/flexdashboard/articles/using.html) 
+
+
+
+<br/>
+
+
+### [icons](https://ionic.io/ionicons/v2/cheatsheet.html)
+
+
+

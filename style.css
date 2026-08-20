@@ -301,3 +301,25 @@ blockquote {
   border-radius: 8px !important;
   clip-path: inset(0 round 8px);
 }
+
+
+/* Fila horizontal de logotipos de paquetes. */
+.main-container .package-logo-row {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: center;
+  gap: 1.4rem;
+  width: 100%;
+  margin: 1.4rem 0 2rem;
+  overflow-x: auto;
+}
+
+.main-container .package-logo-row img {
+  display: inline-block;
+  flex: 0 0 auto;
+  width: auto !important;
+  height: 82px !important;
+  margin: 0 !important;
+  object-fit: contain !important;
+}

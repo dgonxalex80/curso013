@@ -10,6 +10,7 @@ output:
     theme: flatly
     css:
       - style.css
+      - cajas.css
       - guia-aprendizaje.css
 ---
 

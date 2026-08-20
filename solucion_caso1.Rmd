@@ -7,7 +7,9 @@ output:
     toc_float: true
     code_folding: hide
     theme: flatly
-    css: style.css
+    css:
+      - style.css
+      - cajas.css
 ---
 
 ```{r setup, include=FALSE}

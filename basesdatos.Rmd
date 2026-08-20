@@ -1,13 +1,16 @@
 ---
-title: <span style="color:#E85A67">Teoría de Probabilidades</span>
-author: <span style="color:#E85A67">dgonzalez</span>
-subtitle: " "
+title: <span style="color:#f9ceca"> </span>  
+author: <span style="color:#f9ceca">dgonzalez</span> 
+subtitle: <span style="color:#f9ceca"> </span> 
 output:
   html_document:
     toc: no
     toc_depth: 2
     toc_float: yes
     theme: flatly
+    css:
+      - style.css
+      - cajas.css
 ---
 
 ```{r setup, include=FALSE}
@@ -303,13 +306,18 @@ En este ejemplo se utiliza la base **FIFA World Cup 2026 Dataset**, que contiene
 
 <br/><br/>
 
+
+<div class="box2 with-label">
 ### Código R
+
 
 <pre>
 library(DT)
 fifa2026 <- read.csv("data/squads_and_players.csv")
 datatable(head(fifa2026, 100), fillContainer = FALSE, options = list(pageLength = 5))
 </pre>
+
+
 
 <br/><br/>
 
@@ -319,6 +327,8 @@ library(readr)
 fifa2026 <- read_csv("data/squads_and_players.csv", show_col_types = FALSE)
 datatable(head(fifa2026, 100), fillContainer = FALSE, options = list(pageLength = 5))
 ```
+
+</div>
 
 <br/><br/>
 
@@ -332,18 +342,8 @@ Cargar la base de datos de COVID-19 Colombia
 
 <br/><br/>
 
+<div class="box2 with-label">
 ### Código R
-
-<pre>
-# install.packages("RSocrata")
-
- library(RSocrata)
- token ="ew2rEMuESuzWPqMkyPfOSGJgE"
- Colombia= read.socrata("https://www.datos.gov.co/resource/gt2j-8ykr.json", app_token = token)
- saveRDS(Colombia,"data/Colombia.RDS")
-</pre>
-
-<br/><br/>
 
 ```{r, eval=FALSE}
 # install.packages("RSocrata")
@@ -354,6 +354,8 @@ Cargar la base de datos de COVID-19 Colombia
  saveRDS(Colombia,"data/Colombia.RDS")
  # 25-07-2025 - 10:13
 ```
+
+</div>
 
 <br/><br/>
 

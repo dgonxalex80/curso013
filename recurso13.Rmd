@@ -10,7 +10,9 @@ output:
     toc_float: yes
     code_folding: hide
     theme: flatly
-    css: style.css
+    css:
+      - style.css
+      - cajas.css
     self_contained: false
 ---
 
@@ -101,12 +103,14 @@ R posee numerosos paquetes para visualizar datos con excelente presentación: de
 En el trabajo profesional, el objetivo es comunicar hallazgos a equipos y directivos. Por eso aquí verás opciones desde gráficos rápidos en R base hasta alternativas más flexibles e interactivas, útiles para reportes ejecutivos y tableros.
 
 
-<img src="img/RStudio.jpeg" width="90">
-<img src="img/ggplot2.png" width="80"> 
-<img src="img/highcharter.png" width="80">
-<img src="img/shiny.png" width="80">
-<img src="img/plotly.png" width="80">
-<img src="img/flexdashboard_logo.png" width="80">
+<div class="package-logo-row">
+<img src="img/RStudio.jpeg" alt="RStudio">
+<img src="img/ggplot2.png" alt="ggplot2">
+<img src="img/highcharter.png" alt="highcharter">
+<img src="img/shiny.png" alt="Shiny">
+<img src="img/plotly.png" alt="Plotly">
+<img src="img/flexdashboard_logo.png" alt="flexdashboard">
+</div>
 
 
 ## Paquetes de R para gráficos y soluciones gráficas
