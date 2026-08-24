@@ -1,6 +1,6 @@
 ---
-title: <span style="color:#F4B43C">Estadística para la toma de decisiones</span>
-author: <span style="color:#F4B43C">dgonzalez</span> 
+title: <span style="color:#F4B43C">Teoría de probabilidades</span>
+author: <span style="color:#F4B43C"> </span> 
 subtitle: <span style="color:#F4B43C"> </span> 
 output:
   html_document:
@@ -16,7 +16,7 @@ output:
   
 
 ```{r, echo=FALSE, out.width="100%", fig.align = "center"}
-knitr::include_graphics("img/taller2.png")
+# knitr::include_graphics("img/taller2.png")
 ```
  
 
