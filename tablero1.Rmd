@@ -1,0 +1,81 @@
+---
+title: "Caso Cerveza"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    vertical_layout: fill
+---
+
+```{r setup, include=FALSE}
+library(flexdashboard)
+library(paquetePROB)
+data(beer)
+# https://rstudio.github.io/flexdashboard/articles/layouts.html
+# https://rstudio.github.io/flexdashboard/articles/using.html
+
+# Definir colores
+colores <- c(
+  "#C68642", # 1-lager artesanal - ámbar
+  "#F1C40F", # 2-clara artesanal - dorado
+  "#7B3F00", # 3-lager importada - marrón
+  "#F39C12", # 4-normal y helada - amarillo intenso
+  "#BDC3C7"  # 5-baja en alcohol - gris claro
+)
+
+# Etiquetas
+labs_tp <- c("1-lager artesanal","2-clara artesanal","3-lager importada",
+          "4-normal y helada","5-baja en alcohol")
+labs_or=c("nacional","importada") 
+```
+
+
+
+Column {data-width=500}
+-----------------------------------------------------------------------
+
+### Chart A
+
+```{r}
+
+```
+
+Column {data-width=300}
+-----------------------------------------------------------------------
+
+### Chart B
+
+```{r}
+
+```
+
+### Chart C
+
+```{r}
+
+```
+
+Column {data-width=50}
+-----------------------------------------------------------------------
+
+### Articles per Day
+
+```{r}
+pmin=min(beer$precio)
+valueBox(pmin, icon = "fa-pencil")
+```
+
+### Comments per Day
+
+```{r}
+pmax=max(beer$precio)
+valueBox(pmax, icon = "fa-comments")
+```
+
+### Spam per Day
+
+```{r}
+pmean  = mean(beer$precio)
+valueBox(pmean, 
+         icon = "fa-trash",
+         color = ifelse(pmean > 10, "warning", "primary"))
+```

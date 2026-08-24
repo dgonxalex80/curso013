@@ -598,8 +598,14 @@ cat("media :" ,median(x))
 **Mo** : Dato o valor que más se repite. Es utilizada como medida de tendencia central en variables cualitativas o en cuantitativas discretas con pocos valores. En una tabla o gráfico se puede distinguir fácilmente. 
 
 ```{r, message=FALSE}
-#utilizando summarytools
-summarytools::freq(clientes$categoria_preferida, cumul = FALSE, headings = FALSE)
+# Tabla de frecuencias y porcentajes
+tabla_categoria <- table(clientes$categoria_preferida, useNA = "ifany")
+resumen_categoria <- data.frame(
+  Categoria = names(tabla_categoria),
+  Frecuencia = as.integer(tabla_categoria),
+  Porcentaje = round(100 * prop.table(tabla_categoria), 2)
+)
+knitr::kable(resumen_categoria)
 ```
 
 moda: la categoría con mayor frecuencia.
@@ -1085,14 +1091,20 @@ El grupo observado corresponde a un total de 150 estudiantes de las cuatro facul
 <br/><br/>
 
 
-Tabla de frecuencias para variables cualitativas  utilizando del paquete `summarytools` la función `freq`
+Tabla de frecuencias y porcentajes para variables cualitativas
 
 ```{r facultad, exercise=TRUE }
 data$fac[data$fac==1]="Facultad de Ingeniería y Ciencias"
 data$fac[data$fac==2]="Facultad de Ciencias Económicas y Administrativas"
 data$fac[data$fac==3]="Facultad de Humanidades"
 data$fac[data$fac==4]="Facultad de Salud"
-summarytools::freq(data$fac, cumul = FALSE)
+tabla_facultad <- table(data$fac, useNA = "ifany")
+resumen_facultad <- data.frame(
+  Facultad = names(tabla_facultad),
+  Frecuencia = as.integer(tabla_facultad),
+  Porcentaje = round(100 * prop.table(tabla_facultad), 2)
+)
+knitr::kable(resumen_facultad)
 
 ```
 

@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="dgonzalez" />
+
+
+<title>Estadística para la toma de decisiones</title>
+
+<script src="site_libs/header-attrs/header-attrs.js"></script>
+<script src="site_libs/jquery/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation/tabsets.js"></script>
+<script src="site_libs/navigation/codefolding.js"></script>
+<link href="site_libs/highlightjs/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs/highlight.js"></script>
+<link href="site_libs/font-awesome/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome/css/v4-shims.min.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+<link rel="stylesheet" href="cajas.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html"> </a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">
+    <span class="fa fa-home"></span>
+     
+    Estadística
+  </a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 0
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo0.html">Módulo 0</a>
+    </li>
+    <li>
+      <a href="sumatoria.html">Sumatoria</a>
+    </li>
+    <li>
+      <a href="productoria.html">Productoria</a>
+    </li>
+    <li>
+      <a href="conjuntos.html">Conjuntos</a>
+    </li>
+    <li>
+      <a href="conteo.html">Conteo</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 1
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo1.html">Módulo 1</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="guia11.html">Guía 1.1</a>
+    </li>
+    <li>
+      <a href="recurso11.html">Recursos 1.1</a>
+    </li>
+    <li>
+      <a href="basesdatos.html">Bases de datos</a>
+    </li>
+    <li>
+      <a href="introduccionR.html">Introducción a R</a>
+    </li>
+    <li>
+      <a href="codigo11.html">Código 1.1</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="guia12.html">Guía 1.2</a>
+    </li>
+    <li>
+      <a href="recurso12.html">Recursos 1.2</a>
+    </li>
+    <li>
+      <a href="codigo12.html">Código 1.2</a>
+    </li>
+    <li>
+      <a href="caso1A.html">Caso 1</a>
+    </li>
+    <li>
+      <a href="caso1B.html">Caso 2</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="guia13.html">Guía 1.3</a>
+    </li>
+    <li>
+      <a href="recurso13.html">Recursos 1.3</a>
+    </li>
+    <li>
+      <a href="codigo13.html">Código 1.3</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="monitoria1.html">Monitoria 1</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 2
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo2.html">Módulo 2</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="guia21.html">Guía 2.1</a>
+    </li>
+    <li>
+      <a href="recurso21.html">Recursos 2.1</a>
+    </li>
+    <li>
+      <a href="codigo21.html">Código 2.1</a>
+    </li>
+    <li class="divider"></li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 3
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo3.html">Módulo 3</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 4
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo4.html">Módulo 4</a>
+    </li>
+    <li class="divider"></li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Proyecto
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="enconstruccion.html">Guía proyecto</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore"><span style="color:#F4B43C">Estadística
+para la toma de decisiones</span></h1>
+<h3 class="subtitle"><span style="color:#F4B43C"> </span></h3>
+<h4 class="author"><span style="color:#F4B43C">dgonzalez</span></h4>
+
+</div>
+
+
+<p><img src="img/taller2.png" alt="" width="100%" style="display: block; margin: auto;" /></p>
+<p><br/><br/></p>
+<div class="box2 with-label">
+<div class="label">
+Problema 1
+</div>
+<p><br/></p>
+<p>En una universidad de la región hay 4226 estudiantes distribuidos en
+tres grupos: primeros semestres (1 a 3), mitad de carrera (4 a 7) y
+final de carrera (8 a 10). Esta población está conformada por
+estudiantes que participan en actividades extracurriculares y
+estudiantes que no participan.</p>
+<p><strong>Convenciones</strong></p>
+<ul>
+<li><p><code>MU</code>: Participa en actividades del Medio
+Universitario.</p></li>
+<li><p><code>MU'</code>: No participa en actividades del Medio
+Universitario.</p></li>
+<li><p><code>P</code> : Primeros semestres</p></li>
+<li><p><code>M</code> : Mitad de programa</p></li>
+<li><p><code>F</code> : Final de programa</p></li>
+</ul>
+<p><img src="img/taller-01.png" alt="" width="50%" style="display: block; margin: auto;" /></p>
+<p><br/><br/></p>
+<p><img src="img/taller-01b.png" alt="" width="50%" style="display: block; margin: auto;" /></p>
+<p><br/></p>
+<p>Se ha encomendado a un grupo de profesores consejeros, seleccionar un
+estudiante de este grupo para guiarlos académicamente en su proceso de
+formación. El grupo de profesores está conformado por Sandra, Isabel,
+David, Daniel y Gerardo.</p>
+<ul>
+<li><p>Sandra prefiere que el grupo de estudiantes a su cargo sean
+estudiantes de primeros semestres y que participan en actividades del
+Medio Universitario (MU) .</p></li>
+<li><p>Isabel en cambio los elegirá dentro del grupo de estudiantes que
+está finalizando carrera, dentro del grupo de los que prefieren no
+participar en actividades del MU.</p></li>
+<li><p>David desea estudiantes que sean del rango intermedio o mitad de
+carrera, pues ellos no han realizado la escogencia del énfasis.</p></li>
+<li><p>Daniel solicita un listado de los estudiantes que participan en
+actividades del MU y de ellos desea que el estudiante a su cargo esté
+cursando últimos semestres.</p></li>
+<li><p>Gerardo solo quiere que el estudiante seleccionado para su
+acompañamiento sea de primeros semestres.</p></li>
+</ul>
+<p>Si en cada caso los estudiantes son seleccionados de manera aleatoria
+de toda la población, ¿qué profesor tiene la mayor probabilidad de ver
+cumplidos sus deseos?</p>
+<p><br/></p>
+</div>
+<p><br/><br/><br/></p>
+<div class="box2 with-label">
+<div class="label">
+Problema 2
+</div>
+<p><br/></p>
+<p>En una fábrica de artı́culos para protección biodegradables ,cuatro
+operarios colocan etiquetas de caducidad en cada artı́culo al final de la
+lı́nea de producción. Juan, quien coloca la fecha de caducidad en un 40%
+de los paquetes no logra ponerla en uno de cada 200 paquetes; Nicolle,
+quien coloca en 30% de los paquetes, no logra colocarla en uno de 100
+paquetes; Sara, quien coloca etiquetas en el 15% de los paquetes, no lo
+hace una vez en 90 paquetes; y Nelson que fecha 15% de los paquetes,
+falla en uno de cada 200 paquetes. Si un cliente se queja de que su
+paquete no muestra la fecha de caducidad. ¿Cuál de los empleados es el
+más probable culpable de esta omisión?</p>
+</div>
+<p><br/><br/><br/></p>
+<div class="box2 with-label">
+<div class="label">
+Problema 3
+</div>
+<p><br/></p>
+<p>Una empresa de servicios financieros analizó <code>500</code>
+posibles clientes que mostraron interés por sus productos después de
+revisar dos canales de mercadeo: pauta digital y referidos
+comerciales.</p>
+<p><strong>Clasificación</strong></p>
+<ul>
+<li><strong>A</strong>: compra (termina el proceso).</li>
+<li><strong>A’</strong>: no compra.</li>
+<li><strong>B</strong>: pauta digital.</li>
+<li><strong>B’</strong>: referido.</li>
+</ul>
+<p><br/></p>
+<p><img src="img/taller2-p03.png" alt="" width="50%" style="display: block; margin: auto;" /></p>
+<p><br/><br/></p>
+<p><img src="img/taller-03.png" alt="" width="70%" style="display: block; margin: auto;" />
+<br/></p>
+<p>Con el fin de realizar una buena asignación del presuipuesto
+comercial para este año, requieren decidir sobre la conveniencia o no de
+invertir en los diferentes medios. Para ello solicitan validar cada una
+de las siguiente sospechas.</p>
+<ol style="list-style-type: decimal">
+<li>Es mas probable que un cliente referido compre que uno que haya
+llegado por una pauta digital</li>
+<li>Es mejor invertir en la pauta digital que en la de referidos</li>
+<li>El canal digital tiene mayor probabilidad de interesar a clientes
+potenciales</li>
+</ol>
+<p><br/></p>
+</div>
+<p><br/><br/><br/></p>
+<div class="box2 with-label">
+<div class="label">
+Problema 4
+</div>
+<p><br/></p>
+<p>En diversas universidades se aplican pruebas de detección de consumo
+de drogas a los estudiantes, con el propósito de contribuir al bienestar
+y la seguridad dentro del campus, así como de reducir la probabilidad de
+conductas inapropiadas, accidentes y dificultades académicas. No
+obstante, algunos sectores cuestionan esta práctica, debido a que tales
+pruebas no son completamente infalibles y, en consecuencia, podrían
+producir clasificaciones erróneas.</p>
+<p>Suponga que una universidad utiliza una prueba de detección para la
+cual, si un estudiante consume drogas, la probabilidad de que sea
+clasificado correctamente como consumidor es de 0.98 <span
+class="math inline">\(P(+|C)=0.98\)</span>. Por otra parte, si un
+estudiante no consume drogas, la probabilidad de que sea clasificado
+correctamente como no consumidor es de 0.95 <span
+class="math inline">\(P(-|C&#39;)=0.95\)</span>. En consecuencia,</p>
+<p>Con base en la información anterior, determine la probabilidad de
+ocurrencia de cada uno de los siguientes eventos:</p>
+<p><br/></p>
+<ol style="list-style-type: decimal">
+<li>Un estudiante que no consume drogas falle ambas pruebas.</li>
+<li>Se detecte a un estudiante como usuario de drogas (falla en al menos
+una prueba).</li>
+<li>Un estudiante que consume drogas pase ambas pruebas.</li>
+</ol>
+<p><br/></p>
+</div>
+<p><br/><br/><br/></p>
+<div class="box2 with-label">
+<div class="label">
+Problema 5
+</div>
+<p><br/></p>
+<p>Una compañia de seguros de automóviles trabaja con cuatro tipo de
+autos : Rayquaza, Etenatus, Mewtwo y Groudon, sobre los que cuenta con
+la información que se muestra en la siguiente tabla.</p>
+<p>Construya un diagrama de árbol que represente la información
+suministrada y a partir de los resultados obtenidos ayude al gerente de
+la compañía quien está interesado en conocer cuál marca tiene mayor
+probabilidad de accidente si se conoce que ha tenido un accidente. Esto
+le ayudará a realizar ajustes en los precios de las pólizas.</p>
+<p><br/></p>
+<p><img src="img/taller-05.png" alt="" width="60%" style="display: block; margin: auto;" /></p>
+<p><br/></p>
+</div>
+<p><br/><br/><br/></p>
+<div class="box2 with-label">
+<div class="label">
+Problema 6
+</div>
+<p><br/></p>
+<p>Un dispositivo sirve para identificar una cierta enfermedad. Si
+alguien está enfermo, hay un 90 % de posibilidades de que la prueba sea
+positiva. Si no está enfermo hay todavía un 1 % de posibilidades de que
+la prueba sea positiva. Aproximadamente el 1 % de la población está
+enferma. Smith pasa la prueba y resulta positiva. ¿Cuál es la
+probabilidad de que tenga la enfermedad? (Carmen Diaz-2005)</p>
+<p><br/></p>
+</div>
+<p><br/><br/><br/></p>
+<div class="box2 with-label">
+<div class="label">
+Problema 7
+</div>
+<p>En una ciudad hay 60 hombres y 40 mujeres por cada 100 habitantes. La
+mitad de los hombres y una tercera parte de las mujeres fuman. Si se
+selecciona al azar un fumador, ¿qué es más probable, que sea hombre o
+mujer? (Carmen Diaz-2005)</p>
+</div>
+<p><br/><br/><br/></p>
+<div class="box2 with-label">
+<div class="label">
+Problema 8
+</div>
+<p><br/></p>
+<p>En una empresa de distribución, se están evaluando tres tipos de
+estrategias de capacitación implementadas para el personal comercial:
+capacitación presencial tradicional, capacitación virtual interactiva y
+capacitación basada en acompañamiento en campo. Se ha determinado que el
+25% de los vendedores recibió capacitación presencial tradicional, el
+50% capacitación virtual interactiva, y el 25% capacitación basada en
+acompañamiento en campo.</p>
+<p>Además, se ha observado que la probabilidad de que un vendedor
+mantenga un desempeño satisfactorio después de 5 años es del 80% para
+quienes recibieron capacitación presencial tradicional, del 60% para
+quienes recibieron capacitación virtual interactiva, y del 40% para
+quienes recibieron capacitación basada en acompañamiento en campo.</p>
+<p>Si se selecciona al azar un vendedor que presenta desempeño
+satisfactorio después de 5 años, ¿cuál es la probabilidad de que haya
+recibido capacitación presencial tradicional?</p>
+<p>En una empresa se analizan dos tipos de estrategias publicitarias
+para promocionar un producto: campañas en redes sociales (estrategia A)
+y campañas en televisión (estrategia B). En el estudio, se encontró que
+el 40% de las campañas realizadas corresponden a publicidad en redes
+sociales (A) y el 60% a publicidad en televisión (B).</p>
+<p>Además, se observó que el 90% de las campañas desarrolladas en redes
+sociales logran mantener recordación de marca después de 10 meses,
+mientras que el 75% de las campañas en televisión también alcanzan este
+objetivo en el mismo período.</p>
+<p>Si se selecciona al azar una campaña que logró mantener recordación
+de marca después de 10 meses, ¿cuál es la probabilidad de que haya sido
+una campaña de redes sociales (estrategia A)?</p>
+<p><br/></p>
+</div>
+<!-- <br/><br/> -->
+<!-- <div class="box6 with-label"> -->
+<!-- ### Nota: -->
+<!-- <br/> -->
+<!-- <a href="data/base150.csv" download style="display:inline-block;padding:10px 16px;background:#2c7fb8;color:#fff;text-decoration:none;border-radius:6px;font-weight:600;">Descargar base150.csv</a> -->
+<!-- ```{r, eval=FALSE} -->
+<!-- library(readr) -->
+<!-- base <- read_csv("data/base150.csv") -->
+<!-- table(base$NS, base$NL) -->
+<!-- T=table(base$nivsat, base$nivlea) -->
+<!-- rownames(T) = c("NS-A", "NS-M","NS-B") -->
+<!-- colnames(T) = c("NL-A", "NL-M","NL-B") -->
+<!-- T -->
+<!-- margin.table(T,1) -->
+<!-- margin.table(T,2) -->
+<!-- prop.table(T,1) -->
+<!-- prop.table(T,2) -->
+<!-- prop.table(T) -->
+<!-- ``` -->
+<!-- <br/> -->
+<!-- <!-- <a href="pdf/F-taller211.Rmd" download style="display:inline-block;padding:10px 16px;background:#2c7fb8;color:#fff;text-decoration:none;border-radius:6px;font-weight:600;">Descargar F-taller211.Rmd</a> -->
+<!-- </div> -->
+<p><br/><br/></p>
+<!-- <div class="box1 with-label"> -->
+<!-- <div class="label">Evaluación</div>  -->
+<!-- El taller será evaluado mediante la elección de un punto al azar y su realización de manera escrita. -->
+<!-- </div> -->
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("hide" === "show");
+});
+</script>
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

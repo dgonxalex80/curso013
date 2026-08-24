@@ -1,0 +1,1543 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="dgonzalez" />
+
+
+<title>Teoría de Probabilidades </title>
+
+<script src="site_libs/header-attrs-2.31/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-6.5.2/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+<link rel="stylesheet" href="cajas.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html"> </a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">
+    <span class="fa fa-home"></span>
+     
+    Estadística
+  </a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 0
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo0.html">Módulo 0</a>
+    </li>
+    <li>
+      <a href="sumatoria.html">Sumatoria</a>
+    </li>
+    <li>
+      <a href="productoria.html">Productoria</a>
+    </li>
+    <li>
+      <a href="conjuntos.html">Conjuntos</a>
+    </li>
+    <li>
+      <a href="conteo.html">Conteo</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 1
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo1.html">Módulo 1</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="guia11.html">Guía 1.1</a>
+    </li>
+    <li>
+      <a href="recurso11.html">Recursos 1.1</a>
+    </li>
+    <li>
+      <a href="basesdatos.html">Bases de datos</a>
+    </li>
+    <li>
+      <a href="introduccionR.html">Introducción a R</a>
+    </li>
+    <li>
+      <a href="codigo11.html">Código 1.1</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="guia12.html">Guía 1.2</a>
+    </li>
+    <li>
+      <a href="recurso12.html">Recursos 1.2</a>
+    </li>
+    <li>
+      <a href="codigo12.html">Código 1.2</a>
+    </li>
+    <li>
+      <a href="caso1A.html">Caso 1</a>
+    </li>
+    <li>
+      <a href="caso1B.html">Caso 2</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="guia13.html">Guía 1.3</a>
+    </li>
+    <li>
+      <a href="recurso13.html">Recursos 1.3</a>
+    </li>
+    <li>
+      <a href="codigo13.html">Código 1.3</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="monitoria1.html">Monitoria 1</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 2
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo2.html">Módulo 2</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="guia21.html">Guía 2.1</a>
+    </li>
+    <li>
+      <a href="recurso21.html">Recursos 2.1</a>
+    </li>
+    <li>
+      <a href="codigo21.html">Código 2.1</a>
+    </li>
+    <li class="divider"></li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 3
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo3.html">Módulo 3</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 4
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo4.html">Módulo 4</a>
+    </li>
+    <li class="divider"></li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Proyecto
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="enconstruccion.html">Guía proyecto</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore"><span style="color:#3498C9">Teoría de
+Probabilidades </span></h1>
+<h3 class="subtitle"><span style="color:#3498C9"> </span></h3>
+<h4 class="author"><span style="color:#3498C9">dgonzalez</span></h4>
+
+</div>
+
+
+<p><img src="img/recurso2.png" alt="" width="100%" style="display: block; margin: auto;" /></p>
+<p><br/><br/></p>
+<div id="introducción" class="section level1">
+<h1>Introducción</h1>
+<div class="package-logo-row">
+<p><img src="img/riesgo01.png" alt=" ">
+<img src="img/riesgo02.png" alt=" ">
+<img src="img/riesgo03.png" alt=" ">
+<img src="img/riesgo04.png" alt=" ">
+<img src="img/riesgo05.png" alt=" ">
+<img src="img/riesgo06.png" alt=" ">
+<img src="img/riesgo07.png" alt=" ">
+<img src="img/riesgo08.png" alt=" ">
+<img src="img/riesgo09.png" alt=" ">
+<img src="img/riesgo10.png" alt=" "></p>
+</div>
+<p>Antes de iniciar, piensa en estas preguntas:</p>
+<ul>
+<li>¿Qué significa “riesgo” en una decisión empresarial?</li>
+<li>¿Cómo estimar la probabilidad de que una campaña funcione?</li>
+<li>¿Cómo usar datos históricos para decidir mejor?</li>
+<li>¿Cómo cambia una probabilidad cuando aparece nueva información?</li>
+</ul>
+<p><br/><br/></p>
+<ul>
+<li>¿Qué es la probabilidad?</li>
+<li>¿Cuál es su uso…..?</li>
+<li>¿Como se mide……?</li>
+<li>¿Que tipos de probabilidad existen?</li>
+<li>¿Qué propiedades posee….?</li>
+</ul>
+<p><br/><br/></p>
+<div id="qué-significado-tienen-las-palabras" class="section level2">
+<h2>¿Qué significado tienen las palabras…</h2>
+<ul>
+<li>Azar - Aleatorio</li>
+<li>Determinístico - No deterministico</li>
+<li>Incertidumbre - Probable - Improbable</li>
+<li>Cierto - Incierto - Imposible</li>
+</ul>
+<p><br/><br/></p>
+<p>Un profesional de la administración, mercadeo, finanzas, de negocios
+o de ingeniería, toma decisiones bajo incertidumbre todo el tiempo:</p>
+<ul>
+<li>lanzar o no una campaña,</li>
+<li>aprobar o no un crédito,</li>
+<li>priorizar o no un clientes,</li>
+<li>estimar la demanda futura de un producto.</li>
+<li>elegir o no un local para abrir una sucursal.</li>
+<li>contratar o no un candidatos para un puesto</li>
+<li>invertir o no en la compara de dólares</li>
+<li>aumentar o no la producción</li>
+</ul>
+<p><br/></p>
+<blockquote>
+<p>La <strong>probabilidad</strong> es una medida numérica que permite
+cuantificar el grado de posibilidad de ocurrencia de un evento
+aleatorio. Su valor se encuentra entre 0 y 1, donde 0 representa un
+evento imposible y 1 un evento seguro. Cuanto mayor sea la probabilidad,
+mayor será la posibilidad de que el evento ocurra.</p>
+<p>Esta la herramienta permite <strong>cuantificar esa
+incertidumbre</strong>, ante la ignorancia de conocer si el evento
+ocurrirá o no.</p>
+</blockquote>
+<p><br/></p>
+<p>En esta unidad trabajaremos definiciones básicas y reglas
+fundamentales con ejemplos sencillos y cercanos al contexto
+empresarial.</p>
+<p><br/><br/></p>
+<p>Muchos relacionamos el concepto de probabilidad con los dados, pues
+forma parte de su origen y de su desarrollo inicial a través de
+preguntas y situaciones imaginarias y de alguna forma modelables desde
+las matemáticas. Pero este concepto va mucho más allá como lo veremos en
+esta unidad.</p>
+<p>La probabilidad es un concepto que se empieza a trabajar en 1654
+cuando, <strong>caballero de Mered</strong> solicita a <strong>Blas
+Pascal</strong> le ayude a resolver un problema relacionado con juegos
+de mesa. En particular este caballero manifestaba que las Matemáticas
+presentaban un vacío, pues sus cálculos no coincidían con lo que pasaba
+en la realidad y como consecuencia de ellos perdía dinero en las
+apuestas que se presentaban en el juego.</p>
+<p>Encomendado Pascal de esta tarea empieza a compartir su trabajo con
+<strong>Fermat</strong>, matemático y de la correspondencia de estos dos
+brillantes matemáticos nace los principios y fundamentos de lo que hoy
+conocemos como probabilidad</p>
+<p>Con el fin de motivar la construcción de los conceptos principales
+del tema se plantean las siguientes situaciones :</p>
+<p><br/><br/></p>
+</div>
+<div id="problema" class="section level2 box6 with-label">
+<h2>Problema</h2>
+<p>El siguiente problema fué planteado por el Caballero de Meré a Pascal
+quien lo consultó con Fermata y conforma una serie de situaciones que
+dan origen a soluciones que conforman los inicios del estudio de la
+Probabilidad (1654).</p>
+<p>Los dados, tal y como los conocemos hoy en día, se hicieron muy
+populares en la edad media. En esta época un caballero llamado Chevalier
+de Mere propuso el siguiente problema:</p>
+<p>Qué es más probable :</p>
+<p>Sacar al menos un seis en cuatro tiradas con un solo dado o</p>
+<p>Sacar al menos un doble seis en 24 tiradas con dos dados?</p>
+<p>El caballero afirmaba que este problema generaba una solución
+matemática que difería de la observación empírica</p>
+<p>Este problema se retoma mas adelante</p>
+<p><a
+href="https://materias.df.uba.ar/estadisticaa2019v/files/2019/02/El_caballero_de_Mere.pdf">El
+problema de los dados del caballero de Meré: soluciones publicadas en el
+siglo XVII</a></p>
+</div>
+<p><br/></p>
+<p>Iniciaremos con algunos conceptos básicos que nos permiten la
+contribución de sus fundamentos.</p>
+<p><br/><br/></p>
+<center>
+<img src="img/dados.gif" /> Tomada : película El dorado
+</center>
+<p><br/><br/></p>
+</div>
+<div id="conceptos-básicos" class="section level1">
+<h1>Conceptos básicos</h1>
+<p>Con el fin de poder definir los conceptos principales empezaremos por
+definir los elementos básicos que nos permitan su contrucción y
+entendimiento.</p>
+<p><br/></p>
+<div id="experimento-aleatorio" class="section level2 box3 with-label">
+<h2>Experimento aleatorio</h2>
+<p>Un experimento aleatorio es una acción repetible cuyo resultado no
+puede conocerse con certeza antes de observarlo.</p>
+</div>
+<p><br/><br/></p>
+<div id="ejemplos" class="section level3 box6 with-label">
+<h3>Ejemplos</h3>
+<ul>
+<li><span class="math inline">\(E_1\)</span>: Lanzar dos dados y
+observar la suma del resultado obtenido en sus caras superiores.</li>
+<li><span class="math inline">\(E_2\)</span>: Enviar un correo
+promocional y observar si el cliente abre o no.</li>
+<li><span class="math inline">\(E_3\)</span>: Ofrecer una llamada
+comercial y observar si hay compra.</li>
+<li><span class="math inline">\(E_4\)</span>: Recibir una solicitud de
+crédito y observar si entra en mora.</li>
+<li><span class="math inline">\(E_5\)</span>: Publicar una pauta digital
+y observar si la campaña supera el objetivo midiendo el número de
+compras.</li>
+<li><span class="math inline">\(E_6\)</span> Realizar un examen de
+estadística y observar el resultado obtenido</li>
+</ul>
+</div>
+<p><br/><br/></p>
+<div id="espacio-muestral" class="section level3 box3 with-label">
+<h3>Espacio muestral</h3>
+<p>El espacio muestral (<span class="math inline">\(S\)</span> o <span
+class="math inline">\(\Omega\)</span>) es el conjunto de
+<strong>todos</strong> los resultados posibles.</p>
+</div>
+<p><br/><br/></p>
+<div id="ejemplos-1" class="section level3 box6 with-label">
+<h3>Ejemplos</h3>
+<ul>
+<li><span class="math inline">\(S_1=\{ 2,3,4,5,6,7,8,9,10,11,12
+\}\)</span></li>
+</ul>
+<div style="display: flex;">
+<div>
+<ul>
+<li><span class="math inline">\(\begin{equation*}
+  S_{2}=\left\{
+  \begin{array}{cccccc}
+  &amp;(1,1),(1,2),(1,3),(1,4),(1,5),(1,6)&amp;\\
+  &amp;(2,1),(2,2),(2,3),(2,4),(2,5),(2,6)&amp;\\
+  &amp;(3,1),(3,2),(3,3),(3,4),(3,5),(3,6)&amp;\\
+  &amp;(4,1),(4,2),(4,3),(4,4),(4,5),(4,6)&amp;\\
+  &amp;(5,1),(5,2),(5,3),(5,4),(5,5),(5,6)&amp;\\
+  &amp;(6,1),(6,2),(6,3),(6,4),(6,5),(6,6)&amp;
+  \end{array}
+  \right\}
+  \end{equation*}\)</span></li>
+</ul>
+</div>
+<div>
+<p><img src="img/dados.png" alt="" width="100%" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<ul>
+<li><span class="math inline">\(S_2=\{\text{Abre},\text{No
+abre}\}\)</span></li>
+<li><span class="math inline">\(S_3=\{\text{Efectivo},\text{Tarjeta
+crédito},\text{Tarjeta débito}\}\)</span></li>
+<li><span class="math inline">\(S_4=\{0,1,2,3,4,\dots\}\)</span></li>
+<li><span class="math inline">\(S_5= \{ x \in \mathbb{R} | 0 \leq x \leq
+5   \}\)</span></li>
+</ul>
+</div>
+<p><br/><br/></p>
+<div id="evento-aleatorio" class="section level3 box3 with-label">
+<h3>Evento aleatorio</h3>
+<p>Un evento es un subconjunto del espacio muestral que representa un
+resultado de interés. Estos conjuntos se denotan con las primeras letras
+del alfabeto en mayuscula</p>
+</div>
+<p><br/><br/></p>
+<div id="ejemplos-2" class="section level3 box6 with-label">
+<h3>Ejemplos</h3>
+<ul>
+<li><span class="math inline">\(A_{1}\)</span> Obtener solo caras<br />
+</li>
+<li><span class="math inline">\(A_{2}\)</span> Sacar un resultados es
+inferior a 4<br />
+</li>
+<li><span class="math inline">\(A_{3}\)</span> Ganar el examen<br />
+</li>
+<li><span class="math inline">\(A_{4}\)</span> Cumplir el objetivo de la
+salida<br />
+</li>
+<li><span class="math inline">\(A_{5}\)</span> Obtener más de 5 ensayos
+éxitos</li>
+</ul>
+</div>
+<p><br/><br/></p>
+</div>
+<div id="enfoques-de-probabilidad" class="section level1">
+<h1>Enfoques de probabilidad</h1>
+<p><br/></p>
+<div id="enfoque-clásico" class="section level3 box3 with-label">
+<h3>Enfoque clásico</h3>
+<p>Se usa cuando todos los resultados posibles del experiemento
+aleatorio (espacio muestrao) tienen igual probabilidad o
+equiprobables.</p>
+<p><span class="math display">\[P(A)=\frac{n(A)}{n(S)}\]</span></p>
+</div>
+<p><br/><br/></p>
+<div id="ejemplos-3" class="section level3 box6 with-label">
+<h3>Ejemplos</h3>
+<p>Una empresa sortea 1 bono entre 10 clientes finalistas con igual
+oportunidad.<br />
+La probabilidad de que un cliente específico gane es:</p>
+<p><span
+class="math display">\[P(\text{ganar})=\frac{1}{10}=0.10\]</span></p>
+</div>
+<p><br/><br/></p>
+<div id="enfoque-frecuentista" class="section level3 box3 with-label">
+<h3>Enfoque frecuentista</h3>
+<p>Cuando no es posible determinar de forma exacta la probabilidad de un
+evento, se recurre entonces a datos históricos del mismo, mediante la
+estimación de la frecuencia observada.:</p>
+<p><span class="math display">\[P(A)\approx \frac{\text{veces que
+ocurrió }A}{\text{número total de observaciones}}\]</span></p>
+</div>
+<p><br/><br/></p>
+<div id="ejemplos-4" class="section level3 box6 with-label">
+<h3>Ejemplos</h3>
+<p>En 500 envíos de email donde se ofrecen servicios de una empresa, 125
+clientes respondioeron solicitando servicios.</p>
+<p><span class="math display">\[P(\text{clic})\approx
+\frac{125}{500}=0.25\]</span></p>
+</div>
+<p><br/><br/></p>
+<div id="enfoque-subjetivo" class="section level3 box3 with-label">
+<h3>Enfoque subjetivo</h3>
+<p>Se usa cuando un experto asigna probabilidad con su experiencia,
+información y contexto, dado que no se poseen datos históricos del
+evento.</p>
+</div>
+<p><br/><br/></p>
+<div id="ejemplo" class="section level3 box6 with-label">
+<h3>Ejemplo</h3>
+<p>El gerente comercial estima en <span
+class="math inline">\(0.60\)</span> la probabilidad de cerrar un
+contrato estratégico tras una reunión clave.</p>
+</div>
+<p><br/><br/><br/></p>
+<div id="axiomas-de-probabilidad" class="section level2">
+<h2>Axiomas de probabilidad</h2>
+<p><br/></p>
+<div id="axiomas-de-probabilidad-1"
+class="section level3 box6 with-label">
+<h3>Axiomas de probabilidad</h3>
+<ol style="list-style-type: decimal">
+<li><span class="math inline">\((P(S)=1)\)</span></li>
+<li><span class="math inline">\(0\leq P(A)\leq 1\)</span></li>
+<li>Si <span class="math inline">\(A\)</span> y <span
+class="math inline">\(B\)</span> son excluyentes: <span
+class="math inline">\(P(A\cup B)=P(A)+P(B)\)</span></li>
+<li>Regla del complemento: <span
+class="math inline">\(P(A^c)=1-P(A)\)</span></li>
+<li><span class="math inline">\(P(\varnothing)=0\)</span></li>
+</ol>
+<p><br/><br/></p>
+<p>Regla general de unión:</p>
+<p><span class="math inline">\(P(A\cup B)=P(A)+P(B)-P(A\cap B)\)</span>
+]</p>
+</div>
+<p><br/><br/><br/></p>
+</div>
+<div id="tipos-de-probabilidad" class="section level2">
+<h2>Tipos de probabilidad</h2>
+<p>Para definir los tipos de probabilidad, pensemos en dos eventos A y B
+, supongamos :</p>
+<p><br/></p>
+<p><img src="img/prob-01.png" alt="" width="20%" style="display: block; margin: auto;" /></p>
+<p><br/></p>
+<p>A partir de esta tabla cruzada podemos definir las siguientes
+probabilidades, bajo el enfoque frecuentista:</p>
+<p><br/><br/><br/></p>
+<div id="probabilidad-simple-o-marginal" class="section level3">
+<h3>Probabilidad simple o marginal</h3>
+<ul>
+<li><p><span class="math inline">\(P(A)\)</span> : probabilidad de que
+ocurra A <code>:       70/200</code></p></li>
+<li><p><span class="math inline">\(P(A&#39;)\)</span> : probabilidad de
+que NO ocurra A <code>:   130/200</code></p></li>
+<li><p><span class="math inline">\(P(B)\)</span> : probabilidad de que
+ocurra B <code>:       80/200</code></p></li>
+<li><p><span class="math inline">\(P(B&#39;)\)</span> : probabilidad de
+que NO ocurra B <code>:   120/200</code></p></li>
+</ul>
+<p><br/><br/></p>
+</div>
+<div id="probabilidad-conjunta" class="section level3">
+<h3>Probabilidad conjunta</h3>
+<ul>
+<li><p><span class="math inline">\(P(A \cap B)\)</span> : probabilidad
+de que ocurra A y B <code>:              45/200</code></p></li>
+<li><p><span class="math inline">\(P(A&#39; \cap B)\)</span> :
+probabilidad de que NO ocurra A y ocurra B
+<code>:     35/200</code></p></li>
+<li><p><span class="math inline">\(P(A \cap B&#39;)\)</span> :
+probabilidad de que ocurra A y NO ocurra B
+<code>:     25/200</code></p></li>
+<li><p><span class="math inline">\(P(A&#39; \cap B&#39;)\)</span> :
+probabilidad de que NO ocurra A ni B
+<code>:         65/200</code></p></li>
+</ul>
+<p><br/><br/></p>
+<p><img src="img/tabla-122.png" alt="" width="40%" style="display: block; margin: auto;" /></p>
+<p><br/></p>
+<p><img src="img/diagrama5-22.png" alt="" width="40%" style="display: block; margin: auto;" /></p>
+</div>
+<div id="ejemplo-1" class="section level3 box6 with-label">
+<h3>Ejemplo</h3>
+<p>Se requiere estudiar la relación entre la satisfacción del cliente y
+la lealtad a la marca en una empresa. Para ello, se emplea información
+contenida en una tabla de contingencia y posteriormente se calcularan
+probabilidades conjuntas y marginales relacionadas con los eventos.</p>
+<p><br/><br/></p>
+<div id="varibales" class="section level4">
+<h4>Varibales</h4>
+<ul>
+<li><strong>Satisfacción del Cliente</strong>: Alta, Media, Baja</li>
+<li><strong>Lealtad a la Marca</strong>: Alta, Media, Baja</li>
+</ul>
+<p>La siguiente tabla recoge la respuesta dada por 150 clientes</p>
+<p><img src="img/tabla-211.png" alt="" width="60%" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<p><br/><br/></p>
+<p>Bajo el enfoque frecuentista los resultado se convierten en
+probabilidades de obtener un cliente con las características
+seleccionadas</p>
+<p><img src="img/tabla-212.png" alt="" width="60%" style="display: block; margin: auto;" /></p>
+<p><br/><br/><br/></p>
+</div>
+<div id="probabilidad-simple-o-marginal-1" class="section level2">
+<h2>Probabilidad simple o marginal</h2>
+<p><br/></p>
+<table>
+<colgroup>
+<col width="6%" />
+<col width="93%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td align="left"><span class="math inline">\(P(LA)\)</span></td>
+<td align="left">probabilidad de que un cliente seleccionado de manera
+aleatoria tenga lealtad con la marca <strong>alta</strong></td>
+</tr>
+<tr class="even">
+<td align="left"><span class="math inline">\(P(LM)\)</span></td>
+<td align="left">probabilidad de que un cliente seleccionado de manera
+aleatoria tenga lealtad con la marca <strong>media</strong></td>
+</tr>
+<tr class="odd">
+<td align="left"><span class="math inline">\(P(LB)\)</span></td>
+<td align="left">probabilidad de que un cliente seleccionado de manera
+aleatoria tenga lealtad con la marca <strong>baja</strong></td>
+</tr>
+<tr class="even">
+<td align="left"><span class="math inline">\(P(SA)\)</span></td>
+<td align="left">probabilidad de que un cliente seleccionado de manera
+aleatoria tenga un nivel de satisfacción <strong>alta</strong></td>
+</tr>
+<tr class="odd">
+<td align="left"><span class="math inline">\(P(SM)\)</span></td>
+<td align="left">probabilidad de que un cliente seleccionado de manera
+aleatoria tenga un nivel de satisfacción <strong>media</strong></td>
+</tr>
+<tr class="even">
+<td align="left"><span class="math inline">\(P(SB)\)</span></td>
+<td align="left">probabilidad de que un cliente seleccionado de manera
+aleatoria tenga un nivel de satisfacción <strong>baja</strong></td>
+</tr>
+</tbody>
+</table>
+<p><br/><br/><br/></p>
+</div>
+<div id="probabilidad-conjunta-1" class="section level2">
+<h2>Probabilidad conjunta</h2>
+<p><br/></p>
+<table>
+<colgroup>
+<col width="10%" />
+<col width="89%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td align="left"><span class="math inline">\(P(LA \cap SA)\)</span></td>
+<td align="left">probabilidad de que un cliente seleccionado de manera
+aleatoria tenga lealtad <strong>alta</strong> con la marca y presente un
+nivel <strong>alto</strong> de satisfacción</td>
+</tr>
+<tr class="even">
+<td align="left"><span class="math inline">\(P(LA \cap SM)\)</span></td>
+<td align="left">probabilidad de que un cliente seleccionado de manera
+aleatoria tenga lealtad <strong>alta</strong> con la marca y presente un
+nivel <strong>medio</strong> de satisfacción</td>
+</tr>
+<tr class="odd">
+<td align="left"><span class="math inline">\(P(LA \cap SB)\)</span></td>
+<td align="left">probabilidad de que un cliente seleccionado de manera
+aleatoria tenga lealtad <strong>alta</strong> con la marca y presente un
+nivel <strong>bajo</strong> de satisfacción</td>
+</tr>
+<tr class="even">
+<td align="left"><span class="math inline">\(P(LM \cap SA)\)</span></td>
+<td align="left">probabilidad de que un cliente seleccionado de manera
+aleatoria tenga lealtad <strong>media</strong> con la marca y presente
+un nivel <strong>alto</strong> de satisfacción</td>
+</tr>
+<tr class="odd">
+<td align="left"><span class="math inline">\(P(LM \cap SM)\)</span></td>
+<td align="left">probabilidad de que un cliente seleccionado de manera
+aleatoria tenga lealtad <strong>media</strong> con la marca y presente
+un nivel <strong>medio</strong> de satisfacción</td>
+</tr>
+<tr class="even">
+<td align="left"><span class="math inline">\(P(LM \cap SB)\)</span></td>
+<td align="left">probabilidad de que un cliente seleccionado de manera
+aleatoria tenga lealtad <strong>media</strong> con la marca y presente
+un nivel <strong>bajo</strong> de satisfacción</td>
+</tr>
+<tr class="odd">
+<td align="left"><span class="math inline">\(P(LB \cap SA)\)</span></td>
+<td align="left">probabilidad de que un cliente seleccionado de manera
+aleatoria tenga lealtad <strong>baja</strong> con la marca y presente un
+nivel <strong>alto</strong> de satisfacción</td>
+</tr>
+<tr class="even">
+<td align="left"><span class="math inline">\(P(LB \cap SM)\)</span></td>
+<td align="left">probabilidad de que un cliente seleccionado de manera
+aleatoria tenga lealtad <strong>baja</strong> con la marca y presente un
+nivel <strong>medio</strong> de satisfacción</td>
+</tr>
+<tr class="odd">
+<td align="left"><span class="math inline">\(P(LB \cap SB)\)</span></td>
+<td align="left">probabilidad de que un cliente seleccionado de manera
+aleatoria tenga lealtad <strong>baja</strong> con la marca y presente un
+nivel <strong>bajo</strong> de satisfacción</td>
+</tr>
+</tbody>
+</table>
+<p><br/><br/><br/></p>
+</div>
+<div id="probabilidad-condicional" class="section level2">
+<h2>Probabilidad condicional</h2>
+<p><br/></p>
+<p>La probabilidad condicional de <span
+class="math inline">\(B\)</span>, dado <span
+class="math inline">\(A\)</span>, se denota como <span
+class="math inline">\(P(B|A)\)</span>, se define como:</p>
+<p><span class="math display">\[P(B|A)=\dfrac{P(A \cap
+B)}{P(A)}\]</span></p>
+<p>Siempre que <span class="math inline">\(P(A) &gt; 0\)</span></p>
+<p><br/><br/></p>
+<p><span class="math inline">\(P(B|A)\)</span> se puede leer como :</p>
+<ul>
+<li><p>Probabilidad de que ocurra <span class="math inline">\(B\)</span>
+dado que el evento <span class="math inline">\(A\)</span> ya
+ocurrió</p></li>
+<li><p>Probabilidad de que ocurra <span class="math inline">\(B\)</span>
+sabiendo previamente que ocurrió el evento <span
+class="math inline">\(A\)</span></p></li>
+<li><p>Si sabemos que ha ocurrido el evento <span
+class="math inline">\(A\)</span>, la probabilidad de que ocurra <span
+class="math inline">\(B\)</span></p></li>
+</ul>
+<p><br/><br/></p>
+<p>El efecto de conocer la ocurrencia del evento <span
+class="math inline">\(A\)</span> hace que el espacio muestral de
+referencia pase de ser <span class="math inline">\(S\)</span> a solo
+<span class="math inline">\(A\)</span>. Ahora dentro de este nuevo
+espacio muestral de referencia se debe establecer la probabilidad de que
+ocurra <span class="math inline">\(B\)</span></p>
+<p>De esta manera la probabilidad se expresa como la razón entre la
+probabilidad conjunta <span class="math inline">\(P(A \cap B)\)</span>
+con la probabilidad de <span class="math inline">\(A\)</span></p>
+<p><br/><br/><br/></p>
+<div id="ejemplo-2" class="section level3 box6 with-label">
+<h3>Ejemplo</h3>
+<p>Supongamos que se tiene la siguiente información escrita en una tabla
+de doble entrada o tabla cruzada que contiene dos eventos <span
+class="math inline">\(A\)</span> y <span
+class="math inline">\(B\)</span> :</p>
+<p><img src="img/tabla-222.png" alt="" width="40%" style="display: block; margin: auto;" /></p>
+</div>
+<p><br/><br/><br/></p>
+<p>Ahora en termino de probabilidades</p>
+<p><img src="img/tabla-422.png" alt="" width="40%" style="display: block; margin: auto;" /></p>
+<p>Nota: <span class="math inline">\(P(A \cap B) = 460/900 =
+0.51\)</span></p>
+<p>Esta información tambien se puede representar como un diagrama de
+Venn</p>
+<p><br/></p>
+<p><img src="img/diagrama5-22.png" alt="" width="50%" style="display: block; margin: auto;" />
+<br/><br/></p>
+<p>O tambien mediante un diagrama de árbol</p>
+<p><br/></p>
+<p><img src="img/arbol-5.png" alt="" width="50%" style="display: block; margin: auto;" /></p>
+<p><br/><br/></p>
+<p>Por despeje se pueden obtener la llanada regla de la multiplicación
+:</p>
+<p><br/><br/></p>
+<div id="regla-de-la-multiplicación-de-eventos"
+class="section level3 box2 with-label">
+<h3>Regla de la multiplicación de eventos</h3>
+<p>La probabilidad de que ocurra A y B asociados a un experimento
+aleatorio es :</p>
+<p><span class="math display">\[P(A \cap B) = P(A) P(B|A) \hspace{.5cm}
+\text{ o }  \hspace{.5cm} P(A \cap B) = P(B) P(A|B)\]</span></p>
+<p>En el caso de los eventos A y B sean independientes entonces :</p>
+<p><span class="math display">\[P(A \cap B) = P(A) P(B)\]</span></p>
+</div>
+<p><br/><br/><br/></p>
+<div id="eventos-independientes" class="section level3 box3 with-label">
+<h3>Eventos independientes</h3>
+<p>En el caso que se requiera evaluar si dos eventos son independientes
+o no, partiendo de la definición de probabilidad condicional se podría
+obtener la siguiente regla al despejar <span class="math inline">\(P(A
+\cap B\)</span> de la ecuación para obtener : <span
+class="math inline">\(P(A \cap B) = P(A) * P(B|A)\)</span>. En caso de
+que la ocurrencia del evento <span class="math inline">\(A\)</span>
+previamente al evento <span class="math inline">\(B\)</span>, no cambie
+su probabilidad, se podría escribir que <span
+class="math inline">\(P(B|A)= P(B)\)</span> y en este caso la regla
+indica que la probabilidad conjunta de los eventos A y B es igual a la
+probabilidad de sus probabilidades marginales :</p>
+</div>
+<p><br/><br/></p>
+<div id="independencia-de-eventos"
+class="section level3 box3 with-label">
+<h3>Independencia de eventos</h3>
+<p>Dos eventos A y B son independientes si y solo si la probabiliad del
+evento B no es afectada por la ocurrencia del evento A o viceversa.</p>
+<p><span class="math display">\[P(A \cap B) = P(A) P(B) \hspace{.5cm}
+\text{o} \hspace{.5cm} P(B|A)=P(B)\]</span></p>
+</div>
+<p><br/><br/><br/></p>
+<div style="display: flex;">
+<div>
+<p>Para determinar si los eventos A y B son eventos independientes se
+debe cumplir que :</p>
+<p><span class="math display">\[P(A \cap B) = P(A) P(B)\]</span> <span
+class="math display">\[P(A \cap B&#39;) = P(A) P(B&#39;)\]</span> <span
+class="math display">\[P(A&#39; \cap B) = P(A&#39;) P(B)\]</span> <span
+class="math display">\[P(A&#39; \cap B&#39;) = P(A&#39;)
+P(B&#39;)\]</span></p>
+</div>
+<div>
+<p><img src="img/tabla-122.png" alt="" width="70%" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<p><br/></p>
+<p>En el caso que se cumplan todas las condiciones, diremos que los
+eventos son independientes. En caso contrario, los eventos no son
+independientes</p>
+<p><br/><br/></p>
+<p>Una aplicación de este concepto se ilustra con los siguientes
+ejemplos:</p>
+<p><br/><br/></p>
+<div id="ejemplo-3" class="section level3 box6 with-label">
+<h3>Ejemplo</h3>
+<p>Se tiene un circuito formado por dos componentes <span
+class="math inline">\(A_{1}\)</span> y <span
+class="math inline">\(A_{2}\)</span> cada uno con probabilidad de
+funcionamiento <span class="math inline">\(P(A_{1}) = 0.90\)</span> y
+<span class="math inline">\(P(A_{2}) = 0.95\)</span> . Determinar la
+probabilidad de que el componente funcione.</p>
+<p><img src="img/circuito1.png" alt="" width="20%" style="display: block; margin: auto;" /></p>
+</div>
+<p><br/><br/></p>
+<p><strong>Solución:</strong></p>
+<p>Inicialmente se supone que los componentes <span
+class="math inline">\(A_{1}\)</span> y <span
+class="math inline">\(A_{2}\)</span> funcionan de manera independiente.
+Esto implica que <span class="math inline">\(P(A_{1} \cap A_{2}) =
+P(A_{1}) P(A_{2})\)</span></p>
+<p>Como para que el circuito funcione debe funcionar el componente <span
+class="math inline">\(A_{1}\)</span> y <span
+class="math inline">\(A_{2}\)</span>, utilizando el principio de
+independencia tenemos que:</p>
+<p><span class="math display">\[P(A_{1} \cap A_{2}) = P(A_{1}) P(A_{2})
+= 0.90 \times  0.95 = 0.855\]</span></p>
+<p><br/><br/><br/></p>
+<div id="ejemplo-4" class="section level3 box6 with-label">
+<h3>Ejemplo</h3>
+<p>Ahora supongamos que el circuito anterior está conectado en paralelo.
+Determinar la probabilidad de que el circuito funcione</p>
+<p><img src="img/circuito2.png" alt="" width="20%" style="display: block; margin: auto;" /></p>
+</div>
+<p><br/><br/></p>
+<p><strong>Solución:</strong></p>
+<p>En este caso solo hay una manera como el circuito no funciona y es
+cuando ambos componentes no funcionan. Esto implica que la probabilidad
+de que no funcione bajo el supuesto que los dos componentes son
+independientes es:</p>
+<p><span class="math display">\[P(A_{1}^{&#39;} \cap A_{2}^{&#39;}) =
+P(A_{1}^{&#39;}) \times P(A_{2}^{&#39;}) = 0.10 \times 0.05 = 0.005
+\]</span></p>
+<p>Ahora como se requiere la probabilidad de que el circuito funcione se
+utiliza el axioma <span class="math inline">\(A_{4}\)</span> : Para
+cualquier evento <span class="math inline">\(A\)</span>, <span
+class="math inline">\(P(A&#39;)=1-P(A)\)</span></p>
+<p><span class="math display">\[1-0.005 = 0.995\]</span></p>
+<p><br/><br/><br/></p>
+<div id="ejemplo-5" class="section level3 box6 with-label">
+<h3>Ejemplo</h3>
+<p>El departamento de crédito de la universidad, informa que el 30% de
+los pagos realizados en la universidad se efectúan en efectivo, un 40%
+con tarjeta de crédito y el resto con tarjeta débito. En todos los casos
+estos pagos solo son recibidos en la caja ubicada en la oficina de
+Registro Académico de la universidad.</p>
+<p>Tambien se conoce que 20% de los pagos realizados en efectivo, 70% de
+los pagos realizados con tarjeta de crédito y el 80% de los pagos
+realizados con tarjeta débito, corresponden a pagos por valores
+superiores a $500 mil pesos</p>
+<p>Con el fin de mejorar el servicio, se esta diseñando un sistema de
+turnos que agilice el procedimiento de atención . El ingeniero a cargo
+del diseño de sistema requiere le ayude a valorar las prioridades para
+las personas que deben pagar mas de $500 mil pesos, pues el ingeniero
+sospecha que es más probable que una persona requiere pagar más de $500
+mil pesos, lo haga con efectivo. Ayude al ingeniero con la información
+necesaria que le permita reafirmar su sospecha o por el contrario a
+valorar las diferentes posibilidades</p>
+</div>
+<p><br/><br/></p>
+<p><strong>Solución:</strong></p>
+<p><br/></p>
+<p>Definimos los siguientes eventos :</p>
+<ul>
+<li><strong>E</strong> : El pago se realiza en efectivo</li>
+<li><strong>TC</strong> : El pago se realiza con tarjeta de crédito</li>
+<li><strong>TD</strong> : El pago se realiza con tarjeta débito</li>
+<li><strong>+5</strong> : El pago es por una cantidad superior a $500
+mil pesos</li>
+</ul>
+<p><br/></p>
+<p><strong>Información :</strong></p>
+<table>
+<colgroup>
+<col width="34%" />
+<col width="34%" />
+<col width="30%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="left"></th>
+<th align="left">por diferencia</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><span class="math inline">\(P(E) = 0.20\)</span></td>
+<td align="left"><span class="math inline">\(P(+5 | E) =
+0.20\)</span></td>
+<td align="left"><span class="math inline">\(P(-5 | E) =
+0.80\)</span></td>
+</tr>
+<tr class="even">
+<td align="left"><span class="math inline">\(P(TC) = 0.40\)</span></td>
+<td align="left"><span class="math inline">\(P(+5 | TC) =
+0.70\)</span></td>
+<td align="left"><span class="math inline">\(P(-5 | TC) =
+0.30\)</span></td>
+</tr>
+<tr class="odd">
+<td align="left"><span class="math inline">\(P(TD) = 0.30\)</span></td>
+<td align="left"><span class="math inline">\(P(+5 | TD) =
+0.80\)</span></td>
+<td align="left"><span class="math inline">\(P(-5 | TD) =
+0.20\)</span></td>
+</tr>
+</tbody>
+</table>
+<p><br/><br/></p>
+<p><img src="img/diagrama-622.png" alt="" width="50%" style="display: block; margin: auto;" /></p>
+<p><br/></p>
+<table>
+<colgroup>
+<col width="68%" />
+<col width="31%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td align="left"><span class="math inline">\(P(E|+5) = \dfrac{P(E \cap
++5)}{P(+5)} = \dfrac{0.06}{0.58} = 0.1034\)</span></td>
+<td align="left"><strong>TERCERO</strong></td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left"><span class="math inline">\(P(TC | +5)  =  \dfrac{P(TC
+\cap +5)}{P(+5)} = \dfrac{0.28}{0.58} = 0.4827\)</span></td>
+<td align="left"><strong>PRIMERO</strong></td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left"><span class="math inline">\(P(TD | +5)  =  \dfrac{P(TD
+\cap +5)}{P(+5)} = \dfrac{0.24}{0.58} = 0.4138\)</span></td>
+<td align="left"><strong>SEGUNDO</strong></td>
+</tr>
+</tbody>
+</table>
+<p><br/><br/><br/></p>
+</div>
+<div id="probabilidad-total" class="section level2">
+<h2>Probabilidad Total</h2>
+<p>Ahora supongamos que el espacio muestral esta formado por un conjunto
+de eventos lo podemos representar como una partición del conjunto <span
+class="math inline">\(S\)</span> así :</p>
+<p><img src="img/particion1_22.png" alt="" width="50%" style="display: block; margin: auto;" /></p>
+<p><br/><br/></p>
+<div class="box6 with-label">
+<div class="label">
+Nota
+</div>
+<p>Una partición de un conjunto de <span
+class="math inline">\(S\)</span> está formada por subconjuntos <span
+class="math inline">\(A_{1}\)</span>, <span
+class="math inline">\(A_{2}\)</span>, <span
+class="math inline">\(\dots\)</span> , <span
+class="math inline">\(A_{n}\)</span>, que deben cumplir las siguiente
+propiedades :</p>
+<ul>
+<li><p><span class="math inline">\(A_{1} \cup A_{2} \cup \dots \cup
+A_{n}=S\)</span></p></li>
+<li><p><span class="math inline">\(A_{i} \cap A_{j} = \phi\)</span> ,
+para todo <span class="math inline">\(i \neq j\)</span></p></li>
+<li><p><span class="math inline">\(A_{i} \neq \phi\)</span></p></li>
+</ul>
+</div>
+<p><br/><br/></p>
+<p>En nuestro caso podemos tener solo cinco particiones para simplificar
+el procedimiento</p>
+<p><br/></p>
+<p><img src="img/particion2_22.png" alt="" width="50%" style="display: block; margin: auto;" /></p>
+<p><br/><br/></p>
+<p>Pdemos reasaltar los conjuntos que conforman a <span
+class="math inline">\(B\)</span> :</p>
+<p><img src="img/particion3_22.png" alt="" width="70%" style="display: block; margin: auto;" /></p>
+<p><br/><br/></p>
+<p>Tambien podemos recostruir <span class="math inline">\(B\)</span>
+como :</p>
+<p><span class="math inline">\(B = (A_{1} \cap B) \cup (A_{2} \cap B)
+\cup (A_{3} \cap B) \cup (A_{4} \cap B) \cup (A_{5} \cap B)\)</span></p>
+<p><br/><br/></p>
+<p>En términos de probabilidad tenemos</p>
+<p><span class="math inline">\(P(B) = P(A_{1} \cap B) + P(A_{2} \cap B)
++ P(A_{3} \cap B) + P(A_{4} \cap B) + P(A_{5} \cap B)\)</span></p>
+<p>Este resultado se puede expresar en otros términos de la regla de la
+multiplicacion:</p>
+<p><span class="math inline">\(P(B) = P(A_{1})P(B|A_{1}) +
+P(A_{2})P(B|A_{2})  +P(A_{3})P(B|A_{})  + P(A_{4})P(B|A_{4}) +
+P(A_{5})P(B|A_{5})\)</span></p>
+<p><br/><br/></p>
+<p>En general :</p>
+<p><br/><br/><br/></p>
+<div class="box2 with-label">
+<div class="label">
+Regla de la probabilidad total
+</div>
+<p>Dada una serie de eventos que conforman una partición <span
+class="math inline">\(E_{1}\)</span>, <span
+class="math inline">\(E_{2}\)</span>, <span
+class="math inline">\(E_{3}\)</span>, <span
+class="math inline">\(\dots\)</span>, <span
+class="math inline">\(E_{k}\)</span>, que son mutuamente excluyentes y
+exhaustivos y un evento A, la probabilidad del evento A se expresa como
+:</p>
+<p><span class="math display">\[P(A)=P(E_{1})P(A|E_{1})+
+P(E_{2})P(A|E_{2})+ P(E_{3})P(A|E_{3})+ \dots
+P(E_{k})P(A|E_{k})\]</span></p>
+</div>
+<p><br/><br/><br/></p>
+<div class="box6 with-label">
+<div class="label">
+Ejemplo 5
+</div>
+<p>En el caso que en el ejemplo anterior se requiere calcular la
+probabilidad <span class="math inline">\(P(+5)\)</span> utilizamos la
+regla de la probabilidad total:</p>
+<p><span class="math display">\[P(+5) = P(E)P(+5|E) +
+P(TC)P(+5|TC)  +P(TD)P(+5|TD)\]</span></p>
+<p><span class="math display">\[P(+5) = P(E)P(+5|E) +
+P(TC)P(+5|TC)  +P(TD)P(+5|TD)\]</span></p>
+<p><span class="math display">\[P(+5) = 0.30 \times 0.20 + 0.40 \times
+0.70 + 0.30 \times 0.80\]</span></p>
+<p><span class="math display">\[P(+5) = 0.06 + 0.28 +0.24 =
+0.58\]</span></p>
+</div>
+<p><br/><br/><br/></p>
+</div>
+<div id="teorema-de-bayes" class="section level2">
+<h2>Teorema de Bayes</h2>
+<p><br/><br/></p>
+<p><img src="img/Thomas_Bayes.png" alt="" width="30%" style="display: block; margin: auto;" /></p>
+<p><br/></p>
+<blockquote>
+<p><strong>Thomas Bayes</strong> (Londres, Inglaterra, ~1702 - Tunbridge
+Wells, 1761) fue un matemático británico y ministro presbiteriano. Su
+obra más conocida es el Teorema de Bayes.</p>
+<p><br/></p>
+<p>El teorema de Bayes, que lleva el nombre del matemático británico del
+siglo XVIII <strong>Thomas Bayes</strong>, es una fórmula matemática
+para determinar la probabilidad condicional . La probabilidad
+condicional es la probabilidad de que ocurra un resultado, basada en un
+resultado previo. El teorema de Bayes proporciona una forma de revisar
+las predicciones o teorías existentes (actualizar las probabilidades)
+dada la evidencia nueva o adicional. En finanzas, el teorema de Bayes se
+puede utilizar para calificar el riesgo de prestar dinero a posibles
+prestatarios.</p>
+</blockquote>
+<blockquote>
+<p>Tomado de : <a
+href="https://www.investopedia.com/terms/b/bayes-theorem.asp"
+class="uri">https://www.investopedia.com/terms/b/bayes-theorem.asp</a>
+<br/> Lectura recomendada : <a
+href="https://blogs.scientificamerican.com/cross-check/bayes-s-theorem-what-s-the-big-deal/"
+class="uri">https://blogs.scientificamerican.com/cross-check/bayes-s-theorem-what-s-the-big-deal/</a></p>
+</blockquote>
+<p><br/><br/><br/></p>
+<div id="definición-teorema-de-bayes"
+class="section level3 box6 with-label">
+<h3>Definición: Teorema de Bayes</h3>
+<p>Dada una serie de eventos que conforma una partición <span
+class="math inline">\(E_{1}\)</span>, <span
+class="math inline">\(E_{2}\)</span>, <span
+class="math inline">\(E_{3}\)</span>, <span
+class="math inline">\(\dots\)</span>, <span
+class="math inline">\(E_{k}\)</span> , que son mutuamente excluyentes y
+exhaustivos, con probabilidad a priori <span
+class="math inline">\(P(E_{1})\)</span>, <span
+class="math inline">\(P(E_{2})\)</span> <span
+class="math inline">\(P(E_{3})\)</span>, <span
+class="math inline">\(\dots\)</span>, <span
+class="math inline">\(P(E_{k})\)</span>. Si ocurre un evento <span
+class="math inline">\(A\)</span>, la probabilidad a posteriori de <span
+class="math inline">\(E_{i}\)</span> dados <span
+class="math inline">\(A\)</span>, es la probabilidad condicional :</p>
+<p><span class="math display">\[P(E_{i}|A)=\dfrac{P(E_{i} \cap
+A)}{P(A)}= \dfrac{P(E_{i}) P(A|E_{i})}{\displaystyle\sum_{j=1}^{k}
+P(E_{j})P(A|E_{j})} \]</span></p>
+</div>
+<p><br/><br/><br/></p>
+<div class="box6 with-label">
+<div class="label">
+Ejemplo 6
+</div>
+<p><br/></p>
+<p>Continuando con el ejemplo anterior puede ser necesario calcular la
+probabilidad : <span class="math inline">\(P(E|+5)\)</span> para lo cual
+utilizamos el Teorema de Bayes</p>
+<p><span class="math display">\[P(E|+5) = \dfrac{P(E \cap +5)}{P(+5)} =
+\dfrac{P(E)P(+5|E)}{P(E)P(+5|E) +
+P(TC)P(+5|TC)  +P(TD)P(+5|TD)}\]</span></p>
+<p><span class="math display">\[P(E|+5) = \dfrac{0.30 \times 0.20}{0.30
+\times 0.20 + 0.40 \times 0.70 + 0.30 \times 0.80} = \dfrac{0.06}{0.58}
+= 0.1034\]</span></p>
+</div>
+<p></br></p>
+<p><br/><br/></p>
+<div class="box6 with-label">
+<div class="label">
+Ejemplo 7
+</div>
+<p>En una fábrica de artı́culos para protección biodegradables, cuatro
+operarios colocan etiquetas de caducidad en cada artı́culo al final de la
+lı́nea de producción. Juan, quien coloca la fecha de caducidad en un 40 %
+de los paquetes no logra ponerla en uno de cada 200 paquetes; Luis,
+quien coloca en 30 % de los paquetes, no logra colocarla en uno de 100
+paquetes; Maria, quien coloca etiquetas en el 15 % de los paquetes, no
+lo hace una vez en 90 paquetes; y Santiago que fecha 15 % de los
+paquetes, falla en uno de cada 200 paquetes. Si un cliente se queja de
+que su paquete no muestra la fecha de caducidad. ¿Cuál de los empleados
+es el más probable culpable de esta omisión?</p>
+</div>
+<p><br/><br/></p>
+<p>Solución:</p>
+<p>Información</p>
+<table>
+<colgroup>
+<col width="18%" />
+<col width="25%" />
+<col width="26%" />
+<col width="29%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Juan</th>
+<th align="left">Luis</th>
+<th align="left">Maria</th>
+<th align="left">Santiago</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><span class="math inline">\(P(J) =  0.40\)</span></td>
+<td align="left"><span class="math inline">\(P(L) =0.30\)</span></td>
+<td align="left"><span class="math inline">\(P(M)=0.15\)</span></td>
+<td align="left"><span class="math inline">\(P(S)=0.15\)</span></td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left"><span class="math inline">\(P(N|J)=1/200\)</span></td>
+<td align="left"><span class="math inline">\(P(N|L) =
+1/100\)</span></td>
+<td align="left"><span class="math inline">\(P(N|M)=1/90\)</span></td>
+<td align="left"><span class="math inline">\(P(N|S)=1/200\)</span></td>
+</tr>
+</tbody>
+</table>
+<p><br/></p>
+<p>En terninos de conjuntos podemos escribir:</p>
+<p><span class="math display">\[N = (J \cap N) \cup (L \cap N) \cup (M
+\cap N) \cup (S \cap N) \]</span> <br/><br/></p>
+<p>Ahora en términos de probabilidad:</p>
+<p><span class="math display">\[P(N) = P(J \cap N) + P(L \cap N) + P(M
+\cap N) + P(S \cap N) \]</span> <span class="math display">\[P(N) =
+P(J)P(N|J) + P(L)P(N|L) + P(M)P(N|M) + P(S)P(N|S)\]</span> <span
+class="math display">\[P(N) = 0.40 \dfrac{1}{200} + 0.30 \dfrac{1}{100}
++ 0.15 \dfrac{1}{90} + 0.15 \dfrac{1}{200} = 0.007416667\]</span></p>
+<p>Por tanto:</p>
+<p><span class="math display">\[P(J|N) = \dfrac{0.00200}{0.00200 +
+0.00300 + 0.00167 + 0.00075} = 0.2696629 \]</span> <span
+class="math display">\[P(L|N) = \dfrac{0.00300}{0.00200 + 0.00300 +
+0.00167 + 0.00075} = 0.4044944\]</span> <span
+class="math display">\[P(M|N) = \dfrac{0.00167}{0.00200 + 0.00300 +
+0.00167 + 0.00075} = 0.2247191\]</span> <span
+class="math display">\[P(S|N) = \dfrac{0.00075}{0.00200 + 0.00300 +
+0.00167 + 0.00075} = 0.1011236\]</span></p>
+<pre class="r"><code>x=c(0.4,0.3,0.15,0.15)
+y=c(1/200,1/100,1/90,1/200)
+(x*y)/sum(x*y)</code></pre>
+<pre><code>[1] 0.2696629 0.4044944 0.2247191 0.1011236</code></pre>
+<p>Por los resultados anteriores el obrero más probable de haber
+cometido el error es LUIS, con una probabilidad de 0.404</p>
+<p><br/><br/><br/></p>
+</div>
+</div>
+<div id="aplicaciones" class="section level1">
+<h1>Aplicaciones</h1>
+<div id="árboles-de-decisión" class="section level2">
+<h2>Árboles de decisión</h2>
+<p><br/></p>
+<pre class="r"><code>#  install.packages(&quot;titanic&quot;)  # instalar paquete titatic
+library(titanic) #  cargar paquete
+data(titanic_train)  # cargar los datos
+
+# install.packages(&quot;rpart&quot;)
+# install.packages(&quot;rattle&quot;)
+#install.packages(&quot;rpart.plot&quot;)
+
+library(rpart)
+library(rattle)
+library(rpart.plot)
+
+arbol=rpart( formula = Survived ~ Sex,
+             data = titanic_train,
+             method = &quot;class&quot;)
+fancyRpartPlot(arbol)</code></pre>
+<p><img src="recurso21_files/figure-html/unnamed-chunk-21-1.png" alt="" width="672" />
+<br/> Código basado en: <a
+href="https://www.youtube.com/watch?v=t0lmtrm_aa0">Video de
+referencia</a></p>
+<p><br/><br/></p>
+<div id="resultados-del-árbol" class="section level3">
+<h3>Resultados del árbol</h3>
+<p><br/></p>
+<p><strong>Eventos</strong> :</p>
+<ul>
+<li><span class="math inline">\(S\)</span> : sobrevive</li>
+<li><span class="math inline">\(S&#39;\)</span> : no sobrevive</li>
+<li><span class="math inline">\(H\)</span> : hombre</li>
+<li><span class="math inline">\(M\)</span> : mujer</li>
+</ul>
+<p><br/><br/></p>
+<p><strong>Probabilidades:</strong></p>
+<ul>
+<li><span class="math inline">\(P(S&#39;) = 0.62\)</span></li>
+<li><span class="math inline">\(P(S) = 0.28\)</span></li>
+<li><span class="math inline">\(P(M) = 0.35\)</span></li>
+<li><span class="math inline">\(P(H) = 0.64\)</span></li>
+<li><span class="math inline">\(P(S&#39;|M=  = 0.26\)</span></li>
+<li><span class="math inline">\(P(S|M=  = 0.74\)</span></li>
+<li><span class="math inline">\(P(S&#39;|H) = 0.81\)</span></li>
+<li><span class="math inline">\(P(S|H) = 0.19\)</span></li>
+</ul>
+<p><br/><br/></p>
+<pre class="r"><code>t= table(titanic_train$Survived,
+         titanic_train$Sex)       # construcción tabla cruzada
+
+t = t %&gt;%  
+      prop.table() %&gt;% 
+      addmargins() %&gt;% 
+      round(.,4)
+
+rownames(t)=c(&quot;Died&quot;,&quot;Survived&quot;, &quot;Sum&quot;)
+
+      
+t        # tabla de probabilidades</code></pre>
+<pre><code>          
+           female   male    Sum
+  Died     0.0909 0.5253 0.6162
+  Survived 0.2615 0.1223 0.3838
+  Sum      0.3524 0.6476 1.0000</code></pre>
+<p><br/></p>
+</div>
+</div>
+</div>
+<div id="referencias-sobre-árboles-de-decisión" class="section level1">
+<h1>Referencias sobre árboles de decisión</h1>
+<ul>
+<li><p><a
+href="https://rpubs.com/jboscomendoza/arboles_decision_clasificacion"
+class="uri">https://rpubs.com/jboscomendoza/arboles_decision_clasificacion</a></p></li>
+<li><p><a
+href="https://bookdown.org/content/2031/arboles-de-decision-parte-ii.html"
+class="uri">https://bookdown.org/content/2031/arboles-de-decision-parte-ii.html</a></p></li>
+</ul>
+<p><br/><br/><br/></p>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("hide" === "show");
+});
+</script>
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

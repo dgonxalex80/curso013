@@ -1,0 +1,372 @@
+---
+title: "Teoría de probabilidades"
+author: "dgonzalez" 
+subtitle: " " 
+output:
+  html_document:
+    toc: no
+    toc_depth: 2
+    toc_float: yes
+    code_folding: hide
+    theme: flatly
+    css:
+      - style.css
+      - cajas.css
+--- 
+
+      
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE, comment = NA)
+library(ggplot2)
+# install.packages("devtools")
+#devtools::install_github("dgonxalex80/paqueteDEG")
+#library(paqueteDEG)
+
+# colores
+source("colores.R")
+set.seed(123)
+
+# install.packages('gtools')
+# install.packages("TeachingSampling")
+
+#load library
+#library(gtools)
+#library(TeachingSampling)
+#library(readr)
+#base_muestreo <- read_delim("data/base_muestreo.csv", 
+#    delim = ";", escape_double = FALSE, col_types = cols(ID = col_integer()), 
+#    trim_ws = TRUE)
+
+
+```
+
+```{r, echo=FALSE, out.width="100%", fig.align = "center"}
+knitr::include_graphics("img/codigo2.png")
+```
+
+<br/><br/><br/>
+
+
+# Experimentos aleatorios
+
+<br/><br/>
+
+Como se menciona en la Guía 2.1, un **Experimento aleatorio** se puede definir como una acción que podemos repetir en iguales condiciones muchas veces y cuyo resultado no conocemos anticipadamente
+
+<br/><br/>
+
+<div class="box3 with-label">
+### Ejemplo 1  
+
+Un ejemplo de ello es cuando estamos jugando parques y un jugador lanza dos dados, el resultado solo es posible de observar después de haber realizado la acción de lanzarlos. 
+
+Al conjunto de todos los posibles valores que puede tomar el experimento aleatorio se le denomina **Espacio muestral**, que se denota por la letra mayúscula **S**.
+
+</div>
+
+</br></br>
+
+<center>
+![](img/dados.gif)
+</center>
+
+<br/></br>
+
+Si el resultado de interés es la **suma de los dos dados**, su espacio muestral es:
+
+$$S=\{ 2,3,4,5,6,7,8,9,10,11,12 \}$$
+</br></br><br/>
+
+## Lanzamiento de un dado
+
+</br>
+
+Para simular el lanzamiento de un dado utilizaremos la función `sample(x, size, replace = FALSE, prob = NULL)`, con parámetros: `x` : valores del espacio muestral; `size` : tamaño de la muestra y `replace` : para determinar si la selección se realiza con reemplazo o sin reemplazo.
+
+`sample(1:6,200, replace = TRUE)`, da un resultado una muestra de 200 valores enteros entre 1 y 6, con repetición.
+
+```{r, fig.align='center'}
+n=200
+x=sample(1:6,n, replace = TRUE)
+td1=prop.table(table(x))
+barplot(td1, las=1, col = c31)
+```
+
+
+</br></br><br/>
+
+## Lanzamiento de dos dados
+
+En este caso utilizamos la función `sample()` dos veces y se obtienen dos vectores que representan los resultados del dado1 y del dado2 respectivamente. Con estos resultados se construye una `data.frame()` de dos columnas por n filas. En ella cada fila de dos componentes conforma una muestra con dos valores.
+
+Para obtener la suma de los valores de los dos dados, utilizamos la función `apply(X, MARGIN, FUN, ..., simplify = TRUE)`
+indicando con `MARGIN=1` que la operación (siguiente parámetro) se realizará por filas. Por último en el parámetro `FUN` se asigna la función a realizar. En resumen : `suma=apply(dados, 1, sum)`
+
+</br>
+
+```{r, fig.align='center'}
+n=200
+d1=sample(1:6,n, replace = TRUE)
+d2=sample(1:6,n, replace = TRUE)
+dados=data.frame(d1,d2)
+suma=apply(dados, 1, sum)
+barplot(table(suma), las=1,cex.axis=0.7, col= c31)
+data.frame(prop.table(table(suma)))
+
+```
+
+</br>
+
+Procedimiento alternativo
+
+```{r, fig.align='center'}
+t=sapply(1:200, function(x){sum(sample(1:6,2,replace = TRUE))})
+barplot(table(t), las=1, cex.axis=0.7, col=c31)
+```
+
+
+</br></br><br/>
+
+<div class="box3 with-label">
+##  Urna 
+
+Para simular la extracción de bolas de una urna, se utilizan las funciones `sample()` y `rep()` mostradas en el siguiente ejemplo :
+
++  Simulación de urna con:  3 bolas Blancas, 5 Rojas y 4 Azules
+    + 1 representa las bolas blancas
+    + 2 representa las bolas rojas
+    + 3 representa las bolas azules
+
+```{r}
+sample(c(1,2,3),10,replace = TRUE,prob=c(3,5,4))
+```
+
+</div>
+
+
+La misma simulación con palabras
+
+```{r}
+sample(c("Blanca","Roja","Azul"),10,replace = TRUE,prob=c(3,5,4))
+```
+ 
+
+```{r}
+
+# set.seed(123)
+
+# Extraer la muestra
+muestra <- sample(
+  c("Blanca", "Roja", "Azul"),
+  size = 10,
+  replace = TRUE,
+  prob = c(3, 5, 4)
+)
+
+# Datos para el gráfico
+df <- data.frame(
+  posicion = 1:10,
+  color = muestra
+)
+
+# Representación de la muestra
+ggplot(df, aes(x = posicion, y = 1, fill = color)) +
+  geom_point(
+    shape = 21,
+    size = 14,
+    color = "#333333",
+    stroke = 1.2
+  ) +
+  scale_fill_manual(
+    values = c(
+      "Blanca" = "white",
+      "Roja"   = "red",
+      "Azul"   = "blue"
+    )
+  ) +
+  scale_x_continuous(
+    limits = c(0.5, 10.5),
+    expand = c(0, 0)
+  ) +
+  coord_cartesian(
+    ylim = c(0.7, 1.3),
+    clip = "off"
+  ) +
+  theme_void() +
+  theme(
+    legend.position = "none",
+    plot.margin = margin(5, 5, 5, 5)
+  )
+```
+
+# Tablas de contingencia
+
+Las tablas de contingencia o tablas cruzadas resumen conjuntamente dos variables cualitativas. Primero construimos una tabla con sus frecuencias conjuntas.
+
+```{r}
+frecuencias <- c(20, 60, 100, 30, 140, 50)
+m <- matrix(frecuencias, ncol = 2)
+rownames(m) <- c("Administrativo", "Operativo", "Vendedor")
+colnames(m) <- c("Mujer", "Hombre")
+m
+```
+
+A continuación se adicionan las frecuencias marginales
+
+```{r}
+addmargins(m)
+```
+
+Para convertirlas en probabilidades utilizamos la función `prop.table()`
+
+```{r}
+prop.table(m)
+```
+
+Esta función también se utiliza para calcular las probabilidades condicionales por filas
+
+```{r}
+prop.table(m,1)
+```
+
+o las probabilidades condicionales por columnas
+
+```{r}
+prop.table(m,2)
+```
+
+<br/><br/>
+
+<div class="box6 with-label">
+### Ejemplo 
+
+Supongamos que tenemos una enfermedad rara que afecta al 1% de la población. También sabemos que una prueba médica tiene una precisión del 95% para detectar la enfermedad cuando está presente, pero también puede dar falsos positivos en un 3% de los casos en los que la enfermedad no está presente. Se desea calcular la probabilidad de que una persona tenga la enfermedad dado que la prueba dio positivo.
+
+Primero, establezcamos algunas notaciones:
+
+A: La persona tiene la enfermedad.
+B: La prueba da positivo.
+
+Queremos calcular $P(A|B)$, es decir, la probabilidad de que la persona tenga la enfermedad dado que la prueba dio positivo.
+
+</div>
+
+Para dar solución al problema empleamos el Teorema de Bayes
+
+$$P(A|B) = \dfrac{P(B|A) . P(A)}{P(B)}$$
+
+Donde 
+
+* $P(A|B)$: probabilidad de que la persona tenga la enfermedad dado que la prueba dio positivo.
+* $P(A)$ : probabilidad de que una persona tenga la enfermedad (1% en este caso).
+* $P(B)$ : probabilidad de que la prueba dé positivo.
+
+Para calcular $P(B)$ usamos la regla de probabilidad total:
+
+$$P(B) = P(B|A) . P(A) + P(B|A'). P(A')$$
+
+
+```{r}
+# Probabilidades dadas
+Prob_A <- 0.01   # Probabilidad de tener la enfermedad
+Prob_B_dado_A <- 0.95   # Precisión de la prueba (dar positivo dado que tiene la enfermedad)
+Prob_B_dado_noA <- 0.03   # Falsos positivos (dar positivo dado que no tiene la enfermedad)
+
+# Calculamos P(not A)
+Prob_noA <- 1 - Prob_A
+
+# Calculamos P(B)
+Prob_B <- Prob_B_dado_A * Prob_A + Prob_B_dado_noA * Prob_noA
+
+# Calculamos P(A|B) usando el Teorema de Bayes
+Prob_A_dado_B <- (Prob_B_dado_A * Prob_A) / Prob_B
+
+# Imprimimos el resultado
+cat("Probabilidad de tener la enfermedad dado que la prueba dio positivo:", Prob_A_dado_B, "\n")
+
+```
+
+<br/><br/>
+
+Tabla cruzada
+
+```{r}
+# Crear la tabla cruzada
+tabla_cruzada <- matrix(c(0.95 * 0.01, 0.03 * 0.99, 0.05 * 0.01, 0.97 * 0.99), nrow = 2, byrow = TRUE)
+colnames(tabla_cruzada) <- c("Enfermedad", "No Enfermedad")
+rownames(tabla_cruzada) <- c("Prueba Positiva", "Prueba Negativa")
+
+# Imprimir la tabla cruzada con estilo
+tabla_estilizada <- knitr::kable(tabla_cruzada) |>
+  kableExtra::kable_styling(bootstrap_options = "striped", full_width = FALSE)
+
+tabla_estilizada
+
+```
+
+
+<br/><br/><br/>
+
+<div class="box3 with-label">
+### Convergencia de Probabilidad al Lanzar Dos Dados
+
+En el siguiente problema, exploraremos cómo la probabilidad de obtener una suma de 7 al lanzar dos dados converge a su valor teórico a medida que aumentamos el número de lanzamientos. Se sabe que cuando se lanzan dos dados equilibrados, la suma más probable es 7.
+
+</div>
+
+<br/>
+
+1. **Teoría:** Si lanzamos dos dados equilibrados, la suma más probable es 7, ya que hay más combinaciones posibles para obtener $7$ ($1+6$, $2+5$, $3+4$, $4+3$, $5+2$, $6+1$) que para cualquier otra suma. La probabilidad teórica de obtener una suma de $7$ es:  
+
+$$\dfrac{6}{36} = \frac{1}{6} \approx 0.1667$$
+
+
+<br/>
+
+2. **Simulación:** Utilizaremos R para simular lanzamientos de dos dados y calcular la probabilidad de obtener una suma de $7$. Luego, graficaremos cómo esta probabilidad converge a su valor teórico a medida que aumentamos el número de lanzamientos.
+
+3. **Reto:** Ejecutar la simulación con diferentes tamaños de muestra y observar cómo la probabilidad de obtener una suma de $7$ cambia. Luego, crea un gráfico que muestre esta convergencia. ¿En qué punto la probabilidad simulada se acerca al valor teórico?
+
+<br/>
+
+4. **Instrucciones:**
+
+* Utiliza el código de simulación proporcionado y ajusta los tamaños de muestra según las indicaciones.
+* Ejecuta la simulación para diferentes tamaños de muestra y registra los resultados.
+* Crea un gráfico que muestre cómo la probabilidad simulada cambia con el tamaño de muestra.
+* Analiza el gráfico y compara la probabilidad simulada con el valor teórico.
+* Escribe una breve conclusión sobre cómo la probabilidad converge a medida que aumenta el tamaño de muestra.
+
+
+<br/><br/>
+
+
+<div class="box6 with-label">
+<div class="label">Código R</div>
+
+```{r}
+# Una sola simulación permite calcular la frecuencia acumulada
+# para todos los tamaños de muestra.
+tamanos_muestra <- seq(100, 100000, by = 100)
+max_lanzamientos <- max(tamanos_muestra)
+
+dado_1 <- sample(1:6, max_lanzamientos, replace = TRUE)
+dado_2 <- sample(1:6, max_lanzamientos, replace = TRUE)
+es_suma_7 <- dado_1 + dado_2 == 7
+
+probabilidades <- cumsum(es_suma_7)[tamanos_muestra] / tamanos_muestra
+
+plot(
+  tamanos_muestra, probabilidades,
+  type = "l",
+  xlab = "Tamaño de muestra",
+  ylab = "Probabilidad de suma 7",
+  main = "Convergencia de la probabilidad de suma 7 al lanzar dos dados",
+  las = 1
+)
+abline(h = 1 / 6, col = "red", lwd = 2)
+```
+
+</div>
+
