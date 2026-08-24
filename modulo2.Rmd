@@ -1,7 +1,7 @@
 ---
-title: <span style="color:#3498C9">Teoría de Probabilidades</span>
-author: "dgonzalez "
-subtitle:  
+title: "<span style='color:#3498C9 !important;'>Teoría de probabilidades</span>"
+author: <span style="color:#3498C9">dgonzalez </span> 
+subtitle: <span style="color:#3498C9"> </span>  
 output:
   html_document:
     toc: no
