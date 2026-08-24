@@ -45,6 +45,21 @@ knitr::include_graphics("img/recurso2.png")
 </div>
 
 
+Cada una de las anteriores imagenes representa un evento del cual nos puede interesar la estimación del riesgo -probabilidad- 
+
++ comprar un apartamento
++ no usar elementos de protección
++ no conocer la información suficiente para cerrar un negocio
++ comprar un carro usado sin examinarlo previamente
++ tomar un vuelo en una aerolinea no reconocida
++ realizarse una operación si suficiente información
++ realizar una reparación de un carro en un taller no conocido
++ realizar una inversión sin consultas previas
++ realizar un viaje en moto sin los elementos de protección
+
+
+
+
 
 Antes de iniciar, piensa en estas preguntas:
 
@@ -73,16 +88,22 @@ Antes de iniciar, piensa en estas preguntas:
 
 <br/><br/>
 
-Un profesional de la administración, mercadeo, finanzas, de negocios o de ingeniería, toma decisiones bajo incertidumbre todo el tiempo:
+Un profesional de **finanzas o ingeniería industrial** toma decisiones bajo incertidumbre todo el tiempo:
 
-- lanzar o no una campaña,
-- aprobar o no un crédito,
-- priorizar o no un clientes,
-- estimar la demanda futura de un producto.
-- elegir o no un local para abrir una sucursal.
-- contratar o no un candidatos para un puesto
-- invertir o no en la compara de dólares
-- aumentar o no  la producción
+* invertir o no en un determinado activo financiero,
+* comprar o vender dólares ante cambios esperados en la tasa de cambio,
+* aprobar o no un proyecto de inversión,
+* otorgar o no un crédito a un cliente,
+* estimar la demanda futura de un producto,
+* aumentar, mantener o reducir el nivel de producción,
+* seleccionar entre diferentes proveedores,
+* determinar el nivel óptimo de inventarios,
+* decidir si ampliar la capacidad instalada,
+* evaluar la rentabilidad y el riesgo de una inversión,
+* elegir la ubicación más conveniente para una nueva planta o sucursal,
+* contratar o no personal adicional ante cambios esperados en la demanda.
+
+En todos estos casos, **la decisión debe tomarse sin conocer con certeza qué ocurrirá en el futuro**. Es precisamente allí donde la **probabilidad, la estadística y la simulación** proporcionan herramientas para cuantificar la incertidumbre y tomar decisiones mejor fundamentadas.
 
 <br/>
 
@@ -160,12 +181,10 @@ Un experimento aleatorio es una acción repetible cuyo resultado no puede conoce
 <div class="box6 with-label">
 ### Ejemplos 
 
-- $E_1$: Lanzar dos dados y observar la suma del resultado obtenido en sus caras superiores.
-- $E_2$: Enviar un correo promocional y observar si el cliente abre o no.
-- $E_3$: Ofrecer una llamada comercial y observar si hay compra.
-- $E_4$: Recibir una solicitud de crédito y observar si entra en mora.
-- $E_5$: Publicar una pauta digital y observar si la campaña supera el objetivo midiendo el número de compras.
-- $E_6$ Realizar un examen de estadística y observar el resultado obtenido
++ $E_{1}$: Lanzar una moneda dos veces y observar los resultados obtenidos en sus caras superiores 
++ $E_{2}$: Lanzar dos dados y observar la suma de los resultados superiores 
++ $E_{3}$: Realizar un examen de estadística y observar el resultado obtenido  
++ $E_{4}$: Ofrecer una llamada comercial y observar si hay compra.
 
 </div>
 
@@ -184,11 +203,8 @@ El espacio muestral (\(S\) o \(\Omega\)) es el conjunto de <strong>todos</strong
 <div class="box6 with-label">
 ### Ejemplos 
 
-- $S_1=\{ 2,3,4,5,6,7,8,9,10,11,12 \}$
++ $S_1=\{(cc) (cs), (sc), (ss) \}$
 
-:::: {style="display: flex;"}
-
-::: {}
 
 + $\begin{equation*}
 	S_{2}=\left\{
@@ -203,22 +219,9 @@ El espacio muestral (\(S\) o \(\Omega\)) es el conjunto de <strong>todos</strong
 	\right\}
 	\end{equation*}$ 
 
-:::
++ $S_{3}$= $\{ x \in \mathbb{R} | 0 \leq x \leq 5   \}$ 
 
-::: {}
-
-```{r, echo=FALSE, out.width="100%", fig.align = "center"}
-knitr::include_graphics("img/dados.png")
-```
-:::
-
-::::
-
-
-- $S_2=\{\text{Abre},\text{No abre}\}$
-- $S_3=\{\text{Efectivo},\text{Tarjeta crédito},\text{Tarjeta débito}\}$
-- $S_4=\{0,1,2,3,4,\dots\}$
-- $S_5= \{ x \in \mathbb{R} | 0 \leq x \leq 5   \}$
++ $S_{4}$ = $\{ \text{compra},  \text{ no compra}  \}$
 
 </div>
 
@@ -237,11 +240,11 @@ Un evento es un subconjunto del espacio muestral que representa un resultado de 
 
 ### Ejemplos
 
-- $A_{1}$ Obtener solo caras                    
-- $A_{2}$ Sacar un resultados es inferior a 4  
-- $A_{3}$ Ganar el examen                       
-- $A_{4}$ Cumplir el objetivo de la salida      
-- $A_{5}$ Obtener más de 5 ensayos éxitos       
++ $A_{1}$ Obtener solo caras                    
++ $A_{2}$ Sacar un resultados inferior a 4  
++ $A_{3}$ Ganar el examen                       
++ $A_{4}$ compra      
+      
 
 
 </div>
@@ -267,10 +270,26 @@ $$P(A)=\frac{n(A)}{n(S)}$$
 
 ### Ejemplos 
 
-Una empresa sortea 1 bono entre 10 clientes finalistas con igual oportunidad.  
-La probabilidad de que un cliente específico gane es:
+
++ $P(A_1) = \dfrac{1}{4} = 0.25$, 
+
+la probabilidad de sacar un par de caras al lanzar dos monodas, es igual a 0.25.
+
+
+
++ $P(A_2) = \dfrac{3}{36} = \dfrac{1}{12} = 0.083333...$
+
 
 $$P(\text{ganar})=\frac{1}{10}=0.10$$
+la probabilidad de obtener un número menor a 4, al lazar dos dados y sumar los resultados de sus caras superiores es aproximadamente de 0.083
+
+</div>
+
+<br/>
+<div class="box6 with-label">
+### Nota
+
+Las probabiliades de los eventos $A_3$, $A_4$ no se pueden obtener mediante este enfoque
 
 </div>
 
@@ -290,7 +309,9 @@ $$P(A)\approx \frac{\text{veces que ocurrió }A}{\text{número total de observac
 <div class="box6 with-label">
 ### Ejemplos 
 
-En 500 envíos de email donde se ofrecen servicios de una empresa, 125 clientes respondioeron solicitando servicios.
+En 500 envíos de email donde se ofrecen los servicios de una empresa, 125 clientes respondioeron solicitando sus servicios.
+
+La probabilidad de que la estrategia de enviar correos a las empresas sea efectiva se calcula recurriendo a datos historícos bajo el enfoque frecuentista.
 
 $$P(\text{clic})\approx \frac{125}{500}=0.25$$
 
@@ -323,11 +344,11 @@ El gerente comercial estima en $0.60$ la probabilidad de cerrar un contrato estr
 <div class="box6 with-label">
 ### Axiomas de probabilidad
 
-1. $(P(S)=1)$
-2. $0\leq P(A)\leq 1$
-3. Si $A$ y $B$ son excluyentes: $P(A\cup B)=P(A)+P(B)$ 
-4. Regla del complemento: $P(A^c)=1-P(A)$
-5. $P(\varnothing)=0$
+1. $P(S)=1$  : la probabilidad de que ocurra un elemento del espacio muestral es 1.
+2. $0\leq P(A)\leq 1$ : la probabilidad es un número entre 0 y 1
+3. Si $A$ y $B$ son excluyentes: $P(A\cup B)=P(A)+P(B)$ . a probabiliad de la suma de dos eventos, estos son excluyentes - es decir no tienen elementos comunes - es igual a la suma de las probabilidades. 
+4. Regla del complemento: $P(A^')=1-P(A)$ : la probabiliad del complemento de un evento, es igual a 1 menos la probabilidad del evento.
+5. $P(\varnothing)=0$ . la probabilidad de vacio es 0.
 
 <br/><br/>
 
@@ -335,6 +356,8 @@ Regla general de unión:
 
 $P(A\cup B)=P(A)+P(B)-P(A\cap B)$
 \]
+
+En general la probabilidad de la suma de dos eventos es igual a la suma de las probabiliades de los dos eventos menos la probabilidad de la interseción entre los eventos.
 </div>
 
 <br/><br/><br/>

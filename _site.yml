@@ -70,7 +70,9 @@ navbar:
           href: recurso21.html
         - text: "Código 2.1"  
           href: codigo21.html
-        - text: "--------"        
+        - text: "--------"   
+        - text: "Taller 211"  
+          href: taller211.html        
   
     - text: "Módulo 3"
       menu:

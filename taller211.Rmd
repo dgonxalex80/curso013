@@ -22,8 +22,8 @@ knitr::include_graphics("img/taller2.png")
 
 <br/><br/>
 
-<div class="box2 with-label">
-<div class="label">Problema 1</div>
+<div class="box6 with-label">
+### Problema 1
 
 <br/>
 
@@ -73,8 +73,8 @@ Si en cada caso los estudiantes son seleccionados de manera aleatoria de toda la
 
 <br/><br/><br/>
 
-<div class="box2 with-label">
-<div class="label">Problema 2</div>
+<div class="box6 with-label">
+### Problema 2
 
 <br/>
 
@@ -85,8 +85,8 @@ En una fábrica de artı́culos para protección biodegradables ,cuatro operario
 
 <br/><br/><br/>
 
-<div class="box2 with-label">
-<div class="label">Problema 3</div>
+<div class="box6 with-label">
+### Problema 3
 
 <br/>
 
@@ -127,8 +127,8 @@ Con el fin de realizar una buena asignación del presuipuesto comercial para est
 
 <br/><br/><br/>
 
-<div class="box2 with-label">
-<div class="label">Problema 4</div>
+<div class="box6 with-label">
+### Problema 4
 
 <br/>
 
@@ -151,8 +151,8 @@ Con base en la información anterior, determine la probabilidad de ocurrencia de
 
 <br/><br/><br/>
 
-<div class="box2 with-label">
-<div class="label">Problema 5</div>
+<div class="box6 with-label">
+### Problema 5 
 
 <br/>
 
@@ -174,8 +174,8 @@ knitr::include_graphics("img/taller-05.png")
 
 <br/><br/><br/>
 
-<div class="box2 with-label">
-<div class="label">Problema 6</div> 
+<div class="box6 with-label">
+### Problema 6
 
 <br/>
 
@@ -187,8 +187,8 @@ Un dispositivo sirve para identificar una cierta enfermedad. Si alguien está en
 
 <br/><br/><br/>
 
-<div class="box2 with-label">
-<div class="label">Problema 7</div> 
+<div class="box6 with-label">
+### Problema 7
 
 En una ciudad hay 60 hombres y 40 mujeres por cada 100 habitantes. La mitad de los hombres y una tercera parte de las mujeres fuman. Si se selecciona al azar un fumador, ¿qué es más probable, que sea hombre o mujer? (Carmen Diaz-2005)
 
@@ -197,8 +197,8 @@ En una ciudad hay 60 hombres y 40 mujeres por cada 100 habitantes. La mitad de l
 
 <br/><br/><br/>
 
-<div class="box2 with-label">
-<div class="label">Problema 8</div> 
+<div class="box6 with-label">
+### Problema 8
 
 <br/>
 

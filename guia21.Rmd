@@ -58,7 +58,7 @@ Al finalizar la unidad, el estudiante estará en capacidad de **desarrollar el p
 <div class="box6 with-label">
 ## **Duración**
 
-La presente unidad se desarrollará durante la semana del **25 al 30 de septiembre de 2026**. Además del material suministrado, contarán con el acompañamiento del profesor en dos sesiones presenciales y una con un monitor de apoyo definidos para el curso.
+La presente unidad se desarrollará durante la semana del **25 al 30 de agosto de 2026**. Además del material suministrado, contarán con el acompañamiento del profesor en dos sesiones presenciales y una con un monitor de apoyo definidos para el curso.
 
 Los entregables de esta unidad podrán enviarse a través de Brightspace hasta la fecha y hora establecidas en el cronograma.
 
@@ -102,7 +102,7 @@ El **taller 211** de la unidad recoge los elementos estudiados y tiene como obje
 | Entregable    |  Descripción                    |
 |:--------------|:-----------------------------|
 | Taller 211    | Solucionario del Taller 201 | 
-| Fecha         | 30 de septiembre de 2026 | 
+| Fecha         | 30 de agosto de 2026 | 
 |Hora límite    | 23:59  hora  local |
 
 </div>
