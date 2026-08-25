@@ -13,7 +13,7 @@ output:
       - style.css
       - cajas.css
 ---
-  
+
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE, comment = NA)
@@ -45,21 +45,6 @@ knitr::include_graphics("img/recurso2.png")
 </div>
 
 
-Cada una de las anteriores imagenes representa un evento del cual nos puede interesar la estimación del riesgo -probabilidad- 
-
-+ comprar un apartamento
-+ no usar elementos de protección
-+ no conocer la información suficiente para cerrar un negocio
-+ comprar un carro usado sin examinarlo previamente
-+ tomar un vuelo en una aerolinea no reconocida
-+ realizarse una operación si suficiente información
-+ realizar una reparación de un carro en un taller no conocido
-+ realizar una inversión sin consultas previas
-+ realizar un viaje en moto sin los elementos de protección
-
-
-
-
 
 Antes de iniciar, piensa en estas preguntas:
 
@@ -80,30 +65,24 @@ Antes de iniciar, piensa en estas preguntas:
 
 ## ¿Qué significado tienen las palabras…
 
-* Azar - Aleatorio
-* Determinístico - No deterministico
-* Incertidumbre - Probable - Improbable
-* Cierto - Incierto - Imposible
+* Azar / Aleatorio
+* Determinístico / No deterministico
+* Incertidumbre / Probable / Improbable
+* Cierto / Incierto / Imposible
 
 
 <br/><br/>
 
-Un profesional de **finanzas o ingeniería industrial** toma decisiones bajo incertidumbre todo el tiempo:
+Un profesional de la administración, mercadeo, finanzas, de negocios o de ingeniería, toma decisiones bajo incertidumbre todo el tiempo:
 
-* invertir o no en un determinado activo financiero,
-* comprar o vender dólares ante cambios esperados en la tasa de cambio,
-* aprobar o no un proyecto de inversión,
-* otorgar o no un crédito a un cliente,
-* estimar la demanda futura de un producto,
-* aumentar, mantener o reducir el nivel de producción,
-* seleccionar entre diferentes proveedores,
-* determinar el nivel óptimo de inventarios,
-* decidir si ampliar la capacidad instalada,
-* evaluar la rentabilidad y el riesgo de una inversión,
-* elegir la ubicación más conveniente para una nueva planta o sucursal,
-* contratar o no personal adicional ante cambios esperados en la demanda.
-
-En todos estos casos, **la decisión debe tomarse sin conocer con certeza qué ocurrirá en el futuro**. Es precisamente allí donde la **probabilidad, la estadística y la simulación** proporcionan herramientas para cuantificar la incertidumbre y tomar decisiones mejor fundamentadas.
+- lanzar o no una campaña,
+- aprobar o no un crédito,
+- priorizar o no un clientes,
+- estimar la demanda futura de un producto.
+- elegir o no un local para abrir una sucursal.
+- contratar o no un candidatos para un puesto
+- invertir o no en la compara de dólares
+- aumentar o no  la producción
 
 <br/>
 
@@ -128,10 +107,10 @@ Con el fin de motivar la construcción de los conceptos principales del tema se 
 
 <br/><br/>
 
-<div class="box6 with-label">
+<div class="box3 with-label">
 ## Problema 
 
-El siguiente problema fué planteado por el Caballero de Meré a Pascal quien lo consultó con Fermata y conforma una serie de situaciones que dan origen a soluciones que conforman los inicios del estudio de la Probabilidad (1654).
+El siguiente problema fué planteado por el Caballero de Meré a Pascal quien lo consultó con Fermat y conforma una serie de situaciones que dan origen a soluciones que conforman los inicios del estudio de la Probabilidad (1654).
 
 Los dados, tal y como los conocemos hoy en día, se hicieron muy populares en la edad media. En esta época un caballero llamado Chevalier de Mere propuso el siguiente problema:
 
@@ -182,9 +161,14 @@ Un experimento aleatorio es una acción repetible cuyo resultado no puede conoce
 ### Ejemplos 
 
 + $E_{1}$: Lanzar una moneda dos veces y observar los resultados obtenidos en sus caras superiores 
+
 + $E_{2}$: Lanzar dos dados y observar la suma de los resultados superiores 
+
 + $E_{3}$: Realizar un examen de estadística y observar el resultado obtenido  
-+ $E_{4}$: Ofrecer una llamada comercial y observar si hay compra.
+
++ $E_{4}$: En una salida de campo, observo si se cumple o no, totalmente el objetivo planteado 
+
++ $E_{5}$: Observo el número total de ensayos de laboratorio exitosos en  20 intentos realizados.
 
 </div>
 
@@ -203,8 +187,12 @@ El espacio muestral (\(S\) o \(\Omega\)) es el conjunto de <strong>todos</strong
 <div class="box6 with-label">
 ### Ejemplos 
 
-+ $S_1=\{(cc) (cs), (sc), (ss) \}$
++ $S_{1}$= $\{ (cc), (cs), (sc), (ss) \}$  
+<br/>
 
+:::: {style="display: flex;"}
+
+::: {}
 
 + $\begin{equation*}
 	S_{2}=\left\{
@@ -219,10 +207,28 @@ El espacio muestral (\(S\) o \(\Omega\)) es el conjunto de <strong>todos</strong
 	\right\}
 	\end{equation*}$ 
 
+:::
+
+::: {}
+
+```{r, echo=FALSE, out.width="100%", fig.align = "center"}
+knitr::include_graphics("img/dados.png")
+```
+:::
+
+::::
+
+<br/>
+
 + $S_{3}$= $\{ x \in \mathbb{R} | 0 \leq x \leq 5   \}$ 
 
-+ $S_{4}$ = $\{ \text{compra},  \text{ no compra}  \}$
+<br/>
 
++ $S_{4}$= $\{ x \in \mathbb{N}| 0 \leq x \leq 1 \}$ 
+
+<br/>
+
++ $S_{5}$= $\{ x \in \mathbb{N}| 0 \leq x \leq 20 \}$
 </div>
 
 <br/><br/>
@@ -240,12 +246,23 @@ Un evento es un subconjunto del espacio muestral que representa un resultado de 
 
 ### Ejemplos
 
-+ $A_{1}$ Obtener solo caras                    
-+ $A_{2}$ Sacar un resultados inferior a 4  
-+ $A_{3}$ Ganar el examen                       
-+ $A_{4}$ compra      
-      
+|           |                                       |                      |
+|:----------|:--------------------------------------|:---------------------|
+|$A_{1}$    | Obtener solo caras                    | $A_{1}=\{ (c,c)\}$
+| $A_{2}$   | Sacar un resultados es inferior a 4   | $A_{2}=\{(1,1),(1,2)(2,1)\}$
+| $A_{3}$   | Ganar el examen                       | $A_{3}=\{ x \in \mathbb{R} | 3.0 \leq x \leq 5.0 \}$
+| $A_{4}$   | Cumplir el objetivo de la salida      | $A_{4} =\{ 1 \}$
+| $A_{5}$   | Obtener más de 5 ensayos éxitos       | $A_{5}$= $\{ x \in \mathbb{N}| 6 \leq x \leq 20 \}$     
 
+Resumiendo:
+
+|Experimento aleatorio| Espacio muestral | Evento aleatorio |
+|:--------------------|:-----------------|:-----------------|
+|Lanzar una moneda dos veces y observar los resultados obtenidos en sus caras superiores| $S_{1}$= $\{ (cc), (cs), (sc), (ss) \}$ | Obtiener solo caras |
+|Lanzar dos dados y observar la suma de los resultados superiores| $S_{2}$= $\{(1,1),(1,2), \dots, (6,6) \}$ | Sacar un resultados es inferior a 6 |
+|Realizar un examen de estadística y observar el resultado obtenido|  $S_{3}$= $\{ x \in \mathbb{R} | 0 \leq x \leq 5 \}$| Ganar el examen|
+|En una salida de campo, observo si se cumple o no, totalmente el objetivo planteado| $S_{4}$= $\{ x \in \mathbb{N}| 0 \leq x \leq 1 \}$| Cumplir el objetivo de la salida |
+|Observo el número total de ensayos de laboratorio exitosos en  20 intentos realizados| $S_{5}$= $\{ x \in \mathbb{N}| 0 \leq x \leq 20 \}$| Obtener más de 5 ensayos éxitos |
 
 </div>
 
@@ -270,26 +287,13 @@ $$P(A)=\frac{n(A)}{n(S)}$$
 
 ### Ejemplos 
 
+En el caso del evento $A_{1}=\{(c,c)\}$, su probabilidad se obtiene como: 
 
-+ $P(A_1) = \dfrac{1}{4} = 0.25$, 
+$P(A_{1}=\dfrac{n(A_{1})}{n(S_{1})}=\dfrac{1}{4}=0.25$ 
 
-la probabilidad de sacar un par de caras al lanzar dos monodas, es igual a 0.25.
+Para $A_{2}$, la suma de los resultados es inferior a 6, se obtiene de la siguiente forma
 
-
-
-+ $P(A_2) = \dfrac{3}{36} = \dfrac{1}{12} = 0.083333...$
-
-
-$$P(\text{ganar})=\frac{1}{10}=0.10$$
-la probabilidad de obtener un número menor a 4, al lazar dos dados y sumar los resultados de sus caras superiores es aproximadamente de 0.083
-
-</div>
-
-<br/>
-<div class="box6 with-label">
-### Nota
-
-Las probabiliades de los eventos $A_3$, $A_4$ no se pueden obtener mediante este enfoque
+$P(A_{2})=\dfrac{n(A_{2})}{n(S_{2})}=\dfrac{9}{36}=0.25$
 
 </div>
 
@@ -309,9 +313,7 @@ $$P(A)\approx \frac{\text{veces que ocurrió }A}{\text{número total de observac
 <div class="box6 with-label">
 ### Ejemplos 
 
-En 500 envíos de email donde se ofrecen los servicios de una empresa, 125 clientes respondioeron solicitando sus servicios.
-
-La probabilidad de que la estrategia de enviar correos a las empresas sea efectiva se calcula recurriendo a datos historícos bajo el enfoque frecuentista.
+En 500 envíos de email donde se ofrecen servicios de una empresa, 125 clientes respondioeron solicitando servicios.
 
 $$P(\text{clic})\approx \frac{125}{500}=0.25$$
 
@@ -328,6 +330,7 @@ Se usa cuando un experto asigna probabilidad con su experiencia, información  y
 <br/><br/>
 
 <div class="box6 with-label">
+
 ### Ejemplo
 
 El gerente comercial estima en $0.60$ la probabilidad de cerrar un contrato estratégico tras una reunión clave.
@@ -340,14 +343,30 @@ El gerente comercial estima en $0.60$ la probabilidad de cerrar un contrato estr
 
 <br/>
 
-<div class="box6 with-label">
+<div class="box3 with-label">
 ### Axiomas de probabilidad
 
-1. $P(S)=1$  : la probabilidad de que ocurra un elemento del espacio muestral es 1.
-2. $0\leq P(A)\leq 1$ : la probabilidad es un número entre 0 y 1
-3. Si $A$ y $B$ son excluyentes: $P(A\cup B)=P(A)+P(B)$ . a probabiliad de la suma de dos eventos, estos son excluyentes - es decir no tienen elementos comunes - es igual a la suma de las probabilidades. 
-4. Regla del complemento: $P(A^')=1-P(A)$ : la probabiliad del complemento de un evento, es igual a 1 menos la probabilidad del evento.
-5. $P(\varnothing)=0$ . la probabilidad de vacio es 0.
++ $A_{1}$ : Sea $S$ un espacio muestral  asociado a un experimento. Entonces:
+
+$$P(S)=1$$ 
+
++ $A_{2}$ : Para cualquier evento $A$, se cumple que:
+
+$$0 \leq P(A) \leq 1$$ 
+
++ $A_{3}$ : Si $A$ y $B$ son dos eventos mutuamente excluyentes, entonces: 
+$$P(A \cup B) = P(A) + P(B)$$ 
+En general 
+
+$$P(A \cup B) = P(A)+ P(B) - P(A \cap B)$$ 
+
+
++ $A_{4}$ : Para cualquier evento $A$, $P(A')=1-P(A)$
+
++ $A_{5}$ : La probabilidad que no ocurra nada : 
+
+$$P(\phi) = 0$$   
+
 
 <br/><br/>
 
@@ -355,8 +374,6 @@ Regla general de unión:
 
 $P(A\cup B)=P(A)+P(B)-P(A\cap B)$
 \]
-
-En general la probabilidad de la suma de dos eventos es igual a la suma de las probabiliades de los dos eventos menos la probabilidad de la interseción entre los eventos.
 </div>
 
 <br/><br/><br/>
@@ -379,7 +396,19 @@ A partir de esta tabla cruzada podemos definir las siguientes probabilidades, ba
 
 <br/><br/><br/>
 
+<div class="box3 with-label">
 ### Probabilidad simple o marginal
+
+a probabilidad simple, también llamada probabilidad marginal, es la probabilidad de que ocurra un solo evento, sin considerar simultáneamente la ocurrencia de otros eventos.
+
+$$P(A) = \dfrac{\text{número de resultados favirables de A}}{\text{número total de resultados posibles}} $$
+Se denomina marginal especialmente cuando trabajamos con dos o más eventos o variables en una tabla conjunta, porque se obtiene la probabilidad de un evento sin condicionar por el otro, normalmente a partir de los totales marginales de la tabla.
+</div>
+
+<br/><br/>
+
+<div class="box6 with-label">
+### Ejemplo 
 
 + $P(A)$ : probabilidad de que ocurra A `:       70/200`
 
@@ -388,11 +417,24 @@ A partir de esta tabla cruzada podemos definir las siguientes probabilidades, ba
 + $P(B)$ : probabilidad de que ocurra B `:       80/200`
 
 + $P(B')$ : probabilidad de que NO ocurra B `:   120/200` 
+</div>			
 			
 <br/><br/>
 
+<div class="box3 with-label">
 ### Probabilidad conjunta
-			
+
+Probabilidad conjunta: es la probabilidad de que dos o más eventos ocurran simultáneamente; es decir, que se presente tanto un evento como el otro.
+
+$$P(A \cap B)$$ 
+Se lee : "probabilidad de que ocurra A y B" 
+</div>
+
+<br/><br/>
+
+<div class="box3 with-label">
+### Ejemplo
+
 + $P(A \cap B)$ : probabilidad de que ocurra A y B `:              45/200`
 			
 + $P(A' \cap B)$ : probabilidad de que NO ocurra A y ocurra B `:     35/200`
@@ -400,6 +442,8 @@ A partir de esta tabla cruzada podemos definir las siguientes probabilidades, ba
 + $P(A \cap B')$ : probabilidad de que ocurra A y NO ocurra B `:     25/200`
 
 + $P(A' \cap B')$ : probabilidad de que NO ocurra A ni B  `:         65/200`
+
+</div>
 
 <br/><br/>
 
@@ -454,6 +498,11 @@ knitr::include_graphics("img/tabla-212.png")
 
 <br/>
 
+
+```{r, echo=FALSE, out.width="60%", fig.align = "center"}
+knitr::include_graphics("img/tabla-21A.png")
+```
+
 |       |                                                                                                        |
 |:------|:-------------------------------------------------------------------------------------------------------|
 |$P(LA)$| probabilidad de que un cliente seleccionado de manera aleatoria tenga lealtad con la marca **alta**    |
@@ -468,6 +517,10 @@ knitr::include_graphics("img/tabla-212.png")
 
 ## Probabilidad conjunta 
 
+
+```{r, echo=FALSE, out.width="60%", fig.align = "center"}
+knitr::include_graphics("img/tabla-21B.png")
+```
 <br/>
 
 |                 |                                                                                                                                                    |
@@ -484,19 +537,16 @@ knitr::include_graphics("img/tabla-212.png")
 
 <br/><br/><br/>
 
+<div class="box3 with-label">
 ## Probabilidad condicional
 
-<br/>
-
-La probabilidad condicional de $B$, dado $A$, se denota como $P(B|A)$, se define como:
+Probabilidad condicional: es la probabilidad de que ocurra un evento A, sabiendo que otro evento B ya ha ocurrido, se denota como $P(B|A)$, se define como:
 
 $$P(B|A)=\dfrac{P(A \cap B)}{P(A)}$$
 
 Siempre que $P(A) > 0$
 
-
-
-<br/><br/>
+<br/>
 
 $P(B|A)$ se puede leer como :
 
@@ -506,12 +556,16 @@ $P(B|A)$ se puede leer como :
 
 + Si sabemos que ha ocurrido el evento $A$, la probabilidad de que ocurra $B$
 
+</div>
+
 <br/><br/>
 
 El efecto de conocer la ocurrencia del evento $A$ hace que el espacio muestral de referencia pase de ser $S$ a solo $A$.  Ahora dentro de este nuevo espacio muestral de referencia se debe establecer la probabilidad de que ocurra $B$
 
 De esta manera la probabilidad se expresa como la razón entre la probabilidad conjunta 
 $P(A \cap B)$ con la probabilidad de $A$
+
+
 
 <br/><br/><br/>
 
@@ -551,21 +605,28 @@ O tambien mediante un diagrama de árbol
 
 <br/>
 
+
 ```{r, echo=FALSE, out.width="50%", fig.align = "center"}
-knitr::include_graphics("img/arbol-5.png")
+knitr::include_graphics("img/arbol-6.png")
+```
+
+<br/><br/>
+
+En terminos de probabilidad podemos visalizar que la probabilidad condicional se construye a partir de la división de una probabiliad conjunta con una probabilidad marginal 
+
+<br/>
+
+```{r, echo=FALSE, out.width="70%", fig.align = "center"}
+knitr::include_graphics("img/tabla-21C.png")
 ```
 
 
-
-<br/><br/>
-
-Por despeje se pueden obtener la llanada regla de la multiplicación :
-
-<br/><br/>
+<br/><br/><br/>
 
 
 
-<div class="box2 with-label">
+<div class="box3 with-label">
+
 ### Regla de la multiplicación de eventos  
 
 La probabilidad de que ocurra A y B asociados a un experimento aleatorio es :
@@ -593,7 +654,6 @@ En el caso que se requiera evaluar si dos eventos son independientes o no, parti
 
 <div class="box3 with-label">
 ### Independencia de eventos  
-
 
 
 Dos eventos A y B son independientes si y solo si la probabiliad del evento B no es afectada por la ocurrencia del evento A o viceversa.
@@ -758,7 +818,7 @@ knitr::include_graphics("img/particion1_22.png")
 
 
 <div class="box6 with-label">
-### Nota  
+<div class="label">Nota</div>  
 
  Una partición de un conjunto de $S$ está formada por subconjuntos $A_{1}$, $A_{2}$, $\dots$ , $A_{n}$, que deben cumplir las siguiente propiedades :
 
@@ -811,7 +871,7 @@ En general :
 <br/><br/><br/>  
 
 <div class="box3 with-label">
-### Regla de la probabilidad total  
+<div class="label">Regla de la probabilidad total</div>  
 
 
 
@@ -825,7 +885,7 @@ $$P(A)=P(E_{1})P(A|E_{1})+ P(E_{2})P(A|E_{2})+ P(E_{3})P(A|E_{3})+ \dots P(E_{k}
 <br/><br/><br/>
 
 <div class="box6 with-label">
-### Ejemplo   
+<div class="label">Ejemplo 5</div>  
 
 
 
@@ -857,19 +917,14 @@ knitr::include_graphics("img/Thomas_Bayes.png")
 <br/>
 
 >**Thomas Bayes** (Londres, Inglaterra, ~1702 - Tunbridge Wells, 1761) fue un matemático británico y ministro presbiteriano. Su obra más conocida es el Teorema de Bayes.
+>
+><br/> 
+>
+>El teorema de Bayes, que lleva el nombre del matemático británico del siglo XVIII **Thomas Bayes**, es una fórmula matemática para determinar la probabilidad condicional . La probabilidad condicional es la probabilidad de que ocurra un resultado, basada en un resultado previo. El teorema de Bayes proporciona una forma de revisar las predicciones o teorías existentes (actualizar las probabilidades) dada la evidencia nueva o adicional. En finanzas, el teorema de Bayes se puede utilizar para calificar el riesgo de prestar dinero a posibles prestatarios.
 
-<br/> 
-
-
-<div class="box6 with-label">
-### Teorema de Bayes
-
-El teorema de Bayes, que lleva el nombre del matemático británico del siglo XVIII **Thomas Bayes**, es una fórmula matemática para determinar la probabilidad condicional . La probabilidad condicional es la probabilidad de que ocurra un resultado, basada en un resultado previo. El teorema de Bayes proporciona una forma de revisar las predicciones o teorías existentes (actualizar las probabilidades) dada la evidencia nueva o adicional. En finanzas, el teorema de Bayes se puede utilizar para calificar el riesgo de prestar dinero a posibles prestatarios.
-
-Tomado de  : https://www.investopedia.com/terms/b/bayes-theorem.asp <br/> 
+>Tomado de  : https://www.investopedia.com/terms/b/bayes-theorem.asp <br/> 
 Lectura recomendada : https://blogs.scientificamerican.com/cross-check/bayes-s-theorem-what-s-the-big-deal/
 
-</div>
 
 <br/><br/><br/> 
 
@@ -886,7 +941,7 @@ $$P(E_{i}|A)=\dfrac{P(E_{i} \cap A)}{P(A)}= \dfrac{P(E_{i}) P(A|E_{i})}{\display
 
 
 <div class="box6 with-label">
-### Ejemplo   
+<div class="label">Ejemplo 6</div>  
 
 <br/>
 
@@ -904,7 +959,7 @@ $$P(E|+5) = \dfrac{0.30 \times 0.20}{0.30 \times 0.20 + 0.40 \times 0.70 + 0.30 
 
 
 <div class="box6 with-label">
-### Ejemplo 
+<div class="label">Ejemplo 7</div>  
 
 En una fábrica de artı́culos para protección biodegradables, cuatro operarios colocan etiquetas de caducidad en cada artı́culo al final de la lı́nea de producción. Juan, quien coloca la fecha de caducidad en un 40 % de los paquetes no
 logra ponerla en uno de cada 200 paquetes; Luis, quien coloca en 30 % de los paquetes, no logra colocarla en uno de 100 paquetes; Maria, quien coloca etiquetas en el 15 % de los paquetes, no lo hace una vez en 90 paquetes; y Santiago que fecha 15 % de los paquetes, falla en uno de cada  200 paquetes. Si un cliente se queja de que su paquete no
@@ -1038,3 +1093,4 @@ t        # tabla de probabilidades
 + https://bookdown.org/content/2031/arboles-de-decision-parte-ii.html
 
 <br/><br/><br/>
+
