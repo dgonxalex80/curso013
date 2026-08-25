@@ -1,0 +1,1017 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="dgonzalez " />
+
+
+<title>Teoría de probabilidades</title>
+
+<script src="site_libs/header-attrs-2.31/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.5.2/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+<link rel="stylesheet" href="cajas.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html"> </a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">
+    <span class="fa fa-home"></span>
+     
+    Estadística
+  </a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 0
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo0.html">Módulo 0</a>
+    </li>
+    <li>
+      <a href="sumatoria.html">Sumatoria</a>
+    </li>
+    <li>
+      <a href="productoria.html">Productoria</a>
+    </li>
+    <li>
+      <a href="conjuntos.html">Conjuntos</a>
+    </li>
+    <li>
+      <a href="conteo.html">Conteo</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 1
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo1.html">Módulo 1</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="guia11.html">Guía 1.1</a>
+    </li>
+    <li>
+      <a href="recurso11.html">Recursos 1.1</a>
+    </li>
+    <li>
+      <a href="basesdatos.html">Bases de datos</a>
+    </li>
+    <li>
+      <a href="introduccionR.html">Introducción a R</a>
+    </li>
+    <li>
+      <a href="codigo11.html">Código 1.1</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="guia12.html">Guía 1.2</a>
+    </li>
+    <li>
+      <a href="recurso12.html">Recursos 1.2</a>
+    </li>
+    <li>
+      <a href="codigo12.html">Código 1.2</a>
+    </li>
+    <li>
+      <a href="caso1A.html">Caso 1</a>
+    </li>
+    <li>
+      <a href="caso1B.html">Caso 2</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="guia13.html">Guía 1.3</a>
+    </li>
+    <li>
+      <a href="recurso13.html">Recursos 1.3</a>
+    </li>
+    <li>
+      <a href="codigo13.html">Código 1.3</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="monitoria1.html">Monitoria 1</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 2
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo2.html">Módulo 2</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="guia21.html">Guía 2.1</a>
+    </li>
+    <li>
+      <a href="recurso21.html">Recursos 2.1</a>
+    </li>
+    <li>
+      <a href="codigo21.html">Código 2.1</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="taller211.html">Taller 211</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="monitoria2.html">Moitoría 2</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 3
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo3.html">Módulo 3</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 4
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo4.html">Módulo 4</a>
+    </li>
+    <li class="divider"></li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Proyecto
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="enconstruccion.html">Guía proyecto</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore"><span
+style="color:#3498C9 !important;">Teoría de probabilidades</span></h1>
+<h3 class="subtitle"><span style="color:#3498C9"> </span></h3>
+<h4 class="author"><span style="color:#3498C9">dgonzalez </span></h4>
+
+</div>
+
+
+<p><img src="img/monitoria2.png" alt="" width="100%" style="display: block; margin: auto;" /></p>
+<p></br></br></br></p>
+<div id="problemas" class="section level1">
+<h1><span style="color:#2C5697"> <strong>Problemas</strong></span></h1>
+<p><br/></p>
+<div id="problema-1" class="section level3 box3 with-label">
+<h3>Problema 1</h3>
+<p>Suponga que el conjunto universal consta de los números enteros del 1
+al 10.</p>
+<p>Sea</p>
+<p><span class="math inline">\(A=\{2,3,4\}\)</span>, <span
+class="math inline">\(B=\{3,4,5\}\)</span>, <span
+class="math inline">\(C=\{5,6,7\}\)</span></p>
+<p>Determine los elementos de los siguientes conjuntos:</p>
+<ul>
+<li><span class="math inline">\(A \cap B\)</span></li>
+<li><span class="math inline">\(A&#39; \cap B\)</span></li>
+<li><span class="math inline">\((A \cap B)&#39;\)</span></li>
+<li><span class="math inline">\((A&#39; \cap B&#39;)&#39;\)</span></li>
+<li><span class="math inline">\(A \cap (B \cup C)&#39;\)</span></li>
+<li>Represente los conjuntos <span class="math inline">\(A\)</span>,
+<span class="math inline">\(B\)</span> y <span
+class="math inline">\(C\)</span> en un diagrama de Venn (John
+Venn-1880)</li>
+</ul>
+</div>
+<p></br></br></br></p>
+<div id="problema-2" class="section level3 box3 with-label">
+<h3>Problema 2</h3>
+<p>Suponga que el conjunto <span class="math inline">\(U\)</span> está
+dado por <span class="math inline">\(U = \{ x | 0 \leq x \leq 2
+\}\)</span> . Sean los conjuntos <code>A</code> y <code>B</code>
+definidos como:</p>
+<p><span class="math display">\[A=\{ x | 1/2 \leq x \leq
+1\}\]</span><br />
+<span class="math display">\[B = \{x|1/4 \leq x \leq 3/4 \}\]</span></p>
+<p>Describa los siguientes conjuntos:</p>
+<ul>
+<li><span class="math inline">\(A \cup B\)</span></li>
+<li><span class="math inline">\(A \cup B&#39;\)</span></li>
+<li><span class="math inline">\(A \cap B&#39;\)</span></li>
+<li><span class="math inline">\((A \cap B)&#39;\)</span></li>
+<li>Represente gráficamente los conjuntos solicitados</li>
+</ul>
+</div>
+<p></br></br></br></p>
+<div id="problema-3" class="section level3 box3 with-label">
+<h3>Problema 3</h3>
+<p>Un cargamento de 1500 lavadoras contiene 400 defectuosas y 1100 no
+defectuosas. Se eligen al azar doscientas lavadoras (sin sustitución) y
+se clasifican.</p>
+<ol style="list-style-type: lower-alpha">
+<li>¿Cual es la probabilidad de que se encuentren exactamente 50
+artículos defectuosos?,</li>
+<li>¿?Cual es la probabilidad de que se encuentren al menos 50 artículos
+defectuosos?</li>
+<li>¿ entre 50 y 60 artículos defectuosos?</li>
+</ol>
+</div>
+<p><br/><br/><br/></p>
+<div id="problema-4" class="section level3 box3 with-label">
+<h3>Problema 4</h3>
+<p>Diez fichas numeradas del 1 al 10 se mezclan en una urna. Se sacan de
+la urna dos fichas numeradas <code>(X,Y)</code> una y otra a la vez sin
+sustitución. ¿Cuál es la probabilidad de que <code>X+Y=10</code> ?</p>
+</div>
+<p><br/><br/><br/></p>
+<div id="problema-5" class="section level3 box3 with-label">
+<h3>Problema 5</h3>
+<p>Un lote consta de 10 artículos buenos, 4 con pequeños defectos y 2
+con defectos graves. Se elige un artículo al azar. Encontrar la
+probabilidad de que :</p>
+<ul>
+<li>No tenga defectos,</li>
+<li>Tenga defecto grave,</li>
+<li>Que sea bueno o tenga un defecto grave</li>
+</ul>
+</div>
+<p><br/><br/><br/></p>
+<div id="problema-6" class="section level3 box3 with-label">
+<h3>Problema 6</h3>
+<p>Un mecanismo puede ponerse en cuatro posiciones digamos
+<code>a</code>, <code>b</code>, <code>c</code> y <code>d</code> . Hay 8
+de tales mecanismos en un sistema.</p>
+<ul>
+<li>¿De cuántas maneras diferentes se puede instalar el sistema ?,</li>
+<li>¿Cuantas maneras son posibles si sólo se usan las posiciones
+<code>a</code> y <code>b</code> con la misma frecuencia?</li>
+</ul>
+</div>
+<p><br/><br/><br/></p>
+<div id="problema-7" class="section level3 box3 with-label">
+<h3>Problema 7</h3>
+<p>Entre los números <span class="math inline">\(1,2,3 .... 50\)</span>
+se escoge un número al azar. ¿Cuál es la probabilidad de que el número
+escogido sea divisible por <code>6</code> o por <code>8</code>?</p>
+</div>
+<p><br/><br/><br/></p>
+<div id="problema-8" class="section level3 box3 with-label">
+<h3>Problema 8</h3>
+<p>La urna 1 contiene <code>x</code> bolas blancas e <code>y</code>
+bolas rojas. La urna 2 contiene <code>z</code> bolas blancas y
+<code>v</code> bolas rojas. Se escoge una bola al azar de la urna 1 y se
+pone en la urna 2. Entonces se escoge una bola al azar de la urna 2.
+¿Cuál es la probabilidad de que esta bola sea blanca?</p>
+</div>
+<p><br/><br/><br/></p>
+<div id="problema-9" class="section level3 box3 with-label">
+<h3>Problema 9</h3>
+<p>En las siguientes figuras (a) y (b) se supone que la probabilidad de
+que cada interruptor este cerrado es <code>p</code> y que cada
+interruptor se abre o se cierra independientemente de cualquier otro.
+Encontrar en cada caso la probabilidad de la corriente pase de
+<em>Izquierda</em> a <em>Derecha</em></p>
+<p><img src="img/circuitos22.png" alt="" width="70%" style="display: block; margin: auto;" /></p>
+<p><em>Ejercicios tomados de Meyer( 1986) </em></p>
+</div>
+<p><br/><br/><br/></p>
+<div id="problema-10" class="section level3 box3 with-label">
+<h3>Problema 10</h3>
+<p>Los contaminantes más comunes de las aguas son de origen orgánico.
+Puesto que la mayor parte de los materiales orgánicos se descompone por
+acción de bacterias que requieren oxígeno, un exceso de materia orgánica
+puede significar una disminución en la cantidad de oxígeno disponible.
+Ello afecta eventualmente a otros organismos presentes en el agua. La
+demanda de oxígeno por parte de una bacteria se llama demanda biológica
+de oxígeno (DBO). Un estudio de las corrientes acuáticas que circulan en
+las proximidades de un complejo industrial revela que el 35% tiene una
+alta DBO, el 10% muestra una acidez elevada y un 4% presenta ambas
+características. ¿Son independientes los sucesos «la corriente tiene una
+alta DBO» y «la corriente posee una acidez elevada»? Calcular la
+probabilidad de que la corriente tenga una acidez elevada, dado que
+presenta una alta DBO.</p>
+</div>
+<p><br/><br/><br/></p>
+<div id="problema-11" class="section level3 box3 with-label">
+<h3>Problema 11</h3>
+<p>Suponga que una familia tiene cuatro hijos.</p>
+<ul>
+<li>Represente los eventos en un diagrama de árbol</li>
+<li>Hallar la probabilidad de que exactamente dos sean varones.</li>
+<li>Cuál es la probabilidad de que dos sean varones si el nacido en
+primer lugar es un varón?.</li>
+<li>¿Cuál es la probabilidad de que el último hijo nazca varón si los
+tres primeros son mujeres?</li>
+</ul>
+</div>
+<p><br/><br/><br/></p>
+<div id="problema-12" class="section level3 box3 with-label">
+<h3>Problema 12</h3>
+<p>Unos estudios muestran que los ejemplares de una cierta raza de
+liebres de alta montaña (liebre esquiadora) mueren antes de lo normal,
+aun en ausencia de depredadores o de enfermedad conocida alguna. Dos de
+las causas de muerte identificadas son: baja cantidad de azúcar en
+sangre y convulsiones. Se estima que el 7% de los animales presenta
+ambos síntomas, el 40% tiene bajo nivel de azúcar en sangre, y el 25%
+sufre convulsiones.</p>
+<ul>
+<li>¿Cuál es el porcentaje de muertes producidas por causas que no sean
+las que hemos mencionado?</li>
+<li>¿Cuál es la probabilidad de que un animal elegido aleatoriamente que
+tiene bajo nivel de azúcar en sangre sufra también convulsiones?</li>
+</ul>
+</div>
+<p><br/><br/><br/></p>
+<div id="problema-13" class="section level3 box3 with-label">
+<h3>Problema 13</h3>
+<p>Se cree que la distribución de los grupos sanguíneos en Estados
+Unidos en la Segunda Guerra Mundial era: <code>tipo A</code>, 41%;
+<code>tipo B</code>, 9%; <code>tipo AB</code>, 4%; y
+<code>tipo O</code>, 46%. Se estima que en esa época, el 4% de las
+personas pertenecientes al <code>tipo O</code> fue clasificado como del
+<code>tipo A</code>; el 88% de los del <code>tipo A</code> fue
+correctamente clasificado; el 4% de los del <code>tipo B</code> se
+clasificó como del <code>tipo A</code>, y el 10% de los del
+<code>tipo AB</code> fue, igualmente, clasificado como del
+<code>tipo A</code>. Un soldado fue herido y conducido a la enfermería.
+Se le clasificó como del <code>tipo A</code>. ¿Cuál es la probabilidad
+de que tal grupo sea ciertamente el suyo?</p>
+<p><em>Tomados de J. Susan Milto (2001)</em></p>
+</div>
+<p><br/><br/><br/></p>
+<div id="problema-14" class="section level3 box3 with-label">
+<h3>Problema 14</h3>
+<p>En el colegio Anglo-Frances se imparten sólo los idiomas inglés y
+francés. El 80% de los alumnos estudian inglés y el resto francés. El
+30% de los alumnos que cursan de inglés son socio del club musical del
+colegio, mientras de los que estudian francés son socio de dicho club el
+40%. Si el director del colegio elige un alumno de manera aleatoria,
+¿qué tan probable es que dicho alumno pertenezca al club de musical? .
+Por otra parte el psicólogo del colegio afirma que estudiar inglés es un
+evento independiente de estudiar francés. ¿usted que opina respecto a
+esta afirmación? (justifique su respuesta)</p>
+</div>
+<p><br/><br/><br/></p>
+<div id="problema-15" class="section level3 box3 with-label">
+<h3>Problema 15</h3>
+<p>En una universidad de la región hay 4000 estudiantes distribuidos en
+tres grupos. Primeros semestre (1 a 3), mitad de carrera (4 a 7) y final
+de carrera (8 a 10). Esta población esta conformada por estudiantes que
+realizan actividades extracuricolares y aquellos que no participan en
+ninguna actividad, distribuidos como se muestra en la siguiente
+tabla:</p>
+<table>
+<colgroup>
+<col width="22%" />
+<col width="36%" />
+<col width="41%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="left">Participa en actividades del MU</th>
+<th align="left">No participa en actividades del MU</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Primeros semestres</td>
+<td align="left">1250</td>
+<td align="left">1530</td>
+</tr>
+<tr class="even">
+<td align="left">Mitad de carrera</td>
+<td align="left">465</td>
+<td align="left">350</td>
+</tr>
+<tr class="odd">
+<td align="left">Final de carrera</td>
+<td align="left">270</td>
+<td align="left">270</td>
+</tr>
+</tbody>
+</table>
+<p>Se ha encomendado a un grupo de profesores consejeros, seleccionar un
+estudiante de este grupo para guiarlos académicamente en su proceso de
+formación. El grupo de profesores está conformado por Sandra, Isabel,
+David, Daniel y Gerardo</p>
+<p>Sandra prefiere que el grupo de estudiantes a su cargo sean
+estudiantes de primeros semestre y que participan en actividades del
+Medio Universitario (MU) . Isabel en cambio los eligirá dentro del grupo
+de estudiantes que está finalizando carrera, dentro de los que prefieren
+no participar en actividades del MU. Por su parte David desea
+estudiantes sean del rango intermedio o mitad de carrera, pues ellos no
+han realizado la escogencia del énfasis. Daniel solicita un listado de
+los estudiantes que participan e actividades del MU y de ellos desea que
+el estudiante a su cargo esté cursando últimos semestre. Finalmente
+Gerardo solo quiere que el estudiante seleccionado para su
+acompañamiento sea de primeros semestre. Si en cada caso los estudiantes
+son selecionados de maneta aletatoria de toda la población tiene la
+mayor probabilidad de ver cumplido sus deseos?</p>
+</div>
+<p><br/><br/><br/></p>
+<div id="problema-16" class="section level3 box3 with-label">
+<h3>Problema 16</h3>
+<p>Un miembro de la comunidad universitaria se somete a una prueba para
+detectar el Covid19. Si la persona está enferma, el test dá positivo con
+un 96% de certeza. Si la persona está sana, el test será negativo con un
+94% de certeza. Se sabe que 1 de cada 100 personas de esta comunidad
+está enferma</p>
+<ul>
+<li>Sabemos que el test resultó positivo. Que tan probable es que la
+persona a la que le realizaron la prueba esté enferna?</li>
+<li>El test resultó negativo. ¿Cual será la probabilidad de que la
+persona examinada este sana?</li>
+</ul>
+</div>
+<p><br/><br/><br/></p>
+<div id="problema-17" class="section level3 box3 with-label">
+<h3>Problema 17</h3>
+<p>Se escogen al azar 5 lámparas de 25 de las cuales 8 son defectuosas.
+Hallar la probabilidad de que: <br/> a. Ninguna de las lámparas
+seleccionadas sea defectuosa. b. Exactamente una de las lámparas
+seleccionadas sea defectuosa. c. Por lo menos una de las lámparas
+seleccionadas no sea defectuosa</p>
+</div>
+<p><br/><br/><br/></p>
+<div id="problema-18" class="section level3 box3 with-label">
+<h3>Problema 18</h3>
+<p>Un estudiante realiza dos exámenes en un mismo día. La probabilidad
+de que apruebe el primer examen es de 0.6 . La probabilidad de que
+apruebe el segundo examen es de 0.8; y la de que apruebe los dos
+exámenes es 0.5 :</p>
+<ol style="list-style-type: lower-alpha">
+<li>Represente la información suministrada mediante:
+<ul>
+<li>Una tabla cruzada, con las probabilidades marginales, conjuntas y
+condicionales</li>
+<li>Diagrama de árbol,<br />
+</li>
+<li>Un diagrama de Venn</li>
+</ul></li>
+<li>Que es más probable que ocurra :
+<ul>
+<li>Que sabiendo que gane el primer examen, también gane el segundo
+examen</li>
+<li>Que sabiendo que perdió el primer examen, también pierda el segundo
+examen</li>
+</ul></li>
+</ol>
+</div>
+<p><br/><br/><br/></p>
+<div id="problema-19" class="section level3 box3 with-label">
+<h3>Problema 19</h3>
+<p>El Departamento de crédito de una cadena de supermercados, informó
+que el 30% de sus ventas se pagan con efectivo o con cheque; 30% se paga
+con tarjeta de crédito y el resto con tarjeta débito. Veinte por ciento
+de las ventas realizadas con efectivo o cheque, noventa por ciento de
+las compras realizadas con tarjeta de crédito y el sesenta por ciento de
+las compras realizadas con tarjeta débito, son realizadas por más de
+50.000. La señora Fatima acaba de comprar un vestido nuevo que le costó
+120.000. ¿Que es más probable que halla pagado su vestido con tarjeta de
+crédito o que lo halla hecho con tarjeta débito?</p>
+</div>
+<p><br/><br/><br/></p>
+<div id="problema-20" class="section level3 box3 with-label">
+<h3>Problema 20</h3>
+<p>En una fábrica de artículos para protección biodegradables, cuatro
+operarios colocan etiquetas de caducidad en cada artículo al final de la
+línea de producción. Juan, quien coloca la fecha de caducidad en un 40 %
+de los paquetes no logra ponerla en uno de cada 200 paquetes; Nicolle,
+quien coloca en 30 % de los paquetes, no logra colocarla en uno de 100
+paquetes; Sara, quien coloca etiquetas en el 15 % de los paquetes, no lo
+hace una vez en 90 paquetes; y Nelson que fecha 15 % de los paquetes,
+falla en uno de cada 200 paquetes. Si un cliente se queja de que su
+paquete no muestra la fecha de caducidad. ¿Cuál de los empleados es el
+más probable culpable de esta omisión?</p>
+</div>
+<p><br/><br/><br/></p>
+<div id="problema-21" class="section level3 box3 with-label">
+<h3>Problema 21</h3>
+<p>Uno de los laboratorios de la universidad tiene un esquema para
+recibir sus pedidos de insumos para sus investigadores. El plan tiene
+dos etapas. Primero el laboratorista selecciona una caja de 15 artículos
+y luego en una segunda etapa, extrae una muestra de 3 de ellos y los
+examina en búsqueda de defectos. Si no se encuentran artículos
+defectuosos en la revisión, el pedido es aceptado y es recibido por los
+encargados de la oficina de compras. En caso contrario, se regresa a su
+proveedor con el fin de que revise la totalidad de los artículos y se
+cerciore que todos están buenos. Por experiencia se estima que por cada
+caja de 15 artículos, hay 3 defectuosos, debido a problemas en el
+transporte. Bajo este esquema, ¿qué tan probable es que un pedido sea
+aceptado?</p>
+</div>
+<p><br/><br/><br/></p>
+<div id="problema-22" class="section level3 box3 with-label">
+<h3>Problema 22</h3>
+<p>Examen de drogas Muchas universidades aplican exámenes para detectar
+el uso de drogas en estudiantes, con la finalidad de mejorar la salud y
+el bienestar en el campus, y reducir el riesgo de comportamiento
+inapropiado, accidentes y problemas académicos. Las personas que se
+oponen a esta práctica argumentan que este procedimiento puede etiquetar
+injustamente a algunos estudiantes, dado que las pruebas no son 100%
+confiables. Supongamos que una universidad utiliza una prueba con un 98%
+de exactitud, la cual identifica a un estudiante como usuario o no
+usuario de drogas con una probabilidad de .98. Para reducir la
+posibilidad de error, se solicita a cada estudiante que realice dos
+pruebas. Si los resultados de las dos pruebas en el mismo estudiante son
+eventos independientes, ¿cuáles son las probabilidades de los siguientes
+eventos?</p>
+<ol style="list-style-type: lower-alpha">
+<li><p>Un estudiante que no consume drogas falle ambas pruebas.</p></li>
+<li><p>Se detecte a un estudiante como usuario de drogas (falla en al
+menos una prueba).</p></li>
+<li><p>Un estudiante que consume drogas pase ambas pruebas.</p></li>
+</ol>
+</div>
+<p><br/><br/><br/></p>
+<div id="problema-23" class="section level3 box3 with-label">
+<h3>Problema 23</h3>
+<p>Genética vegetal Gregor Mendel fue un monje que sugirió una teoría de
+la herencia en 1865 con base en la ciencia de la genética; identificó a
+los individuos heterocigotos por el color de la flor que tenían dos
+alelos (uno <em>r</em> = alelo recesivo color blanco y uno <em>𝑅</em> =
+alelo dominante color rojo). Cuando se acoplaron estas individuos, se
+observó que 3/4 de la descendencia tenía flores rojas y 1/4 flores
+blancas. En la tabla se resume este acoplamiento; cada padre da uno de
+sus alelos para formar el gen de la descendencia.</p>
+<pre class="r"><code>library(kableExtra)
+
+# Definir los datos de la tabla
+tabla &lt;- data.frame(
+  &quot;Padre 1&quot; = c(&quot;**r**&quot;, &quot;**R**&quot;),
+  &quot;rr&quot; = c(&quot;rr&quot;, &quot;Rr&quot;),
+  &quot;rR&quot; = c(&quot;rR&quot;, &quot;RR&quot;)
+)
+
+# Cambiar nombres de las columnas para que coincidan con la tabla original
+colnames(tabla) &lt;- c(&quot;**Padre 1**&quot;, &quot;rr&quot;, &quot;rR&quot;)
+
+# Crear la tabla usando kable y kableExtra para mejorar la presentación
+kable(tabla, align = c(&quot;c&quot;, &quot;c&quot;, &quot;c&quot;), escape = FALSE, col.names = c(&quot;**Padre 1**&quot;, &quot;**r**&quot;, &quot;**R**&quot;)) %&gt;%
+  kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;, &quot;condensed&quot;, &quot;responsive&quot;)) %&gt;%
+  add_header_above(c(&quot; &quot; = 1, &quot;**Padre 2**&quot; = 2))</code></pre>
+<table class="table table-striped table-hover table-condensed table-responsive" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="empty-cells: hide;border-bottom:hidden;" colspan="1">
+</th>
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+<strong>Padre 2</strong>
+</div>
+</th>
+</tr>
+<tr>
+<th style="text-align:center;">
+<strong>Padre 1</strong>
+</th>
+<th style="text-align:center;">
+<strong>r</strong>
+</th>
+<th style="text-align:center;">
+<strong>R</strong>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+<strong>r</strong>
+</td>
+<td style="text-align:center;">
+rr
+</td>
+<td style="text-align:center;">
+rR
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<strong>R</strong>
+</td>
+<td style="text-align:center;">
+Rr
+</td>
+<td style="text-align:center;">
+RR
+</td>
+</tr>
+</tbody>
+</table>
+<p>Se supone que cada padre tiene las mismas probabilidades de dar
+cualquiera de los alelos y que, si alguno de los dos es dominante (R),
+la descendencia tendrá las flores rojas.</p>
+<ol style="list-style-type: lower-alpha">
+<li><p>¿Cuál es la probabilidad de que una descendencia de esta unión
+tenga por lo menos un alelo dominante?</p></li>
+<li><p>¿De que una descendencia tenga por lo menos un alelo
+recesivo?</p></li>
+<li><p>¿Cuál es la probabilidad de que una descendencia tenga un alelo
+recesivo, dado que tiene las flores rojas?</p></li>
+</ol>
+</div>
+<p><br/><br/><br/></p>
+<div id="problema-24" class="section level3 box3 with-label">
+<h3>Problema 24</h3>
+<p>En una universidad de la región hay 4000 estudiantes distribuidos en
+tres grupos. Primeros semestre (1 a 3), mitad de carrera (4 a7) y final
+de carrera (8 a 10). Esta población esta conformada por estudiantes que
+realizan actividades extracuricolares y aquellos que no participan en
+ninguna actividad, distribuidos como se muestra en la siguiente
+tabla:</p>
+<pre class="r"><code>library(knitr)
+
+x &lt;- c(1250, 465, 270, 1530, 350, 270)
+m &lt;- matrix(x, nrow = 3)
+colnames(m) &lt;- c(&quot;MU&quot;, &quot;MU*&quot;)
+rownames(m) &lt;- c(&quot;Primeros semestres&quot;, &quot;Mitad de carrera&quot;, &quot;Final de carrera&quot;)
+
+kable(m, caption = &quot;Tabla de Resultados por Etapa de la Carrera&quot;, align = &quot;c&quot;)</code></pre>
+<table>
+<caption>Tabla de Resultados por Etapa de la Carrera</caption>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="center">MU</th>
+<th align="center">MU*</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Primeros semestres</td>
+<td align="center">1250</td>
+<td align="center">1530</td>
+</tr>
+<tr class="even">
+<td align="left">Mitad de carrera</td>
+<td align="center">465</td>
+<td align="center">350</td>
+</tr>
+<tr class="odd">
+<td align="left">Final de carrera</td>
+<td align="center">270</td>
+<td align="center">270</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>MU</strong> : Participa de actividades programadas por el
+Medio Universitario</li>
+<li><strong>MU* </strong> : No participa de actividades programadas por
+el Medio Universitario</li>
+</ul>
+<p><br/></p>
+<p>Se ha encomendado a un grupo de profesores consejeros, seleccionar un
+estudiante de este grupo para guiarlos académicamente en su proceso de
+formación. El grupo de profesores está conformado por Sandra, Isabel,
+David, Daniel y Gerardo</p>
+<p>Sandra prefiere que el grupo de estudiantes a su cargo sean
+estudiantes de primeros semestre y que participan en actividades del
+Medio Universitario (MU) . Isabel en cambio los eligirá dentro del grupo
+de estudiantes que está finalizando carrera, dentro de los que prefieren
+no participar en actividades del MU. Por su parte David desea
+estudiantes sean del rango intermedio o mitad de carrera, pues ellos no
+han realizado la escogencia del énfasis. Daniel solicita un listado de
+los estudiantes que participan e actividades del MU y de ellos desea que
+el estudiante a su cargo esté cursando últimos semestre. Finalmente
+Gerardo solo quiere que el estudiante seleccionado para su
+acompañamiento sea de primeros semestre. Si en cada caso los estudiantes
+son seleccionados de manera aleatoria de toda la población tiene la
+mayor probabilidad de ver cumplido sus deseos?</p>
+</div>
+<p><br/><br/><br/></p>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("hide" === "show");
+});
+</script>
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

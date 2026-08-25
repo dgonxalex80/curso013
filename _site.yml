@@ -73,6 +73,9 @@ navbar:
         - text: "--------"   
         - text: "Taller 211"  
           href: taller211.html        
+        - text: "--------"   
+        - text: "Moitoría 2"  
+          href: monitoria2.html      
   
     - text: "Módulo 3"
       menu:

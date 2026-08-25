@@ -328,7 +328,6 @@ Se usa cuando un experto asigna probabilidad con su experiencia, información  y
 <br/><br/>
 
 <div class="box6 with-label">
-
 ### Ejemplo
 
 El gerente comercial estima en $0.60$ la probabilidad de cerrar un contrato estratégico tras una reunión clave.
@@ -567,7 +566,6 @@ Por despeje se pueden obtener la llanada regla de la multiplicación :
 
 
 <div class="box2 with-label">
-
 ### Regla de la multiplicación de eventos  
 
 La probabilidad de que ocurra A y B asociados a un experimento aleatorio es :
@@ -760,7 +758,7 @@ knitr::include_graphics("img/particion1_22.png")
 
 
 <div class="box6 with-label">
-<div class="label">Nota</div>  
+### Nota  
 
  Una partición de un conjunto de $S$ está formada por subconjuntos $A_{1}$, $A_{2}$, $\dots$ , $A_{n}$, que deben cumplir las siguiente propiedades :
 
@@ -812,8 +810,8 @@ En general :
    
 <br/><br/><br/>  
 
-<div class="box2 with-label">
-<div class="label">Regla de la probabilidad total</div>  
+<div class="box3 with-label">
+### Regla de la probabilidad total  
 
 
 
@@ -827,7 +825,7 @@ $$P(A)=P(E_{1})P(A|E_{1})+ P(E_{2})P(A|E_{2})+ P(E_{3})P(A|E_{3})+ \dots P(E_{k}
 <br/><br/><br/>
 
 <div class="box6 with-label">
-<div class="label">Ejemplo 5</div>  
+### Ejemplo   
 
 
 
@@ -859,14 +857,19 @@ knitr::include_graphics("img/Thomas_Bayes.png")
 <br/>
 
 >**Thomas Bayes** (Londres, Inglaterra, ~1702 - Tunbridge Wells, 1761) fue un matemático británico y ministro presbiteriano. Su obra más conocida es el Teorema de Bayes.
->
-><br/> 
->
->El teorema de Bayes, que lleva el nombre del matemático británico del siglo XVIII **Thomas Bayes**, es una fórmula matemática para determinar la probabilidad condicional . La probabilidad condicional es la probabilidad de que ocurra un resultado, basada en un resultado previo. El teorema de Bayes proporciona una forma de revisar las predicciones o teorías existentes (actualizar las probabilidades) dada la evidencia nueva o adicional. En finanzas, el teorema de Bayes se puede utilizar para calificar el riesgo de prestar dinero a posibles prestatarios.
 
->Tomado de  : https://www.investopedia.com/terms/b/bayes-theorem.asp <br/> 
+<br/> 
+
+
+<div class="box6 with-label">
+### Teorema de Bayes
+
+El teorema de Bayes, que lleva el nombre del matemático británico del siglo XVIII **Thomas Bayes**, es una fórmula matemática para determinar la probabilidad condicional . La probabilidad condicional es la probabilidad de que ocurra un resultado, basada en un resultado previo. El teorema de Bayes proporciona una forma de revisar las predicciones o teorías existentes (actualizar las probabilidades) dada la evidencia nueva o adicional. En finanzas, el teorema de Bayes se puede utilizar para calificar el riesgo de prestar dinero a posibles prestatarios.
+
+Tomado de  : https://www.investopedia.com/terms/b/bayes-theorem.asp <br/> 
 Lectura recomendada : https://blogs.scientificamerican.com/cross-check/bayes-s-theorem-what-s-the-big-deal/
 
+</div>
 
 <br/><br/><br/> 
 
@@ -883,7 +886,7 @@ $$P(E_{i}|A)=\dfrac{P(E_{i} \cap A)}{P(A)}= \dfrac{P(E_{i}) P(A|E_{i})}{\display
 
 
 <div class="box6 with-label">
-<div class="label">Ejemplo 6</div>  
+### Ejemplo   
 
 <br/>
 
@@ -901,7 +904,7 @@ $$P(E|+5) = \dfrac{0.30 \times 0.20}{0.30 \times 0.20 + 0.40 \times 0.70 + 0.30 
 
 
 <div class="box6 with-label">
-<div class="label">Ejemplo 7</div>  
+### Ejemplo 
 
 En una fábrica de artı́culos para protección biodegradables, cuatro operarios colocan etiquetas de caducidad en cada artı́culo al final de la lı́nea de producción. Juan, quien coloca la fecha de caducidad en un 40 % de los paquetes no
 logra ponerla en uno de cada 200 paquetes; Luis, quien coloca en 30 % de los paquetes, no logra colocarla en uno de 100 paquetes; Maria, quien coloca etiquetas en el 15 % de los paquetes, no lo hace una vez en 90 paquetes; y Santiago que fecha 15 % de los paquetes, falla en uno de cada  200 paquetes. Si un cliente se queja de que su paquete no

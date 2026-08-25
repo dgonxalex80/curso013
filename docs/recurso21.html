@@ -14,13 +14,13 @@
 
 <title>Teoría de probabilidades</title>
 
-<script src="site_libs/header-attrs/header-attrs.js"></script>
-<script src="site_libs/jquery/jquery-3.6.0.min.js"></script>
+<script src="site_libs/header-attrs-2.31/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="site_libs/bootstrap/css/flatly.min.css" rel="stylesheet" />
-<script src="site_libs/bootstrap/js/bootstrap.min.js"></script>
-<script src="site_libs/bootstrap/shim/html5shiv.min.js"></script>
-<script src="site_libs/bootstrap/shim/respond.min.js"></script>
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
 <style>h1 {font-size: 34px;}
        h1.title {font-size: 38px;}
        h2 {font-size: 30px;}
@@ -30,12 +30,12 @@
        h6 {font-size: 12px;}
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
-<script src="site_libs/navigation/tabsets.js"></script>
-<script src="site_libs/navigation/codefolding.js"></script>
-<link href="site_libs/highlightjs/default.css" rel="stylesheet" />
-<script src="site_libs/highlightjs/highlight.js"></script>
-<link href="site_libs/font-awesome/css/all.min.css" rel="stylesheet" />
-<link href="site_libs/font-awesome/css/v4-shims.min.css" rel="stylesheet" />
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-6.5.2/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet" />
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -363,6 +363,10 @@ $(document).ready(function () {
     <li class="divider"></li>
     <li>
       <a href="taller211.html">Taller 211</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="monitoria2.html">Moitoría 2</a>
     </li>
   </ul>
 </li>
@@ -1212,10 +1216,8 @@ de eventos lo podemos representar como una partición del conjunto <span
 class="math inline">\(S\)</span> así :</p>
 <p><img src="img/particion1_22.png" alt="" width="50%" style="display: block; margin: auto;" /></p>
 <p><br/><br/></p>
-<div class="box6 with-label">
-<div class="label">
-Nota
-</div>
+<div id="nota-1" class="section level3 box6 with-label">
+<h3>Nota</h3>
 <p>Una partición de un conjunto de <span
 class="math inline">\(S\)</span> está formada por subconjuntos <span
 class="math inline">\(A_{1}\)</span>, <span
@@ -1257,10 +1259,9 @@ P(A_{5})P(B|A_{5})\)</span></p>
 <p><br/><br/></p>
 <p>En general :</p>
 <p><br/><br/><br/></p>
-<div class="box2 with-label">
-<div class="label">
-Regla de la probabilidad total
-</div>
+<div id="regla-de-la-probabilidad-total"
+class="section level3 box3 with-label">
+<h3>Regla de la probabilidad total</h3>
 <p>Dada una serie de eventos que conforman una partición <span
 class="math inline">\(E_{1}\)</span>, <span
 class="math inline">\(E_{2}\)</span>, <span
@@ -1274,10 +1275,8 @@ P(E_{2})P(A|E_{2})+ P(E_{3})P(A|E_{3})+ \dots
 P(E_{k})P(A|E_{k})\]</span></p>
 </div>
 <p><br/><br/><br/></p>
-<div class="box6 with-label">
-<div class="label">
-Ejemplo 5
-</div>
+<div id="ejemplo-6" class="section level3 box6 with-label">
+<h3>Ejemplo</h3>
 <p>En el caso que en el ejemplo anterior se requiere calcular la
 probabilidad <span class="math inline">\(P(+5)\)</span> utilizamos la
 regla de la probabilidad total:</p>
@@ -1301,7 +1300,10 @@ P(TC)P(+5|TC)  +P(TD)P(+5|TD)\]</span></p>
 <p><strong>Thomas Bayes</strong> (Londres, Inglaterra, ~1702 - Tunbridge
 Wells, 1761) fue un matemático británico y ministro presbiteriano. Su
 obra más conocida es el Teorema de Bayes.</p>
+</blockquote>
 <p><br/></p>
+<div id="teorema-de-bayes-1" class="section level3 box6 with-label">
+<h3>Teorema de Bayes</h3>
 <p>El teorema de Bayes, que lleva el nombre del matemático británico del
 siglo XVIII <strong>Thomas Bayes</strong>, es una fórmula matemática
 para determinar la probabilidad condicional . La probabilidad
@@ -1311,15 +1313,13 @@ las predicciones o teorías existentes (actualizar las probabilidades)
 dada la evidencia nueva o adicional. En finanzas, el teorema de Bayes se
 puede utilizar para calificar el riesgo de prestar dinero a posibles
 prestatarios.</p>
-</blockquote>
-<blockquote>
 <p>Tomado de : <a
 href="https://www.investopedia.com/terms/b/bayes-theorem.asp"
 class="uri">https://www.investopedia.com/terms/b/bayes-theorem.asp</a>
 <br/> Lectura recomendada : <a
 href="https://blogs.scientificamerican.com/cross-check/bayes-s-theorem-what-s-the-big-deal/"
 class="uri">https://blogs.scientificamerican.com/cross-check/bayes-s-theorem-what-s-the-big-deal/</a></p>
-</blockquote>
+</div>
 <p><br/><br/><br/></p>
 <div id="definición-teorema-de-bayes"
 class="section level3 box6 with-label">
@@ -1344,10 +1344,8 @@ A)}{P(A)}= \dfrac{P(E_{i}) P(A|E_{i})}{\displaystyle\sum_{j=1}^{k}
 P(E_{j})P(A|E_{j})} \]</span></p>
 </div>
 <p><br/><br/><br/></p>
-<div class="box6 with-label">
-<div class="label">
-Ejemplo 6
-</div>
+<div id="ejemplo-7" class="section level3 box6 with-label">
+<h3>Ejemplo</h3>
 <p><br/></p>
 <p>Continuando con el ejemplo anterior puede ser necesario calcular la
 probabilidad : <span class="math inline">\(P(E|+5)\)</span> para lo cual
@@ -1361,10 +1359,8 @@ P(TC)P(+5|TC)  +P(TD)P(+5|TD)}\]</span></p>
 </div>
 <p></br></p>
 <p><br/><br/></p>
-<div class="box6 with-label">
-<div class="label">
-Ejemplo 7
-</div>
+<div id="ejemplo-8" class="section level3 box6 with-label">
+<h3>Ejemplo</h3>
 <p>En una fábrica de artı́culos para protección biodegradables, cuatro
 operarios colocan etiquetas de caducidad en cada artı́culo al final de la
 lı́nea de producción. Juan, quien coloca la fecha de caducidad en un 40 %
