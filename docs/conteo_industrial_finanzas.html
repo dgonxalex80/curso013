@@ -1,0 +1,1305 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="dgonzalez" />
+
+
+<title>Teoría de Probabilidades</title>
+
+<script src="site_libs/header-attrs-2.31/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-6.5.2/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+<link rel="stylesheet" href="cajas.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html"> </a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">
+    <span class="fa fa-home"></span>
+     
+    Estadística
+  </a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 0
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo0.html">Módulo 0</a>
+    </li>
+    <li>
+      <a href="sumatoria.html">Sumatoria</a>
+    </li>
+    <li>
+      <a href="productoria.html">Productoria</a>
+    </li>
+    <li>
+      <a href="conjuntos.html">Conjuntos</a>
+    </li>
+    <li>
+      <a href="conteo.html">Conteo</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 1
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo1.html">Módulo 1</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="guia11.html">Guía 1.1</a>
+    </li>
+    <li>
+      <a href="recurso11.html">Recursos 1.1</a>
+    </li>
+    <li>
+      <a href="basesdatos.html">Bases de datos</a>
+    </li>
+    <li>
+      <a href="introduccionR.html">Introducción a R</a>
+    </li>
+    <li>
+      <a href="codigo11.html">Código 1.1</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="guia12.html">Guía 1.2</a>
+    </li>
+    <li>
+      <a href="recurso12.html">Recursos 1.2</a>
+    </li>
+    <li>
+      <a href="codigo12.html">Código 1.2</a>
+    </li>
+    <li>
+      <a href="caso1A.html">Caso 1</a>
+    </li>
+    <li>
+      <a href="caso1B.html">Caso 2</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="guia13.html">Guía 1.3</a>
+    </li>
+    <li>
+      <a href="recurso13.html">Recursos 1.3</a>
+    </li>
+    <li>
+      <a href="codigo13.html">Código 1.3</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="monitoria1.html">Monitoria 1</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 2
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo2.html">Módulo 2</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="guia21.html">Guía 2.1</a>
+    </li>
+    <li>
+      <a href="recurso21.html">Recursos 2.1</a>
+    </li>
+    <li>
+      <a href="codigo21.html">Código 2.1</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="taller211.html">Taller 211</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="monitoria2.html">Moitoría 2</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 3
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo3.html">Módulo 3</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 4
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo4.html">Módulo 4</a>
+    </li>
+    <li class="divider"></li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Proyecto
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="enconstruccion.html">Guía proyecto</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore"><span style="color:#F6A623">Teoría de
+Probabilidades</span></h1>
+<h4 class="author"><span style="color:#F6A623">dgonzalez</span></h4>
+
+</div>
+
+
+<p><img src="img/recurso0.png" alt="" width="100%" style="display: block; margin: auto;" /></p>
+<p></br></p>
+<div id="técnicas-de-conteo" class="section level1">
+<h1>Técnicas de conteo</h1>
+<p><br/><br/></p>
+<p>Las técnicas de conteo constituyen una serie de estrategias que
+permiten, mediante reglas, establecer el número de elementos de un
+conjunto finito.</p>
+<p>Inicialmente empezaremos por definir dos reglas:</p>
+<p><br/><br/></p>
+<div id="principio-de-la-adicción"
+class="section level3 box1 with-label">
+<h3>Principio de la adicción</h3>
+<p>Supongamos que un procedimiento, designado con <span
+class="math inline">\(P_1\)</span>, se puede hacer de <span
+class="math inline">\(n_1\)</span> maneras diferentes. Supongamos que un
+segundo procedimiento, <span class="math inline">\(P_2\)</span>, se
+puede realizar de <span class="math inline">\(n_2\)</span> maneras
+diferentes. Además, los dos procedimientos no se pueden realizar juntos.
+Entonces, el número de formas diferentes de realizar <span
+class="math inline">\(P_1\)</span> o <span
+class="math inline">\(P_2\)</span> es <span
+class="math inline">\(n_1+n_2\)</span>.</p>
+</div>
+<p><br/><br/></p>
+<div id="ejemplo" class="section level3">
+<h3>Ejemplo</h3>
+<p>Una empresa debe seleccionar un proveedor para un insumo crítico.
+Puede contratar un <strong>proveedor nacional</strong>, para el cual
+existen 5 alternativas habilitadas, o un <strong>proveedor
+internacional</strong>, para el cual existen 6 alternativas. Como las
+dos categorías representan alternativas excluyentes para una misma
+contratación, <span class="math inline">\(n_{1}=5\)</span> y <span
+class="math inline">\(n_{2}=6\)</span>. Por el principio de adición, el
+número total de proveedores que pueden seleccionarse es <span
+class="math inline">\(n=n_{1}+n_{2}=11\)</span>.</p>
+<p><br/></p>
+<p><img src="img/psuma1.png" alt="" width="100%" style="display: block; margin: auto;" /></p>
+<p><br/><br/><br/></p>
+</div>
+<div id="principio-de-la-multiplicación"
+class="section level3 box1 with-label">
+<h3>Principio de la multiplicación</h3>
+<p>Supongamos que un procedimiento <span
+class="math inline">\(P_1\)</span> se puede realizar de <span
+class="math inline">\(n_1\)</span> maneras diferentes y que otro
+procedimiento <span class="math inline">\(P_2\)</span> se puede realizar
+de <span class="math inline">\(n_2\)</span> maneras diferentes. Si los
+procedimientos se realizan uno después del otro, el número de formas
+diferentes de realizar <span class="math inline">\(P_1\)</span> y <span
+class="math inline">\(P_2\)</span> consecutivamente es <span
+class="math inline">\(n_1\times n_2\)</span>.</p>
+</div>
+<p><br/><br/></p>
+<div id="ejemplo-1" class="section level3">
+<h3>Ejemplo</h3>
+<p>Una planta industrial debe configurar una línea de producción. Para
+la <strong>tecnología de ensamble</strong> (<span
+class="math inline">\(P_{1}\)</span>) dispone de 3 alternativas y para
+el <strong>sistema de inspección de calidad</strong> (<span
+class="math inline">\(P_{2}\)</span>) dispone de 4 alternativas. ¿De
+cuántas maneras diferentes puede configurarse la línea si cada
+tecnología de ensamble puede combinarse con cualquiera de los sistemas
+de inspección?</p>
+<p><br/><br/></p>
+<p>El número de configuraciones posibles de la línea será: <span
+class="math inline">\(n_{1} \times n_{2}=3 \times 4=12\)</span>.</p>
+<p><img src="img/pmultiplicacion1.png" alt="" width="100%" style="display: block; margin: auto;" /></p>
+<p><br/><br/></p>
+</div>
+</div>
+<div id="otras-técnicas-de-conteo" class="section level1">
+<h1>Otras técnicas de conteo</h1>
+<p>Para explicar un poco los otros casos de conteo utilizaremos el
+siguiente experimento aleatorio:</p>
+<p>Se tiene una urna que contiene <span class="math inline">\(n\)</span>
+elementos todos numerables ( se pueden contar) y de ellos se quiere
+seleccionar <span class="math inline">\(k\)</span> elementos como se
+muestra en la siguiente figura.</p>
+<p><br/><br/></p>
+<p><img src="img/urna.png" alt="" width="35%" style="display: block; margin: auto;" /></p>
+<p><br/><br/></p>
+<p>Este procedimiento se puede realizar de varias formas:</p>
+<p>A. Cuando importa el orden</p>
+<ul>
+<li><p><span class="math inline">\(\mathcal{P}&#39;(n,k)\)</span> Con
+repetición o también llamada con sustitución</p></li>
+<li><p><span class="math inline">\(\mathcal{P}(n,k)\)</span> Sin
+repetición o sin sustitución</p></li>
+</ul>
+<p>B. Sin importar el orden</p>
+<ul>
+<li><p><span class="math inline">\(\mathcal{C}&#39;(n,k)\)</span> Con
+repetición o también llamada con sustitución</p></li>
+<li><p><span class="math inline">\(\mathcal{C}(n,k)\)</span> Sin
+repetición o sin sustitución</p></li>
+</ul>
+<p><br/><br/></p>
+<p>Es decir que se definen los siguientes procedimientos:</p>
+<p><strong>A1</strong> : <span
+class="math inline">\(\mathcal{P}&#39;(n,k)\)</span>: Conjunto formado
+por todas las manera posible como se puede seleccionar una muestra de
+tamaño k de una urna que contiene n elementos cuando importa el orden,
+con sustitución. En este procedimiento se hace diferencia de la posición
+que tienen los elementos al ser seleccionados y también que después de
+la extracción de un elemento, este se regresa a la urna antes de la
+siguiente selección. Esto implica que hay siempre en la urna n elementos
+antes de la cada selección.</p>
+<p><br/><br/></p>
+<p><strong>A2</strong> : <span
+class="math inline">\(\mathcal{P}(n,k)\)</span>: Conjunto de todas la
+formas posibles como se puede seleccionar una muestra de tamaño k de una
+urna que contiene n elementos cuando importa el orden, sin sustitución.
+En este caso los elementos que son seleccionados van quedando por fuera
+de la urna y no participan en la siguiente selección.</p>
+<p><br/><br/> <strong>B1</strong> : <span
+class="math inline">\(\mathcal{C}&#39;(n,k)\)</span>: Conjunto de todas
+las maneras posible como se puede seleccionar una muestra de tamaño k de
+una urna que contiene n elementos sin importar el orden pero con
+sustitución. En esta caso no tiene importancia el orden en que se
+seleccionan los elementos de la urna, pero los elementos seleccionados
+regresan a la urna y podrían se seleccionados nuevamente.</p>
+<p><br/><br/></p>
+<p><strong>B2</strong> : <span
+class="math inline">\(\mathcal{C}(n,k)\)</span>: Conjunto de todas las
+formas posibles como se puede selecciona una muestra de tamaño k de una
+urna que contiene n elementos, sin importar el orden, pero en este caso
+los elementos seleccionados previamente son excluidos de la siguiente
+selección.</p>
+<p><br/><br/></p>
+<p>Contemplados estos casos vamos a definir la forma en que se pueden
+contar los conjuntos anteriores</p>
+<p><br/><br/></p>
+<div id="importa-el-orden-con-sustitución"
+class="section level3 box1 with-label">
+<h3>Importa el orden con sustitución</h3>
+<p><span class="math display">\[\mathcal{P}^{\prime}(n,k) =
+\underbrace{n \times n \times \cdots \times n}_{k\text{ factores}} =
+n^k\]</span></p>
+<p>El número de maneras diferentes de extraer una muestra de tamaño
+<span class="math inline">\(k\)</span> de una urna con <span
+class="math inline">\(n\)</span> elementos, cuando importa el orden y
+hay sustitución, es <span class="math inline">\(n^k\)</span>.</p>
+</div>
+<p><br/><br/></p>
+<div id="importa-el-orden-sin-sustitución"
+class="section level3 box1 with-label">
+<h3>Importa el orden sin sustitución</h3>
+<p><span class="math display">\[\mathcal{P}(n,k) = n \times (n-1) \times
+(n-2) \times \cdots \times (n-k+1) = \dfrac{n!}{(n-k)!}\]</span></p>
+<p>El número de maneras diferentes de extraer una muestra de tamaño
+<span class="math inline">\(k\)</span> de una urna con <span
+class="math inline">\(n\)</span> elementos, cuando importa el orden y no
+hay sustitución, es <span
+class="math inline">\(\dfrac{n!}{(n-k)!}\)</span>, que se lee «<span
+class="math inline">\(n\)</span> permutado con <span
+class="math inline">\(k\)</span>».</p>
+</div>
+<p><br/><br/></p>
+<p>Un ingeniero debe realizar visitas a 6 áreas de trabajo diferentes
+durante el día. A fin de impedir que los funcionarios sepan cuándo
+realizará su visita, varía el orden de sus visitas. ¿De cuántas maneras
+puede hacerlo?</p>
+<p><br/><br/></p>
+<p><span class="math display">\[ _{6}\mathcal{P}_{6} =
+\dfrac{6!}{(6-6)!}=6! =720\]</span></p>
+<p><br/><br/></p>
+<div id="no-importa-el-orden-sin-sustitución"
+class="section level3 box1 with-label">
+<h3>No importa el orden sin sustitución</h3>
+<p><span class="math display">\[\mathcal{C}(n,k) = \dfrac{n!}{(n-k)!
+k!}= \binom{n}{k}\]</span></p>
+<p>El número de maneras diferentes de extraer una muestra de tamaño
+<span class="math inline">\(k\)</span> de una urna que contiene <span
+class="math inline">\(n\)</span> elementos, sin importar el orden y sin
+sustitución, es <span class="math inline">\(\binom{n}{k}\)</span>, que
+se lee «<span class="math inline">\(n\)</span> combinado con <span
+class="math inline">\(k\)</span>».</p>
+</div>
+<p><br/><br/></p>
+<p>El juego del Baloto está conformado por una urna que contiene 45
+bolas numeradas del 1 al 45. ¿De cuántas formas diferentes puede salir
+el resultado de un sorteo?</p>
+<p><br/><br/></p>
+<p>De las 45 bolas se eligen 6 sin importar el orden y sin que ninguna
+de las bolas se repita. Este experimento cumple con las condiciones de
+una combinación.</p>
+<p>El número de formas diferentes como se puede salir el resultado del
+Baloto será:</p>
+<p><span class="math display">\[_{45}\mathcal{C}_{6} =
+\binom{45}{6}=8&#39;145,060\]</span></p>
+<p><br/><br/></p>
+<div id="no-importa-el-orden-con-sustitución"
+class="section level3 box1 with-label">
+<h3>No importa el orden con sustitución</h3>
+<p><span class="math display">\[\mathcal{C}^{\prime}(n,k) =
+\binom{n+k-1}{k}\]</span></p>
+<p>El número de maneras diferentes de extraer una muestra de tamaño
+<span class="math inline">\(k\)</span> de una urna con <span
+class="math inline">\(n\)</span> elementos, sin importar el orden y con
+sustitución, es <span
+class="math inline">\(\binom{n+k-1}{k}\)</span>.</p>
+</div>
+<p><br/><br/></p>
+<div id="ejemplo-no-importa-el-orden-con-sustitución"
+class="section level3">
+<h3>Ejemplo: no importa el orden con sustitución</h3>
+<p>Un inversionista dispone de 6 unidades monetarias idénticas para
+distribuir entre 4 tipos de activos: renta fija, acciones, fondos
+inmobiliarios y liquidez. Cada activo puede recibir desde cero hasta las
+6 unidades. Si únicamente interesa cuántas unidades se asignan a cada
+activo y no el orden en que se realizan las asignaciones, ¿cuántas
+estructuras diferentes de portafolio son posibles?</p>
+<p>En este problema se seleccionan <span
+class="math inline">\(k=6\)</span> elementos entre <span
+class="math inline">\(n=4\)</span> tipos, se permiten repeticiones y el
+orden no importa. Por tanto:</p>
+<p><span class="math display">\[
+\mathcal{C}^{\prime}(4,6)=\binom{4+6-1}{6}=\binom{9}{6}=84.
+\]</span></p>
+<p>Una forma equivalente de interpretar este resultado consiste en
+contar las soluciones enteras no negativas de</p>
+<p><span class="math display">\[
+x_1+x_2+x_3+x_4=6,
+\]</span></p>
+<p>donde <span class="math inline">\(x_i\)</span> representa el número
+de unidades monetarias asignadas al activo <span
+class="math inline">\(i\)</span>.</p>
+<p><br/><br/></p>
+</div>
+</div>
+<div id="casos-adicionales-de-conteo" class="section level1">
+<h1>Casos adicionales de conteo</h1>
+<p>Los cuatro procedimientos anteriores resuelven problemas de
+<strong>selección de elementos distintos</strong> según importe o no el
+orden y se permita o no repetición. Sin embargo, en probabilidad
+aparecen otros problemas de conteo que conviene distinguir. En
+particular, cuando se ordenan todos los elementos, cuando existen
+elementos indistinguibles o cuando los objetos deben distribuirse en
+grupos de tamaños previamente establecidos, se requieren fórmulas
+adicionales.</p>
+<p><br/><br/></p>
+<div id="permutación-de-todos-los-elementos"
+class="section level3 box1 with-label">
+<h3>Permutación de todos los elementos</h3>
+<p>Si se tienen <span class="math inline">\(n\)</span> elementos
+distintos y se desea ordenar <strong>todos</strong> ellos, el número de
+ordenamientos posibles es</p>
+<p><span class="math display">\[
+\mathcal{P}(n,n)=n!.
+\]</span></p>
+<p>Este caso es una situación particular de la permutación sin
+sustitución, tomando <span class="math inline">\(k=n\)</span>.</p>
+</div>
+<div id="ejemplo-2" class="section level3">
+<h3>Ejemplo</h3>
+<p>En una planta deben programarse secuencialmente 7 órdenes de
+producción diferentes en una misma máquina. ¿Cuántas secuencias de
+procesamiento son posibles?</p>
+<p><span class="math display">\[
+7!=5040.
+\]</span></p>
+<p><br/><br/></p>
+</div>
+<div id="permutaciones-con-elementos-repetidos"
+class="section level3 box1 with-label">
+<h3>Permutaciones con elementos repetidos</h3>
+<p>Supongamos que se tienen <span class="math inline">\(n\)</span>
+objetos, pero algunos son indistinguibles entre sí. Si existen <span
+class="math inline">\(n_1\)</span> objetos de un primer tipo, <span
+class="math inline">\(n_2\)</span> de un segundo tipo, …, <span
+class="math inline">\(n_r\)</span> de un tipo <span
+class="math inline">\(r\)</span>, con</p>
+<p><span class="math display">\[
+n_1+n_2+\cdots+n_r=n,
+\]</span></p>
+<p>el número de ordenamientos diferentes es</p>
+<p><span class="math display">\[
+\frac{n!}{n_1!n_2!\cdots n_r!}.
+\]</span></p>
+<p>La división por <span class="math inline">\(n_i!\)</span> elimina los
+ordenamientos que parecen diferentes al intercambiar objetos que en
+realidad son indistinguibles.</p>
+</div>
+<div id="ejemplo-3" class="section level3">
+<h3>Ejemplo</h3>
+<p>Una mesa de negociación registra una secuencia diaria de 6
+operaciones: 3 compras (C), 2 ventas (V) y 1 operación de cobertura (H).
+Si las operaciones del mismo tipo se consideran indistinguibles,
+¿cuántas secuencias diferentes pueden observarse?</p>
+<p>Se tienen 6 operaciones: tres C, dos V y una H. Por tanto,</p>
+<p><span class="math display">\[
+\frac{6!}{3!2!1!}=60.
+\]</span></p>
+<p>Este caso no debe confundirse con <span
+class="math inline">\(\mathcal{P}&#39;(n,k)=n^k\)</span>: en <span
+class="math inline">\(n^k\)</span> se realizan <span
+class="math inline">\(k\)</span> selecciones sucesivas y cada posición
+dispone nuevamente de <span class="math inline">\(n\)</span>
+alternativas; en una permutación con elementos repetidos se ordena un
+conjunto fijo que ya contiene elementos indistinguibles.</p>
+<p><br/><br/></p>
+</div>
+<div id="coeficiente-multinomial"
+class="section level3 box1 with-label">
+<h3>Coeficiente multinomial</h3>
+<p>Una generalización de las combinaciones aparece cuando <span
+class="math inline">\(n\)</span> elementos distintos deben dividirse en
+<span class="math inline">\(r\)</span> grupos
+<strong>identificados</strong> de tamaños <span
+class="math inline">\(n_1,n_2,\ldots,n_r\)</span>, donde</p>
+<p><span class="math display">\[
+n_1+n_2+\cdots+n_r=n.
+\]</span></p>
+<p>El número de formas de realizar la distribución es</p>
+<p><span class="math display">\[
+\binom{n}{n_1,n_2,\ldots,n_r}
+=
+\frac{n!}{n_1!n_2!\cdots n_r!}.
+\]</span></p>
+</div>
+<div id="ejemplo-4" class="section level3">
+<h3>Ejemplo</h3>
+<p>Una empresa dispone de 10 analistas y desea asignar 4 al proyecto de
+optimización de procesos, 3 al proyecto de logística y 3 al proyecto de
+evaluación financiera. Como los proyectos están identificados, el número
+de asignaciones es</p>
+<p><span class="math display">\[
+\binom{10}{4,3,3}=\frac{10!}{4!3!3!}=4200.
+\]</span></p>
+<p>También puede obtenerse mediante selecciones sucesivas:</p>
+<p><span class="math display">\[
+\binom{10}{4}\binom{6}{3}\binom{3}{3}=4200.
+\]</span></p>
+<p><br/><br/></p>
+</div>
+<div id="distribución-de-objetos-idénticos-en-categorías"
+class="section level3 box1 with-label">
+<h3>Distribución de objetos idénticos en categorías</h3>
+<p>Si se distribuyen <span class="math inline">\(k\)</span> objetos
+indistinguibles entre <span class="math inline">\(n\)</span> categorías
+distinguibles y una categoría puede recibir cero, uno o varios objetos,
+el problema equivale a encontrar las soluciones enteras no negativas
+de</p>
+<p><span class="math display">\[
+x_1+x_2+\cdots+x_n=k.
+\]</span></p>
+<p>El número de soluciones es</p>
+<p><span class="math display">\[
+\binom{n+k-1}{k}=\binom{n+k-1}{n-1}.
+\]</span></p>
+<p>Esta es precisamente otra interpretación de la combinación con
+repetición <span
+class="math inline">\(\mathcal{C}&#39;(n,k)\)</span>.</p>
+</div>
+<div id="ejemplo-5" class="section level3">
+<h3>Ejemplo</h3>
+<p>Una empresa dispone de 8 unidades idénticas de capacidad adicional
+para distribuir entre 3 centros de distribución, permitiendo que alguno
+no reciba capacidad adicional. ¿Cuántas asignaciones diferentes son
+posibles?</p>
+<p><span class="math display">\[
+x_1+x_2+x_3=8,
+\]</span></p>
+<p>y por tanto</p>
+<p><span class="math display">\[
+\binom{8+3-1}{8}=\binom{10}{8}=45.
+\]</span></p>
+<p><br/><br/></p>
+</div>
+<div id="distribución-con-al-menos-un-elemento-por-categoría"
+class="section level3 box1 with-label">
+<h3>Distribución con al menos un elemento por categoría</h3>
+<p>Si las <span class="math inline">\(n\)</span> categorías deben
+recibir <strong>al menos un objeto</strong>, se buscan las soluciones
+enteras positivas de</p>
+<p><span class="math display">\[
+x_1+x_2+\cdots+x_n=k, \qquad x_i\geq 1.
+\]</span></p>
+<p>Siempre que <span class="math inline">\(k\geq n\)</span>, el número
+de distribuciones es</p>
+<p><span class="math display">\[
+\binom{k-1}{n-1}.
+\]</span></p>
+</div>
+<div id="ejemplo-6" class="section level3">
+<h3>Ejemplo</h3>
+<p>Una empresa distribuye 8 unidades idénticas de capacidad entre 3
+centros de distribución y exige que cada centro reciba por lo menos una
+unidad. Entonces</p>
+<p><span class="math display">\[
+\binom{8-1}{3-1}=\binom{7}{2}=21.
+\]</span></p>
+<p><br/><br/></p>
+</div>
+</div>
+<div id="resumen-de-los-principales-casos" class="section level1">
+<h1>Resumen de los principales casos</h1>
+<table>
+<colgroup>
+<col width="20%" />
+<col width="26%" />
+<col width="26%" />
+<col width="26%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Situación</th>
+<th align="center">¿Importa el orden?</th>
+<th align="center">¿Se permite repetición?</th>
+<th align="center">Número de resultados</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Selección ordenada de <span
+class="math inline">\(k\)</span> entre <span
+class="math inline">\(n\)</span></td>
+<td align="center">Sí</td>
+<td align="center">Sí</td>
+<td align="center"><span class="math inline">\(n^k\)</span></td>
+</tr>
+<tr class="even">
+<td align="left">Selección ordenada de <span
+class="math inline">\(k\)</span> entre <span
+class="math inline">\(n\)</span></td>
+<td align="center">Sí</td>
+<td align="center">No</td>
+<td align="center"><span
+class="math inline">\(\dfrac{n!}{(n-k)!}\)</span></td>
+</tr>
+<tr class="odd">
+<td align="left">Selección no ordenada de <span
+class="math inline">\(k\)</span> entre <span
+class="math inline">\(n\)</span></td>
+<td align="center">No</td>
+<td align="center">No</td>
+<td align="center"><span
+class="math inline">\(\binom{n}{k}\)</span></td>
+</tr>
+<tr class="even">
+<td align="left">Selección no ordenada de <span
+class="math inline">\(k\)</span> entre <span
+class="math inline">\(n\)</span></td>
+<td align="center">No</td>
+<td align="center">Sí</td>
+<td align="center"><span
+class="math inline">\(\binom{n+k-1}{k}\)</span></td>
+</tr>
+<tr class="odd">
+<td align="left">Ordenar los <span class="math inline">\(n\)</span>
+elementos distintos</td>
+<td align="center">Sí</td>
+<td align="center">No</td>
+<td align="center"><span class="math inline">\(n!\)</span></td>
+</tr>
+<tr class="even">
+<td align="left">Ordenar <span class="math inline">\(n\)</span>
+elementos con multiplicidades <span
+class="math inline">\(n_1,\ldots,n_r\)</span></td>
+<td align="center">Sí</td>
+<td align="center">Hay objetos indistinguibles</td>
+<td align="center"><span class="math inline">\(\dfrac{n!}{n_1!\cdots
+n_r!}\)</span></td>
+</tr>
+<tr class="odd">
+<td align="left">Dividir <span class="math inline">\(n\)</span> objetos
+distintos en grupos identificados de tamaños <span
+class="math inline">\(n_1,\ldots,n_r\)</span></td>
+<td align="center">—</td>
+<td align="center">No</td>
+<td align="center"><span class="math inline">\(\dfrac{n!}{n_1!\cdots
+n_r!}\)</span></td>
+</tr>
+<tr class="even">
+<td align="left">Distribuir <span class="math inline">\(k\)</span>
+objetos idénticos entre <span class="math inline">\(n\)</span>
+categorías, admitiendo ceros</td>
+<td align="center">No</td>
+<td align="center">Sí</td>
+<td align="center"><span
+class="math inline">\(\binom{n+k-1}{k}\)</span></td>
+</tr>
+<tr class="odd">
+<td align="left">Distribuir <span class="math inline">\(k\)</span>
+objetos idénticos entre <span class="math inline">\(n\)</span>
+categorías, mínimo uno por categoría</td>
+<td align="center">No</td>
+<td align="center">Sí</td>
+<td align="center"><span
+class="math inline">\(\binom{k-1}{n-1}\)</span></td>
+</tr>
+</tbody>
+</table>
+<p><br/><br/></p>
+<div id="una-guía-rápida-para-identificar-la-técnica"
+class="section level2">
+<h2>Una guía rápida para identificar la técnica</h2>
+<p>Antes de aplicar una fórmula conviene responder, en este orden, las
+siguientes preguntas:</p>
+<ol style="list-style-type: decimal">
+<li><strong>¿El procedimiento tiene varias etapas?</strong> Si las
+etapas se realizan consecutivamente, considere primero el principio de
+multiplicación; si son alternativas mutuamente excluyentes, considere el
+principio de adición.</li>
+<li><strong>¿Importa el orden?</strong> Si cambiar la posición de los
+elementos produce un resultado diferente, se trata de un problema
+ordenado.</li>
+<li><strong>¿Puede repetirse un elemento?</strong> Esta pregunta
+distingue los casos con y sin sustitución.</li>
+<li><strong>¿Los objetos son todos distintos?</strong> Si existen
+objetos indistinguibles, puede aparecer una permutación con elementos
+repetidos.</li>
+<li><strong>¿Se están seleccionando objetos o distribuyéndolos en
+grupos?</strong> En problemas de distribución pueden aparecer
+coeficientes multinomiales o combinaciones con repetición.</li>
+</ol>
+<p><br/><br/></p>
+</div>
+</div>
+<div id="problemas-propuestos-adicionales" class="section level1">
+<h1>Problemas propuestos adicionales</h1>
+<ol start="6" style="list-style-type: decimal">
+<li><p>Una empresa dispone de 7 tipos de fondos de inversión. ¿De
+cuántas maneras puede distribuir 4 unidades monetarias idénticas entre
+estos fondos si se permite asignar varias unidades al mismo fondo y no
+importa el orden de asignación?</p></li>
+<li><p>Durante una jornada, una máquina procesa 10 órdenes: 4 del
+producto A, 3 del producto B, 2 del producto C y 1 del producto D. Si
+las órdenes de un mismo producto son indistinguibles, ¿cuántas
+secuencias diferentes de producción pueden establecerse?</p></li>
+<li><p>Una compañía dispone de 12 profesionales y debe formar tres
+equipos identificados: 5 para mejora de procesos, 4 para logística y 3
+para evaluación financiera. ¿Cuántas asignaciones diferentes son
+posibles?</p></li>
+<li><p>Se deben distribuir 10 unidades idénticas de presupuesto entre 4
+proyectos de inversión identificados. ¿Cuántas distribuciones son
+posibles si un proyecto puede recibir cero unidades? ¿Cuántas si todos
+deben recibir al menos una unidad?</p></li>
+<li><p>Un sistema de control de inventarios genera un código de 5
+caracteres tomados de un conjunto de 8 símbolos y permite repetir
+símbolos. ¿Cuántos códigos son posibles? ¿Cambiaría el resultado si solo
+interesara la cantidad de veces que aparece cada símbolo y no su
+posición? Explique qué técnica corresponde en cada caso.</p></li>
+</ol>
+<p><br/><br/></p>
+</div>
+<div id="problemas-propuestos" class="section level1">
+<h1>Problemas propuestos</h1>
+<ol style="list-style-type: decimal">
+<li>Una empresa analiza cuatro periodos consecutivos y en cada periodo
+puede seleccionar una de 8 alternativas de abastecimiento, codificadas
+de 0 a 7.</li>
+</ol>
+<ol style="list-style-type: lower-alpha">
+<li>¿Cuántos planes de abastecimiento de cuatro periodos pueden
+construirse si las alternativas pueden repetirse?</li>
+<li>¿Cuántos planes terminan con una alternativa de código impar?</li>
+<li>Si el primer periodo no puede utilizar la alternativa 0, ¿cuántos
+planes son posibles?</li>
+</ol>
+<p><br/><br/></p>
+<ol start="2" style="list-style-type: decimal">
+<li>Un sistema financiero identifica operaciones mediante un código
+formado por tres letras seguidas de tres dígitos.</li>
+</ol>
+<ol style="list-style-type: lower-alpha">
+<li>¿Cuántos códigos pueden generarse si se permite repetir letras y
+números?</li>
+<li>¿Cuántos pueden generarse si no se permite repetir letras ni
+números?</li>
+<li>¿Cuántos de los códigos del punto (b) comienzan con K y terminan en
+cero?</li>
+<li>¿Cuántos de los códigos del punto (a) comienzan con las letras
+KL?</li>
+</ol>
+<p><br/><br/></p>
+<ol start="3" style="list-style-type: decimal">
+<li>Una empresa diseña identificadores numéricos de siete dígitos para
+órdenes de producción.</li>
+</ol>
+<ol style="list-style-type: lower-alpha">
+<li>¿Cuántos identificadores son posibles si los tres primeros dígitos
+están fijados como 300?</li>
+<li>Si los tres primeros son 312 y los cuatro restantes no pueden
+repetirse, ¿cuántos identificadores son posibles?</li>
+<li>¿Cuántos de los identificadores del inciso (b) terminan en 7?</li>
+<li>¿Cuántos de los identificadores del inciso (b) terminan en un dígito
+impar?</li>
+</ol>
+<p><br/><br/></p>
+<ol start="4" style="list-style-type: decimal">
+<li>Una planta debe establecer el orden de procesamiento de 8 órdenes de
+producción diferentes en una máquina.</li>
+</ol>
+<ol style="list-style-type: lower-alpha">
+<li>¿Cuántas secuencias completas de producción son posibles?</li>
+<li>Si solo interesa determinar cuáles órdenes ocuparán el primer,
+segundo y tercer lugar, ¿cuántas asignaciones diferentes son
+posibles?</li>
+</ol>
+<p><br/><br/></p>
+<ol start="5" style="list-style-type: decimal">
+<li>Para configurar un sistema de analítica de operaciones, una empresa
+dispone de cuatro plataformas de cómputo, seis alternativas de
+visualización y tres sistemas de generación de reportes.</li>
+</ol>
+<ol style="list-style-type: lower-alpha">
+<li>Si todos los componentes son compatibles, ¿de cuántas formas puede
+configurarse el sistema?</li>
+<li>Si un software de optimización solo funciona en dos de las cuatro
+plataformas, ¿de cuántas maneras puede configurarse el sistema
+utilizando dicho software?</li>
+</ol>
+<p><br/><br/></p>
+<ol start="6" style="list-style-type: decimal">
+<li>Un laboratorio de calidad debe probar cinco materiales diferentes
+para seleccionar un nuevo empaque industrial. Las pruebas se realizarán
+en orden aleatorio.</li>
+</ol>
+<ol style="list-style-type: lower-alpha">
+<li>¿En cuántos órdenes pueden efectuarse las pruebas?</li>
+<li>Si dos materiales pertenecen al mismo proveedor, ¿de cuántas maneras
+pueden programarse las pruebas de modo que esos dos materiales sean
+evaluados consecutivamente?</li>
+</ol>
+<p><br/><br/></p>
+<ol start="7" style="list-style-type: decimal">
+<li>Una multinacional dispone de 10 ingenieros industriales, 8
+economistas, 4 administradores y 3 contadores. Se seleccionará un equipo
+para evaluar la viabilidad operativa y financiera de una nueva planta.
+El equipo estará formado por 3 ingenieros industriales, 2 economistas, 2
+administradores y 1 contador.</li>
+</ol>
+<ol style="list-style-type: lower-alpha">
+<li>¿De cuántas formas puede seleccionarse el equipo?</li>
+<li>Si debe incluirse obligatoriamente un ingeniero industrial
+específico por su experiencia en el proceso, ¿de cuántas maneras puede
+seleccionarse el equipo?</li>
+</ol>
+<p><br/><br/></p>
+<ol start="8" style="list-style-type: decimal">
+<li>El área de planeación de una compañía cuenta con 10 analistas, de
+los cuales 4 son especialistas en finanzas y 6 en operaciones. Se
+seleccionan aleatoriamente 3 analistas para integrar un comité.</li>
+</ol>
+<ol style="list-style-type: lower-alpha">
+<li>¿Cuál es la probabilidad de que en el comité no haya especialistas
+en finanzas?</li>
+<li>¿Cuál es la probabilidad de que haya al menos un especialista en
+finanzas?</li>
+</ol>
+<p><br/><br/></p>
+<ol start="9" style="list-style-type: decimal">
+<li>Una empresa estudia 10 proyectos de inversión diferentes y desea
+construir portafolios formados por 3 proyectos.</li>
+</ol>
+<ol style="list-style-type: lower-alpha">
+<li>¿Cuántos portafolios diferentes pueden construirse?</li>
+<li>¿Cuántos incluyen un proyecto específico A?</li>
+<li>¿Cuántos incluyen simultáneamente los proyectos A y B?</li>
+</ol>
+<p><br/><br/></p>
+<ol start="10" style="list-style-type: decimal">
+<li>Una plataforma de negociación exige una clave formada por cinco
+letras seguidas de un dígito.</li>
+</ol>
+<ol style="list-style-type: lower-alpha">
+<li>¿Cuántas claves son posibles si se permite repetición?</li>
+<li>¿Cuántas claves contienen exactamente tres letras A y dos letras B y
+terminan en un dígito par?</li>
+<li>Si un analista olvida la clave, pero recuerda que tiene las
+características del inciso (b), ¿cuál es la probabilidad de acertarla en
+el primer intento si elige al azar entre todas las claves
+compatibles?</li>
+</ol>
+<p>Problemas tomados y basados en Meyer(1986)</p>
+<p><br/><br/></p>
+<div id="código-r" class="section level3 box1 with-label">
+<h3>Código R</h3>
+<pre class="r"><code># Funciones auxiliares para aplicar directamente las fórmulas de conteo.
+# nPk calcula permutaciones sin repetición: n factorial dividido entre (n-k) factorial.
+nPk &lt;- function(n, k) {
+  # Verifica que n y k sean valores admisibles.
+  stopifnot(n &gt;= 0, k &gt;= 0, k &lt;= n)
+  factorial(n) / factorial(n - k)
+}
+
+# nCk calcula combinaciones sin repetición.
+nCk &lt;- function(n, k) {
+  stopifnot(n &gt;= 0, k &gt;= 0, k &lt;= n)
+  choose(n, k)
+}
+
+# nHk calcula combinaciones con repetición mediante C(n+k-1, k).
+nHk &lt;- function(n, k) {
+  stopifnot(n &gt;= 1, k &gt;= 0)
+  choose(n + k - 1, k)
+}
+
+# 1. Planes codificados con alternativas 0, 1, ..., 7.
+# El primer dígito tiene 7 opciones y cada posición restante tiene 8.
+total_cuatro_digitos &lt;- 7 * 8^3
+impares &lt;- 7 * 8^2 * 4  # El último dígito debe ser 1, 3, 5 o 7.
+
+# Genera candidatos y verifica que todos sus dígitos estén entre 0 y 7.
+numeros_validos &lt;- 1000:7777
+digitos_validos &lt;- vapply(
+  strsplit(as.character(numeros_validos), &quot;&quot;),
+  function(d) all(as.integer(d) &lt;= 7),
+  logical(1)
+)
+mayores_iguales_1420 &lt;- sum(digitos_validos &amp; numeros_validos &gt;= 1420)
+
+# Cuenta los candidatos válidos que cumplen también el límite inferior.
+# 2. Códigos de operaciones con tres letras y tres dígitos.
+# Con repetición, cada letra tiene 26 opciones y cada dígito tiene 10.
+placas_con_repeticion &lt;- 26^3 * 10^3
+
+# Sin repetición, se usan permutaciones para letras y dígitos.
+placas_sin_repeticion &lt;- nPk(26, 3) * nPk(10, 3)
+
+# Fija K al inicio y 0 al final; cuenta las posiciones restantes.
+placas_sin_repeticion_K_final_0 &lt;- 25 * 24 * 9 * 8
+
+# Fija K y L; deja libre la tercera letra y los tres dígitos.
+placas_con_repeticion_KL &lt;- 26 * 10^3
+
+# 3. Números telefónicos: cuatro dígitos libres después del prefijo.
+# Con el prefijo 300, cada dígito restante tiene 10 opciones.
+telefonos_prefijo_300 &lt;- 10^4
+
+# El prefijo 312 deja siete dígitos disponibles para cuatro posiciones.
+telefonos_prefijo_312_sin_repetir &lt;- nPk(7, 4)
+
+# Fija el 7 al final y ordena tres de los seis dígitos restantes.
+telefonos_312_terminados_7 &lt;- nPk(6, 3)
+
+# Hay tres finales impares posibles y P(6,3) formas de llenar las otras posiciones.
+telefonos_312_impares &lt;- 3 * nPk(6, 3)
+
+# 4. Ordena los ocho autos y asigna por separado los tres premios.
+ordenes_salida &lt;- factorial(8)
+primeros_tres_premios &lt;- nPk(8, 3)
+
+# 5. Aplica el principio multiplicativo a computador, monitor e impresora.
+configuraciones_totales &lt;- 4 * 6 * 3
+
+# El software restringe a dos las opciones de computador.
+configuraciones_software &lt;- 2 * 6 * 3
+
+# 6. Ordena las cinco pruebas.
+ordenes_pruebas &lt;- factorial(5)
+
+# Considera los dos recubrimientos como un bloque; el factor 2 cambia su orden.
+recubrimientos_juntos &lt;- 2 * factorial(4)
+
+# 7. Multiplica las combinaciones correspondientes a cada profesión.
+equipos &lt;- nCk(10, 3) * nCk(8, 2) * nCk(4, 2) * nCk(3, 1)
+
+# Fija un ingeniero y elige dos de los nueve restantes.
+equipos_con_ingeniero_fijo &lt;-
+  nCk(9, 2) * nCk(8, 2) * nCk(4, 2) * nCk(3, 1)
+
+# 8. Divide los casos favorables de tres hombres entre todos los grupos de tres.
+probabilidad_sin_mujeres &lt;- nCk(6, 3) / nCk(10, 3)
+
+# 9. Cada triángulo se determina eligiendo tres puntos.
+triangulos &lt;- nCk(10, 3)
+
+# Fija A y selecciona los otros dos vértices.
+triangulos_con_A &lt;- nCk(9, 2)
+
+# Fija el lado AB y selecciona uno de los ocho puntos restantes.
+triangulos_con_lado_AB &lt;- 8
+
+# 10. Cuenta cinco letras con repetición y un dígito final.
+contrasenas_totales &lt;- 26^5 * 10
+
+# Elige las posiciones de las tres A y uno de los cinco dígitos pares.
+contrasenas_tres_A_dos_B_par &lt;- nCk(5, 3) * 5
+
+# Solo una de las contraseñas posibles es la correcta.
+probabilidad_primer_intento &lt;- 1 / contrasenas_tres_A_dos_B_par
+
+# Agrupa todos los resultados para mostrarlos en una sola salida.
+list(
+  total_cuatro_digitos = total_cuatro_digitos,
+  impares = impares,
+  mayores_iguales_1420 = mayores_iguales_1420,
+  placas_con_repeticion = placas_con_repeticion,
+  placas_sin_repeticion = placas_sin_repeticion,
+  placas_sin_repeticion_K_final_0 = placas_sin_repeticion_K_final_0,
+  placas_con_repeticion_KL = placas_con_repeticion_KL,
+  telefonos_prefijo_300 = telefonos_prefijo_300,
+  telefonos_prefijo_312_sin_repetir = telefonos_prefijo_312_sin_repetir,
+  telefonos_312_terminados_7 = telefonos_312_terminados_7,
+  telefonos_312_impares = telefonos_312_impares,
+  ordenes_salida = ordenes_salida,
+  primeros_tres_premios = primeros_tres_premios,
+  configuraciones_totales = configuraciones_totales,
+  configuraciones_software = configuraciones_software,
+  ordenes_pruebas = ordenes_pruebas,
+  recubrimientos_juntos = recubrimientos_juntos,
+  equipos = equipos,
+  equipos_con_ingeniero_fijo = equipos_con_ingeniero_fijo,
+  probabilidad_sin_mujeres = probabilidad_sin_mujeres,
+  triangulos = triangulos,
+  triangulos_con_A = triangulos_con_A,
+  triangulos_con_lado_AB = triangulos_con_lado_AB,
+  contrasenas_totales = contrasenas_totales,
+  contrasenas_tres_A_dos_B_par = contrasenas_tres_A_dos_B_par,
+  probabilidad_primer_intento = probabilidad_primer_intento
+)</code></pre>
+</div>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("hide" === "show");
+});
+</script>
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
