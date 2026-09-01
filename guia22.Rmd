@@ -32,7 +32,7 @@ knitr::include_graphics("img/guia2.png")
 
 <br/><br/>
 
-<div class="box6 with-label">
+<div class="box3 with-label">
 ## Introducción
 
 Como fue mencionado en la Unidad 2.1 el concepto de probabilidad es fundamental dentro de la Estadística, pues soporta los conceptos de variable aleatoria y de las funciones que las rigen. Entre sus principales aplicaciones está la valoración del riesgo en relación con la toma de decisiones, la fiabilidad de productos y garantías de productos, teoría de juegos, entre otras aplicaciones.
@@ -43,7 +43,7 @@ Como complemento de los conceptos vistos en la Unidad 2.1, en esta unidad se abo
 
 <br/><br/>
 
-<div class="box6 with-label">
+<div class="box3 with-label">
 ## Objetivos de la unidad
 
 Al finalizar la unidad los estudiantes estarán  en  capacidad de  RECONOCER, CALCULAR e INTERPRETAR  los diferentes tipos de probabilidad y sus aplicaciones, con el propósito de valorar los riesgos asociados a una decisión. 
@@ -51,7 +51,7 @@ Al finalizar la unidad los estudiantes estarán  en  capacidad de  RECONOCER, CA
 </div>
 <br/><br/>
 
-<div class="box6 with-label">
+<div class="box3 with-label">
 ## Duración
 
 La presente  unidad será desarrollada durante la semana comprendida entre el 2  y el 7 septiembre. Ademas del material suministrado  contaran con el acompañamiento del profesor y un monitor. 
@@ -63,7 +63,7 @@ Para alcanzar los objetivos planteados se propone realizar la siguiente activida
 
 <br/><br/>
 
-<div class="box6 with-label">
+<div class="box3 with-label">
 ## Cronograma de trabajo
 
 
@@ -79,7 +79,7 @@ Para alcanzar los objetivos planteados se propone realizar la siguiente activida
 
 <br/><br/>
 
-<div class="box6 with-label">
+<div class="box3 with-label">
 ## Criterios de evaluación
 
 El taller del Modulo 2 recoge los elementos estudiados y por tanto  tiene objetivo la revisión de los principales conceptos tratados.
@@ -92,7 +92,7 @@ El taller del Modulo 2 recoge los elementos estudiados y por tanto  tiene objeti
 
 <br/><br/>
 
-<div class="box6 with-label">
+<div class="box3 with-label">
 ## Entregables
 
 | Entregable |  Descripción                    |
