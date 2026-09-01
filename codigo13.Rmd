@@ -43,7 +43,7 @@ cervezas <- read_csv("data/cervezas.csv")
 beer <- read_csv("data/beer.csv")
 
 # colores
-source("colores.R")
+source("R/colores.R")
 paleta5 <- unname(paleta[c("rojo", "amarillo", "cian", "violeta", "verde")])
 paleta4 <- unname(paleta[c("rojo", "amarillo", "cian", "violeta")])
 

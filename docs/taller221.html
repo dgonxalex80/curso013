@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="dgonzalez " />
+
+
+<title>Teoría de probabilidades</title>
+
+<script src="site_libs/header-attrs/header-attrs.js"></script>
+<script src="site_libs/jquery/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation/tabsets.js"></script>
+<script src="site_libs/navigation/codefolding.js"></script>
+<link href="site_libs/highlightjs/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs/highlight.js"></script>
+<link href="site_libs/font-awesome/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome/css/v4-shims.min.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+<link rel="stylesheet" href="cajas.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html"> </a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">
+    <span class="fa fa-home"></span>
+     
+    Estadística
+  </a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 0
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo0.html">Módulo 0</a>
+    </li>
+    <li>
+      <a href="sumatoria.html">Sumatoria</a>
+    </li>
+    <li>
+      <a href="productoria.html">Productoria</a>
+    </li>
+    <li>
+      <a href="conjuntos.html">Conjuntos</a>
+    </li>
+    <li>
+      <a href="conteo.html">Conteo</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 1
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo1.html">Módulo 1</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="guia11.html">Guía 1.1</a>
+    </li>
+    <li>
+      <a href="recurso11.html">Recursos 1.1</a>
+    </li>
+    <li>
+      <a href="basesdatos.html">Bases de datos</a>
+    </li>
+    <li>
+      <a href="introduccionR.html">Introducción a R</a>
+    </li>
+    <li>
+      <a href="codigo11.html">Código 1.1</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="guia12.html">Guía 1.2</a>
+    </li>
+    <li>
+      <a href="recurso12.html">Recursos 1.2</a>
+    </li>
+    <li>
+      <a href="codigo12.html">Código 1.2</a>
+    </li>
+    <li>
+      <a href="caso1A.html">Caso 1</a>
+    </li>
+    <li>
+      <a href="caso1B.html">Caso 2</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="guia13.html">Guía 1.3</a>
+    </li>
+    <li>
+      <a href="recurso13.html">Recursos 1.3</a>
+    </li>
+    <li>
+      <a href="codigo13.html">Código 1.3</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="monitoria1.html">Monitoria 1</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 2
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo2.html">Módulo 2</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="guia21.html">Guía 2.1</a>
+    </li>
+    <li>
+      <a href="recurso21.html">Recursos 2.1</a>
+    </li>
+    <li>
+      <a href="codigo21.html">Código 2.1</a>
+    </li>
+    <li>
+      <a href="taller211.html">Taller 211</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="guia22.html">Guía 2.2</a>
+    </li>
+    <li>
+      <a href="recurso22.html">Recursos 2.2</a>
+    </li>
+    <li>
+      <a href="taller221.html">Taller 221</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="monitoria2.html">Moitoría 2</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 3
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo3.html">Módulo 3</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 4
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo4.html">Módulo 4</a>
+    </li>
+    <li class="divider"></li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Proyecto
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="enconstruccion.html">Guía proyecto</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore"><span
+style="color:#3498C9 !important;">Teoría de probabilidades</span></h1>
+<h3 class="subtitle"><span style="color:#3498C9"> </span></h3>
+<h4 class="author"><span style="color:#3498C9">dgonzalez </span></h4>
+
+</div>
+
+
+<p></br></br></br></p>
+<p><img src="img/taller2.png" alt="" width="100%" style="display: block; margin: auto;" /></p>
+<p></br></br></br></p>
+<div id="problema-1" class="section level3 box3 with-label">
+<h3>Problema 1</h3>
+<p></br></p>
+<p>MarketNova es una empresa de comercio electrónico que está preparando
+su presupuesto comercial para el próximo trimestre. Como los recursos
+disponibles para publicidad son limitados, la dirección de mercadeo
+quiere identificar cuáles canales están aportando compradores efectivos
+y no solamente visitas al sitio web. En la campaña más reciente, el 45 %
+de las visitas provino de redes sociales, el 35 % de buscadores y el 20
+% de correo electrónico; además, el 4 % de las visitas provenientes de
+redes sociales terminó en compra, frente al 7 % de las provenientes de
+buscadores y el 10 % de las provenientes de correo electrónico. La
+gerencia considera que el correo electrónico merece una mayor asignación
+presupuestal si, entre los clientes que efectivamente compran, la
+probabilidad de haber llegado por este canal es al menos 0.30. Construya
+un diagrama de árbol, determine dicha probabilidad y, con base en el
+criterio establecido, recomiende si la empresa debería aumentar el
+presupuesto destinado al correo electrónico.</p>
+</div>
+<p><br/><br/><br/></p>
+<div id="problema-2" class="section level3 box3 with-label">
+<h3>Problema 2</h3>
+<p></br></p>
+<p>Mercateria, una cadena de supermercados, utiliza cupones digitales
+para estimular la recompra y está evaluando cómo orientar su próxima
+campaña promocional. Actualmente, el 30 % de sus clientes se clasifica
+como frecuente y el 70 % como ocasional. En la campaña anterior, el 65 %
+de los clientes frecuentes utilizó el cupón, mientras que entre los
+ocasionales lo hizo el 25 %. La gerencia quiere saber si quienes
+responden a este tipo de promoción pertenecen principalmente al segmento
+frecuente y ha definido que focalizará la próxima campaña en dicho
+segmento si, dado que un cliente utilizó el cupón, la probabilidad de
+que sea frecuente supera 0.50. Determine esta probabilidad y establezca
+qué decisión debería tomar la empresa.</p>
+</div>
+<p><br/><br/><br/></p>
+<div id="problema-3" class="section level3 box3 with-label">
+<h3>Problema 3</h3>
+<p></br></p>
+<p>Una empresa de bebidas con gas realizó una campaña publicitaria con
+el propósito de aumentar la recordación de su marca y debe decidir si
+renueva la inversión para el siguiente período. Para evaluar los
+resultados encuestó a 1.000 consumidores: 600 estuvieron expuestos a la
+campaña, 500 recordaron la marca y, entre los consumidores expuestos,
+360 la recordaron. La gerencia considera que tiene sentido mantener la
+campaña únicamente si los datos muestran que la recordación de marca
+está asociada con la exposición publicitaria. Determine, mediante el
+análisis de independencia de los sucesos A: «haber estado expuesto a la
+campaña» y B: «recordar la marca», si existe dicha asociación y
+recomiende si la campaña debería mantenerse.</p>
+</div>
+<p><br/><br/><br/></p>
+<div id="problema-4" class="section level3 box3 with-label">
+<h3>Problema 4</h3>
+<p></br></p>
+<p>AutoPartes fabrica componentes para la industria automotriz mediante
+tres líneas de producción y recientemente ha observado un aumento de las
+devoluciones por defectos. Como inicialmente solo puede realizar una
+auditoría exhaustiva en una línea, la dirección de operaciones quiere
+identificar si la línea C merece atención prioritaria. La línea A
+produce el 40 % de las unidades, la B el 35 % y la C el 25 %, mientras
+que sus tasas de productos defectuosos son 2 %, 3 % y 5 %,
+respectivamente. La empresa ha definido que auditará prioritariamente la
+línea C si, dado que una unidad resultó defectuosa, la probabilidad de
+que haya sido fabricada en esa línea es mayor que 0.40. Construya un
+diagrama de árbol, calcule esta probabilidad y determine si debe
+ordenarse la auditoría.</p>
+</div>
+<p><br/><br/><br/></p>
+<div id="problema-5" class="section level3 box3 with-label">
+<h3>Problema 5</h3>
+<p></br></p>
+<p>InduMecanica ensambla equipos industriales utilizando una pieza
+crítica adquirida a tres proveedores homologados. Debido a que la falla
+de esta pieza puede detener la producción, el área de abastecimiento
+quiere decidir con cuál proveedor debe iniciar una revisión de sus
+condiciones de calidad. El proveedor A suministra el 50 % de las piezas,
+B el 30 % y C el 20 %; históricamente presentan tasas de falla de 1 %, 2
+% y 4 %, respectivamente. Como un proveedor con una tasa de falla alta
+no necesariamente es el origen más probable de las piezas falladas si
+suministra poco volumen, la empresa quiere considerar ambos factores. Si
+se detecta una pieza con falla, determine la probabilidad de que
+provenga de cada proveedor y recomiende con cuál debería iniciarse la
+revisión contractual.</p>
+</div>
+<p><br/><br/><br/></p>
+<div id="problema-6" class="section level3 box3 with-label">
+<h3>Problema 6</h3>
+<p></br></p>
+<p>Una planta industrial ha registrado un aumento de las paradas no
+programadas y la gerencia está considerando ampliar su programa de
+mantenimiento preventivo, decisión que implicaría contratar personal
+técnico y destinar más horas de máquina a mantenimiento. Actualmente, el
+60 % de las máquinas recibe mantenimiento preventivo mensual y el 40 %
+restante solo es intervenido cuando presenta una falla. Durante un mes
+típico, el 5 % de las máquinas con mantenimiento preventivo presenta una
+avería, mientras que entre las máquinas sin este mantenimiento la
+proporción es 18 %. La gerencia ampliará el programa si, entre las
+máquinas que presentan una avería, la probabilidad de pertenecer al
+grupo sin mantenimiento preventivo es superior a 0.65. De acuerdo con
+los resultados anteriores, debería ampliarse el mantenimiento preventivo
+o no. Justifique su respuesta.</p>
+</div>
+<p><br/><br/><br/></p>
+<div id="problema-7" class="section level3 box3 with-label">
+<h3>Problema 7</h3>
+<p></br></p>
+<p>Una entidad financiera está revisando sus políticas de aprobación de
+créditos debido al aumento reciente de la cartera vencida. El comité de
+riesgo considera que los créditos de alto monto podrían requerir
+controles adicionales, pero antes de modificar las políticas quiere
+conocer con mayor precisión la relación entre el monto del crédito y el
+incumplimiento de los clientes. A partir de los registros históricos, el
+área de analítica determinó que la probabilidad de que un crédito sea de
+alto monto es 0.40, mientras que la probabilidad de que un cliente
+presente mora es 0.25. Adicionalmente, se encontró que entre los
+clientes con créditos de alto monto la probabilidad de presentar mora es
+0.45. A partir de la información se quiere conocer que tan probable es
+que un cliente que presenta mora tenga un crédito de alto monto. El
+comité ha establecido que revisará las condiciones de aprobación de los
+créditos de alto monto si, entre los clientes que presentan mora, la
+probabilidad de tener un crédito de alto monto es superior a 0.60. Con
+base en sus resultados, indique qué decisión debería tomar el comité y
+justifique su respuesta.</p>
+</div>
+<p><br/><br/><br/></p>
+<div id="problema-8" class="section level3 box3 with-label">
+<h3>Problema 8</h3>
+<p></br></p>
+<p>Un fondo de inversión está preparando el rebalanceo anual de su
+portafolio y el comité desea evaluar qué tipo de activo está más
+asociado con las inversiones que alcanzan una rentabilidad superior a la
+meta. Actualmente, el 40 % del portafolio está invertido en acciones, el
+35 % en bonos y el 25 % en fondos inmobiliarios. La probabilidad
+estimada de obtener una rentabilidad anual superior al 10 % es 0.30 para
+las acciones, 0.08 para los bonos y 0.20 para los fondos inmobiliarios.
+El comité considerará aumentar la participación en acciones si, entre
+las inversiones que superan el 10 % de rentabilidad, la probabilidad de
+que correspondan a acciones es mayor que 0.60. Será apropiada esta
+decisión=. Justifique su respuesta.</p>
+</div>
+<p><br/><br/><br/></p>
+<div id="problema-9" class="section level3 box3 with-label">
+<h3>Problema 9</h3>
+<p></br></p>
+<p>Un banco procesa diariamente miles de transacciones electrónicas y
+utiliza un algoritmo para identificar operaciones potencialmente
+fraudulentas. Bloquear automáticamente una transacción puede evitar
+pérdidas, pero también puede afectar a clientes legítimos, mientras que
+enviar demasiadas alertas a revisión manual incrementa los costos
+operativos. Se estima que la probabilidad de que una transacción sea
+fraudulenta es 0.02; el algoritmo genera una alerta en 0.95 de las
+transacciones fraudulentas y también en 0.04 de las legítimas. El banco
+ha decidido bloquear automáticamente una operación únicamente cuando,
+dada una alerta, la probabilidad de fraude sea al menos 0.50; de lo
+contrario, la operación será enviada a revisión manual. Determine la
+probabilidad de fraude ante una alerta y establezca qué acción debería
+tomar el banco.</p>
+</div>
+<p><br/><br/><br/></p>
+<div id="problema-10" class="section level3 box3 with-label">
+<h3>Problema 10</h3>
+<p></br></p>
+<p>ElectroAndina importa componentes electrónicos desde China, México y
+Estados Unidos para abastecer su operación en Colombia. Los retrasos
+recientes han generado faltantes de inventario, por lo que la gerencia
+de comercio exterior quiere decidir si debe renegociar las condiciones
+logísticas asociadas con alguno de sus principales orígenes. China
+suministra el 50 % de las unidades, México el 30 % y Estados Unidos el
+20 %, y las probabilidades de retraso son 0.12, 0.07 y 0.04,
+respectivamente. La empresa iniciará una renegociación con China si,
+dado que un pedido llegó retrasado, la probabilidad de que proceda de
+ese país supera 0.60. Determine esta probabilidad y establezca si la
+renegociación está justificada.</p>
+</div>
+<p><br/><br/><br/></p>
+<div id="problema-11" class="section level3 box3 with-label">
+<h3>Problema 11</h3>
+<p></br></p>
+<p>Exportadora del Pacífico utiliza transporte marítimo y aéreo para
+atender sus mercados internacionales y recientemente ha recibido
+reclamaciones por entregas con retrasos superiores a tres días. El 70 %
+de sus envíos se realiza por vía marítima y el 30 % por vía aérea; la
+probabilidad de un retraso superior a tres días es 0.08 para los envíos
+marítimos y 0.02 para los aéreos. Antes de renegociar contratos o
+modificar rutas, la empresa quiere establecer si los retrasos
+prolongados se concentran suficientemente en el transporte marítimo y ha
+definido que revisará esta estrategia si, dado que un envío sufrió dicho
+retraso, la probabilidad de que haya sido transportado por vía marítima
+supera 0.85. Calcule esta probabilidad y determine si se justifica la
+revisión.</p>
+</div>
+<p><br/><br/><br/></p>
+<div id="problema-12" class="section level3 box3 with-label">
+<h3>Problema 12</h3>
+<p></br></p>
+<p>Importadora Andina realiza pagos frecuentes en moneda extranjera y
+está evaluando ampliar su cobertura frente al riesgo cambiario. Esta
+protección tiene un costo, por lo que la dirección financiera quiere
+comprobar si las pérdidas cambiarias observadas están suficientemente
+vinculadas con los períodos de alta volatilidad. Históricamente, el 30 %
+de los meses presenta alta volatilidad; durante esos meses la
+probabilidad de registrar una pérdida cambiaria es 0.60, mientras que en
+los meses de baja volatilidad es 0.20. La empresa contratará una
+cobertura más amplia si, dado que se registró una pérdida cambiaria, la
+probabilidad de que el mes haya sido de alta volatilidad supera 0.50.
+Determine esta probabilidad y recomiende si debería ampliarse la
+cobertura.</p>
+</div>
+<p><br/><br/><br/></p>
+<div id="problema-13" class="section level3 box3 with-label">
+<h3>Problema 13</h3>
+<p></br></p>
+<p>Una compañía está revisando la forma en que cubre sus vacantes y debe
+decidir si aumenta el uso de promociones internas frente a la
+contratación externa. Actualmente, el 60 % de los nuevos empleados
+ingresa mediante convocatoria externa y el 40 % mediante promoción
+interna. Después de un año, la probabilidad de obtener una evaluación
+satisfactoria es 0.70 para quienes ingresaron externamente y 0.85 para
+quienes fueron promovidos. Talento humano considera aumentar la
+participación de las promociones internas si, entre los empleados con
+evaluación satisfactoria, la probabilidad de haber ingresado mediante
+promoción interna es al menos 0.45. Calcule esta probabilidad y
+determine si la política de selección debería modificarse.</p>
+</div>
+<p><br/><br/><br/></p>
+<div id="problema-14" class="section level3 box3 with-label">
+<h3>Problema 14</h3>
+<p></br></p>
+<p>Una plataforma de comercio electrónico está definiendo su plan de
+expansión logística y estudia aumentar la capacidad de su centro de
+distribución de Cali. La entrega en menos de 24 horas es uno de sus
+indicadores estratégicos, por lo que la gerencia quiere conocer qué
+participación tiene cada centro entre los pedidos que alcanzan ese nivel
+de servicio. Bogotá despacha el 45 % de los pedidos, Medellín el 30 % y
+Cali el 25 %, y las probabilidades de entrega en menos de 24 horas son
+0.70, 0.65 y 0.80, respectivamente. La empresa ampliará el centro de
+Cali si, dado que un pedido fue entregado en menos de 24 horas, la
+probabilidad de que haya sido despachado desde Cali es al menos 0.30.
+Determine esta probabilidad y establezca si la evidencia respalda la
+ampliación.</p>
+</div>
+<p><br/><br/><br/></p>
+<div id="problema-15" class="section level3 box3 with-label">
+<h3>Problema 15</h3>
+<p></br></p>
+<p>Una empresa de comercio electrónico está evaluando una inversión en
+tecnología y capacidad logística para mejorar el cumplimiento de sus
+tiempos de entrega. La gerencia considera que esta inversión tendría
+mayor sentido si existe una asociación entre entregar a tiempo y la
+satisfacción de los clientes. En una muestra de 2.000 pedidos, 1.500
+fueron entregados dentro del tiempo prometido, 1.600 clientes
+manifestaron estar satisfechos y, entre los pedidos entregados a tiempo,
+1.300 clientes reportaron satisfacción. Determine si los sucesos A: «el
+pedido fue entregado dentro del tiempo prometido» y B: «el cliente
+manifestó estar satisfecho» son independientes. A partir del resultado,
+establezca si la evidencia respalda la decisión de priorizar inversiones
+orientadas a mejorar el cumplimiento de los tiempos de entrega.</p>
+</div>
+<p><br/><br/><br/></p>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("hide" === "show");
+});
+</script>
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

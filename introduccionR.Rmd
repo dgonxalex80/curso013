@@ -20,7 +20,7 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 
 # colores
-source("colores.R")
+source("R/colores.R")
 ```
 
 

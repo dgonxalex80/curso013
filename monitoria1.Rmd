@@ -40,7 +40,7 @@ mostrar_descr <- function(datos) {
 
 
 # colores
-source("colores.R")
+source("R/colores.R")
 
 
 ```

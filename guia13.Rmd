@@ -22,12 +22,8 @@ output:
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE,comment = NA)
 library(ggplot2)
-
-
-
-
 ## colores
-source("colores.R")
+source("R/colores.R")
 ```
 
 <br/><br/>
@@ -82,7 +78,7 @@ Para alcanzar los objetivos planteados se propone realizar las siguientes activi
 |Actividad 132   | Descripción                   | 
 |:--------------|:-----------------------------  |
 |Trabajo equipo|  Deben construir un **mapa mental** del *Módulo 1*  que resuma los conceptos más importantes del Módulo 1. El mapa debe ser construido a mano en medio pliego de cartulina. Los equipos podrán estar conformados por 3  estudiantes - Se sugiere que cada estudiante lleve su mapa mental como aporte a la construcción colectiva |
-|Fecha  | **11 de septiembre de 2026** - al finalizar la evaluación, conjuntamente con el cuestionario y la hoja de respuestas |
+|Fecha  | **10 de septiembre de 2026** - al finalizar la evaluación, conjuntamente con el cuestionario y la hoja de respuestas |
 |Hora   | al final de la sesión |
 
 <br/><br/>

@@ -1,0 +1,210 @@
+---
+title: "<span style='color:#3498C9 !important;'>Teoría de probabilidades</span>"
+author: <span style="color:#3498C9">dgonzalez </span> 
+subtitle: <span style="color:#3498C9"> </span> 
+output:
+  html_document:
+    toc: no
+    toc_depth: 2
+    toc_float: yes
+    code_folding: hide
+    theme: flatly
+    css:
+      - style.css
+      - cajas.css
+---  
+  
+
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+knitr::opts_chunk$set(
+  fig.width=9, fig.height=3.5, fig.retina=3,
+  out.width = "100%",
+  cache = FALSE,
+  echo = TRUE,
+  message = FALSE, 
+  warning = FALSE,
+  hiline = TRUE
+)
+# colores
+source("R/init.R")
+
+```
+
+
+
+</br></br></br>
+
+```{r, echo=FALSE, out.width="100%", fig.align = "center"}
+knitr::include_graphics("img/taller2.png")
+```
+
+</br></br></br>
+
+
+<div class="box3 with-label">
+### Problema 1
+
+</br>
+
+MarketNova es una empresa de comercio electrónico que está preparando su presupuesto comercial para el próximo trimestre. Como los recursos disponibles para publicidad son limitados, la dirección de mercadeo quiere identificar cuáles canales están aportando compradores efectivos y no solamente visitas al sitio web. En la campaña más reciente, el 45 % de las visitas provino de redes sociales, el 35 % de buscadores y el 20 % de correo electrónico; además, el 4 % de las visitas provenientes de redes sociales terminó en compra, frente al 7 % de las provenientes de buscadores y el 10 % de las provenientes de correo electrónico. La gerencia considera que el correo electrónico merece una mayor asignación presupuestal si, entre los clientes que efectivamente compran, la probabilidad de haber llegado por este canal es al menos 0.30. Construya un diagrama de árbol, determine dicha probabilidad y, con base en el criterio establecido, recomiende si la empresa debería aumentar el presupuesto destinado al correo electrónico.
+
+</div>
+
+<br/><br/><br/>
+
+<div class="box3 with-label">
+### Problema 2
+
+</br>
+
+Mercateria, una cadena de supermercados, utiliza cupones digitales para estimular la recompra y está evaluando cómo orientar su próxima campaña promocional. Actualmente, el 30 % de sus clientes se clasifica como frecuente y el 70 % como ocasional. En la campaña anterior, el 65 % de los clientes frecuentes utilizó el cupón, mientras que entre los ocasionales lo hizo el 25 %. La gerencia quiere saber si quienes responden a este tipo de promoción pertenecen principalmente al segmento frecuente y ha definido que focalizará la próxima campaña en dicho segmento si, dado que un cliente utilizó el cupón, la probabilidad de que sea frecuente supera 0.50. Determine esta probabilidad y establezca qué decisión debería tomar la empresa.
+
+</div>
+
+<br/><br/><br/>
+
+<div class="box3 with-label">
+### Problema 3
+
+</br>
+
+Una empresa de bebidas con gas realizó una campaña publicitaria con el propósito de aumentar la recordación de su marca y debe decidir si renueva la inversión para el siguiente período. Para evaluar los resultados encuestó a 1.000 consumidores: 600 estuvieron expuestos a la campaña, 500 recordaron la marca y, entre los consumidores expuestos, 360 la recordaron. La gerencia considera que tiene sentido mantener la campaña únicamente si los datos muestran que la recordación de marca está asociada con la exposición publicitaria. Determine, mediante el análisis de independencia de los sucesos A: «haber estado expuesto a la campaña» y B: «recordar la marca», si existe dicha asociación y recomiende si la campaña debería mantenerse.
+
+</div>
+
+<br/><br/><br/>
+
+<div class="box3 with-label">
+### Problema 4
+
+</br>
+
+AutoPartes fabrica componentes para la industria automotriz mediante tres líneas de producción y recientemente ha observado un aumento de las devoluciones por defectos. Como inicialmente solo puede realizar una auditoría exhaustiva en una línea, la dirección de operaciones quiere identificar si la línea C merece atención prioritaria. La línea A produce el 40 % de las unidades, la B el 35 % y la C el 25 %, mientras que sus tasas de productos defectuosos son 2 %, 3 % y 5 %, respectivamente. La empresa ha definido que auditará prioritariamente la línea C si, dado que una unidad resultó defectuosa, la probabilidad de que haya sido fabricada en esa línea es mayor que 0.40. Construya un diagrama de árbol, calcule esta probabilidad y determine si debe ordenarse la auditoría.
+
+</div>
+
+<br/><br/><br/>
+
+<div class="box3 with-label">
+### Problema 5
+
+</br>
+
+InduMecanica ensambla equipos industriales utilizando una pieza crítica adquirida a tres proveedores homologados. Debido a que la falla de esta pieza puede detener la producción, el área de abastecimiento quiere decidir con cuál proveedor debe iniciar una revisión de sus condiciones de calidad. El proveedor A suministra el 50 % de las piezas, B el 30 % y C el 20 %; históricamente presentan tasas de falla de 1 %, 2 % y 4 %, respectivamente. Como un proveedor con una tasa de falla alta no necesariamente es el origen más probable de las piezas falladas si suministra poco volumen, la empresa quiere considerar ambos factores. Si se detecta una pieza con falla, determine la probabilidad de que provenga de cada proveedor y recomiende con cuál debería iniciarse la revisión contractual.
+
+</div>
+
+<br/><br/><br/>
+
+<div class="box3 with-label">
+### Problema 6
+
+</br>
+
+Una planta industrial ha registrado un aumento de las paradas no programadas y la gerencia está considerando ampliar su programa de mantenimiento preventivo, decisión que implicaría contratar personal técnico y destinar más horas de máquina a mantenimiento. Actualmente, el 60 % de las máquinas recibe mantenimiento preventivo mensual y el 40 % restante solo es intervenido cuando presenta una falla. Durante un mes típico, el 5 % de las máquinas con mantenimiento preventivo presenta una avería, mientras que entre las máquinas sin este mantenimiento la proporción es 18 %. La gerencia ampliará el programa si, entre las máquinas que presentan una avería, la probabilidad de pertenecer al grupo sin mantenimiento preventivo es superior a 0.65. De acuerdo con los resultados anteriores, debería ampliarse el mantenimiento preventivo o no. Justifique su respuesta.
+
+</div>
+
+<br/><br/><br/>
+
+<div class="box3 with-label">
+### Problema 7
+
+</br>
+
+Una entidad financiera está revisando sus políticas de aprobación de créditos debido al aumento reciente de la cartera vencida. El comité de riesgo considera que los créditos de alto monto podrían requerir controles adicionales, pero antes de modificar las políticas quiere conocer con mayor precisión la relación entre el monto del crédito y el incumplimiento de los clientes. A partir de los registros históricos, el área de analítica determinó que la probabilidad de que un crédito sea de alto monto es 0.40, mientras que la probabilidad de que un cliente presente mora es 0.25. Adicionalmente, se encontró que entre los clientes con créditos de alto monto la probabilidad de presentar mora es 0.45.  A partir de la información se quiere conocer que tan probable es que un cliente que presenta mora tenga un crédito de alto monto. El comité ha establecido que revisará las condiciones de aprobación de los créditos de alto monto si, entre los clientes que presentan mora, la probabilidad de tener un crédito de alto monto es superior a 0.60. Con base en sus resultados, indique qué decisión debería tomar el comité y justifique su respuesta.
+
+</div>
+
+<br/><br/><br/>
+
+<div class="box3 with-label">
+### Problema 8
+
+</br>
+
+Un fondo de inversión está preparando el rebalanceo anual de su portafolio y el comité desea evaluar qué tipo de activo está más asociado con las inversiones que alcanzan una rentabilidad superior a la meta. Actualmente, el 40 % del portafolio está invertido en acciones, el 35 % en bonos y el 25 % en fondos inmobiliarios. La probabilidad estimada de obtener una rentabilidad anual superior al 10 % es 0.30 para las acciones, 0.08 para los bonos y 0.20 para los fondos inmobiliarios. El comité considerará aumentar la participación en acciones si, entre las inversiones que superan el 10 % de rentabilidad, la probabilidad de que correspondan a acciones es mayor que 0.60. Será apropiada esta decisión=. Justifique su respuesta.
+
+</div>
+
+<br/><br/><br/>
+
+<div class="box3 with-label">
+### Problema 9
+
+</br>
+
+Un banco procesa diariamente miles de transacciones electrónicas y utiliza un algoritmo para identificar operaciones potencialmente fraudulentas. Bloquear automáticamente una transacción puede evitar pérdidas, pero también puede afectar a clientes legítimos, mientras que enviar demasiadas alertas a revisión manual incrementa los costos operativos. Se estima que la probabilidad de que una transacción sea fraudulenta es 0.02; el algoritmo genera una alerta en 0.95 de las transacciones fraudulentas y también en 0.04 de las legítimas. El banco ha decidido bloquear automáticamente una operación únicamente cuando, dada una alerta, la probabilidad de fraude sea al menos 0.50; de lo contrario, la operación será enviada a revisión manual. Determine la probabilidad de fraude ante una alerta y establezca qué acción debería tomar el banco.
+
+</div>
+
+<br/><br/><br/>
+
+<div class="box3 with-label">
+### Problema 10
+
+</br>
+
+ElectroAndina importa componentes electrónicos desde China, México y Estados Unidos para abastecer su operación en Colombia. Los retrasos recientes han generado faltantes de inventario, por lo que la gerencia de comercio exterior quiere decidir si debe renegociar las condiciones logísticas asociadas con alguno de sus principales orígenes. China suministra el 50 % de las unidades, México el 30 % y Estados Unidos el 20 %, y las probabilidades de retraso son 0.12, 0.07 y 0.04, respectivamente. La empresa iniciará una renegociación con China si, dado que un pedido llegó retrasado, la probabilidad de que proceda de ese país supera 0.60. Determine esta probabilidad y establezca si la renegociación está justificada.
+
+</div>
+
+<br/><br/><br/>
+
+<div class="box3 with-label">
+### Problema 11
+
+</br>
+
+Exportadora del Pacífico utiliza transporte marítimo y aéreo para atender sus mercados internacionales y recientemente ha recibido reclamaciones por entregas con retrasos superiores a tres días. El 70 % de sus envíos se realiza por vía marítima y el 30 % por vía aérea; la probabilidad de un retraso superior a tres días es 0.08 para los envíos marítimos y 0.02 para los aéreos. Antes de renegociar contratos o modificar rutas, la empresa quiere establecer si los retrasos prolongados se concentran suficientemente en el transporte marítimo y ha definido que revisará esta estrategia si, dado que un envío sufrió dicho retraso, la probabilidad de que haya sido transportado por vía marítima supera 0.85. Calcule esta probabilidad y determine si se justifica la revisión.
+
+</div>
+
+<br/><br/><br/>
+
+<div class="box3 with-label">
+### Problema 12
+
+</br>
+
+Importadora Andina realiza pagos frecuentes en moneda extranjera y está evaluando ampliar su cobertura frente al riesgo cambiario. Esta protección tiene un costo, por lo que la dirección financiera quiere comprobar si las pérdidas cambiarias observadas están suficientemente vinculadas con los períodos de alta volatilidad. Históricamente, el 30 % de los meses presenta alta volatilidad; durante esos meses la probabilidad de registrar una pérdida cambiaria es 0.60, mientras que en los meses de baja volatilidad es 0.20. La empresa contratará una cobertura más amplia si, dado que se registró una pérdida cambiaria, la probabilidad de que el mes haya sido de alta volatilidad supera 0.50. Determine esta probabilidad y recomiende si debería ampliarse la cobertura.
+
+</div>
+
+<br/><br/><br/>
+
+<div class="box3 with-label">
+### Problema 13
+
+</br>
+
+Una compañía está revisando la forma en que cubre sus vacantes y debe decidir si aumenta el uso de promociones internas frente a la contratación externa. Actualmente, el 60 % de los nuevos empleados ingresa mediante convocatoria externa y el 40 % mediante promoción interna. Después de un año, la probabilidad de obtener una evaluación satisfactoria es 0.70 para quienes ingresaron externamente y 0.85 para quienes fueron promovidos. Talento humano considera aumentar la participación de las promociones internas si, entre los empleados con evaluación satisfactoria, la probabilidad de haber ingresado mediante promoción interna es al menos 0.45. Calcule esta probabilidad y determine si la política de selección debería modificarse.
+
+</div>
+
+<br/><br/><br/>
+
+<div class="box3 with-label">
+### Problema 14
+
+</br>
+
+Una plataforma de comercio electrónico está definiendo su plan de expansión logística y estudia aumentar la capacidad de su centro de distribución de Cali. La entrega en menos de 24 horas es uno de sus indicadores estratégicos, por lo que la gerencia quiere conocer qué participación tiene cada centro entre los pedidos que alcanzan ese nivel de servicio. Bogotá despacha el 45 % de los pedidos, Medellín el 30 % y Cali el 25 %, y las probabilidades de entrega en menos de 24 horas son 0.70, 0.65 y 0.80, respectivamente. La empresa ampliará el centro de Cali si, dado que un pedido fue entregado en menos de 24 horas, la probabilidad de que haya sido despachado desde Cali es al menos 0.30. Determine esta probabilidad y establezca si la evidencia respalda la ampliación.
+
+</div>
+
+<br/><br/><br/>
+
+<div class="box3 with-label">
+### Problema 15
+
+</br>
+
+Una empresa de comercio electrónico está evaluando una inversión en tecnología y capacidad logística para mejorar el cumplimiento de sus tiempos de entrega. La gerencia considera que esta inversión tendría mayor sentido si existe una asociación entre entregar a tiempo y la satisfacción de los clientes. En una muestra de 2.000 pedidos, 1.500 fueron entregados dentro del tiempo prometido, 1.600 clientes manifestaron estar satisfechos y, entre los pedidos entregados a tiempo, 1.300 clientes reportaron satisfacción. Determine si los sucesos A: «el pedido fue entregado dentro del tiempo prometido» y B: «el cliente manifestó estar satisfecho» son independientes. A partir del resultado, establezca si la evidencia respalda la decisión de priorizar inversiones orientadas a mejorar el cumplimiento de los tiempos de entrega.
+
+</div>
+
+<br/><br/><br/>
+

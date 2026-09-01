@@ -24,7 +24,7 @@ library(summarytools)
 # El paquete se carga en la sección de datos.
 
 # colores
-source("init.R")
+source("R/init.R")
 
 # install.packages('gtools')
 # install.packages("TeachingSampling")

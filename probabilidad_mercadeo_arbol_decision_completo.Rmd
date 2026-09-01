@@ -1,0 +1,767 @@
+---
+title: "<span style='color:#3498C9 !important;'>Teoría de probabilidades</span>"
+author: <span style="color:#3498C9">dgonzalez </span> 
+subtitle: <span style="color:#3498C9"> </span> 
+output:
+  html_document:
+    toc: no
+    toc_depth: 2
+    toc_float: yes
+    code_folding: hide
+    theme: flatly
+    css:
+      - style.css
+      - cajas.css
+---  
+
+
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,comment = NA)
+library(ggplot2)
+## colores
+source("R/colores.R")
+```
+
+
+```{r, echo=FALSE, out.width="100%", fig.align = "center"}
+knitr::include_graphics("img/recurso2.png")
+```
+
+# Introducción
+
+Los árboles de decisión permiten representar de manera visual cómo cambia la probabilidad de un evento cuando se incorpora nueva información.
+
+En este ejercicio se utiliza una situación de **mercadeo** para estudiar la probabilidad de que un punto de venta presente **ventas altas**, teniendo en cuenta características relacionadas con la ubicación del producto, el precio, la publicidad y las condiciones del mercado.
+
+El propósito es conectar los conceptos de:
+
+- probabilidad marginal;
+- probabilidad conjunta;
+- probabilidad condicional;
+- regla del producto;
+- árboles de decisión.
+
+# Preparación del entorno
+
+Si los paquetes no se encuentran instalados, ejecute una sola vez:
+
+```{r instalacion, eval=FALSE}
+install.packages("ISLR2")
+install.packages("rpart")
+install.packages("rpart.plot")
+```
+
+Cargamos los paquetes requeridos.
+
+```{r paquetes, message=FALSE, warning=FALSE}
+library(ISLR2)
+library(rpart)
+library(rpart.plot)
+```
+
+# Descripción de los datos
+
+Utilizaremos la base `Carseats`, disponible en el paquete `ISLR2`.
+
+```{r cargar-datos}
+data(Carseats)
+
+dim(Carseats)
+head(Carseats)
+```
+
+La base contiene **400 puntos de venta** y 11 variables originales. Cada fila representa una tienda en la que se comercializan asientos infantiles para automóviles.
+
+Las variables originales son:
+
+| Variable original | Nombre en español | Descripción |
+|---|---|---|
+| `Sales` | `Ventas` | Ventas unitarias en miles de unidades |
+| `CompPrice` | `PrecioCompetencia` | Precio cobrado por un competidor en cada ubicación |
+| `Income` | `Ingreso` | Nivel de ingreso de la comunidad |
+| `Advertising` | `Publicidad` | Presupuesto local de publicidad |
+| `Population` | `Poblacion` | Tamaño de la población de la región |
+| `Price` | `Precio` | Precio cobrado por la empresa |
+| `ShelveLoc` | `UbicacionEstante` | Calidad de la ubicación del producto en la estantería |
+| `Age` | `Edad` | Edad promedio de la población local |
+| `Education` | `Educacion` | Nivel de educación de la población |
+| `Urban` | `ZonaUrbana` | Indica si la tienda se encuentra en zona urbana |
+| `US` | `EstadosUnidos` | Indica si la tienda se encuentra en Estados Unidos |
+
+Antes de realizar el análisis traduciremos tanto los nombres de las variables como las categorías de las variables cualitativas.
+
+# Traducción de variables y categorías
+
+Creamos una copia de la base para conservar los datos originales.
+
+```{r traducir-datos}
+datos <- Carseats
+
+names(datos) <- c(
+  "Ventas",
+  "PrecioCompetencia",
+  "Ingreso",
+  "Publicidad",
+  "Poblacion",
+  "Precio",
+  "UbicacionEstante",
+  "Edad",
+  "Educacion",
+  "ZonaUrbana",
+  "EstadosUnidos"
+)
+
+datos$UbicacionEstante <- factor(
+  datos$UbicacionEstante,
+  levels = c("Bad", "Medium", "Good"),
+  labels = c("Mala", "Media", "Buena")
+)
+
+datos$ZonaUrbana <- factor(
+  datos$ZonaUrbana,
+  levels = c("No", "Yes"),
+  labels = c("No", "Si")
+)
+
+datos$EstadosUnidos <- factor(
+  datos$EstadosUnidos,
+  levels = c("No", "Yes"),
+  labels = c("No", "Si")
+)
+
+head(datos)
+```
+
+Ahora toda la interpretación puede realizarse directamente en español.
+
+```{r estructura}
+str(datos)
+```
+
+# Análisis descriptivo
+
+Antes de estudiar probabilidades y construir el árbol, conviene conocer algunas características de los datos.
+
+```{r resumen}
+summary(datos)
+```
+
+Las ventas pueden resumirse mediante:
+
+```{r descriptivos-ventas}
+c(
+  Media = mean(datos$Ventas),
+  Mediana = median(datos$Ventas),
+  Desviacion = sd(datos$Ventas),
+  Minimo = min(datos$Ventas),
+  Maximo = max(datos$Ventas)
+)
+```
+
+También podemos observar cómo se distribuyen los puntos de venta según la ubicación del producto en la estantería.
+
+```{r ubicacion-producto}
+table(datos$UbicacionEstante)
+prop.table(table(datos$UbicacionEstante))
+```
+
+La variable `UbicacionEstante` resulta particularmente interesante desde el punto de vista de mercadeo, pues representa la calidad de la exhibición del producto dentro del establecimiento.
+
+# Definición del evento de interés
+
+Para convertir el problema en uno de clasificación, definiremos como **ventas altas** aquellas superiores a 8 mil unidades.
+
+Sea:
+
+$$
+A=\{\text{el punto de venta presenta ventas altas}\}
+$$
+
+Operacionalmente:
+
+$$
+A=\{\text{Ventas}>8\}
+$$
+
+Creamos la variable `VentaAlta`.
+
+```{r crear-evento}
+datos$VentaAlta <- ifelse(
+  datos$Ventas > 8,
+  "Si",
+  "No"
+)
+
+datos$VentaAlta <- factor(
+  datos$VentaAlta,
+  levels = c("No", "Si")
+)
+
+table(datos$VentaAlta)
+```
+
+# Probabilidad marginal
+
+La probabilidad marginal representa la probabilidad de un evento sin disponer de información adicional.
+
+En este caso:
+
+$$
+P(A)=P(\text{VentaAlta=Si})
+$$
+
+```{r probabilidad-marginal}
+tabla_venta <- table(datos$VentaAlta)
+
+tabla_venta
+prop.table(tabla_venta)
+
+P_A <- mean(datos$VentaAlta == "Si")
+P_A
+```
+
+**Interpretación.** El resultado anterior corresponde a la proporción de los 400 puntos de venta que presentan ventas superiores a 8 mil unidades. Esta es nuestra probabilidad inicial antes de conocer características adicionales de una tienda.
+
+# Probabilidad conjunta
+
+Consideremos ahora el evento:
+
+$$
+B=\{\text{UbicacionEstante=Buena}\}
+$$
+
+Construimos una tabla de contingencia.
+
+```{r tabla-contingencia}
+tabla <- table(
+  Ubicacion = datos$UbicacionEstante,
+  VentaAlta = datos$VentaAlta
+)
+
+tabla
+```
+
+Las probabilidades conjuntas son:
+
+```{r probabilidades-conjuntas}
+round(prop.table(tabla), 4)
+```
+
+En particular:
+
+$$
+P(A\cap B)
+=
+P(\text{VentaAlta=Si}\cap\text{UbicacionEstante=Buena})
+$$
+
+```{r conjunta-especifica}
+P_A_inter_B <- mean(
+  datos$VentaAlta == "Si" &
+  datos$UbicacionEstante == "Buena"
+)
+
+P_A_inter_B
+```
+
+**Interpretación.** Esta probabilidad representa la posibilidad de seleccionar aleatoriamente un punto de venta que simultáneamente tenga una buena ubicación del producto y presente ventas altas.
+
+# Probabilidad condicional
+
+Ahora incorporamos información.
+
+La pregunta es:
+
+> Si sabemos que el producto tiene una buena ubicación en la estantería, ¿cuál es la probabilidad de que el punto de venta presente ventas altas?
+
+Matemáticamente:
+
+$$
+P(A\mid B)
+=
+P(\text{VentaAlta=Si}\mid\text{UbicacionEstante=Buena})
+$$
+
+```{r probabilidades-condicionales}
+round(prop.table(tabla, margin = 1), 4)
+```
+
+Calculamos específicamente:
+
+```{r condicional-buena}
+P_A_dado_B <- mean(
+  datos$VentaAlta[
+    datos$UbicacionEstante == "Buena"
+  ] == "Si"
+)
+
+P_A_dado_B
+```
+
+Comparemos la probabilidad marginal y la condicional.
+
+```{r comparar-probabilidades}
+comparacion <- data.frame(
+  Probabilidad = c(
+    "P(Venta alta)",
+    "P(Venta alta | Ubicacion buena)"
+  ),
+  Valor = c(
+    P_A,
+    P_A_dado_B
+  )
+)
+
+comparacion
+```
+
+**Interpretación.** Si la segunda probabilidad es considerablemente mayor que la primera, la información de que el producto posee una buena ubicación modifica sustancialmente nuestra expectativa sobre las ventas.
+
+Esta es precisamente la lógica que posteriormente utilizará el árbol: **incorporar información para formar grupos con probabilidades diferentes**.
+
+# Regla del producto
+
+Por definición:
+
+$$
+P(A\mid B)=\frac{P(A\cap B)}{P(B)}
+$$
+
+De donde:
+
+$$
+P(A\cap B)=P(B)P(A\mid B)
+$$
+
+Calculamos:
+
+```{r regla-producto}
+P_B <- mean(
+  datos$UbicacionEstante == "Buena"
+)
+
+P_A_inter_B
+P_B * P_A_dado_B
+```
+
+Verificamos:
+
+```{r verificar-regla}
+all.equal(
+  P_A_inter_B,
+  P_B * P_A_dado_B
+)
+```
+
+El resultado `TRUE` confirma empíricamente la regla del producto para estos datos.
+
+# Árbol de decisión
+
+Ahora utilizaremos un árbol de decisión para extender la misma lógica a múltiples variables.
+
+La variable respuesta será:
+
+`VentaAlta`
+
+y utilizaremos como predictores:
+
+- ubicación en la estantería;
+- publicidad;
+- precio;
+- ingreso;
+- edad;
+- población;
+- educación;
+- zona urbana;
+- ubicación en Estados Unidos.
+
+Se utilizarán parámetros que permitan obtener un árbol con varias ramas, manteniendo una estructura suficientemente clara para fines didácticos.
+
+```{r construir-arbol}
+arbol <- rpart(
+  VentaAlta ~ UbicacionEstante +
+    Publicidad +
+    Precio +
+    Ingreso +
+    Edad +
+    Poblacion +
+    Educacion +
+    ZonaUrbana +
+    EstadosUnidos,
+  data = datos,
+  method = "class",
+  control = rpart.control(
+    minsplit = 15,
+    minbucket = 7,
+    cp = 0.005,
+    maxdepth = 5
+  )
+)
+
+arbol
+```
+
+# Visualización del árbol
+
+```{r grafico-arbol, fig.width=12, fig.height=8}
+rpart.plot(
+  arbol,
+  type = 2,
+  extra = 104,
+  fallen.leaves = TRUE,
+  tweak = 0.9,
+  box.palette = "auto",
+  shadow.col = "gray",
+  nn = TRUE
+)
+```
+
+# ¿Cómo se interpreta el árbol?
+
+El árbol debe leerse **desde arriba hacia abajo**.
+
+El nodo superior se denomina **nodo raíz** y contiene inicialmente los 400 puntos de venta.
+
+En ese momento nuestra información es solamente:
+
+$$
+P(\text{VentaAlta})
+$$
+
+El algoritmo busca entonces una variable que permita separar los puntos de venta en grupos con probabilidades de ventas altas lo más diferentes posible.
+
+La primera división del árbol es, por tanto, especialmente importante.
+
+Puede consultar directamente las divisiones mediante:
+
+```{r estructura-arbol}
+arbol$frame
+```
+
+# Del nodo raíz a la probabilidad condicional
+
+Supongamos que una determinada rama del árbol establece una condición $B$.
+
+Antes de conocer esa condición tenemos:
+
+$$
+P(A)
+$$
+
+Después de conocerla:
+
+$$
+P(A\mid B)
+$$
+
+Si posteriormente el árbol incorpora otra condición $C$:
+
+$$
+P(A\mid B,C)
+$$
+
+y si aparece una tercera condición $D$:
+
+$$
+P(A\mid B,C,D)
+$$
+
+Por tanto, conceptualmente el árbol representa:
+
+$$
+P(A)
+\longrightarrow
+P(A\mid B)
+\longrightarrow
+P(A\mid B,C)
+\longrightarrow
+P(A\mid B,C,D)
+$$
+
+Cada división incorpora nueva información y redefine el grupo sobre el cual calculamos la probabilidad.
+
+# Importancia de las variables
+
+Podemos observar qué variables tuvieron mayor importancia en la construcción del árbol.
+
+```{r importancia}
+importancia <- sort(
+  arbol$variable.importance,
+  decreasing = TRUE
+)
+
+importancia
+```
+
+**Interpretación.** Las variables ubicadas en las primeras posiciones son aquellas que más contribuyeron a separar los puntos de venta según su probabilidad de presentar ventas altas.
+
+Una variable importante en el árbol no debe interpretarse automáticamente como una relación causal. El árbol identifica principalmente **capacidad de segmentación y asociación** dentro de estos datos.
+
+# Probabilidades estimadas por el árbol
+
+El árbol puede proporcionar, para cada tienda, la probabilidad estimada de pertenecer a cada categoría.
+
+```{r prediccion-probabilidad}
+probabilidades <- predict(
+  arbol,
+  newdata = datos,
+  type = "prob"
+)
+
+head(probabilidades)
+```
+
+La columna `Si` representa:
+
+$$
+\widehat{P}(\text{VentaAlta=Si}\mid X)
+$$
+
+donde $X$ representa las características del punto de venta utilizadas por el árbol.
+
+Incorporamos esta probabilidad a los datos.
+
+```{r agregar-probabilidad}
+datos$ProbabilidadVentaAlta <- probabilidades[, "Si"]
+
+head(
+  datos[
+    ,
+    c(
+      "Ventas",
+      "UbicacionEstante",
+      "Publicidad",
+      "Precio",
+      "VentaAlta",
+      "ProbabilidadVentaAlta"
+    )
+  ]
+)
+```
+
+# Nodos terminales y perfiles de mercado
+
+Cada punto de venta termina asignado a uno de los nodos terminales del árbol.
+
+```{r nodos-terminales}
+datos$Nodo <- arbol$where
+
+table(datos$Nodo)
+```
+
+Calculamos para cada nodo:
+
+- número de puntos de venta;
+- número de puntos de venta con ventas altas;
+- probabilidad observada de ventas altas.
+
+```{r resumen-nodos}
+resumen_nodos <- aggregate(
+  I(VentaAlta == "Si") ~ Nodo,
+  data = datos,
+  FUN = function(x) c(
+    n = length(x),
+    ventas_altas = sum(x),
+    probabilidad = mean(x)
+  )
+)
+
+resumen_nodos
+```
+
+Una versión más sencilla de la probabilidad por nodo es:
+
+```{r probabilidad-por-nodo}
+probabilidad_nodo <- aggregate(
+  I(VentaAlta == "Si") ~ Nodo,
+  data = datos,
+  FUN = mean
+)
+
+names(probabilidad_nodo)[2] <- "ProbabilidadVentaAlta"
+
+probabilidad_nodo <- probabilidad_nodo[
+  order(
+    probabilidad_nodo$ProbabilidadVentaAlta,
+    decreasing = TRUE
+  ),
+]
+
+probabilidad_nodo
+```
+
+**Interpretación.** Los nodos con valores cercanos a 1 corresponden a perfiles de puntos de venta donde las ventas altas son muy frecuentes. Los nodos con valores cercanos a 0 corresponden a perfiles donde las ventas altas son poco frecuentes.
+
+Así, los nodos terminales pueden interpretarse como **segmentos de mercado con diferentes probabilidades de respuesta**.
+
+# Identificación de los perfiles con mayor probabilidad
+
+Podemos ordenar las observaciones según la probabilidad estimada de ventas altas.
+
+```{r perfiles-alta-probabilidad}
+perfiles <- datos[
+  order(
+    datos$ProbabilidadVentaAlta,
+    decreasing = TRUE
+  ),
+  c(
+    "UbicacionEstante",
+    "Publicidad",
+    "Precio",
+    "Ingreso",
+    "Edad",
+    "VentaAlta",
+    "ProbabilidadVentaAlta",
+    "Nodo"
+  )
+]
+
+head(perfiles, 15)
+```
+
+Esta tabla permite estudiar las características de los puntos de venta que el árbol considera más favorables para presentar ventas altas.
+
+# Interpretación general de los resultados
+
+El análisis comienza con una probabilidad marginal:
+
+$$
+P(\text{VentaAlta})
+$$
+
+Esta representa nuestro conocimiento inicial sobre una tienda seleccionada aleatoriamente.
+
+Cuando conocemos que el producto posee una determinada ubicación, podemos actualizar esta probabilidad:
+
+$$
+P(\text{VentaAlta}\mid\text{Ubicacion})
+$$
+
+El árbol generaliza este procedimiento al considerar sucesivamente otras características.
+
+Por ejemplo, una ruta podría conceptualmente representar:
+
+$$
+P(
+\text{VentaAlta}
+\mid
+\text{Ubicacion buena},
+\text{Precio}<c_1,
+\text{Publicidad}>c_2
+)
+$$
+
+donde $c_1$ y $c_2$ son puntos de corte determinados automáticamente por el algoritmo.
+
+El aspecto fundamental para la interpretación probabilística no es memorizar cada corte, sino comprender que **cada nueva rama añade una condición**.
+
+Por ello, el árbol constituye una representación visual de probabilidades condicionadas sucesivamente.
+
+# Interpretación desde mercadeo
+
+Desde una perspectiva de mercadeo, los resultados permiten identificar combinaciones de características asociadas con diferentes niveles de probabilidad de ventas altas.
+
+El análisis puede utilizarse para responder preguntas como:
+
+- ¿La calidad de la ubicación del producto ayuda a diferenciar tiendas con ventas altas y bajas?
+- ¿Qué papel desempeña el precio?
+- ¿La inversión publicitaria contribuye a identificar puntos de venta con mayor probabilidad de ventas altas?
+- ¿Existen combinaciones específicas de precio, exhibición y condiciones del mercado particularmente favorables?
+- ¿Qué segmentos presentan una baja probabilidad de ventas altas?
+
+Es importante distinguir **predicción y asociación de causalidad**. El árbol identifica patrones presentes en los datos, pero por sí solo no demuestra que modificar una variable vaya a causar un incremento en las ventas.
+
+# Preguntas para el estudiante
+
+A partir de los resultados obtenidos, responda:
+
+1. ¿Cuántos puntos de venta contiene la base de datos?
+
+2. ¿Qué representa la variable `Ventas`?
+
+3. ¿Cuál es la probabilidad marginal de presentar ventas altas?
+
+4. ¿Cuál es la probabilidad de que un producto tenga una ubicación `Buena`?
+
+5. ¿Cuál es la probabilidad conjunta de presentar ventas altas y tener una ubicación `Buena`?
+
+6. Calcule e interprete:
+
+$$
+P(\text{VentaAlta}\mid\text{UbicacionEstante=Buena})
+$$
+
+7. Compare:
+
+$$
+P(\text{VentaAlta})
+$$
+
+con:
+
+$$
+P(\text{VentaAlta}\mid\text{UbicacionEstante=Buena})
+$$
+
+8. Verifique que:
+
+$$
+P(A\cap B)=P(B)P(A\mid B)
+$$
+
+9. ¿Cuál es la primera variable utilizada por el árbol para dividir los puntos de venta?
+
+10. ¿Qué significado probabilístico tiene el nodo raíz?
+
+11. Seleccione una ruta completa desde el nodo raíz hasta un nodo terminal.
+
+12. Escriba la probabilidad del nodo terminal seleccionado utilizando notación de probabilidad condicional.
+
+13. ¿Cuáles son las variables más importantes según el árbol?
+
+14. ¿Cuál es el nodo terminal con mayor probabilidad de ventas altas?
+
+15. Describa el perfil de los puntos de venta que pertenecen a dicho nodo.
+
+16. Desde la perspectiva de mercadeo, ¿qué recomendaciones podrían plantearse a partir de los segmentos encontrados?
+
+# Conclusión
+
+Este ejercicio permite establecer una conexión entre la teoría clásica de probabilidad y una herramienta moderna de ciencia de datos.
+
+La secuencia conceptual puede resumirse como:
+
+$$
+\boxed{
+\text{Probabilidad marginal}
+\rightarrow
+\text{Probabilidad condicional}
+\rightarrow
+\text{Segmentación}
+\rightarrow
+\text{Árbol de decisión}
+}
+$$
+
+El nodo raíz representa el conocimiento inicial sobre el evento:
+
+$$
+P(A)
+$$
+
+Las ramas incorporan información adicional:
+
+$$
+P(A\mid B)
+$$
+
+y los niveles posteriores representan condicionamientos sucesivos:
+
+$$
+P(A\mid B,C),\qquad
+P(A\mid B,C,D),\ldots
+$$
+
+De esta manera, los árboles de decisión proporcionan una representación visual e intuitiva de cómo la información modifica las probabilidades y permiten conectar los fundamentos de probabilidad con aplicaciones de **mercadeo, segmentación, clasificación y ciencia de datos**.

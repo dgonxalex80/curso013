@@ -24,7 +24,7 @@ library(psych)
 # install_github("lchiffon/wordcloud2")
 library(wordcloud)
 
-source("init.R")
+source("R/init.R")
 
 ```
 

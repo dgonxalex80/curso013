@@ -24,7 +24,7 @@ library(ggplot2)
 #library(paqueteDEG)
 
 # colores
-source("colores.R")
+source("R/colores.R")
 set.seed(123)
 
 # install.packages('gtools')

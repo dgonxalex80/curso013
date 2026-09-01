@@ -27,7 +27,7 @@ library(summarytools)
 
 
 ## colores
-source("colores.R")
+source("R/colores.R")
 
 # install.packages('gtools')
 # install.packages("TeachingSampling")
@@ -86,7 +86,7 @@ Para alcanzar los objetivos planteados se propone realizar las siguientes activi
 |Trabajo individual| **Actividad 121** - **Caso 1**: Realice las actividades consignadas en el enunciado, publique el informe final medianet la platarorma **Publish** que se ubica en la parte derecha del menú de RStudio. Pegue el enlace URL generado en  la plataforma de Brightspace.  |
 |Recursos       |[Video indicadores estadísticos](https://www.youtube.com/watch?v=dWVs-M7oCh4)         |
 |               | [Vídeo calculo indicadores con tablas de distribución](https://www.youtube.com/watch?v=n2UCDZNncls)|
-| Fecha         | 11 de agosto de 2026           |
+| Fecha         | 10 de septiembre de 2026           |
 | Hora          | 23:59 hora local                        |
 
 <br/> 
@@ -98,7 +98,7 @@ Para alcanzar los objetivos planteados se propone realizar las siguientes activi
 |               |Excel                |
 |               |RStudio              |
 ||Código u1.2                         |
-|Fecha          | 11 de agosto 2026|
+|Fecha          | 10 de septiembre 2026|
 |Hora           |  23:59 hora local   |
 
 
@@ -122,5 +122,5 @@ Para alcanzar los objetivos planteados se propone realizar las siguientes activi
 |:--------------|:-------------------------------|
 |**Actividad121.html**|  Desarrollo del Caso 1    |
 |**Actividad122.html**|  Aplicar lo aprendido en la unidad 1.2 a la base de datos seleccionada para la actividad112    |
-|Fecha          | 11 de agosto  de 2026   | 
+|Fecha          | 10 de septiembre  de 2026   | 
 |Hora límite    | 23:59  hora  local             |

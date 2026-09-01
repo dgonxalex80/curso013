@@ -1,0 +1,105 @@
+---
+title: "<span style='color:#3498C9 !important;'>Teoría de probabilidades</span>"
+author: <span style="color:#3498C9">dgonzalez </span> 
+subtitle: <span style="color:#3498C9"> </span> 
+output:
+  html_document:
+    toc: no
+    toc_depth: 2
+    toc_float: yes
+    code_folding: hide
+    theme: flatly
+    css:
+      - style.css
+      - cajas.css
+---  
+
+
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,comment = NA)
+library(ggplot2)
+## colores
+source("R/colores.R")
+```
+
+
+```{r, echo=FALSE, out.width="100%", fig.align = "center"}
+knitr::include_graphics("img/guia2.png")
+```
+<br/><br/>
+
+<br/><br/>
+
+<div class="box6 with-label">
+## Introducción
+
+Como fue mencionado en la Unidad 2.1 el concepto de probabilidad es fundamental dentro de la Estadística, pues soporta los conceptos de variable aleatoria y de las funciones que las rigen. Entre sus principales aplicaciones está la valoración del riesgo en relación con la toma de decisiones, la fiabilidad de productos y garantías de productos, teoría de juegos, entre otras aplicaciones.
+
+Como complemento de los conceptos vistos en la Unidad 2.1, en esta unidad se aborda el concepto de **Probabilidad total** y el **Teorema de Bayes**.
+
+</div>
+
+<br/><br/>
+
+<div class="box6 with-label">
+## Objetivos de la unidad
+
+Al finalizar la unidad los estudiantes estarán  en  capacidad de  RECONOCER, CALCULAR e INTERPRETAR  los diferentes tipos de probabilidad y sus aplicaciones, con el propósito de valorar los riesgos asociados a una decisión. 
+
+</div>
+<br/><br/>
+
+<div class="box6 with-label">
+## Duración
+
+La presente  unidad será desarrollada durante la semana comprendida entre el 2  y el 7 septiembre. Ademas del material suministrado  contaran con el acompañamiento del profesor y un monitor. 
+
+Los entregables para esta unidad podrán enviarse a través de la plataforma Brightspace hasta el  10 de septiembre.
+
+Para alcanzar los objetivos planteados se propone realizar la siguiente actividad
+</div>
+
+<br/><br/>
+
+<div class="box6 with-label">
+## Cronograma de trabajo
+
+
+|Actividad      | Descripción                    | 
+|:--------------|:-----------------------------  |
+| Actividad 221 | A partir de los conceptos vistos en las Unidades 2.1 y 2.2 deberá resolver 10 problemas escogidos de propuestos en el **Taller 221** y entregue su solución  en formato **pdf**  en el enlace correspondiente de Brightspace.|
+|Trabajo individual ||
+|Fecha  |  10 de septiembre  |
+|Hora   |  23:59 hora local     |
+|||
+
+</div>
+
+<br/><br/>
+
+<div class="box6 with-label">
+## Criterios de evaluación
+
+El taller del Modulo 2 recoge los elementos estudiados y por tanto  tiene objetivo la revisión de los principales conceptos tratados.
+
++ Reconocer los principales conceptos de  probabilidad y su efecto sobre la toma de decisiones informadas.
+
++ Reconocer e identificar los diferentes tipos de probabilidad  y sus respectivas interpretación.
+
+</div>
+
+<br/><br/>
+
+<div class="box6 with-label">
+## Entregables
+
+| Entregable |  Descripción                    |
+|:--------------|:-----------------------------|
+| Actividad221    | Solucionario **Taller 221** elaboradoa mano, escaneado y entregado en formato pdf  | 
+| Fecha           |10 de septiembre  | 
+|Hora límite      | 23:59  hora  local |
+
+</div>
+<br/><br/><br/><br/>

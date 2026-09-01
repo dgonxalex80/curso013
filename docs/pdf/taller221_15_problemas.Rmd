@@ -1,0 +1,254 @@
+---
+title: <span style="color:#F4B43C">Estadística para la toma de decisiones</span>
+author: <span style="color:#F4B43C">dgonzalez</span> 
+subtitle: <span style="color:#F4B43C"> </span> 
+output:
+  html_document:
+    toc: no
+    toc_depth: 2
+    toc_float: yes
+    code_folding: hide
+    theme: flatly
+    css:
+      - style.css
+      - cajas.css
+--- 
+  
+
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+knitr::opts_chunk$set(
+  fig.width=9, fig.height=3.5, fig.retina=3,
+  out.width = "100%",
+  cache = FALSE,
+  echo = TRUE,
+  message = FALSE, 
+  warning = FALSE,
+  hiline = TRUE
+)
+# colores
+source("init.R")
+
+paleta4=c(c00,c10,c20,c30)
+
+
+library(forcats)
+library(patchwork)
+library(lubridate)
+library(ggplot2)
+library(gridExtra)
+library(cowplot)
+library(summarytools)
+
+#library(dviz.supp)
+```
+
+
+
+</br></br></br>
+
+```{r, echo=FALSE, out.width="100%", fig.align = "center"}
+knitr::include_graphics("img/taller2.png")
+```
+
+</br></br></br>
+
+
+<div class="box2 with-label">
+<div class="label">Problema 1</div>
+
+</br>
+
+Una empresa de comercio electrónico obtiene sus visitas a partir de tres canales publicitarios: redes sociales, buscadores y correo electrónico. El 45 % de las visitas proviene de redes sociales, el 35 % de buscadores y el 20 % de correo electrónico.
+
+Se sabe que el 4 % de las visitas provenientes de redes sociales termina en una compra, mientras que este porcentaje es del 7 % para buscadores y del 10 % para correo electrónico.
+
+Construya un diagrama de árbol que represente la información suministrada. Si se selecciona al azar un cliente que realizó una compra, ¿cuál es la probabilidad de que haya llegado al sitio web a través de correo electrónico?
+
+</div>
+
+<br/><br/><br/>
+
+<div class="box2 with-label">
+<div class="label">Problema 2</div>
+
+</br>
+
+Una cadena de supermercados clasifica a sus clientes en dos grupos: clientes frecuentes y clientes ocasionales. El 30 % son clientes frecuentes y el 70 % son ocasionales. Durante una campaña promocional, el 65 % de los clientes frecuentes utilizó el cupón de descuento, mientras que solo el 25 % de los clientes ocasionales lo utilizó.
+
+Si se selecciona al azar un cliente que utilizó el cupón, ¿cuál es la probabilidad de que sea un cliente frecuente?
+
+</div>
+
+<br/><br/><br/>
+
+<div class="box2 with-label">
+<div class="label">Problema 3</div>
+
+</br>
+
+Una empresa quiere determinar si existe relación entre la exposición a una campaña publicitaria y la recordación de su marca. De 1.000 consumidores encuestados, 600 estuvieron expuestos a la campaña. En total, 500 consumidores recordaron la marca y, entre quienes estuvieron expuestos a la campaña, 360 la recordaron.
+
+¿Son independientes los sucesos A: “haber estado expuesto a la campaña” y B: “recordar la marca”? Justifique su respuesta mediante probabilidades.
+
+</div>
+
+<br/><br/><br/>
+
+<div class="box1 with-label">
+<div class="label">Problema 4</div>
+
+</br>
+
+Una fábrica produce componentes utilizando tres líneas de producción. La línea A fabrica el 40 % de las unidades, la línea B el 35 % y la línea C el 25 %. Los porcentajes de productos defectuosos son 2 %, 3 % y 5 %, respectivamente.
+
+Construya un diagrama de árbol que represente el proceso. Si durante la inspección final se selecciona un producto defectuoso, ¿cuál es la probabilidad de que haya sido fabricado por la línea C?
+
+</div>
+
+<br/><br/><br/>
+
+<div class="box2 with-label">
+<div class="label">Problema 5</div>
+
+</br>
+
+Una empresa recibe una pieza industrial de tres proveedores. El proveedor A suministra el 50 % de las piezas, el proveedor B el 30 % y el proveedor C el 20 %. Históricamente, el 1 % de las piezas de A presenta fallas, frente al 2 % de B y el 4 % de C.
+
+Si una pieza seleccionada al azar presenta una falla, ¿de cuál proveedor es más probable que provenga? Justifique utilizando probabilidades condicionales.
+
+</div>
+
+<br/><br/><br/>
+
+<div class="box2 with-label">
+<div class="label">Problema 6</div>
+
+</br>
+
+En una planta industrial, el 60 % de las máquinas recibe mantenimiento preventivo mensual y el 40 % restante recibe mantenimiento únicamente cuando presenta una falla. Entre las máquinas con mantenimiento preventivo, el 5 % presenta una avería durante el mes; entre las demás, el porcentaje de averías es del 18 %.
+
+Si una máquina presentó una avería este mes, ¿cuál es la probabilidad de que perteneciera al grupo que no recibe mantenimiento preventivo?
+
+</div>
+
+<br/><br/><br/>
+
+<div class="box2 with-label">
+<div class="label">Problema 7</div>
+
+</br>
+
+Un banco clasifica las solicitudes de crédito en riesgo bajo, medio y alto. El 50 % de los solicitantes pertenece al grupo de riesgo bajo, el 35 % al riesgo medio y el 15 % al riesgo alto. Las probabilidades de incumplimiento son del 2 %, 6 % y 15 %, respectivamente.
+
+Si se selecciona al azar un cliente que incumplió el pago de su crédito, ¿cuál es la probabilidad de que hubiera sido clasificado inicialmente como de alto riesgo?
+
+</div>
+
+<br/><br/><br/>
+
+<div class="box2 with-label">
+<div class="label">Problema 8</div>
+
+</br>
+
+Un fondo distribuye sus inversiones entre acciones, bonos y fondos inmobiliarios. El 40 % está invertido en acciones, el 35 % en bonos y el 25 % en fondos inmobiliarios. La probabilidad estimada de obtener una rentabilidad anual superior al 10 % es del 30 % para las acciones, del 8 % para los bonos y del 20 % para los fondos inmobiliarios.
+
+Si se selecciona al azar una inversión que obtuvo una rentabilidad superior al 10 %, ¿cuál es la probabilidad de que corresponda a acciones?
+
+</div>
+
+<br/><br/><br/>
+
+<div class="box2 with-label">
+<div class="label">Problema 9</div>
+
+</br>
+
+Un sistema bancario utiliza un algoritmo para detectar transacciones fraudulentas. Se estima que el 2 % de las transacciones son fraudulentas. El algoritmo genera una alerta en el 95 % de las transacciones fraudulentas, pero también genera una alerta en el 4 % de las transacciones legítimas.
+
+Si una transacción genera una alerta, ¿cuál es la probabilidad de que realmente sea fraudulenta?
+
+</div>
+
+<br/><br/><br/>
+
+<div class="box2 with-label">
+<div class="label">Problema 10</div>
+
+</br>
+
+Una empresa colombiana importa componentes electrónicos desde China, México y Estados Unidos. El 50 % de las unidades proviene de China, el 30 % de México y el 20 % de Estados Unidos. Los porcentajes de entregas con retraso son del 12 %, 7 % y 4 %, respectivamente.
+
+Si se selecciona al azar un pedido que llegó con retraso, ¿cuál es la probabilidad de que proceda de China?
+
+</div>
+
+<br/><br/><br/>
+
+<div class="box2 with-label">
+<div class="label">Problema 11</div>
+
+</br>
+
+Una empresa exportadora utiliza transporte marítimo para el 70 % de sus envíos y transporte aéreo para el 30 %. El 8 % de los envíos marítimos presenta retrasos superiores a tres días, mientras que solo el 2 % de los envíos aéreos presenta este tipo de retraso.
+
+Si un envío seleccionado al azar presentó un retraso superior a tres días, ¿cuál es la probabilidad de que haya sido transportado por vía marítima?
+
+</div>
+
+<br/><br/><br/>
+
+<div class="box2 with-label">
+<div class="label">Problema 12</div>
+
+</br>
+
+Una empresa importadora clasifica los meses según el comportamiento de la tasa de cambio en dos categorías: alta volatilidad y baja volatilidad. Históricamente, el 30 % de los meses presenta alta volatilidad. En meses de alta volatilidad, la empresa registra pérdidas cambiarias en el 60 % de los casos; en meses de baja volatilidad, registra pérdidas cambiarias en el 20 % de los casos.
+
+Si en un determinado mes la empresa registró una pérdida cambiaria, ¿cuál es la probabilidad de que haya sido un mes de alta volatilidad?
+
+</div>
+
+<br/><br/><br/>
+
+<div class="box2 with-label">
+<div class="label">Problema 13</div>
+
+</br>
+
+Una empresa utiliza dos mecanismos de selección de personal. El 60 % de los nuevos empleados es contratado mediante convocatoria externa y el 40 % mediante promoción interna. Después de un año, el 70 % de quienes ingresaron por convocatoria externa obtiene una evaluación satisfactoria, frente al 85 % de quienes fueron promovidos internamente.
+
+Si se selecciona al azar un empleado que obtuvo una evaluación satisfactoria, ¿cuál es la probabilidad de que haya ingresado mediante promoción interna?
+
+</div>
+
+<br/><br/><br/>
+
+<div class="box2 with-label">
+<div class="label">Problema 14</div>
+
+</br>
+
+Una plataforma de comercio electrónico despacha sus pedidos desde tres centros de distribución: Bogotá, Medellín y Cali. El 45 % de los pedidos sale de Bogotá, el 30 % de Medellín y el 25 % de Cali. Las probabilidades de que un pedido sea entregado en menos de 24 horas son del 70 %, 65 % y 80 %, respectivamente.
+
+Si se selecciona al azar un pedido que fue entregado en menos de 24 horas, ¿cuál es la probabilidad de que haya sido despachado desde Cali?
+
+</div>
+
+<br/><br/><br/>
+
+<div class="box2 with-label">
+<div class="label">Problema 15</div>
+
+</br>
+
+Una empresa quiere evaluar si la satisfacción del cliente está asociada con el cumplimiento del tiempo prometido de entrega. De 2.000 pedidos analizados, 1.500 fueron entregados dentro del tiempo prometido. En total, 1.600 clientes manifestaron estar satisfechos y, entre los pedidos entregados a tiempo, 1.300 clientes manifestaron satisfacción.
+
+¿Son independientes los sucesos A: “el pedido fue entregado dentro del tiempo prometido” y B: “el cliente manifestó estar satisfecho”? Justifique su respuesta mediante probabilidades.
+
+</div>
+
+<br/><br/><br/>
+

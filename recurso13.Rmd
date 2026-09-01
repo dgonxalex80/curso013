@@ -23,7 +23,7 @@ output:
 
 
 # colores
-source("init.R")
+source("R/init.R")
 
 
 knitr::opts_chunk$set(comment = NA)
@@ -38,7 +38,7 @@ library(tidyverse)
 # pye20222 <- read_excel("data/pye20222.xlsx", sheet = "Sheet4")
 
 # colores
-source("colores.R")
+source("R/colores.R")
 
 # Paleta categórica de cuatro colores principales
 paleta4 <- c(c11, c21, c31, c41)

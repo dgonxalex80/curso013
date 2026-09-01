@@ -25,7 +25,7 @@ library(summarytools)
 #library(paqueteDEG)
 
 # colores
-source("colores.R")
+source("R/colores.R")
 
 # install.packages('gtools')
 # install.packages("TeachingSampling")

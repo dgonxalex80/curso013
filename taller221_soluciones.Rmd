@@ -1,0 +1,686 @@
+---
+title: <span style="color:#F4B43C">Estadística para la toma de decisiones</span>
+author: <span style="color:#F4B43C">dgonzalez</span> 
+subtitle: <span style="color:#F4B43C"> </span> 
+output:
+  html_document:
+    toc: no
+    toc_depth: 2
+    toc_float: yes
+    code_folding: hide
+    theme: flatly
+    css:
+      - style.css
+      - cajas.css
+--- 
+  
+
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+knitr::opts_chunk$set(
+  fig.width=9, fig.height=3.5, fig.retina=3,
+  out.width = "100%",
+  cache = FALSE,
+  echo = TRUE,
+  message = FALSE, 
+  warning = FALSE,
+  hiline = TRUE
+)
+```
+
+
+
+</br></br></br>
+
+```{r, echo=FALSE, out.width="100%", fig.align = "center"}
+knitr::include_graphics("img/taller2.png")
+```
+
+</br></br></br>
+
+
+
+<div class="box2 with-label">
+<div class="label">Problema 1</div>
+
+</br>
+
+NovaMarket es una empresa de comercio electrónico que está preparando su presupuesto comercial para el próximo trimestre. Como los recursos disponibles para publicidad son limitados, la dirección de mercadeo quiere identificar cuáles canales están aportando compradores efectivos y no solamente visitas al sitio web. En la campaña más reciente, el 45 % de las visitas provino de redes sociales, el 35 % de buscadores y el 20 % de correo electrónico; además, el 4 % de las visitas provenientes de redes sociales terminó en compra, frente al 7 % de las provenientes de buscadores y el 10 % de las provenientes de correo electrónico. La gerencia considera que el correo electrónico merece una mayor asignación presupuestal si, entre los clientes que efectivamente compran, la probabilidad de haber llegado por este canal es al menos 0.30. Construya un diagrama de árbol, determine dicha probabilidad y, con base en el criterio establecido, recomiende si la empresa debería aumentar el presupuesto destinado al correo electrónico.
+
+---
+
+**Solución**
+
+Definamos los eventos:
+
+- $R$: visita proveniente de redes sociales.
+- $B$: visita proveniente de buscadores.
+- $E$: visita proveniente de correo electrónico.
+- $C$: el cliente realiza una compra.
+
+La probabilidad total de realizar una compra es:
+
+$$
+P(C)=P(R)P(C|R)+P(B)P(C|B)+P(E)P(C|E)
+$$
+
+$$
+P(C)=(0.45)(0.04)+(0.35)(0.07)+(0.20)(0.10)=0.0625
+$$
+
+Aplicando el teorema de Bayes:
+
+$$
+P(E|C)=\frac{P(E)P(C|E)}{P(C)}
+=\frac{(0.20)(0.10)}{0.0625}=0.32
+$$
+
+**Decisión:** Como $P(E|C)=0.32$ y el criterio de la gerencia es aumentar el presupuesto cuando esta probabilidad sea al menos 0.30, **se recomienda aumentar el presupuesto destinado al correo electrónico**. El resultado indica que, entre quienes compran, la participación atribuible a este canal supera el umbral definido.
+
+</div>
+
+<br/><br/><br/>
+
+<div class="box2 with-label">
+<div class="label">Problema 2</div>
+
+</br>
+
+Mercacentro, una cadena de supermercados, utiliza cupones digitales para estimular la recompra y está evaluando cómo orientar su próxima campaña promocional. Actualmente, el 30 % de sus clientes se clasifica como frecuente y el 70 % como ocasional. En la campaña anterior, el 65 % de los clientes frecuentes utilizó el cupón, mientras que entre los ocasionales lo hizo el 25 %. La gerencia quiere saber si quienes responden a este tipo de promoción pertenecen principalmente al segmento frecuente y ha definido que focalizará la próxima campaña en dicho segmento si, dado que un cliente utilizó el cupón, la probabilidad de que sea frecuente supera 0.50. Determine esta probabilidad y establezca qué decisión debería tomar la empresa.
+
+---
+
+**Solución**
+
+Sea $F$ el evento “cliente frecuente”, $O$ “cliente ocasional” y $U$ “utiliza el cupón”.
+
+$$
+P(U)=P(F)P(U|F)+P(O)P(U|O)
+$$
+
+$$
+P(U)=(0.30)(0.65)+(0.70)(0.25)=0.37
+$$
+
+Por Bayes:
+
+$$
+P(F|U)=\frac{P(F)P(U|F)}{P(U)}
+=\frac{(0.30)(0.65)}{0.37}=0.5270
+$$
+
+**Decisión:** Como $P(F|U)=0.5270>0.50$, **se recomienda focalizar la próxima campaña en los clientes frecuentes**, de acuerdo con el criterio establecido. Un usuario del cupón tiene mayor probabilidad de pertenecer al segmento frecuente que al ocasional.
+
+</div>
+
+<br/><br/><br/>
+
+<div class="box2 with-label">
+<div class="label">Problema 3</div>
+
+</br>
+
+Una empresa de productos de consumo realizó una campaña publicitaria con el propósito de aumentar la recordación de su marca y debe decidir si renueva la inversión para el siguiente período. Para evaluar los resultados encuestó a 1.000 consumidores: 600 estuvieron expuestos a la campaña, 500 recordaron la marca y, entre los consumidores expuestos, 360 la recordaron. La gerencia considera que tiene sentido mantener la campaña únicamente si los datos muestran que la recordación de marca está asociada con la exposición publicitaria. Determine, mediante el análisis de independencia de los sucesos A: «haber estado expuesto a la campaña» y B: «recordar la marca», si existe dicha asociación y recomiende si la campaña debería mantenerse.
+
+---
+
+**Solución**
+
+Sea:
+
+- $A$: consumidor expuesto a la campaña.
+- $B$: consumidor que recuerda la marca.
+
+A partir de los datos:
+
+$$
+P(A)=\frac{600}{1000}=0.60
+$$
+
+$$
+P(B)=\frac{500}{1000}=0.50
+$$
+
+$$
+P(A\cap B)=\frac{360}{1000}=0.36
+$$
+
+Si los eventos fueran independientes debería cumplirse:
+
+$$
+P(A\cap B)=P(A)P(B)
+$$
+
+Pero:
+
+$$
+P(A)P(B)=(0.60)(0.50)=0.30
+$$
+
+y
+
+$$
+0.36 \neq 0.30
+$$
+
+También puede verificarse que:
+
+$$
+P(B|A)=\frac{360}{600}=0.60 \neq P(B)=0.50
+$$
+
+**Decisión:** Los eventos no son independientes, pues $P(A\cap B)=0.36$ mientras que $P(A)P(B)=0.30$. Además, $P(B|A)=0.60>P(B)=0.50$. Por tanto, bajo el criterio de la gerencia, **se recomienda mantener la campaña**, ya que la recordación de marca está asociada con la exposición publicitaria.
+
+</div>
+
+<br/><br/><br/>
+
+<div class="box2 with-label">
+<div class="label">Problema 4</div>
+
+</br>
+
+TecnoPartes fabrica componentes para la industria automotriz mediante tres líneas de producción y recientemente ha observado un aumento de las devoluciones por defectos. Como inicialmente solo puede realizar una auditoría exhaustiva en una línea, la dirección de operaciones quiere identificar si la línea C merece atención prioritaria. La línea A produce el 40 % de las unidades, la B el 35 % y la C el 25 %, mientras que sus tasas de productos defectuosos son 2 %, 3 % y 5 %, respectivamente. La empresa ha definido que auditará prioritariamente la línea C si, dado que una unidad resultó defectuosa, la probabilidad de que haya sido fabricada en esa línea es mayor que 0.40. Construya un diagrama de árbol, calcule esta probabilidad y determine si debe ordenarse la auditoría.
+
+---
+
+**Solución**
+
+Sea $D$ el evento “producto defectuoso”.
+
+La probabilidad total de obtener un producto defectuoso es:
+
+$$
+P(D)=(0.40)(0.02)+(0.35)(0.03)+(0.25)(0.05)
+$$
+
+$$
+P(D)=0.008+0.0105+0.0125=0.031
+$$
+
+Por Bayes:
+
+$$
+P(C|D)=\frac{P(C)P(D|C)}{P(D)}
+=\frac{(0.25)(0.05)}{0.031}=0.4032
+$$
+
+**Decisión:** Como $P(C|D)=0.4032>0.40$, **debe realizarse la auditoría prioritaria a la línea C**. Aunque la línea C produce solo 0.25 de las unidades, concentra una fracción de los defectuosos ligeramente superior al umbral fijado.
+
+</div>
+
+<br/><br/><br/>
+
+<div class="box2 with-label">
+<div class="label">Problema 5</div>
+
+</br>
+
+InduMec ensambla equipos industriales utilizando una pieza crítica adquirida a tres proveedores homologados. Debido a que la falla de esta pieza puede detener la producción, el área de abastecimiento quiere decidir con cuál proveedor debe iniciar una revisión de sus condiciones de calidad. El proveedor A suministra el 50 % de las piezas, B el 30 % y C el 20 %; históricamente presentan tasas de falla de 1 %, 2 % y 4 %, respectivamente. Como un proveedor con una tasa de falla alta no necesariamente es el origen más probable de las piezas falladas si suministra poco volumen, la empresa quiere considerar ambos factores. Si se detecta una pieza con falla, determine la probabilidad de que provenga de cada proveedor y recomiende con cuál debería iniciarse la revisión contractual.
+
+---
+
+**Solución**
+
+Sea $F$ el evento “la pieza presenta una falla”.
+
+Primero calculamos:
+
+$$
+P(F)=(0.50)(0.01)+(0.30)(0.02)+(0.20)(0.04)
+$$
+
+$$
+P(F)=0.005+0.006+0.008=0.019
+$$
+
+Para cada proveedor:
+
+$$
+P(A|F)=\frac{(0.50)(0.01)}{0.019}=0.2632
+$$
+
+$$
+P(B|F)=\frac{(0.30)(0.02)}{0.019}=0.3158
+$$
+
+$$
+P(C|F)=\frac{(0.20)(0.04)}{0.019}=0.4211
+$$
+
+**Decisión:** Las probabilidades son $P(A|F)=0.2632$, $P(B|F)=0.3158$ y $P(C|F)=0.4211$. Por tanto, **la revisión contractual debería comenzar con el proveedor C**, porque presenta la mayor probabilidad de ser el origen de una pieza que ha fallado.
+
+</div>
+
+<br/><br/><br/>
+
+<div class="box2 with-label">
+<div class="label">Problema 6</div>
+
+</br>
+
+Una planta industrial ha registrado un aumento de las paradas no programadas y la gerencia está considerando ampliar su programa de mantenimiento preventivo, decisión que implicaría contratar personal técnico y destinar más horas de máquina a mantenimiento. Actualmente, el 60 % de las máquinas recibe mantenimiento preventivo mensual y el 40 % restante solo es intervenido cuando presenta una falla. Durante un mes típico, el 5 % de las máquinas con mantenimiento preventivo presenta una avería, mientras que entre las máquinas sin este mantenimiento la proporción es 18 %. La gerencia ampliará el programa si, entre las máquinas que presentan una avería, la probabilidad de pertenecer al grupo sin mantenimiento preventivo es superior a 0.65. Calcule esta probabilidad y determine si la ampliación está respaldada por el criterio establecido.
+
+---
+
+**Solución**
+
+Sea $M$ “recibe mantenimiento preventivo”, $M^c$ “no recibe mantenimiento preventivo” y $A$ “presenta una avería”.
+
+$$
+P(A)=(0.60)(0.05)+(0.40)(0.18)
+$$
+
+$$
+P(A)=0.03+0.072=0.102
+$$
+
+Por Bayes:
+
+$$
+P(M^c|A)=\frac{(0.40)(0.18)}{0.102}=0.7059
+$$
+
+**Decisión:** Como $P(M^c|A)=0.7059>0.65$, **se recomienda ampliar el programa de mantenimiento preventivo**. La mayor parte de las máquinas que presentan averías proviene, probabilísticamente, del grupo que no recibe mantenimiento preventivo.
+
+</div>
+
+<br/><br/><br/>
+
+<div class="box2 with-label">
+<div class="label">Problema 7</div>
+
+</br>
+
+Una entidad financiera está revisando sus políticas de aprobación de créditos debido al aumento reciente de la cartera vencida. El comité de riesgo considera que los créditos de alto monto podrían requerir controles adicionales, pero antes de modificar las políticas quiere conocer con mayor precisión la relación entre el monto del crédito y el incumplimiento de los clientes. A partir de los registros históricos, el área de analítica determinó que la probabilidad de que un crédito sea de alto monto es 0.40, mientras que la probabilidad de que un cliente presente mora es 0.25. Adicionalmente, se encontró que entre los clientes con créditos de alto monto la probabilidad de presentar mora es 0.45. Con esta información, construya la tabla completa de probabilidades conjuntas y marginales para las variables monto del crédito —alto o no alto— y situación de pago —mora o no mora—. A partir de la tabla obtenida, determine la probabilidad de que un cliente que presenta mora tenga un crédito de alto monto. El comité ha establecido que revisará las condiciones de aprobación de los créditos de alto monto si, entre los clientes que presentan mora, la probabilidad de tener un crédito de alto monto es superior a 0.60. Con base en sus resultados, indique qué decisión debería tomar el comité y susténtela probabilísticamente.
+
+---
+
+**Solución**
+
+Sea:
+
+- $A$: el crédito es de alto monto.
+- $M$: el cliente presenta mora.
+
+La información suministrada es:
+
+$$
+P(A)=0.40,\qquad P(M)=0.25,\qquad P(M|A)=0.45
+$$
+
+A partir de la definición de probabilidad condicional:
+
+$$
+P(M|A)=\frac{P(A\cap M)}{P(A)}
+$$
+
+por tanto:
+
+$$
+P(A\cap M)=P(M|A)P(A)=(0.45)(0.40)=0.18
+$$
+
+Como $P(A)=0.40$:
+
+$$
+P(A\cap M^c)=P(A)-P(A\cap M)=0.40-0.18=0.22
+$$
+
+Además, como $P(M)=0.25$:
+
+$$
+P(A^c\cap M)=P(M)-P(A\cap M)=0.25-0.18=0.07
+$$
+
+Finalmente:
+
+$$
+P(A^c)=1-P(A)=0.60
+$$
+
+y:
+
+$$
+P(A^c\cap M^c)=P(A^c)-P(A^c\cap M)
+=0.60-0.07=0.53
+$$
+
+La tabla completa de probabilidades conjuntas y marginales es:
+
+| Monto del crédito | Mora $M$ | No mora $M^c$ | Total |
+|:------------------|---------:|---------------:|------:|
+| Alto $A$          | 0.18     | 0.22           | 0.40  |
+| No alto $A^c$     | 0.07     | 0.53           | 0.60  |
+| **Total**         | **0.25** | **0.75**       | **1.00** |
+
+Ahora se requiere calcular la probabilidad de que un cliente con mora tenga un crédito de alto monto:
+
+$$
+P(A|M)=\frac{P(A\cap M)}{P(M)}
+=\frac{0.18}{0.25}
+=0.72
+$$
+
+**Decisión:** Como $P(A|M)=0.72>0.60$, se cumple el criterio establecido por el comité. Por tanto, **la entidad financiera debería revisar las condiciones de aprobación de los créditos de alto monto**. El resultado muestra que, entre los clientes que presentan mora, la probabilidad de tener un crédito de alto monto es 0.72, superior al umbral definido para tomar la decisión.
+
+</div>
+
+<br/><br/><br/>
+
+<div class="box2 with-label">
+<div class="label">Problema 8</div>
+
+</br>
+
+Un fondo de inversión está preparando el rebalanceo anual de su portafolio y el comité desea evaluar qué tipo de activo está más asociado con las inversiones que alcanzan una rentabilidad superior a la meta. Actualmente, el 40 % del portafolio está invertido en acciones, el 35 % en bonos y el 25 % en fondos inmobiliarios. La probabilidad estimada de obtener una rentabilidad anual superior al 10 % es 0.30 para las acciones, 0.08 para los bonos y 0.20 para los fondos inmobiliarios. El comité considerará aumentar la participación en acciones si, entre las inversiones que superan el 10 % de rentabilidad, la probabilidad de que correspondan a acciones es mayor que 0.60. Calcule esta probabilidad y determine qué decisión se deriva del criterio establecido.
+
+---
+
+**Solución**
+
+Sea $R$ el evento “rentabilidad superior al 10 %”.
+
+$$
+P(R)=(0.40)(0.30)+(0.35)(0.08)+(0.25)(0.20)
+$$
+
+$$
+P(R)=0.12+0.028+0.05=0.198
+$$
+
+Por Bayes:
+
+$$
+P(\text{Acciones}|R)=
+\frac{(0.40)(0.30)}{0.198}
+=0.6061
+$$
+
+**Decisión:** Como $P(\text{Acciones}|R)=0.6061>0.60$, el criterio establecido **respalda aumentar la participación en acciones**. La decisión debe entenderse dentro del supuesto del ejercicio y no como una recomendación financiera general.
+
+</div>
+
+<br/><br/><br/>
+
+<div class="box2 with-label">
+<div class="label">Problema 9</div>
+
+</br>
+
+Un banco procesa diariamente miles de transacciones electrónicas y utiliza un algoritmo para identificar operaciones potencialmente fraudulentas. Bloquear automáticamente una transacción puede evitar pérdidas, pero también puede afectar a clientes legítimos, mientras que enviar demasiadas alertas a revisión manual incrementa los costos operativos. Se estima que la probabilidad de que una transacción sea fraudulenta es 0.02; el algoritmo genera una alerta en 0.95 de las transacciones fraudulentas y también en 0.04 de las legítimas. El banco ha decidido bloquear automáticamente una operación únicamente cuando, dada una alerta, la probabilidad de fraude sea al menos 0.50; de lo contrario, la operación será enviada a revisión manual. Determine la probabilidad de fraude ante una alerta y establezca qué acción debería tomar el banco.
+
+---
+
+**Solución**
+
+Sea $F$ “transacción fraudulenta” y $A$ “el sistema genera una alerta”.
+
+Tenemos:
+
+$$
+P(F)=0.02,\qquad P(F^c)=0.98
+$$
+
+$$
+P(A|F)=0.95,\qquad P(A|F^c)=0.04
+$$
+
+La probabilidad total de una alerta es:
+
+$$
+P(A)=(0.02)(0.95)+(0.98)(0.04)
+$$
+
+$$
+P(A)=0.019+0.0392=0.0582
+$$
+
+Por Bayes:
+
+$$
+P(F|A)=\frac{(0.02)(0.95)}{0.0582}=0.3265
+$$
+
+**Decisión:** Como $P(F|A)=0.3265<0.50$, **el banco no debería bloquear automáticamente la transacción; debería enviarla a revisión manual**. Una alerta incrementa la probabilidad de fraude, pero no alcanza el umbral definido para bloqueo automático.
+
+</div>
+
+<br/><br/><br/>
+
+<div class="box2 with-label">
+<div class="label">Problema 10</div>
+
+</br>
+
+ElectroAndina importa componentes electrónicos desde China, México y Estados Unidos para abastecer su operación en Colombia. Los retrasos recientes han generado faltantes de inventario, por lo que la gerencia de comercio exterior quiere decidir si debe renegociar las condiciones logísticas asociadas con alguno de sus principales orígenes. China suministra el 50 % de las unidades, México el 30 % y Estados Unidos el 20 %, y las probabilidades de retraso son 0.12, 0.07 y 0.04, respectivamente. La empresa iniciará una renegociación con China si, dado que un pedido llegó retrasado, la probabilidad de que proceda de ese país supera 0.60. Determine esta probabilidad y establezca si la renegociación está justificada.
+
+---
+
+**Solución**
+
+Sea $R$ el evento “pedido con retraso”.
+
+$$
+P(R)=(0.50)(0.12)+(0.30)(0.07)+(0.20)(0.04)
+$$
+
+$$
+P(R)=0.06+0.021+0.008=0.089
+$$
+
+Por Bayes:
+
+$$
+P(\text{China}|R)=
+\frac{(0.50)(0.12)}{0.089}
+=0.6742
+$$
+
+**Decisión:** Como $P(\text{China}|R)=0.6742>0.60$, **la empresa debería iniciar la renegociación de las condiciones logísticas asociadas con China**, según el criterio establecido.
+
+</div>
+
+<br/><br/><br/>
+
+<div class="box2 with-label">
+<div class="label">Problema 11</div>
+
+</br>
+
+Exportadora del Pacífico utiliza transporte marítimo y aéreo para atender sus mercados internacionales y recientemente ha recibido reclamaciones por entregas con retrasos superiores a tres días. El 70 % de sus envíos se realiza por vía marítima y el 30 % por vía aérea; la probabilidad de un retraso superior a tres días es 0.08 para los envíos marítimos y 0.02 para los aéreos. Antes de renegociar contratos o modificar rutas, la empresa quiere establecer si los retrasos prolongados se concentran suficientemente en el transporte marítimo y ha definido que revisará esta estrategia si, dado que un envío sufrió dicho retraso, la probabilidad de que haya sido transportado por vía marítima supera 0.85. Calcule esta probabilidad y determine si se justifica la revisión.
+
+---
+
+**Solución**
+
+Sea $M$ “transporte marítimo”, $A$ “transporte aéreo” y $R$ “retraso superior a tres días”.
+
+$$
+P(R)=(0.70)(0.08)+(0.30)(0.02)
+$$
+
+$$
+P(R)=0.056+0.006=0.062
+$$
+
+Por Bayes:
+
+$$
+P(M|R)=\frac{(0.70)(0.08)}{0.062}=0.9032
+$$
+
+**Decisión:** Como $P(M|R)=0.9032>0.85$, **se justifica revisar la estrategia de transporte marítimo**. Entre los envíos que presentan retrasos superiores a tres días, la probabilidad de que hayan utilizado esta modalidad es muy elevada.
+
+</div>
+
+<br/><br/><br/>
+
+<div class="box2 with-label">
+<div class="label">Problema 12</div>
+
+</br>
+
+Importadora Andina realiza pagos frecuentes en moneda extranjera y está evaluando ampliar su cobertura frente al riesgo cambiario. Esta protección tiene un costo, por lo que la dirección financiera quiere comprobar si las pérdidas cambiarias observadas están suficientemente vinculadas con los períodos de alta volatilidad. Históricamente, el 30 % de los meses presenta alta volatilidad; durante esos meses la probabilidad de registrar una pérdida cambiaria es 0.60, mientras que en los meses de baja volatilidad es 0.20. La empresa contratará una cobertura más amplia si, dado que se registró una pérdida cambiaria, la probabilidad de que el mes haya sido de alta volatilidad supera 0.50. Determine esta probabilidad y recomiende si debería ampliarse la cobertura.
+
+---
+
+**Solución**
+
+Sea $V$ “alta volatilidad” y $P$ “pérdida cambiaria”.
+
+$$
+P(P)=(0.30)(0.60)+(0.70)(0.20)
+$$
+
+$$
+P(P)=0.18+0.14=0.32
+$$
+
+Por Bayes:
+
+$$
+P(V|P)=\frac{(0.30)(0.60)}{0.32}=0.5625
+$$
+
+**Decisión:** Como $P(V|P)=0.5625>0.50$, **la dirección financiera debería ampliar la cobertura cambiaria**, de acuerdo con el criterio definido. Una pérdida cambiaria observada tiene mayor probabilidad de corresponder a un mes de alta volatilidad que a uno de baja volatilidad.
+
+</div>
+
+<br/><br/><br/>
+
+<div class="box2 with-label">
+<div class="label">Problema 13</div>
+
+</br>
+
+Una compañía está revisando la forma en que cubre sus vacantes y debe decidir si aumenta el uso de promociones internas frente a la contratación externa. Actualmente, el 60 % de los nuevos empleados ingresa mediante convocatoria externa y el 40 % mediante promoción interna. Después de un año, la probabilidad de obtener una evaluación satisfactoria es 0.70 para quienes ingresaron externamente y 0.85 para quienes fueron promovidos. Talento humano considera aumentar la participación de las promociones internas si, entre los empleados con evaluación satisfactoria, la probabilidad de haber ingresado mediante promoción interna es al menos 0.45. Calcule esta probabilidad y determine si la política de selección debería modificarse.
+
+---
+
+**Solución**
+
+Sea $E$ “convocatoria externa”, $I$ “promoción interna” y $S$ “evaluación satisfactoria”.
+
+$$
+P(S)=(0.60)(0.70)+(0.40)(0.85)
+$$
+
+$$
+P(S)=0.42+0.34=0.76
+$$
+
+Por Bayes:
+
+$$
+P(I|S)=\frac{(0.40)(0.85)}{0.76}=0.4474
+$$
+
+**Decisión:** Como $P(I|S)=0.4474<0.45$, **no se cumple el criterio para aumentar la participación de promociones internas**. Con la regla establecida, la empresa debería mantener por ahora su política de selección.
+
+</div>
+
+<br/><br/><br/>
+
+<div class="box2 with-label">
+<div class="label">Problema 14</div>
+
+</br>
+
+Una plataforma de comercio electrónico está definiendo su plan de expansión logística y estudia aumentar la capacidad de su centro de distribución de Cali. La entrega en menos de 24 horas es uno de sus indicadores estratégicos, por lo que la gerencia quiere conocer qué participación tiene cada centro entre los pedidos que alcanzan ese nivel de servicio. Bogotá despacha el 45 % de los pedidos, Medellín el 30 % y Cali el 25 %, y las probabilidades de entrega en menos de 24 horas son 0.70, 0.65 y 0.80, respectivamente. La empresa ampliará el centro de Cali si, dado que un pedido fue entregado en menos de 24 horas, la probabilidad de que haya sido despachado desde Cali es al menos 0.30. Determine esta probabilidad y establezca si la evidencia respalda la ampliación.
+
+---
+
+**Solución**
+
+Sea $T$ el evento “entrega en menos de 24 horas”.
+
+$$
+P(T)=(0.45)(0.70)+(0.30)(0.65)+(0.25)(0.80)
+$$
+
+$$
+P(T)=0.315+0.195+0.20=0.71
+$$
+
+Por Bayes:
+
+$$
+P(\text{Cali}|T)=
+\frac{(0.25)(0.80)}{0.71}
+=0.2817
+$$
+
+**Decisión:** Como $P(\text{Cali}|T)=0.2817<0.30$, **la evidencia no respalda la ampliación del centro de Cali bajo el criterio fijado**. El resultado queda por debajo del umbral requerido.
+
+</div>
+
+<br/><br/><br/>
+
+<div class="box2 with-label">
+<div class="label">Problema 15</div>
+
+</br>
+
+Una empresa de comercio electrónico está evaluando una inversión en tecnología y capacidad logística para mejorar el cumplimiento de sus tiempos de entrega. La gerencia considera que esta inversión tendría mayor sentido si existe una asociación entre entregar a tiempo y la satisfacción de los clientes. En una muestra de 2.000 pedidos, 1.500 fueron entregados dentro del tiempo prometido, 1.600 clientes manifestaron estar satisfechos y, entre los pedidos entregados a tiempo, 1.300 clientes reportaron satisfacción. Determine si los sucesos A: «el pedido fue entregado dentro del tiempo prometido» y B: «el cliente manifestó estar satisfecho» son independientes. A partir del resultado, establezca si la evidencia respalda la decisión de priorizar inversiones orientadas a mejorar el cumplimiento de los tiempos de entrega.
+
+---
+
+**Solución**
+
+Sea:
+
+- $A$: el pedido fue entregado dentro del tiempo prometido.
+- $B$: el cliente manifestó estar satisfecho.
+
+De los datos:
+
+$$
+P(A)=\frac{1500}{2000}=0.75
+$$
+
+$$
+P(B)=\frac{1600}{2000}=0.80
+$$
+
+$$
+P(A\cap B)=\frac{1300}{2000}=0.65
+$$
+
+Si $A$ y $B$ fueran independientes tendría que cumplirse:
+
+$$
+P(A\cap B)=P(A)P(B)
+$$
+
+Pero:
+
+$$
+P(A)P(B)=(0.75)(0.80)=0.60
+$$
+
+y:
+
+$$
+0.65 \neq 0.60
+$$
+
+También:
+
+$$
+P(B|A)=\frac{1300}{1500}=0.8667
+$$
+
+mientras que:
+
+$$
+P(B)=0.80
+$$
+
+**Decisión:** Los eventos no son independientes, pues $P(A\cap B)=0.65$ y $P(A)P(B)=0.60$. Además, $P(B|A)=0.8667>P(B)=0.80$. Por tanto, **la gerencia debería priorizar inversiones orientadas a mejorar el cumplimiento de los tiempos de entrega**, de acuerdo con su regla de decisión.
+
+</div>
+
+<br/><br/><br/>
+

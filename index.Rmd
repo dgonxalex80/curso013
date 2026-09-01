@@ -19,7 +19,7 @@ output:
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, comment = NA)
 # colores
-source("colores.R")
+source("R/colores.R")
 ```
 
 
@@ -63,9 +63,35 @@ knitr::include_graphics("img/calendario1.png")
 ## Metodología
 
 ```{r, echo=FALSE, out.width="70%", fig.align = "center"}
-knitr::include_graphics("img/metodologia1.png")
+knitr::include_graphics("img/metodologia2.png")
 ```
+<br/><br/>
 
+La metodología del curso esta compuesta por 4 momentos:
+
+<br/>
+
+##### 1. Sesión 1. 
+
+Presentación y entrega de la guia de aprendizaje - sesión 1. Previamente a esta sesiñon estará dispuesta la información correspondiente a la unidad todo el material : guía, recursos, código, actividades, los cuales deben ser revisados previamente a la primera sesión.
+
+<br/>
+
+##### 2. Sesión 2. 
+
+Dudas y preguntas - desarrollo de actividades. Durante esta sesión los estudiantes continuan con el desarrollo de las actividades planteadas y podrán realizar preguntas e interrogantes que surja, ya se en el desarrollo de las actividades planteadas o de los temas abordados.
+
+<br/>
+
+#####  3. Sesión 3.
+
+Monitoria. En esta sesión se continua con el desarrollo de las actividades planteadas con el acompañamiento del monitor del curso.
+
+<br/>
+
+#### 4. Entrega. 
+
+Por último las actividades deben se entregadas en la plataforma de acuerdo en las indicaciones dadas en la guía de aprendizaje correspondiente.
 
 <br/><br/>
 
@@ -82,12 +108,7 @@ knitr::include_graphics("img/evaluaciones.png")
 
 correo : dgonzalez@javerianacali.edu.co
 
-<br/><br/>
-
 #### Monitor : Jeison David de Vuijst
-
-<br/><br/>
-
 
 <br/><br/>
 
@@ -97,11 +118,8 @@ correo : dgonzalez@javerianacali.edu.co
 # knitr::include_graphics("img/atencion.png")
 ```
 
-
 <br/><br/>
 
-
-<br/><br/>
 
 ## Supletorios
 

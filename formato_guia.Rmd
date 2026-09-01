@@ -22,7 +22,7 @@ knitr::opts_chunk$set(echo = TRUE,comment = NA)
 library(ggplot2)
 
 # colores
-source("init.R")
+source("R/init.R")
 ```
 
 

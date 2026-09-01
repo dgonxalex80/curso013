@@ -20,12 +20,8 @@ output:
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE,comment = NA)
 library(ggplot2)
-
-
-
-
 ## colores
-source("colores.R")
+source("R/colores.R")
 ```
 
 
@@ -75,8 +71,8 @@ Para alcanzar los objetivos planteados se propone realizar la siguiente activida
 |Actividad      | Descripción                    | 
 |:--------------|:-----------------------------  |
 | Taller 211 | **Taller 211**. Resuelva las preguntas del taller **a mano**  y entregue su solución en formato **PDF** en el enlace correspondiente de Brightspace. |
-| Trabajo en parejas | Cada integrante debe subir su solución de manera individual en Brightspace. | 
-|Fecha  | 30 de septiembre 23.59 hora local     |
+| Trabajo en parejas | **Cada integrante*** debe subir su solución de manera individual en Brightspace, es decir que cada uno pasa el taller completo de su puño y letra. | 
+|Fecha  | 10 de septiembre 23.59 hora local     |
 |||
 
 </div>
@@ -102,7 +98,7 @@ El **taller 211** de la unidad recoge los elementos estudiados y tiene como obje
 | Entregable    |  Descripción                    |
 |:--------------|:-----------------------------|
 | Taller 211    | Solucionario del Taller 201 | 
-| Fecha         | 30 de agosto de 2026 | 
+| Fecha         | 10 de septiembre de 2026 | 
 |Hora límite    | 23:59  hora  local |
 
 </div>

@@ -1,0 +1,1452 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="dgonzalez " />
+
+
+<title>Teoría de probabilidades</title>
+
+<script src="site_libs/header-attrs-2.31/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-6.5.2/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+<link rel="stylesheet" href="cajas.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html"> </a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">
+    <span class="fa fa-home"></span>
+     
+    Estadística
+  </a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 0
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo0.html">Módulo 0</a>
+    </li>
+    <li>
+      <a href="sumatoria.html">Sumatoria</a>
+    </li>
+    <li>
+      <a href="productoria.html">Productoria</a>
+    </li>
+    <li>
+      <a href="conjuntos.html">Conjuntos</a>
+    </li>
+    <li>
+      <a href="conteo.html">Conteo</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 1
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo1.html">Módulo 1</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="guia11.html">Guía 1.1</a>
+    </li>
+    <li>
+      <a href="recurso11.html">Recursos 1.1</a>
+    </li>
+    <li>
+      <a href="basesdatos.html">Bases de datos</a>
+    </li>
+    <li>
+      <a href="introduccionR.html">Introducción a R</a>
+    </li>
+    <li>
+      <a href="codigo11.html">Código 1.1</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="guia12.html">Guía 1.2</a>
+    </li>
+    <li>
+      <a href="recurso12.html">Recursos 1.2</a>
+    </li>
+    <li>
+      <a href="codigo12.html">Código 1.2</a>
+    </li>
+    <li>
+      <a href="caso1A.html">Caso 1</a>
+    </li>
+    <li>
+      <a href="caso1B.html">Caso 2</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="guia13.html">Guía 1.3</a>
+    </li>
+    <li>
+      <a href="recurso13.html">Recursos 1.3</a>
+    </li>
+    <li>
+      <a href="codigo13.html">Código 1.3</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="monitoria1.html">Monitoria 1</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 2
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo2.html">Módulo 2</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="guia21.html">Guía 2.1</a>
+    </li>
+    <li>
+      <a href="recurso21.html">Recursos 2.1</a>
+    </li>
+    <li>
+      <a href="codigo21.html">Código 2.1</a>
+    </li>
+    <li>
+      <a href="taller211.html">Taller 211</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="guia22.html">Guía 2.2</a>
+    </li>
+    <li>
+      <a href="recurso22.html">Recursos 2.2</a>
+    </li>
+    <li>
+      <a href="taller221.html">Taller 221</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="monitoria2.html">Moitoría 2</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 3
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo3.html">Módulo 3</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 4
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo4.html">Módulo 4</a>
+    </li>
+    <li class="divider"></li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Proyecto
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="enconstruccion.html">Guía proyecto</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore"><span
+style="color:#3498C9 !important;">Teoría de probabilidades</span></h1>
+<h3 class="subtitle"><span style="color:#3498C9"> </span></h3>
+<h4 class="author"><span style="color:#3498C9">dgonzalez </span></h4>
+
+</div>
+
+
+<p><img src="img/recurso2.png" alt="" width="100%" style="display: block; margin: auto;" /></p>
+<div id="introducción" class="section level1">
+<h1>Introducción</h1>
+<p>Los árboles de decisión permiten representar de manera visual cómo
+cambia la probabilidad de un evento cuando se incorpora nueva
+información.</p>
+<p>En este ejercicio se utiliza una situación de
+<strong>mercadeo</strong> para estudiar la probabilidad de que un punto
+de venta presente <strong>ventas altas</strong>, teniendo en cuenta
+características relacionadas con la ubicación del producto, el precio,
+la publicidad y las condiciones del mercado.</p>
+<p>El propósito es conectar los conceptos de:</p>
+<ul>
+<li>probabilidad marginal;</li>
+<li>probabilidad conjunta;</li>
+<li>probabilidad condicional;</li>
+<li>regla del producto;</li>
+<li>árboles de decisión.</li>
+</ul>
+</div>
+<div id="preparación-del-entorno" class="section level1">
+<h1>Preparación del entorno</h1>
+<p>Si los paquetes no se encuentran instalados, ejecute una sola
+vez:</p>
+<pre class="r"><code>install.packages(&quot;ISLR2&quot;)
+install.packages(&quot;rpart&quot;)
+install.packages(&quot;rpart.plot&quot;)</code></pre>
+<p>Cargamos los paquetes requeridos.</p>
+<pre class="r"><code>library(ISLR2)
+library(rpart)
+library(rpart.plot)</code></pre>
+</div>
+<div id="descripción-de-los-datos" class="section level1">
+<h1>Descripción de los datos</h1>
+<p>Utilizaremos la base <code>Carseats</code>, disponible en el paquete
+<code>ISLR2</code>.</p>
+<pre class="r"><code>data(Carseats)
+
+dim(Carseats)</code></pre>
+<pre><code>[1] 400  11</code></pre>
+<pre class="r"><code>head(Carseats)</code></pre>
+<pre><code>  Sales CompPrice Income Advertising Population Price ShelveLoc Age Education
+1  9.50       138     73          11        276   120       Bad  42        17
+2 11.22       111     48          16        260    83      Good  65        10
+3 10.06       113     35          10        269    80    Medium  59        12
+4  7.40       117    100           4        466    97    Medium  55        14
+5  4.15       141     64           3        340   128       Bad  38        13
+6 10.81       124    113          13        501    72       Bad  78        16
+  Urban  US
+1   Yes Yes
+2   Yes Yes
+3   Yes Yes
+4   Yes Yes
+5   Yes  No
+6    No Yes</code></pre>
+<p>La base contiene <strong>400 puntos de venta</strong> y 11 variables
+originales. Cada fila representa una tienda en la que se comercializan
+asientos infantiles para automóviles.</p>
+<p>Las variables originales son:</p>
+<table>
+<colgroup>
+<col width="33%" />
+<col width="33%" />
+<col width="33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Variable original</th>
+<th>Nombre en español</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>Sales</code></td>
+<td><code>Ventas</code></td>
+<td>Ventas unitarias en miles de unidades</td>
+</tr>
+<tr class="even">
+<td><code>CompPrice</code></td>
+<td><code>PrecioCompetencia</code></td>
+<td>Precio cobrado por un competidor en cada ubicación</td>
+</tr>
+<tr class="odd">
+<td><code>Income</code></td>
+<td><code>Ingreso</code></td>
+<td>Nivel de ingreso de la comunidad</td>
+</tr>
+<tr class="even">
+<td><code>Advertising</code></td>
+<td><code>Publicidad</code></td>
+<td>Presupuesto local de publicidad</td>
+</tr>
+<tr class="odd">
+<td><code>Population</code></td>
+<td><code>Poblacion</code></td>
+<td>Tamaño de la población de la región</td>
+</tr>
+<tr class="even">
+<td><code>Price</code></td>
+<td><code>Precio</code></td>
+<td>Precio cobrado por la empresa</td>
+</tr>
+<tr class="odd">
+<td><code>ShelveLoc</code></td>
+<td><code>UbicacionEstante</code></td>
+<td>Calidad de la ubicación del producto en la estantería</td>
+</tr>
+<tr class="even">
+<td><code>Age</code></td>
+<td><code>Edad</code></td>
+<td>Edad promedio de la población local</td>
+</tr>
+<tr class="odd">
+<td><code>Education</code></td>
+<td><code>Educacion</code></td>
+<td>Nivel de educación de la población</td>
+</tr>
+<tr class="even">
+<td><code>Urban</code></td>
+<td><code>ZonaUrbana</code></td>
+<td>Indica si la tienda se encuentra en zona urbana</td>
+</tr>
+<tr class="odd">
+<td><code>US</code></td>
+<td><code>EstadosUnidos</code></td>
+<td>Indica si la tienda se encuentra en Estados Unidos</td>
+</tr>
+</tbody>
+</table>
+<p>Antes de realizar el análisis traduciremos tanto los nombres de las
+variables como las categorías de las variables cualitativas.</p>
+</div>
+<div id="traducción-de-variables-y-categorías" class="section level1">
+<h1>Traducción de variables y categorías</h1>
+<p>Creamos una copia de la base para conservar los datos originales.</p>
+<pre class="r"><code>datos &lt;- Carseats
+
+names(datos) &lt;- c(
+  &quot;Ventas&quot;,
+  &quot;PrecioCompetencia&quot;,
+  &quot;Ingreso&quot;,
+  &quot;Publicidad&quot;,
+  &quot;Poblacion&quot;,
+  &quot;Precio&quot;,
+  &quot;UbicacionEstante&quot;,
+  &quot;Edad&quot;,
+  &quot;Educacion&quot;,
+  &quot;ZonaUrbana&quot;,
+  &quot;EstadosUnidos&quot;
+)
+
+datos$UbicacionEstante &lt;- factor(
+  datos$UbicacionEstante,
+  levels = c(&quot;Bad&quot;, &quot;Medium&quot;, &quot;Good&quot;),
+  labels = c(&quot;Mala&quot;, &quot;Media&quot;, &quot;Buena&quot;)
+)
+
+datos$ZonaUrbana &lt;- factor(
+  datos$ZonaUrbana,
+  levels = c(&quot;No&quot;, &quot;Yes&quot;),
+  labels = c(&quot;No&quot;, &quot;Si&quot;)
+)
+
+datos$EstadosUnidos &lt;- factor(
+  datos$EstadosUnidos,
+  levels = c(&quot;No&quot;, &quot;Yes&quot;),
+  labels = c(&quot;No&quot;, &quot;Si&quot;)
+)
+
+head(datos)</code></pre>
+<pre><code>  Ventas PrecioCompetencia Ingreso Publicidad Poblacion Precio UbicacionEstante
+1   9.50               138      73         11       276    120             Mala
+2  11.22               111      48         16       260     83            Buena
+3  10.06               113      35         10       269     80            Media
+4   7.40               117     100          4       466     97            Media
+5   4.15               141      64          3       340    128             Mala
+6  10.81               124     113         13       501     72             Mala
+  Edad Educacion ZonaUrbana EstadosUnidos
+1   42        17         Si            Si
+2   65        10         Si            Si
+3   59        12         Si            Si
+4   55        14         Si            Si
+5   38        13         Si            No
+6   78        16         No            Si</code></pre>
+<p>Ahora toda la interpretación puede realizarse directamente en
+español.</p>
+<pre class="r"><code>str(datos)</code></pre>
+<pre><code>&#39;data.frame&#39;:   400 obs. of  11 variables:
+ $ Ventas           : num  9.5 11.22 10.06 7.4 4.15 ...
+ $ PrecioCompetencia: num  138 111 113 117 141 124 115 136 132 132 ...
+ $ Ingreso          : num  73 48 35 100 64 113 105 81 110 113 ...
+ $ Publicidad       : num  11 16 10 4 3 13 0 15 0 0 ...
+ $ Poblacion        : num  276 260 269 466 340 501 45 425 108 131 ...
+ $ Precio           : num  120 83 80 97 128 72 108 120 124 124 ...
+ $ UbicacionEstante : Factor w/ 3 levels &quot;Mala&quot;,&quot;Media&quot;,..: 1 3 2 2 1 1 2 3 2 2 ...
+ $ Edad             : num  42 65 59 55 38 78 71 67 76 76 ...
+ $ Educacion        : num  17 10 12 14 13 16 15 10 10 17 ...
+ $ ZonaUrbana       : Factor w/ 2 levels &quot;No&quot;,&quot;Si&quot;: 2 2 2 2 2 1 2 2 1 1 ...
+ $ EstadosUnidos    : Factor w/ 2 levels &quot;No&quot;,&quot;Si&quot;: 2 2 2 2 1 2 1 2 1 2 ...</code></pre>
+</div>
+<div id="análisis-descriptivo" class="section level1">
+<h1>Análisis descriptivo</h1>
+<p>Antes de estudiar probabilidades y construir el árbol, conviene
+conocer algunas características de los datos.</p>
+<pre class="r"><code>summary(datos)</code></pre>
+<pre><code>     Ventas       PrecioCompetencia    Ingreso         Publicidad    
+ Min.   : 0.000   Min.   : 77       Min.   : 21.00   Min.   : 0.000  
+ 1st Qu.: 5.390   1st Qu.:115       1st Qu.: 42.75   1st Qu.: 0.000  
+ Median : 7.490   Median :125       Median : 69.00   Median : 5.000  
+ Mean   : 7.496   Mean   :125       Mean   : 68.66   Mean   : 6.635  
+ 3rd Qu.: 9.320   3rd Qu.:135       3rd Qu.: 91.00   3rd Qu.:12.000  
+ Max.   :16.270   Max.   :175       Max.   :120.00   Max.   :29.000  
+   Poblacion         Precio      UbicacionEstante      Edad      
+ Min.   : 10.0   Min.   : 24.0   Mala : 96        Min.   :25.00  
+ 1st Qu.:139.0   1st Qu.:100.0   Media:219        1st Qu.:39.75  
+ Median :272.0   Median :117.0   Buena: 85        Median :54.50  
+ Mean   :264.8   Mean   :115.8                    Mean   :53.32  
+ 3rd Qu.:398.5   3rd Qu.:131.0                    3rd Qu.:66.00  
+ Max.   :509.0   Max.   :191.0                    Max.   :80.00  
+   Educacion    ZonaUrbana EstadosUnidos
+ Min.   :10.0   No:118     No:142       
+ 1st Qu.:12.0   Si:282     Si:258       
+ Median :14.0                           
+ Mean   :13.9                           
+ 3rd Qu.:16.0                           
+ Max.   :18.0                           </code></pre>
+<p>Las ventas pueden resumirse mediante:</p>
+<pre class="r"><code>c(
+  Media = mean(datos$Ventas),
+  Mediana = median(datos$Ventas),
+  Desviacion = sd(datos$Ventas),
+  Minimo = min(datos$Ventas),
+  Maximo = max(datos$Ventas)
+)</code></pre>
+<pre><code>     Media    Mediana Desviacion     Minimo     Maximo 
+  7.496325   7.490000   2.824115   0.000000  16.270000 </code></pre>
+<p>También podemos observar cómo se distribuyen los puntos de venta
+según la ubicación del producto en la estantería.</p>
+<pre class="r"><code>table(datos$UbicacionEstante)</code></pre>
+<pre><code>
+ Mala Media Buena 
+   96   219    85 </code></pre>
+<pre class="r"><code>prop.table(table(datos$UbicacionEstante))</code></pre>
+<pre><code>
+  Mala  Media  Buena 
+0.2400 0.5475 0.2125 </code></pre>
+<p>La variable <code>UbicacionEstante</code> resulta particularmente
+interesante desde el punto de vista de mercadeo, pues representa la
+calidad de la exhibición del producto dentro del establecimiento.</p>
+</div>
+<div id="definición-del-evento-de-interés" class="section level1">
+<h1>Definición del evento de interés</h1>
+<p>Para convertir el problema en uno de clasificación, definiremos como
+<strong>ventas altas</strong> aquellas superiores a 8 mil unidades.</p>
+<p>Sea:</p>
+<p><span class="math display">\[
+A=\{\text{el punto de venta presenta ventas altas}\}
+\]</span></p>
+<p>Operacionalmente:</p>
+<p><span class="math display">\[
+A=\{\text{Ventas}&gt;8\}
+\]</span></p>
+<p>Creamos la variable <code>VentaAlta</code>.</p>
+<pre class="r"><code>datos$VentaAlta &lt;- ifelse(
+  datos$Ventas &gt; 8,
+  &quot;Si&quot;,
+  &quot;No&quot;
+)
+
+datos$VentaAlta &lt;- factor(
+  datos$VentaAlta,
+  levels = c(&quot;No&quot;, &quot;Si&quot;)
+)
+
+table(datos$VentaAlta)</code></pre>
+<pre><code>
+ No  Si 
+236 164 </code></pre>
+</div>
+<div id="probabilidad-marginal" class="section level1">
+<h1>Probabilidad marginal</h1>
+<p>La probabilidad marginal representa la probabilidad de un evento sin
+disponer de información adicional.</p>
+<p>En este caso:</p>
+<p><span class="math display">\[
+P(A)=P(\text{VentaAlta=Si})
+\]</span></p>
+<pre class="r"><code>tabla_venta &lt;- table(datos$VentaAlta)
+
+tabla_venta</code></pre>
+<pre><code>
+ No  Si 
+236 164 </code></pre>
+<pre class="r"><code>prop.table(tabla_venta)</code></pre>
+<pre><code>
+  No   Si 
+0.59 0.41 </code></pre>
+<pre class="r"><code>P_A &lt;- mean(datos$VentaAlta == &quot;Si&quot;)
+P_A</code></pre>
+<pre><code>[1] 0.41</code></pre>
+<p><strong>Interpretación.</strong> El resultado anterior corresponde a
+la proporción de los 400 puntos de venta que presentan ventas superiores
+a 8 mil unidades. Esta es nuestra probabilidad inicial antes de conocer
+características adicionales de una tienda.</p>
+</div>
+<div id="probabilidad-conjunta" class="section level1">
+<h1>Probabilidad conjunta</h1>
+<p>Consideremos ahora el evento:</p>
+<p><span class="math display">\[
+B=\{\text{UbicacionEstante=Buena}\}
+\]</span></p>
+<p>Construimos una tabla de contingencia.</p>
+<pre class="r"><code>tabla &lt;- table(
+  Ubicacion = datos$UbicacionEstante,
+  VentaAlta = datos$VentaAlta
+)
+
+tabla</code></pre>
+<pre><code>         VentaAlta
+Ubicacion  No  Si
+    Mala   82  14
+    Media 135  84
+    Buena  19  66</code></pre>
+<p>Las probabilidades conjuntas son:</p>
+<pre class="r"><code>round(prop.table(tabla), 4)</code></pre>
+<pre><code>         VentaAlta
+Ubicacion     No     Si
+    Mala  0.2050 0.0350
+    Media 0.3375 0.2100
+    Buena 0.0475 0.1650</code></pre>
+<p>En particular:</p>
+<p><span class="math display">\[
+P(A\cap B)
+=
+P(\text{VentaAlta=Si}\cap\text{UbicacionEstante=Buena})
+\]</span></p>
+<pre class="r"><code>P_A_inter_B &lt;- mean(
+  datos$VentaAlta == &quot;Si&quot; &amp;
+  datos$UbicacionEstante == &quot;Buena&quot;
+)
+
+P_A_inter_B</code></pre>
+<pre><code>[1] 0.165</code></pre>
+<p><strong>Interpretación.</strong> Esta probabilidad representa la
+posibilidad de seleccionar aleatoriamente un punto de venta que
+simultáneamente tenga una buena ubicación del producto y presente ventas
+altas.</p>
+</div>
+<div id="probabilidad-condicional" class="section level1">
+<h1>Probabilidad condicional</h1>
+<p>Ahora incorporamos información.</p>
+<p>La pregunta es:</p>
+<blockquote>
+<p>Si sabemos que el producto tiene una buena ubicación en la
+estantería, ¿cuál es la probabilidad de que el punto de venta presente
+ventas altas?</p>
+</blockquote>
+<p>Matemáticamente:</p>
+<p><span class="math display">\[
+P(A\mid B)
+=
+P(\text{VentaAlta=Si}\mid\text{UbicacionEstante=Buena})
+\]</span></p>
+<pre class="r"><code>round(prop.table(tabla, margin = 1), 4)</code></pre>
+<pre><code>         VentaAlta
+Ubicacion     No     Si
+    Mala  0.8542 0.1458
+    Media 0.6164 0.3836
+    Buena 0.2235 0.7765</code></pre>
+<p>Calculamos específicamente:</p>
+<pre class="r"><code>P_A_dado_B &lt;- mean(
+  datos$VentaAlta[
+    datos$UbicacionEstante == &quot;Buena&quot;
+  ] == &quot;Si&quot;
+)
+
+P_A_dado_B</code></pre>
+<pre><code>[1] 0.7764706</code></pre>
+<p>Comparemos la probabilidad marginal y la condicional.</p>
+<pre class="r"><code>comparacion &lt;- data.frame(
+  Probabilidad = c(
+    &quot;P(Venta alta)&quot;,
+    &quot;P(Venta alta | Ubicacion buena)&quot;
+  ),
+  Valor = c(
+    P_A,
+    P_A_dado_B
+  )
+)
+
+comparacion</code></pre>
+<pre><code>                     Probabilidad     Valor
+1                   P(Venta alta) 0.4100000
+2 P(Venta alta | Ubicacion buena) 0.7764706</code></pre>
+<p><strong>Interpretación.</strong> Si la segunda probabilidad es
+considerablemente mayor que la primera, la información de que el
+producto posee una buena ubicación modifica sustancialmente nuestra
+expectativa sobre las ventas.</p>
+<p>Esta es precisamente la lógica que posteriormente utilizará el árbol:
+<strong>incorporar información para formar grupos con probabilidades
+diferentes</strong>.</p>
+</div>
+<div id="regla-del-producto" class="section level1">
+<h1>Regla del producto</h1>
+<p>Por definición:</p>
+<p><span class="math display">\[
+P(A\mid B)=\frac{P(A\cap B)}{P(B)}
+\]</span></p>
+<p>De donde:</p>
+<p><span class="math display">\[
+P(A\cap B)=P(B)P(A\mid B)
+\]</span></p>
+<p>Calculamos:</p>
+<pre class="r"><code>P_B &lt;- mean(
+  datos$UbicacionEstante == &quot;Buena&quot;
+)
+
+P_A_inter_B</code></pre>
+<pre><code>[1] 0.165</code></pre>
+<pre class="r"><code>P_B * P_A_dado_B</code></pre>
+<pre><code>[1] 0.165</code></pre>
+<p>Verificamos:</p>
+<pre class="r"><code>all.equal(
+  P_A_inter_B,
+  P_B * P_A_dado_B
+)</code></pre>
+<pre><code>[1] TRUE</code></pre>
+<p>El resultado <code>TRUE</code> confirma empíricamente la regla del
+producto para estos datos.</p>
+</div>
+<div id="árbol-de-decisión" class="section level1">
+<h1>Árbol de decisión</h1>
+<p>Ahora utilizaremos un árbol de decisión para extender la misma lógica
+a múltiples variables.</p>
+<p>La variable respuesta será:</p>
+<p><code>VentaAlta</code></p>
+<p>y utilizaremos como predictores:</p>
+<ul>
+<li>ubicación en la estantería;</li>
+<li>publicidad;</li>
+<li>precio;</li>
+<li>ingreso;</li>
+<li>edad;</li>
+<li>población;</li>
+<li>educación;</li>
+<li>zona urbana;</li>
+<li>ubicación en Estados Unidos.</li>
+</ul>
+<p>Se utilizarán parámetros que permitan obtener un árbol con varias
+ramas, manteniendo una estructura suficientemente clara para fines
+didácticos.</p>
+<pre class="r"><code>arbol &lt;- rpart(
+  VentaAlta ~ UbicacionEstante +
+    Publicidad +
+    Precio +
+    Ingreso +
+    Edad +
+    Poblacion +
+    Educacion +
+    ZonaUrbana +
+    EstadosUnidos,
+  data = datos,
+  method = &quot;class&quot;,
+  control = rpart.control(
+    minsplit = 15,
+    minbucket = 7,
+    cp = 0.005,
+    maxdepth = 5
+  )
+)
+
+arbol</code></pre>
+<pre><code>n= 400 
+
+node), split, n, loss, yval, (yprob)
+      * denotes terminal node
+
+ 1) root 400 164 No (0.5900000 0.4100000)  
+   2) UbicacionEstante=Mala,Media 315  98 No (0.6888889 0.3111111)  
+     4) Precio&gt;=92.5 269  66 No (0.7546468 0.2453532)  
+       8) Publicidad&lt; 13.5 224  41 No (0.8169643 0.1830357) *
+       9) Publicidad&gt;=13.5 45  20 Si (0.4444444 0.5555556)  
+        18) Edad&gt;=54.5 20   5 No (0.7500000 0.2500000) *
+        19) Edad&lt; 54.5 25   5 Si (0.2000000 0.8000000) *
+     5) Precio&lt; 92.5 46  14 Si (0.3043478 0.6956522)  
+      10) Ingreso&lt; 57 10   3 No (0.7000000 0.3000000) *
+      11) Ingreso&gt;=57 36   7 Si (0.1944444 0.8055556)  
+        22) Poblacion&lt; 207.5 16   6 Si (0.3750000 0.6250000)  
+          44) Edad&gt;=56.5 8   3 No (0.6250000 0.3750000) *
+          45) Edad&lt; 56.5 8   1 Si (0.1250000 0.8750000) *
+        23) Poblacion&gt;=207.5 20   1 Si (0.0500000 0.9500000) *
+   3) UbicacionEstante=Buena 85  19 Si (0.2235294 0.7764706)  
+     6) Precio&gt;=142.5 12   3 No (0.7500000 0.2500000) *
+     7) Precio&lt; 142.5 73  10 Si (0.1369863 0.8630137) *</code></pre>
+</div>
+<div id="visualización-del-árbol" class="section level1">
+<h1>Visualización del árbol</h1>
+<pre class="r"><code>rpart.plot(
+  arbol,
+  type = 2,
+  extra = 104,
+  fallen.leaves = TRUE,
+  tweak = 0.9,
+  box.palette = &quot;auto&quot;,
+  shadow.col = &quot;gray&quot;,
+  nn = TRUE
+)</code></pre>
+<p><img src="probabilidad_mercadeo_arbol_decision_completo_files/figure-html/grafico-arbol-1.png" alt="" width="1152" /></p>
+</div>
+<div id="cómo-se-interpreta-el-árbol" class="section level1">
+<h1>¿Cómo se interpreta el árbol?</h1>
+<p>El árbol debe leerse <strong>desde arriba hacia abajo</strong>.</p>
+<p>El nodo superior se denomina <strong>nodo raíz</strong> y contiene
+inicialmente los 400 puntos de venta.</p>
+<p>En ese momento nuestra información es solamente:</p>
+<p><span class="math display">\[
+P(\text{VentaAlta})
+\]</span></p>
+<p>El algoritmo busca entonces una variable que permita separar los
+puntos de venta en grupos con probabilidades de ventas altas lo más
+diferentes posible.</p>
+<p>La primera división del árbol es, por tanto, especialmente
+importante.</p>
+<p>Puede consultar directamente las divisiones mediante:</p>
+<pre class="r"><code>arbol$frame</code></pre>
+<pre><code>                var   n  wt dev yval  complexity ncompete nsurrogate
+1  UbicacionEstante 400 400 164    1 0.286585366        4          0
+2            Precio 315 315  98    1 0.109756098        4          0
+4        Publicidad 269 269  66    1 0.045731707        4          0
+8            &lt;leaf&gt; 224 224  41    1 0.000000000        0          0
+9              Edad  45  45  20    2 0.045731707        4          5
+18           &lt;leaf&gt;  20  20   5    1 0.000000000        0          0
+19           &lt;leaf&gt;  25  25   5    2 0.000000000        0          0
+5           Ingreso  46  46  14    2 0.024390244        4          0
+10           &lt;leaf&gt;  10  10   3    1 0.005000000        0          0
+11        Poblacion  36  36   7    2 0.006097561        4          5
+22             Edad  16  16   6    2 0.006097561        4          5
+44           &lt;leaf&gt;   8   8   3    1 0.005000000        0          0
+45           &lt;leaf&gt;   8   8   1    2 0.005000000        0          0
+23           &lt;leaf&gt;  20  20   1    2 0.005000000        0          0
+3            Precio  85  85  19    2 0.036585366        4          0
+6            &lt;leaf&gt;  12  12   3    1 0.005000000        0          0
+7            &lt;leaf&gt;  73  73  10    2 0.000000000        0          0
+      yval2.V1    yval2.V2    yval2.V3    yval2.V4    yval2.V5 yval2.nodeprob
+1    1.0000000 236.0000000 164.0000000   0.5900000   0.4100000      1.0000000
+2    1.0000000 217.0000000  98.0000000   0.6888889   0.3111111      0.7875000
+4    1.0000000 203.0000000  66.0000000   0.7546468   0.2453532      0.6725000
+8    1.0000000 183.0000000  41.0000000   0.8169643   0.1830357      0.5600000
+9    2.0000000  20.0000000  25.0000000   0.4444444   0.5555556      0.1125000
+18   1.0000000  15.0000000   5.0000000   0.7500000   0.2500000      0.0500000
+19   2.0000000   5.0000000  20.0000000   0.2000000   0.8000000      0.0625000
+5    2.0000000  14.0000000  32.0000000   0.3043478   0.6956522      0.1150000
+10   1.0000000   7.0000000   3.0000000   0.7000000   0.3000000      0.0250000
+11   2.0000000   7.0000000  29.0000000   0.1944444   0.8055556      0.0900000
+22   2.0000000   6.0000000  10.0000000   0.3750000   0.6250000      0.0400000
+44   1.0000000   5.0000000   3.0000000   0.6250000   0.3750000      0.0200000
+45   2.0000000   1.0000000   7.0000000   0.1250000   0.8750000      0.0200000
+23   2.0000000   1.0000000  19.0000000   0.0500000   0.9500000      0.0500000
+3    2.0000000  19.0000000  66.0000000   0.2235294   0.7764706      0.2125000
+6    1.0000000   9.0000000   3.0000000   0.7500000   0.2500000      0.0300000
+7    2.0000000  10.0000000  63.0000000   0.1369863   0.8630137      0.1825000</code></pre>
+</div>
+<div id="del-nodo-raíz-a-la-probabilidad-condicional"
+class="section level1">
+<h1>Del nodo raíz a la probabilidad condicional</h1>
+<p>Supongamos que una determinada rama del árbol establece una condición
+<span class="math inline">\(B\)</span>.</p>
+<p>Antes de conocer esa condición tenemos:</p>
+<p><span class="math display">\[
+P(A)
+\]</span></p>
+<p>Después de conocerla:</p>
+<p><span class="math display">\[
+P(A\mid B)
+\]</span></p>
+<p>Si posteriormente el árbol incorpora otra condición <span
+class="math inline">\(C\)</span>:</p>
+<p><span class="math display">\[
+P(A\mid B,C)
+\]</span></p>
+<p>y si aparece una tercera condición <span
+class="math inline">\(D\)</span>:</p>
+<p><span class="math display">\[
+P(A\mid B,C,D)
+\]</span></p>
+<p>Por tanto, conceptualmente el árbol representa:</p>
+<p><span class="math display">\[
+P(A)
+\longrightarrow
+P(A\mid B)
+\longrightarrow
+P(A\mid B,C)
+\longrightarrow
+P(A\mid B,C,D)
+\]</span></p>
+<p>Cada división incorpora nueva información y redefine el grupo sobre
+el cual calculamos la probabilidad.</p>
+</div>
+<div id="importancia-de-las-variables" class="section level1">
+<h1>Importancia de las variables</h1>
+<p>Podemos observar qué variables tuvieron mayor importancia en la
+construcción del árbol.</p>
+<pre class="r"><code>importancia &lt;- sort(
+  arbol$variable.importance,
+  decreasing = TRUE
+)
+
+importancia</code></pre>
+<pre><code>UbicacionEstante           Precio       Publicidad             Edad 
+      29.6641176       25.4192424       12.5966170        8.9569444 
+         Ingreso        Poblacion        Educacion       ZonaUrbana 
+       5.6970109        4.3083333        0.7347222        0.5000000 </code></pre>
+<p><strong>Interpretación.</strong> Las variables ubicadas en las
+primeras posiciones son aquellas que más contribuyeron a separar los
+puntos de venta según su probabilidad de presentar ventas altas.</p>
+<p>Una variable importante en el árbol no debe interpretarse
+automáticamente como una relación causal. El árbol identifica
+principalmente <strong>capacidad de segmentación y asociación</strong>
+dentro de estos datos.</p>
+</div>
+<div id="probabilidades-estimadas-por-el-árbol" class="section level1">
+<h1>Probabilidades estimadas por el árbol</h1>
+<p>El árbol puede proporcionar, para cada tienda, la probabilidad
+estimada de pertenecer a cada categoría.</p>
+<pre class="r"><code>probabilidades &lt;- predict(
+  arbol,
+  newdata = datos,
+  type = &quot;prob&quot;
+)
+
+head(probabilidades)</code></pre>
+<pre><code>         No        Si
+1 0.8169643 0.1830357
+2 0.1369863 0.8630137
+3 0.7000000 0.3000000
+4 0.8169643 0.1830357
+5 0.8169643 0.1830357
+6 0.0500000 0.9500000</code></pre>
+<p>La columna <code>Si</code> representa:</p>
+<p><span class="math display">\[
+\widehat{P}(\text{VentaAlta=Si}\mid X)
+\]</span></p>
+<p>donde <span class="math inline">\(X\)</span> representa las
+características del punto de venta utilizadas por el árbol.</p>
+<p>Incorporamos esta probabilidad a los datos.</p>
+<pre class="r"><code>datos$ProbabilidadVentaAlta &lt;- probabilidades[, &quot;Si&quot;]
+
+head(
+  datos[
+    ,
+    c(
+      &quot;Ventas&quot;,
+      &quot;UbicacionEstante&quot;,
+      &quot;Publicidad&quot;,
+      &quot;Precio&quot;,
+      &quot;VentaAlta&quot;,
+      &quot;ProbabilidadVentaAlta&quot;
+    )
+  ]
+)</code></pre>
+<pre><code>  Ventas UbicacionEstante Publicidad Precio VentaAlta ProbabilidadVentaAlta
+1   9.50             Mala         11    120        Si             0.1830357
+2  11.22            Buena         16     83        Si             0.8630137
+3  10.06            Media         10     80        Si             0.3000000
+4   7.40            Media          4     97        No             0.1830357
+5   4.15             Mala          3    128        No             0.1830357
+6  10.81             Mala         13     72        Si             0.9500000</code></pre>
+</div>
+<div id="nodos-terminales-y-perfiles-de-mercado" class="section level1">
+<h1>Nodos terminales y perfiles de mercado</h1>
+<p>Cada punto de venta termina asignado a uno de los nodos terminales
+del árbol.</p>
+<pre class="r"><code>datos$Nodo &lt;- arbol$where
+
+table(datos$Nodo)</code></pre>
+<pre><code>
+  4   6   7   9  12  13  14  16  17 
+224  20  25  10   8   8  20  12  73 </code></pre>
+<p>Calculamos para cada nodo:</p>
+<ul>
+<li>número de puntos de venta;</li>
+<li>número de puntos de venta con ventas altas;</li>
+<li>probabilidad observada de ventas altas.</li>
+</ul>
+<pre class="r"><code>resumen_nodos &lt;- aggregate(
+  I(VentaAlta == &quot;Si&quot;) ~ Nodo,
+  data = datos,
+  FUN = function(x) c(
+    n = length(x),
+    ventas_altas = sum(x),
+    probabilidad = mean(x)
+  )
+)
+
+resumen_nodos</code></pre>
+<pre><code>  Nodo I(VentaAlta == &quot;Si&quot;).n I(VentaAlta == &quot;Si&quot;).ventas_altas
+1    4            224.0000000                        41.0000000
+2    6             20.0000000                         5.0000000
+3    7             25.0000000                        20.0000000
+4    9             10.0000000                         3.0000000
+5   12              8.0000000                         3.0000000
+6   13              8.0000000                         7.0000000
+7   14             20.0000000                        19.0000000
+8   16             12.0000000                         3.0000000
+9   17             73.0000000                        63.0000000
+  I(VentaAlta == &quot;Si&quot;).probabilidad
+1                         0.1830357
+2                         0.2500000
+3                         0.8000000
+4                         0.3000000
+5                         0.3750000
+6                         0.8750000
+7                         0.9500000
+8                         0.2500000
+9                         0.8630137</code></pre>
+<p>Una versión más sencilla de la probabilidad por nodo es:</p>
+<pre class="r"><code>probabilidad_nodo &lt;- aggregate(
+  I(VentaAlta == &quot;Si&quot;) ~ Nodo,
+  data = datos,
+  FUN = mean
+)
+
+names(probabilidad_nodo)[2] &lt;- &quot;ProbabilidadVentaAlta&quot;
+
+probabilidad_nodo &lt;- probabilidad_nodo[
+  order(
+    probabilidad_nodo$ProbabilidadVentaAlta,
+    decreasing = TRUE
+  ),
+]
+
+probabilidad_nodo</code></pre>
+<pre><code>  Nodo ProbabilidadVentaAlta
+7   14             0.9500000
+6   13             0.8750000
+9   17             0.8630137
+3    7             0.8000000
+5   12             0.3750000
+4    9             0.3000000
+2    6             0.2500000
+8   16             0.2500000
+1    4             0.1830357</code></pre>
+<p><strong>Interpretación.</strong> Los nodos con valores cercanos a 1
+corresponden a perfiles de puntos de venta donde las ventas altas son
+muy frecuentes. Los nodos con valores cercanos a 0 corresponden a
+perfiles donde las ventas altas son poco frecuentes.</p>
+<p>Así, los nodos terminales pueden interpretarse como <strong>segmentos
+de mercado con diferentes probabilidades de respuesta</strong>.</p>
+</div>
+<div id="identificación-de-los-perfiles-con-mayor-probabilidad"
+class="section level1">
+<h1>Identificación de los perfiles con mayor probabilidad</h1>
+<p>Podemos ordenar las observaciones según la probabilidad estimada de
+ventas altas.</p>
+<pre class="r"><code>perfiles &lt;- datos[
+  order(
+    datos$ProbabilidadVentaAlta,
+    decreasing = TRUE
+  ),
+  c(
+    &quot;UbicacionEstante&quot;,
+    &quot;Publicidad&quot;,
+    &quot;Precio&quot;,
+    &quot;Ingreso&quot;,
+    &quot;Edad&quot;,
+    &quot;VentaAlta&quot;,
+    &quot;ProbabilidadVentaAlta&quot;,
+    &quot;Nodo&quot;
+  )
+]
+
+head(perfiles, 15)</code></pre>
+<pre><code>    UbicacionEstante Publicidad Precio Ingreso Edad VentaAlta
+6               Mala         13     72     113   78        Si
+67             Media          0     91      92   56        Si
+76              Mala         23     92     111   36        Si
+77             Media         10     70      87   64        Si
+80              Mala          0     90      67   41        Si
+81              Mala         16     79     100   68        Si
+110            Media          0     90      65   60        Si
+122             Mala         10     87      89   28        Si
+131            Media         13     77      84   51        Si
+158            Media          8     90      58   48        Si
+160             Mala          0     70      60   30        Si
+172            Media         12     55     106   75        Si
+230            Media          0     72     104   27        Si
+274            Media          8     86     106   58        Si
+314            Media          3     54      81   66        Si
+    ProbabilidadVentaAlta Nodo
+6                    0.95   14
+67                   0.95   14
+76                   0.95   14
+77                   0.95   14
+80                   0.95   14
+81                   0.95   14
+110                  0.95   14
+122                  0.95   14
+131                  0.95   14
+158                  0.95   14
+160                  0.95   14
+172                  0.95   14
+230                  0.95   14
+274                  0.95   14
+314                  0.95   14</code></pre>
+<p>Esta tabla permite estudiar las características de los puntos de
+venta que el árbol considera más favorables para presentar ventas
+altas.</p>
+</div>
+<div id="interpretación-general-de-los-resultados"
+class="section level1">
+<h1>Interpretación general de los resultados</h1>
+<p>El análisis comienza con una probabilidad marginal:</p>
+<p><span class="math display">\[
+P(\text{VentaAlta})
+\]</span></p>
+<p>Esta representa nuestro conocimiento inicial sobre una tienda
+seleccionada aleatoriamente.</p>
+<p>Cuando conocemos que el producto posee una determinada ubicación,
+podemos actualizar esta probabilidad:</p>
+<p><span class="math display">\[
+P(\text{VentaAlta}\mid\text{Ubicacion})
+\]</span></p>
+<p>El árbol generaliza este procedimiento al considerar sucesivamente
+otras características.</p>
+<p>Por ejemplo, una ruta podría conceptualmente representar:</p>
+<p><span class="math display">\[
+P(
+\text{VentaAlta}
+\mid
+\text{Ubicacion buena},
+\text{Precio}&lt;c_1,
+\text{Publicidad}&gt;c_2
+)
+\]</span></p>
+<p>donde <span class="math inline">\(c_1\)</span> y <span
+class="math inline">\(c_2\)</span> son puntos de corte determinados
+automáticamente por el algoritmo.</p>
+<p>El aspecto fundamental para la interpretación probabilística no es
+memorizar cada corte, sino comprender que <strong>cada nueva rama añade
+una condición</strong>.</p>
+<p>Por ello, el árbol constituye una representación visual de
+probabilidades condicionadas sucesivamente.</p>
+</div>
+<div id="interpretación-desde-mercadeo" class="section level1">
+<h1>Interpretación desde mercadeo</h1>
+<p>Desde una perspectiva de mercadeo, los resultados permiten
+identificar combinaciones de características asociadas con diferentes
+niveles de probabilidad de ventas altas.</p>
+<p>El análisis puede utilizarse para responder preguntas como:</p>
+<ul>
+<li>¿La calidad de la ubicación del producto ayuda a diferenciar tiendas
+con ventas altas y bajas?</li>
+<li>¿Qué papel desempeña el precio?</li>
+<li>¿La inversión publicitaria contribuye a identificar puntos de venta
+con mayor probabilidad de ventas altas?</li>
+<li>¿Existen combinaciones específicas de precio, exhibición y
+condiciones del mercado particularmente favorables?</li>
+<li>¿Qué segmentos presentan una baja probabilidad de ventas altas?</li>
+</ul>
+<p>Es importante distinguir <strong>predicción y asociación de
+causalidad</strong>. El árbol identifica patrones presentes en los
+datos, pero por sí solo no demuestra que modificar una variable vaya a
+causar un incremento en las ventas.</p>
+</div>
+<div id="preguntas-para-el-estudiante" class="section level1">
+<h1>Preguntas para el estudiante</h1>
+<p>A partir de los resultados obtenidos, responda:</p>
+<ol style="list-style-type: decimal">
+<li><p>¿Cuántos puntos de venta contiene la base de datos?</p></li>
+<li><p>¿Qué representa la variable <code>Ventas</code>?</p></li>
+<li><p>¿Cuál es la probabilidad marginal de presentar ventas
+altas?</p></li>
+<li><p>¿Cuál es la probabilidad de que un producto tenga una ubicación
+<code>Buena</code>?</p></li>
+<li><p>¿Cuál es la probabilidad conjunta de presentar ventas altas y
+tener una ubicación <code>Buena</code>?</p></li>
+<li><p>Calcule e interprete:</p></li>
+</ol>
+<p><span class="math display">\[
+P(\text{VentaAlta}\mid\text{UbicacionEstante=Buena})
+\]</span></p>
+<ol start="7" style="list-style-type: decimal">
+<li>Compare:</li>
+</ol>
+<p><span class="math display">\[
+P(\text{VentaAlta})
+\]</span></p>
+<p>con:</p>
+<p><span class="math display">\[
+P(\text{VentaAlta}\mid\text{UbicacionEstante=Buena})
+\]</span></p>
+<ol start="8" style="list-style-type: decimal">
+<li>Verifique que:</li>
+</ol>
+<p><span class="math display">\[
+P(A\cap B)=P(B)P(A\mid B)
+\]</span></p>
+<ol start="9" style="list-style-type: decimal">
+<li><p>¿Cuál es la primera variable utilizada por el árbol para dividir
+los puntos de venta?</p></li>
+<li><p>¿Qué significado probabilístico tiene el nodo raíz?</p></li>
+<li><p>Seleccione una ruta completa desde el nodo raíz hasta un nodo
+terminal.</p></li>
+<li><p>Escriba la probabilidad del nodo terminal seleccionado utilizando
+notación de probabilidad condicional.</p></li>
+<li><p>¿Cuáles son las variables más importantes según el
+árbol?</p></li>
+<li><p>¿Cuál es el nodo terminal con mayor probabilidad de ventas
+altas?</p></li>
+<li><p>Describa el perfil de los puntos de venta que pertenecen a dicho
+nodo.</p></li>
+<li><p>Desde la perspectiva de mercadeo, ¿qué recomendaciones podrían
+plantearse a partir de los segmentos encontrados?</p></li>
+</ol>
+</div>
+<div id="conclusión" class="section level1">
+<h1>Conclusión</h1>
+<p>Este ejercicio permite establecer una conexión entre la teoría
+clásica de probabilidad y una herramienta moderna de ciencia de
+datos.</p>
+<p>La secuencia conceptual puede resumirse como:</p>
+<p><span class="math display">\[
+\boxed{
+\text{Probabilidad marginal}
+\rightarrow
+\text{Probabilidad condicional}
+\rightarrow
+\text{Segmentación}
+\rightarrow
+\text{Árbol de decisión}
+}
+\]</span></p>
+<p>El nodo raíz representa el conocimiento inicial sobre el evento:</p>
+<p><span class="math display">\[
+P(A)
+\]</span></p>
+<p>Las ramas incorporan información adicional:</p>
+<p><span class="math display">\[
+P(A\mid B)
+\]</span></p>
+<p>y los niveles posteriores representan condicionamientos
+sucesivos:</p>
+<p><span class="math display">\[
+P(A\mid B,C),\qquad
+P(A\mid B,C,D),\ldots
+\]</span></p>
+<p>De esta manera, los árboles de decisión proporcionan una
+representación visual e intuitiva de cómo la información modifica las
+probabilidades y permiten conectar los fundamentos de probabilidad con
+aplicaciones de <strong>mercadeo, segmentación, clasificación y ciencia
+de datos</strong>.</p>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("hide" === "show");
+});
+</script>
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
