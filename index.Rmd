@@ -54,7 +54,7 @@ knitr::include_graphics("img/calendario1.png")
 
 
 ```{r, echo=FALSE, out.width="70%", fig.align = "center"}
- knitr::include_graphics("img/salones.png")
+ knitr::include_graphics("img/salones2.png")
 ```
 
 
