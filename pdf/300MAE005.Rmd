@@ -1,0 +1,190 @@
+---
+title: "PRIMER EXAMEN PARCIAL"
+subtitle: "300MAE005 - PROBABILIDAD Y ESTADÍSTICA"
+author: "Profesor: Daniel Enrique González Gómez"
+date: "Septiembre de 2026"
+output:
+  pdf_document:
+    latex_engine: xelatex
+    number_sections: false
+geometry: margin=1.7cm
+fontsize: 10pt
+header-includes:
+  - \usepackage{booktabs}
+  - \usepackage{array}
+  - \usepackage{multicol}
+  - \usepackage{amsmath}
+  - \usepackage{float}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
+```
+
+**NOMBRE:** _______________________________________________  
+**Documento de identidad:** _________________________________
+
+### Instrucciones
+
+Apague sus equipos de comunicación. Durante la prueba no podrá consultar material externo ni comunicarse con otros estudiantes. Realice las operaciones que justifiquen cada respuesta. Las respuestas sin procedimiento o interpretación podrán recibir calificación parcial. Marque tanto el cuestionario como la hoja de respuesta.
+
+| Competencia / habilidad | Indicador | P1 | P2 | P3 | P4 |
+|:--|:--|:--:|:--:|:--:|:--:|
+| Resolución de problemas | Identifica y aplica conceptos, indicadores y reglas de probabilidad para resolver situaciones en contexto. |  |  |  |  |
+| Comunicativa | Interpreta resultados y comunica conclusiones utilizando lenguaje estadístico. |  |  |  |  |
+
+---
+
+## 1. Análisis descriptivo de tiempos de entrega (30 puntos)
+
+Una empresa de comercio electrónico desea evaluar la calidad de su servicio de entrega en la ciudad. Para ello seleccionó aleatoriamente **50 pedidos** y registró el tiempo transcurrido, en horas, desde la salida del centro de distribución hasta la entrega al cliente.
+
+Los tiempos observados fueron:
+
+```{r datos-p1}
+x <- c(
+  5.8, 6.1, 6.3, 6.5, 6.7, 6.8, 6.9, 7.0, 7.1, 7.1,
+  7.2, 7.3, 7.4, 7.4, 7.5, 7.5, 7.6, 7.7, 7.8, 7.8,
+  7.9, 8.0, 8.0, 8.1, 8.1, 8.2, 8.3, 8.3, 8.4, 8.5,
+  8.5, 8.6, 8.7, 8.8, 8.8, 8.9, 9.0, 9.1, 9.2, 9.3,
+  9.4, 9.5, 9.6, 9.8, 10.0, 10.2, 10.4, 10.8, 11.5, 13.2
+)
+
+cat(paste(format(x, nsmall=1), collapse="   "))
+```
+
+La gerencia ha establecido los siguientes lineamientos:
+
+a. Los tiempos de entrega **no deben presentar valores atípicos**.  
+b. Al menos el **75 % de las entregas** debe realizarse en **9 horas o menos**.  
+c. Como máximo el **10 % de los pedidos** puede tardar **más de 10 horas**.  
+d. El **coeficiente de variación** debe ser inferior al **25 %**.  
+e. La distribución de los tiempos no debe presentar una **asimetría positiva fuerte**.
+
+A partir de la información suministrada:
+
+1. Calcule e interprete la **media, mediana, desviación estándar, coeficiente de variación, Q1, Q3 y rango intercuartílico**.
+2. Determine los límites para identificar datos atípicos mediante el criterio de \(1.5\,RIQ\).
+3. Evalúe individualmente los cinco lineamientos establecidos por la empresa.
+4. Redacte una conclusión ejecutiva de máximo cinco líneas indicando si, en términos generales, el proceso de entrega puede considerarse satisfactorio.
+
+\newpage
+
+## 2. Probabilidad condicional y teorema de Bayes (25 puntos)
+
+Una plataforma digital recibe solicitudes de soporte por tres canales:
+
+- **Chat:** 50 % de las solicitudes.
+- **Correo electrónico:** 30 %.
+- **Teléfono:** 20 %.
+
+La probabilidad de que una solicitud requiera **escalamiento a soporte especializado** depende del canal:
+
+\[
+P(E|C)=0.08,\qquad
+P(E|M)=0.15,\qquad
+P(E|T)=0.25
+\]
+
+donde \(E\) representa “requiere escalamiento”, \(C\) chat, \(M\) correo y \(T\) teléfono.
+
+Responda:
+
+a. Construya el **diagrama de árbol** correspondiente.  
+b. Calcule la probabilidad de que una solicitud seleccionada al azar requiera escalamiento.  
+c. Si se sabe que una solicitud **fue escalada**, determine la probabilidad de que haya llegado por cada uno de los tres canales.  
+d. Ordene los canales de mayor a menor probabilidad como origen de una solicitud escalada.  
+e. Explique, en máximo cuatro líneas, cómo podría utilizar la empresa este resultado para asignar personal especializado.
+
+---
+
+## 3. Confiabilidad de un sistema (20 puntos)
+
+Un sistema de respaldo eléctrico está formado por cuatro componentes independientes. Cada componente tiene una probabilidad de funcionamiento de \(0.95\).
+
+Los componentes **1 y 2 están conectados en paralelo**, al igual que los componentes **3 y 4**. Los dos subsistemas resultantes están conectados **en serie**:
+
+\[
+(1 \parallel 2)\;-\;(3 \parallel 4)
+\]
+
+Un ingeniero afirma que la probabilidad de funcionamiento del sistema completo es **superior a 0.99**.
+
+a. Calcule la probabilidad de funcionamiento del subsistema formado por los componentes 1 y 2.  
+b. Calcule la probabilidad de funcionamiento del sistema completo.  
+c. Determine si la afirmación del ingeniero es correcta.  
+d. Explique qué ocurriría con la confiabilidad si los cuatro componentes se conectaran únicamente en serie. No basta con indicar “aumenta” o “disminuye”; justifique probabilísticamente.
+
+---
+
+## 4. Conceptos fundamentales: verdadero o falso (25 puntos)
+
+Para cada afirmación escriba **V** si es verdadera o **F** si es falsa. **Toda afirmación falsa debe ser justificada**.
+
+1. (   ) Si \(A\) y \(B\) son eventos mutuamente excluyentes, entonces necesariamente son independientes.
+2. (   ) Si una distribución es perfectamente simétrica y unimodal, la media y la mediana coinciden.
+3. (   ) Sumar una constante \(k\) a todos los datos modifica la media, pero no modifica la varianza.
+4. (   ) El coeficiente de variación permite comparar la dispersión relativa de variables expresadas en escalas compatibles.
+5. (   ) Si \(P(A|B)=P(A)\), con \(P(B)>0\), entonces \(A\) y \(B\) son independientes.
+6. (   ) Para dos eventos cualesquiera, \(P(A\cup B)=P(A)+P(B)\).
+7. (   ) En una conexión en paralelo de dos componentes independientes, el sistema falla únicamente si fallan ambos componentes.
+8. (   ) El percentil 75 deja aproximadamente el 75 % de las observaciones en o por debajo de su valor.
+9. (   ) Un coeficiente de asimetría positivo indica una cola relativamente más extendida hacia los valores altos.
+10. (   ) Si \(P(A)=0.40\), \(P(B)=0.50\) y \(A\) y \(B\) son independientes, entonces \(P(A\cap B)=0.90\).
+
+---
+
+# FORMULARIO
+
+\[
+\bar{x}=\frac{1}{n}\sum_{i=1}^{n}x_i
+\qquad
+s^2=\frac{1}{n-1}\sum_{i=1}^{n}(x_i-\bar{x})^2
+\qquad
+s=\sqrt{s^2}
+\]
+
+\[
+CV=\frac{s}{\bar{x}}(100)\%
+\qquad
+RIQ=Q_3-Q_1
+\]
+
+\[
+LI=Q_1-1.5(RIQ)
+\qquad
+LS=Q_3+1.5(RIQ)
+\]
+
+\[
+P(A\cup B)=P(A)+P(B)-P(A\cap B)
+\]
+
+\[
+P(A|B)=\frac{P(A\cap B)}{P(B)}
+\qquad
+P(A\cap B)=P(A|B)P(B)
+\]
+
+\[
+P(A_i|B)=
+\frac{P(B|A_i)P(A_i)}
+{\sum_j P(B|A_j)P(A_j)}
+\]
+
+Para componentes independientes:
+
+\[
+P(\text{serie funciona})=\prod_i P(C_i)
+\]
+
+\[
+P(\text{paralelo funciona})
+=1-\prod_i[1-P(C_i)]
+\]
+
+\vfill
+
+\begin{center}
+\textbf{Revise sus respuestas antes de entregar.}
+\end{center}

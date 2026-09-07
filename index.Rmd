@@ -115,7 +115,7 @@ correo : dgonzalez@javerianacali.edu.co
 ## Atención estudiantes
 
 ```{r, echo=FALSE, out.width="100%", fig.align = "center"}
-# knitr::include_graphics("img/atencion.png")
+knitr::include_graphics("img/atencion.png")
 ```
 
 <br/><br/>

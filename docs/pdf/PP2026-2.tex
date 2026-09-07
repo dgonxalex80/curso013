@@ -1,0 +1,100 @@
+
+\documentclass[10pt,letterpaper]{article}
+
+% ===== Tipografía y codificación (pdfLaTeX) =====
+\usepackage[utf8]{inputenc}      % Entrada en UTF-8
+\usepackage[T1]{fontenc}         % Salida con codificación T1
+\usepackage{lmodern}             % Fuente moderna
+
+                       % separador decimal con punto si lo deseas
+
+% ===== Márgenes =====
+\usepackage[margin=2cm]{geometry}     % ajusta a tu gusto
+
+% ===== Matemáticas =====
+\usepackage{amsmath, amssymb, amsthm}
+
+% ===== Gráficos e imágenes =====
+\usepackage{graphicx}                 % reemplaza epsfig
+\usepackage{float}                    % [H] colocación estricta si la necesitas
+\usepackage{booktabs}                 % tablas bonitas
+\usepackage{xcolor}                   % colores
+
+
+% ===== Columnas múltiples (bloques en dos columnas) =====
+\usepackage{multicol}
+\setlength{\columnsep}{14pt}
+
+\renewcommand{\theenumi}{\arabic{enumi}$^{\circ}$}
+\renewcommand{\labelenumi}{\theenumi.}
+
+
+
+
+% ===== Configuración general =====
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{4pt}
+\linespread{1.05}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+	\pagestyle{empty}
+	
+
+\textbf{PONTIFICIA UNIVERSIDAD JAVERIANA CALI}
+
+Departamento de Ciencias Naturales y Matemáticas
+
+300MAE013 - A - Teoría de Probabilidades
+
+\begin{flushright}
+Profesor: Daniel Enrique González Gómez \\  
+Cali, septiembre 10 de 2026
+\end{flushright}
+
+\begin{center}
+{\bf EXAMEN FINAL}
+\end{center}
+
+		\begin{tabular}{|p{1.5cm}|p{8.2cm}|p{2.2cm}|p{2.2cm}|p{2.4cm}|}
+	\hline
+	&&&&\\
+	Habilidad & Indicador   &P1. & P2. &  NOTA\\  
+	&&&&\\ \hline 
+	(50\%) A& Habilidad para aplicar conocimientos de matemáticas, ciencias e ingeniería    &&&   \\ 
+	&&&& \\ \hline              
+	(50\%) G& Habilidad para comunicarse efectivamente &&&\\  
+	&&&& \\  
+	\hline  
+\end{tabular}
+
+\begin{tabular}{|p{18.2cm}|}
+\hline      
+{\textbf{OBSERVACIONES}:} \\ \\ 
+\\ \\ 
+\\ \\ 
+\\ \\ 
+
+\hline
+
+\end{tabular}
+
+\begin{multicols}{2}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	
+\begin{itemize}
+\item[1.] 
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\item[2.] En una empresa de distribución, se están evaluando tres tipos de estrategias de capacitación implementadas para el personal comercial: capacitación presencial tradicional, capacitación virtual interactiva y capacitación basada en acompañamiento en campo. Se ha determinado que el 25\% de los vendedores recibió capacitación presencial tradicional, el 50\% capacitación virtual interactiva, y el 25\% capacitación basada en acompañamiento en campo.
+
+Además, se ha observado que la probabilidad de que un vendedor mantenga un desempeño satisfactorio después de 5 años es del 80\% para quienes recibieron capacitación presencial tradicional, del 60\% para quienes recibieron capacitación virtual interactiva, y del 40\% para quienes recibieron capacitación basada en acompañamiento en campo.
+
+Si se selecciona al azar un vendedor que presenta desempeño satisfactorio después de 5 años, ¿cuál es la probabilidad de que haya recibido capacitación presencial tradicional?
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\end{itemize}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\end{multicols}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\end{document}
