@@ -31,40 +31,45 @@ knitr::include_graphics("img/teoria.png")
 
 <br/><br/>
 
+<div class="box6 with-label">
 ## Módulos
 
 
 ```{r, echo=FALSE, out.width="70%", fig.align = "center"}
 knitr::include_graphics("img/modulos.png")
 ```
+</div>
 
 <br/><br/>
 
+<div class="box6 with-label">
 ## Cronograma
 
-
 ```{r, echo=FALSE, out.width="70%", fig.align = "center"}
-knitr::include_graphics("img/calendario1.png")
+knitr::include_graphics("img/calendario2.png")
 ```
-
+</div>
 
 <br/><br/>
 
+<div class="box6 with-label">
 ## Salones de clase
-
 
 ```{r, echo=FALSE, out.width="70%", fig.align = "center"}
  knitr::include_graphics("img/salones2.png")
 ```
-
+</div>
 
 <br/><br/>
 
+<div class="box6 with-label">
 ## Metodología
 
 ```{r, echo=FALSE, out.width="70%", fig.align = "center"}
 knitr::include_graphics("img/metodologia2.png")
 ```
+</div>
+
 <br/><br/>
 
 La metodología del curso esta compuesta por 4 momentos:
@@ -95,12 +100,13 @@ Por último las actividades deben se entregadas en la plataforma de acuerdo en l
 
 <br/><br/>
 
+<div class="box6 with-label">
 ## Evaluaciones
 
 ```{r, echo=FALSE, out.width="50%", fig.align = "center"}
 knitr::include_graphics("img/evaluaciones.png")
 ```
-
+</div>
 
 <br/><br/>
 
@@ -112,15 +118,17 @@ correo : dgonzalez@javerianacali.edu.co
 
 <br/><br/>
 
+<div class="box6 with-label">
 ## Atención estudiantes
 
 ```{r, echo=FALSE, out.width="100%", fig.align = "center"}
 knitr::include_graphics("img/atencion.png")
 ```
+</div>
 
 <br/><br/>
 
-
+<div class="box6 with-label">
 ## Supletorios
 
 
@@ -128,12 +136,29 @@ knitr::include_graphics("img/atencion.png")
 ```{r, echo=FALSE, out.width="100%", fig.align = "center"}
 # knitr::include_graphics("img/supletorios2.png")
 ```
+</div>
 
 
+<br/><br/>
+
+<div class="box6 with-label">
+## Atención estudiantes
+
+```{r, echo=FALSE, out.width="100%", fig.align = "center"}
+knitr::include_graphics("img/atencion.png")
+```
+</div>
 
 
+<br/><br/>
 
+<div class="box6 with-label">
+## Calendario académico 2026-2 PUJCL
 
+```{r, echo=FALSE, out.width="100%", fig.align = "center"}
+knitr::include_graphics("img/calendario-2026-2.png")
+```
+</div>
 
 
  

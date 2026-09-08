@@ -248,7 +248,37 @@ Si se selecciona al azar una campaña que logró mantener recordación de marca 
 
 </div>
 
-<br/><br/>
+<br/><br/>Una cadena de restaurantes de Cali implementó una nueva estrategia logística 
+con el propósito de reducir los \textbf{tiempos de entrega de los pedidos a 
+	domicilio}. La gerencia considera que un servicio competitivo debería entregar 
+la mayoría de los pedidos en menos de 40 minutos y, además, presentar poca 
+variabilidad en los tiempos de entrega.
+
+Después de un mes de funcionamiento, se seleccionó una muestra de 
+\textbf{60 pedidos} y para cada uno se registró el tiempo de entrega, en minutos. 
+Al realizar una primera revisión de la información, el gerente observa que 
+algunos pedidos tardaron considerablemente más que otros y se pregunta si estos 
+corresponden a situaciones excepcionales o si evidencian problemas en el proceso.
+
+La gerencia solicita al equipo de analítica estudiar los datos y responder la 
+siguiente pregunta:
+
+\begin{center}
+	\textbf{¿Puede considerarse que el nuevo sistema de domicilios ofrece un servicio 
+		rápido, homogéneo y confiable?}
+\end{center}
+
+Para sustentar su recomendación, el equipo deberá utilizar las herramientas 
+estadísticas estudiadas en el \textbf{Módulo 1}, identificar las características 
+más importantes de la distribución de los tiempos de entrega, detectar posibles 
+comportamientos inusuales y presentar una conclusión dirigida a la gerencia.
+
+\medskip
+
+\noindent
+\textbf{Elabore un breve informe} en el que presente los resultados del análisis, 
+justifique estadísticamente sus conclusiones y formule una recomendación para la 
+gerencia de la empresa.
 
 ### **Nota**:
 
