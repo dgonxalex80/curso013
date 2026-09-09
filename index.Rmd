@@ -133,8 +133,8 @@ knitr::include_graphics("img/atencion.png")
 
 
 
-```{r, echo=FALSE, out.width="100%", fig.align = "center"}
-# knitr::include_graphics("img/supletorios2.png")
+```{r, echo=FALSE, out.width="70%", fig.align = "center"}
+knitr::include_graphics("img/supletorios2.png")
 ```
 </div>
 
