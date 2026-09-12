@@ -1,0 +1,232 @@
+---
+title: " "  
+subtitle: " "  
+author: "dgonzalez "
+output:
+  html_document:
+    toc: no
+    toc_depth: 2
+    toc_float: yes
+    code_folding: hide
+    theme: flatly
+    css: style.css
+---      
+   
+
+
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+knitr::opts_chunk$set(
+  fig.width=9, fig.height=3.5, fig.retina=3,
+  out.width = "100%",
+  cache = FALSE,
+  echo = TRUE,
+  message = FALSE, 
+  warning = FALSE,
+  hiline = TRUE
+)
+# colores
+source("R/init.R")
+
+paleta4=c(c11,c21,c31,c41)
+
+library(tidyverse)
+# library(forcats)
+# library(patchwork)
+# library(lubridate)
+# library(ggplot2)
+# library(gridExtra)
+# library(cowplot)
+# library(summarytools)
+
+#library(dviz.supp)
+```
+
+
+
+</br></br></br>
+
+```{r, echo=FALSE, out.width="100%", fig.align = "left"}
+knitr::include_graphics("img/taller3.png")
+```
+
+<br/><br/>
+
+# **Actividad 331**
+
+Cada estudiante de forma individual  deberá construir un **poster** en formato A1 (59,4 cm x 84 cm).  para el modelo asignado que contenga sus principales características.
+
+<br/><br/>
+
+### **Contenido del poster**
+
+* Origen de la distribución
+* Características principales : f(x), F(x), E[X], V[X], representación gráfica....
+* Ejemplo con enunciado, solución y sintaxis en R
+* Aplicaciones en el campo de las ingeniería, ciencias, economía, salud...
+* Relaciones entre distribuciones univariadas. [(Artículo)](http://www.stat.rice.edu/~dobelman/courses/texts/leemis.distributions.2008amstat.pdf)
+* Referencias bibliográficas 
+
+
+<br/><br/><br/>
+
+## **Asignación de los modelos**
+
+```{r, message=FALSE, warning=FALSE}
+set.seed(123)
+
+distribucion <- c("binomial", "Poisson", "hipergeométrico", "geométrico o de Pascal", "binomial negativo", 
+                  "uniforme", "normal", "exponencial", "gamma", "Weibull", "Cauchy", "lognormal", 
+                  "beta", "Erlang", "Gumbel", "logistic", "Rayleigh", "t-Student", "F-Fisher", "chi-cuadrado", "de Pólya")
+
+nombres <- c("Esteban	Arismendi Giglioli", "Maria	Chaves Raymond", "Samuel	Cuervo Peña", "Miguel Angel	Davila Muelas", "Juan	Espinosa Arias", "Santiago	Guevara Idarraga", "Tomas	Henao Rincon", "Sebastian	Hidalgo Jimenez", "Juan	Iglesias Martinez", "Salome	Lema Franco", "Santiago	Mazo Andrade", "Jose	Mesa Velasquez", "Cristian	Osorio Martinez", "Santiago	Otalvaro Garcia", "Miguel	Padilla Rosero", "Juan	Ramirez Rivas", "Estevan	Rubio Urrego", "Lis	Saavedra Hernandez", "Juan	Sanchez Morillo",
+"Jose	Silva Hurtado", "Mariana	Simons Gonzalez")
+
+id = 1:21
+
+asignacion <- sample(distribucion, 21, replace = FALSE)
+
+datos <- data.frame(
+  ID = id,
+  Nombres = nombres,
+  "Distribución asignada" = asignacion
+)
+
+# Instala kableExtra si aún no lo tienes
+# install.packages("kableExtra")
+
+library(kableExtra)
+
+# Mostrar la tabla en formato bonito
+datos %>%
+  kbl() %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"))
+
+```
+
+<br/><br/><br/>
+
+### **Nota**
+
+<br/>
+
+#### **Construcción del Poster**
+
+<br/>
+
+**R** posee librerias para la construcción de posters como : `posterdown`, `drposter`, `pagedown`,  `rticles`  las cuales despues de ser instaladas generan una plantilla que se puede obtener de la siguiente manera:
+
+* https://github.com/brentthorne/posterdown
+
+
+<br/>
+**File** / **New File** / **Rmarkdown** / **From Template** / Posterdown HTML {posterdown}
+
+```{r, echo=FALSE, out.width="100%", fig.align = "center"}
+# knitr::include_graphics("img/poster4.png")
+```
+
+<br/><br/>
+
+#### **Ejemplo poster en Rmd**
+
+<br/>
+
+```{r, echo=FALSE, out.width="100%", fig.align = "center"}
+# knitr::include_graphics("img/poster1.png")
+```
+
+<br/><br/>
+
+### Video
+
+* [Crea posters con posterdown](https://www.youtube.com/watch?v=Znpsmbstu-A)
+
+
+<br/><br/>
+
+### Tamaños de poster
+
+<br/>
+
+```{r, echo=FALSE, out.width="60%", fig.align = "center"}
+# knitr::include_graphics("img/tamaños_poster.png")
+```
+
+
+
+<br/><br/>
+
+### Formatos de poster
+
+<br/>
+
+```{r, echo=FALSE, out.width="70%", fig.align = "center"}
+# knitr::include_graphics("img/formatos.png")
+```
+
+
+```{r, echo=FALSE, out.width="50%", fig.align = "center"}
+# knitr::include_graphics("img/cambio.png")
+```
+
+
+
+<br/><br/>
+
+### Ejemplos de YAML
+
+<br/>
+
+#### poster pagedown
+
+```{r, echo=FALSE, out.width="80%", fig.align = "center"}
+# knitr::include_graphics("img/YAML1.png")
+```
+
+
+```{r, echo=FALSE, out.width="80%", fig.align = "center"}
+# knitr::include_graphics("img/posterA.png")
+```
+
+
+
+<br/><br/>
+
+#### poster posterdown
+
+```{r, echo=FALSE, out.width="80%", fig.align = "center"}
+# knitr::include_graphics("img/YAML2.png")
+```
+
+
+
+```{r, echo=FALSE, out.width="80%", fig.align = "center"}
+# knitr::include_graphics("img/posterB.png")
+```
+
+<br/><br/>
+
+#### Archivo estilo_poster.css
+
+
+```{r, echo=FALSE, out.width="40%", fig.align = "center"}
+# knitr::include_graphics("img/estilo_poster.png")
+```
+
+## Overleaf
+
+El sitio overleaf ofrece plantillas en LaTex para todo tipo de documentos para ser construidos en linea y descargarlos en formato pdf
+
+https://www.overleaf.com/
+
+https://www.overleaf.com/latex/templates?q=poster
+
+
+
+
+
+
+
+

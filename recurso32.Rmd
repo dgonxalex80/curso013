@@ -1,0 +1,818 @@
+---
+title: " "
+subtitle: " " 
+author: "dgonzalez "
+output:
+  html_document:
+    toc: no
+    toc_depth: 2
+    toc_float: yes
+    code_folding: hide
+    theme: flatly
+    css: style.css
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(comment = NA)
+
+library(summarytools)
+library(devtools)
+# install_github("lchiffon/wordcloud2")
+library(wordcloud)
+
+# colores
+source("R/init.R")
+
+```
+
+
+```{r, echo=FALSE, out.width="100%", fig.align = "center"}
+ knitr::include_graphics("img/recurso3.png")
+```
+
+```{r, echo=FALSE, fig.align='center'}
+# tomada de:
+# http://pj.freefaculty.org/R/WorkingExamples/plot-3d-MVNormal-1.R
+library("mvtnorm")
+
+N=50
+x <- seq(-3,3, length=N)
+y <- seq(-3,3,length=N)
+z <- matrix(0, N, N)
+for (i in 1:N) for (j in 1:N) {
+  z[i,j]=dmvnorm(c(x[i],y[j]), c(0,0),
+        matrix(c(1,0.5,0.5,1),2,2))}
+ persp(x,y,z,theta=20, phi=15, 
+       xlab="x", 
+       ylab="y", 
+       zlab="f(x,y)",
+       scale=TRUE,
+       expand=.4,
+       axes=TRUE,
+       col=c32)
+```
+
+<br/><br/>
+
+## **Introducción**
+
+Los resultados de un experimento pueden ser causa de múltiples variables como ocurre con el precio de un producto y sus ventas, el tiempo de preparación de un examen y su nota final, la cantidad de arena y de cemento en concreto, la cantidad de abono suministrado a una planta y su producción final. En estos casos se requiere una función de densidad que describa la variación de la probabilidad  de ocurrencia de ambas variables, probabilidad que describe el comportamiento conjunto de las variables. 
+
+La función que tiene en cuenta efectos múltiples de variables aleatorias se denomina distribución de probabilidad conjunta. esta función puede ser una combinación de variables continua-continua, discreta-discreta o continua-discreta, dependiendo del experimento, en el caso bivariado.
+
+En esta guía se presentan los casos : discreta-discreta y el caso continua-continua.
+
+<br/><br/>
+
+## **Discreto-Discreto**
+
+
+### **Función de distribución de probabilidad conjunta**
+Si se dispone de dos variables aleatorias se puede definir distribuciones bidimensionales de forma semejante al caso unidimensional. Para el caso discreto-discreto se define:
+
+</br></br></br>
+
+ <!-- ------------------------------------------------------- -->
+ 
+<div class="box2 with-label">
+<div class="label">**Definición :Función de distribución de probabilidad conjunta**</div>
+$$f_{_{X,Y}}(x,y)=P(X=x,Y=y)$$
+
+la cual debe cumplir con las siguientes características:
+
++ $\displaystyle\sum\limits_{x=x_{(1)}}^{x_{(n)}}\displaystyle\sum\limits_{y=y_{(1)}}^{y_{(n)}}f_{_{X,Y}}(x,y)=1$
+
++ $f(x,y)\geq 0$ 
+
+</div>
+
+ <!-- ------------------------------------------------------- -->
+ 
+</br></br></br>
+
+
+<div class="box1 with-label">
+<div class="label">Ejemplo 1</div>
+
+El número de veces que falla una máquina $X$ con $R_{X}=\{1,2,3\}$ durante un dia y el número de veces en que el operario requiere llamar al técnico para su arreglo esta dado por $Y$ con $R_{Y}=\{1,2,3\}$. Su función de probabilidad conjunta para $X,Y$ está dada por : 
+
+|    |        |       |  $x$ |      |
+|:--:|:------:|:-----:|:----:|:----:|
+|    |$f(x,y)$| 1     |  2   |  3   |
+|$y$ |  1     | 0.05  | 0.05 | 0.10 |
+|    |  2     | 0.05 | 0.10 | 0.35  |
+|    |  3     | 0     | 0.20 | 0.10 |
+ 
+</div>
+
+ <!-- ------------------------------------------------------- -->
+
+Para verificar que $f(xy)$ conforme una función de distribución de probabilidad conjunta verificamos que la suma de todas las probabilidades de 1
+
+```{r}
+fxy=matrix(c(0.05,0.05,0,0.05,0.10,0.20,0.10,0.35,0.10), ncol=3 )
+fxy
+sum(fxy)
+```
+
+El gráfico de la función de distribución conjunta se puede realizar de la siguiente forma:
+
+
+```{r, eval=FALSE}
+library(plot3D)
+x=c(0,0,0,1,1,1,2,2,2)
+y=c(0,1,2,0,1,2,0,1,2)
+fxy=c(0.05,0.05,0, 0.05,0.10,0.20, 0.10,0.35,0.10)
+
+plot3D::scatter3D(x, y, fxy,
+          colvar = NULL, 
+          col = c32,
+          pch = 19, cex = 1,
+          phi = 20, theta = 60,  
+          zlab="f(xy)", xlab="x", ylab="y",
+          bty = "b2",
+          col.panel ="steelblue",
+          col.grid = "darkblue",
+          add_lines=TRUE)
+
+
+```
+
+
+
+
+<br/><br/>
+
+### **Probabilidad marginales ** 
+
+A partir de la función de distribución conjunta se pueden obtener las distribuciones marginales correspondientes a las variables $X$ y $Y$, denotadas por $g(x)$ y $h(y)$ respectivamente.
+
+</br></br></br>
+
+ <!-- ------------------------------------------------------- -->
+<div class="box2 with-label">
+<div class="label">**Definición :  Probabilidad marginal**</div>
+
+Si $X$, $Y$ son dos variables aleatorias discretas, entonces se puede definir la función de probabilidad marginal de $X$ (función de probabilidad de $X$ al margen de $Y$) como
+
+$$g(x)=f_{_{X}}(x)=\sum_{y=y_{(1)}}^{y_{(n)}}f_{_{X,Y}}(x,y)$$
+
+La función de probabilidad marginal de $Y$ (función de probabilidad de $Y$ al margen de $X$) como
+$$h(y)=f_{_{Y}}(y)=\sum_{x=x_{(1)}}^{x_{(n)}}f_{_{X,Y}}(x,y)$$
+
+</div> 
+
+ <!-- ------------------------------------------------------- -->
+ 
+Para el ejemplo podemos establecer las funciones marginales para las variables $X$ y $Y$ sumando por columnas en el caso de $Y$ y por filas en el caso de la variable $X$
+ 
+```{r}
+fxy=matrix(c(0.05,0.05,0,0.05,0.10,0.20,0.10,0.35,0.10), ncol=3 )
+gx=addmargins(fxy,1)
+rownames(gx)=c("1","2","3","g(x)")
+gx
+```
+
+
+
+Ahora para el caso de $h(y)$
+
+```{r}
+fxy=matrix(c(0.05,0.05,0,0.05,0.10,0.20,0.10,0.35,0.10), ncol=3 )
+hy=addmargins(fxy,2)
+colnames(hy)=c("1","2","3","h(y)")
+hy
+```
+
+
+ 
+<br/><br/>
+
+
+### **Probabilidad acumulada**
+
+
+$$F_{_{X,Y}}(x,y)=\sum_{-\infty}^{x} \sum_{-\infty}^{y} f(x,y)$$
+
+Para el ejemplo se construye la función de distribución acumulada sumando tanto por columna com fila hasta la posición de los valores observados, por ejemplo .
+
+$$F(2,2)= F_{_{X,Y}}(x,y)=\sum_{x=1}^{2} \sum_{y=1}^{2} f(x,y)  = f(1,1) + f(1,2) + f(2,1) + f(2,2) = 0.05 + 0.05 + 0.05 + 0.10 = 0.25$$
+
+```{r}
+fxy=matrix(c(0.05,0.05,0,0.05,0.10,0.20,0.10,0.35,0.10), ncol=3)
+fxy=addmargins(fxy,c(1,2))
+colnames(fxy)=c("1","2","3","h(y)")
+rownames(fxy)=c("1","2","3","g(x)")
+fxy
+```
+
+
+
+```{r}
+Fxy=matrix(c(0.05,0.10,0.10,0.10,0.25,0.45,0.20,0.70,1.00), ncol=3)
+colnames(Fxy)=c("1","2","3")
+rownames(Fxy)=c("1","2","3")
+Fxy
+```
+
+
+<br/><br/><br/>
+
+### **Probabilidad condicional**
+
+En el caso de la probabilidad condicional se opera de la misma forma que se vió en el Módulo 2, en el cual se definió  como :
+
+$$P(B|A)=\dfrac{P(A \cap B)}{P(A)}$$
+
+Para el caso de las funciones de distribución de probabilida se opera de la misma manera :
+
+
+</br></br></br>
+
+ <!-- ------------------------------------------------------- --> 
+<div class="box2 with-label">
+<div class="label">**Definición :Función de densidad condicional**</div> 
+<br/><br/>
+
+La función de densidad condicional de $X$ dado que $Y=y_0$ está dada por:
+$$\begin{equation*}
+	f_{_{X|Y}}(x|y_{0})=\left\lbrace
+	\begin{array}{ccl}
+		\dfrac{f_{_{X,Y}}(x,y_0)}{h(y_0)}&;& h(y_0) > 0\\
+		&&\\
+		0 &;&\mbox{en otro caso}
+	\end{array}
+	\right.
+\end{equation*}$$
+<br/><br/>
+La función de densidad condicional de $Y$ dado que $X=x_0$ está dada por:
+$$\begin{equation*}
+	f_{Y|X}(y|x_{0})=\left\lbrace
+	\begin{array}{ccl}
+		\dfrac{f_{_{X,Y}}(x_0,y)}{g(x_0)}\:&;&\:g(x_0)>0\\
+		&&\\
+		0\:&;&\:\mbox{en otro caso}
+	\end{array}
+	\right.
+\end{equation*}$$
+
+</div> 
+
+
+Para ilustrarlo utilizamos la función del **Ejemplo 1** para la función condicional $f(x|y=2)$
+
+
+|    |        |       |  $x$ |      | $h(y)$ |
+|:---|:-------|:------|:-----|:-----|:-------|
+|    |$f(x,y)$| 1     |  2   |  3   |        |
+|$y$ |  2     | 0.050 | 0.10 | 0.35 |  0.50  |
+
+
+
+|        |          |                     |  $x$                |                     |
+|:------:|:---------|:--------------------|:--------------------|:--------------------|
+|        |$f(x|y=2)$| 1                   |                 2   |                 3   |
+|$x|y=2$ |          | $\dfrac{0.05}{0.50}=0.10$| $\dfrac{0.10}{0.50}=0.20$| $\dfrac{0.35}{0.50}=0.70$| 
+
+
+
+
+
+
+
+
+<br/><br/><br/>
+
+
+
+## **Caso Continuo-Continuo**
+
+
+En el caso de variables continuas se utilizan los mismo conceptos vistos en el caso discreto-discreto, haciendo el cambio de las sumatorias por integrales definidas. 
+
+### **Función de densidad conjunta**
+
+En particular para $f_{_{X,Y}}(x,y)$ definida en una región $R$, se cumple que la integral doble de $f_{_{X,Y}}(x,y)$ en la región $R$ proporciona la probabilidad de que las variables $X$ y $Y$ asuman los valores $(x,y)$ en la región $R$. Esta integral puede interpretarse como el volumen bajo la superficie $f_{_{X,Y}}(x,y)$ en la región $R$.
+
+
+
+</br></br></br>
+
+ <!-- ------------------------------------------------------- -->
+<div class="box2 with-label">
+<div class="label">**Definición : Función de densidad conjunta**</div>
+
+Lafunción de densidad conjunta para las variables $X$ y $Y$ $f(x,y)$ debe cumplir las siguientes condiciones.
+
+
+* $f(x,y) \geq 0$, para todo valor de $(x,y)$
+
+* $\int_{-\infty}^{\infty} \int_{-\infty}^{\infty} f(x,y) \:dx \:dy  = 1$
+
+</div> 
+ <!-- ------------------------------------------------------- -->
+</br></br></br>
+
+
+<div class="box1 with-label">
+<div class="label">Ejemplo 2</div>
+
+ Una empresa prestadora se servicios a domicilio tienen dos lineas telefónicas para que los clientes puedan realizar sus pedidos. Sea X y Y la proporción del tiempo en que las lineas se encuentran ocupadas. La función de densidad conjunta que modela $f(x,y)$ esta dada por: 
+
+$$f(x,y) = \left \{ \begin{matrix} \dfrac{3}{2}(x^{2}+y^{2}) & \mbox{ } 0 \leq x \leq 1\\ 
+                                     & \mbox{ } 0 \leq y \leq 1 \\
+                                     &\\
+                                   0 & \mbox{ en otro caso }\end{matrix}\right.  $$
+
+</div>
+ <!-- ------------------------------------------------------- -->
+
+<br/>
+
+
+Inicialmente debemos de verificar que se trata de una función de densidad 
+
+
+ $\displaystyle\int_{0}^{1} \displaystyle\int_{0}^{1} \dfrac{3}{2}(x^{2}+y^{2}) \:dx \:dy  = \displaystyle\int_{0}^{1}  \dfrac{3}{2}\Bigg( \dfrac{x^{3}}{3}+ y^{2}x \Bigg|_{0}^{1}  \Bigg) \:dy$
+ 
+ <br/>
+ 
+ $\displaystyle\int_{0}^{1}  \dfrac{3}{2}\Bigg( \dfrac{{1}}{3}+ y^{2} \Bigg) \:dy = \dfrac{3}{2} \Bigg(\dfrac{y}{3} + \dfrac{y^{3}}{3} \Bigg|_{0}^{1} \Bigg) = \dfrac{3}{2}\times  \dfrac{2}{3} = 1$
+
+
+<br/><br/>
+
+```{r}
+library(cubature)
+fxy<- function(x){3/2* (x[1]^2 + x[2]^2)}
+Ifxy=adaptIntegrate(fxy,lowerLimit=c(0,0),upperLimit=c(1,1))
+Ifxy$integral
+```
+
+<br/><br/>
+
+Su representación gráfica 
+
+<br/><br/>
+
+
+
+```{r, echo=FALSE, out.width="100%", fig.align = "center"}
+ knitr::include_graphics("img/figura317.png")
+```
+
+<br/><br/>
+
+### **Densidad marginales**
+
+En el caso continuo- continuo las distribuciones de densidad marginales se pueden encontrar a partir de la funcion de densidad conjunta 
+
+</br></br></br>
+
+ <!-- ------------------------------------------------------- -->
+<div class="box2 with-label">
+<div class="label">**Definición : Función de densidad marginal**</div> 
+
+Si $X$ y $Y$ son dos variables aleatorias continuas, entonces se define:\newline
+
+La función de densidad marginal de $X$ como:
+$$g(x)=f_{_{X}}(x)=\displaystyle\int_{-\infty}^{\infty}f_{_{X,Y}}(x,y)\:dy$$
+
+
+La función de densidad marginal de $Y$ como:
+
+$$h(y)=f_{_{Y}}(y)=\displaystyle\int_{-\infty}^{\infty}f_{_{X,Y}}(x,y)\:dx$$
+
+</div> 
+
+
+<br/><br/>
+
+Para el **Ejemplo 2** tenemos:
+
+
+$$g(x) = \displaystyle\int_{0}^{1} \dfrac{3}{2}(x^{2}+y^{2}) dy = \dfrac{3}{2} \Bigg( x^{2}y + \dfrac{y^{2}}{3} \Bigg) \Bigg|_{0}^{1} = \dfrac{3}{2} \Bigg(x^{2}+\dfrac{1}{3}\Bigg)$$
+
+<br/>
+
+$$g(x) = \left \{ \begin{matrix} \dfrac{3}{2}\Bigg(x^{2}+ \dfrac{1}{3}\Bigg) & \mbox{ } 0 \leq x \leq 1\\ 
+                                  &\\
+                                   0 & \mbox{ en otro caso }\end{matrix}\right.  $$
+
+
+<br/><br/>
+
+ $$h(y)=\displaystyle\int_{0}^{1} \dfrac{3}{2}(x^{2}+y^{2})\:dx =\dfrac{3}{2}\Bigg(\dfrac{x^{3}}{3}+y^{2} x \Bigg) \Bigg|_{0}^{1} = \dfrac{3}{2} \Bigg(\dfrac{1}{3}+y^{2}\Bigg)$$
+
+<br/><br/>
+
+$$h(y) = \left \{ \begin{matrix} \dfrac{3}{2}\Bigg(\dfrac{1}{3}+y^{2}\Bigg) & \mbox{ } 0 \leq x \leq 1\\ 
+                                  &\\
+                                   0 & \mbox{ en otro caso }\end{matrix}\right.  $$
+
+
+<br/><br/>
+
+### **Función de densidad de probabilidad conjunta acumulada**
+
+</br></br></br>
+
+ <!-- ------------------------------------------------------- -->
+<div class="box2 with-label">
+<div class="label">**Definición Función de densidad conjunta acumulada**</div>
+
+Para $F_{_{X,Y}}(x,y)=P(X\leq x, Y\leq y)$ se tiene en el caso de variables aleatorias continuas
+
+$$F_{_{X,Y}}(x,y)=\int_{-\infty}^{x} \int_{-\infty}^{y} f(s,t) \:ds \:dt$$
+
+
+Propiedades de la función de distribución conjunta
+
+* $F_{_{X,Y}}(x,y)$ es una función no decreciente.
+
+* $F_{_{X,Y}}(x,-\infty)=0$
+
+* $F_{_{X,Y}}(-\infty,y)=0$
+
+* $F_{_{X,Y}}(-\infty,x)=0$
+
+* $F_{_{X,Y}}(\infty,\infty)=1$
+
+* $F_{_{X,Y}}(\infty,y)=F_{Y}(y)F_{_{X,Y}}(x,\infty)=F_{X}(x)$
+	
+$P(x_1<X\leq x_2, y_1<Y\leq y_2)=F_{_{X,Y}}(x_2,y_2)-F_{_{X,Y}}(x_1,y_2)-F_{_{X,Y}}(x_2,y_1)+F_{_{X,Y}}(x_1,y_1)$	
+
+Para todo par de variables aleatorias continuas, si $F_{_{XY}}$ tiene derivadas parciales de orden superior a dos, se cumple que:
+
+$f_{_{X,Y}}(x,y)=\frac{\partial^{2} F_{_{X,Y}}(x,y)}{\partial x \hspace{.2cm}\partial y}$
+
+</div> 
+
+ <!-- ------------------------------------------------------- -->
+<br/><br/>
+
+
+
+### **Función de densidad condicionales  **
+
+
+<br/><br/><br/>
+
+ <!-- ------------------------------------------------------- -->
+<div class="box1 with-label">
+<div class="label">**Definición : Función de densidad condicional**</div>
+
+La función de densidad condicional de $X$ dado que $Y=y_0$ está dada por:
+
+\begin{equation*}
+	f_{_{X|Y}}(x|y_{0})=\left\lbrace
+	\begin{array}{ccl}
+		\dfrac{f_{_{X,Y}}(x,y_0)}{h(y_0)}&;& h(y_0) > 0\\
+		&&\\
+		0 &;&\mbox{en otro caso}
+	\end{array}
+	\right.
+\end{equation*}
+
+La función de densidad condicional de $Y$ dado que $X=x_0$ está dada por:
+
+\begin{equation*}
+	f_{Y|X}(y|x_{0})=\left\lbrace
+	\begin{array}{ccl}
+		\dfrac{f_{_{X,Y}}(x_0,y)}{g(x_0)}\:&;&\:g(x_0)>0\\
+		&&\\
+		0\:&;&\:\mbox{en otro caso}
+	\end{array}
+	\right.
+\end{equation*}
+
+</div> 
+ <!-- ------------------------------------------------------- -->
+ 
+<br/><br/><br/>
+
+## **Covarianza y correlación**
+
+Para definir el concepto de covarianza se requiere el concepto de valor esperado conjunto:
+
+</br></br></br>
+
+
+<div class="box2 with-label">
+<div class="label">**Definición : Valor esperado conjunta -Caso Discreta-Discreta**</div>
+
+$$E[X,Y]=\displaystyle\sum_{R_{X}}\displaystyle\sum_{R_{Y}} xy f(x,y)$$
+</div>
+
+</br></br>
+
+<div class="box2 with-label">
+<div class="label">**Definición : Valor esperado conjunta -Caso Continua-Continua**</div>
+
+****
+
+$$E[XY]= \displaystyle\int_{-\infty}^{\infty} \displaystyle\int_{-\infty}^{\infty} x.y.f(x,y) \,dx \,dy$$
+
+</div>
+
+ <!-- ------------------------------------------------------- -->
+
+</br></br></br>
+
+
+<div class="box2 with-label">
+<div class="label">**Definición : Covarianza**  </div>
+
+Covarianza entre las variables $X$,$Y$
+
+$$COV[X,Y]=E[XY]-E[X]E[Y]$$
+
+</div>
+ <!-- ------------------------------------------------------- -->
+</br></br></br>
+
+
+<div class="box2 with-label">
+<div class="label">**Definición : Correlación **</div>
+
+ Correlación entre las variables $X$,$Y$
+	$$\rho=\displaystyle\frac{COV[XY]}{\displaystyle\sqrt{V[X].V[Y]}} $$
+	La correlación es una medida que mide el grado de asociación lineal entre dos variables. $-1 \leq \rho \leq 1$
+</div>
+ <!-- ------------------------------------------------------- -->
+
+<br/><br/>
+
+**Escala para interpretación** : $\rho$ <br/>
+
+ 
+|-1        | -0.90    | -0.75      | -0.50    | -0.25     | -0.10    | 0         | 0.10     | 0.25     | 0.50     | 0.75       | 0.90      | 1.0      |
+|:--------:|:--------:|:--------:|:--------:|:---------:|:--------:|:---------:|:--------:|:--------:|:--------:|:----------:|:---------:|:--------:|
+|	Negativa perfecta| Negativa muy fuerte | Negativa considerable| Negativa  media|  Negativa debil| Negativa muy debil | No existe correlación| Positiva muy debil| Positiva debil| Positiva media |  Positiva considerable |  Positiva muy fuerte | Positiva perfecta| 
+|	 | | | 	|    | |   |  |     |   |  |  | | 
+
+
+<br/><br/>
+
+```{r, echo=FALSE, fig.align='center', fig.width=10}
+gen.corr.data<- function(rho,n){
+  x <- rnorm(n)
+  z <- rnorm(n)
+  y<- rho*x + sqrt(1-rho^2)*z
+    result <-cbind(y,x)
+  return(result)
+}
+par(mfrow = c(1, 2),
+    mar = c(5, 4, 4, 2) + 0.1,
+                cex.lab=.5,  # tamaño de etiqueta ejes
+                cex.axis=.5, # tamaño escalas de los ejes 
+                cex.main=.5, # tamaño del titulo
+                cex.sub=.5)
+
+muestra<-gen.corr.data(-1,200)
+x=muestra[,2]+100
+y=muestra[,1]+100
+plot(x,y, pch=19,main="Correlación Rho=-1.0")
+grid()
+
+muestra<-gen.corr.data(-0.90,200)
+x=muestra[,2]+100
+y=muestra[,1]+100
+plot(x,y, pch=19,main="Correlación Rho=-0.9")
+grid()
+
+muestra<-gen.corr.data(-0.7,200)
+x=muestra[,2]+100
+y=muestra[,1]+100
+plot(x,y, pch=19,main="Correlación Rho=-0.70")
+grid()
+
+muestra<-gen.corr.data(-0.50,200)
+x=muestra[,2]+100
+y=muestra[,1]+100
+plot(x,y, pch=19,main="Correlación Rho=-0.50")
+grid()
+
+muestra<-gen.corr.data(-0.25,200)
+x=muestra[,2]+100
+y=muestra[,1]+100
+plot(x,y, pch=19,main="Correlación Rho=-0.25")
+grid()
+
+muestra<-gen.corr.data(0,200)
+x=muestra[,2]+100
+y=muestra[,1]+100
+plot(x,y, pch=19,main="Correlación Rho=0")
+grid()
+
+
+muestra<-gen.corr.data(0.3,200)
+x=muestra[,2]+100
+y=muestra[,1]+100
+plot(x,y, pch=19,main="Correlación Rho=0.30")
+grid()
+
+
+muestra<-gen.corr.data(0.60,200)
+x=muestra[,2]+100
+y=muestra[,1]+100
+plot(x,y, pch=19,main="Correlación Rho=0.60")
+grid()
+
+
+muestra<-gen.corr.data(0.8,200)
+x=muestra[,2]+100
+y=muestra[,1]+100
+plot(x,y, pch=19,main="Correlación Rho=0.80")
+grid()
+
+muestra<-gen.corr.data(1,200)
+x=muestra[,2]+100
+y=muestra[,1]+100
+plot(x,y, pch=19,main="Correlación Rho=1.0")
+grid()
+
+```
+
+
+<br/><br/><br/>
+
+## **Independencia**
+
+</br></br></br>
+
+ <!-- ------------------------------------------------------- -->
+<div class="box2 with-label">
+<div class="label">**Definición : Independencia de variables**</div>
+	
+Sean $X$ y $Y$ dos variables aleatorias discretas o continuas con función de probabilidad conjunta $f(x,y)$ y funciones de probabilidad marginales $g(x)$ y $h(y)$, respectivas, entonces se dice que las variables X y Y son estadísticamente independientes si:
+
+$$f(x,y)= g(x) h(y) $$
+</div> 
+ <!-- ------------------------------------------------------- -->
+<br/><br/><br/>
+
+## **Problemas sugeridos**
+
+<div class="box1 with-label">
+<div class="label">Problema 1</div>
+
+Considere como \( X \) el número que falla una máquina de control numérico (\( R_X = \{0, 1, 2\} \)) al día y \( Y \) el número de veces en que se llama a un ingeniero para restaurar el proceso (\( R_Y = \{0, 1, 2\} \)). Su función de distribución conjunta está dada por:
+
+\[
+\begin{array}{|c|c|c|c|}
+\hline
+f(x, y) & y = 0 & y = 1 & y = 2 \\
+\hline
+x = 0   & 0.15  & 0.05  & 0 \\
+x = 1   & 0     & 0.20  & 0.35 \\
+x = 2   & 0     & 0.10  & 0.15 \\
+\hline
+\end{array}
+\]
+
+* a. Determine:
+
+- \( P(X \geq 1; Y \geq 1) \)
+- \( P(X = 1) \)
+- \( P(Y \leq 1) \)
+
+* b. Encuentre \( P(Y = 1 | X = 2) \), exprese en palabras el resultado obtenido.
+
+* c. Determine si existe dependencia entre estas dos variables (calcule el valor de \( \rho_{XY} \)), analice el resultado obtenido.
+
+</div>
+
+
+<div class="box1 with-label">
+<div class="label">Problema 2</div>
+
+
+Un restaurante de comidas rápidas opera tanto en un local que da servicio en automovil (autoservicio) como en un segundo local que atiende a clientes que llegan caminando. En un día cualquiera, la proporción del tiempo en servicio del autoservicio se representa por \( X \), mientras que \( Y \) representa la proporción del tiempo en que el segundo local está en servicios. La función de densidad conjunta que representa el comportamiento de estas dos variables está dado por:
+
+\[
+f(x, y) =
+\begin{cases} 
+\frac{2}{3} (x + 2y) & \text{si} \ 0 \leq x \leq 1, 0 \leq y \leq 1 \\ 
+0 & \text{en cualquier otro caso} 
+\end{cases}
+\]
+
+a. Determine si \( f_{XY}(x, y) \) es una función de densidad de probabilidad conjunta.
+
+b. Determine:
+
+* \( P(X \leq 0.5; Y \leq 0.3) \)
+* \( P(X \leq 0.80) \)
+* \( P(Y \geq 0.60) \)
+
+c. Determine \( \rho_{XY} \), interprete su resultado.
+
+</div>
+
+[**Solución 1, 2**](https://github.com/dgonzalez80/pye2021.io/blob/main/talleres/Taller301.pdf)
+
+<br/><br/><br/>
+
+
+
+<div class="box1 with-label">
+<div class="label">Problema 3</div>
+
+
+Sea $X$ la proporción de agua (sustancia 1) y $Y$ la proporción de alcohol (sustancia 2) que se encuentran en una muestra de una mezcla usada en la industria. La cantidad de ambas sustancias en la muestra se modela con la función $f_{_{XY}}$ dada como:
+				
+$$\begin{equation*}
+f_{_{X,Y}}(x,y)=\left\lbrace
+\begin{array}{ccl}
+2&;&  0 \leq x \leq 1;  0\leq y \leq 1 ; x + y \leq 1\\
+0&;& \text{en otro caso.}
+\end{array}
+\right.
+\end{equation*}$$
+
+
+
+
+a. ¿Qué porcentaje de las muestras seleccionadas aleatoriamente tienen menos del setenta y cinco por ciento de ambas sustancias?
+	
+b. Se han seleccionado cien preparaciones de la mezcla aleatoriamente. ¿Cuántas de estas tienen menos del cincuenta por ciento de cada sustancia?
+					
+c. Cien muestras contienen menos del cincuenta por ciento de la sustancia 2, ¿cuántas muestras de estas contienen menos del cuarenta por ciento de la sustancia 1? 
+				
+d. Una mezcla seleccionada aleatoriamente contiene el cincuenta por ciento de la sustancia 2, ¿cuál es la probabilidad que contenga menos del cuarenta por ciento de la sustancia 1? 
+
+
+</div>
+
+<br/><br/>
+
+<div class="box1 with-label">
+<div class="label">Problema 4</div>
+
+2. Una empresa arma paquetes de maní y chocolate. Cada paquete contiene pesos diferentes de maní y chocolate. Para un paquete seleccionado al azar, sea $X$ la cantidad de maní y $Y$ la cantidad de chocolate. Los pesos están dados en kilogramos. La función de densidad conjunta de $X$ y $Y$ esta dada por:
+
+$$
+f_{_{X,Y}}(x,y) = \left \{ 
+\begin{matrix} 
+k & \hspace{.3cm}	5 \leq x \leq 9 , \hspace{.3cm} 4 \leq y \leq 9 \\ 
+&\\
+0  & \mbox{en otro caso }
+\end{matrix}\right.  
+$$
+
+
+
+
+a. Determinar la función de densidad conjunta que modela la cantidad de maní y chocolate que contiene un paquete.
+
+b. ¿Qué porcentaje de las veces que se seleccionan paquetes al azar, contienen menos cantidad de maní que de chocolate?
+
+c. Cien paquetes contienen menos de seis kilogramos de maní, ¿cuántos de ellos contienen menos de cinco kilogramos de chocolate?
+
+d. Doscientos paquetes seleccionados aleatoriamente contienen cinco kilogramos de chocolate, ¿cuántos de ellos contienen más de ocho kilogramos de maní?
+
+</div>
+
+<br/><br/>	
+<a href="pdf/talleres/Solucion_Taller322.pdf" download>
+  <button>Descargar solución PDF</button>
+</a>
+
+
+<br/><br/><br/>
+
+## **Videos** 
+
+<br/><br/>
+
+
+<div class="box1 with-label">
+<div class="label">Caso Discreto-Discreto</div>
+
+
+<br/>
+
+<center>
+<iframe width="100%" height="600" src="https://www.youtube.com/embed/gvzybhu8GZ0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</center>
+
+</div>
+
+<br/><br/>
+
+<div class="box1 with-label">
+<div class="label">Caso Continuo - Continuo</div>
+
+<br/>
+
+<center>
+<iframe width="100%" height="600" src="https://www.youtube.com/embed/YYgn3BBqfuA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</center>
+</div>
+
+<br/><br/>
+
+
+

@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="dgonzalez " />
+
+
+<title>Teoría de probabilidades</title>
+
+<script src="site_libs/header-attrs/header-attrs.js"></script>
+<script src="site_libs/jquery/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation/tabsets.js"></script>
+<script src="site_libs/navigation/codefolding.js"></script>
+<link href="site_libs/highlightjs/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs/highlight.js"></script>
+<link href="site_libs/font-awesome/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome/css/v4-shims.min.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+<link rel="stylesheet" href="cajas.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html"> </a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">
+    <span class="fa fa-home"></span>
+     
+    Estadística
+  </a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 0
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo0.html">Módulo 0</a>
+    </li>
+    <li>
+      <a href="sumatoria.html">Sumatoria</a>
+    </li>
+    <li>
+      <a href="productoria.html">Productoria</a>
+    </li>
+    <li>
+      <a href="conjuntos.html">Conjuntos</a>
+    </li>
+    <li>
+      <a href="conteo.html">Conteo</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 1
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo1.html">Módulo 1</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="guia11.html">Guía 1.1</a>
+    </li>
+    <li>
+      <a href="recurso11.html">Recursos 1.1</a>
+    </li>
+    <li>
+      <a href="basesdatos.html">Bases de datos</a>
+    </li>
+    <li>
+      <a href="introduccionR.html">Introducción a R</a>
+    </li>
+    <li>
+      <a href="codigo11.html">Código 1.1</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="guia12.html">Guía 1.2</a>
+    </li>
+    <li>
+      <a href="recurso12.html">Recursos 1.2</a>
+    </li>
+    <li>
+      <a href="codigo12.html">Código 1.2</a>
+    </li>
+    <li>
+      <a href="caso1A.html">Caso 1</a>
+    </li>
+    <li>
+      <a href="caso1B.html">Caso 2</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="guia13.html">Guía 1.3</a>
+    </li>
+    <li>
+      <a href="recurso13.html">Recursos 1.3</a>
+    </li>
+    <li>
+      <a href="codigo13.html">Código 1.3</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="monitoria1.html">Monitoria 1</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 2
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo2.html">Módulo 2</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="guia21.html">Guía 2.1</a>
+    </li>
+    <li>
+      <a href="recurso21.html">Recursos 2.1</a>
+    </li>
+    <li>
+      <a href="codigo21.html">Código 2.1</a>
+    </li>
+    <li>
+      <a href="taller211.html">Taller 211</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="guia22.html">Guía 2.2</a>
+    </li>
+    <li>
+      <a href="recurso22.html">Recursos 2.2</a>
+    </li>
+    <li>
+      <a href="taller221.html">Taller 221</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="monitoria2.html">Moitoría 2</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 3
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo3.html">Módulo 3</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="guia31.html">Guía 3.1</a>
+    </li>
+    <li>
+      <a href="recurso31.html">Recursos 3.1</a>
+    </li>
+    <li>
+      <a href="codigo31.html">Código 3.1</a>
+    </li>
+    <li>
+      <a href="taller311.html">Taller 311</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="monitoria3.html">Moitoría 3</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 4
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo4.html">Módulo 4</a>
+    </li>
+    <li class="divider"></li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Proyecto
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="guia_proyecto1.html">Guía proyecto</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore"><span
+style="color:#476885 !important;">Teoría de probabilidades</span></h1>
+<h3 class="subtitle"><span style="color:#476885"> </span></h3>
+<h4 class="author"><span style="color:#476885">dgonzalez </span></h4>
+
+</div>
+
+
+<p></br></br></br></p>
+<p><img src="img/taller3.png" alt="" width="100%" style="display: block; margin: auto auto auto 0;" />
+</br></br></br></p>
+<div id="problema-1" class="section level3 box4 with-label">
+<h3>Problema 1</h3>
+<p>Clasifique las siguientes variables como discretas o continuas:</p>
+<table>
+<colgroup>
+<col width="6%" />
+<col width="93%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td align="right">X :</td>
+<td align="left">el número de accidentes automovilísticos que ocurren
+durante un dia en Cali</td>
+</tr>
+<tr class="even">
+<td align="right">Y :</td>
+<td align="left">tiempo que se tarda una persona en recorrer 100 metros
+en segundos</td>
+</tr>
+<tr class="odd">
+<td align="right">M :</td>
+<td align="left">cantidad de leche que una vaca produce semanalmente en
+litros</td>
+</tr>
+<tr class="even">
+<td align="right">Z :</td>
+<td align="left">el número de huevos que una gallina produce
+semanalmente</td>
+</tr>
+<tr class="odd">
+<td align="right">G :</td>
+<td align="left">número de permisos para la construcción que son
+aprobados mensualmente en Cali</td>
+</tr>
+<tr class="even">
+<td align="right">Q :</td>
+<td align="left">peso en kilogramos de automóvil</td>
+</tr>
+<tr class="odd">
+<td align="right">R :</td>
+<td align="left">embergadura de las alas de un condor en edad adulta en
+metros</td>
+</tr>
+<tr class="even">
+<td align="right">S :</td>
+<td align="left">tiempo que dedica una persona al ocio - tiempo no
+productivo en horas</td>
+</tr>
+<tr class="odd">
+<td align="right">T :</td>
+<td align="left">ingresos de una familia en pesos por mes</td>
+</tr>
+<tr class="even">
+<td align="right">V :</td>
+<td align="left">cantidad de calorias que contiene una bebida
+gaseosa</td>
+</tr>
+<tr class="odd">
+<td align="right">W :</td>
+<td align="left">largo del femur de un adulto humano en centimetros</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><br/><br/><br/></p>
+<div id="problema-2" class="section level3 box4 with-label">
+<h3>Problema 2</h3>
+<p>Determine el valor de <span class="math inline">\(C\)</span> de modo
+que cada una de las siguientes funciones sirva como una función de
+probabilidad de una variable aleatoria discreta</p>
+<p><span class="math display">\[f(x) = C \binom{2}{x} \binom{3}{3-x},
+\text{ para } x=0,1,2\]</span></p>
+</div>
+<p><br/><br/><br/></p>
+<div id="problema-3" class="section level3 box4 with-label">
+<h3>Problema 3</h3>
+<p>Un embarque de 7 televisores contiene 2 unidades defectuosas. Un
+hotel compra al azar 3 de los televisores. Si <span
+class="math inline">\(X\)</span> es el número de unidades defectuosas en
+un grupo de tres televisores comprados por el hotel al azar, encuentra
+la función de probabilidad de <span class="math inline">\(X\)</span>.
+Expresa los resultados de forma gráfica. Construye la función de
+distribución acumulada de <span class="math inline">\(X\)</span>. Usar
+<span class="math inline">\(F(X)\)</span> para responder, ¿cuál es la
+probabilidad que hayan cero televisores defectuosos en el grupo de tres
+televisores?, ¿cuál es la probabilidad que haya más de 1 televisor
+defectuoso en la selección de tres televisores?.</p>
+</div>
+<p><br/><br/><br/></p>
+<div id="problema-4" class="section level3 box4 with-label">
+<h3>Problema 4</h3>
+<p>La distribución de probabilidad de <span
+class="math inline">\(X\)</span>, el número de imperfecciones por 10
+metros de una tela sintética en rollos continuos de ancho uniforme, está
+dada por</p>
+<table>
+<thead>
+<tr class="header">
+<th align="right"><span class="math inline">\(x\)</span></th>
+<th align="right">0</th>
+<th align="right">1</th>
+<th align="right">2</th>
+<th align="right">3</th>
+<th align="right">4</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right"><span class="math inline">\(f(x)\)</span></td>
+<td align="right">0.41</td>
+<td align="right">0.37</td>
+<td align="right">0.16</td>
+<td align="right">0.05</td>
+<td align="right">0.01</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Construya la función de distribución acumulada de <span
+class="math inline">\(X\)</span>.</li>
+<li>Gratifica la función de probabilidad y la distribución de
+probabilidad de <span class="math inline">\(X\)</span>.</li>
+<li>¿Cuál es la probabilidad de encontrar menos de <span
+class="math inline">\(3\)</span> imperfecciones en <span
+class="math inline">\(10\)</span> metros de una tela seleccionada al
+azar?.</li>
+<li>Calcule el valor esperado del número de imperfecciones obtenidas por
+10 metros de tela. Interpretes su resultado.</li>
+<li>Calcule la variaranza del número de imperfecciones obtenidas por 10
+metros de tela.</li>
+</ul>
+</div>
+<p><br/><br/><br/></p>
+<div id="problema-5" class="section level3 box4 with-label">
+<h3>Problema 5</h3>
+<p>Sea <span class="math inline">\(W\)</span> el número de sellos en
+tres lanzamientos de una moneda. Liste los elementos del espacio
+muestral <span class="math inline">\(S\)</span> para los tres
+lanzamientos de la moneda y asigne un valor <span
+class="math inline">\(w\)</span> de <span
+class="math inline">\(W\)</span> a cada punto muestral.</p>
+</div>
+<p><br/><br/><br/></p>
+<div id="problema-6" class="section level3 box4 with-label">
+<h3>Problema 6</h3>
+<p>Encuentre la distribución de probabilidad de la variable aleatoria W
+del ejercicio anterior; suponga que la cara está cargada de manera que
+una cara tenga doble de probabilidad de ocurrir que un sello.</p>
+</div>
+<p><br/><br/><br/></p>
+<div id="problema-7" class="section level3 box4 with-label">
+<h3>Problema 7</h3>
+<p>La vida útil en días, para frascos de cierta medicina de prescripción
+es una variable aleatoria que tiene función de densidad,</p>
+<p><span class="math display">\[f_{_{X}}(x) = \left \{
+                \begin{matrix}
+                \dfrac{20000}{(x+100)^{3}}, &amp; \mbox{  } x \geq 0\\
+                &amp; \\
+                0 , &amp; \mbox{en cualquier otro caso }
+                \end{matrix}\right.  
+                \]</span></p>
+<p>Encuentre la probabilidad de que un frasco de esta medicina tenga una
+vida útil de :</p>
+<ul>
+<li>Al menos 22 días.</li>
+<li>Cualquier lapso entre 80 a 120 días.</li>
+<li>Si se requiere encontrar el valor promedio de vida del medicamento,
+como lo encontrariamos?. Cuál seria su valor?</li>
+</ul>
+</div>
+<p><br/><br/><br/></p>
+<div id="problema-8" class="section level3 box4 with-label">
+<h3>Problema 8</h3>
+<p>El número total de horas, medidas en unidades de 100 horas, que una
+familia utiliza una lavadora en un periodo de un año es una variable
+aleatoria continua <span class="math inline">\(X\)</span> que tiene la
+función de densidad,</p>
+<p><span class="math display">\[f_{_{X}}(x) = \left \{
+                \begin{matrix}
+                x  ,&amp; \mbox{ }  0 \leq x &lt; 1\\
+                   &amp; \\
+                2-x ,&amp;  \mbox{ }    1 \leq x \leq 2\\
+                   &amp;\\
+                0  ,&amp; \mbox{en cualquier otro caso }
+                \end{matrix}\right.  
+                \]</span></p>
+<p>Encontrar la probabilidad de :</p>
+<ul>
+<li>menos de 120 horas.</li>
+<li>entre 50 y 100 horas.</li>
+</ul>
+</div>
+<p><br/><br/><br/></p>
+<div id="problema-9" class="section level3 box4 with-label">
+<h3>Problema 9</h3>
+<p>Una variable aleatoria continua <span
+class="math inline">\(X\)</span> que puede tomar valores entre <span
+class="math inline">\(x = 1\)</span> y <span class="math inline">\(x =
+3\)</span> tiene una función de densidad dada por: <span
+class="math display">\[f (x) =            \dfrac{1}{2}\]</span>.</p>
+<ul>
+<li><p>Muestre que el área bajo la curva es igual a <span
+class="math inline">\(1\)</span>.</p></li>
+<li><p>Encuentre :</p></li>
+<li><p><span class="math inline">\(P(2 &lt; X &lt; 2.5)\)</span><br />
+</p></li>
+<li><p><span class="math inline">\(P(X = 2.5)\)</span></p></li>
+<li><p><span class="math inline">\(P(2 \leq X &lt;
+2.5)\)</span></p></li>
+<li><p><span class="math inline">\(P(X &gt; 2.5)\)</span></p></li>
+<li><p><span class="math inline">\(P(X \geq 2.5)\)</span>.</p></li>
+</ul>
+<p>Para la función de densidad del ejercicio anterior encuentre <span
+class="math inline">\(F(x)\)</span>. Utilíce la función obtenida para
+encontrar:</p>
+<ul>
+<li><span class="math inline">\(P(2 &lt; X &lt; 2.5)\)</span></li>
+<li><span class="math inline">\(P(X = 2.5)\)</span></li>
+<li><span class="math inline">\(P(2 \leq X &lt; 2.5)\)</span><br />
+</li>
+<li><span class="math inline">\(P(X &gt;2.5)\)</span></li>
+<li><span class="math inline">\(P(X \geq 2.5)\)</span></li>
+</ul>
+</div>
+<p><br/><br/><br/></p>
+<div id="problema-10" class="section level3 box4 with-label">
+<h3>Problema 10</h3>
+<p>En una tarea de laboratorio, cuando el equipo está operando la
+función de densidad del resultado, <span
+class="math inline">\(X\)</span>, es el tiempo,</p>
+<p><span class="math display">\[f_{_{X}}(x) = \left \{
+                \begin{matrix}
+                2(1-x),  &amp; \mbox{   }   0 \leq x \leq 1\\
+                &amp; \\
+                0 , &amp; \mbox{en cualquier otro caso }
+                \end{matrix}\right.  
+\]</span></p>
+<ul>
+<li>Calcule <span class="math inline">\(P(X \leq 1/3)\)</span></li>
+<li>¿Cuál es la probabilidad que <span class="math inline">\(X\)</span>
+excederá a <span class="math inline">\(0.5\)</span>?</li>
+<li>Dado que <span class="math inline">\(X \geq 0.5\)</span>, ¿cuál es
+la probabilidad de que <span class="math inline">\(X\)</span> será menor
+que <span class="math inline">\(0.75\)</span>?</li>
+<li>Determine su valor espeado y su varianza</li>
+</ul>
+</div>
+<p><br/><br/><br/></p>
+<div id="problema-11" class="section level3 box4 with-label">
+<h3>Problema 11</h3>
+<p>La probabilidad de tener una unidad defectuosa en una línea de
+ensamblaje es de <span class="math inline">\(p = 0.05\)</span>. Si el
+conjunto de unidades terminadas constituye un conjunto de ensayos
+independientes, la función de probabilidad de número de unidades
+defectuosas está dada por,</p>
+<p><span class="math display">\[f(x) = \binom{10}{x} p^{x} (1 −
+p)^{10−x}  \text{,  } x = 0, 1, . . . , 10\]</span></p>
+<ul>
+<li>¿cuál es la probabilidad de que en diez unidades dos se encuentren
+defectuosas?</li>
+<li>¿cuál es la probabilidad de encontrar por lo menos dos
+defectuosas?</li>
+<li>¿cuál es la probabilidad de que por lo menos una se encuentre
+defectuosa?</li>
+</ul>
+</div>
+<p><br/><br/><br/></p>
+<div id="problema-12" class="section level3 box4 with-label">
+<h3>Problema 12</h3>
+<p>El gerente de un restaurante que sólo da servicio mediante reservas
+sabe, por experiencia, que el <span class="math inline">\(20\)</span>%
+de las personas que reservan una mesa no asistirán. Si el restaurante
+acepta <span class="math inline">\(25\)</span> reservas pero sólo
+dispone de <span class="math inline">\(20\)</span> mesas, ¿cuál es la
+probabilidad de que a todas las personas que asistan al restaurante se
+les asigne una mesa?.</p>
+<p><br/></p>
+<p>La función de probabilidad del número de personas que llegan al
+restaurante es,</p>
+<p><span class="math display">\[f(x) = \binom{25}{x} (0.80)^{x}
+(0.20)^{25−x}  \text{,  } x = 0, 1, . . . , 25\]</span></p>
+</div>
+<p><br/><br/><br/></p>
+<div id="nota" class="section level3 box2 with-label">
+<h3>Nota</h3>
+<p><strong>En todos los casos</strong> represente gráficamente la
+función de probabilidad correspondiente y en ella resalte las
+probabilidades solicitadas.</p>
+</div>
+<ul>
+<li>Problemas seleccionados de Walpole(2012).</li>
+</ul>
+<p><br/><br/><br/></p>
+<div id="ayudas" class="section level3 box6 with-label">
+<h3>Ayudas</h3>
+<p><span class="math display">\[\sum_{x=0}^{2} \binom{2}{x}
+\binom{3}{3-x} \]</span></p>
+<pre>
+x=0:2
+sum(choose(2,x)*choose(3,3-x))
+</pre>
+<pre class="r"><code>x=0:2
+sum(choose(2,x)*choose(3,3-x))</code></pre>
+<p><br/><br/><br/></p>
+<p><span class="math display">\[\int_{0}^{\infty}
+\dfrac{20000}{(x+100)^{3}} \,dx\]</span></p>
+<pre>
+# Definir la función 
+fx7 <- function(x) {
+  20000 / (x + 100)^3
+}
+# Calcular la integral definida desde 0 hasta infinito
+result <- integrate(fx7, lower = 0, upper = Inf)
+
+# Imprimir el resultado
+result
+
+
+
+Show in New Window
+1 with absolute error < 4.7e-07
+</pre>
+<pre class="r"><code># Definir la función 
+fx7 &lt;- function(x) {
+  20000 / (x + 100)^3
+}
+# Calcular la integral definida desde 0 hasta infinito
+result &lt;- integrate(fx7, lower = 0, upper = Inf)
+
+# Imprimir el resultado
+result</code></pre>
+<pre><code>## 1 with absolute error &lt; 4.7e-07</code></pre>
+<pre class="r"><code>library(ggplot2)
+
+# Definir la función de densidad
+f_x &lt;- function(x) {
+  ifelse(x &gt;= 0, 20000 / (x + 100)^3, 0)
+}
+
+# Crear una secuencia de valores de x
+x_vals &lt;- seq(0, 300, length.out = 1000)
+
+# Evaluar la función en los valores de x
+y_vals &lt;- sapply(x_vals, f_x)
+
+# Crear un data frame para graficar
+df &lt;- data.frame(x = x_vals, y = y_vals)
+
+# Graficar la función de densidad
+ggplot(df, aes(x, y)) +
+  geom_line(color = c31, size = 0.5) +
+  labs(title = &quot;Función de Densidad de Probabilidad&quot;,
+       x = &quot;x (vida útil en días)&quot;,
+       y = &quot;f(x)&quot;) +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(size = 8),  # tamaño del título
+    axis.title = element_text(size = 6),  # títulos de los ejes
+    axis.text  = element_text(size = 6)    # números en los ejes
+  )</code></pre>
+<p><img src="taller311_files/figure-html/unnamed-chunk-4-1.png" alt="" width="100%" style="display: block; margin: auto;" /></p>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("hide" === "show");
+});
+</script>
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

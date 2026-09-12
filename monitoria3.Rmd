@@ -1,0 +1,732 @@
+---
+title: "<span style='color:#476885 !important;'>Teoría de probabilidades</span>"
+author: <span style="color:#476885">dgonzalez </span> 
+subtitle: <span style="color:#476885"> </span> 
+output:
+  html_document:
+    toc: no
+    toc_depth: 2
+    toc_float: yes
+    code_folding: hide
+    theme: flatly
+    css:
+      - style.css
+      - cajas.css
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE, comment = NA)
+library(psych)
+library(summarytools)
+
+# install.packages("devtools")
+#devtools::install_github("dgonxalex80/paquete018")
+#library(paquete018)
+
+
+# colores
+source("R/init.R")
+
+```
+
+
+
+```{r, echo=FALSE, out.width="100%", fig.align = "center"}
+knitr::include_graphics("img/monitoria3.png")
+```
+
+
+<br/><br/>
+
+# Unidad 3.1
+
+<br/>
+
+<br/><br/>
+
+<div class="box4 with-label">
+### Problema 1.1 
+
+Clasifique las siguientes variables aleatorias como discretas o continuas:
+
+* $X$ : el número de accidentes automovilísticos que ocurren al año en una ciudad determinada
+* $Y$ : el tiempo que dura un partido de futbol - tiempo real de juego en minutos-
+* $M$ : la cantidad de leche que una vaca determinada produce anualmente
+* $N$ : el número de huevos que una gallina pone mensualmente
+* $P$ : el número de permisos para construcción que los funcionarios de una  ciudad emiten cada mes
+* $Q$ : el peso del grano maiz producido por hectarea
+* $R$ : la edad de un estudiante que ingresa a la universidad
+* $S$ : el número de zapatos que tiene un adolescente 
+* $T$ : el número de crias que tiene una tortuga
+* $U$ : el consumo mensual de energía de un hogar en Cali
+* $V$ : el número de hijos por hagar en Colombia
+* $W$ : el número de pasajeros de un bus de servicio publico MIO
+* $X$ : el gasto diario de un estudiante universitario de la Javeriana Cali
+* $Y$ : la cantidad de calorías que un adulto  con actividad moderada gasta diariamente
+* $Z$ : la utilidad mensual de una microempresa
+</div>
+
+<br/><br/>
+
+<div class="box4 with-label">
+### Problema 1.2 
+
+El tiempo que pasa, en horas, para que un radar detecte entre conductores sucesivos a los que exceden los límites de velocidad es una variable aleatoria continua con una  función de distribución acumulada:
+
+$$F_{_{X}}(x) = \left \{ 
+				\begin{matrix} 
+				 0  & \mbox{ , }	x \leq 0\\ 
+				 1-exp\{-8x \}  & x \geq 0 
+				\end{matrix}\right.  
+				$$
+				
+Calcule la probabilidad de que el tiempo que  pase para que el radar detecte entre conductores sucesivos a  los que exceden los límites de velocidad sea menor a 12 minutos
+
+* usando la función de distribución de probabilidad acumulada de $X$
+* utilizando la función de densidad de probabilidad de $X$
+* Represente las función $f(x)$ gráficamente
+
+</div>
+
+```{r, eval=FALSE, fig.align='center'}
+# Cargar ggplot2
+library(ggplot2)
+
+# Definir la función F(x)
+Fx <- function(x) {
+  ifelse(x <= 0, 0, 1 - exp(-8 * x))
+}
+
+# Crear un rango de valores para x
+x_values <- seq(0, 1, length.out = 500)
+
+# Calcular los valores de F(x)
+Fx_values <- Fx(x_values)
+
+# Crear un dataframe con los valores
+data <- data.frame(x = x_values, Fx = Fx_values)
+
+# Graficar usando ggplot2
+ggplot(data, aes(x = x, y = Fx)) +
+  geom_line(color = c31, size = 1.2) +
+  labs(x = "x", y = "F(x)", title = expression(F[x](x))) +
+  theme_minimal() +
+  xlim(0, 1) +
+  ylim(0, 1) +
+  theme(
+    plot.title = element_text(hjust = 0.5, size = 16),
+    axis.title = element_text(size = 14),
+    axis.text = element_text(size = 12)
+  ) +
+  geom_hline(yintercept = 0, linetype = "dashed") + 
+  geom_vline(xintercept = 0, linetype = "dashed")
+
+
+```
+
+
+
+<br/><br/>
+
+
+<div class="box4 with-label">
+### Problema 1.3
+
+Una variable aleatoria continua $X$, que puede tomar valores entre $x=2$ y $x=5$, tiene una función de densidad data por: 
+
+$$
+f_X(x)=
+\begin{cases}
+\dfrac{2(1+x)}{27}, & 2\leq x\leq 5, \\[6pt]
+0, & \text{en otro caso}.
+\end{cases}
+$$
+
+ Calcule: 
+
+* $P(X < 4)$
+* $P(3 \leq X < 4)$
+* Represente la función $f(x)$ gráficamente
+ 
+ </div>
+ 
+ <br/><br/>
+ 
+<div class="box4 with-label">
+### Problema 1.4
+
+Suponga que cierto tipo de pequeñas empresas de procesamiento de datos están tan especializadas que algunas tienen dificultades para obtener utilidades durante su primer año de operación. La función de densidad de probabilidad está dada por:
+ 
+ $$f_{_{Y}}(y) = \left \{ 
+				\begin{matrix} 
+				ky^4 (1-y)^3 & \mbox{ , }	0 \leq y \leq 1\\ 
+				0  & \mbox{en otro caso }
+				\end{matrix}\right.  
+				$$
+ 
+ 
+* ¿Cuál es el valor de $k$ que hace de la anterior una función de densidad de probabilidad válida?
+* Calcule la probabilidad de que al menos 50% de las empresas tengan utilidades durante el primer año
+* Calcule la probabilidad de que al menos el 80% de las empresas tengan utilidad durante el primer año
+* Represente la función $f(x)$ gráficamente
+
+</div>
+
+ <br/><br/>
+
+<div class="box4 with-label">
+### Problema1.5 
+ 
+En un grupo de 10 estudiantes que participan en un proyecto universitario, 5 pertenecen a Ingeniería Industrial, 2 a Finanzas y 3 a Administración de Empresas. Para conformar un equipo de trabajo se seleccionan aleatoriamente 4 estudiantes, sin reemplazo.
+
+Sea $X$ el número de estudiantes de Ingeniería Industrial seleccionados. Determine la función de probabilidad de $X$ y explique sus resultados utilizando una fórmula apropiada.
+ 
+</div> 
+ 
+<br/><br/>
+
+<div class="box4 with-label">
+### Problema 1.6 
+
+En una cafetería universitaria hay 6 pedidos listos para entregar: 4 tienen un tiempo estimado de entrega de 10 minutos cada uno y 2 de 5 minutos cada uno. Un domiciliario selecciona aleatoriamente 3 pedidos, sin reemplazo, para realizar su siguiente recorrido.
+
+Sea $T$ la suma de los tiempos estimados de entrega de los tres pedidos seleccionados.
+
+Determine la función de probabilidad de $T$ y represente gráficamente la distribución obtenida.   
+
+</div>
+
+<br/><br/>
+
+
+<div class="box4 with-label">
+### Problema 1.7
+
+Con base en las pruebas extensas, el fabricante de una lavadora determinó que el tiempo $Y$ (en años) para que el electrodoméstico requiera una reparación mayor se obtiene mediante la siguiente función de densidad de probabilidad :
+
+ 
+  $$f_{_{Y}}(y) = \left \{ 
+				\begin{matrix} 
+				\dfrac{1}{4} exp\{-y/4\} & \mbox{ , }	y \geq 0\\ 
+				0  & \mbox{en otro caso }
+				\end{matrix}\right.  
+				$$
+ 
+* Los críticos considerarían que la lavadora es una ganga si no hay una probabilidad de que requiera una reparación mayor antes del sexto año. ¿Se puede considerar la lavadora como una ganga?
+
+* ¿Cuál es la probabilidad de que a lavadora requiera una reparación mayor durante el primer año?
+* Represente la función $f(x)$ gráficamente
+  
+</div>
+
+
+```{r, eval=FALSE, fig.align='center', fig.width=4, fig.height=3}
+# Cargar ggplot2
+library(ggplot2)
+
+# Definir la función f_Y(y)
+fy <- function(y) {
+  ifelse(y >= 0, (1 / 4) * exp(-y / 4), 0)
+}
+
+# Crear un rango de valores para y
+y_values <- seq(0, 20, length.out = 500)
+
+# Calcular los valores de f_Y(y)
+fy_values <- fy(y_values)
+
+# Crear un dataframe con los valores
+data_fy <- data.frame(y = y_values, fy = fy_values)
+
+# Graficar usando ggplot2
+ggplot(data_fy, aes(x = y, y = fy)) +
+  geom_line(color = c32, size = 1.2) +
+  labs(x = "y", y = "f(y)", title = expression(f[Y](y))) +
+  theme_minimal() +
+  xlim(0, 20) +
+  ylim(0, 0.3) +
+  theme(
+    plot.title = element_text(hjust = 0.5, size = 16),
+    axis.title = element_text(size = 14),
+    axis.text = element_text(size = 12)
+  ) +
+  geom_hline(yintercept = 0, linetype = "dashed") + 
+  geom_vline(xintercept = 0, linetype = "dashed")
+
+```
+
+
+<br/><br/>
+
+<div class="box4 with-label">
+### Problema 1.8
+
+Sea el número de llamadas telefónicas que recibe un conmutador durante un intervalo de 5 minutos una variable aleatoria $X$ con la siguiente función de distribución de probabilidad:
+
+<br/>
+
+$$
+f_X(x)=
+\begin{cases}
+\dfrac{e^{-2}2^x}{x!}, & x=0,1,2,3,\ldots, \\[6pt]
+0, & \text{en otro caso}.
+\end{cases}
+$$
+
+<br/>
+
+* Determine la probabilidad de que $X$ sea igual a $0, 1, 2, 3, 4, 5$ y $6$
+* Grafique la función de distribución de probabilidad para estos valores de $X$
+* Determine la función de distribución acumulada para estos valores de $X$.
+* Represente la función $f(x)$ gráficamente
+
+</div>
+
+<br/><br/>
+
+<div class="box4 with-label">
+### Problema 1.9 
+
+El congestionamiento de pasajeros es un problema de servicio en los aeropuertos, en los cuales se instalan trenes para reducir la congestión.  cuando se usa el tren el tiempo $X$, en minutos, que toma viajar desde la terminal principal hasta una  explanada específica tiene la siguiente función de densidad:
+
+
+ $$f_{_{X}}(x) = \left \{ 
+				\begin{matrix} 
+				\dfrac{1}{10} & \mbox{ , }	0 \leq y \leq 10\\ 
+				0  & \mbox{en otro caso }
+				\end{matrix}\right.  
+				$$
+
+* Determine que la función de  densidad de probabilidad anterior es válida
+* Calcule la probabilidad de que el tiempo que le toma a un pasajero viajar desde la terminal principal hasta la explanada no exceda los 7 minutos
+* Represente la función $f(x)$ gráficamente
+
+</div>
+
+```{r, eval=FALSE, fig.align='center', fig.width=4, fig.height=3}
+# Cargar ggplot2
+library(ggplot2)
+
+# Definir la función f_X(x)
+fx <- function(x) {
+  ifelse(x >= 0 & x <= 10, 1/10, 0)
+}
+
+# Crear un rango de valores para x
+x_values <- seq(0, 10, length.out = 500)
+
+# Calcular los valores de f_X(x)
+fx_values <- fx(x_values)
+
+# Crear un dataframe con los valores
+data_fx <- data.frame(x = x_values, fx = fx_values)
+
+# Graficar usando ggplot2
+ggplot(data_fx, aes(x = x, y = fx)) +
+  geom_line(color = c32, size = 1.2) +
+  labs(x = "x", y = "f(x)", title = expression(f[X](x))) +
+  theme_minimal() +
+  xlim(0, 10) +
+  ylim(0, 0.12) +
+  theme(
+    plot.title = element_text(hjust = 0.5, size = 16),
+    axis.title = element_text(size = 14),
+    axis.text = element_text(size = 12)
+  ) +
+  geom_hline(yintercept = 0, linetype = "dashed") + 
+  geom_vline(xintercept = 0, linetype = "dashed")
+
+```
+
+
+
+
+<br/>
+
+Problemas tomado de walpole (2006)
+
+<br/><br/><br/>
+
+
+<div class="box4 with-label">
+### Problema 1.10
+
+Suponga que:
+
+$$
+f_X(x)=
+\begin{cases}
+e^{-x}, & x\geq 0, \\[4pt]
+0, & x<0.
+\end{cases}
+$$
+
+Determine :
+
+* $P(1 < X)$
+* $P(1 < X < 2.5$
+* $P(X = 3$
+* $P(X < 4)$
+* Los valores de $Me$, $Q_{1}$ y $Q_{3}$
+
+</div>
+
+<br/><br/>
+
+
+<div class="box4 with-label">
+### Problema 1.11
+
+Para una variable aleatoria con función de densidad :  
+
+$$
+f_X(x)=
+\begin{cases}
+\dfrac{x}{8}, & 3<x<5, \\[4pt]
+0, & \text{en otro caso}.
+\end{cases}
+$$
+
+Determine :
+
+* $P(X < 4)$
+* $P(X > 3.5)$
+* $P(4 < X < 5)$
+* $P((X < 3.5) \cup (X > 4.5))$
+* el valor de $Me$
+
+</div>
+
+<br/><br/>
+
+<div class="box4 with-label">
+### Problema 1.12 
+
+Suponga que $X$ tiene una función de distribución acumulada :
+
+$$F_{_{X}}(x) = \left \{ 
+				\begin{matrix} 
+				 0    & \mbox{ , } x \leq 0\\ 
+				 2x   & \mbox{, } x < 0 < x 5  \\
+				 1    & \mbox{ , } 5 \leq 5
+				\end{matrix}\right.  
+				$$
+
+Determine:
+
+* $P(X < 4)$
+* $P(X = 1.5)$
+* $P(X > 3)$
+* $P(0.5 < X < 2.7$
+
+</div>
+
+<br/><br/>
+
+
+<div class="box4 with-label">
+### Problema 1.13
+
+Para la variable aleatoria que tiene la siguiente función de distribución de probabilidad :
+
+| $x$  | $-2$ | $-1$   | $0$    |  $1$   | $2$    |
+|:----:|:----:|:------:|:------:|:------:|:------:|
+|$f(x)$|$1/8$ |$2/8$   |$2/8$   |$2/8$   | $1/8$  |
+
+Determine:
+
+* $P(X \leq 2)$
+* $P(X > 3)$
+* $P(-1 \leq X \leq 1)$
+* $P(X < 3.5 ; X > 4.5)$
+* El valor de $Me$
+
+</div>
+
+<br/><br/>
+
+<div class="box4 with-label">
+### Problema 1.14
+
+Para una variable con función de distribución de probabilidad : 
+
+ $$f_{_{X}}(x) = \left \{ 
+				\begin{matrix} 
+				\dfrac{2x + 1}{25} & \mbox{ , }	x=0, 1, 2, 3, 4\\ 
+				0  & \mbox{en otro caso }
+				\end{matrix}\right.  
+				$$
+
+Determine:
+
+* $P(X =1)$
+* $P(X \leq 1)$
+* $P(2 \leq X < 4)$
+
+</div>
+
+```{r, fig.align='center', fig.width=4, fig.height=3}
+# # Cargar ggplot2
+# library(ggplot2)
+# 
+# # Definir la función f_X(x)
+# fx <- function(x) {
+#   ifelse(x %in% 0:4, (2*x + 1)/25, 0)
+# }
+# 
+# # Crear un rango de valores para x
+# x_values <- 0:4
+# 
+# # Calcular los valores de f_X(x)
+# fx_values <- fx(x_values)
+# 
+# # Crear un dataframe con los valores
+# data_fx <- data.frame(x = x_values, fx = fx_values)
+# 
+# # Graficar usando ggplot2 en un diagrama de puntos
+# ggplot(data_fx, aes(x = x, y = fx)) +
+#   geom_point(color = c32, size = 2) +
+#   #geom_line(color = "blue", linetype = "dashed") +
+#   labs(x = "x", y = "f(x)", title = expression(f[X](x))) +
+#   theme_minimal() +
+#   ylim(0, 0.4) +
+#   theme(
+#     plot.title = element_text(hjust = 0.5, size = 16),
+#     axis.title = element_text(size = 14),
+#     axis.text = element_text(size = 12)
+#   )
+# 
+
+```
+
+
+<br/><br/>
+
+<div class="box4 with-label">
+### Problema 1.15 
+
+Para una variable aleatoria con función de distribución de probabilidad: 
+
+$$
+f_X(x)=
+\begin{cases}
+\dfrac{3}{4}\left(\dfrac{1}{4}\right)^x,
+& x=0,1,2,3,\ldots, \\[6pt]
+0, & \text{en otro caso}.
+\end{cases}
+$$
+
+* $P(X = 2)$
+* $P(X \leq 2)$
+* $P(2 \leq X$
+
+</div>
+
+<br/><br/>
+
+<div class="box4 with-label">
+### Problema 1.16 
+
+Sponga que $X$ tiene una función de probabilidad acumulada: 
+
+$$F_{_{X}}(x) = \left \{ 
+				\begin{matrix} 
+				 0    & \mbox{ , } x \leq 0\\ 
+				 0.2 x   & \mbox{, } 0 < x < 5  \\
+				 1    & \mbox{ , } x \geq 5
+				\end{matrix}\right.  
+				$$
+
+Determine: 
+* $P(X < 2.8)$
+
+```{r}
+Fx=function(x){0.2*x }
+Fx(2.8)
+```
+
+* $P(X > 1.5)$
+* $P(X < -2)$
+* Determine $f_{_{X}}(x)$
+
+</div>
+
+<br/><br/>
+
+<div class="box4 with-label">
+### Problema 1.17 
+
+El tiempo de reparación (en minutos) de una máquina fotocopiadora tiene una función de densidad:
+
+
+ $$f_{_{X}}(x) = \left \{ 
+				\begin{matrix} 
+				\dfrac{1}{22} exp\{-x/22\} & \mbox{ , }	x > 0\\ 
+				0  & \mbox{en otro caso }
+				\end{matrix}\right.  
+				$$
+
+Cuando el profesor de Probabilidad y Estadística se preparaba para imprimir el cuestionario del segundo examen parcial, fue enterado por la secretaria del departamento que la máquina fotocopiadora se había averiado y que el técnico había acabado de llegar en ese instante y empezado a repararla. El profesor debe contar con por lo menos 10 minutos extras - tiempo de fotocopiado de 35 exámenes, organizar sus respectivas hojas de respuestas, sumado tiempo de su desplazamiento hasta el salón de clase, arreglo de las mesas y entrega de los cuestionarios a los estudiantes. Al mirar el reloj, el profesor observa que faltan 20 minutos para la hora en que debe empezar el examen y decide esperar a que el técnico repare la fotocopiadora. ¿Es acertada o no la decisión que tomó el profesor? Justifique su respuesta.   
+
+</div>
+
+<!-- ```{r, echo=FALSE} -->
+<!-- library(downloadthis) -->
+<!-- download_link( -->
+<!--   link = "https://github.com/dgonxalex80/probabilidad20212.io/blob/main/talleres/Solucion_Taller_303.pdf", -->
+<!--   button_label = "Descarga: solución pdf ", -->
+<!--   button_type = "primary", -->
+<!--   has_icon = TRUE, -->
+<!--   icon = "fa fa-save", -->
+<!--   self_contained = FALSE -->
+<!-- ) -->
+<!-- ``` -->
+
+<br/><br/><br/>
+
+<div class="box4 with-label">
+### Problema 1.18
+
+Suponga que:
+
+$$
+f_X(x)=
+\begin{cases}
+e^{-x}, & x\geq 0, \\[4pt]
+0, & x<0.
+\end{cases}
+$$
+
+
+Determine :
+
+* $E[X]$
+* $V[X]$
+* $P_{20}$
+
+</div>
+
+<br/><br/>
+
+<div class="box4 with-label">
+### Problema 1.19
+
+Para una variable aleatoria con función de densidad :
+
+$$
+f_X(x)=
+\begin{cases}
+\dfrac{x}{8}, & 3<x<5, \\[4pt]
+0, & \text{en otro caso}.
+\end{cases}
+$$
+
+Determine :
+
+* $\mu_{_{X}}$
+* $\sigma_{_{X}}$
+
+</div>
+
+<div class="box4 with-label">
+### Problema 1.20
+
+Suponga que $X$ tiene una función de distribución acumulada:
+
+$$
+F_X(x)=
+\begin{cases}
+0, & x<0, \\[4pt]
+\dfrac{x}{5}, & 0\leq x<5, \\[4pt]
+1, & x\geq 5.
+\end{cases}
+$$
+
+Determine : 
+
+* $E[X]$
+* $V[X]$
+* $P_{50}$
+* Se podría obtener el coeficiente de variación?. En caso afirmativo, ¿que valor tendría?
+
+</div>
+
+<br/><br/>
+
+<div class="box4 with-label">
+### Problema 1.21
+
+Para la variable aleatoria que tiene la siguiente función de distribución de probabilidad :
+
+| $x$  | $-2$ | $-1$   | $0$    |  $1$   | $2$    |
+|:----:|:----:|:------:|:------:|:------:|:------:|
+|$f(x)$|$1/8$ |$2/8$   |$2/8$   |$2/8$   | $1/8$  |
+
+Determine : 
+
+* $E[X]$
+* $V[X]$
+
+</div>
+
+<br/><br/>
+
+<div class="box4 with-label">
+### Problema 1.22
+
+Para una variable con función de distribución de probabilidad : 
+
+ $$f_{_{X}}(x) = \left \{ 
+				\begin{matrix} 
+				\dfrac{(2x + 1)}{25} & \mbox{ , }	x=0, 1, 2, 3, 4\\ 
+				0  & \mbox{en otro caso }
+				\end{matrix}\right.  
+				$$
+
+Determine : 
+
+* $E[X]$
+* $V[X]$
+* Coeficiente de variación
+
+</div>
+
+<br/><br/>
+
+<div class="box4 with-label">
+### Problema 1.23
+
+Para una variable aleatoria con función de distribución de probabilidad: 
+
+$$
+f(x)=\frac{3}{4}\left(\frac{1}{4}\right)^x,
+\qquad x=0,1,2,3,\ldots
+$$
+
+Determine : 
+
+* $E[X]$
+* $V[X]$
+
+</div>
+
+Problemas tomados de Mongomery(2003)
+
+<br/><br/>
+
+<div class="box4 with-label">
+### Problema 1.24
+
+Una de las preocupaciones que tienen los padres hoy en dia está relacionada con el tiempo que pasan sus hijos usando celular. Un estudio determinó que el número de llamadas que un joven realiza durante un dia es una variable aleatoria ($X$) con función de distribución :
+
+ $$f_{_{X}}(x) = \left \{ 
+				\begin{matrix} 
+				\dfrac{8^{x}\hspace{.2cm} exp\{-8\}}{x!} & \mbox{ , para } \hspace{.3cm}	x = 0,1,2,3,4,5,.....\\ 
+				0  & \mbox{en otro caso }
+				\end{matrix}\right.  
+				$$
+
+El estudio afirma también que los jóvenes en promedio reciben al rededor de 12 llamadas por día, valor que es considerado muy alto, debido a que a esa edad por lo regular no se tienen actividades económicas que lo ameriten. También mencionan que debido a que se ha logrado identificar la función de distribución de probabilidad es fácil establecer que se trata de una variable con un comportamiento homogéneo. ¿Está de acuerdo con la información suministrada en el artículo? . Justifique su respuesta. 
+
+</div>

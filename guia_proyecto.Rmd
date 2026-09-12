@@ -1,0 +1,22 @@
+---
+title: "<span style='color:#67C1A8 !important;'>Teoría de probabilidades</span>"
+author: <span style="color:#67C1A8">dgonzalez </span> 
+subtitle: <span style="color:#67C1A8"> </span> 
+output:
+  html_document:
+    toc: no
+    toc_depth: 2
+    toc_float: yes
+    code_folding: hide
+    theme: flatly
+    css:
+      - style.css
+      - cajas.css
+---
+
+
+</br></br></br>
+
+```{r, echo=FALSE, out.width="100%", fig.align = "left"}
+knitr::include_graphics("img/guia_proyecto.png")
+```

@@ -1,0 +1,1118 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="dgonzalez " />
+
+
+<title>Teoría de probabilidades</title>
+
+<script src="site_libs/header-attrs/header-attrs.js"></script>
+<script src="site_libs/jquery/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation/tabsets.js"></script>
+<script src="site_libs/navigation/codefolding.js"></script>
+<link href="site_libs/highlightjs/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs/highlight.js"></script>
+<link href="site_libs/font-awesome/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome/css/v4-shims.min.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+<link rel="stylesheet" href="cajas.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html"> </a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">
+    <span class="fa fa-home"></span>
+     
+    Estadística
+  </a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 0
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo0.html">Módulo 0</a>
+    </li>
+    <li>
+      <a href="sumatoria.html">Sumatoria</a>
+    </li>
+    <li>
+      <a href="productoria.html">Productoria</a>
+    </li>
+    <li>
+      <a href="conjuntos.html">Conjuntos</a>
+    </li>
+    <li>
+      <a href="conteo.html">Conteo</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 1
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo1.html">Módulo 1</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="guia11.html">Guía 1.1</a>
+    </li>
+    <li>
+      <a href="recurso11.html">Recursos 1.1</a>
+    </li>
+    <li>
+      <a href="basesdatos.html">Bases de datos</a>
+    </li>
+    <li>
+      <a href="introduccionR.html">Introducción a R</a>
+    </li>
+    <li>
+      <a href="codigo11.html">Código 1.1</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="guia12.html">Guía 1.2</a>
+    </li>
+    <li>
+      <a href="recurso12.html">Recursos 1.2</a>
+    </li>
+    <li>
+      <a href="codigo12.html">Código 1.2</a>
+    </li>
+    <li>
+      <a href="caso1A.html">Caso 1</a>
+    </li>
+    <li>
+      <a href="caso1B.html">Caso 2</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="guia13.html">Guía 1.3</a>
+    </li>
+    <li>
+      <a href="recurso13.html">Recursos 1.3</a>
+    </li>
+    <li>
+      <a href="codigo13.html">Código 1.3</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="monitoria1.html">Monitoria 1</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 2
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo2.html">Módulo 2</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="guia21.html">Guía 2.1</a>
+    </li>
+    <li>
+      <a href="recurso21.html">Recursos 2.1</a>
+    </li>
+    <li>
+      <a href="codigo21.html">Código 2.1</a>
+    </li>
+    <li>
+      <a href="taller211.html">Taller 211</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="guia22.html">Guía 2.2</a>
+    </li>
+    <li>
+      <a href="recurso22.html">Recursos 2.2</a>
+    </li>
+    <li>
+      <a href="taller221.html">Taller 221</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="monitoria2.html">Moitoría 2</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 3
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo3.html">Módulo 3</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="guia31.html">Guía 3.1</a>
+    </li>
+    <li>
+      <a href="recurso31.html">Recursos 3.1</a>
+    </li>
+    <li>
+      <a href="codigo31.html">Código 3.1</a>
+    </li>
+    <li>
+      <a href="taller311.html">Taller 311</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="monitoria3.html">Moitoría 3</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 4
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo4.html">Módulo 4</a>
+    </li>
+    <li class="divider"></li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Proyecto
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="guia_proyecto1.html">Guía proyecto</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore"><span
+style="color:#67C1A8 !important;">Teoría de probabilidades</span></h1>
+<h3 class="subtitle"><span style="color:#67C1A8"> </span></h3>
+<h4 class="author"><span style="color:#67C1A8">dgonzalez </span></h4>
+
+</div>
+
+
+<p></br></br></br></p>
+<p><img src="img/guia_proyecto.png" alt="" width="100%" style="display: block; margin: auto auto auto 0;" /></p>
+<div id="guía-del-proyecto" class="section level1">
+<h1>Guía del proyecto</h1>
+<div id="gemelo-digital-probabilístico-de-un-sistema-universitario"
+class="section level2">
+<h2>Gemelo digital probabilístico de un sistema universitario</h2>
+<div id="propósito-del-proyecto" class="section level3">
+<h3>1. Propósito del proyecto</h3>
+<p>El proyecto tiene como propósito integrar los conceptos desarrollados
+en el curso de <strong>Teoría de Probabilidades</strong> mediante la
+construcción de un <strong>gemelo digital probabilístico</strong> de un
+sistema, proceso o servicio observable dentro de la Universidad.</p>
+<p>Para efectos de este curso, se entenderá el gemelo digital como una
+<strong>representación computacional simplificada y dinámica de un
+sistema real</strong>, construida a partir de variables aleatorias y
+modelos de probabilidad. El modelo deberá permitir reproducir mediante
+simulación el comportamiento del sistema, modificar algunos de sus
+parámetros y analizar cómo cambian los resultados.</p>
+<p>No se espera construir un gemelo digital industrial de alta
+complejidad. El énfasis estará en la <strong>modelación
+probabilística</strong>, la interpretación de la incertidumbre y la
+simulación del comportamiento del sistema utilizando <strong>R</strong>
+y <strong>Shiny</strong>.</p>
+<hr />
+</div>
+<div id="organización-del-trabajo" class="section level3">
+<h3>2. Organización del trabajo</h3>
+<ul>
+<li>El proyecto se realizará en <strong>grupos de máximo tres (3)
+estudiantes</strong>.</li>
+<li>El sistema seleccionado deberá corresponder a una actividad,
+servicio, proceso o fenómeno que pueda observarse o representarse dentro
+de la Universidad.</li>
+<li>El desarrollo tendrá una duración de <strong>nueve semanas</strong>,
+desde el <strong>16 de septiembre hasta el 12 de
+noviembre</strong>.</li>
+<li>El proyecto se desarrollará en <strong>tres entregas</strong>.</li>
+<li>La entrega final incluirá:
+<ul>
+<li>presentación oral;</li>
+<li>tablero interactivo desarrollado en <strong>Shiny</strong>;</li>
+<li>simulación del sistema;</li>
+<li>explicación de las variables aleatorias y distribuciones
+utilizadas;</li>
+<li>descripción del procedimiento empleado para estimar o justificar los
+parámetros de los modelos.</li>
+</ul></li>
+</ul>
+<hr />
+</div>
+<div id="temas-del-curso-que-pueden-incorporarse"
+class="section level3">
+<h3>3. Temas del curso que pueden incorporarse</h3>
+<p>El proyecto deberá evidenciar la aplicación de varios de los
+conceptos estudiados durante el curso, entre ellos:</p>
+<ul>
+<li>variables aleatorias discretas y continuas;</li>
+<li>funciones de probabilidad y funciones de densidad;</li>
+<li>funciones de distribución acumulada;</li>
+<li>valor esperado y varianza;</li>
+<li>covarianza y correlación;</li>
+<li>distribuciones conjuntas;</li>
+<li>probabilidad condicional;</li>
+<li>simulación de variables aleatorias;</li>
+<li>estimación o determinación de parámetros.</li>
+</ul>
+<p>Entre los modelos de probabilidad que pueden utilizarse se
+encuentran:</p>
+<p><strong>Modelos discretos</strong></p>
+<ul>
+<li>Binomial</li>
+<li>Poisson</li>
+<li>Geométrica</li>
+<li>Hipergeométrica</li>
+<li>Binomial negativa</li>
+</ul>
+<p><strong>Modelos continuos</strong></p>
+<ul>
+<li>Normal</li>
+<li>Uniforme</li>
+<li>Exponencial</li>
+<li>Gamma</li>
+<li>Beta</li>
+<li>Weibull</li>
+</ul>
+<p>La selección de una distribución deberá estar <strong>justificada por
+el comportamiento de la variable que se desea representar</strong> y no
+únicamente por la facilidad para utilizarla.</p>
+<hr />
+</div>
+<div id="requisitos-mínimos-del-modelo" class="section level3">
+<h3>4. Requisitos mínimos del modelo</h3>
+<p>El gemelo digital deberá representar un sistema mediante <strong>al
+menos cuatro variables aleatorias o componentes probabilísticos
+relevantes</strong>. Se espera que el proyecto combine diferentes tipos
+de variables y distribuciones cuando la naturaleza del sistema así lo
+permita.</p>
+<p>Como mínimo, el proyecto deberá:</p>
+<ol style="list-style-type: decimal">
+<li>Identificar claramente el <strong>sistema real</strong> que se desea
+representar.</li>
+<li>Definir las principales <strong>variables aleatorias</strong> del
+sistema.</li>
+<li>Especificar las distribuciones de probabilidad utilizadas.</li>
+<li>Explicar por qué cada distribución es adecuada para la variable
+correspondiente.</li>
+<li>Determinar o estimar los <strong>parámetros</strong> de las
+distribuciones.</li>
+<li>Calcular e interpretar, cuando sean pertinentes:
+<ul>
+<li>probabilidades;</li>
+<li>valores esperados;</li>
+<li>varianzas;</li>
+<li>funciones acumuladas;</li>
+<li>correlaciones o dependencias entre variables.</li>
+</ul></li>
+<li>Implementar una <strong>simulación dinámica</strong> del
+sistema.</li>
+<li>Permitir que el usuario modifique parámetros o condiciones mediante
+controles de Shiny.</li>
+<li>Mostrar gráficamente cómo los cambios realizados afectan el
+comportamiento del sistema.</li>
+<li>Comparar resultados teóricos con resultados obtenidos mediante
+simulación, cuando sea pertinente.</li>
+</ol>
+<hr />
+</div>
+<div id="qué-puede-modelarse" class="section level3">
+<h3>5. ¿Qué puede modelarse?</h3>
+<p>El tema debe corresponder a un <strong>sistema o proceso relacionado
+con la Universidad</strong>. Algunos ejemplos son:</p>
+<ul>
+<li>llegada de estudiantes a una cafetería y tiempos de atención;</li>
+<li>ocupación de mesas en una cafetería;</li>
+<li>llegada y atención de usuarios en biblioteca;</li>
+<li>préstamo y devolución de libros;</li>
+<li>ocupación de salas de estudio;</li>
+<li>utilización de computadores en una sala;</li>
+<li>llegada de vehículos a un parqueadero;</li>
+<li>disponibilidad y ocupación de espacios de parqueo;</li>
+<li>llegada de estudiantes a una parada de transporte;</li>
+<li>tiempos de espera de rutas o buses universitarios;</li>
+<li>uso de ascensores;</li>
+<li>flujo de estudiantes entre edificios;</li>
+<li>ingreso de estudiantes a una clase;</li>
+<li>asistencia y ausentismo;</li>
+<li>utilización de espacios deportivos;</li>
+<li>consumo de alimentos en determinados horarios;</li>
+<li>duración de actividades académicas;</li>
+<li>demanda de servicios universitarios;</li>
+<li>comportamiento de filas en diferentes puntos de atención.</li>
+</ul>
+<p>Estos ejemplos son orientativos. Cada grupo puede proponer un sistema
+diferente, siempre que pueda ser representado razonablemente mediante
+variables aleatorias y modelos de probabilidad.</p>
+<hr />
+</div>
+<div id="ejemplo-de-estructura-probabilística" class="section level3">
+<h3>6. Ejemplo de estructura probabilística</h3>
+<p>Suponga que un grupo decide representar el funcionamiento de una
+<strong>cafetería universitaria durante la hora de almuerzo</strong>. El
+modelo podría incluir:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Componente del sistema</th>
+<th align="left">Variable aleatoria</th>
+<th align="left">Posible distribución</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Número de estudiantes que llegan por intervalo</td>
+<td align="left"><span class="math inline">\(X\)</span></td>
+<td align="left">Poisson</td>
+</tr>
+<tr class="even">
+<td align="left">Tiempo entre llegadas</td>
+<td align="left"><span class="math inline">\(T_1\)</span></td>
+<td align="left">Exponencial</td>
+</tr>
+<tr class="odd">
+<td align="left">Tiempo de atención</td>
+<td align="left"><span class="math inline">\(T_2\)</span></td>
+<td align="left">Gamma o Weibull</td>
+</tr>
+<tr class="even">
+<td align="left">Compra o no compra de un producto</td>
+<td align="left"><span class="math inline">\(Y\)</span></td>
+<td align="left">Binomial/Bernoulli</td>
+</tr>
+<tr class="odd">
+<td align="left">Proporción de estudiantes que seleccionan una
+opción</td>
+<td align="left"><span class="math inline">\(P\)</span></td>
+<td align="left">Beta</td>
+</tr>
+</tbody>
+</table>
+<p>El grupo deberá justificar cada selección y estimar los parámetros
+utilizando datos observados, información disponible, una muestra piloto
+o supuestos razonables claramente documentados.</p>
+<p>El tablero podría permitir modificar, por ejemplo, la tasa promedio
+de llegada, el número de puntos de atención o los parámetros del tiempo
+de servicio, y observar cómo cambian las filas, los tiempos de espera y
+el número de estudiantes atendidos.</p>
+<hr />
+</div>
+</div>
+</div>
+<div id="entregas" class="section level1">
+<h1>Entregas</h1>
+<div id="entrega-1.-tema-y-objetivo" class="section level2">
+<h2>Entrega 1. Tema y objetivo</h2>
+<p><strong>Fecha sugerida: 23 de septiembre</strong></p>
+<p>Cada grupo deberá presentar una propuesta breve que contenga:</p>
+<ol style="list-style-type: decimal">
+<li><strong>Título provisional del proyecto.</strong></li>
+<li><strong>Integrantes del grupo.</strong></li>
+<li><strong>Sistema de la Universidad que se desea
+representar.</strong></li>
+<li><strong>Descripción breve del problema o situación.</strong></li>
+<li><strong>Objetivo general del proyecto.</strong></li>
+<li>Justificación inicial de por qué el sistema puede estudiarse
+mediante un enfoque probabilístico.</li>
+</ol>
+<div id="producto-esperado" class="section level3">
+<h3>Producto esperado</h3>
+<p>Documento breve o presentación de <strong>máximo 3
+diapositivas</strong>.</p>
+<p>El propósito de esta entrega es validar que el sistema seleccionado
+tenga el alcance apropiado y pueda desarrollarse durante las semanas
+disponibles.</p>
+<hr />
+</div>
+</div>
+<div id="entrega-2.-descripción-y-modelo-probabilístico-del-sistema"
+class="section level2">
+<h2>Entrega 2. Descripción y modelo probabilístico del sistema</h2>
+<p><strong>Fecha sugerida: 14 de octubre</strong></p>
+<p>En esta etapa deberá presentarse la estructura del gemelo
+digital.</p>
+<p>La entrega debe incluir:</p>
+<div id="descripción-del-sistema" class="section level3">
+<h3>Descripción del sistema</h3>
+<ul>
+<li>descripción del proceso real;</li>
+<li>límites del sistema;</li>
+<li>actores o elementos que intervienen;</li>
+<li>entradas;</li>
+<li>procesos;</li>
+<li>salidas;</li>
+<li>principales eventos aleatorios.</li>
+</ul>
+</div>
+<div id="variables" class="section level3">
+<h3>Variables</h3>
+<p>Construir una tabla como la siguiente:</p>
+<table style="width:100%;">
+<colgroup>
+<col width="16%" />
+<col width="16%" />
+<col width="16%" />
+<col width="16%" />
+<col width="16%" />
+<col width="16%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Variable</th>
+<th align="left">Descripción</th>
+<th align="left">Tipo</th>
+<th align="left">Distribución propuesta</th>
+<th align="left">Parámetros</th>
+<th align="left">Justificación</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><span class="math inline">\(X_1\)</span></td>
+<td align="left"></td>
+<td align="left">Discreta/Continua</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left"><span class="math inline">\(X_2\)</span></td>
+<td align="left"></td>
+<td align="left">Discreta/Continua</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left"><span class="math inline">\(X_3\)</span></td>
+<td align="left"></td>
+<td align="left">Discreta/Continua</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left"><span class="math inline">\(X_4\)</span></td>
+<td align="left"></td>
+<td align="left">Discreta/Continua</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="modelo-probabilístico" class="section level3">
+<h3>Modelo probabilístico</h3>
+<p>Para cada variable deberá indicarse:</p>
+<ul>
+<li>función de probabilidad o densidad;</li>
+<li>parámetros de la distribución;</li>
+<li>valor esperado;</li>
+<li>varianza;</li>
+<li>función de distribución acumulada cuando sea relevante;</li>
+<li>relación o dependencia con otras variables, si existe.</li>
+</ul>
+<p>Cuando dos o más variables estén relacionadas, deberá discutirse la
+conveniencia de utilizar <strong>correlación, probabilidad condicional o
+una representación conjunta</strong>.</p>
+</div>
+<div id="estimación-de-parámetros" class="section level3">
+<h3>Estimación de parámetros</h3>
+<p>Los parámetros podrán obtenerse mediante:</p>
+<ul>
+<li>observación directa;</li>
+<li>recolección de una muestra pequeña;</li>
+<li>registros disponibles;</li>
+<li>estimaciones basadas en información del sistema;</li>
+<li>supuestos razonables.</li>
+</ul>
+<p>Todos los parámetros deberán estar <strong>documentados y
+justificados</strong>.</p>
+</div>
+<div id="diseño-inicial-del-tablero" class="section level3">
+<h3>Diseño inicial del tablero</h3>
+<p>Incluir un esquema del tablero Shiny indicando:</p>
+<ul>
+<li>parámetros que podrá modificar el usuario;</li>
+<li>resultados que mostrará el modelo;</li>
+<li>gráficos;</li>
+<li>indicadores;</li>
+<li>comportamiento que será simulado.</li>
+</ul>
+<hr />
+</div>
+</div>
+<div id="entrega-3.-gemelo-digital-probabilístico"
+class="section level2">
+<h2>Entrega 3. Gemelo digital probabilístico</h2>
+<p><strong>Fecha: 12 de noviembre</strong></p>
+<p>Corresponde a la presentación final del proyecto.</p>
+<p>Cada grupo deberá realizar una <strong>presentación oral</strong> y
+demostrar el funcionamiento del <strong>tablero Shiny</strong>.</p>
+<div id="a.-presentación-oral" class="section level3">
+<h3>A. Presentación oral</h3>
+<p>La presentación deberá explicar de manera clara:</p>
+<ol style="list-style-type: decimal">
+<li>sistema seleccionado;</li>
+<li>problema y objetivo;</li>
+<li>funcionamiento del sistema;</li>
+<li>variables aleatorias utilizadas;</li>
+<li>distribuciones seleccionadas;</li>
+<li>justificación de las distribuciones;</li>
+<li>estimación de los parámetros;</li>
+<li>relaciones entre las variables;</li>
+<li>estructura de la simulación;</li>
+<li>principales resultados;</li>
+<li>conclusiones obtenidas a partir del gemelo digital.</li>
+</ol>
+<p>No debe limitarse a mostrar el código. El énfasis debe estar en la
+<strong>interpretación probabilística del sistema</strong>.</p>
+</div>
+<div id="b.-tablero-shiny" class="section level3">
+<h3>B. Tablero Shiny</h3>
+<p>El tablero deberá permitir interactuar con el gemelo digital.</p>
+<p>Como mínimo deberá contener:</p>
+<ul>
+<li>identificación y descripción breve del sistema;</li>
+<li>controles para modificar parámetros o condiciones;</li>
+<li>botón o mecanismo para ejecutar nuevas simulaciones;</li>
+<li>indicadores numéricos relevantes;</li>
+<li>visualizaciones de las distribuciones utilizadas;</li>
+<li>resultados de la simulación;</li>
+<li>comparación de escenarios;</li>
+<li>interpretación básica de los resultados.</li>
+</ul>
+<p>Se valorará especialmente que el usuario pueda plantear preguntas del
+tipo:</p>
+<blockquote>
+<p>¿Qué ocurre en el sistema si cambia una de sus condiciones?</p>
+</blockquote>
+<p>Por ejemplo:</p>
+<ul>
+<li>¿qué ocurre si aumenta la tasa de llegada?</li>
+<li>¿qué ocurre si disminuye el tiempo promedio de atención?</li>
+<li>¿qué ocurre si aumenta la probabilidad de un determinado
+evento?</li>
+<li>¿cómo cambia la variabilidad del sistema?</li>
+<li>¿qué ocurre con la probabilidad de congestión?</li>
+<li>¿cómo cambia el resultado esperado?</li>
+</ul>
+<hr />
+</div>
+</div>
+</div>
+<div id="cronograma" class="section level1">
+<h1>Cronograma</h1>
+<table>
+<colgroup>
+<col width="38%" />
+<col width="30%" />
+<col width="30%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">Semana</th>
+<th align="left">Fechas</th>
+<th align="left">Actividad principal</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">1</td>
+<td align="left">16 - 22 septiembre</td>
+<td align="left">Presentación del proyecto, conformación de grupos y
+selección del sistema</td>
+</tr>
+<tr class="even">
+<td align="center">2</td>
+<td align="left">23 - 29 septiembre</td>
+<td align="left"><strong>Entrega 1:</strong> tema y objetivo</td>
+</tr>
+<tr class="odd">
+<td align="center">3</td>
+<td align="left">30 septiembre - 6 octubre</td>
+<td align="left">Identificación de variables aleatorias y recolección de
+información</td>
+</tr>
+<tr class="even">
+<td align="center">4</td>
+<td align="left">7 - 13 octubre</td>
+<td align="left">Selección de distribuciones y estimación inicial de
+parámetros</td>
+</tr>
+<tr class="odd">
+<td align="center">5</td>
+<td align="left">14 - 20 octubre</td>
+<td align="left"><strong>Entrega 2:</strong> descripción y modelo
+probabilístico</td>
+</tr>
+<tr class="even">
+<td align="center">6</td>
+<td align="left">21 - 27 octubre</td>
+<td align="left">Construcción de la simulación en R</td>
+</tr>
+<tr class="odd">
+<td align="center">7</td>
+<td align="left">28 octubre - 3 noviembre</td>
+<td align="left">Desarrollo del tablero Shiny</td>
+</tr>
+<tr class="even">
+<td align="center">8</td>
+<td align="left">4 - 10 noviembre</td>
+<td align="left">Integración, validación, análisis de escenarios y
+preparación de la presentación</td>
+</tr>
+<tr class="odd">
+<td align="center">9</td>
+<td align="left">11 - 12 noviembre</td>
+<td align="left"><strong>Entrega 3:</strong> presentación final y
+demostración del gemelo digital</td>
+</tr>
+</tbody>
+</table>
+<hr />
+</div>
+<div id="estructura-recomendada-del-tablero" class="section level1">
+<h1>Estructura recomendada del tablero</h1>
+<p>Una posible organización del tablero Shiny es:</p>
+<div id="el-sistema" class="section level3">
+<h3>1. El sistema</h3>
+<p>Descripción del sistema universitario seleccionado y representación
+gráfica o esquemática de su funcionamiento.</p>
+</div>
+<div id="modelo-probabilístico-1" class="section level3">
+<h3>2. Modelo probabilístico</h3>
+<p>Presentación de las variables aleatorias, distribuciones y
+parámetros.</p>
+</div>
+<div id="simulación" class="section level3">
+<h3>3. Simulación</h3>
+<p>Controles interactivos para modificar parámetros y ejecutar el
+modelo.</p>
+</div>
+<div id="resultados" class="section level3">
+<h3>4. Resultados</h3>
+<p>Indicadores, probabilidades, valores esperados, variabilidad y
+gráficos relevantes.</p>
+</div>
+<div id="escenarios" class="section level3">
+<h3>5. Escenarios</h3>
+<p>Comparación entre dos o más configuraciones del sistema.</p>
+</div>
+<div id="conclusiones" class="section level3">
+<h3>6. Conclusiones</h3>
+<p>Principales hallazgos e interpretación de los resultados.</p>
+<hr />
+</div>
+</div>
+<div id="evaluación-sugerida" class="section level1">
+<h1>Evaluación sugerida</h1>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Componente</th>
+<th align="right">Porcentaje</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Definición y comprensión del sistema</td>
+<td align="right">10%</td>
+</tr>
+<tr class="even">
+<td align="left">Formulación de variables aleatorias</td>
+<td align="right">15%</td>
+</tr>
+<tr class="odd">
+<td align="left">Selección y justificación de distribuciones</td>
+<td align="right">15%</td>
+</tr>
+<tr class="even">
+<td align="left">Estimación y justificación de parámetros</td>
+<td align="right">15%</td>
+</tr>
+<tr class="odd">
+<td align="left">Aplicación de conceptos de probabilidad</td>
+<td align="right">15%</td>
+</tr>
+<tr class="even">
+<td align="left">Simulación y funcionamiento del gemelo digital</td>
+<td align="right">15%</td>
+</tr>
+<tr class="odd">
+<td align="left">Tablero Shiny e interacción con escenarios</td>
+<td align="right">10%</td>
+</tr>
+<tr class="even">
+<td align="left">Presentación, interpretación y conclusiones</td>
+<td align="right">5%</td>
+</tr>
+<tr class="odd">
+<td align="left"><strong>Total</strong></td>
+<td align="right"><strong>100%</strong></td>
+</tr>
+</tbody>
+</table>
+<hr />
+</div>
+<div id="recomendaciones" class="section level1">
+<h1>Recomendaciones</h1>
+<ul>
+<li>Mantener un alcance que pueda completarse durante las nueve
+semanas.</li>
+<li>Priorizar un sistema <strong>pequeño pero bien modelado</strong>
+sobre uno demasiado complejo.</li>
+<li>No utilizar una distribución únicamente porque aparece en la lista
+del curso.</li>
+<li>Justificar cada modelo a partir del significado de la variable.</li>
+<li>Diferenciar claramente entre <strong>datos observados, parámetros
+estimados y supuestos</strong>.</li>
+<li>Utilizar la simulación para estudiar el comportamiento del sistema y
+no solamente para generar números aleatorios.</li>
+<li>Evitar que el tablero sea únicamente una colección de gráficos. Debe
+representar el funcionamiento del sistema y permitir experimentar con
+él.</li>
+<li>Documentar el código desarrollado en R.</li>
+<li>Todos los integrantes deberán conocer el modelo completo y
+participar en la presentación.</li>
+</ul>
+<hr />
+</div>
+<div id="pregunta-orientadora" class="section level1">
+<h1>Pregunta orientadora</h1>
+<p>Al finalizar el proyecto, el grupo debe estar en capacidad de
+responder:</p>
+<blockquote>
+<p><strong>¿Cómo puede la teoría de probabilidades representar la
+incertidumbre de un sistema real de la Universidad y permitir
+experimentar con su comportamiento mediante un gemelo
+digital?</strong></p>
+</blockquote>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("hide" === "show");
+});
+</script>
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

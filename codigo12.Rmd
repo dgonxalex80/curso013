@@ -1,7 +1,7 @@
 ---
-title: "<span style='color:#E85A67 !important;'>Teoría de probabilidades</span>"
-author: <span style="color:#E85A67">dgonzalez </span> 
-subtitle: <span style="color:#E85A67"> </span> 
+title: "<span style='color:#476885 !important;'>Teoría de probabilidades</span>"
+author: <span style="color:#476885">dgonzalez </span> 
+subtitle: <span style="color:#476885"> </span> 
 output:
   html_document:
     toc: no
@@ -12,7 +12,8 @@ output:
     css:
       - style.css
       - cajas.css
----    
+---
+
     
 
 ```{r setup, include=FALSE}
@@ -51,7 +52,7 @@ library(flextable)
 ```
 
 ```{r, echo=FALSE, out.width="100%", fig.align = "center"}
-knitr::include_graphics("img/codigo1.png")
+knitr::include_graphics("img/codigo3.png")
 ```
 <br/><br/>
 

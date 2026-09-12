@@ -1,0 +1,294 @@
+---
+title: " "
+subtitle: " " 
+author: "dgonzalez "
+output:
+  html_document:
+    toc: no
+    toc_depth: 2
+    toc_float: yes
+    code_folding: hide
+    theme: flatly
+    css: style.css
+---
+
+
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+knitr::opts_chunk$set(
+  fig.width=9, fig.height=3.5, fig.retina=3,
+  out.width = "100%",
+  cache = FALSE,
+  echo = TRUE,
+  message = FALSE, 
+  warning = FALSE,
+  hiline = TRUE
+)
+# colores
+source("R/init.R")
+
+paleta4=c(c11,c21,c31,c41)
+
+
+library(forcats)
+library(patchwork)
+library(lubridate)
+library(ggplot2)
+library(gridExtra)
+library(cowplot)
+library(summarytools)
+
+#library(dviz.supp)
+```
+
+
+
+</br></br></br>
+
+```{r, echo=FALSE, out.width="100%", fig.align = "left"}
+knitr::include_graphics("img/taller3.png")
+```
+
+</br></br>
+
+<div class="box2 with-label">
+<div class="label">Problema 1</div>
+
+Para una variable aleatoria con distribución binomial $X  \sim binom(x, n=10, p=0.5)$  . 
+
+Determine:  
+
+*  la función de distribución asociada a $X$.
+*  $P(X = 5)$
+*  $P(X  \leq 2)$
+*  $P(3 \leq X <5)$
+*  $P(X \geq 8)$ 
+*  Construya la gráfica de $f_{_{X}}(x)$
+
+</div>
+
+
+</br></br>
+
+<div class="box2 with-label">
+<div class="label">Problema 2</div>
+
+Sea una variable geométrica $X \sim geomn,(x,p=0.05)$
+
+Determine :
+
+* $P(X = 1)$
+* $P(X  \leq 2)$
+* $P(X = 8)$
+* $P(X \geq 2)$  
+* Construya la gráfica de $f_{_{X}}(x)$
+
+</div>
+
+
+</br></br>
+
+<div class="box2 with-label">
+<div class="label">Problema 3</div>
+
+Suponga que X tiene una distribución hipergeometrica con $N=100$, $n=4$ y $K=20$. ($X \sim hyper(x,N=100,n=4,k=20)$)
+
+Determine:
+
+  $P(X = 1)$
+*  $P(X = 6)$
+*  $P(X  \geq 1)$
+*  $P(X = 4)$  
+*  Construya la gráfica de $f_{_{X}}(x)$
+  
+</div>
+
+
+</br></br>
+
+<div class="box2 with-label">
+<div class="label">Problema 4</div>
+
+Suponga que X tiene una distribución Poisson con media $\lambda=4$ ($X  \sim pois(x,\lambda=4)$). 
+
+Determine:	
+  
+*  $P(X = 0)$
+*  $P(X = 4)$
+*  $P(X  \geq 2)$
+*  $P(X  \leq 2)$  
+*  Construya la gráfica de $f_{_{X}}(x)$
+  
+</div>
+
+
+</br></br>
+
+<div class="box2 with-label">
+<div class="label">Problema 5</div>
+
+Sea la variable $X$ con distribución binomial negativa con N=100 , K=20, n=5 ($X \sim nbinom(x,n,p,mu)$ )	
+
+Determine:
+
+* $P(X = 0)$
+* $P(X = 6)$
+* $P(X  \geq 10)$
+* $P(X  \leq 12)$
+* $E[X]$ y $V[X]$  
+* Construya la gráfica de $f_{_{X}}(x)$
+
+</div>
+
+
+</br></br>
+
+<div class="box2 with-label">
+<div class="label">Problema 6</div>
+
+En un cargamento grande de llantas para automóviles, del cual el 5% tiene imperfecciones. Se eligen de manera aleatoria 4 llantas para ser instalada en un automóvil.  (Sea X el número de llantas con imperfecciones. $X  \sim binom(n=4, p=0.05$ )
+
+* ¿ Cuál es la probabilidad de que ninguna de las llantas tenga imperfecciones?
+* ¿ Cuál es la probabilidad de que sólo una de las llantas tenga imperfecciones?
+* ¿ Cuál es la probabilidad de una o más llantas tenga imperfecciones?
+        
+</div>
+
+
+</br></br>
+
+<div class="box2 with-label">
+<div class="label">Problema 7</div>
+
+Los clientes llegan al mostrador de una tienda de acuerdo con una variable aleatoria Poisson con una frecuencia promedio de ocho clientes por hora. 
+
+* Calcule la probabilidad de que entre las 8 AM y las 9 AM lleguen exactamente cinco clientes.
+*  Calcule la probabilidad de que entre las 2:30 PM y las 3:30 PM no lleguen más de tres clientes.
+* Calcule la probabilidad de que lleguen exactamente dos clientes dentro de un intervalo de dos horas continuas, por ejemplo entre 10 AM y 12 M.
+*	 Calcule el valor esperado del número de personas que llegan a la tienda entre las 2 PM y las 4:30 PM.
+
+</div>
+
+
+</br></br>
+
+<div class="box2 with-label">
+<div class="label">Problema 8</div>
+
+Se está desarrollando una nueva variedad de maíz en una extensión de experimentación agrícola. Se espera que tenga una tasa de germinación del 90\%. Para verificar esto, se plantan 20 semillas en suelos de idéntica composición y se les dedican los mismos cuidados. Si la cifra 90\% es correcta, ¿cuántas semillas se espera que germinen? Si sólo germinan 15 o menos, ¿hay razón para sospechar de la cifra 90\%?
+
+</div>
+
+
+</br></br>
+
+<div class="box2 with-label">
+<div class="label">Problema 9</div>
+
+Un examen de Probabilidad consta de 100 preguntas de selección múltiple, cada una con cuatro opciones de respuesta. Maria responde cada pregunta al azar y sus respuestas son independientes 
+
+* Si para aprobar el examen Juan debe responder mínimo 60 preguntas correctamente, calcule la probabilidad de que Maria apruebe el examen.
+* Calcule la probabilidad de que Maria  deba responder 10 preguntas hasta responder la primera pregunta correctamente.
+* ¿Cuál es el número esperado de preguntas que Maria responderá erróneamente hasta responder 5 preguntas correctamente?
+
+
+
+</div>
+
+
+</br></br>
+
+<div class="box2 with-label">
+<div class="label">Problema 10</div>
+
+
+ Se sospecha que muchas muestras de agua, todas del mismo tamaño y tomadas del Hillbank River, han sido contaminadas por operarios irresponsables de una planta de tratamiento de aguas. Se contó el número de microorganismos conformes en cada muestra. El número medio de microorganismos por muestra fue de 15. Suponiendo que el número de microorganismos se distribuye según una distribución de Poisson, calcular la probabilidad de que:
+			
+* La siguiente muestra contenga al menos 17 microorganismos.
+* La siguiente muestra contenga 18 o menos microorganismos.
+* La siguiente muestra contenga exactamente dos microorganismos.
+
+</div>
+
+
+</br></br>
+
+<div class="box2 with-label">
+<div class="label">Problema 11</div>
+
+Una aéreolinea nacional tiene aviones de 100 asientos para el servicio de transporte nacional. Se estima que la probabilidad de que una persona llegue al vuelo es de 0.90, debido a lo cual  la aereolinea vende 105 tiquetes con el fin de minimizar la partida de aviones con sillas vacias. ¿cuál es la probabilidad de que todas las personas que lleguen para abordar el avión tengan asiento?   
+
+</div>
+
+
+</br></br>
+
+<div class="box2 with-label">
+<div class="label">Problema 12</div>
+
+El número de grietas en un pavimento se estima en una grieta por cada 100m  en promedio. Se desea estimar la probabilidad de:
+
+* Haya exactamente 8 grietas en una longitud de 500 m
+* No se presente ninguna grieta en 100 m
+* Se presenten menos de 2 grietas en 500 m 
+ 
+</div>
+
+
+</br></br>
+
+<div class="box2 with-label">
+<div class="label">Problema 13</div>
+
+Un sistema de seguridad para casas está diseñado para tener una confiabilidad del 95\% . Suponga que 10 casas equipadas con este dispositivo sufrieron tentativa de robo. Se requiere calcular la probabilidad de que en siete de las nueve, la alarma se activará. 
+			
+</div>
+
+</br></br></br></br>
+
+<div class="box3 with-label">
+<div class="label">Código R</div>
+<pre>
+# Distribución binomial
+dbinom(x, size, prob)
+pbinom(q, size, prob, lower.tail = TRUE)
+qbinom(p, size, prob, lower.tail = TRUE)
+rbinom(n, size, prob)
+
+# Distribución Poisson
+dpois(x, lambda)
+ppois(q, lambda, lower.tail = TRUE)
+qpois(p, lambda, lower.tail = TRUE)
+rpois(n, lambda)
+
+# Distribución geométrica
+dgeom(x, prob)
+pgeom(q, prob, lower.tail = TRUE)
+qgeom(p, prob, lower.tail = TRUE)
+rgeom(n, prob)
+
+# Distribución hipergeométrica
+dhyper(x, m, n, k)
+phyper(q, m, n, k, lower.tail = TRUE)
+qhyper(p, m, n, k, lower.tail = TRUE)
+rhyper(nn, m, n, k)
+
+# Distribución binomial negativa
+dnbinom(x, size, prob, mu)
+pnbinom(q, size, prob, mu, lower.tail = TRUE)
+qnbinom(p, size, prob, mu, lower.tail = TRUE)
+rnbinom(n, size, prob, mu)
+</pre>
+
+</div>
+
+
+
+
+
+
+
+
+
+

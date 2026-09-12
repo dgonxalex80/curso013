@@ -1,0 +1,1340 @@
+---
+title: " "
+subtitle: " " 
+author: "dgonzalez "
+output:
+  html_document:
+    toc: no
+    toc_depth: 2
+    toc_float: yes
+    code_folding: hide
+    theme: flatly
+    css:
+      - style.css
+      - cajas.css
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(comment = NA)
+
+library(summarytools)
+library(devtools)
+# install_github("lchiffon/wordcloud2")
+library(wordcloud)
+
+# colores
+source("R/init.R")
+
+```
+
+
+```{r, echo=FALSE, out.width="100%", fig.align = "center"}
+ knitr::include_graphics("img/recurso3.png")
+```
+
+# **Modelos especiales**
+
+<br/><br/>
+
+A continuación se presentan los principales conceptos teóricos de esta unidad, acompañados de ejemplos resueltos. 
+
+## **Introducción**
+
+<br/><br/>
+
+En las unidades abordadas previamente a esta se han trabajado las características de variables aleatorias tanto discretas como continuas dentro de  las cuales están: la función de distribución de probabilidad $f(x)$ , para el caso discreto y la función de densidad de probabilidad para las variables continuas. En ambos casos la función de probabilidad acumulada $F(x)$ que representa $P(X \leq x)$, el valor esperado $E[X]$, la varianza $V[X]$, y en el caso de las variables conjuntas la función de distribución conjunta y la función de densidad conjunta para los casos discreto-discreto y continuo-continuo, respectivamente $f_{_{XY}}(x,y)$. También característica de ellas como son: el valor esperado conjunto $E[XY]$ , la covarianza $Cov[XY]$ y el coeficiente de correlación  $\rho_{_{XY}}$ para las variables $X$ y $Y$. 
+
+<br/><br/>
+Ahora, el siguiente modelo :
+
+$$f(x)= \frac{1}{50}e^{-(\frac{x}{50})} $$ 
+
+<br/><br/>
+
+Llamado exponencial, puede ser estudiado y asociado a sucesos que ocurren diariamente a nuestro alrededor.
+
+Tener una variable cuyo comportamiento se puede caracterizar tiene la ventaja de conocer fácilmente el recorrido teórico en la construcción del modelo, las propiedades, tendencias, valor esperado, varianza, función de distribución, estimadores de sus parámetros, alternativas que facilitan el cálculo de probabilidades, su afinidad con otras variables, entre otras, características que facilitan actividades como la simulación. 
+
+El siguiente diagrama presenta los principales modelo de probabilidad y sus diferentes relaciones
+
+<br/><br/>
+
+
+
+```{r, echo=FALSE, out.width="80%", fig.align = "center"}
+ knitr::include_graphics("img/distribuciones3.png")
+```
+
+
+Fuente: construcción propia. basado en Univariate Distribution Relationships  ([Lawrence M. LEEMIS and Jacquelyn T. MCQUESTON](http://www.math.wm.edu/~leemis/2008amstat.pdf))
+
+<br/><br/>
+
+# **Modelos discretos**
+
+<br/><br/>
+
+## **Algunos modelos discretos**	
+
+<br/>
+
+|                 |                 |                 |                 |                 |                 | 
+|:---------------:|:---------------:|:---------------:|:---------------:|:---------------:|:---------------:|
+| Bernoulli       | Binomial        | Poisson         | Hipergeométrico | Geométrico o de Pascal | Binomial negativo|
+|                 |                 |                 |                 |                 |                 | 
+
+
+A continuación se presentan los modelos más comunes con sus principales características:
+
+<br/><br/>
+
+Hemos clasificado como variables discretas aquellas cuyo rango $R_{X}$, corresponde a un conjunto de valores finito o infinito numerables. También es común que estas variables sean asociadas con el conteo, por lo que en su mayoría contienen la palabras **número de...**
+
+A continuación se presentan los principales modelos discretos.
+
+<br/><br/>
+
+## **Bernoulli**
+
+<br/>
+
+Empezaremos  enunciando el modelo Bernoulli, aunque algunos autores no lo reconocen como modelo, ayuda en la compresión de los modelos siguientes. Toma  su nombre del matemático Jacob Bernoulli.
+
+<br/><br/>
+
+<div class="box4 with-label">
+### Distribución Bernoulli
+		
+Una variable que se distribuye Bernoulli, procede de un experimento Bernoulli, descrito por las siguientes características:
+	
+* El experimento consta de un ensayo.
+
+* El ensayo solo tiene dos posible resultados: éxito (E), fracaso (F).
+
+* La probabilidad de éxito es $p$, la probabilidad de fracaso es $1-p=q$ 
+
+La variable objeto de estudio es $X$: hay o no éxito éxitos en un ensayo de Bernoulli. Sus principales características son:
+
+Rango : $R_{X}=\{0,1 \}$,
+Función de distribución de probabilidad $
+
+$$\begin{equation*}
+		f(x)=\left\lbrace
+		\begin{array}{lll}
+			p & \mbox{si } x=1   \\
+			q & \mbox{si } x=0
+		\end{array}
+		\right.
+\end{equation*}$$
+
+$$E[X]= p$$
+
+$$V[X]= pq$$
+
+</div> 
+
+<br/><br/>
+
+<div class="box6 with-label">
+### Ejemplo 1
+
+Un biólogo realiza una salida de campo para estudiar el comportamiento del cucarachero común. Se considera éxito si puede filmar al animal y fracaso si no puede hacerlo. Por información suministrada en artículos científicos la probabilidad de lograrlo se estima en 0.20. 
+
+
+</div>
+
+
+<br/><br/>
+
+### **Solución** 
+
+Se requiere examinar si dentro de este contexto existe una variable que proceda de un experimento Bernoulli y ese caso como se podría caracterizar.
+
+ Primero es necesario revisar las características de un experimento Bernoulli y confrontarlas contra el contexto presentado en el ejemplo. 
+
+Primero existe un solo ensayo o salida de campo, durante después de la salida de campo se pueden obtener dos resultados posibles: lograr el objetivo de visualizar y filmar al animal (Éxito) y por otro lado el no lograrlo (Fracaso). También se posee la probabilidad de éxito ($0.20$), este caso establecida mediante el enfoque subjetivo de un experto en un artículo científico. Lo anterior nos permite poder asociar la variable que llamaremos $X$ asociada con el poder o no realizar la filmación.
+
+La variable aleatoria se define en este caso como:
+
+$$X =\left\lbrace
+\begin{array}{lll}
+	1 & \mbox{si se realiza la filmación del ave}   \\
+	0 & \mbox{si no se logra realizar la filmación}
+\end{array}
+\right.$$
+
+y su función de distribución de probabilidad está dada por:
+
+$$f(x)= 0.2^{x} (1-0.2)^{1-x} ,\text{ si } x=0,1.$$
+$$E[X]=p =0.20$$ 
+
+$$V[X] =p(1-p)= 0.16$$
+<br/><br/>
+
+
+## **binomial** 
+
+<br/>
+
+El segundo modelo que abordaremos corresponde al modelo binomial, que puede verse como una generalización del modelo Bernoulli, pasando de un ensayo a $n$ ensayos. Fue investigada y analizada por el físico y matemático suizo Jakob Bernoulli en relación con problemas presentados en los juegos de azar. Su trabajo fue presentado en 1713. 
+
+<br/>
+
+<div class="box4 with-label">
+### Distribución binomial
+	
+Una variable con distribución binomial es aquella que procede de un experimento binomial. 
+	
+Ahora un experimento binomial tiene las siguientes características: 
+	
+* El experimento consta de $n$ ensayos 
+
+* Cada ensayo tiene solo dos posible resultados: éxito (E) o fracaso (F) (experimento Bernoulli),
+
+* La probabilidad de éxito es igual a $p$ y se mantiene fija para todos los ensayos P(E). La probabilidad de fracaso es $(1-p)=q$,
+
+* Los ensayos son independientes,
+
+* La variable objeto de estudio $X$, corresponde al **número de éxitos obtenidos en los $n$ ensayos**.
+
+* Se puede decir que la suma de $n$ variables independientes con distribución Bernoulli($p$), se distribuye de manera Bionomial($n,p$)
+	
+La función de distribución de probabilidad está dada por:
+	
+$$\begin{equation*}
+		f(x)=\left\lbrace
+		\begin{array}{lll}
+			\displaystyle\binom{n}{x} p^{x} (1-p)^{n-x} &,& x=0,1,2, \ldots, n   \\
+			&&\\
+			0 &,& \mbox{en otro caso}
+		\end{array}
+		\right.
+ \end{equation*}$$
+	
+$$E[X]=np$$
+
+$$V[X]= np(1-p) $$
+
+</div> 
+
+
+```{r, echo=FALSE, fig.height=3.5, fig.align='center'}
+library(ggplot2)
+# modelo binomial  ok
+x=0:9
+fx=dbinom(x,9,0.90)
+dat=data.frame(x,fx)
+
+
+ggplot(dat) + geom_point(aes(x, fx),colour = c31, size = 2) +
+  scale_x_continuous(limits = c(0, 10),
+                     breaks = c(0,1,2,3,4,5,6,7,8,9), 
+                     labels = c('0','1','2','3','4','5','6','7','8','9'))
+```
+
+<br/><br/>
+
+
+<div class="box6 with-label">
+### Ejemplo 2
+
+Un sistema de seguridad para casas está diseñado para tener una confiabilidad del 90% . Suponga que nueve casas equipadas con este dispositivo sufrieron tentativa de robo. Se requiere calcular la probabilidad de que en siete de las nueve, la alarma se activará. 
+
+
+</div>
+
+<br/><br/>
+
+### **Solución**
+
+En este caso la variable $X$ se define como el número de casas de las nueve en las que se activa el sistema de alarma. Observe que en cada caso se puede presentar dos posibles resultados frente a la tentativa de robo : 
+
+* La alarma se active (E) o que el sistema falle y no se active (F), los cuales conforman los eventos de exito (E) y fracaso (F).
+
+* Los sistemas operan de manera independiente y se pueden considerar como idénticos.
+
+* La probabilidad de que un equipo se active frente a una tentativa de robo es de 0.9 ($p$) y por tanto la probabilidad de que no funcione será de 0.1 ($q$)
+
+* Se tienen nueve casas, que representaría la realización de nueve ensayos, bajo las mismas condiciones.
+
+Por las anteriores razones, el proceso enunciado corresponde a un experimento binomial y por tanto podemos afirmar que la variable X: número de sistemas que se activan ante la tentativa de robo, es una variable con distribución binomial con parámetros $n=9$ y $p=0.90$.
+
+Para calcular la probabilidad requerida utilizamos la función de distribución de probabilidad del modelo Binomial
+
+$$\begin{equation*}
+	\begin{array}{lcl}
+		f(7) = P(X=7)&=& \displaystyle\binom{9}{7} 0.90^{7} 0.10^{2} \\
+		&=& 0.17218688 
+	\end{array}
+\end{equation*}$$
+
+En R se corre el siguiente código:
+
+```{r}
+ dbinom(7,9,0.90)
+```
+
+La siguiente gráfica corresponde a la función de distribución de probabilidad del ejemplo2 :binomial con $n=9$ y $p=0.90$
+
+Distribución binomial $n=9$, $p=0.90$
+fig_binom.pdf
+
+<br/><br/>
+
+
+## **Poisson**
+
+<br/>
+
+El siguiente modelo fue plantea por el físico y matemático francés Siméon-Denis Poissonen uno de sus trabajos presentado en 1838 relacionado con temas sobre juicios en temas criminales y civiles. Es  utilizado para resolver problemas asociados con el número de eventos que ocurren en un intervalo de tiempo o espacio, como por ejemplo:
+
+* número de llamadas que recibe un conmutador durante una hora
+
+* número de plaquetas por $mm^{3}$ de sangre
+
+* número de servicios técnicos solicitados por día
+
+* número de imperfecciones por $m^{2}$  de carretera
+
+<br/>
+
+<div class="box4 with-label">
+### Distribución Poisson
+
+La función de distribución de probabilidad de una variable con distribución Poisson esta dada por siguiente la expresión:
+	
+$\begin{equation*}
+		f(x)=\left\lbrace
+		\begin{array}{lll}
+			\dfrac{\lambda^{x}}{x!} \hspace{.2cm} e^{-\lambda} &,& x \geq 0   \\
+			&&\\
+			0 &,& \mbox{en otro caso}
+		\end{array}
+		\right.
+	\end{equation*}$
+	
+Donde $\lambda$ es la cantidad promedio de ocurrencias en el periodo de interés.
+	
+$$E[X]=\lambda$$
+
+$$V[X]=\lambda $$
+La variable objeto de estudio $X$ es el **número de eventos que ocurren por unidad de tiempo, longitud, superficie o volumen**
+
+</div> 
+La siguiente gráfica representa la distribución de masa de una variable de Poisson con media 2.
+
+**Distribución Poisson ($\lambda=2$)**
+
+```{r, echo=FALSE, fig.height=3.5, fig.align='center'}
+# poiss ok
+library(ggplot2)
+x=0:10
+fx=dpois(x,2)
+dat=data.frame(x,fx)
+
+
+ggplot(dat) + geom_point(aes(x, fx),colour = c31, size = 2) +
+  scale_x_continuous(limits = c(0, 10),
+                     breaks = c(0,1,2,3,4,5,6,7,8,9,10), 
+                     labels = c('0','1','2','3','4','5','6','7','8','9','10'))
+```
+
+<br/><br/>
+
+	
+<div class="box6 with-label">
+### Ejemplo 3
+
+ Se estima que en el cruce más importante de la cuidad, ocurren 2 accidentes por día y se desea valorar la probabilidad de que en un día cualquiera no ocurra ningún accidente en dicho cruce.
+
+</div>
+
+<br/><br/>
+
+### **Solución**
+
+El número de accidentes que pueden ocurrir en este cruce, para un dia cualquiera, se puede considerar como una variable aleatoria con distribución Poisson, pues la variable hace referencia al número de eventos que se pueden presentar en un determinado espacio de tiempo. 
+Para calcular la probabilidad de que no ocurra ningún evento, utilizamos el modelo Poisson:
+
+$$f(0) = P(X = 0) = \dfrac{2^{0}}{0!} \hspace{.2cm} e^{-2}=0.135335$$
+
+```{r}
+dpois(0,2)
+```
+
+
+<br/><br/>
+
+## **hipergeometrico**
+
+Este modelo nace de la necesidad de modelar eventos Bernoulli con probabilidad no constante generados en elecciones sin repetición. 
+
+<br/>
+
+<div class="box4 with-label">
+### Distribución hipergeometrica 
+	
+Se tiene un conjunto de $N$ objetos que contiene $K$ objetos clasificados como éxitos y $N-K$ objetos clasificados como fracasos. Una muestra de tamaño $n$ objetos es seleccionada al azar (sin reemplazo) de la población de $N$ objetos, donde $K \leq N$ y $n \leq N $. La variable de interés $X$ corresponde al **número de éxitos obtenidos en la muestra**. 
+	
+Su función de masa de probabilidad esta dada por 
+	
+$$\begin{equation*}
+		f(x)=\left\lbrace
+		\begin{array}{lll}
+			\dfrac{\displaystyle\binom{K}{x} \displaystyle\binom{N-K}{n-x}}{\displaystyle\binom{N}{n}} &, {\text{ si }\max(0,K+n-N) \leq x \leq \min(n,K) }&   \\
+			&\\
+			0, \mbox{en otro caso}
+		\end{array}
+		\right.
+	\end{equation*}$$
+	
+	
+$$E[X]=\dfrac{nK}{N}$$
+$$V[X]=n\Bigg(\frac{K}{N}\Bigg) \Bigg(1-\dfrac{K}{N}\Bigg)\Bigg(\dfrac{N-n}{N-1}\Bigg)$$
+	
+</div> 
+
+**Distribución binomial hipergeometrica ($m=95, n=5, k=10$)**
+
+```{r, echo=FALSE, fig.height=3.5, fig.align='center'}
+# hyper ok
+library(ggplot2)
+x=5:10
+fx=dhyper(x,95,5,10)
+dat=data.frame(x,fx)
+
+
+ggplot(dat) + geom_point(aes(x, fx),colour = c31, size = 2) +
+  scale_x_continuous(limits = c(5, 10),
+                     breaks = c(5,6,7,8,9,10), 
+                     labels = c('5','6','7','8','9','10'))
+```
+
+<br/><br/>
+
+
+<br/>
+
+
+<div class="box6 with-label">
+### Ejemplo 4
+
+Las tarjetas de circuito impreso se someten a una prueba de funcionamiento antes de ser ensambladas en un dispositivo de seguridad, después de ser rellenado con chips semiconductores. Un lote de estas tarjetas contiene 140 unidades y se seleccionan aleatoriamente 20 sin reemplazo para realizar una prueba de control de calidad internacional. Si 5 tarjetas son defectuosas, ¿cuál es la probabilidad de que al menos 1 tarjeta defectuosa aparezca en la muestra? (3-92.  Mongomery) 
+
+</div>
+
+### **Solución** 
+
+$\begin{eqnarray*}
+	P(X\geq 1)=1-P(X=0)
+	&=& 1 - \dfrac{\displaystyle\binom{5}{0}\displaystyle\binom{135}{20}}{\displaystyle\binom{140}{20}}\\
+	&=& 1-\big[ 0.4570594  \big] \\
+	&=& 0.5429406
+\end{eqnarray*}$
+
+
+```{r}
+
+phyper(0,5,135,20, lower.tail = FALSE)
+```
+
+<br/><br/>
+
+## **geométrico o de Pascal**
+
+La distribución geométrica también conocida como distribución de Pascal, fue esbozada en el escrito El arte de la conjetura, escrita por Jakob Bernoulli. Esta distribución modela el número de ensayos Bernoulli necesarios para obtener el primer éxito. Los valores que puede tomar esta variable son:
+
+<br/>
+
+|	$x$   | eventos          |  $f(x)$       |                
+|:------|:-----------------|:--------------|
+|	$1$   |  $E$             | $p$           |
+|	$2$   |  $FE$            | $p(1-p)$      |
+|	$3$   |  $FFE$           | $p(1-p)^{2}$  |
+|	$4$   |  $FFFE$          | $p(1-p)^{3}$  |
+|	$5$   |  $FFFFE$         | $p(1-b)^{4}$  |
+|       |                  |               |
+|	$x$   |  $FFFF \ldots FE | $p(1-p)^{x-1}$| 
+
+<br/>
+
+La variable $X$ toma el valor de $1$ cuando el éxito ocurre en el primer intento. Cuando el primer éxito ocurre en el evento dos, $X$ es igual a $2$, es decir que la variable con distribución geométrica corresponde al **número del evento donde ocurre el primer éxito**.
+
+<br/>
+
+<div class="box4 with-label">
+### Distribución geométrica
+
+$$\begin{equation*}
+		f(x)=\left\lbrace
+		\begin{array}{lll}
+			p(1-p)^{x-1}	 &,& x \geq 1   \\
+			&&\\
+			0 &,& \mbox{en otro caso}
+		\end{array}
+		\right.
+\end{equation*}$$
+	
+	
+$$E[X]=\dfrac{1}{p}$$
+
+$$V[X]=\dfrac{1-p}{p^{2}} $$
+
+</div> 
+
+Nota: En R la variable corresponde al **número de fracasos necesarios para obtener el primer exito**
+<br/><br/>
+
+
+
+**Distribución geométrica o de Pascal ($p=0.5$)**
+
+```{r, echo=FALSE, fig.height=3.5, fig.align='center'}
+# geom 
+library(ggplot2)
+x=1:10
+fx=dgeom(x,0.5)
+dat=data.frame(x,fx)
+
+
+ggplot(dat) + geom_point(aes(x, fx),colour = c31, size = 2) +
+  scale_x_continuous(limits = c(1, 10),
+                     breaks = c(1,2,3,4,5,6,7,8,9,10), 
+                     labels = c('1','2','3','4','5','6','7','8','9','10'))
+```
+ 
+ 
+<br/><br/>
+
+<div class="box6 with-label">
+### Ejemplo 5
+
+En un estudio realizado en peces, los animales son sometidos a pruebas para determinar si poseen o no un gen que aumenta el riesgo de una enfermedad mortal. la probabilidad de que una animal de la especie en estudio tenga el gen es 0,5. Cuál es la probabilidad de que 3 o más animales deban ser sometidos a pruebas antes de detectar el primer pez con el gen objeto de estudio? 
+
+</div>
+
+<br/><br/>
+
+### **Solución** 
+
+$$\begin{eqnarray*}
+	P(X\geq 3)&=& 1-P(X\leq 2)\\
+	&=& 1-[p(1)+p(2)] \\
+	&=& 1-[0.5+0.5 \times 0.5] \\
+	&=&0.25 
+\end{eqnarray*}$$
+
+```{r}
+dgeom(2, 0.50)
+0.50*0.50
+```
+
+<br/><br/>
+
+## **binomial negativo**
+
+<br/>
+
+La distribución binomial negativa esta relacionada con la distribución geométrica
+
+<br/>
+
+
+<div class="box4 with-label">
+### Distribución binomial negativa
+	
+Se considera una generalización de la distribución Geométrica. En este caso la variable objeto de estudio corresponde a $X$: **número de ensayos requeridos para obtener $r$ éxitos**. Esta variable se obtiene al sumar $r$ variables con distribución Geométrica con igual parámetro $p$.
+	
+Su función de masa está dada por :
+
+	
+$$\begin{equation*}
+		f(x)=\left\lbrace
+		\begin{array}{lll}
+			\displaystyle \binom{x-1}{r-1} p^{r} (1-p)^{x-r}	 &,& x= r, r+1,  \ldots    \\
+			&&\\
+			0 &,& \mbox{en otro caso}
+		\end{array}
+		\right.
+	\end{equation*}$$
+
+$$E[X]=\dfrac{r}{p}$$
+
+$$V[X]=\dfrac{r(1-p)}{p^{2}}$$	
+
+</div> 
+
+<br/><br/>
+
+
+**Distribución binomial negativa ($k=2, p=0.50$)**
+
+
+```{r, echo=FALSE, fig.height=3.5, fig.align='center'}
+# nbiom
+library(ggplot2)
+x=2:10
+fx=dnbinom(x,2,0.50)
+dat=data.frame(x,fx)
+
+
+ggplot(dat) + geom_point(aes(x, fx),colour = c31, size = 2) +
+  scale_x_continuous(limits = c(2, 10),
+                     breaks = c(2,3,4,5,6,7,8,9,10), 
+                     labels = c('2','3','4','5','6','7','8','9','10'))
+```
+
+	
+<br/><br/>
+
+<div class="box6 with-label">
+### Ejemplo 6
+
+Un sitio Web está soportado por tres servidores idénticos. Sólo uno de ellos se utiliza para operar el sitio, y los otros dos son de repuesto, los  cuales se activan en caso de que el sistema principal falle. La probabilidad de falla en el sistema principal (o cualquier otro sistema de repuesto activado) ante una solicitud de servicio es 0,0005. Suponiendo que cada solicitud representa un juicio independiente, cuál es el número medio de solicitudes que se espera hasta el fracaso de los tres servidores? 
+
+
+</div>
+ 
+<br/><br/>
+
+### **Solución**
+
+$$E[X]=\dfrac{3}{0.0005}= 6000 $$
+<br/><br/>
+
+
+# **Modelos continuos**
+
+<br/><br/>
+
+## **Algunos modelos continuos**
+
+Las variables continuas proceden en su mayoría de la medición y se clasifican así debido a que su rango esta formado por un conjunto infinito no numerable. A continuación se presentan los principales modelos continuos.
+
+<br/>
+
+|                 |                 |                 |                 |                 |                 | 
+|:---------------:|:---------------:|:---------------:|:---------------:|:---------------:|:---------------:|
+| Uniforme        |   Normal        |  Exponencial    |  Gamma          |  Weibull        | Cauchy          |
+| Lognormal       |   Beta          | Erlang          |  Gumbel         |  Kernel	        |                 |
+|                 |                 |                 |                 |                 |                 |
+
+
+<br/><br/>
+
+## **uniforme**
+
+<br/>
+
+<div class="box4 with-label">
+### Distribución uniforme
+	
+Se caracteriza porque su función de densidad es constante en su recorrido o dominio de definición (intervalo [a,b])
+
+$$\begin{equation*}
+		f(x)=\left\lbrace
+		\begin{array}{lll}
+			\dfrac{1}{b-a}	 &,& a \leq x \leq b   \\
+			&&\\
+			0 &,& \mbox{en otro caso}
+		\end{array}
+		\right.
+	\end{equation*}$$
+
+</div> 
+
+<br/><br/>
+
+**Distribución uniforme ($0,1$)**
+
+```{r, echo=FALSE, fig.height=3.5, fig.align='center', warning=FALSE, message=FALSE}
+# uniforme
+library(ggplot2)
+x= c(0,1) 
+fx=c(1,1) 
+dat=data.frame(x,fx)
+ggplot(data=dat,aes(x=x, y=fx))+ 
+  scale_y_continuous(limits=c(0,1.2))+
+  geom_line(size = 1, color=c31) 
+```
+
+
+<div class="box6 with-label">
+### Ejemplo 7
+
+ En la fabricación de portaobjetos, que son láminas rectangulares de vidrio muy delgada (76x26 mm y 1 mm de espesor), utilizados para  la observación de sustancias en el microscopio. Una de sus principales características está relacionada con su espesor ($X$), el cual tiene una distribución uniforme entre 0.95 mm y 1.05 mm. Determine la probabilidad de que un portaobjeto determinado tenga un espesor superior a 1.03 mm.|          
+
+</div>
+
+<br/><br/>
+
+### **Solución** 
+
+ $$P(X\geq 1.03)= (1.05-1.03) \times \frac{1}{0.10}=0.20 $$
+
+<br/><br/>
+
+## **normal**
+
+La distribución normal es uno de los modelos más utilizados en las aplicaciones de la Estadística. Estas aplicaciones están relacionadas con:
+
+Usos de la distribución normal
+
+* La mayoría de variables en la naturaleza, se distribuyen aproximadamente de manera normal
+
+* A partir de la distribución normal se originan las distribuciones $t-student$, $\chi^{2}$ y $F$-Fisher, utilizadas en inferencia estadística
+
+* En general la media muestral de variables que no tienen distribución normal, tiende a aproximarse a una distribución normal, a medida que el tamaño de muestra aumenta. (Teorema del Límite Central) 
+
+* La regla empírica establece que:
+
+    *	Aproximadamente el 68\% de la población se encuentra en el intervalo centrado $$(\mu - \sigma ; \mu + \sigma)$$
+
+		* Aproximadamente el 95\% de la población se encuentra en el intervalo centrado $$(\mu - 2\sigma ; \mu + 2\sigma)$$
+
+		* Aproximadamente el 99.7\% de la población se encuentra en el intervalo centrado $$(\mu - 3\sigma ; \mu + 3\sigma)$$
+
+Su distribución fué planteada por el matemático francés del siglo 18, Abraham de Moivre, quien a partir de la distribución Binomial, con $n=2$ empezó a aumentar su tamaño hasta observar que se formaba una distribución en forma de campana. Este mismo comportamiento fué detectado por Galileo en el siglo 17, al observar los errores producto de sus mediciones en astronomía. El modelo como se conoce actualmente fue propuesto de manera simultánea por los cientificos Robert Adrain y Carl Friedrich Gauss, quien finalmente le dió el nombre.
+
+Su función de densidad esta dada por:
+
+<br/>
+
+<div class="box4 with-label">
+### Distribución normal
+	
+$$f(x)= \dfrac{1}{\sqrt{2\pi \sigma^{2}}} \hspace{.1cm} e^{-\big(\frac{1}{2\sigma^{2}}(x-\mu)^{2}\big)}	 \hspace{.5cm}  -\infty \leq  x \leq \infty $$  
+	
+$$E[X]=\mu$$
+$$V[X]=\sigma^{2}$$
+
+</div> 
+
+
+<br/><br/>
+
+En la siguente gráfica se muestra el efecto en la curva normal, producto de cambios en la media o en la varianza. A mayor valor de la media la curva se desplaza a la derecha, mientras que a menor varianza la curva se vuelve mas angosta o puntiaguda 
+
+Distribuciones normales : <span style="color:#00B845">$N(0,1)$</span>, <span style="color:#F9573F"> $N(0,1.5)$</span> y <span style="color:#F6BB42"> $N(2,1.5)$</span>
+
+```{r, echo=FALSE, fig.height=3.5, fig.align='center'}
+# Distribucion normal
+library(ggfortify)
+
+p=ggdistribution(dnorm, seq(-4, 8, 0.1), mean = 0, sd = 1,colour = "#00B845")
+p=ggdistribution(dnorm, seq(-4, 8, 0.1), mean = 0, sd = 1.5,colour = "#F9573F", p=p)
+ggdistribution(dnorm, seq(-4, 8, 0.1),   mean = 2, sd = 1.5,colour = "#F6BB42", p=p)
+```
+
+
+
+
+Dentro del sin número de posibles curvas que se pueden obtener con los parámetros $\mu$ y $\sigma^{2}$, existe una muy especial. Normal estándar ($N(0,1)$) con $\mu=0$ y $\sigma^{2}=1$.  La gran mayoría de libros de Estadística poseen tablas de la función de distribución acumulada de la normal estándar.\\
+
+
+<div class="box4 with-label">
+### Distribución normal estandar N(0,1)
+
+Su función de distribución esta dada por :
+
+$$f(x)= \dfrac{1}{\sqrt{2\pi}} \hspace{.1cm} e^{-\big(\frac{1}{2}(x)^{2}\big)}	 \hspace{.5cm}  -\infty \leq  x \leq \infty $$ 
+
+Si $X \sim N(\mu, \sigma^{2})$, entonces $Z= \dfrac{X-\mu}{\sigma} \sim N(0,1)$ 
+
+a este proceso se le llama comúnmente estandarizar.
+
+</div> 
+
+
+**normal estándar**
+
+```{r, echo=FALSE, fig.height=3.5, fig.align='center'}
+library(ggfortify)
+ggdistribution(dnorm, seq(-4, 4, 0.1), mean = 0, sd = 1,fill = c31)
+```
+
+<br/><br/>
+
+
+
+La propiedad empírica de la distribución normal es de gran ayuda cuando una variable  de interés se  puede aproximar al modelo normal. Ella establece un intervalo formado por la media mas o menos una desviación estándar contiene el 68\% de los datos. Si el intervalo tiene un ancho de 4 desviaciones estándar contendrá el 95\% de los datos y si este intervalo corresponde a los valores de la media mas o menos 3 desviaciones estándar contendrá el 99\% de los datos que se representa en la siguiente gráfica.
+
+<div class="box4 with-label">
+### Propiedad empírica de la distribución normal estandar
+
+* $P(\mu - \sigma \leq X \mu + \sigma) = 0.68$
+* $P(\mu - 2\sigma \leq X \mu + 2\sigma) = 0.95$
+* $P(\mu - 3\sigma \leq X \mu + 3\sigma) = 0.99$
+
+
+
+```{r, echo=FALSE, out.width="60%", fig.align = "center"}
+ knitr::include_graphics("img/normal_N01.png")
+```
+
+</div>
+
+<br/><br/>
+
+<div class="box6 with-label">
+### Ejemplo 8
+
+
+ La velocidad de transferencia de archivos desde un servidor en el campus de la universidad a un ordenador personal en casa de un estudiante en un día laborable, se distribuye normalmente con una media de 60 kilobits por segundo y una desviación estándar de 4 kilobits por segundo. ¿Cuál es la probabilidad de que el archivo se transfiera a una velocidad de 70 kilobits por segundo o más? 
+ 
+ </div>
+
+<br/><br/>
+
+### **Solución** 
+
+Para una variable $X$ con distribución $N(60,16)$, debemos calcular la probabilidad $P(X \geq 70)$ \\
+
+$$\begin{eqnarray*}
+	P(X \geq 70)&=&P\Bigg(\dfrac{X-\mu}{\sigma} \geq \dfrac{70-60}{4}\Bigg)\\
+	&=& P\Bigg(Z \geq \dfrac{70-60}{4}\Bigg)\\
+	&=& P(Z\geq 2.5)=1-P(Z < 2.5 )\\
+	&=& 1-0.9938=0.0062
+\end{eqnarray*}$$
+
+En R se utiliza el siguiente código: 
+
+```{r }
+pnorm(70, mean=60, sd=4, lower.tail=FALSE)
+```
+
+<br/><br/>
+
+
+## **exponencial** 
+
+Este modelo fue  planteado por el matemático estadístico e ingeniero Agner Kraru Erlang, experto en el trafico de las comunicaciones y la teoría de colas. 
+Distribución utilizada para modelar el tiempo entre dos eventos consecutivos. 
+
+
+<br/>
+
+<div class="box4 with-label">
+### Distribución exponencial
+	
+$$\begin{equation*}
+		f(x)=\left\lbrace
+		\begin{array}{lll}
+			\lambda e^{-\lambda x}  &,& x > 0   \\
+			&&\\
+			0 &,& x \leq 0 
+		\end{array}
+		\right.
+	\end{equation*}$$
+	
+	
+$$E[X]=\dfrac{1}{\lambda}$$
+	
+$$V[X]=\dfrac{1}{\lambda^{2}}$$
+	
+Observación: algunos autores utilizan $\frac{1}{\beta}$ en lugar de $\lambda$
+	
+$$F(x)=P(X \leq x)=1-e^{-\lambda x} \hspace{1cm} x > 0$$
+
+</div> 
+
+<br/><br/>
+
+
+Distribuciones exponenciales : <span style="color:#00B845"> $exp(1)$</span>, <span style="color:#F9573F"> $exp(2)$</span> y <span style="color:#F6BB42"> $exp(5)$</span>
+
+```{r, echo=FALSE, fig.height=3.5, fig.align='center'}
+#exponencial
+library(ggfortify)
+p=ggdistribution(dexp, seq(0, 10, 0.1),rate=1 ,colour = "#00B845")
+p=ggdistribution(dexp, seq(0, 10, 0.1),rate=2 ,colour = "#F9573F", p=p)
+ggdistribution(dexp, seq(0, 10, 0.1),rate=0.5,colour =  "#F6BB42", p=p)
+```
+ 
+
+**Distribuciones exponenciales acumuladas**
+
+
+```{r, echo=FALSE, fig.height=3.5}
+library(ggfortify)
+ggdistribution(pexp, seq(0, 10, 0.1),rate=1 ,colour = c31)
+```
+
+<br/><br/>
+
+<div class="box6 with-label">
+### Ejemplo 9
+
+ El tiempo entre llamadas de los clientes a una empresa de turismo ecológico tiene una distribución exponencial con un tiempo medio entre llamadas de 15 minutos. ¿Cuál es la probabilidad de que transcurra más de 20 minutos antes de que se realiza una nueva llamada? (Ejemplo 8 4-77 Mongomery) 
+ 
+ </div>
+
+<br/><br/>
+
+### **Solución**
+
+$X$: el tiempo entre dos llamadas consecutivas $\lambda=\frac{1}{15}$ minutos. 
+
+$$\begin{eqnarray}
+	P(X \geq 20) &=& 1-P(X < 20) \\
+	&=& 1-(1-e^{-\frac{20}{15}}) \\
+	&=& 0.2636 
+\end{eqnarray}$$
+
+En R se utiliza el siguiente código: 
+
+```{r}
+ pexp(20,1/15, lower.tail=FALSE)
+```
+
+
+
+Para tratar las distribuciones Gamma y Weibull, es necesario definir la función Gamma como:
+
+$$\Gamma(r)= \int_{0}^{\infty} t^{r-1} e^{t} \,dt $$
+
+Con las siguientes propiedades:
+
+
+* Si $r$ es un entero, $\Gamma(r)=(r-1)!$
+
+* para cualquier valor de $r$, $\Gamma(r+1)=r \Gamma(r)$
+
+* $\Gamma(1/2)=\sqrt{\pi}$
+
+* $\Gamma(1)=1,\hspace{.1cm} \Gamma(2)=1, \hspace{.1cm} \Gamma(3)=2, \hspace{.1cm}\Gamma(n+1)=n!$
+
+
+<br/><br/>
+
+## **gamma**
+
+Esta distribución tiene su origen en la familia de curvas sesgadas propuestas por Karl Pearson. Esta distribución es otra alternativa para modelar los tiempos de espera de ocurrencia de sucesos o eventos. En ocasiones puede relacionarse con la suma de los tiempos de variables exponenciales sucesivas con igual media.
+
+<br/><br/>
+
+<div class="box4 with-label">
+### Distribución gamma
+
+La distribución Gamma se obtiene al sumar $r$ variables con distribución exponencial con parámetro $\lambda$. 
+
+Distribución 
+
+Si $Y=X_{1}+X_{2}+....+X_{r}$, $X_{i} \sim Exp(\lambda)$, entonces $Y \sim \Gamma(r,\lambda)$.
+	
+$$\begin{equation*}
+		f(x)=\left\lbrace
+		\begin{array}{lll}
+			\dfrac{\lambda^{r}x^{r-1} e^{-\lambda x}}{\Gamma(r)}  &,& x > 0   \\
+			&&\\
+			0 &,&   x \leq 0
+		\end{array}
+		\right.
+	\end{equation*}$$
+
+	
+Distribuciones exponenciales gamma(3,1)}, gamma(2,1) y gamma(5,1)
+fig_gammas.pdf
+
+Algunos autores utilizan $\frac{1}{\beta}$ en lugar de $\lambda$ y $\alpha$ en lugar de $r$
+
+
+$$E[X]=\dfrac{r}{\lambda}$$
+$$V[X]= \dfrac{r}{\lambda^{2}}$$
+
+</div> 
+
+<br/><br/>
+
+Distribuciones : <span style="color:#00B845"> $gamma(3,1)$</span>, <span style="color:#F9573F">$gamma(2,1)$</span> y <span style="color:#F6BB42"> $gamma(5,1)$</span>
+
+```{r, echo=FALSE, fig.height=3.5, fig.align='center'}
+# gamma
+library(ggfortify)
+p=ggdistribution(dgamma, seq(0, 15, 0.1),shape=3,rate=1 ,colour= "#00B845")
+p=ggdistribution(dgamma, seq(0, 15, 0.1),shape=2,rate=1 ,colour = "#F9573F", p=p)
+ggdistribution(dgamma, seq(0, 15, 0.1),shape=5,rate=1,colour = "#F6BB42", p=p)
+
+```
+
+
+<div class="box6 with-label">
+### Ejemplo 10
+
+ En cierta ciudad el consumo diario de energía eléctrica, en millones de kilovatios por hora, puede considerarse como una variable aleatoria con distribución Gamma de parámetros $r= 3$ y $\lambda= 0.5$. La planta de energía de esta ciudad tiene una capacidad diaria de 10 millones de KW/hora. ¿Cuál es la probabilidad de que este abastecimientos sea insuficiente en un día cualquiera?.
+ 
+ </div>
+
+
+<br/><br/>
+
+### **Solución**
+
+$X$: consumo diario de energia
+
+$$\begin{eqnarray*}
+	P(X > 10)&=& 1-P(X \leq 10) \\
+	&=& 1 - \dfrac{1}{\Gamma(3)} \int_{0}^{10} (0.5)^{3}  x^{3-1} e^{-0.5x} \,dx \\
+	&=& 0.124652
+\end{eqnarray*}$$
+
+
+```{r}
+pgamma(10,3,0.5, lower.tail = FALSE)
+```
+
+<br/><br/>
+
+## **Weibull** 
+
+<br/>
+
+Esta distribución fue descubierta Maurice Frechet matemático francés y luego trabajada por  Rosin y Rammler quienes en 1933 estudiaron el tamaño de una partícula y posteriormente recibe su nombre del  ingeniero y matemático Waloddi Weibull . Esta distribución se utiliza para modelar el tiempo de vida de algunos componentes. La Weibull tiene dos parámetros $\alpha$ y $\beta$. Su función de distribución y sus principales características son:
+
+<br/>
+
+<div class="box4 with-label">
+### Distribución Weibull 
+
+$$\begin{equation*}
+		f(x)=\left\lbrace
+		\begin{array}{lll}
+			\Bigg(\dfrac{\alpha}{\beta}\Bigg)\Bigg(\dfrac{x}{\beta}\Bigg)^{\alpha-1}\exp{\Bigg\{-\Big(\dfrac{x}{\beta}\Big)^{\alpha}\Bigg\}}&,& x > 0\\
+			&&\\
+			0 &,& x \leq 0
+		\end{array}
+		\right.
+	\end{equation*}$$
+	
+$$E[X]=\beta \hspace{.2cm}\Gamma\Bigg(1+\frac{1}{\alpha}\Bigg)$$
+
+$$V[X]=\beta^{2} \Bigg(\Gamma\Bigg(1+\frac{2}{\alpha}\Bigg)- \Bigg[\Gamma \Bigg(1+\frac{1}{\alpha}\Bigg)\Bigg]^{2}\Bigg) $$
+
+$$F(x)=1-\exp{\Big\{-\Big(\dfrac{x}{\beta}\Big)^{\alpha}\Big\}} $$	
+	
+</div> 
+
+<br/>
+
+Distribuciones : <span style="color:#00B845"> $Weibull(0.8, 1)$</span>, <span style="color:#F9573F"> $Weibul(2,1)$</span> y <span style="color:#F6BB42"> $Weibull(2,2)$</span>
+
+```{r, echo=FALSE, fig.height=3.5, fig.align='center'}
+# weibull
+library(ggfortify)
+p=ggdistribution(dweibull, seq(0, 5, 0.01),shape=0.8,scale=1 ,colour = "#00B845")
+p=ggdistribution(dweibull, seq(0, 5, 0.01),shape=2,scale=1 ,colour = "#F9573F", p=p)
+ggdistribution(dweibull, seq(0, 5, 0.01),shape=2,scale=2,colour = "#F6BB42", p=p)
+```
+
+
+<br/><br/>
+
+### **Función de riesgo**
+	
+Se llama así a la tasa de fallas por unidad de tiempo, expresada como la proporción de elementos que no han fallado
+
+$$h(t)=\dfrac{f(t)}{1-F(t)} $$
+<br/><br/>
+
+<div class="box6 with-label">
+### Ejemplo 11
+
+ La duración de una batería se modela mediante una distribución Weibull con parámetros: $\alpha=0.1$ y $\beta=2$. Determine la probabilidad de que una batería dure más de 10 horas. Determine la proporción de baterías que durarán más de 10 horas. 
+ 
+ </div>
+
+
+<br/><br/>
+
+### **Solución**
+
+$$\begin{eqnarray*}
+	P(X > 10) &=& 1- F(10)\\
+	&=& 1-\Big(1-e^{-[10/2]^{0.1}}\Big)\\
+	&=& -e^{[5]^{0.1}}\\
+	&=& 0.3089367 
+\end{eqnarray*}$$
+
+<br/><br/>
+
+En este caso también se puede obtener  la tasa de fallos esta determinada por:
+$$\begin{eqnarray*}
+	h(10)&=&\dfrac{f(10)}{1-F(10)}\\
+	&&\\
+	&=& \dfrac{0.003628829}{1-0.6910633}\\
+	&&\\
+	&=& 0.01174619
+\end{eqnarray*}$$
+
+<br/><br/><br/><br/>
+
+<div class="box3 with-label">
+### Código R
+
+|modelo         | $F(x)$    | $X_{p}$  | $f(x)$  | aleatorio |
+|:--------------|:----------|:---------|:--------|:----------|
+|Binomial       |	 pbinom   |	qbinom 	 | dbinom  |	rbinom   |
+|Geometrica     |	 pgeom    |	qgeom 	 | dgeom   |	rgeom    |
+|Hipergeomet.   |	 phyper   | qhyper   | dhyper  |	rhyper   |
+|Poisson        | ppois     |	qpois 	 | dpois   |	rpois    |
+|Binomial Negativa |pnbinom | qnbinom  |	dnbinom | rnbinom  |  
+|Beta           |	 pbeta    |	qbeta 	 | dbeta   |	rbeta    |
+|Cauchy         |	 pcauchy  |	qcauchy  | dcauchy |  rcauchy  |
+|Chi-cuadrado   |	 pchisq   |	qchisq 	 | dchisq  |  rchisq   |
+|Exponencial    |	 pexp     | qexp   	 | dexp 	 |  rexp     |
+|F              |	 pf       |	qf 	     | df 	   |  rf       |
+|Gamma          |	 pgamma   | qgamma 	 | dgamma  |	rgamma   |
+|Logistic       |	 plogis   |	qlogis 	 | dlogis  |	rlogis   |
+|Log Normal     | plnorm    |	qlnorm 	 | dlnorm  |	rlnorm   |
+|Normal         |	 pnorm    | qnorm 	 | dnorm   |	rnorm    |
+|t-Student      | pt        |	qt 	     | dt 	   |  rt       |     
+|Uniforme       | punif     |	qunif 	 | dunif   |	runif    |
+|Weibull        | pweibull  | 	qweibull | dweibull|rweibull |
+
+</div>
+
+<br/><br/><br/>
+
+
+### Tabla normal estandar
+
+
+```{r, fig.align='center', fig.height=2, fig.width=4}
+library(ggplot2)
+
+# Definir rango para la curva normal
+x <- seq(-4, 4, length=1000)
+y <- dnorm(x)
+
+# Valor de z
+z <- -1
+
+# Data frame para la curva
+df <- data.frame(x = x, y = y)
+
+# Data frame para el área sombreada
+df_shade <- subset(df, x <= z)
+
+# Graficar
+ggplot(df, aes(x, y)) +
+  geom_line(size=0.5) +
+  geom_area(data = df_shade, aes(x, y), fill=c31, alpha=0.8) +
+  geom_vline(xintercept = z, linetype="dashed") +
+  labs(x="z", y="Densidad") +
+  annotate("text", x = -2.8, y = 0.3, label = "F(-1) =  P(Z < -1)", size = 3, color="black") +
+  theme_minimal(base_size = 10)
+
+
+```
+
+
+```{r, echo=FALSE, out.width="70%", fig.align = "center"}
+ knitr::include_graphics("img/tabla-normal1.png")
+```
+
+
+
+```{r, fig.align='center', fig.height=2, fig.width=4}
+library(ggplot2)
+
+# Definir rango para la curva normal
+x <- seq(-4, 4, length=1000)
+y <- dnorm(x)
+
+# Valor de z
+z <- 1
+
+# Data frame para la curva
+df <- data.frame(x = x, y = y)
+
+# Data frame para el área sombreada
+df_shade <- subset(df, x <= z)
+
+# Graficar
+ggplot(df, aes(x, y)) +
+  geom_line(size=0.5) +
+  geom_area(data = df_shade, aes(x, y), fill=c31, alpha=0.8) +
+  geom_vline(xintercept = z, linetype="dashed") +
+  labs(x="z", y="Densidad") +
+  annotate("text", x = -2.8, y = 0.3, label = "F(-1) =  P(Z < 1)", size = 3, color="black") +
+  theme_minimal(base_size = 10)
+```
+
+```{r, echo=FALSE, out.width="70%", fig.align = "center"}
+ knitr::include_graphics("img/tabla-normal2.png")
+```
+
+
+<!-- <div class="box3 with-label"> -->
+<!-- <div class="label">Tabla distribución normal 1</div> -->
+
+<!-- <pre> -->
+<!--         [ .00]  [,01]   [,02]   [,03]   [,04]   [,05]   [,06]   [,07]   [,08]   [,09]  -->
+
+<!-- [-3.9]  0.0000  0.0000  0.0000  0.0000  0.0000  0.0000  0.0000  0.0000  0.0000  0.0000 -->
+<!-- [-3.8]  0.0001  0.0001  0.0001  0.0001  0.0001  0.0001  0.0001  0.0001  0.0001  0.0001 -->
+<!-- [-3.7]  0.0001  0.0001  0.0001  0.0001  0.0001  0.0001  0.0001  0.0001  0.0001  0.0001 -->
+<!-- [-3.6]  0.0001  0.0001  0.0001  0.0001  0.0001  0.0001  0.0001  0.0001  0.0002  0.0002 -->
+<!-- [-3.5]  0.0002  0.0002  0.0002  0.0002  0.0002  0.0002  0.0002  0.0002  0.0002  0.0002 -->
+
+<!-- [-3.4]  0.0002  0.0003  0.0003  0.0003  0.0003  0.0003  0.0003  0.0003  0.0003  0.0003 -->
+<!-- [-3.3]  0.0003  0.0004  0.0004  0.0004  0.0004  0.0004  0.0004  0.0005  0.0005  0.0005 -->
+<!-- [-3.2]  0.0005  0.0005  0.0005  0.0006  0.0006  0.0006  0.0006  0.0006  0.0007  0.0007 -->
+<!-- [-3.1]  0.0007  0.0007  0.0008  0.0008  0.0008  0.0008  0.0009  0.0009  0.0009  0.0010 -->
+<!-- [-3.0]  0.0010  0.0010  0.0011  0.0011  0.0011  0.0012  0.0012  0.0013  0.0013  0.0013 -->
+
+<!-- [-2.9]  0.0014  0.0014  0.0015  0.0015  0.0016  0.0016  0.0017  0.0018  0.0018  0.0019 -->
+<!-- [-2.8]  0.0019  0.0020  0.0021  0.0021  0.0022  0.0023  0.0023  0.0024  0.0025  0.0026 -->
+<!-- [-2.7]  0.0026  0.0027  0.0028  0.0029  0.0030  0.0031  0.0032  0.0033  0.0034  0.0035 -->
+<!-- [-2.6]  0.0036  0.0037  0.0038  0.0039  0.0040  0.0041  0.0043  0.0044  0.0045  0.0047 -->
+<!-- [-2.5]  0.0048  0.0049  0.0051  0.0052  0.0054  0.0055  0.0057  0.0059  0.0060  0.0062 -->
+
+<!-- [-2.4]  0.0064  0.0066  0.0068  0.0069  0.0071  0.0073  0.0075  0.0078  0.0080  0.0082 -->
+<!-- [-2.3]  0.0084  0.0087  0.0089  0.0091  0.0094  0.0096  0.0099  0.0102  0.0104  0.0107 -->
+<!-- [-2.2]  0.0110  0.0113  0.0116  0.0119  0.0122  0.0125  0.0129  0.0132  0.0136  0.0139 -->
+<!-- [-2.1]  0.0143  0.0146  0.0150  0.0154  0.0158  0.0162  0.0166  0.0170  0.0174  0.0179 -->
+<!-- [-2.0]  0.0183  0.0188  0.0192  0.0197  0.0202  0.0207  0.0212  0.0217  0.0222  0.0228 -->
+
+<!-- [-1.9]  0.0233  0.0239  0.0244  0.0250  0.0256  0.0262  0.0268  0.0274  0.0281  0.0287 -->
+<!-- [-1.8]  0.0294  0.0301  0.0307  0.0314  0.0322  0.0329  0.0336  0.0344  0.0351  0.0359 -->
+<!-- [-1.7]  0.0367  0.0375  0.0384  0.0392  0.0401  0.0409  0.0418  0.0427  0.0436  0.0446 -->
+<!-- [-1.6]  0.0455  0.0465  0.0475  0.0485  0.0495  0.0505  0.0516  0.0526  0.0537  0.0548 -->
+<!-- [-1.5]  0.0559  0.0571  0.0582  0.0594  0.0606  0.0618  0.0630  0.0643  0.0655  0.0668 -->
+
+<!-- [-1.4]  0.0681  0.0694  0.0708  0.0721  0.0735  0.0749  0.0764  0.0778  0.0793  0.0808 -->
+<!-- [-1.3]  0.0823  0.0838  0.0853  0.0869  0.0885  0.0901  0.0918  0.0934  0.0951  0.0968 -->
+<!-- [-1.2]  0.0985  0.1003  0.1020  0.1038  0.1056  0.1075  0.1093  0.1112  0.1131  0.1151 -->
+<!-- [-1.1]  0.1170  0.1190  0.1210  0.1230  0.1251  0.1271  0.1292  0.1314  0.1335  0.1357 -->
+<!-- [-1.0]  0.1379  0.1401  0.1423  0.1446  0.1469  0.1492  0.1515  0.1539  0.1562  0.1587 -->
+
+<!-- [-0.9]  0.1611  0.1635  0.1660  0.1685  0.1711  0.1736  0.1762  0.1788  0.1814  0.1841 -->
+<!-- [-0.8]  0.1867  0.1894  0.1922  0.1949  0.1977  0.2005  0.2033  0.2061  0.2090  0.2119 -->
+<!-- [-0.7]  0.2148  0.2177  0.2206  0.2236  0.2266  0.2296  0.2327  0.2358  0.2389  0.2420 -->
+<!-- [-0.6]  0.2451  0.2483  0.2514  0.2546  0.2578  0.2611  0.2643  0.2676  0.2709  0.2743 -->
+<!-- [-0.5]  0.2776  0.2810  0.2843  0.2877  0.2912  0.2946  0.2981  0.3015  0.3050  0.3085 -->
+
+<!-- [-0.4]  0.3121  0.3156  0.3192  0.3228  0.3264  0.3300  0.3336  0.3372  0.3409  0.3446 -->
+<!-- [-0.3]  0.3483  0.3520  0.3557  0.3594  0.3632  0.3669  0.3707  0.3745  0.3783  0.3821 -->
+<!-- [-0.2]  0.3859  0.3897  0.3936  0.3974  0.4013  0.4052  0.4090  0.4129  0.4168  0.4207 -->
+<!-- [-0.1]  0.4247  0.4286  0.4325  0.4364  0.4404  0.4443  0.4483  0.4522  0.4562  0.4602 -->
+<!-- [-0.0]  0.4641  0.4681  0.4721  0.4761  0.4801  0.4840  0.4880  0.4920  0.4960  0.5000 -->
+
+<!-- </pre> -->
+<!-- </div> -->
+
+<!-- <div class="box3 with-label"> -->
+<!-- <div class="label">Tabla distribución normal 2</div> -->
+
+<!-- <pre> -->
+<!--         [ .00]  [,01]   [,02]   [,03]   [,04]   [,05]   [,06]   [,07]   [,08]   [,09]  -->
+
+<!-- [0.0]   0.5000  0.5040  0.5080  0.5120  0.5160  0.5199  0.5239  0.5279  0.5319  0.5359 -->
+<!-- [0.1]   0.5398  0.5438  0.5478  0.5517  0.5557  0.5596  0.5636  0.5675  0.5714  0.5753 -->
+<!-- [0.2]   0.5793  0.5832  0.5871  0.5910  0.5948  0.5987  0.6026  0.6064  0.6103  0.6141 -->
+<!-- [0.3]   0.6179  0.6217  0.6255  0.6293  0.6331  0.6368  0.6406  0.6443  0.6480  0.6517 -->
+<!-- [0.4]   0.6554  0.6591  0.6628  0.6664  0.6700  0.6736  0.6772  0.6808  0.6844  0.6879 -->
+
+<!-- [0.5]   0.6915  0.6950  0.6985  0.7019  0.7054  0.7088  0.7123  0.7157  0.7190  0.7224 -->
+<!-- [0.6]   0.7257  0.7291  0.7324  0.7357  0.7389  0.7422  0.7454  0.7486  0.7517  0.7549 -->
+<!-- [0.7]   0.7580  0.7611  0.7642  0.7673  0.7704  0.7734  0.7764  0.7794  0.7823  0.7852 -->
+<!-- [0.8]   0.7881  0.7910  0.7939  0.7967  0.7995  0.8023  0.8051  0.8078  0.8106  0.8133 -->
+<!-- [0.9]   0.8159  0.8186  0.8212  0.8238  0.8264  0.8289  0.8315  0.8340  0.8365  0.8389 -->
+
+<!-- [1.0]   0.8413  0.8438  0.8461  0.8485  0.8508  0.8531  0.8554  0.8577  0.8599  0.8621 -->
+<!-- [1.1]   0.8643  0.8665  0.8686  0.8708  0.8729  0.8749  0.8770  0.8790  0.8810  0.8830 -->
+<!-- [1.2]   0.8849  0.8869  0.8888  0.8907  0.8925  0.8944  0.8962  0.8980  0.8997  0.9015 -->
+<!-- [1.3]   0.9032  0.9049  0.9066  0.9082  0.9099  0.9115  0.9131  0.9147  0.9162  0.9177 -->
+<!-- [1.4]   0.9192  0.9207  0.9222  0.9236  0.9251  0.9265  0.9279  0.9292  0.9306  0.9319 -->
+
+<!-- [1.5]   0.9332  0.9345  0.9357  0.9370  0.9382  0.9394  0.9406  0.9418  0.9429  0.9441 -->
+<!-- [1.6]   0.9452  0.9463  0.9474  0.9484  0.9495  0.9505  0.9515  0.9525  0.9535  0.9545 -->
+<!-- [1.7]   0.9554  0.9564  0.9573  0.9582  0.9591  0.9599  0.9608  0.9616  0.9625  0.9633 -->
+<!-- [1.8]   0.9641  0.9649  0.9656  0.9664  0.9671  0.9678  0.9686  0.9693  0.9699  0.9706 -->
+<!-- [1.9]   0.9713  0.9719  0.9726  0.9732  0.9738  0.9744  0.9750  0.9756  0.9761  0.9767 -->
+
+<!-- [2.0]   0.9772  0.9778  0.9783  0.9788  0.9793  0.9798  0.9803  0.9808  0.9812  0.9817 -->
+<!-- [2.1]   0.9821  0.9826  0.9830  0.9834  0.9838  0.9842  0.9846  0.9850  0.9854  0.9857 -->
+<!-- [2.2]   0.9861  0.9864  0.9868  0.9871  0.9875  0.9878  0.9881  0.9884  0.9887  0.9890 -->
+<!-- [2.3]   0.9893  0.9896  0.9898  0.9901  0.9904  0.9906  0.9909  0.9911  0.9913  0.9916 -->
+<!-- [2.4]   0.9918  0.9920  0.9922  0.9925  0.9927  0.9929  0.9931  0.9932  0.9934  0.9936 -->
+
+<!-- [2.5]   0.9938  0.9940  0.9941  0.9943  0.9945  0.9946  0.9948  0.9949  0.9951  0.9952 -->
+<!-- [2.6]   0.9953  0.9955  0.9956  0.9957  0.9959  0.9960  0.9961  0.9962  0.9963  0.9964 -->
+<!-- [2.7]   0.9965  0.9966  0.9967  0.9968  0.9969  0.9970  0.9971  0.9972  0.9973  0.9974 -->
+<!-- [2.8]   0.9974  0.9975  0.9976  0.9977  0.9977  0.9978  0.9979  0.9979  0.9980  0.9981 -->
+<!-- [2.9]   0.9981  0.9982  0.9982  0.9983  0.9984  0.9984  0.9985  0.9985  0.9986  0.9986 -->
+
+<!-- [3.0]   0.9987  0.9987  0.9987  0.9988  0.9988  0.9989  0.9989  0.9989  0.9990  0.9990 -->
+<!-- [3.1]   0.9990  0.9991  0.9991  0.9991  0.9992  0.9992  0.9992  0.9992  0.9993  0.9993 -->
+<!-- [3.2]   0.9993  0.9993  0.9994  0.9994  0.9994  0.9994  0.9994  0.9995  0.9995  0.9995 -->
+<!-- [3.3]   0.9995  0.9995  0.9995  0.9996  0.9996  0.9996  0.9996  0.9996  0.9996  0.9997 -->
+<!-- [3.4]   0.9997  0.9997  0.9997  0.9997  0.9997  0.9997  0.9997  0.9997  0.9997  0.9998 -->
+
+<!-- [3.5]   0.9998  0.9998  0.9998  0.9998  0.9998  0.9998  0.9998  0.9998  0.9998  0.9998 -->
+<!-- [3.6]   0.9998  0.9998  0.9999  0.9999  0.9999  0.9999  0.9999  0.9999  0.9999  0.9999 -->
+<!-- [3.7]   0.9999  0.9999  0.9999  0.9999  0.9999  0.9999  0.9999  0.9999  0.9999  0.9999 -->
+<!-- [3.8]   0.9999  0.9999  0.9999  0.9999  0.9999  0.9999  0.9999  0.9999  0.9999  0.9999 -->
+
+<!-- </pre> -->
+
+<!-- </div> -->
+
+
+
+
+
+
+<!-- ## **Posters Discretas** -->
+
+<!-- + [binomial](https://github.com/dgonxalex80/probabilidad20212.io/blob/main/pdf/P-Distribuciones%20Discretas/Distribucion%20Binomial%20-%20Juan%20Jose%20Solano%20e%20Isaac%20Grun.pdf) -->
+<!-- + [binomial negativa](https://github.com/dgonxalex80/probabilidad20212.io/blob/main/pdf/P-Distribuciones%20Discretas/Distribucion%20binomial%20negativa.pdf) -->
+<!-- + [Poisson](https://github.com/dgonxalex80/probabilidad20212.io/blob/main/pdf/P-Distribuciones%20Discretas/Poster%20Discreto%20D.%20Velasco%2C%20M.%20Ram%C3%ADrez%2C%20V.%20S%C3%A1nchez%20(1).pdf) -->
+<!-- + [Poisson](https://github.com/dgonxalex80/probabilidad20212.io/blob/main/pdf/P-Distribuciones%20Discretas/%C2%BFConoces%20algun%20MODELO%20ESTADISTICO%20aQUI%20TE%20PRESENTAMOS%20EL%20METODO%20(1).pdf) -->
+<!-- + [binomial negativa](https://github.com/dgonxalex80/probabilidad20212.io/blob/main/pdf/P-Distribuciones%20Discretas/Distribuciones%20estad%C3%ADsticas%20(1).pdf) -->
+<!-- + [geométrica](https://github.com/dgonxalex80/probabilidad20212.io/blob/main/pdf/P-Distribuciones%20Discretas/Distribuci%C3%B3n%20Geom%C3%A9trica.pdf) -->
+<!-- + [geometrica](https://github.com/dgonxalex80/probabilidad20212.io/blob/main/pdf/P-Distribuciones%20Discretas/Distribuci%C3%B3n%20geom%C3%A9trica.pdf) -->
+<!-- + [geométrica](https://github.com/dgonxalex80/probabilidad20212.io/blob/main/pdf/P-Distribuciones%20Continuas/Distribuci%C3%B3n%20geom%C3%A9trica.pdf) -->
+<!-- + [geométrica](https://github.com/dgonxalex80/probabilidad20212.io/blob/main/pdf/P-Distribuciones%20Continuas/Modelo%20de%20probabilidad%20geometrica.pdf) -->
+<!-- + [hipergeométrica](https://github.com/dgonxalex80/probabilidad20212.io/blob/main/pdf/P-Distribuciones%20Discretas/Distribucion%20fisher.pdf) -->
+<!-- + [hipergeométrica](https://github.com/dgonxalex80/probabilidad20212.io/blob/main/pdf/P-Distribuciones%20Discretas/Distribuci%C3%B3n%20Hipergeom%C3%A9trica%20(2).pdf) -->
+<!-- + [hipergeométrica](https://github.com/dgonxalex80/probabilidad20212.io/blob/main/pdf/P-Distribuciones%20Discretas/Poster%20Hipergeom%C3%A9trica%20y%20gamma.pdf) -->
+<!-- + [hipergeométrica](https://github.com/dgonxalex80/probabilidad20212.io/blob/main/pdf/P-Distribuciones%20Continuas/Distribuci%C3%B3n%20Hipergeom%C3%A9trica.pdf) -->
+<!-- + [hipergeométrica](https://github.com/dgonxalex80/probabilidad20212.io/blob/main/pdf/P-Distribuciones%20Continuas/Hipergeometrica.pdf) -->
+
+<!-- <br/><br/> -->
+
+<!-- ## **Posters Continuas** -->
+
+<!-- + [normal](https://github.com/dgonxalex80/probabilidad20212.io/blob/main/pdf/P-Distribuciones%20Discretas/PROBABILIDAD%20Y%20ESTADISTICA.pdf) -->
+<!-- + [normal](https://github.com/dgonxalex80/probabilidad20212.io/blob/main/pdf/P-Distribuciones%20Continuas/Distribucion%20normal%20-%20Juan%20Jose%20Solano%20e%20Isaac%20Grun.pdf) -->
+<!-- + [lognormal](https://github.com/dgonxalex80/probabilidad20212.io/blob/main/pdf/P-Distribuciones%20Continuas/Poster%20continua%20D.%20Velasco%2C%20M.%20Ram%C3%ADrez%2C%20V.%20S%C3%A1nchez.pdf) -->
+<!-- + [beta](https://github.com/dgonxalex80/probabilidad20212.io/blob/main/pdf/P-Distribuciones%20Discretas/Distribucion%20Beta.pdf) -->
+<!-- + [beta](https://github.com/dgonxalex80/probabilidad20212.io/blob/main/pdf/P-Distribuciones%20Continuas/Distribucion%20Beta%20(1).pdf) -->
+<!-- + [gamma](https://github.com/dgonxalex80/probabilidad20212.io/blob/main/pdf/P-Distribuciones%20Discretas/Distribuci%C3%B3n%20gamma.pdf) -->
+<!-- + [gamma](https://github.com/dgonxalex80/probabilidad20212.io/blob/main/pdf/P-Distribuciones%20Discretas/Modelo%20de%20probabilidad%20gamma.pdf) -->
+<!-- + [gamma](https://github.com/dgonxalex80/probabilidad20212.io/blob/main/pdf/P-Distribuciones%20Continuas/Distribuci%C3%B3n%20gamma.pdf) -->
+<!-- + [Gumbel](https://github.com/dgonxalex80/probabilidad20212.io/blob/main/pdf/P-Distribuciones%20Continuas/Distribucion%20de%20gumbel.pdf) -->
+<!-- + [Caychy](https://github.com/dgonxalex80/probabilidad20212.io/blob/main/pdf/P-Distribuciones%20Continuas/Distribuci%C3%B3n%20de%20Cauchy.pdf) -->
+<!-- + [ji-cuadrado](https://github.com/dgonxalex80/probabilidad20212.io/blob/main/pdf/P-Distribuciones%20Discretas/Ji-cuadrado.pdf) -->
+<!-- + [t-Student](https://github.com/dgonxalex80/probabilidad20212.io/blob/main/pdf/P-Distribuciones%20Continuas/1.png) -->
+<!-- + [F-Fisher](https://github.com/dgonxalex80/probabilidad20212.io/blob/main/pdf/P-Distribuciones%20Continuas/Distribucion%20fisher%20(1).pdf) -->
+
+<br/><br/>
+
+
+
+
+<!-- ## Tabla  -->
+
+<!-- [Tabla normal estandar](https://github.com/dgonxalex80/probabilidad20212.io/blob/main/pdf/tabla_normal.pdf) -->
+
+
+
+<!-- ```{r, echo=FALSE, out.width="100%", fig.align = "center"} -->
+<!--  knitr::include_graphics("img/TablaZ.png") -->
+<!-- ``` -->
+
+
+
+

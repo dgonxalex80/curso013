@@ -88,7 +88,19 @@ navbar:
       menu:
         - text: "Módulo 3"
           href: modulo3.html
-  
+        - text: "--------" 
+        - text: "Guía 3.1"
+          href: guia31.html        
+        - text: "Recursos 3.1"
+          href: recurso31.html
+        - text: "Código 3.1"  
+          href: codigo31.html
+        - text: "Taller 311"  
+          href: taller311.html     
+
+        - text: "--------"   
+        - text: "Moitoría 3"  
+          href: monitoria3.html              
 
     - text: "Módulo 4"
       menu:
@@ -99,7 +111,7 @@ navbar:
     - text: "Proyecto"
       menu:
         - text: "Guía proyecto"
-          href: enconstruccion.html
+          href: guia_proyecto1.html
 
 output:  
  html_document:

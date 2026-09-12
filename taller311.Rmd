@@ -1,0 +1,388 @@
+---
+title: "<span style='color:#476885 !important;'>Teoría de probabilidades</span>"
+author: <span style="color:#476885">dgonzalez </span> 
+subtitle: <span style="color:#476885"> </span> 
+output:
+  html_document:
+    toc: no
+    toc_depth: 2
+    toc_float: yes
+    code_folding: hide
+    theme: flatly
+    css:
+      - style.css
+      - cajas.css
+---
+
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+knitr::opts_chunk$set(
+  fig.width=9, fig.height=3.5, fig.retina=3,
+  out.width = "100%",
+  cache = FALSE,
+  echo = TRUE,
+  message = FALSE, 
+  warning = FALSE,
+  hiline = TRUE
+)
+# colores
+source("R/init.R")
+
+paleta4=c(c41,c31,c21,c11)
+
+
+library(forcats)
+library(patchwork)
+library(lubridate)
+library(ggplot2)
+library(gridExtra)
+library(cowplot)
+library(summarytools)
+
+#library(dviz.supp)
+```
+
+
+
+</br></br></br>
+
+```{r, echo=FALSE, out.width="100%", fig.align = "left"}
+knitr::include_graphics("img/taller3.png")
+```
+</br></br></br>
+
+
+<div class="box4 with-label">
+### Problema 1
+
+
+Clasifique las siguientes variables como discretas o continuas:
+
+|      |                                                                                |
+|-----:|:-------------------------------------------------------------------------------|
+|X :   | el número de accidentes automovilísticos que ocurren durante un dia en Cali    |
+|Y :   | tiempo que se tarda una persona en recorrer 100 metros en segundos             |
+|M :   | cantidad de leche que una vaca produce semanalmente en litros                  |
+|Z :   | el número de huevos que una gallina produce semanalmente                       |
+|G :   | número de permisos para la construcción que son aprobados mensualmente en Cali |
+|Q :   | peso en kilogramos de automóvil                                                |
+|R :   | embergadura de las alas  de un condor en edad adulta en metros                 |
+|S :   | tiempo que dedica una persona al ocio - tiempo no productivo en horas          |
+|T :   | ingresos de una familia en pesos por mes                                       |
+|V :   | cantidad de calorias que contiene una bebida gaseosa                           |           
+|W :   | largo del femur de un adulto humano en centimetros                             |
+
+</div>
+
+<br/><br/><br/>
+
+
+<div class="box4 with-label">
+### Problema 2
+
+
+Determine el valor de $C$ de modo que cada una de las siguientes funciones sirva
+como una función de probabilidad de una variable aleatoria discreta
+
+$$f(x) = C \binom{2}{x} \binom{3}{3-x}, \text{ para } x=0,1,2$$
+
+</div>
+
+
+<br/><br/><br/>
+
+
+<div class="box4 with-label">
+### Problema 3
+
+Un embarque de 7 televisores contiene 2 unidades defectuosas. Un hotel compra al azar 3 de los televisores. Si $X$ es el número de unidades defectuosas en un grupo de tres televisores comprados por el hotel al azar, encuentra la función de probabilidad de $X$. Expresa los resultados de forma gráfica. Construye la función de distribución acumulada de $X$. Usar $F(X)$ para responder, ¿cuál es la probabilidad que hayan cero televisores defectuosos en el grupo de tres televisores?, ¿cuál es la probabilidad que haya más de 1 televisor defectuoso en la selección de tres televisores?.
+
+</div>
+
+<br/><br/><br/>
+
+
+<div class="box4 with-label">
+### Problema 4
+
+La distribución de probabilidad de $X$, el número de imperfecciones por 10 metros de una tela sintética en rollos continuos de ancho uniforme, está dada por
+
+|   $x$ |   0    |    1   |   2    |  3     |   4    |
+|------:|-------:|-------:|-------:|-------:|-------:|
+| $f(x)$| 0.41   | 0.37   | 0.16   |  0.05  | 0.01   |
+
+
+* Construya la función de distribución acumulada de $X$. 
+* Gratifica la función de probabilidad y la distribución de probabilidad de $X$. 
+* ¿Cuál es la probabilidad de encontrar menos de $3$ imperfecciones en $10$ metros de una tela seleccionada al azar?.
+* Calcule el valor esperado del número de imperfecciones obtenidas por 10 metros de tela. Interpretes su resultado. 
+* Calcule la variaranza del número de imperfecciones obtenidas por 10 metros de tela.
+
+</div>
+
+<br/><br/><br/>
+
+<div class="box4 with-label">
+### Problema 5
+
+Sea $W$ el número de sellos en tres lanzamientos de una moneda. Liste los elementos del espacio muestral $S$ para los tres lanzamientos de la moneda y asigne un valor $w$ de $W$ a cada punto muestral.
+
+</div>
+
+<br/><br/><br/>
+
+<div class="box4 with-label">
+### Problema 6
+
+Encuentre la distribución de probabilidad de la variable aleatoria W del ejercicio anterior; suponga que la cara está cargada de manera que una cara tenga doble de probabilidad de ocurrir que un sello.
+
+
+</div>
+
+<br/><br/><br/>
+
+<div class="box4 with-label">
+### Problema 7
+
+
+La vida útil en días, para frascos de cierta medicina de prescripción es una variable aleatoria que tiene función de densidad,
+
+$$f_{_{X}}(x) = \left \{ 
+				\begin{matrix} 
+				\dfrac{20000}{(x+100)^{3}}, & \mbox{  }	x \geq 0\\ 
+				& \\
+				0 , & \mbox{en cualquier otro caso }
+				\end{matrix}\right.  
+				$$
+				
+Encuentre la probabilidad de que un frasco de esta medicina tenga una vida útil de : 
+
+* Al menos 22 días. 
+* Cualquier lapso entre 80 a 120 días.
+* Si se requiere encontrar el valor promedio de vida del medicamento, como lo encontrariamos?. Cuál seria su valor?
+
+</div>
+
+<br/><br/><br/>
+
+
+<div class="box4 with-label">
+### Problema 8
+
+El número total de horas, medidas en unidades de 100 horas, que una familia utiliza una lavadora en un periodo de un año es una variable aleatoria continua $X$ que tiene la función de densidad,
+
+$$f_{_{X}}(x) = \left \{ 
+				\begin{matrix} 
+				x  ,& \mbox{ }	0 \leq x < 1\\ 
+				   & \\
+				2-x ,&  \mbox{ }	1 \leq x \leq 2\\
+				   &\\
+				0  ,& \mbox{en cualquier otro caso }
+				\end{matrix}\right.  
+				$$
+
+Encontrar la probabilidad de :
+
+* menos de 120 horas.
+* entre 50 y 100 horas.
+
+</div>
+
+
+<br/><br/><br/>
+
+<div class="box4 with-label">
+### Problema 9
+
+
+Una variable aleatoria continua $X$ que puede tomar valores entre $x = 1$ y $x = 3$ tiene una función de densidad dada por: 
+$$f (x) =            \dfrac{1}{2}$$.
+
+* Muestre que el área bajo la curva es igual a $1$.
+
+* Encuentre :
+* $P(2 < X < 2.5)$  
+* $P(X = 2.5)$ 
+* $P(2 \leq X < 2.5)$ 
+* $P(X > 2.5)$ 
+* $P(X \geq 2.5)$.
+
+Para la función de densidad del ejercicio anterior encuentre $F(x)$. Utilíce la función obtenida para encontrar: 
+
+* $P(2 < X < 2.5)$ 
+* $P(X = 2.5)$ 
+* $P(2 \leq X < 2.5)$  
+* $P(X >2.5)$ 
+* $P(X \geq 2.5)$
+  
+</div>
+  
+
+<br/><br/><br/>
+
+<div class="box4 with-label">
+### Problema 10
+
+En una tarea de laboratorio, cuando el equipo está operando la función de densidad
+del resultado, $X$, es el tiempo,
+
+
+$$f_{_{X}}(x) = \left \{ 
+				\begin{matrix} 
+				2(1-x),  & \mbox{   }	0 \leq x \leq 1\\ 
+				& \\
+				0 , & \mbox{en cualquier otro caso }
+				\end{matrix}\right.  
+$$
+
+* Calcule $P(X \leq 1/3)$
+* ¿Cuál es la probabilidad que $X$ excederá a $0.5$?
+* Dado que $X \geq 0.5$, ¿cuál es la probabilidad de que $X$ será menor que $0.75$?
+* Determine su valor espeado y su varianza
+
+
+</div>
+
+<br/><br/><br/>
+
+<div class="box4 with-label">
+### Problema 11
+
+
+
+La probabilidad de tener una unidad defectuosa en una línea de ensamblaje es de $p = 0.05$. Si el conjunto de unidades terminadas constituye un conjunto de ensayos independientes, la función de probabilidad de número de unidades defectuosas está dada por,
+
+
+$$f(x) = \binom{10}{x} p^{x} (1 − p)^{10−x}  \text{,  } x = 0, 1, . . . , 10$$
+
+* ¿cuál es la probabilidad de que en diez unidades dos se encuentren defectuosas?
+* ¿cuál es la probabilidad de encontrar por lo menos dos defectuosas?
+* ¿cuál es la probabilidad de que por lo menos una se encuentre defectuosa?
+
+</div>
+
+<br/><br/><br/>
+
+<div class="box4 with-label">
+### Problema 12
+
+
+El gerente de un restaurante que sólo da servicio mediante reservas sabe, por experiencia, que el $20$% de las personas que reservan una mesa no asistirán. Si el restaurante acepta $25$ reservas pero sólo dispone de $20$ mesas, ¿cuál es la probabilidad de que a todas las personas que asistan al restaurante se les asigne una mesa?. 
+
+<br/>
+
+La función de probabilidad del número de personas que llegan al restaurante es,
+
+$$f(x) = \binom{25}{x} (0.80)^{x} (0.20)^{25−x}  \text{,  } x = 0, 1, . . . , 25$$
+
+</div>
+
+<br/><br/><br/>
+
+<div class="box2 with-label">
+### Nota
+
+**En todos los casos** represente gráficamente la función de probabilidad correspondiente y en ella resalte las probabilidades solicitadas. 
+
+</div>
+
+
+* Problemas seleccionados de Walpole(2012).
+
+<br/><br/><br/>
+
+<div class="box6 with-label">
+### Ayudas
+
+$$\sum_{x=0}^{2} \binom{2}{x} \binom{3}{3-x} $$
+
+<pre>
+x=0:2
+sum(choose(2,x)*choose(3,3-x))
+</pre>
+
+
+```{r, eval=FALSE}
+
+x=0:2
+sum(choose(2,x)*choose(3,3-x))
+```
+
+
+<br/><br/><br/>
+
+$$\int_{0}^{\infty} \dfrac{20000}{(x+100)^{3}} \,dx$$
+
+
+<pre>
+# Definir la función 
+fx7 <- function(x) {
+  20000 / (x + 100)^3
+}
+# Calcular la integral definida desde 0 hasta infinito
+result <- integrate(fx7, lower = 0, upper = Inf)
+
+# Imprimir el resultado
+result
+
+
+
+Show in New Window
+1 with absolute error < 4.7e-07
+</pre>
+
+
+
+```{r}
+# Definir la función 
+fx7 <- function(x) {
+  20000 / (x + 100)^3
+}
+# Calcular la integral definida desde 0 hasta infinito
+result <- integrate(fx7, lower = 0, upper = Inf)
+
+# Imprimir el resultado
+result
+
+```
+
+
+
+
+
+
+
+```{r, fig.align='center', fig.width=5, fig.height=3}
+library(ggplot2)
+
+# Definir la función de densidad
+f_x <- function(x) {
+  ifelse(x >= 0, 20000 / (x + 100)^3, 0)
+}
+
+# Crear una secuencia de valores de x
+x_vals <- seq(0, 300, length.out = 1000)
+
+# Evaluar la función en los valores de x
+y_vals <- sapply(x_vals, f_x)
+
+# Crear un data frame para graficar
+df <- data.frame(x = x_vals, y = y_vals)
+
+# Graficar la función de densidad
+ggplot(df, aes(x, y)) +
+  geom_line(color = c31, size = 0.5) +
+  labs(title = "Función de Densidad de Probabilidad",
+       x = "x (vida útil en días)",
+       y = "f(x)") +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(size = 8),  # tamaño del título
+    axis.title = element_text(size = 6),  # títulos de los ejes
+    axis.text  = element_text(size = 6)    # números en los ejes
+  )
+
+```
+
+</div>

@@ -1,0 +1,1373 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="dgonzalez" />
+
+
+<title>recurso32.knit</title>
+
+<script src="site_libs/header-attrs/header-attrs.js"></script>
+<script src="site_libs/jquery/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation/tabsets.js"></script>
+<script src="site_libs/navigation/codefolding.js"></script>
+<link href="site_libs/highlightjs/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs/highlight.js"></script>
+<link href="site_libs/font-awesome/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome/css/v4-shims.min.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html"> </a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">
+    <span class="fa fa-home"></span>
+     
+    Estadística
+  </a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 0
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo0.html">Módulo 0</a>
+    </li>
+    <li>
+      <a href="sumatoria.html">Sumatoria</a>
+    </li>
+    <li>
+      <a href="productoria.html">Productoria</a>
+    </li>
+    <li>
+      <a href="conjuntos.html">Conjuntos</a>
+    </li>
+    <li>
+      <a href="conteo.html">Conteo</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 1
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo1.html">Módulo 1</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="guia11.html">Guía 1.1</a>
+    </li>
+    <li>
+      <a href="recurso11.html">Recursos 1.1</a>
+    </li>
+    <li>
+      <a href="basesdatos.html">Bases de datos</a>
+    </li>
+    <li>
+      <a href="introduccionR.html">Introducción a R</a>
+    </li>
+    <li>
+      <a href="codigo11.html">Código 1.1</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="guia12.html">Guía 1.2</a>
+    </li>
+    <li>
+      <a href="recurso12.html">Recursos 1.2</a>
+    </li>
+    <li>
+      <a href="codigo12.html">Código 1.2</a>
+    </li>
+    <li>
+      <a href="caso1A.html">Caso 1</a>
+    </li>
+    <li>
+      <a href="caso1B.html">Caso 2</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="guia13.html">Guía 1.3</a>
+    </li>
+    <li>
+      <a href="recurso13.html">Recursos 1.3</a>
+    </li>
+    <li>
+      <a href="codigo13.html">Código 1.3</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="monitoria1.html">Monitoria 1</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 2
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo2.html">Módulo 2</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="guia21.html">Guía 2.1</a>
+    </li>
+    <li>
+      <a href="recurso21.html">Recursos 2.1</a>
+    </li>
+    <li>
+      <a href="codigo21.html">Código 2.1</a>
+    </li>
+    <li>
+      <a href="taller211.html">Taller 211</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="guia22.html">Guía 2.2</a>
+    </li>
+    <li>
+      <a href="recurso22.html">Recursos 2.2</a>
+    </li>
+    <li>
+      <a href="taller221.html">Taller 221</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="monitoria2.html">Moitoría 2</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 3
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo3.html">Módulo 3</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="guia31.html">Guía 3.1</a>
+    </li>
+    <li>
+      <a href="recurso31.html">Recursos 3.1</a>
+    </li>
+    <li>
+      <a href="codigo31.html">Código 3.1</a>
+    </li>
+    <li>
+      <a href="taller311.html">Taller 311</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="monitoria3.html">Moitoría 3</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 4
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo4.html">Módulo 4</a>
+    </li>
+    <li class="divider"></li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Proyecto
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="guia_proyecto1.html">Guía proyecto</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
+
+
+
+</div>
+
+
+<p><img src="img/recurso3.png" alt="" width="100%" style="display: block; margin: auto;" /></p>
+<p><img src="recurso32_files/figure-html/unnamed-chunk-2-1.png" alt="" width="672" style="display: block; margin: auto;" /></p>
+<p><br/><br/></p>
+<div id="introducción" class="section level2">
+<h2><strong>Introducción</strong></h2>
+<p>Los resultados de un experimento pueden ser causa de múltiples
+variables como ocurre con el precio de un producto y sus ventas, el
+tiempo de preparación de un examen y su nota final, la cantidad de arena
+y de cemento en concreto, la cantidad de abono suministrado a una planta
+y su producción final. En estos casos se requiere una función de
+densidad que describa la variación de la probabilidad de ocurrencia de
+ambas variables, probabilidad que describe el comportamiento conjunto de
+las variables.</p>
+<p>La función que tiene en cuenta efectos múltiples de variables
+aleatorias se denomina distribución de probabilidad conjunta. esta
+función puede ser una combinación de variables continua-continua,
+discreta-discreta o continua-discreta, dependiendo del experimento, en
+el caso bivariado.</p>
+<p>En esta guía se presentan los casos : discreta-discreta y el caso
+continua-continua.</p>
+<p><br/><br/></p>
+</div>
+<div id="discreto-discreto" class="section level2">
+<h2><strong>Discreto-Discreto</strong></h2>
+<div id="función-de-distribución-de-probabilidad-conjunta"
+class="section level3">
+<h3><strong>Función de distribución de probabilidad
+conjunta</strong></h3>
+<p>Si se dispone de dos variables aleatorias se puede definir
+distribuciones bidimensionales de forma semejante al caso
+unidimensional. Para el caso discreto-discreto se define:</p>
+<p></br></br></br></p>
+<p><!-- ------------------------------------------------------- --></p>
+<div class="box2 with-label">
+<div class="label">
+<strong>Definición :Función de distribución de probabilidad
+conjunta</strong>
+</div>
+<p><span class="math display">\[f_{_{X,Y}}(x,y)=P(X=x,Y=y)\]</span></p>
+<p>la cual debe cumplir con las siguientes características:</p>
+<ul>
+<li><p><span
+class="math inline">\(\displaystyle\sum\limits_{x=x_{(1)}}^{x_{(n)}}\displaystyle\sum\limits_{y=y_{(1)}}^{y_{(n)}}f_{_{X,Y}}(x,y)=1\)</span></p></li>
+<li><p><span class="math inline">\(f(x,y)\geq 0\)</span></p></li>
+</ul>
+</div>
+<p><!-- ------------------------------------------------------- --></p>
+<p></br></br></br></p>
+<div class="box1 with-label">
+<div class="label">
+Ejemplo 1
+</div>
+<p>El número de veces que falla una máquina <span
+class="math inline">\(X\)</span> con <span
+class="math inline">\(R_{X}=\{1,2,3\}\)</span> durante un dia y el
+número de veces en que el operario requiere llamar al técnico para su
+arreglo esta dado por <span class="math inline">\(Y\)</span> con <span
+class="math inline">\(R_{Y}=\{1,2,3\}\)</span>. Su función de
+probabilidad conjunta para <span class="math inline">\(X,Y\)</span> está
+dada por :</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center"></th>
+<th align="center"></th>
+<th align="center"></th>
+<th align="center"><span class="math inline">\(x\)</span></th>
+<th align="center"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"></td>
+<td align="center"><span class="math inline">\(f(x,y)\)</span></td>
+<td align="center">1</td>
+<td align="center">2</td>
+<td align="center">3</td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(y\)</span></td>
+<td align="center">1</td>
+<td align="center">0.05</td>
+<td align="center">0.05</td>
+<td align="center">0.10</td>
+</tr>
+<tr class="odd">
+<td align="center"></td>
+<td align="center">2</td>
+<td align="center">0.05</td>
+<td align="center">0.10</td>
+<td align="center">0.35</td>
+</tr>
+<tr class="even">
+<td align="center"></td>
+<td align="center">3</td>
+<td align="center">0</td>
+<td align="center">0.20</td>
+<td align="center">0.10</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><!-- ------------------------------------------------------- --></p>
+<p>Para verificar que <span class="math inline">\(f(xy)\)</span>
+conforme una función de distribución de probabilidad conjunta
+verificamos que la suma de todas las probabilidades de 1</p>
+<pre class="r"><code>fxy=matrix(c(0.05,0.05,0,0.05,0.10,0.20,0.10,0.35,0.10), ncol=3 )
+fxy</code></pre>
+<pre><code>     [,1] [,2] [,3]
+[1,] 0.05 0.05 0.10
+[2,] 0.05 0.10 0.35
+[3,] 0.00 0.20 0.10</code></pre>
+<pre class="r"><code>sum(fxy)</code></pre>
+<pre><code>[1] 1</code></pre>
+<p>El gráfico de la función de distribución conjunta se puede realizar
+de la siguiente forma:</p>
+<pre class="r"><code>library(plot3D)
+x=c(0,0,0,1,1,1,2,2,2)
+y=c(0,1,2,0,1,2,0,1,2)
+fxy=c(0.05,0.05,0, 0.05,0.10,0.20, 0.10,0.35,0.10)
+
+plot3D::scatter3D(x, y, fxy,
+          colvar = NULL, 
+          col = c32,
+          pch = 19, cex = 1,
+          phi = 20, theta = 60,  
+          zlab=&quot;f(xy)&quot;, xlab=&quot;x&quot;, ylab=&quot;y&quot;,
+          bty = &quot;b2&quot;,
+          col.panel =&quot;steelblue&quot;,
+          col.grid = &quot;darkblue&quot;,
+          add_lines=TRUE)</code></pre>
+<p><br/><br/></p>
+</div>
+<div id="probabilidad-marginales" class="section level3">
+<h3><strong>Probabilidad marginales </strong></h3>
+<p>A partir de la función de distribución conjunta se pueden obtener las
+distribuciones marginales correspondientes a las variables <span
+class="math inline">\(X\)</span> y <span
+class="math inline">\(Y\)</span>, denotadas por <span
+class="math inline">\(g(x)\)</span> y <span
+class="math inline">\(h(y)\)</span> respectivamente.</p>
+<p></br></br></br></p>
+<!-- ------------------------------------------------------- -->
+<div class="box2 with-label">
+<div class="label">
+<strong>Definición : Probabilidad marginal</strong>
+</div>
+<p>Si <span class="math inline">\(X\)</span>, <span
+class="math inline">\(Y\)</span> son dos variables aleatorias discretas,
+entonces se puede definir la función de probabilidad marginal de <span
+class="math inline">\(X\)</span> (función de probabilidad de <span
+class="math inline">\(X\)</span> al margen de <span
+class="math inline">\(Y\)</span>) como</p>
+<p><span
+class="math display">\[g(x)=f_{_{X}}(x)=\sum_{y=y_{(1)}}^{y_{(n)}}f_{_{X,Y}}(x,y)\]</span></p>
+<p>La función de probabilidad marginal de <span
+class="math inline">\(Y\)</span> (función de probabilidad de <span
+class="math inline">\(Y\)</span> al margen de <span
+class="math inline">\(X\)</span>) como <span
+class="math display">\[h(y)=f_{_{Y}}(y)=\sum_{x=x_{(1)}}^{x_{(n)}}f_{_{X,Y}}(x,y)\]</span></p>
+</div>
+<p><!-- ------------------------------------------------------- --></p>
+<p>Para el ejemplo podemos establecer las funciones marginales para las
+variables <span class="math inline">\(X\)</span> y <span
+class="math inline">\(Y\)</span> sumando por columnas en el caso de
+<span class="math inline">\(Y\)</span> y por filas en el caso de la
+variable <span class="math inline">\(X\)</span></p>
+<pre class="r"><code>fxy=matrix(c(0.05,0.05,0,0.05,0.10,0.20,0.10,0.35,0.10), ncol=3 )
+gx=addmargins(fxy,1)
+rownames(gx)=c(&quot;1&quot;,&quot;2&quot;,&quot;3&quot;,&quot;g(x)&quot;)
+gx</code></pre>
+<pre><code>     [,1] [,2] [,3]
+1    0.05 0.05 0.10
+2    0.05 0.10 0.35
+3    0.00 0.20 0.10
+g(x) 0.10 0.35 0.55</code></pre>
+<p>Ahora para el caso de <span class="math inline">\(h(y)\)</span></p>
+<pre class="r"><code>fxy=matrix(c(0.05,0.05,0,0.05,0.10,0.20,0.10,0.35,0.10), ncol=3 )
+hy=addmargins(fxy,2)
+colnames(hy)=c(&quot;1&quot;,&quot;2&quot;,&quot;3&quot;,&quot;h(y)&quot;)
+hy</code></pre>
+<pre><code>        1    2    3 h(y)
+[1,] 0.05 0.05 0.10  0.2
+[2,] 0.05 0.10 0.35  0.5
+[3,] 0.00 0.20 0.10  0.3</code></pre>
+<p><br/><br/></p>
+</div>
+<div id="probabilidad-acumulada" class="section level3">
+<h3><strong>Probabilidad acumulada</strong></h3>
+<p><span class="math display">\[F_{_{X,Y}}(x,y)=\sum_{-\infty}^{x}
+\sum_{-\infty}^{y} f(x,y)\]</span></p>
+<p>Para el ejemplo se construye la función de distribución acumulada
+sumando tanto por columna com fila hasta la posición de los valores
+observados, por ejemplo .</p>
+<p><span class="math display">\[F(2,2)= F_{_{X,Y}}(x,y)=\sum_{x=1}^{2}
+\sum_{y=1}^{2} f(x,y)  = f(1,1) + f(1,2) + f(2,1) + f(2,2) = 0.05 + 0.05
++ 0.05 + 0.10 = 0.25\]</span></p>
+<pre class="r"><code>fxy=matrix(c(0.05,0.05,0,0.05,0.10,0.20,0.10,0.35,0.10), ncol=3)
+fxy=addmargins(fxy,c(1,2))
+colnames(fxy)=c(&quot;1&quot;,&quot;2&quot;,&quot;3&quot;,&quot;h(y)&quot;)
+rownames(fxy)=c(&quot;1&quot;,&quot;2&quot;,&quot;3&quot;,&quot;g(x)&quot;)
+fxy</code></pre>
+<pre><code>        1    2    3 h(y)
+1    0.05 0.05 0.10  0.2
+2    0.05 0.10 0.35  0.5
+3    0.00 0.20 0.10  0.3
+g(x) 0.10 0.35 0.55  1.0</code></pre>
+<pre class="r"><code>Fxy=matrix(c(0.05,0.10,0.10,0.10,0.25,0.45,0.20,0.70,1.00), ncol=3)
+colnames(Fxy)=c(&quot;1&quot;,&quot;2&quot;,&quot;3&quot;)
+rownames(Fxy)=c(&quot;1&quot;,&quot;2&quot;,&quot;3&quot;)
+Fxy</code></pre>
+<pre><code>     1    2   3
+1 0.05 0.10 0.2
+2 0.10 0.25 0.7
+3 0.10 0.45 1.0</code></pre>
+<p><br/><br/><br/></p>
+</div>
+<div id="probabilidad-condicional" class="section level3">
+<h3><strong>Probabilidad condicional</strong></h3>
+<p>En el caso de la probabilidad condicional se opera de la misma forma
+que se vió en el Módulo 2, en el cual se definió como :</p>
+<p><span class="math display">\[P(B|A)=\dfrac{P(A \cap
+B)}{P(A)}\]</span></p>
+<p>Para el caso de las funciones de distribución de probabilida se opera
+de la misma manera :</p>
+<p></br></br></br></p>
+<!-- ------------------------------------------------------- -->
+<div class="box2 with-label">
+<div class="label">
+<strong>Definición :Función de densidad condicional</strong>
+</div>
+<p><br/><br/></p>
+<p>La función de densidad condicional de <span
+class="math inline">\(X\)</span> dado que <span
+class="math inline">\(Y=y_0\)</span> está dada por: <span
+class="math display">\[\begin{equation*}
+    f_{_{X|Y}}(x|y_{0})=\left\lbrace
+    \begin{array}{ccl}
+        \dfrac{f_{_{X,Y}}(x,y_0)}{h(y_0)}&amp;;&amp; h(y_0) &gt; 0\\
+        &amp;&amp;\\
+        0 &amp;;&amp;\mbox{en otro caso}
+    \end{array}
+    \right.
+\end{equation*}\]</span> <br/><br/> La función de densidad condicional
+de <span class="math inline">\(Y\)</span> dado que <span
+class="math inline">\(X=x_0\)</span> está dada por: <span
+class="math display">\[\begin{equation*}
+    f_{Y|X}(y|x_{0})=\left\lbrace
+    \begin{array}{ccl}
+        \dfrac{f_{_{X,Y}}(x_0,y)}{g(x_0)}\:&amp;;&amp;\:g(x_0)&gt;0\\
+        &amp;&amp;\\
+        0\:&amp;;&amp;\:\mbox{en otro caso}
+    \end{array}
+    \right.
+\end{equation*}\]</span></p>
+</div>
+<p>Para ilustrarlo utilizamos la función del <strong>Ejemplo 1</strong>
+para la función condicional <span
+class="math inline">\(f(x|y=2)\)</span></p>
+<table>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="left"></th>
+<th align="left"></th>
+<th align="left"><span class="math inline">\(x\)</span></th>
+<th align="left"></th>
+<th align="left"><span class="math inline">\(h(y)\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"></td>
+<td align="left"><span class="math inline">\(f(x,y)\)</span></td>
+<td align="left">1</td>
+<td align="left">2</td>
+<td align="left">3</td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left"><span class="math inline">\(y\)</span></td>
+<td align="left">2</td>
+<td align="left">0.050</td>
+<td align="left">0.10</td>
+<td align="left">0.35</td>
+<td align="left">0.50</td>
+</tr>
+</tbody>
+</table>
+<table>
+<colgroup>
+<col width="9%" />
+<col width="12%" />
+<col width="25%" />
+<col width="25%" />
+<col width="25%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center"></th>
+<th align="left"></th>
+<th align="left"></th>
+<th align="left"><span class="math inline">\(x\)</span></th>
+<th align="left"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"></td>
+<td align="left"><span class="math inline">\(f(x|y=2)\)</span></td>
+<td align="left">1</td>
+<td align="left">2</td>
+<td align="left">3</td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(x|y=2\)</span></td>
+<td align="left"></td>
+<td align="left"><span
+class="math inline">\(\dfrac{0.05}{0.50}=0.10\)</span></td>
+<td align="left"><span
+class="math inline">\(\dfrac{0.10}{0.50}=0.20\)</span></td>
+<td align="left"><span
+class="math inline">\(\dfrac{0.35}{0.50}=0.70\)</span></td>
+</tr>
+</tbody>
+</table>
+<p><br/><br/><br/></p>
+</div>
+</div>
+<div id="caso-continuo-continuo" class="section level2">
+<h2><strong>Caso Continuo-Continuo</strong></h2>
+<p>En el caso de variables continuas se utilizan los mismo conceptos
+vistos en el caso discreto-discreto, haciendo el cambio de las
+sumatorias por integrales definidas.</p>
+<div id="función-de-densidad-conjunta" class="section level3">
+<h3><strong>Función de densidad conjunta</strong></h3>
+<p>En particular para <span
+class="math inline">\(f_{_{X,Y}}(x,y)\)</span> definida en una región
+<span class="math inline">\(R\)</span>, se cumple que la integral doble
+de <span class="math inline">\(f_{_{X,Y}}(x,y)\)</span> en la región
+<span class="math inline">\(R\)</span> proporciona la probabilidad de
+que las variables <span class="math inline">\(X\)</span> y <span
+class="math inline">\(Y\)</span> asuman los valores <span
+class="math inline">\((x,y)\)</span> en la región <span
+class="math inline">\(R\)</span>. Esta integral puede interpretarse como
+el volumen bajo la superficie <span
+class="math inline">\(f_{_{X,Y}}(x,y)\)</span> en la región <span
+class="math inline">\(R\)</span>.</p>
+<p></br></br></br></p>
+<!-- ------------------------------------------------------- -->
+<div class="box2 with-label">
+<div class="label">
+<strong>Definición : Función de densidad conjunta</strong>
+</div>
+<p>Lafunción de densidad conjunta para las variables <span
+class="math inline">\(X\)</span> y <span
+class="math inline">\(Y\)</span> <span
+class="math inline">\(f(x,y)\)</span> debe cumplir las siguientes
+condiciones.</p>
+<ul>
+<li><p><span class="math inline">\(f(x,y) \geq 0\)</span>, para todo
+valor de <span class="math inline">\((x,y)\)</span></p></li>
+<li><p><span class="math inline">\(\int_{-\infty}^{\infty}
+\int_{-\infty}^{\infty} f(x,y) \:dx \:dy  = 1\)</span></p></li>
+</ul>
+</div>
+<p><!-- ------------------------------------------------------- -->
+</br></br></br></p>
+<div class="box1 with-label">
+<div class="label">
+Ejemplo 2
+</div>
+<p>Una empresa prestadora se servicios a domicilio tienen dos lineas
+telefónicas para que los clientes puedan realizar sus pedidos. Sea X y Y
+la proporción del tiempo en que las lineas se encuentran ocupadas. La
+función de densidad conjunta que modela <span
+class="math inline">\(f(x,y)\)</span> esta dada por:</p>
+<p><span class="math display">\[f(x,y) = \left \{ \begin{matrix}
+\dfrac{3}{2}(x^{2}+y^{2}) &amp; \mbox{ } 0 \leq x \leq 1\\
+                                     &amp; \mbox{ } 0 \leq y \leq 1 \\
+                                     &amp;\\
+                                   0 &amp; \mbox{ en otro caso
+}\end{matrix}\right.  \]</span></p>
+</div>
+<p><!-- ------------------------------------------------------- --></p>
+<p><br/></p>
+<p>Inicialmente debemos de verificar que se trata de una función de
+densidad</p>
+<p><span class="math inline">\(\displaystyle\int_{0}^{1}
+\displaystyle\int_{0}^{1} \dfrac{3}{2}(x^{2}+y^{2}) \:dx \:dy  =
+\displaystyle\int_{0}^{1}  \dfrac{3}{2}\Bigg( \dfrac{x^{3}}{3}+ y^{2}x
+\Bigg|_{0}^{1}  \Bigg) \:dy\)</span></p>
+<p><br/></p>
+<p><span
+class="math inline">\(\displaystyle\int_{0}^{1}  \dfrac{3}{2}\Bigg(
+\dfrac{{1}}{3}+ y^{2} \Bigg) \:dy = \dfrac{3}{2} \Bigg(\dfrac{y}{3} +
+\dfrac{y^{3}}{3} \Bigg|_{0}^{1} \Bigg) =
+\dfrac{3}{2}\times  \dfrac{2}{3} = 1\)</span></p>
+<p><br/><br/></p>
+<pre class="r"><code>library(cubature)
+fxy&lt;- function(x){3/2* (x[1]^2 + x[2]^2)}
+Ifxy=adaptIntegrate(fxy,lowerLimit=c(0,0),upperLimit=c(1,1))
+Ifxy$integral</code></pre>
+<pre><code>[1] 1</code></pre>
+<p><br/><br/></p>
+<p>Su representación gráfica</p>
+<p><br/><br/></p>
+<p><img src="img/figura317.png" alt="" width="100%" style="display: block; margin: auto;" /></p>
+<p><br/><br/></p>
+</div>
+<div id="densidad-marginales" class="section level3">
+<h3><strong>Densidad marginales</strong></h3>
+<p>En el caso continuo- continuo las distribuciones de densidad
+marginales se pueden encontrar a partir de la funcion de densidad
+conjunta</p>
+<p></br></br></br></p>
+<!-- ------------------------------------------------------- -->
+<div class="box2 with-label">
+<div class="label">
+<strong>Definición : Función de densidad marginal</strong>
+</div>
+<p>Si <span class="math inline">\(X\)</span> y <span
+class="math inline">\(Y\)</span> son dos variables aleatorias continuas,
+entonces se define:</p>
+<p>La función de densidad marginal de <span
+class="math inline">\(X\)</span> como: <span
+class="math display">\[g(x)=f_{_{X}}(x)=\displaystyle\int_{-\infty}^{\infty}f_{_{X,Y}}(x,y)\:dy\]</span></p>
+<p>La función de densidad marginal de <span
+class="math inline">\(Y\)</span> como:</p>
+<p><span
+class="math display">\[h(y)=f_{_{Y}}(y)=\displaystyle\int_{-\infty}^{\infty}f_{_{X,Y}}(x,y)\:dx\]</span></p>
+</div>
+<p><br/><br/></p>
+<p>Para el <strong>Ejemplo 2</strong> tenemos:</p>
+<p><span class="math display">\[g(x) = \displaystyle\int_{0}^{1}
+\dfrac{3}{2}(x^{2}+y^{2}) dy = \dfrac{3}{2} \Bigg( x^{2}y +
+\dfrac{y^{2}}{3} \Bigg) \Bigg|_{0}^{1} = \dfrac{3}{2}
+\Bigg(x^{2}+\dfrac{1}{3}\Bigg)\]</span></p>
+<p><br/></p>
+<p><span class="math display">\[g(x) = \left \{ \begin{matrix}
+\dfrac{3}{2}\Bigg(x^{2}+ \dfrac{1}{3}\Bigg) &amp; \mbox{ } 0 \leq x \leq
+1\\
+                                  &amp;\\
+                                   0 &amp; \mbox{ en otro caso
+}\end{matrix}\right.  \]</span></p>
+<p><br/><br/></p>
+<p><span class="math display">\[h(y)=\displaystyle\int_{0}^{1}
+\dfrac{3}{2}(x^{2}+y^{2})\:dx =\dfrac{3}{2}\Bigg(\dfrac{x^{3}}{3}+y^{2}
+x \Bigg) \Bigg|_{0}^{1} = \dfrac{3}{2}
+\Bigg(\dfrac{1}{3}+y^{2}\Bigg)\]</span></p>
+<p><br/><br/></p>
+<p><span class="math display">\[h(y) = \left \{ \begin{matrix}
+\dfrac{3}{2}\Bigg(\dfrac{1}{3}+y^{2}\Bigg) &amp; \mbox{ } 0 \leq x \leq
+1\\
+                                  &amp;\\
+                                   0 &amp; \mbox{ en otro caso
+}\end{matrix}\right.  \]</span></p>
+<p><br/><br/></p>
+</div>
+<div id="función-de-densidad-de-probabilidad-conjunta-acumulada"
+class="section level3">
+<h3><strong>Función de densidad de probabilidad conjunta
+acumulada</strong></h3>
+<p></br></br></br></p>
+<!-- ------------------------------------------------------- -->
+<div class="box2 with-label">
+<div class="label">
+<strong>Definición Función de densidad conjunta acumulada</strong>
+</div>
+<p>Para <span class="math inline">\(F_{_{X,Y}}(x,y)=P(X\leq x, Y\leq
+y)\)</span> se tiene en el caso de variables aleatorias continuas</p>
+<p><span class="math display">\[F_{_{X,Y}}(x,y)=\int_{-\infty}^{x}
+\int_{-\infty}^{y} f(s,t) \:ds \:dt\]</span></p>
+<p>Propiedades de la función de distribución conjunta</p>
+<ul>
+<li><p><span class="math inline">\(F_{_{X,Y}}(x,y)\)</span> es una
+función no decreciente.</p></li>
+<li><p><span
+class="math inline">\(F_{_{X,Y}}(x,-\infty)=0\)</span></p></li>
+<li><p><span
+class="math inline">\(F_{_{X,Y}}(-\infty,y)=0\)</span></p></li>
+<li><p><span
+class="math inline">\(F_{_{X,Y}}(-\infty,x)=0\)</span></p></li>
+<li><p><span
+class="math inline">\(F_{_{X,Y}}(\infty,\infty)=1\)</span></p></li>
+<li><p><span
+class="math inline">\(F_{_{X,Y}}(\infty,y)=F_{Y}(y)F_{_{X,Y}}(x,\infty)=F_{X}(x)\)</span></p></li>
+</ul>
+<p><span class="math inline">\(P(x_1&lt;X\leq x_2, y_1&lt;Y\leq
+y_2)=F_{_{X,Y}}(x_2,y_2)-F_{_{X,Y}}(x_1,y_2)-F_{_{X,Y}}(x_2,y_1)+F_{_{X,Y}}(x_1,y_1)\)</span></p>
+<p>Para todo par de variables aleatorias continuas, si <span
+class="math inline">\(F_{_{XY}}\)</span> tiene derivadas parciales de
+orden superior a dos, se cumple que:</p>
+<p><span class="math inline">\(f_{_{X,Y}}(x,y)=\frac{\partial^{2}
+F_{_{X,Y}}(x,y)}{\partial x \hspace{.2cm}\partial y}\)</span></p>
+</div>
+<p><!-- ------------------------------------------------------- -->
+<br/><br/></p>
+</div>
+<div id="función-de-densidad-condicionales" class="section level3">
+<h3><strong>Función de densidad condicionales </strong></h3>
+<p><br/><br/><br/></p>
+<!-- ------------------------------------------------------- -->
+<div class="box1 with-label">
+<div class="label">
+<strong>Definición : Función de densidad condicional</strong>
+</div>
+<p>La función de densidad condicional de <span
+class="math inline">\(X\)</span> dado que <span
+class="math inline">\(Y=y_0\)</span> está dada por:</p>
+<p><span class="math display">\[\begin{equation*}
+    f_{_{X|Y}}(x|y_{0})=\left\lbrace
+    \begin{array}{ccl}
+        \dfrac{f_{_{X,Y}}(x,y_0)}{h(y_0)}&amp;;&amp; h(y_0) &gt; 0\\
+        &amp;&amp;\\
+        0 &amp;;&amp;\mbox{en otro caso}
+    \end{array}
+    \right.
+\end{equation*}\]</span></p>
+<p>La función de densidad condicional de <span
+class="math inline">\(Y\)</span> dado que <span
+class="math inline">\(X=x_0\)</span> está dada por:</p>
+<p><span class="math display">\[\begin{equation*}
+    f_{Y|X}(y|x_{0})=\left\lbrace
+    \begin{array}{ccl}
+        \dfrac{f_{_{X,Y}}(x_0,y)}{g(x_0)}\:&amp;;&amp;\:g(x_0)&gt;0\\
+        &amp;&amp;\\
+        0\:&amp;;&amp;\:\mbox{en otro caso}
+    \end{array}
+    \right.
+\end{equation*}\]</span></p>
+</div>
+<p><!-- ------------------------------------------------------- --></p>
+<p><br/><br/><br/></p>
+</div>
+</div>
+<div id="covarianza-y-correlación" class="section level2">
+<h2><strong>Covarianza y correlación</strong></h2>
+<p>Para definir el concepto de covarianza se requiere el concepto de
+valor esperado conjunto:</p>
+<p></br></br></br></p>
+<div class="box2 with-label">
+<div class="label">
+<strong>Definición : Valor esperado conjunta -Caso
+Discreta-Discreta</strong>
+</div>
+<p><span
+class="math display">\[E[X,Y]=\displaystyle\sum_{R_{X}}\displaystyle\sum_{R_{Y}}
+xy f(x,y)\]</span></p>
+</div>
+<p></br></br></p>
+<div class="box2 with-label">
+<div class="label">
+<strong>Definición : Valor esperado conjunta -Caso
+Continua-Continua</strong>
+</div>
+<hr />
+<p><span class="math display">\[E[XY]=
+\displaystyle\int_{-\infty}^{\infty}
+\displaystyle\int_{-\infty}^{\infty} x.y.f(x,y) \,dx \,dy\]</span></p>
+</div>
+<p><!-- ------------------------------------------------------- --></p>
+<p></br></br></br></p>
+<div class="box2 with-label">
+<div class="label">
+<strong>Definición : Covarianza</strong>
+</div>
+<p>Covarianza entre las variables <span
+class="math inline">\(X\)</span>,<span
+class="math inline">\(Y\)</span></p>
+<p><span class="math display">\[COV[X,Y]=E[XY]-E[X]E[Y]\]</span></p>
+</div>
+<p><!-- ------------------------------------------------------- -->
+</br></br></br></p>
+<div class="box2 with-label">
+<div class="label">
+<strong>Definición : Correlación </strong>
+</div>
+<p>Correlación entre las variables <span
+class="math inline">\(X\)</span>,<span class="math inline">\(Y\)</span>
+<span
+class="math display">\[\rho=\displaystyle\frac{COV[XY]}{\displaystyle\sqrt{V[X].V[Y]}}
+\]</span> La correlación es una medida que mide el grado de asociación
+lineal entre dos variables. <span class="math inline">\(-1 \leq \rho
+\leq 1\)</span></p>
+</div>
+<p><!-- ------------------------------------------------------- --></p>
+<p><br/><br/></p>
+<p><strong>Escala para interpretación</strong> : <span
+class="math inline">\(\rho\)</span> <br/></p>
+<table>
+<colgroup>
+<col width="7%" />
+<col width="7%" />
+<col width="7%" />
+<col width="7%" />
+<col width="8%" />
+<col width="7%" />
+<col width="8%" />
+<col width="7%" />
+<col width="7%" />
+<col width="7%" />
+<col width="8%" />
+<col width="8%" />
+<col width="7%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">-1</th>
+<th align="center">-0.90</th>
+<th align="center">-0.75</th>
+<th align="center">-0.50</th>
+<th align="center">-0.25</th>
+<th align="center">-0.10</th>
+<th align="center">0</th>
+<th align="center">0.10</th>
+<th align="center">0.25</th>
+<th align="center">0.50</th>
+<th align="center">0.75</th>
+<th align="center">0.90</th>
+<th align="center">1.0</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">Negativa perfecta</td>
+<td align="center">Negativa muy fuerte</td>
+<td align="center">Negativa considerable</td>
+<td align="center">Negativa media</td>
+<td align="center">Negativa debil</td>
+<td align="center">Negativa muy debil</td>
+<td align="center">No existe correlación</td>
+<td align="center">Positiva muy debil</td>
+<td align="center">Positiva debil</td>
+<td align="center">Positiva media</td>
+<td align="center">Positiva considerable</td>
+<td align="center">Positiva muy fuerte</td>
+<td align="center">Positiva perfecta</td>
+</tr>
+<tr class="even">
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+</tbody>
+</table>
+<p><br/><br/></p>
+<p><img src="recurso32_files/figure-html/unnamed-chunk-11-1.png" alt="" width="960" style="display: block; margin: auto;" /><img src="recurso32_files/figure-html/unnamed-chunk-11-2.png" alt="" width="960" style="display: block; margin: auto;" /><img src="recurso32_files/figure-html/unnamed-chunk-11-3.png" alt="" width="960" style="display: block; margin: auto;" /><img src="recurso32_files/figure-html/unnamed-chunk-11-4.png" alt="" width="960" style="display: block; margin: auto;" /><img src="recurso32_files/figure-html/unnamed-chunk-11-5.png" alt="" width="960" style="display: block; margin: auto;" /></p>
+<p><br/><br/><br/></p>
+</div>
+<div id="independencia" class="section level2">
+<h2><strong>Independencia</strong></h2>
+<p></br></br></br></p>
+<!-- ------------------------------------------------------- -->
+<div class="box2 with-label">
+<div class="label">
+<strong>Definición : Independencia de variables</strong>
+</div>
+<p>Sean <span class="math inline">\(X\)</span> y <span
+class="math inline">\(Y\)</span> dos variables aleatorias discretas o
+continuas con función de probabilidad conjunta <span
+class="math inline">\(f(x,y)\)</span> y funciones de probabilidad
+marginales <span class="math inline">\(g(x)\)</span> y <span
+class="math inline">\(h(y)\)</span>, respectivas, entonces se dice que
+las variables X y Y son estadísticamente independientes si:</p>
+<p><span class="math display">\[f(x,y)= g(x) h(y) \]</span></p>
+</div>
+<p><!-- ------------------------------------------------------- -->
+<br/><br/><br/></p>
+</div>
+<div id="problemas-sugeridos" class="section level2">
+<h2><strong>Problemas sugeridos</strong></h2>
+<div class="box1 with-label">
+<div class="label">
+Problema 1
+</div>
+<p>Considere como <span class="math inline">\(X\)</span> el número que
+falla una máquina de control numérico (<span class="math inline">\(R_X =
+\{0, 1, 2\}\)</span>) al día y <span class="math inline">\(Y\)</span> el
+número de veces en que se llama a un ingeniero para restaurar el proceso
+(<span class="math inline">\(R_Y = \{0, 1, 2\}\)</span>). Su función de
+distribución conjunta está dada por:</p>
+<p><span class="math display">\[
+\begin{array}{|c|c|c|c|}
+\hline
+f(x, y) &amp; y = 0 &amp; y = 1 &amp; y = 2 \\
+\hline
+x = 0   &amp; 0.15  &amp; 0.05  &amp; 0 \\
+x = 1   &amp; 0     &amp; 0.20  &amp; 0.35 \\
+x = 2   &amp; 0     &amp; 0.10  &amp; 0.15 \\
+\hline
+\end{array}
+\]</span></p>
+<ul>
+<li><ol style="list-style-type: lower-alpha">
+<li>Determine:</li>
+</ol></li>
+<li><p><span class="math inline">\(P(X \geq 1; Y \geq
+1)\)</span></p></li>
+<li><p><span class="math inline">\(P(X = 1)\)</span></p></li>
+<li><p><span class="math inline">\(P(Y \leq 1)\)</span></p></li>
+<li><ol start="2" style="list-style-type: lower-alpha">
+<li>Encuentre <span class="math inline">\(P(Y = 1 | X = 2)\)</span>,
+exprese en palabras el resultado obtenido.</li>
+</ol></li>
+<li><ol start="3" style="list-style-type: lower-alpha">
+<li>Determine si existe dependencia entre estas dos variables (calcule
+el valor de <span class="math inline">\(\rho_{XY}\)</span>), analice el
+resultado obtenido.</li>
+</ol></li>
+</ul>
+</div>
+<div class="box1 with-label">
+<div class="label">
+Problema 2
+</div>
+<p>Un restaurante de comidas rápidas opera tanto en un local que da
+servicio en automovil (autoservicio) como en un segundo local que
+atiende a clientes que llegan caminando. En un día cualquiera, la
+proporción del tiempo en servicio del autoservicio se representa por
+<span class="math inline">\(X\)</span>, mientras que <span
+class="math inline">\(Y\)</span> representa la proporción del tiempo en
+que el segundo local está en servicios. La función de densidad conjunta
+que representa el comportamiento de estas dos variables está dado
+por:</p>
+<p><span class="math display">\[
+f(x, y) =
+\begin{cases}
+\frac{2}{3} (x + 2y) &amp; \text{si} \ 0 \leq x \leq 1, 0 \leq y \leq 1
+\\
+0 &amp; \text{en cualquier otro caso}
+\end{cases}
+\]</span></p>
+<ol style="list-style-type: lower-alpha">
+<li><p>Determine si <span class="math inline">\(f_{XY}(x, y)\)</span> es
+una función de densidad de probabilidad conjunta.</p></li>
+<li><p>Determine:</p></li>
+</ol>
+<ul>
+<li><span class="math inline">\(P(X \leq 0.5; Y \leq 0.3)\)</span></li>
+<li><span class="math inline">\(P(X \leq 0.80)\)</span></li>
+<li><span class="math inline">\(P(Y \geq 0.60)\)</span></li>
+</ul>
+<ol start="3" style="list-style-type: lower-alpha">
+<li>Determine <span class="math inline">\(\rho_{XY}\)</span>, interprete
+su resultado.</li>
+</ol>
+</div>
+<p><a
+href="https://github.com/dgonzalez80/pye2021.io/blob/main/talleres/Taller301.pdf"><strong>Solución
+1, 2</strong></a></p>
+<p><br/><br/><br/></p>
+<div class="box1 with-label">
+<div class="label">
+Problema 3
+</div>
+<p>Sea <span class="math inline">\(X\)</span> la proporción de agua
+(sustancia 1) y <span class="math inline">\(Y\)</span> la proporción de
+alcohol (sustancia 2) que se encuentran en una muestra de una mezcla
+usada en la industria. La cantidad de ambas sustancias en la muestra se
+modela con la función <span class="math inline">\(f_{_{XY}}\)</span>
+dada como:</p>
+<p><span class="math display">\[\begin{equation*}
+f_{_{X,Y}}(x,y)=\left\lbrace
+\begin{array}{ccl}
+2&amp;;&amp;  0 \leq x \leq 1;  0\leq y \leq 1 ; x + y \leq 1\\
+0&amp;;&amp; \text{en otro caso.}
+\end{array}
+\right.
+\end{equation*}\]</span></p>
+<ol style="list-style-type: lower-alpha">
+<li><p>¿Qué porcentaje de las muestras seleccionadas aleatoriamente
+tienen menos del setenta y cinco por ciento de ambas
+sustancias?</p></li>
+<li><p>Se han seleccionado cien preparaciones de la mezcla
+aleatoriamente. ¿Cuántas de estas tienen menos del cincuenta por ciento
+de cada sustancia?</p></li>
+<li><p>Cien muestras contienen menos del cincuenta por ciento de la
+sustancia 2, ¿cuántas muestras de estas contienen menos del cuarenta por
+ciento de la sustancia 1?</p></li>
+<li><p>Una mezcla seleccionada aleatoriamente contiene el cincuenta por
+ciento de la sustancia 2, ¿cuál es la probabilidad que contenga menos
+del cuarenta por ciento de la sustancia 1?</p></li>
+</ol>
+</div>
+<p><br/><br/></p>
+<div class="box1 with-label">
+<div class="label">
+Problema 4
+</div>
+<ol start="2" style="list-style-type: decimal">
+<li>Una empresa arma paquetes de maní y chocolate. Cada paquete contiene
+pesos diferentes de maní y chocolate. Para un paquete seleccionado al
+azar, sea <span class="math inline">\(X\)</span> la cantidad de maní y
+<span class="math inline">\(Y\)</span> la cantidad de chocolate. Los
+pesos están dados en kilogramos. La función de densidad conjunta de
+<span class="math inline">\(X\)</span> y <span
+class="math inline">\(Y\)</span> esta dada por:</li>
+</ol>
+<p><span class="math display">\[
+f_{_{X,Y}}(x,y) = \left \{
+\begin{matrix}
+k &amp; \hspace{.3cm}   5 \leq x \leq 9 , \hspace{.3cm} 4 \leq y \leq 9
+\\
+&amp;\\
+0  &amp; \mbox{en otro caso }
+\end{matrix}\right.  
+\]</span></p>
+<ol style="list-style-type: lower-alpha">
+<li><p>Determinar la función de densidad conjunta que modela la cantidad
+de maní y chocolate que contiene un paquete.</p></li>
+<li><p>¿Qué porcentaje de las veces que se seleccionan paquetes al azar,
+contienen menos cantidad de maní que de chocolate?</p></li>
+<li><p>Cien paquetes contienen menos de seis kilogramos de maní,
+¿cuántos de ellos contienen menos de cinco kilogramos de
+chocolate?</p></li>
+<li><p>Doscientos paquetes seleccionados aleatoriamente contienen cinco
+kilogramos de chocolate, ¿cuántos de ellos contienen más de ocho
+kilogramos de maní?</p></li>
+</ol>
+</div>
+<p><br/><br/><br />
+<a href="pdf/talleres/Solucion_Taller322.pdf" download>
+<button>Descargar solución PDF</button> </a></p>
+<p><br/><br/><br/></p>
+</div>
+<div id="videos" class="section level2">
+<h2><strong>Videos</strong></h2>
+<p><br/><br/></p>
+<div class="box1 with-label">
+<div class="label">
+Caso Discreto-Discreto
+</div>
+<p><br/></p>
+<center>
+<iframe width="100%" height="600" src="https://www.youtube.com/embed/gvzybhu8GZ0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+</iframe>
+</center>
+</div>
+<p><br/><br/></p>
+<div class="box1 with-label">
+<div class="label">
+Caso Continuo - Continuo
+</div>
+<p><br/></p>
+<center>
+<iframe width="100%" height="600" src="https://www.youtube.com/embed/YYgn3BBqfuA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+</iframe>
+</center>
+</div>
+<p><br/><br/></p>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("hide" === "show");
+});
+</script>
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

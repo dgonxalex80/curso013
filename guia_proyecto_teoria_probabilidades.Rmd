@@ -1,0 +1,387 @@
+---
+title: "<span style='color:#67C1A8 !important;'>Teoría de probabilidades</span>"
+author: <span style="color:#67C1A8">dgonzalez </span> 
+subtitle: <span style="color:#67C1A8"> </span> 
+output:
+  html_document:
+    toc: no
+    toc_depth: 2
+    toc_float: yes
+    code_folding: hide
+    theme: flatly
+    css:
+      - style.css
+      - cajas.css
+---
+
+
+</br></br></br>
+
+```{r, echo=FALSE, out.width="100%", fig.align = "left"}
+knitr::include_graphics("img/guia_proyecto.png")
+```
+
+
+# Guía del proyecto
+
+## Gemelo digital probabilístico de un sistema universitario
+
+### 1. Propósito del proyecto
+
+El proyecto tiene como propósito integrar los conceptos desarrollados en el curso de **Teoría de Probabilidades** mediante la construcción de un **gemelo digital probabilístico** de un sistema, proceso o servicio observable dentro de la Universidad.
+
+Para efectos de este curso, se entenderá el gemelo digital como una **representación computacional simplificada y dinámica de un sistema real**, construida a partir de variables aleatorias y modelos de probabilidad. El modelo deberá permitir reproducir mediante simulación el comportamiento del sistema, modificar algunos de sus parámetros y analizar cómo cambian los resultados.
+
+No se espera construir un gemelo digital industrial de alta complejidad. El énfasis estará en la **modelación probabilística**, la interpretación de la incertidumbre y la simulación del comportamiento del sistema utilizando **R** y **Shiny**.
+
+---
+
+### 2. Organización del trabajo
+
+- El proyecto se realizará en **grupos de máximo tres (3) estudiantes**.
+- El sistema seleccionado deberá corresponder a una actividad, servicio, proceso o fenómeno que pueda observarse o representarse dentro de la Universidad.
+- El desarrollo tendrá una duración de **nueve semanas**, desde el **16 de septiembre hasta el 12 de noviembre**.
+- El proyecto se desarrollará en **tres entregas**.
+- La entrega final incluirá:
+    - presentación oral;
+    - tablero interactivo desarrollado en **Shiny**;
+    - simulación del sistema;
+    - explicación de las variables aleatorias y distribuciones utilizadas;
+    - descripción del procedimiento empleado para estimar o justificar los parámetros de los modelos.
+
+---
+
+### 3. Temas del curso que pueden incorporarse
+
+El proyecto deberá evidenciar la aplicación de varios de los conceptos estudiados durante el curso, entre ellos:
+
+- variables aleatorias discretas y continuas;
+- funciones de probabilidad y funciones de densidad;
+- funciones de distribución acumulada;
+- valor esperado y varianza;
+- covarianza y correlación;
+- distribuciones conjuntas;
+- probabilidad condicional;
+- simulación de variables aleatorias;
+- estimación o determinación de parámetros.
+
+Entre los modelos de probabilidad que pueden utilizarse se encuentran:
+
+**Modelos discretos**
+
+- Binomial
+- Poisson
+- Geométrica
+- Hipergeométrica
+- Binomial negativa
+
+**Modelos continuos**
+
+- Normal
+- Uniforme
+- Exponencial
+- Gamma
+- Beta
+- Weibull
+
+La selección de una distribución deberá estar **justificada por el comportamiento de la variable que se desea representar** y no únicamente por la facilidad para utilizarla.
+
+---
+
+### 4. Requisitos mínimos del modelo
+
+El gemelo digital deberá representar un sistema mediante **al menos cuatro variables aleatorias o componentes probabilísticos relevantes**. Se espera que el proyecto combine diferentes tipos de variables y distribuciones cuando la naturaleza del sistema así lo permita.
+
+Como mínimo, el proyecto deberá:
+
+1. Identificar claramente el **sistema real** que se desea representar.
+2. Definir las principales **variables aleatorias** del sistema.
+3. Especificar las distribuciones de probabilidad utilizadas.
+4. Explicar por qué cada distribución es adecuada para la variable correspondiente.
+5. Determinar o estimar los **parámetros** de las distribuciones.
+6. Calcular e interpretar, cuando sean pertinentes:
+   - probabilidades;
+   - valores esperados;
+   - varianzas;
+   - funciones acumuladas;
+   - correlaciones o dependencias entre variables.
+7. Implementar una **simulación dinámica** del sistema.
+8. Permitir que el usuario modifique parámetros o condiciones mediante controles de Shiny.
+9. Mostrar gráficamente cómo los cambios realizados afectan el comportamiento del sistema.
+10. Comparar resultados teóricos con resultados obtenidos mediante simulación, cuando sea pertinente.
+
+---
+
+### 5. ¿Qué puede modelarse?
+
+El tema debe corresponder a un **sistema o proceso relacionado con la Universidad**. Algunos ejemplos son:
+
+- llegada de estudiantes a una cafetería y tiempos de atención;
+- ocupación de mesas en una cafetería;
+- llegada y atención de usuarios en biblioteca;
+- préstamo y devolución de libros;
+- ocupación de salas de estudio;
+- utilización de computadores en una sala;
+- llegada de vehículos a un parqueadero;
+- disponibilidad y ocupación de espacios de parqueo;
+- llegada de estudiantes a una parada de transporte;
+- tiempos de espera de rutas o buses universitarios;
+- uso de ascensores;
+- flujo de estudiantes entre edificios;
+- ingreso de estudiantes a una clase;
+- asistencia y ausentismo;
+- utilización de espacios deportivos;
+- consumo de alimentos en determinados horarios;
+- duración de actividades académicas;
+- demanda de servicios universitarios;
+- comportamiento de filas en diferentes puntos de atención.
+
+Estos ejemplos son orientativos. Cada grupo puede proponer un sistema diferente, siempre que pueda ser representado razonablemente mediante variables aleatorias y modelos de probabilidad.
+
+---
+
+### 6. Ejemplo de estructura probabilística
+
+Suponga que un grupo decide representar el funcionamiento de una **cafetería universitaria durante la hora de almuerzo**. El modelo podría incluir:
+
+| Componente del sistema | Variable aleatoria | Posible distribución |
+|:---|:---|:---|
+| Número de estudiantes que llegan por intervalo | $X$ | Poisson |
+| Tiempo entre llegadas | $T_1$ | Exponencial |
+| Tiempo de atención | $T_2$ | Gamma o Weibull |
+| Compra o no compra de un producto | $Y$ | Binomial/Bernoulli |
+| Proporción de estudiantes que seleccionan una opción | $P$ | Beta |
+
+El grupo deberá justificar cada selección y estimar los parámetros utilizando datos observados, información disponible, una muestra piloto o supuestos razonables claramente documentados.
+
+El tablero podría permitir modificar, por ejemplo, la tasa promedio de llegada, el número de puntos de atención o los parámetros del tiempo de servicio, y observar cómo cambian las filas, los tiempos de espera y el número de estudiantes atendidos.
+
+---
+
+# Entregas
+
+## Entrega 1. Tema y objetivo
+
+**Fecha sugerida: 23 de septiembre**
+
+Cada grupo deberá presentar una propuesta breve que contenga:
+
+1. **Título provisional del proyecto.**
+2. **Integrantes del grupo.**
+3. **Sistema de la Universidad que se desea representar.**
+4. **Descripción breve del problema o situación.**
+5. **Objetivo general del proyecto.**
+6. Justificación inicial de por qué el sistema puede estudiarse mediante un enfoque probabilístico.
+
+### Producto esperado
+
+Documento breve o presentación de **máximo 3 diapositivas**.
+
+El propósito de esta entrega es validar que el sistema seleccionado tenga el alcance apropiado y pueda desarrollarse durante las semanas disponibles.
+
+---
+
+## Entrega 2. Descripción y modelo probabilístico del sistema
+
+**Fecha sugerida: 14 de octubre**
+
+En esta etapa deberá presentarse la estructura del gemelo digital.
+
+La entrega debe incluir:
+
+### Descripción del sistema
+
+- descripción del proceso real;
+- límites del sistema;
+- actores o elementos que intervienen;
+- entradas;
+- procesos;
+- salidas;
+- principales eventos aleatorios.
+
+### Variables
+
+Construir una tabla como la siguiente:
+
+| Variable | Descripción | Tipo | Distribución propuesta | Parámetros | Justificación |
+|:---|:---|:---|:---|:---|:---|
+| $X_1$ |  | Discreta/Continua |  |  |  |
+| $X_2$ |  | Discreta/Continua |  |  |  |
+| $X_3$ |  | Discreta/Continua |  |  |  |
+| $X_4$ |  | Discreta/Continua |  |  |  |
+
+### Modelo probabilístico
+
+Para cada variable deberá indicarse:
+
+- función de probabilidad o densidad;
+- parámetros de la distribución;
+- valor esperado;
+- varianza;
+- función de distribución acumulada cuando sea relevante;
+- relación o dependencia con otras variables, si existe.
+
+Cuando dos o más variables estén relacionadas, deberá discutirse la conveniencia de utilizar **correlación, probabilidad condicional o una representación conjunta**.
+
+### Estimación de parámetros
+
+Los parámetros podrán obtenerse mediante:
+
+- observación directa;
+- recolección de una muestra pequeña;
+- registros disponibles;
+- estimaciones basadas en información del sistema;
+- supuestos razonables.
+
+Todos los parámetros deberán estar **documentados y justificados**.
+
+### Diseño inicial del tablero
+
+Incluir un esquema del tablero Shiny indicando:
+
+- parámetros que podrá modificar el usuario;
+- resultados que mostrará el modelo;
+- gráficos;
+- indicadores;
+- comportamiento que será simulado.
+
+---
+
+## Entrega 3. Gemelo digital probabilístico
+
+**Fecha: 12 de noviembre**
+
+Corresponde a la presentación final del proyecto.
+
+Cada grupo deberá realizar una **presentación oral** y demostrar el funcionamiento del **tablero Shiny**.
+
+### A. Presentación oral
+
+La presentación deberá explicar de manera clara:
+
+1. sistema seleccionado;
+2. problema y objetivo;
+3. funcionamiento del sistema;
+4. variables aleatorias utilizadas;
+5. distribuciones seleccionadas;
+6. justificación de las distribuciones;
+7. estimación de los parámetros;
+8. relaciones entre las variables;
+9. estructura de la simulación;
+10. principales resultados;
+11. conclusiones obtenidas a partir del gemelo digital.
+
+No debe limitarse a mostrar el código. El énfasis debe estar en la **interpretación probabilística del sistema**.
+
+### B. Tablero Shiny
+
+El tablero deberá permitir interactuar con el gemelo digital.
+
+Como mínimo deberá contener:
+
+- identificación y descripción breve del sistema;
+- controles para modificar parámetros o condiciones;
+- botón o mecanismo para ejecutar nuevas simulaciones;
+- indicadores numéricos relevantes;
+- visualizaciones de las distribuciones utilizadas;
+- resultados de la simulación;
+- comparación de escenarios;
+- interpretación básica de los resultados.
+
+Se valorará especialmente que el usuario pueda plantear preguntas del tipo:
+
+> ¿Qué ocurre en el sistema si cambia una de sus condiciones?
+
+Por ejemplo:
+
+- ¿qué ocurre si aumenta la tasa de llegada?
+- ¿qué ocurre si disminuye el tiempo promedio de atención?
+- ¿qué ocurre si aumenta la probabilidad de un determinado evento?
+- ¿cómo cambia la variabilidad del sistema?
+- ¿qué ocurre con la probabilidad de congestión?
+- ¿cómo cambia el resultado esperado?
+
+---
+
+# Cronograma
+
+| Semana | Fechas | Actividad principal |
+|:---:|:---|:---|
+| 1 | 16 - 22 septiembre | Presentación del proyecto, conformación de grupos y selección del sistema |
+| 2 | 23 - 29 septiembre | **Entrega 1:** tema y objetivo |
+| 3 | 30 septiembre - 6 octubre | Identificación de variables aleatorias y recolección de información |
+| 4 | 7 - 13 octubre | Selección de distribuciones y estimación inicial de parámetros |
+| 5 | 14 - 20 octubre | **Entrega 2:** descripción y modelo probabilístico |
+| 6 | 21 - 27 octubre | Construcción de la simulación en R |
+| 7 | 28 octubre - 3 noviembre | Desarrollo del tablero Shiny |
+| 8 | 4 - 10 noviembre | Integración, validación, análisis de escenarios y preparación de la presentación |
+| 9 | 11 - 12 noviembre | **Entrega 3:** presentación final y demostración del gemelo digital |
+
+---
+
+# Estructura recomendada del tablero
+
+Una posible organización del tablero Shiny es:
+
+### 1. El sistema
+
+Descripción del sistema universitario seleccionado y representación gráfica o esquemática de su funcionamiento.
+
+### 2. Modelo probabilístico
+
+Presentación de las variables aleatorias, distribuciones y parámetros.
+
+### 3. Simulación
+
+Controles interactivos para modificar parámetros y ejecutar el modelo.
+
+### 4. Resultados
+
+Indicadores, probabilidades, valores esperados, variabilidad y gráficos relevantes.
+
+### 5. Escenarios
+
+Comparación entre dos o más configuraciones del sistema.
+
+### 6. Conclusiones
+
+Principales hallazgos e interpretación de los resultados.
+
+---
+
+# Evaluación sugerida
+
+| Componente | Porcentaje |
+|:---|---:|
+| Definición y comprensión del sistema | 10% |
+| Formulación de variables aleatorias | 15% |
+| Selección y justificación de distribuciones | 15% |
+| Estimación y justificación de parámetros | 15% |
+| Aplicación de conceptos de probabilidad | 15% |
+| Simulación y funcionamiento del gemelo digital | 15% |
+| Tablero Shiny e interacción con escenarios | 10% |
+| Presentación, interpretación y conclusiones | 5% |
+| **Total** | **100%** |
+
+---
+
+# Recomendaciones
+
+- Mantener un alcance que pueda completarse durante las nueve semanas.
+- Priorizar un sistema **pequeño pero bien modelado** sobre uno demasiado complejo.
+- No utilizar una distribución únicamente porque aparece en la lista del curso.
+- Justificar cada modelo a partir del significado de la variable.
+- Diferenciar claramente entre **datos observados, parámetros estimados y supuestos**.
+- Utilizar la simulación para estudiar el comportamiento del sistema y no solamente para generar números aleatorios.
+- Evitar que el tablero sea únicamente una colección de gráficos. Debe representar el funcionamiento del sistema y permitir experimentar con él.
+- Documentar el código desarrollado en R.
+- Todos los integrantes deberán conocer el modelo completo y participar en la presentación.
+
+---
+
+# Pregunta orientadora
+
+Al finalizar el proyecto, el grupo debe estar en capacidad de responder:
+
+> **¿Cómo puede la teoría de probabilidades representar la incertidumbre de un sistema real de la Universidad y permitir experimentar con su comportamiento mediante un gemelo digital?**
+

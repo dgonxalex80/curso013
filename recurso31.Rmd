@@ -1,0 +1,602 @@
+---
+title: "<span style='color:#476885 !important;'>Teoría de probabilidades</span>"
+author: <span style="color:#476885">dgonzalez </span> 
+subtitle: <span style="color:#476885"> </span> 
+output:
+  html_document:
+    toc: no
+    toc_depth: 2
+    toc_float: yes
+    code_folding: hide
+    theme: flatly
+    css:
+      - style.css
+      - cajas.css
+---
+
+
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,comment = NA)
+library(ggplot2)
+library(summarytools)
+library(devtools)
+# install_github("lchiffon/wordcloud2")
+library(wordcloud)
+
+# colores
+source("R/init.R")
+```
+
+
+```{r, echo=FALSE, out.width="100%", fig.align = "center"}
+if (file.exists("img/recurso3.png")) knitr::include_graphics("img/recurso3.png")
+```
+
+
+
+<br/><br/>
+
+# Introducción
+
+El concepto de variable aleatoria constituye uno de los conceptos principales de la probabilidad y estadística. A este concepto se pueden asociar dos paradigmas de evolución histórica segun J.A. Alberth & B. Ruiz (2013) , El primero basada en el resultado de fenómenos aleatorios y por otro lado el proceso que relaciona los conjuntos de espacio muestral y sus respectivas probabilidades, para definir el concepto de variable aleatória como función de números reales y  el espacio para el sustento matemático. 
+
+Ahora, se puede relacionar el concepto de variable aleatoria a diferentes contextos donde se requiere dar respuesta a preguntas relacionadas con la ocurrencia o no de fenómenos aleatorios que eventualmente se presentarán en el futuro, como por ejemplo: 
+
+* ¿Cuánto tiempo se tarda un estudiante  en ir de su casa a la universidad?
+
+* ¿Cuál será  el resultado en mi próximo examen de estadística? 
+
+* El dueño de la cafetería se puede preguntar ¿Cuantas botellas de agua se venderán esta semana?
+
+* ¿Cuánto  tiempo tardaría  la entrega de un  paquete una empresa  de mensajería?
+
+* ¿Cuánto tiempo dura la  bombilla de un  vehículo? 
+
+* ¿Qué  diámetro tendrá la  perforación de una máquina en una lámina de acero que hace parte de una puerta de un vehículo?
+
+* ¿Cuantos mensajes recibiré hoy por WhatsApp?
+
+
+En  todos los casos se trata de  preguntas que tienen  diferentes  respuestas, o  que no tienen un único valor como  respuesta.  En este documento  se estudiará el concepto de variable aleatoria y mediante la definición  de una función  matemática que nos  permita caracterizar su  comportamiento, realizaremos diferentes cálculos de probabilidades de interés. Para ello será necesario  retomar conocimientos de cálculo integral que serán  expuestos en su momento mediante funciones de fácil manejo.
+
+En esta unidad se tratará el  caso univariado discreto, luego el caso continuo,con sus principales características, conceptos relacionados con los vistos en el modulo anterior.
+
+
+<br/><br/>
+
+<div class="box4 with-label">
+### Definición : Variable aleatoria
+
+
+Una variable aleatoria $X$ es una función que asigna a cada valor de un espacio muestral $S$ un numero . El conjunto formado por estos números conforman un subconjunto de los  reales llamado rango de la variable X, ($R_{_{X}}$) 
+
+</div> 
+
+<br/><br/>
+
+Las variables aleatorias se clasifican teniendo en cuenta las características de su rango en discretas, continuas. La distribución de una variable aleatoria será univariada si se estudia el comportamiento de una sola variable y serán multivariadas si se considera el comportamiento conjunto de varias variables definidas sobre el mismo espacio muestral.Este ultimo caso sera tratado en la **Unidad 3.2**
+
+<br/><br/>
+
+
+<div class="box4 with-label">
+### Tipos de variables
+
++ Una variable $X$ se considera **DISCRETA** si su rango $R_{_{X}}$ es un conjunto finito o infinito numerable de valores.
+
++ Se considera **CONTINUA** si su rango $R_{_{X}}$ es un conjunto de valores infinito no numerable y generalmente corresponde a unión de intervalos.
+
+</div> 
+
+<br/><br/>
+
+
+<div class="box6 with-label">
+### Ejemplo 1
+
+Un experimento aleatorio $E$, consiste en lanzar una moneda balanceada al aire tres veces y observar el orden de caras ($c$) y sellos ($s$) que se obtienen en los tres lanzamientos. El espacio muestral $S$ de $E$, estará dado por: |
+
+$$S =\{(s,s,s),(s,s,c),(s,c,s),(s,c,c),(c,s,s),(c,s,c),(c,c,s),(c,c,c)\} $$
+
+
+```{r, echo=FALSE, out.width="60%", fig.align = "center"}
+ knitr::include_graphics("img/Figura301.png")
+```
+
+
+
+
+<br/>
+
+Donde :
+
++ $X$ es la variable que asigna a cada resultado el número de caras en los tres lanzamientos de la moneda.
+
++ $R_{_{X}}=\{0,1,2,3\}$ determinado por la regla de asignación: número de caras en los tres lanzamientos de la moneda y corresponde al rango de valores que puede tomar la variable aleatoria.
++ $f_{_{X}}(x)=P(X=x)$ conforma la función  que asigna a cada valor de la variable una probabilidad
+
+</div>
+
+
+<br/><br/>
+
+En este ejemplo :
+
++ $(X=0)=\{(s,s,s)\}$ ;
++ $(X=1)=\{(s,s,c),(s,c,s),(c,s,s)\}$ ;
++ $(X=2)=\{(s,c,c),(c,s,c),(c,c,s) \}$ y
++ $(X=3) =\{(c,c,c) \}$.
+
+Bajo el supuesto que la moneda es balanceada, se cumple que los resultados en $S$ son igualmente posibles y por lo tanto:
+
+$$f_{_{X}}(0) =P(X=0)= \frac{1}{8} \hspace{.2cm} ,\hspace{.5cm} f_{_{X}}(1) = P(X=1)=\frac{3}{8},$$
+$$f_{_{X}}(2) = P(X=2)=\frac{3}{8}\hspace{.2cm} ,\hspace{.5cm} f_{_{X}}(3) =P(X=3)= \frac{1}{8}$$
+
+<br/><br/><br/>
+
+
+# **Variables discretas**
+
+Como se mencionó anteriormente una variable aleatoria se considera como **DISCRETA** cuando el conjunto de posibles valores que puede tomar la variables es un conjunto finito o infinito numerable. En la gran mayoria de los casos este conjunto corresponde a los números enteros.
+
+Para catacterizar la variable se define  la función de distribución de probabilidad que modela la asignación de las probabilidades
+
+
+<br/><br/>
+
+<div class="box4 with-label">
+### Función de distribución de probabilidad
+
+Para $X$ un variable aleatoria discreta, su función de distribución de probabilidad estará dada por $f(x)$, la cual proporciona las probabilidades asociadas a todos los valores de su rango $R_{X}$ . Esta función debe cumplir las siguientes propiedades:
+
++ $f(x) = P(X=x) \geq 0$
+
++ $\sum_{R_X} f(x) = 1$
+
+</div>
+
+<br/><br/>
+
+Por lo general este tipo de variables proceden del conteo y empiezan por **número de....**
+
+<br/>
+
+<div class="box6 with-label">
+### Ejemplo 2
+
+Las siguientes variables se clasifican como **variables aleatorias discretas** :
+
+* X : Número de llamadas que entran a un conmutador diariamente
+
+* Y: Número de personas contagiadas por Covid19 durante un día
+
+* Z: Número de quejas reportadas a una sucursal bancaria en un día
+
+* W: Número de accidentes producidos en una ciudad
+
+* S: Número de huevos producidos diariamente en una avícola
+
+* T: Número de hijos en una familia
+
+* M: Número de mensajes enviados en un grupo de Whatsapp
+
+</div>
+
+<br/><br/>
+
+Como complemento de $f(x)$ y debido a que puede resultar más interesante calcular probabilidades de rangos de valores se define la función de distribución acumulada $F(x)$
+
+<br/><br/>
+
+
+
+
+<div class="box4 with-label">
+### Función de probabilidad acumulada
+
+Sea $X$ una variable aleatoria continua con función de densidad $f_{X}(x)$, se define la  función de distribución acumulada, $F_{X}(x)$, como:
+
+$$F(x)=P(X\leq x)=\sum _{t \leq x}f(t)$$
+
+</div>
+
+<br/><br/>
+
+<div class="box6 with-label">
+### Ejemplo 3
+
+Para la variable definida como $X$: número de puntos obtenidos al lanzar un dado tenemos  que :
+
+|  $x_{i}$  |             1  |             2  |             3  |             4  |             5  |             6  |
+|:---------:|:--------------:|:--------------:|:--------------:|:--------------:|:--------------:|:--------------:|
+|$f(x)$     | $\dfrac{1}{6}$ | $\dfrac{1}{6}$ | $\dfrac{1}{6}$ | $\dfrac{1}{6}$ | $\dfrac{1}{6}$ | $\dfrac{1}{6}$ |
+
+
+
+</div>
+
+<br/><br/>
+
+Esta asignación la podemos resumir en la función:
+
+$f(x) = \left \{ \begin{matrix} \dfrac{1}{6} & \mbox{si }\mbox{ x=1,2,3,4,5,6} \\
+\\ 0 & \mbox{ en cualquier otro caso}\end{matrix}\right.$
+
+<br/><br/>
+
+Tambien podemos representar esta función de manera gráfica
+
+```{r, fig.align='center'}
+x=1:6
+fx=rep(1,6)/6
+plot(x,fx,pch=19, ylim=c(0,0.18), las=1, xlab="puntos", ylab="f(x)", col=c7)
+lines(x, fx, type="h", col="#F7D8A8", lty=3)
+
+```
+
+<br/>
+
+Para la construcción de la función de distribución acumulada se acumulan los valores correspondientes a las probabilidades puntuales de manera creciente
+
+```{r, fig.align='center'}
+x=1:6
+fx=rep(1,6)/6
+Fx=cumsum(fx)
+plot(x,Fx, las=1, ylab="F(x)", xlab="puntos",pch=19, ylim=c(0,1), col=c7)
+lines(x, Fx, type="s", col="#F7D8D8")
+grid()
+```
+
+
+```{r}
+x=1:6
+fx=round(rep(1,6)/6,6)
+Fx=round(cumsum(fx),4)
+data.frame(x,fx,Fx)
+```
+
+
+<br/><br/>
+
+<div class="box6 with-label">
+### Ejemplo 4
+
+El restaurante "Asados y algo más"  solo da servicio mediante reservas. De acuerdo con los registros diarios en los últimos diez años se sabe que el treinta por ciento de las personas que reservan no llegan al restaurante. El restaurante tiene veinte  puestos y acepta cuarenta reservas. La función de distribución probabilidad que modela el número de personas que llegan al restaurante es $f$, dada por:
+
+<br/>
+
+$$f_{_{X}}(x) = \left \{
+				\begin{matrix}
+				\displaystyle\binom{20}{x}(0.7)^{x}(0.3)^{20-x} & \mbox{si }	x=0,1,2,\ldots,20\\
+				& \\
+				0  & \mbox{en otro caso }
+				\end{matrix}\right.
+				$$
+
+</div>
+
+<br/>
+
+En este caso se utiliza la función combinatoria  y el operador de sumatoria vista en la **Guía 0.2**
+
+Representada de manera gráfica:
+
+<br/>
+
+```{r}
+x=0:20
+fx=choose(20,x)*0.70^x*0.30^(20-x)
+Fx=cumsum(fx)
+
+tabla=data.frame(x, fx, Fx)
+knitr::kable(tabla)
+
+#DT::datatable(head(tabla, 21),fillContainer = FALSE, options = list(pageLength = 12))
+```
+
+
+```{r, fig.align='center'}
+x=0:20
+fx=choose(20,x)*0.70^x*0.30^(20-x)
+plot(x,fx, las=1, ylab="f(x)", xlab="número personas que asisten", pch=19, col=c7)
+lines(x, fx, type="h", col= "#F7D8A8")
+```
+<br/>
+
+```{r, fig.align='center'}
+x=0:20
+fx=choose(20,x)*0.70^x*0.30^(20-x)
+Fx=cumsum(fx)
+plot(x,Fx, las=1, ylab="F(x)", xlab="número personas que asisten",pch=19, ylim=c(0,1), col=c7)
+lines(x, Fx, type="s", col="#F7D8D8")
+grid()
+
+```
+
+<br/>
+
+
+```{r}
+x=0:20
+fx=round(choose(20,x)*0.70^x*0.30^(20-x),6)
+Fx=round(cumsum(fx),4)
+
+cat("P(X=0)  = ",fx[1], "\n")
+cat("P(X=15) = ", fx[16], "\n")
+cat("P(X<15) = P(X<=14) = ", Fx[15], "\n")
+cat("P(X >15) = 1 - P(X<=14) =", 1-Fx[15])
+```
+
+<br/><br/><br/><br/>
+
+
+# **Variables continuas**
+
+Como se mencionó se considera una variable como continua cuando el conjunto de valores que puede tomar es un conjunto infinito no numerable, es decir que siempre podrá haber un valor entre dos valores de ella.
+
+Para este caso la probabilidad se puede modelar a través de una función continua, la cual se puede visualizar al construir un gráfico de densidad a partir de una muestra de ellos. A esta función se le llama función de densidad de probabilidad
+
+
+<div class="box6 with-label">
+### Ejemplo 6
+
+En el caso de las **variables aleatorias continuas** por lo general proceden de una medición como por ejemplo:
+
++ T: Tiempo que tarda un estudiante en responder un examen
+
++ P: Peso de un bebe recien nacido
+
++ E: Edad de una persona
+
++ V: Tiempo que tarda un vehículo en requerir una reparación de su motor
+
++ D: Diámetro de un agujero realizado en una lamina de acero
+
++ X: Cantidad de azúcar contenida en un refresco
+
++ C: Proporción de cemento en concreto
+
+</div>
+
+<br/><br/>
+
+
+<div class="box4 with-label">
+### Función de densidad de probabilidad
+
+La función de densidad de probablidad se define como $f(x)$, tal que cumpla las siguientes condiciones:
+
++ $f(x) \geq 0$
+
++ $\displaystyle\int\limits_{-\infty}^{+\infty}f(x)\:dx =1$
+
++ $P(a < X < b)=\displaystyle\int\limits_{a}^{b}f(x)\:dx$
+
+</div>
+
+<br/><br/>
+
+Para el caso continuo la función de distribución de probabilidad corresponde a una integral
+
+<br/>
+
+<div class="box4 with-label">
+### Función de probabilidad acumulada
+
+$F_{_X}(x)=P(X \leq x)=\displaystyle\int \limits_{-\infty}^{x}f_{_X}(t)\:dt$
+
+$F(x) = P(X \leq x) = P(X < x)$
+
+</div>
+
+<br/><br/>
+
+<div class="box6 with-label">
+### Ejemplo 7
+
+Con base en información histórica una compañía que fabrica lavadoras determinó que el tiempo $Y$ (en años) para que el electrodoméstico requiera una reparación mayor se obtiene mediante la siguiente función de densidad de probabilidad:
+
+<br/>
+
+$$f_{_{X}}(x) = \left \{
+				\begin{matrix}
+				\dfrac{1}{4} e^{-x/4} & \mbox{ , }	x \geq 0\\
+				& \\
+				0  & \mbox{en otro caso }
+				\end{matrix}\right.
+				$$
+
+</div>
+
+<br/>
+
+Para tener la seguridad que $f(x)$ puede ser una función de densidad de probabilidad se debe verificar
+
+<br/>
+
+$\displaystyle\int\limits_{0}^{+\infty} \dfrac{1}{4} e^{-x/4} \:dx =1$
+
+```{r}
+fy=function(y){1/4*exp(-y/4)}
+integrate(fy, lower=0,upper=Inf)
+```
+
+<br/>
+
+```{r, echo=FALSE, fig.align='center'}
+# declaracion de la funcion
+fx=function(x){1/4*exp(-x/4)}
+
+# representación gráfica de la función
+x=0:20
+plot(x,fx(x), type="l", col=c41, lwd=5, las=1)
+
+# área de integración
+x1=seq(0,20,0.01)
+f1=fx(x1)
+polygon(c(0,x1,20),c(0,f1,0),col=c42)
+```
+
+
+
+
+<br/><br/><br/>
+
+
+# **Valor esperado**
+
+El valor esperado o esperanza matemática y la varianza corresponde a dos los conceptos principales asociados a una variable aleatoria. El concepto de esperanza está relacionado en un principio con los juegos de azar, pues los jugadores querían conocer cual era el valor esperado de ganar cuando jugaban un gran número de veces.
+
+La esperanza matemática de una variable aleatoria X,  corresponde a un valor que representa el valor más probable que ocurra o la media población de la variable aleatoria denotada por $E[x]$ o tambien $\mu$
+
+<br/><br/>
+
+<div class="box4 with-label">
+### Definición Valor Esperado
+
+Sea $X$ una variable aleatoria discreta o continua. La esperanza matemática de $X$ o valor esperado, $E(X)$ o bien $\mu$, se define respectivamente como,
+\begin{eqnarray*}
+	E(X)&=&\displaystyle\sum\limits_{x}^{}x_{i}f(x_{i}) \hspace{1cm} \text{Caso discreto} \\
+	E(X)&=&\displaystyle\int\limits_{-\infty}^{+\infty}x f(x)dx \hspace{1cm} \text{Caso continuo}
+\end{eqnarray*}
+
+</div>
+
+En el caso continuo y similarmente para el caso discreto.
+
+<div class="box4 with-label">
+### Propiedades del Valor Esperado
+
++ $E(k) = k$, para todo numero real $k$.
+
++ $E(kX) = k E(X)$, para todo número real $k$.
+
++ $E(aX + b) = a E(X) + b$, para todo par de números $a$ y $b$
+
++ $E(aX + bY) = a E (X) + b E(Y)$
+
++ $E(XY) = E(X)E(Y)$, 	unicamente en el caso que $X$ e $Y$ sean variables aleatorias independientes
+
+</div>
+
+<br/><br/>
+
+
+# Varianza
+
+Otra caracteristica importante de las variables aleatorias corresponde a la varianza que se denota por $V[X]$ o $\sigma^{2}$. Antes de definirla veremos el concepto de momento de una variable aleatoria
+
+<br/><br/>
+
+<div class="box4 with-label">
+### Definición Momento 
+
+Sea $X$ una variable aleatoria discreta o continua. El momento de orden $k$ se define como:
+\begin{eqnarray*}
+	E(X^{k})&=&\displaystyle\sum\limits_{x}^{}x_{i}^{k}f(x_{i}) \hspace{1cm} \text{Caso discreto} \\
+	E(X^{k})&=&\displaystyle\int\limits_{-\infty}^{+\infty}x^{k} f(x)dx \hspace{1cm} \text{Caso continuo}
+\end{eqnarray*}
+
+</div>
+
+<br/><br/>
+
+Con este nuevo elemento se define la varianza de una variable aleatorias como la diferencia entre el segundo momento y el cuadrado del primer momento
+
+<br/><br/>
+
+<div class="box4 with-label">
+### Definición Varianza 
+
+$$V[X] = E[X^{2}]-(E[X])^{2}  = E[X^{2}]-\mu^{2}$$
+
+</div>
+
+<br/><br/>
+
+<div class="box4 with-label">
+### Propiedades de la varianza
+
++ $V[X] \geq 0$
+
++ $V[k] = 0$, para todo número real $k$
+
++ $V[X + k]  = V[X]$, para todo número real $k$
+
++ $V[kX] = k^{2}V[X]$, para todo número real $k$
+
++ $V[aX + bY] = a^{2}V[X] + b^{2}V[Y] + 2ab \hspace{.2cm}Cov[XY]$, siendo $a$ y $b$ números reales. En el caso se ser X y Y variables aleatorias independientes la igualdad será: $V[aX + bY] = a^{2}V[X] + b^{2}V[Y]$
+
+</div>
+
+<br/><br/><br/>
+
+<div class="box6 with-label">
+### Ejemplo 7
+
+El valor esperado y la varianza para el número de personas que asisten al restaurante del ejemplo 3 son :
+
+```{r}
+x=0:40
+fx=round(choose(40,x)*0.70^x*0.30^(40-x),6)
+Ex=sum(x*fx)
+Ex2=sum(x^2*fx)
+cat("E[X] =",Ex, "\n")
+cat("V[X] = ", Ex2-Ex^2)
+```
+
+</div>
+
+Este resultado nos indica que en promedio asisten al restaurante 28 personas de las cuarenta reservas aceptadas, con una varianza de 8.4 de la cual podemos obtener la desviación estándar y el coeficiente de variación
+
+<br/><br/>
+
+<div class="box6 with-label">
+### Ejemplo 8
+
+Para el **ejemplo 4** correspondiente al tiempo que requiere una lavadora requiere una reparación mayor, tenemos:
+
+```{r}
+fy=function(y){1/4*exp(-y/4)}
+fEy=function(y){1/4*exp(-y/4)*y}
+fEy2=function(y){1/4*exp(-y/4)*y^2}
+Ey=integrate(fEy, lower=0,upper=Inf)
+Ey2=integrate(fEy2, lower=0,upper=Inf)
+cat("E[X] = ", Ey$value,"\n")
+cat("V[X] = ", Ey2$value-Ey$value^2)
+```
+
+</div>
+
+Esto nos indica que el valor esperado correspondiente al tiempo en que una lavadora requiere una reparación mayor es de 4 años.  Para la interpretación de la varianza podemos utilizar el concepto de desviación estandar o de coeficiente de variación
+
+<br/><br/><br/><br/>
+
+# Videos
+
+
+## Variables aleatorias
+
+<center>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/ABhDYVIfF0w" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</center>
+
+<br/><br/><br/>
+
+## Variables discretas
+
+<center>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/CUMJ-MUiMaY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</center>
+
+<br/><br/><br/>
+
+## Variables continuas
+
+<center>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/rlBxuLdOUt0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</center>
+
+

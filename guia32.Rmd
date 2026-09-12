@@ -1,0 +1,107 @@
+---
+title: " "   
+author: "dgonzalez "
+subtitle: " "   
+output:
+  html_document:
+    toc: no
+    toc_depth: 2
+    toc_float: yes
+    code_folding: hide
+    theme: flatly
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,comment = NA)
+library(ggplot2)
+
+# colores
+source("R/init.R")
+```
+
+<br/><br/>
+
+
+
+```{r, echo=FALSE, out.width="100%", fig.align = "center"}
+knitr::include_graphics("img/guia3.png")
+```
+
+<br/><br/>
+
+
+
+# **Guía de aprendizaje**
+
+<br/><br/>
+
+## **Introducción**
+
+<br/>
+
+El concepto de variable  aleatoria  conjunta y sus principales características como la correlación constituyen las bases para aplicaciones estadísticas como los modelos de regresión.  
+
+En esta  unidad se presentan las principales características de las variables aleatorias conjuntas, mas precisamente bivariadas $(X,Y)$
+
+<br/><br/>
+
+## **Objetivos de la unidad**
+
+<br/>
+
+Al finalizar la unidad los estudiantes estarán  en  capacidad de IDENTIFICAR, CALCULAR y APLICAR los conceptos y las principales características  de las VARIABLE ALEATORIA CONJUNTAS para representar situaciones reales en la búsqueda de soluciones a problemas o valorar los riesgos que se pueden presentar en la toma de decisiones.
+
+<br/><br/>
+
+## **Duración**
+
+<br/>
+
+La presente  unidad será desarrollada durante la semana séptima del semestre. Ademas del material suministrado  contaran con el acompañamiento del profesor en tres sesiones . Los entregables para esta unidad podrán enviarse a través de la plataforma Brightspace hasta el  21 de septiembre.
+
+Para alcanzar los objetivos planteados se propone realizar las siguientes actividades
+
+<br/><br/>
+
+## **Cronograma de trabajo**
+
+<br/>
+
+|Actividad        | Descripción                    | 
+|:----------------|:-----------------------------  |
+|Actividad 321    |
+|Trabajo en grupo (2 estudiates) | **Actividad 321** recoge los principales conceptos relacionados con variables aleatorias, tanto discretas como continuas y sus aplicaciones en la estimación de probabilidades. Actividad realizada en grupos de dos estudiantes. |
+|Recursos         | Capitulo  2 Navidi (Navidi, W. estadística para ingenieros y científicos. Editorial Mc Graw Hill. 2006. ) |
+|                 | Capítulos  3 y 4 Walpole  (Walpole, R. Myers, R. Myers, S. Ye, K. Probabilidad y Estadística para ingeniería y Ciencias.8 Ed. Editorial Pearson. 2007)|
+|                 |                               |
+|Fecha            |  21 de septiembre de 2025     |
+|Hora             |  23.59                        |
+
+<br/><br/>
+
+## **Criterios de evaluación**
+
+<br/>
+
++ Reconoce las principales características de las variables conjuntas 
+
++ Utiliza las herramientas estadística apropiadas en el calculo de probabilidades en la solución de problemas en contexto
+
++ Utiliza herramientas computacionales que le permiten representar y calcular probabilidades en la solución de problemas en contexto
+
++ Interpreta y expresa el desarrollo de los problemas con el lenguaje propio de la estadística
+
+<br/><br/>
+
+## **Entregables** 
+
+<br/>
+
+|**Actividad321.pdf**|                            |
+|:----------------|:------------------------------|
+|Fecha            |  21 de septiembre de 2025     |
+|Hora             |  23.59                        |
+
+<br/><br/><br/><br/>
+

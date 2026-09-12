@@ -1,0 +1,1029 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="dgonzalez" />
+
+
+<title>codigo33.knit</title>
+
+<script src="site_libs/header-attrs/header-attrs.js"></script>
+<script src="site_libs/jquery/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation/tabsets.js"></script>
+<script src="site_libs/navigation/codefolding.js"></script>
+<link href="site_libs/highlightjs/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs/highlight.js"></script>
+<link href="site_libs/font-awesome/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome/css/v4-shims.min.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html"> </a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">
+    <span class="fa fa-home"></span>
+     
+    Estadística
+  </a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 0
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo0.html">Módulo 0</a>
+    </li>
+    <li>
+      <a href="sumatoria.html">Sumatoria</a>
+    </li>
+    <li>
+      <a href="productoria.html">Productoria</a>
+    </li>
+    <li>
+      <a href="conjuntos.html">Conjuntos</a>
+    </li>
+    <li>
+      <a href="conteo.html">Conteo</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 1
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo1.html">Módulo 1</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="guia11.html">Guía 1.1</a>
+    </li>
+    <li>
+      <a href="recurso11.html">Recursos 1.1</a>
+    </li>
+    <li>
+      <a href="basesdatos.html">Bases de datos</a>
+    </li>
+    <li>
+      <a href="introduccionR.html">Introducción a R</a>
+    </li>
+    <li>
+      <a href="codigo11.html">Código 1.1</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="guia12.html">Guía 1.2</a>
+    </li>
+    <li>
+      <a href="recurso12.html">Recursos 1.2</a>
+    </li>
+    <li>
+      <a href="codigo12.html">Código 1.2</a>
+    </li>
+    <li>
+      <a href="caso1A.html">Caso 1</a>
+    </li>
+    <li>
+      <a href="caso1B.html">Caso 2</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="guia13.html">Guía 1.3</a>
+    </li>
+    <li>
+      <a href="recurso13.html">Recursos 1.3</a>
+    </li>
+    <li>
+      <a href="codigo13.html">Código 1.3</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="monitoria1.html">Monitoria 1</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 2
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo2.html">Módulo 2</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="guia21.html">Guía 2.1</a>
+    </li>
+    <li>
+      <a href="recurso21.html">Recursos 2.1</a>
+    </li>
+    <li>
+      <a href="codigo21.html">Código 2.1</a>
+    </li>
+    <li>
+      <a href="taller211.html">Taller 211</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="guia22.html">Guía 2.2</a>
+    </li>
+    <li>
+      <a href="recurso22.html">Recursos 2.2</a>
+    </li>
+    <li>
+      <a href="taller221.html">Taller 221</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="monitoria2.html">Moitoría 2</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 3
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo3.html">Módulo 3</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="guia31.html">Guía 3.1</a>
+    </li>
+    <li>
+      <a href="recurso31.html">Recursos 3.1</a>
+    </li>
+    <li>
+      <a href="codigo31.html">Código 3.1</a>
+    </li>
+    <li>
+      <a href="taller311.html">Taller 311</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="monitoria3.html">Moitoría 3</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 4
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo4.html">Módulo 4</a>
+    </li>
+    <li class="divider"></li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Proyecto
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="guia_proyecto1.html">Guía proyecto</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
+
+
+
+</div>
+
+
+<p><img src="img/codigo3.png" alt="" width="100%" style="display: block; margin: auto;" /></p>
+<p><br/><br/><br/></p>
+<p><br/><br/></p>
+<div id="funciones-modelos" class="section level1">
+<h1><strong>Funciones modelos</strong></h1>
+<p><br/><br/></p>
+<div id="código-r" class="section level4">
+<h4><strong>Código R</strong></h4>
+<p>Existe un grupo de modelos identificados para las variables
+aleatorias tanto discretas como continuas que son utilizadas con
+frecuencia en diferentes contextos. A continuación se relacionan los
+principales modelos:</p>
+<p><br/><br/></p>
+</div>
+<div id="modelos-discretos" class="section level4">
+<h4><strong>Modelos discretos</strong>:</h4>
+<ul>
+<li>Bernoulli,</li>
+<li>binomial,</li>
+<li>Poisson,</li>
+<li>geometrico,</li>
+<li>hipergeometrico,</li>
+<li>binomial negativo.</li>
+</ul>
+<p><br/><br/></p>
+</div>
+<div id="modelos-continuos" class="section level4">
+<h4><strong>Modelos continuos</strong>:</h4>
+<ul>
+<li>uniforme</li>
+<li>normal</li>
+<li>exponencial</li>
+<li>lognormal</li>
+<li>gamma</li>
+<li>beta</li>
+<li>Weibull</li>
+<li>Cauchy</li>
+<li>Gumbel</li>
+<li>t-Student</li>
+<li>Ji-cuadrado</li>
+<li>F de Fisher</li>
+<li>Empirica o Kernel</li>
+</ul>
+<p><br/><br/></p>
+<p>En <span class="math inline">\(R\)</span> los nombre de las funciones
+diseñadas para los cálculos requeridos están conformadas por dos
+partes:</p>
+<p>La primera parte es una letra que identifica el propósito de la
+función. <br/><br/></p>
+<ul>
+<li><p><em>d</em> : función de distribución de probabilidad <span
+class="math inline">\(f(x)= P(X=x)\)</span>, para el caso discreto. En
+el caso de las variables continuas representa la función de densidad de
+probabilidad <span class="math inline">\(f(x)\)</span></p></li>
+<li><p><em>p</em> : función de probbilidad acumulada <span
+class="math inline">\(F(x) = P(X \leq x)\)</span></p></li>
+<li><p><em>q</em> : percentil <span
+class="math inline">\(X_p\)</span></p></li>
+<li><p><em>r</em> : generador de números aleatorios</p></li>
+</ul>
+<p><br/><br/></p>
+<p>La siguiene tabla presenta estas las funciones para los principales
+modelos tanto discretos como continuos</p>
+<p><br/><br/></p>
+<table>
+<thead>
+<tr class="header">
+<th><em>modelo</em></th>
+<th><span class="math inline">\(F(x)\)</span></th>
+<th><span class="math inline">\(X_{p}\)</span></th>
+<th><span class="math inline">\(f(x)\)</span></th>
+<th>aleatorio</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>binomial</td>
+<td>pbinom</td>
+<td>qbinom</td>
+<td>dbinom</td>
+<td>rbinom</td>
+</tr>
+<tr class="even">
+<td>gometrico</td>
+<td>pgeom</td>
+<td>qgeom</td>
+<td>dgeom</td>
+<td>rgeom</td>
+</tr>
+<tr class="odd">
+<td>hipergeometrico</td>
+<td>phyper</td>
+<td>qhyper</td>
+<td>dhyper</td>
+<td>rhyper</td>
+</tr>
+<tr class="even">
+<td>Poisson</td>
+<td>ppois</td>
+<td>qpois</td>
+<td>dpois</td>
+<td>rpois</td>
+</tr>
+<tr class="odd">
+<td>binomial negativo</td>
+<td>pnbinom</td>
+<td>qnbinom</td>
+<td>dnbionom</td>
+<td>rnbinom</td>
+</tr>
+<tr class="even">
+<td>beta</td>
+<td>pbeta</td>
+<td>qbeta</td>
+<td>dbeta</td>
+<td>rbeta</td>
+</tr>
+<tr class="odd">
+<td>Cauchy</td>
+<td>pcauchy</td>
+<td>qcauchy</td>
+<td>dcauchy</td>
+<td>rcauchy</td>
+</tr>
+<tr class="even">
+<td>exponencial</td>
+<td>pexp</td>
+<td>qexp</td>
+<td>dexp</td>
+<td>rexp</td>
+</tr>
+<tr class="odd">
+<td>gamma</td>
+<td>pgamma</td>
+<td>qgamma</td>
+<td>dgamma</td>
+<td>rgamma</td>
+</tr>
+<tr class="even">
+<td>lognormal</td>
+<td>plnorm</td>
+<td>qlnorm</td>
+<td>dlnorm</td>
+<td>rlnorm</td>
+</tr>
+<tr class="odd">
+<td>uniforme</td>
+<td>punif</td>
+<td>qunif</td>
+<td>dunif</td>
+<td>runif</td>
+</tr>
+<tr class="even">
+<td>Weibull</td>
+<td>pweibull</td>
+<td>qweibull</td>
+<td>dweibull</td>
+<td>rweibull</td>
+</tr>
+<tr class="odd">
+<td>t-Student</td>
+<td>pt</td>
+<td>qt</td>
+<td>dt</td>
+<td>rt</td>
+</tr>
+<tr class="even">
+<td>Ji-cuadrado</td>
+<td>pchisq</td>
+<td>qchisq</td>
+<td>dchisq</td>
+<td>rchisq</td>
+</tr>
+<tr class="odd">
+<td>F</td>
+<td>pf</td>
+<td>qf</td>
+<td>df</td>
+<td>rf</td>
+</tr>
+</tbody>
+</table>
+<p><br/><br/></p>
+<p>En <strong>R</strong> los nombres de las funciones diseñadas para los
+cálculos requeridos están conformadas por dos partes: la primera parte
+con el propósito de la función (primera letra) y la segunda parte hace
+referencia al modelo a utilizar (<strong>d</strong>
+<strong>binom</strong> para el calculo de probabilidad de una variable
+aleatoria con distribución binomial)</p>
+<p>En cada caso si no recuerda las sintaxis de la función puede hacer
+uso de las ayudas de R así:</p>
+<p><br/><br/></p>
+<pre class="r"><code> help(&quot;pbinom&quot;)</code></pre>
+<p><br/><br/></p>
+<table>
+<tbody>
+<tr class="odd">
+<td align="center">p</td>
+<td align="left">función de distribución acumulada <span
+class="math inline">\(F(x)\)</span></td>
+</tr>
+<tr class="even">
+<td align="center">q</td>
+<td align="left">percentil</td>
+</tr>
+<tr class="odd">
+<td align="center">d</td>
+<td align="left">densidad de probabilidad <span
+class="math inline">\(P(X=x)\)</span></td>
+</tr>
+<tr class="even">
+<td align="center">r</td>
+<td align="left">variable aleatoria</td>
+</tr>
+</tbody>
+</table>
+<p><br/><br/></p>
+<p><br/><br/></p>
+<div class="box2 with-label">
+<div class="label">
+Ejemplo 1
+</div>
+<p>Sea una variables con distribución binomial con parámetros <span
+class="math inline">\(n=20\)</span> y <span
+class="math inline">\(p=0.30\)</span> , lo cual se puede simbolizar como
+: <span class="math inline">\(X\sim b(x; 20,0.30)\)</span></p>
+<p>En este caso se requieren realizar los siguientes procesos:</p>
+<ol style="list-style-type: decimal">
+<li>Calcular la probabilidad de $ P(X=7)$</li>
+<li>Calcular la probabilidad acumulada <span class="math inline">\(P(X
+\leq 7)\)</span></li>
+<li>Construir la tabla de los valores de <span
+class="math inline">\(f(x)\)</span> y <span
+class="math inline">\(F(x)\)</span> para todo el rango de la
+variable</li>
+<li>Generar 15 números aleatorios a partir de esta distribución</li>
+<li>Construir la gráfica de la función de distribución de probabilidad
+<span class="math inline">\(f(x)\)</span> para <span
+class="math inline">\(X\)</span></li>
+<li>Construir la gráfica de la función de distribución acumulada <span
+class="math inline">\(F(x)\)</span></li>
+</ol>
+</div>
+<p><br/><br/><br/></p>
+</div>
+<div id="solución" class="section level3">
+<h3><strong>Solución</strong></h3>
+<ol style="list-style-type: decimal">
+<li>Calcular la probabilidad de <span class="math display">\[ P(X=7) =
+\dbinom{20}{7} 0.30^{7} (10.30)^{(20-7)}\]</span></li>
+</ol>
+<pre class="r"><code>dbinom(7, 20, 0.30)</code></pre>
+<pre><code>[1] 0.164262</code></pre>
+<p><br/></p>
+<ol start="2" style="list-style-type: decimal">
+<li>Calcular la probabilidad acumulada <span class="math display">\[P(X
+\leq 7) = \displaystyle\sum_{x=0}^{x=7} \dbinom{20}{x} 0.30^{x}
+(1-0.30)^{(20-x)}\]</span></li>
+</ol>
+<pre class="r"><code>pbinom(7, 20, 0.30)</code></pre>
+<pre><code>[1] 0.7722718</code></pre>
+<p><br/></p>
+<ol start="3" style="list-style-type: decimal">
+<li>Construir la tabla de los valores de <span
+class="math inline">\(f(x)\)</span> y <span
+class="math inline">\(F(x)\)</span> para todo el rango de la
+variable</li>
+</ol>
+<pre class="r"><code>x=0:20                     # genera secuencia 0 al 20
+fx=dbinom(x, 20, 0.30)     # evalua f(x)
+fx=round(fx,4)             # redondea a 4 decimales
+Fx=pbinom(x, 20, 0.30)     # evalua en F(x)
+Fx=round(Fx,4)             # redondea a 4 decimales
+data.frame(x,fx,Fx)        # construye tabla</code></pre>
+<pre><code>    x     fx     Fx
+1   0 0.0008 0.0008
+2   1 0.0068 0.0076
+3   2 0.0278 0.0355
+4   3 0.0716 0.1071
+5   4 0.1304 0.2375
+6   5 0.1789 0.4164
+7   6 0.1916 0.6080
+8   7 0.1643 0.7723
+9   8 0.1144 0.8867
+10  9 0.0654 0.9520
+11 10 0.0308 0.9829
+12 11 0.0120 0.9949
+13 12 0.0039 0.9987
+14 13 0.0010 0.9997
+15 14 0.0002 1.0000
+16 15 0.0000 1.0000
+17 16 0.0000 1.0000
+18 17 0.0000 1.0000
+19 18 0.0000 1.0000
+20 19 0.0000 1.0000
+21 20 0.0000 1.0000</code></pre>
+<p><br/></p>
+<ol start="4" style="list-style-type: decimal">
+<li>Generar 15 números aleatorios a partir de esta distribución</li>
+</ol>
+<pre class="r"><code>rbinom(15,20,0.30)</code></pre>
+<pre><code> [1] 9 9 8 6 1 5 7 6 9 9 6 9 5 4 7</code></pre>
+<p><br/></p>
+<ol start="5" style="list-style-type: decimal">
+<li>Construir la gráfica de la función de distribución de probabilidad
+<span class="math inline">\(f(x)\)</span> para <span
+class="math inline">\(X\)</span></li>
+</ol>
+<pre class="r"><code>plot(x,dbinom(x,20,0.30), pch=19,las=1,  
+    ylab=&quot;f(x)&quot;, col=c31)
+grid()</code></pre>
+<p><img src="codigo33_files/figure-html/unnamed-chunk-7-1.png" alt="" width="672" style="display: block; margin: auto;" /></p>
+<p><br/></p>
+<ol start="6" style="list-style-type: decimal">
+<li>Construir la gráfica de la función de distribución acumulada <span
+class="math inline">\(F(x)\)</span></li>
+</ol>
+<pre class="r"><code>x=0:20
+    plot(x,pbinom(x,20,0.30), pch=19, &quot;s&quot;,las=1,
+    ylab=&quot;f(x)&quot;, col=c31)</code></pre>
+<p><img src="codigo33_files/figure-html/unnamed-chunk-8-1.png" alt="" width="672" style="display: block; margin: auto;" /></p>
+<p><br/></p>
+<p><span class="math inline">\(f(x)\)</span></p>
+<pre class="r"><code>library(ggplot2)
+x=0:20
+fx=dbinom(x,20,0.30)
+dat=data.frame(x,fx)
+    
+ggplot(dat) + geom_point(aes(x, fx),colour = c31, size = 2) +
+        scale_x_continuous(limits = c(0, 20),
+          breaks = 0:20, 
+        labels = c(&#39;0&#39;,&#39;1&#39;,&#39;2&#39;,&#39;3&#39;,&#39;4&#39;,&#39;5&#39;,&#39;6&#39;,&#39;7&#39;,&#39;8&#39;,&#39;9&#39;,&#39;10&#39;,&#39;11&#39;,&#39;12&#39;,&#39;13&#39;,&#39;14&#39;, &#39;15&#39;,&#39;16&#39;,&#39;17&#39;,&#39;18&#39;,&#39;19&#39;,&#39;20&#39;))</code></pre>
+<p><img src="codigo33_files/figure-html/unnamed-chunk-9-1.png" alt="" width="672" style="display: block; margin: auto;" /></p>
+<p><br/><br/><br/></p>
+<p><br/><br/></p>
+<div class="box2 with-label">
+<div class="label">
+Ejemplo 2
+</div>
+<p>Ahora supongamos que se tiene una variable continua con distribución
+normal, con media 50 y varianza 100, es decir desviación estándar 10, lo
+cual se puede representar como <span class="math inline">\(X\sim
+N(50,100)\)</span>.</p>
+<p>En este caso vamos a hallar los siguientes valores:</p>
+<p><br/></p>
+<ol style="list-style-type: decimal">
+<li>Calcular la probabilidad de que un valor de <span
+class="math inline">\(X\)</span> sea menor o igual a 70,</li>
+<li>Calcular la probabilidad de que la variable sea mayor a 70: <span
+class="math inline">\(P(X&gt;70)\)</span></li>
+<li>Genere 10 números aleatorios de la variables <span
+class="math inline">\(X\)</span></li>
+<li>Generar la gráfica de la función de densidad de la variable <span
+class="math inline">\(X\)</span>, <span
+class="math inline">\(f(x)\)</span></li>
+<li>Generar la gráfica de la función de probabilidad acumulada de la
+variable <span class="math inline">\(X\)</span>, <span
+class="math inline">\(F(x)\)</span></li>
+</ol>
+</div>
+<p><br/><br/><br/></p>
+</div>
+<div id="solución-1" class="section level3">
+<h3><strong>Solución</strong></h3>
+<p><br/></p>
+<ol style="list-style-type: decimal">
+<li>Calcular la probabilidad de que un valor de <span
+class="math inline">\(X\)</span> sea menor o igual a 70,</li>
+</ol>
+<p><span class="math display">\[
+P(X&lt;70) =\displaystyle\int_{-\infty}^{70} \dfrac{1}{\sqrt{200 \pi }}
+\exp{\frac{1}{200 }(x-50)^{2}} \:dx
+\]</span></p>
+<pre class="r"><code> pnorm(70,50,sqrt(100))</code></pre>
+<pre><code>[1] 0.9772499</code></pre>
+<p><br/></p>
+<ol start="2" style="list-style-type: decimal">
+<li>Calcular la probabilidad de que la variable sea mayor a 70: <span
+class="math inline">\(P(X&gt;70)\)</span></li>
+</ol>
+<pre class="r"><code>pnorm(70,50,sqrt(100),lower.tail=FALSE)</code></pre>
+<pre><code>[1] 0.02275013</code></pre>
+<p><br/></p>
+<ol start="3" style="list-style-type: decimal">
+<li>Genere 10 números aleatorios de la variables <span
+class="math inline">\(X\)</span></li>
+</ol>
+<pre class="r"><code>rnorm(10,70,sqrt(100))</code></pre>
+<pre><code> [1] 87.58211 76.36894 68.79404 72.54218 43.95904 82.27006 83.86692 67.35068
+ [9] 91.04280 74.39240</code></pre>
+<p><br/></p>
+<ol start="4" style="list-style-type: decimal">
+<li>Generar la gráfica de la función de densidad de la variable <span
+class="math inline">\(X\)</span>, <span
+class="math inline">\(f(x)\)</span></li>
+</ol>
+<pre class="r"><code>curve(dnorm(x,50,sqrt(100)), from=20, to=80, 
+col=c32, main=&quot;Distribución Normal(50,100)&quot;,
+ylab=&quot;f(x)&quot;, las=1)</code></pre>
+<p><img src="codigo33_files/figure-html/unnamed-chunk-13-1.png" alt="" width="672" style="display: block; margin: auto;" /></p>
+<p><br/></p>
+<ol start="5" style="list-style-type: decimal">
+<li>Generar la gráfica de la función de probabilidad acumulada de la
+variable <span class="math inline">\(X\)</span>, <span
+class="math inline">\(F(x)\)</span></li>
+</ol>
+<pre class="r"><code>curve(pnorm(x,50,sqrt(100)), from=20, to=80, 
+col=c32, main=&quot;Distribución Normal(50,100)&quot;,las=1,
+ylab=&quot;f(x)&quot;)</code></pre>
+<p><img src="codigo33_files/figure-html/unnamed-chunk-14-1.png" alt="" width="672" style="display: block; margin: auto;" /></p>
+<p><br/><br/></p>
+</div>
+<div id="código" class="section level3">
+<h3><strong>Código</strong></h3>
+<pre class="r"><code># install.package(&quot;ggfortify&quot;)
+library(ggfortify)
+ggdistribution(dnorm, seq(-4, 4, 0.1), mean = 0, sd = 1,fill = c31)</code></pre>
+<p><img src="codigo33_files/figure-html/unnamed-chunk-15-1.png" alt="" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code># install.package(&quot;ggfortify&quot;)
+library(ggfortify)
+ggdistribution(pnorm, seq(-4, 4, 0.1), mean = 0, sd = 1)</code></pre>
+<p><img src="codigo33_files/figure-html/unnamed-chunk-16-1.png" alt="" width="672" style="display: block; margin: auto;" />
+<br/></p>
+<p>Por otro lado el proceso de simulación de variables estadísticas esta
+relacionado con los experimentos llamados de Montecarlo, a continuación
+se describe brevemente su origen.</p>
+<p><br/><br/><br/></p>
+</div>
+</div>
+<div id="método-de-montecarlo" class="section level1">
+<h1><strong>Método de Montecarlo</strong></h1>
+<p>Es un método no determinista o estadístico numérico, usado para
+aproximar expresiones matemáticas complejas y costosas de evaluar con
+exactitud. El método se llamó así en referencia al Casino de Montecarlo
+(Mónaco) por ser “la capital del juego de azar”, al ser la ruleta un
+generador simple de números aleatorios. El nombre y el desarrollo
+sistemático de los métodos de Montecarlo datan aproximadamente de 1944 y
+se mejoraron enormemente con el desarrollo de la computadora.</p>
+<p>El uso de los métodos de Montecarlo como herramienta de
+investigación, proviene del trabajo realizado en el desarrollo de la
+bomba atómica durante la Segunda Guerra Mundial en el Laboratorio
+Nacional de Los Álamos en EE. UU. Este trabajo conllevaba la simulación
+de problemas probabilísticos de hidrodinámica concernientes a la
+difusión de neutrones en el material de fisión. Esta difusión posee un
+comportamiento eminentemente aleatorio.<br />
+(tomado de Wikipedia)</p>
+<p>Como ejemplo se presentan los siguientes problemas tomados de
+Navidi.</p>
+<p><br/><br/></p>
+<div class="box2 with-label">
+<div class="label">
+Ejemplo 3
+</div>
+<p>Se fabrican placas rectangulares cuyas longitudes en pulgadas se
+distribuyen como <span class="math inline">\(N(2.0; 0.01)\)</span> y
+cuyos anchos se distribuyen <span class="math inline">\(N(3.0;
+0.04)\)</span>. Suponga que las longitudes y los anchos son
+independientes. El área de una placa esta dada por <span
+class="math inline">\(A=XY\)</span>.</p>
+<p><img src="img/lamina.png" alt="" width="20%" style="display: block; margin: auto;" /></p>
+<ol style="list-style-type: lower-alpha">
+<li><p>Utilice una muestra simulada de tamaño <span
+class="math inline">\(1000\)</span> para estimar la media y la varianza
+de <span class="math inline">\(A\)</span>.</p></li>
+<li><p>Estime la probabilidad de que <span class="math inline">\(P(5.9
+&lt;A&lt;6.1)\)</span>.</p></li>
+<li><p>Construya una gráfica de distribución normal <code>qqplot</code>
+para el área. ¿El área de una placa sigue una distribución
+normal?</p></li>
+</ol>
+</div>
+<p>Problema 3 capitulo 4 Navidi(2006)</p>
+<p><br/><br/></p>
+<div id="solución-2" class="section level3">
+<h3><strong>Solución</strong></h3>
+<pre class="r"><code>    X2=rnorm(1000,mean=2.0,sd=0.1)    #  generación de números aleatorios  de X
+    Y2=rnorm(1000,mean=3.0,sd=0.2)    #  generación de números aleatorios  de Y
+    Z2=data.frame(X2,Y2)              #  generación de matriz de X,Y
+    A2=apply(Z2,1,prod)               #  área de la placa A=XY
+    mediaA=mean(A2)                   #  media del vector de áreas 
+    varianzaA=var(A2)                 #  varianza del vector de áreas 
+    B2=as.numeric(A2&gt;5.9 &amp; A2&lt;6.1)    #  generación de variable de 0,1. Con valor de 1 cundo se cumple la condición y cero en otros casos
+    Pro3c=sum(B2)/1000                #  calculo de la  probabilidad 
+    hist(A2, las=1, main =&quot; &quot;)                          # histograma del valor de las áreas</code></pre>
+<p><img src="codigo33_files/figure-html/unnamed-chunk-18-1.png" alt="" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>    qqnorm(A2)                        # gráfico de normalidad del área</code></pre>
+<p><img src="codigo33_files/figure-html/unnamed-chunk-18-2.png" alt="" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>summarytools::descr(A2)</code></pre>
+<pre><code>Error in `match.call()`:
+! ... used in a situation where it does not exist</code></pre>
+<pre><code>Descriptive Statistics  
+
+                         A2
+----------------- ---------
+             Mean      5.99
+          Std.Dev      0.52
+              Min      4.57
+               Q1      5.61
+           Median      5.97
+               Q3      6.33
+              Max      7.80
+              MAD      0.53
+              IQR      0.72
+               CV      0.09
+         Skewness      0.25
+      SE.Skewness      0.08
+         Kurtosis     -0.20
+          N.Valid   1000.00
+                N   1000.00
+        Pct.Valid    100.00</code></pre>
+<p><br/><br/><br/></p>
+</div>
+</div>
+<div id="app-probability-distributions" class="section level1">
+<h1><strong>App Probability Distributions</strong></h1>
+<p>Esta aplicación permite calcular probabilidades desde el celular</p>
+<p><img src="img/AppPD.png" alt="" width="40%" style="display: block; margin: auto;" /></p>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("hide" === "show");
+});
+</script>
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
