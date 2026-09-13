@@ -535,17 +535,24 @@ intervalos.</p></li>
 </ul>
 </div>
 <p><br/><br/></p>
-<div id="ejemplo-1" class="section level3 box6 with-label">
+<div id="ejemplo-1" class="section level3 box with-label">
 <h3>Ejemplo 1</h3>
+<div style="display: flex; align-items: center; gap: 30px;">
+<div style="width: 70%; text-align: justify;">
 <p>Un experimento aleatorio <span class="math inline">\(E\)</span>,
 consiste en lanzar una moneda balanceada al aire tres veces y observar
 el orden de caras (<span class="math inline">\(c\)</span>) y sellos
 (<span class="math inline">\(s\)</span>) que se obtienen en los tres
 lanzamientos. El espacio muestral <span class="math inline">\(S\)</span>
-de <span class="math inline">\(E\)</span>, estará dado por: |</p>
+de <span class="math inline">\(E\)</span>, estará dado por:</p>
 <p><span class="math display">\[S
 =\{(s,s,s),(s,s,c),(s,c,s),(s,c,c),(c,s,s),(c,s,c),(c,c,s),(c,c,c)\}
 \]</span></p>
+</div>
+<div style="width: 30%; text-align: center;">
+<p><img src="img/dosmonedas.png" alt="" width="100%" /></p>
+</div>
+</div>
 <p><img src="img/Figura301.png" alt="" width="60%" style="display: block; margin: auto;" /></p>
 <p><br/></p>
 <p>Donde :</p>
@@ -647,8 +654,10 @@ como:</p>
 x}f(t)\]</span></p>
 </div>
 <p><br/><br/></p>
-<div id="ejemplo-3" class="section level3 box6 with-label">
+<div id="ejemplo-3" class="section level3 box with-label">
 <h3>Ejemplo 3</h3>
+<div style="display: flex; align-items: center; gap: 30px;">
+<div style="width: 70%; text-align: justify;">
 <p>Para la variable definida como <span
 class="math inline">\(X\)</span>: número de puntos obtenidos al lanzar
 un dado tenemos que :</p>
@@ -692,6 +701,11 @@ class="math inline">\(\dfrac{1}{6}\)</span></td>
 </tbody>
 </table>
 </div>
+<div style="width: 30%; text-align: center;">
+<p><img src="img/undado.png" alt="" width="100%" /></p>
+</div>
+</div>
+</div>
 <p><br/><br/></p>
 <p>Esta asignación la podemos resumir en la función:</p>
 <p><span class="math inline">\(f(x) = \left \{ \begin{matrix}
@@ -704,7 +718,7 @@ caso}\end{matrix}\right.\)</span></p>
 fx=rep(1,6)/6
 plot(x,fx,pch=19, ylim=c(0,0.18), las=1, xlab=&quot;puntos&quot;, ylab=&quot;f(x)&quot;, col=c7)
 lines(x, fx, type=&quot;h&quot;, col=&quot;#F7D8A8&quot;, lty=3)</code></pre>
-<p><img src="recurso31_files/figure-html/unnamed-chunk-3-1.png" alt="" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="recurso31_files/figure-html/unnamed-chunk-5-1.png" alt="" width="672" style="display: block; margin: auto;" /></p>
 <p><br/></p>
 <p>Para la construcción de la función de distribución acumulada se
 acumulan los valores correspondientes a las probabilidades puntuales de
@@ -715,7 +729,7 @@ Fx=cumsum(fx)
 plot(x,Fx, las=1, ylab=&quot;F(x)&quot;, xlab=&quot;puntos&quot;,pch=19, ylim=c(0,1), col=c7)
 lines(x, Fx, type=&quot;s&quot;, col=&quot;#F7D8D8&quot;)
 grid()</code></pre>
-<p><img src="recurso31_files/figure-html/unnamed-chunk-4-1.png" alt="" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="recurso31_files/figure-html/unnamed-chunk-6-1.png" alt="" width="672" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>x=1:6
 fx=round(rep(1,6)/6,6)
 Fx=round(cumsum(fx),4)
@@ -728,8 +742,10 @@ data.frame(x,fx,Fx)</code></pre>
 5 5 0.166667 0.8333
 6 6 0.166667 1.0000</code></pre>
 <p><br/><br/></p>
-<div id="ejemplo-4" class="section level3 box6 with-label">
+<div id="ejemplo-4" class="section level3 box with-label">
 <h3>Ejemplo 4</h3>
+<div style="display: flex; align-items: center; gap: 30px;">
+<div style="width: 70%; text-align: justify;">
 <p>El restaurante “Asados y algo más” solo da servicio mediante
 reservas. De acuerdo con los registros diarios en los últimos diez años
 se sabe que el treinta por ciento de las personas que reservan no llegan
@@ -737,6 +753,11 @@ al restaurante. El restaurante tiene veinte puestos y acepta cuarenta
 reservas. La función de distribución probabilidad que modela el número
 de personas que llegan al restaurante es <span
 class="math inline">\(f\)</span>, dada por:</p>
+</div>
+<div style="width: 30%; text-align: center;">
+<p><img src="img/restaurante.png" alt="" width="100%" /></p>
+</div>
+</div>
 <p><br/></p>
 <p><span class="math display">\[f_{_{X}}(x) = \left \{
                 \begin{matrix}
@@ -879,7 +900,7 @@ knitr::kable(tabla)</code></pre>
 fx=choose(20,x)*0.70^x*0.30^(20-x)
 plot(x,fx, las=1, ylab=&quot;f(x)&quot;, xlab=&quot;número personas que asisten&quot;, pch=19, col=c7)
 lines(x, fx, type=&quot;h&quot;, col= &quot;#F7D8A8&quot;)</code></pre>
-<p><img src="recurso31_files/figure-html/unnamed-chunk-7-1.png" alt="" width="672" style="display: block; margin: auto;" />
+<p><img src="recurso31_files/figure-html/unnamed-chunk-10-1.png" alt="" width="672" style="display: block; margin: auto;" />
 <br/></p>
 <pre class="r"><code>x=0:20
 fx=choose(20,x)*0.70^x*0.30^(20-x)
@@ -887,7 +908,7 @@ Fx=cumsum(fx)
 plot(x,Fx, las=1, ylab=&quot;F(x)&quot;, xlab=&quot;número personas que asisten&quot;,pch=19, ylim=c(0,1), col=c7)
 lines(x, Fx, type=&quot;s&quot;, col=&quot;#F7D8D8&quot;)
 grid()</code></pre>
-<p><img src="recurso31_files/figure-html/unnamed-chunk-8-1.png" alt="" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="recurso31_files/figure-html/unnamed-chunk-11-1.png" alt="" width="672" style="display: block; margin: auto;" /></p>
 <p><br/></p>
 <pre class="r"><code>x=0:20
 fx=round(choose(20,x)*0.70^x*0.30^(20-x),6)
@@ -960,10 +981,17 @@ x)\)</span></p>
 <p><br/><br/></p>
 <div id="ejemplo-7" class="section level3 box6 with-label">
 <h3>Ejemplo 7</h3>
+<div style="display: flex; align-items: center; gap: 30px;">
+<div style="width: 70%; text-align: justify;">
 <p>Con base en información histórica una compañía que fabrica lavadoras
 determinó que el tiempo <span class="math inline">\(Y\)</span> (en años)
 para que el electrodoméstico requiera una reparación mayor se obtiene
 mediante la siguiente función de densidad de probabilidad:</p>
+</div>
+<div style="width: 30%; text-align: center;">
+<p><img src="img/lavadoras.png" alt="" width="100%" /></p>
+</div>
+</div>
 <p><br/></p>
 <p><span class="math display">\[f_{_{X}}(x) = \left \{
                 \begin{matrix}
@@ -983,7 +1011,7 @@ puede ser una función de densidad de probabilidad se debe verificar</p>
 integrate(fy, lower=0,upper=Inf)</code></pre>
 <pre><code>1 with absolute error &lt; 2.7e-05</code></pre>
 <p><br/></p>
-<p><img src="recurso31_files/figure-html/unnamed-chunk-11-1.png" alt="" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="recurso31_files/figure-html/unnamed-chunk-15-1.png" alt="" width="672" style="display: block; margin: auto;" /></p>
 <p><br/><br/><br/></p>
 </div>
 <div id="valor-esperado" class="section level1">
@@ -1128,23 +1156,23 @@ estandar o de coeficiente de variación</p>
 </div>
 <div id="videos" class="section level1">
 <h1>Videos</h1>
-<div id="variables-aleatorias" class="section level2">
+<div id="variables-aleatorias" class="section level2 box6 with-label">
 <h2>Variables aleatorias</h2>
 <center>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/ABhDYVIfF0w" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
 </iframe>
 </center>
-<p><br/><br/><br/></p>
 </div>
-<div id="variables-discretas-1" class="section level2">
+<p><br/><br/><br/></p>
+<div id="variables-discretas-1" class="section level2 box6 with-label">
 <h2>Variables discretas</h2>
 <center>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/CUMJ-MUiMaY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
 </iframe>
 </center>
-<p><br/><br/><br/></p>
 </div>
-<div id="variables-continuas-1" class="section level2">
+<p><br/><br/><br/></p>
+<div id="variables-continuas-1" class="section level2 box6 with-label">
 <h2>Variables continuas</h2>
 <center>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/rlBxuLdOUt0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>

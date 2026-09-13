@@ -93,19 +93,32 @@ Las variables aleatorias se clasifican teniendo en cuenta las características d
 <br/><br/>
 
 
-<div class="box6 with-label">
+<div class="box with-label">
 ### Ejemplo 1
+<div style="display: flex; align-items: center; gap: 30px;">
+<div style="width: 70%; text-align: justify;">
 
-Un experimento aleatorio $E$, consiste en lanzar una moneda balanceada al aire tres veces y observar el orden de caras ($c$) y sellos ($s$) que se obtienen en los tres lanzamientos. El espacio muestral $S$ de $E$, estará dado por: |
+Un experimento aleatorio $E$, consiste en lanzar una moneda balanceada al aire tres veces y observar el orden de caras ($c$) y sellos ($s$) que se obtienen en los tres lanzamientos. El espacio muestral $S$ de $E$, estará dado por: 
 
 $$S =\{(s,s,s),(s,s,c),(s,c,s),(s,c,c),(c,s,s),(c,s,c),(c,c,s),(c,c,c)\} $$
+
+
+</div>
+
+<div style="width: 30%; text-align: center;">
+
+```{r, echo=FALSE, out.width="100%", }
+knitr::include_graphics("img/dosmonedas.png")
+```
+
+</div>
+</div>
+
 
 
 ```{r, echo=FALSE, out.width="60%", fig.align = "center"}
  knitr::include_graphics("img/Figura301.png")
 ```
-
-
 
 
 <br/>
@@ -204,8 +217,11 @@ $$F(x)=P(X\leq x)=\sum _{t \leq x}f(t)$$
 
 <br/><br/>
 
-<div class="box6 with-label">
+
+<div class="box with-label">
 ### Ejemplo 3
+<div style="display: flex; align-items: center; gap: 30px;">
+<div style="width: 70%; text-align: justify;">
 
 Para la variable definida como $X$: número de puntos obtenidos al lanzar un dado tenemos  que :
 
@@ -214,8 +230,21 @@ Para la variable definida como $X$: número de puntos obtenidos al lanzar un dad
 |$f(x)$     | $\dfrac{1}{6}$ | $\dfrac{1}{6}$ | $\dfrac{1}{6}$ | $\dfrac{1}{6}$ | $\dfrac{1}{6}$ | $\dfrac{1}{6}$ |
 
 
+</div>
+
+<div style="width: 30%; text-align: center;">
+
+```{r, echo=FALSE, out.width="100%", }
+knitr::include_graphics("img/undado.png")
+```
 
 </div>
+</div>
+</div>
+
+
+
+
 
 <br/><br/>
 
@@ -260,10 +289,21 @@ data.frame(x,fx,Fx)
 
 <br/><br/>
 
-<div class="box6 with-label">
+<div class="box with-label">
 ### Ejemplo 4
+<div style="display: flex; align-items: center; gap: 30px;">
+<div style="width: 70%; text-align: justify;">
 
 El restaurante "Asados y algo más"  solo da servicio mediante reservas. De acuerdo con los registros diarios en los últimos diez años se sabe que el treinta por ciento de las personas que reservan no llegan al restaurante. El restaurante tiene veinte  puestos y acepta cuarenta reservas. La función de distribución probabilidad que modela el número de personas que llegan al restaurante es $f$, dada por:
+</div>
+
+<div style="width: 30%; text-align: center;">
+
+```{r, echo=FALSE, out.width="100%", }
+knitr::include_graphics("img/restaurante.png")
+```
+</div>
+</div>
 
 <br/>
 
@@ -393,10 +433,23 @@ $F(x) = P(X \leq x) = P(X < x)$
 
 <br/><br/>
 
+
 <div class="box6 with-label">
 ### Ejemplo 7
 
+<div style="display: flex; align-items: center; gap: 30px;">
+<div style="width: 70%; text-align: justify;">
 Con base en información histórica una compañía que fabrica lavadoras determinó que el tiempo $Y$ (en años) para que el electrodoméstico requiera una reparación mayor se obtiene mediante la siguiente función de densidad de probabilidad:
+
+</div>
+
+<div style="width: 30%; text-align: center;">
+```{r, echo=FALSE, out.width="100%", }
+knitr::include_graphics("img/lavadoras.png")
+```
+
+</div>
+</div>
 
 <br/>
 
@@ -577,26 +630,28 @@ Esto nos indica que el valor esperado correspondiente al tiempo en que una lavad
 # Videos
 
 
+<div class="box6 with-label">
 ## Variables aleatorias
-
 <center>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/ABhDYVIfF0w" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </center>
+</div>
 
 <br/><br/><br/>
 
+<div class="box6 with-label">
 ## Variables discretas
-
 <center>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/CUMJ-MUiMaY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </center>
+</div>
 
 <br/><br/><br/>
 
+<div class="box6 with-label">
 ## Variables continuas
-
 <center>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/rlBxuLdOUt0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </center>
-
+</div>
 

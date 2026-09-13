@@ -92,7 +92,7 @@ fw=function(w){choose(40,w)*0.70^w*0.30^(40-w)}
 w=0:40
 
 # grafico de la funcion
-plot(w, fw(w), pch=19, col=c32, las=1)
+plot(w, fw(w), pch=19, col=c31, las=1)
 grid()
 
 ```
@@ -277,7 +277,10 @@ cat("V[X] = ", Ex2$value-Ex$value^2)
 
 ## WolframAlpha
 
-![](img/walpha.png)
+
+```{r, echo=FALSE, out.width="100%", fig.align = "center"}
+knitr::include_graphics("img/walpha.png")
+```
 
 https://www.wolframalpha.com/
 
@@ -285,13 +288,29 @@ https://www.wolframalpha.com/
 
 ## Symlab
 
-![](img/symbolab3.png)
+
+
+```{r, echo=FALSE, out.width="100%", fig.align = "center"}
+knitr::include_graphics("img/symbolab3.png")
+```
+
 
 https://es.symbolab.com/
 
 <br/><br/>
 
-## ChatGPT
+## IA
+
+<div class="package-logo-row">
+<img src="img/chat-gpt.png" alt="gpt">
+<img src="img/gemini.png" alt="gemini">
+<img src="img/claude.png" alt="claude">
+</div>
+
+
+
+
+
 
 <br/><br/>
 
