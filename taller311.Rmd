@@ -14,6 +14,13 @@ output:
       - cajas.css
 ---
 
+<!-- SVG mantiene visibles las barras de las fracciones al cambiar el zoom. -->
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  jax: ["input/TeX", "output/SVG"],
+  menuSettings: { renderer: "SVG" }
+});
+</script>
 
 ```{r setup, include=FALSE}
 options(htmltools.dir.version = FALSE)

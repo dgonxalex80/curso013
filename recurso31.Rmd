@@ -100,14 +100,21 @@ Las variables aleatorias se clasifican teniendo en cuenta las características d
 
 Un experimento aleatorio $E$, consiste en lanzar una moneda balanceada al aire tres veces y observar el orden de caras ($c$) y sellos ($s$) que se obtienen en los tres lanzamientos. El espacio muestral $S$ de $E$, estará dado por: 
 
-$$S =\{(s,s,s),(s,s,c),(s,c,s),(s,c,c),(c,s,s),(c,s,c),(c,c,s),(c,c,c)\} $$
+$$
+S=\left\{
+\begin{aligned}
+&(s,s,s),(s,s,c),(s,c,s),(s,c,c),\\
+&(c,s,s),(c,s,c),(c,c,s),(c,c,c)
+\end{aligned}
+\right\}
+$$
 
 
 </div>
 
 <div style="width: 30%; text-align: center;">
 
-```{r, echo=FALSE, out.width="100%", }
+```{r, fig.align='center', echo=FALSE, out.width="60%", }
 knitr::include_graphics("img/dosmonedas.png")
 ```
 
@@ -234,7 +241,7 @@ Para la variable definida como $X$: número de puntos obtenidos al lanzar un dad
 
 <div style="width: 30%; text-align: center;">
 
-```{r, echo=FALSE, out.width="100%", }
+```{r, fig.align='center', echo=FALSE, out.width="30%", }
 knitr::include_graphics("img/undado.png")
 ```
 
