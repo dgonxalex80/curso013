@@ -177,7 +177,7 @@ Encuentre la probabilidad de que un frasco de esta medicina tenga una vida útil
 <div class="box4 with-label">
 ### Problema 8
 
-El número total de horas, medidas en unidades de 100 horas, que una familia utiliza una lavadora en un periodo de un año es una variable aleatoria continua $X$ que tiene la función de densidad,
+El total de de horas, medidas en unidades de 100 horas, que una familia utiliza una lavadora en un periodo de un año es una variable aleatoria continua $X$ que tiene la función de densidad,
 
 $$f_{_{X}}(x) = \left \{ 
 				\begin{matrix} 
