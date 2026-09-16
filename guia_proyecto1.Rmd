@@ -119,9 +119,9 @@ El tablero podría permitir cambiar la cantidad promedio de estudiantes que lleg
 <div class="box5 with-label">
 ## Entrega 1. Tema y objetivo
 
-**23 de septiembre**
+**30 de septiembre**
 
-### Informe 1
+###  <span style="color:#67C1A8">Informe 1 </span>
 
 - integrantes del grupo;
 - título del proyecto;
@@ -140,9 +140,10 @@ Entregable : archivo en formato pdf
 <div class="box5 with-label">
 ## Entrega 2. Descripción del sistema y modelo probabilístico
 
-**14 de octubre**
+**21 de octubre**
 
-### Informe 2
+### <span style="color:#67C1A8">Informe 2 </span> 
+
 
 - descripción sencilla del funcionamiento del sistema;
 - variables aleatorias que se utilizarán;
@@ -171,7 +172,8 @@ Se recomienda utilizar una tabla como la siguiente:
 
 Cada grupo realizará una presentación oral y mostrará el funcionamiento de su simulación.
 
-### Presentación
+
+### <span style="color:#67C1A8">Presentación final</span>  
 
 Debe incluir:
 
