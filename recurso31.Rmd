@@ -301,7 +301,13 @@ data.frame(x,fx,Fx)
 <div style="display: flex; align-items: center; gap: 30px;">
 <div style="width: 70%; text-align: justify;">
 
-El restaurante "Asados y algo más"  solo da servicio mediante reservas. De acuerdo con los registros diarios en los últimos diez años se sabe que el treinta por ciento de las personas que reservan no llegan al restaurante. El restaurante tiene veinte  puestos y acepta cuarenta reservas. La función de distribución probabilidad que modela el número de personas que llegan al restaurante es $f$, dada por:
+El restaurante “Asados y algo más” solo presta servicio mediante reservas. De acuerdo con los registros diarios de los últimos diez años, se sabe que el 30 % de las personas que reservan no llegan al restaurante.
+
+Para la franja de almuerzo, comprendida entre las 12:00 m. y las 2:00 p. m., el restaurante acepta 10 reservas. Suponga que la llegada de cada persona es independiente de las demás.
+
+Sea \(X\) la variable aleatoria que representa el número de personas, entre las 10 que reservaron, que efectivamente llegan al restaurante durante esta franja horaria.
+
+La función de probabilidad de \(X\) está dada por:
 </div>
 
 <div style="width: 30%; text-align: center;">
@@ -314,13 +320,14 @@ knitr::include_graphics("img/restaurante.png")
 
 <br/>
 
-$$f_{_{X}}(x) = \left \{
-				\begin{matrix}
-				\displaystyle\binom{20}{x}(0.7)^{x}(0.3)^{20-x} & \mbox{si }	x=0,1,2,\ldots,20\\
-				& \\
-				0  & \mbox{en otro caso }
-				\end{matrix}\right.
-				$$
+$$
+f_X(x)=
+\begin{cases}
+\displaystyle {10\choose x}(0.7)^x(0.3)^{10-x},
+& x=0,1,2,\ldots,10,\\[6pt]
+0, & \text{en otro caso}.
+\end{cases}
+$$
 
 </div>
 
@@ -333,28 +340,28 @@ Representada de manera gráfica:
 <br/>
 
 ```{r}
-x=0:20
-fx=choose(20,x)*0.70^x*0.30^(20-x)
+x=0:10
+fx=choose(10,x)*0.70^x*0.30^(10-x)
 Fx=cumsum(fx)
 
 tabla=data.frame(x, fx, Fx)
 knitr::kable(tabla)
 
-#DT::datatable(head(tabla, 21),fillContainer = FALSE, options = list(pageLength = 12))
+#DT::datatable(head(tabla, 11),fillContainer = FALSE, options = list(pageLength = 12))
 ```
 
 
 ```{r, fig.align='center'}
-x=0:20
-fx=choose(20,x)*0.70^x*0.30^(20-x)
+x=0:10
+fx=choose(10,x)*0.70^x*0.30^(10-x)
 plot(x,fx, las=1, ylab="f(x)", xlab="número personas que asisten", pch=19, col=c7)
 lines(x, fx, type="h", col= "#F7D8A8")
 ```
 <br/>
 
 ```{r, fig.align='center'}
-x=0:20
-fx=choose(20,x)*0.70^x*0.30^(20-x)
+x=0:10
+fx=choose(10,x)*0.70^x*0.30^(10-x)
 Fx=cumsum(fx)
 plot(x,Fx, las=1, ylab="F(x)", xlab="número personas que asisten",pch=19, ylim=c(0,1), col=c7)
 lines(x, Fx, type="s", col="#F7D8D8")
@@ -366,14 +373,14 @@ grid()
 
 
 ```{r}
-x=0:20
-fx=round(choose(20,x)*0.70^x*0.30^(20-x),6)
+x=0:10
+fx=round(choose(10,x)*0.70^x*0.30^(10-x),6)
 Fx=round(cumsum(fx),4)
 
 cat("P(X=0)  = ",fx[1], "\n")
-cat("P(X=15) = ", fx[16], "\n")
-cat("P(X<15) = P(X<=14) = ", Fx[15], "\n")
-cat("P(X >15) = 1 - P(X<=14) =", 1-Fx[15])
+cat("P(X=7) = ", fx[8], "\n")
+cat("P(X<7) = P(X<=6) = ", Fx[7], "\n")
+cat("P(X>7) = 1 - P(X<=7) =", 1-Fx[8])
 ```
 
 <br/><br/><br/><br/>

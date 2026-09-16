@@ -751,35 +751,40 @@ data.frame(x,fx,Fx)</code></pre>
 <h3>Ejemplo 4</h3>
 <div style="display: flex; align-items: center; gap: 30px;">
 <div style="width: 70%; text-align: justify;">
-<p>El restaurante “Asados y algo más” solo da servicio mediante
-reservas. De acuerdo con los registros diarios en los últimos diez años
-se sabe que el treinta por ciento de las personas que reservan no llegan
-al restaurante. El restaurante tiene veinte puestos y acepta cuarenta
-reservas. La función de distribución probabilidad que modela el número
-de personas que llegan al restaurante es <span
-class="math inline">\(f\)</span>, dada por:</p>
+<p>El restaurante “Asados y algo más” solo presta servicio mediante
+reservas. De acuerdo con los registros diarios de los últimos diez años,
+se sabe que el 30 % de las personas que reservan no llegan al
+restaurante.</p>
+<p>Para la franja de almuerzo, comprendida entre las 12:00 m. y las 2:00
+p. m., el restaurante acepta 10 reservas. Suponga que la llegada de cada
+persona es independiente de las demás.</p>
+<p>Sea <span class="math inline">\(X\)</span> la variable aleatoria que
+representa el número de personas, entre las 10 que reservaron, que
+efectivamente llegan al restaurante durante esta franja horaria.</p>
+<p>La función de probabilidad de <span class="math inline">\(X\)</span>
+está dada por:</p>
 </div>
 <div style="width: 30%; text-align: center;">
 <p><img src="img/restaurante.png" alt="" width="100%" /></p>
 </div>
 </div>
 <p><br/></p>
-<p><span class="math display">\[f_{_{X}}(x) = \left \{
-                \begin{matrix}
-                \displaystyle\binom{20}{x}(0.7)^{x}(0.3)^{20-x} &amp;
-\mbox{si }    x=0,1,2,\ldots,20\\
-                &amp; \\
-                0  &amp; \mbox{en otro caso }
-                \end{matrix}\right.
-                \]</span></p>
+<p><span class="math display">\[
+f_X(x)=
+\begin{cases}
+\displaystyle {10\choose x}(0.7)^x(0.3)^{10-x},
+&amp; x=0,1,2,\ldots,10,\\[6pt]
+0, &amp; \text{en otro caso}.
+\end{cases}
+\]</span></p>
 </div>
 <p><br/></p>
 <p>En este caso se utiliza la función combinatoria y el operador de
 sumatoria vista en la <strong>Guía 0.2</strong></p>
 <p>Representada de manera gráfica:</p>
 <p><br/></p>
-<pre class="r"><code>x=0:20
-fx=choose(20,x)*0.70^x*0.30^(20-x)
+<pre class="r"><code>x=0:10
+fx=choose(10,x)*0.70^x*0.30^(10-x)
 Fx=cumsum(fx)
 
 tabla=data.frame(x, fx, Fx)
@@ -795,138 +800,88 @@ knitr::kable(tabla)</code></pre>
 <tbody>
 <tr class="odd">
 <td align="right">0</td>
-<td align="right">0.0000000</td>
-<td align="right">0.0000000</td>
+<td align="right">0.0000059</td>
+<td align="right">0.0000059</td>
 </tr>
 <tr class="even">
 <td align="right">1</td>
-<td align="right">0.0000000</td>
-<td align="right">0.0000000</td>
+<td align="right">0.0001378</td>
+<td align="right">0.0001437</td>
 </tr>
 <tr class="odd">
 <td align="right">2</td>
-<td align="right">0.0000000</td>
-<td align="right">0.0000000</td>
+<td align="right">0.0014467</td>
+<td align="right">0.0015904</td>
 </tr>
 <tr class="even">
 <td align="right">3</td>
-<td align="right">0.0000005</td>
-<td align="right">0.0000005</td>
+<td align="right">0.0090017</td>
+<td align="right">0.0105921</td>
 </tr>
 <tr class="odd">
 <td align="right">4</td>
-<td align="right">0.0000050</td>
-<td align="right">0.0000056</td>
+<td align="right">0.0367569</td>
+<td align="right">0.0473490</td>
 </tr>
 <tr class="even">
 <td align="right">5</td>
-<td align="right">0.0000374</td>
-<td align="right">0.0000429</td>
+<td align="right">0.1029193</td>
+<td align="right">0.1502683</td>
 </tr>
 <tr class="odd">
 <td align="right">6</td>
-<td align="right">0.0002181</td>
-<td align="right">0.0002610</td>
+<td align="right">0.2001209</td>
+<td align="right">0.3503893</td>
 </tr>
 <tr class="even">
 <td align="right">7</td>
-<td align="right">0.0010178</td>
-<td align="right">0.0012789</td>
+<td align="right">0.2668279</td>
+<td align="right">0.6172172</td>
 </tr>
 <tr class="odd">
 <td align="right">8</td>
-<td align="right">0.0038593</td>
-<td align="right">0.0051382</td>
+<td align="right">0.2334744</td>
+<td align="right">0.8506917</td>
 </tr>
 <tr class="even">
 <td align="right">9</td>
-<td align="right">0.0120067</td>
-<td align="right">0.0171448</td>
+<td align="right">0.1210608</td>
+<td align="right">0.9717525</td>
 </tr>
 <tr class="odd">
 <td align="right">10</td>
-<td align="right">0.0308171</td>
-<td align="right">0.0479619</td>
-</tr>
-<tr class="even">
-<td align="right">11</td>
-<td align="right">0.0653696</td>
-<td align="right">0.1133315</td>
-</tr>
-<tr class="odd">
-<td align="right">12</td>
-<td align="right">0.1143967</td>
-<td align="right">0.2277282</td>
-</tr>
-<tr class="even">
-<td align="right">13</td>
-<td align="right">0.1642620</td>
-<td align="right">0.3919902</td>
-</tr>
-<tr class="odd">
-<td align="right">14</td>
-<td align="right">0.1916390</td>
-<td align="right">0.5836292</td>
-</tr>
-<tr class="even">
-<td align="right">15</td>
-<td align="right">0.1788631</td>
-<td align="right">0.7624922</td>
-</tr>
-<tr class="odd">
-<td align="right">16</td>
-<td align="right">0.1304210</td>
-<td align="right">0.8929132</td>
-</tr>
-<tr class="even">
-<td align="right">17</td>
-<td align="right">0.0716037</td>
-<td align="right">0.9645169</td>
-</tr>
-<tr class="odd">
-<td align="right">18</td>
-<td align="right">0.0278459</td>
-<td align="right">0.9923627</td>
-</tr>
-<tr class="even">
-<td align="right">19</td>
-<td align="right">0.0068393</td>
-<td align="right">0.9992021</td>
-</tr>
-<tr class="odd">
-<td align="right">20</td>
-<td align="right">0.0007979</td>
+<td align="right">0.0282475</td>
 <td align="right">1.0000000</td>
 </tr>
 </tbody>
 </table>
-<pre class="r"><code>#DT::datatable(head(tabla, 21),fillContainer = FALSE, options = list(pageLength = 12))</code></pre>
-<pre class="r"><code>x=0:20
-fx=choose(20,x)*0.70^x*0.30^(20-x)
+<pre class="r"><code>#DT::datatable(head(tabla, 11),fillContainer = FALSE, options = list(pageLength = 12))</code></pre>
+<pre class="r"><code>x=0:10
+fx=choose(10,x)*0.70^x*0.30^(10-x)
 plot(x,fx, las=1, ylab=&quot;f(x)&quot;, xlab=&quot;número personas que asisten&quot;, pch=19, col=c7)
 lines(x, fx, type=&quot;h&quot;, col= &quot;#F7D8A8&quot;)</code></pre>
 <p><img src="recurso31_files/figure-html/unnamed-chunk-10-1.png" alt="" width="672" style="display: block; margin: auto;" />
 <br/></p>
-<pre class="r"><code>x=0:20
-fx=choose(20,x)*0.70^x*0.30^(20-x)
+<pre class="r"><code>x=0:10
+fx=choose(10,x)*0.70^x*0.30^(10-x)
 Fx=cumsum(fx)
 plot(x,Fx, las=1, ylab=&quot;F(x)&quot;, xlab=&quot;número personas que asisten&quot;,pch=19, ylim=c(0,1), col=c7)
 lines(x, Fx, type=&quot;s&quot;, col=&quot;#F7D8D8&quot;)
 grid()</code></pre>
 <p><img src="recurso31_files/figure-html/unnamed-chunk-11-1.png" alt="" width="672" style="display: block; margin: auto;" /></p>
 <p><br/></p>
-<pre class="r"><code>x=0:20
-fx=round(choose(20,x)*0.70^x*0.30^(20-x),6)
+<pre class="r"><code>x=0:10
+fx=round(choose(10,x)*0.70^x*0.30^(10-x),6)
 Fx=round(cumsum(fx),4)
 
 cat(&quot;P(X=0)  = &quot;,fx[1], &quot;\n&quot;)</code></pre>
-<pre><code>P(X=0)  =  0 </code></pre>
-<pre class="r"><code>cat(&quot;P(X=15) = &quot;, fx[16], &quot;\n&quot;)</code></pre>
-<pre><code>P(X=15) =  0.178863 </code></pre>
-<pre class="r"><code>cat(&quot;P(X&lt;15) = P(X&lt;=14) = &quot;, Fx[15], &quot;\n&quot;)</code></pre>
-<pre><code>P(X&lt;15) = P(X&lt;=14) =  0.5836 </code></pre>
-<pre class="r"><code>cat(&quot;P(X &gt;15) = 1 - P(X&lt;=14) =&quot;, 1-Fx[15])</code></pre>
-<pre><code>P(X &gt;15) = 1 - P(X&lt;=14) = 0.4164</code></pre>
+<pre><code>P(X=0)  =  6e-06 </code></pre>
+<pre class="r"><code>cat(&quot;P(X=7) = &quot;, fx[8], &quot;\n&quot;)</code></pre>
+<pre><code>P(X=7) =  0.266828 </code></pre>
+<pre class="r"><code>cat(&quot;P(X&lt;7) = P(X&lt;=6) = &quot;, Fx[7], &quot;\n&quot;)</code></pre>
+<pre><code>P(X&lt;7) = P(X&lt;=6) =  0.3504 </code></pre>
+<pre class="r"><code>cat(&quot;P(X&gt;7) = 1 - P(X&lt;=7) =&quot;, 1-Fx[8])</code></pre>
+<pre><code>P(X&gt;7) = 1 - P(X&lt;=7) = 0.3828</code></pre>
 <p><br/><br/><br/><br/></p>
 </div>
 <div id="variables-continuas" class="section level1">
