@@ -67,7 +67,7 @@ Para alcanzar los objetivos planteados se propone realizar las siguientes activi
 |Actividad        | Descripción                    | 
 |:----------------|:-----------------------------  |
 |Actividad 321    |
-|Trabajo en grupo (2 estudiates) | **Actividad 321** recoge los principales conceptos relacionados con variables aleatorias, tanto discretas como continuas y sus aplicaciones en la estimación de probabilidades. Actividad realizada en grupos de dos estudiantes. |
+|Trabajo en grupo (2 estudiates) | **Taller 321** recoge los principales conceptos relacionados con variables aleatorias, tanto discretas como continuas y sus aplicaciones en la estimación de probabilidades. Actividad realizada en grupos de dos estudiantes. |
 |Recursos         | Capitulo  2 Navidi (Navidi, W. estadística para ingenieros y científicos. Editorial Mc Graw Hill. 2006. ) |
 |                 | Capítulos  3 y 4 Walpole  (Walpole, R. Myers, R. Myers, S. Ye, K. Probabilidad y Estadística para ingeniería y Ciencias.8 Ed. Editorial Pearson. 2007)|
 |                 |                               |
