@@ -9,10 +9,10 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
-<meta name="author" content="dgonzalez" />
+<meta name="author" content="dgonzalez " />
 
 
-<title>recurso32.knit</title>
+<title>Teoría de probabilidades</title>
 
 <script src="site_libs/header-attrs/header-attrs.js"></script>
 <script src="site_libs/jquery/jquery-3.6.0.min.js"></script>
@@ -63,6 +63,7 @@ if (window.hljs) {
 
 
 <link rel="stylesheet" href="style.css" type="text/css" />
+<link rel="stylesheet" href="cajas.css" type="text/css" />
 
 
 
@@ -403,6 +404,19 @@ $(document).ready(function () {
     </li>
     <li class="divider"></li>
     <li>
+      <a href="guia32.html">Guía 3.2</a>
+    </li>
+    <li>
+      <a href="recurso32.html">Recursos 3.2</a>
+    </li>
+    <li>
+      <a href="codigo32.html">Código 3.2</a>
+    </li>
+    <li>
+      <a href="taller321.html">Taller 321</a>
+    </li>
+    <li class="divider"></li>
+    <li>
       <a href="monitoria3.html">Moitoría 3</a>
     </li>
   </ul>
@@ -452,6 +466,9 @@ $(document).ready(function () {
 
 
 
+<h1 class="title toc-ignore"><span
+style="color:#476885 !important;">Teoría de probabilidades</span></h1>
+<h4 class="author"><span style="color:#476885">dgonzalez </span></h4>
 
 </div>
 
@@ -459,8 +476,8 @@ $(document).ready(function () {
 <p><img src="img/recurso3.png" alt="" width="100%" style="display: block; margin: auto;" /></p>
 <p><img src="recurso32_files/figure-html/unnamed-chunk-2-1.png" alt="" width="672" style="display: block; margin: auto;" /></p>
 <p><br/><br/></p>
-<div id="introducción" class="section level2">
-<h2><strong>Introducción</strong></h2>
+<div id="introducción" class="section level1">
+<h1><span style="color:#476885"> </span> Introducción</h1>
 <p>Los resultados de un experimento pueden ser causa de múltiples
 variables como ocurre con el precio de un producto y sus ventas, el
 tiempo de preparación de un examen y su nota final, la cantidad de arena
@@ -478,22 +495,20 @@ el caso bivariado.</p>
 continua-continua.</p>
 <p><br/><br/></p>
 </div>
-<div id="discreto-discreto" class="section level2">
-<h2><strong>Discreto-Discreto</strong></h2>
+<div id="discreto-discreto" class="section level1">
+<h1><span style="color:#476885"> Discreto-Discreto</span></h1>
 <div id="función-de-distribución-de-probabilidad-conjunta"
-class="section level3">
-<h3><strong>Función de distribución de probabilidad
-conjunta</strong></h3>
+class="section level2">
+<h2><span style="color:#476885">Función de distribución de probabilidad
+conjunta </span></h2>
 <p>Si se dispone de dos variables aleatorias se puede definir
 distribuciones bidimensionales de forma semejante al caso
 unidimensional. Para el caso discreto-discreto se define:</p>
 <p></br></br></br></p>
 <p><!-- ------------------------------------------------------- --></p>
-<div class="box2 with-label">
-<div class="label">
-<strong>Definición :Función de distribución de probabilidad
-conjunta</strong>
-</div>
+<div id="definición-función-de-distribución-de-probabilidad-conjunta"
+class="section level3 box4 with-label">
+<h3>Definición :Función de distribución de probabilidad conjunta</h3>
 <p><span class="math display">\[f_{_{X,Y}}(x,y)=P(X=x,Y=y)\]</span></p>
 <p>la cual debe cumplir con las siguientes características:</p>
 <ul>
@@ -504,10 +519,8 @@ class="math inline">\(\displaystyle\sum\limits_{x=x_{(1)}}^{x_{(n)}}\displaystyl
 </div>
 <p><!-- ------------------------------------------------------- --></p>
 <p></br></br></br></p>
-<div class="box1 with-label">
-<div class="label">
-Ejemplo 1
-</div>
+<div id="ejemplo-1" class="section level3 box6 with-label">
+<h3>Ejemplo 1</h3>
 <p>El número de veces que falla una máquina <span
 class="math inline">\(X\)</span> con <span
 class="math inline">\(R_{X}=\{1,2,3\}\)</span> durante un dia y el
@@ -589,8 +602,8 @@ plot3D::scatter3D(x, y, fxy,
           add_lines=TRUE)</code></pre>
 <p><br/><br/></p>
 </div>
-<div id="probabilidad-marginales" class="section level3">
-<h3><strong>Probabilidad marginales </strong></h3>
+<div id="probabilidad-marginales" class="section level2">
+<h2><span style="color:#476885">Probabilidad marginales </span></h2>
 <p>A partir de la función de distribución conjunta se pueden obtener las
 distribuciones marginales correspondientes a las variables <span
 class="math inline">\(X\)</span> y <span
@@ -599,10 +612,9 @@ class="math inline">\(g(x)\)</span> y <span
 class="math inline">\(h(y)\)</span> respectivamente.</p>
 <p></br></br></br></p>
 <!-- ------------------------------------------------------- -->
-<div class="box2 with-label">
-<div class="label">
-<strong>Definición : Probabilidad marginal</strong>
-</div>
+<div id="definición-probabilidad-marginal"
+class="section level3 box4 with-label">
+<h3>Definición : Probabilidad marginal</h3>
 <p>Si <span class="math inline">\(X\)</span>, <span
 class="math inline">\(Y\)</span> son dos variables aleatorias discretas,
 entonces se puede definir la función de probabilidad marginal de <span
@@ -643,8 +655,8 @@ hy</code></pre>
 [3,] 0.00 0.20 0.10  0.3</code></pre>
 <p><br/><br/></p>
 </div>
-<div id="probabilidad-acumulada" class="section level3">
-<h3><strong>Probabilidad acumulada</strong></h3>
+<div id="probabilidad-acumulada" class="section level2">
+<h2><span style="color:#476885">Probabilidad acumulada</span></h2>
 <p><span class="math display">\[F_{_{X,Y}}(x,y)=\sum_{-\infty}^{x}
 \sum_{-\infty}^{y} f(x,y)\]</span></p>
 <p>Para el ejemplo se construye la función de distribución acumulada
@@ -673,8 +685,8 @@ Fxy</code></pre>
 3 0.10 0.45 1.0</code></pre>
 <p><br/><br/><br/></p>
 </div>
-<div id="probabilidad-condicional" class="section level3">
-<h3><strong>Probabilidad condicional</strong></h3>
+<div id="probabilidad-condicional" class="section level2">
+<h2><span style="color:#476885">Probabilidad condicional </span></h2>
 <p>En el caso de la probabilidad condicional se opera de la misma forma
 que se vió en el Módulo 2, en el cual se definió como :</p>
 <p><span class="math display">\[P(B|A)=\dfrac{P(A \cap
@@ -683,11 +695,10 @@ B)}{P(A)}\]</span></p>
 de la misma manera :</p>
 <p></br></br></br></p>
 <!-- ------------------------------------------------------- -->
-<div class="box2 with-label">
-<div class="label">
-<strong>Definición :Función de densidad condicional</strong>
-</div>
-<p><br/><br/></p>
+<div id="definición-función-de-densidad-condicional"
+class="section level3 box4 with-label">
+<h3>Definición :Función de densidad condicional</h3>
+<p><br/></p>
 <p>La función de densidad condicional de <span
 class="math inline">\(X\)</span> dado que <span
 class="math inline">\(Y=y_0\)</span> está dada por: <span
@@ -785,13 +796,15 @@ class="math inline">\(\dfrac{0.35}{0.50}=0.70\)</span></td>
 <p><br/><br/><br/></p>
 </div>
 </div>
-<div id="caso-continuo-continuo" class="section level2">
-<h2><strong>Caso Continuo-Continuo</strong></h2>
+<div id="caso-continuo-continuo" class="section level1">
+<h1><span style="color:#476885">Caso Continuo-Continuo </span></h1>
 <p>En el caso de variables continuas se utilizan los mismo conceptos
 vistos en el caso discreto-discreto, haciendo el cambio de las
 sumatorias por integrales definidas.</p>
-<div id="función-de-densidad-conjunta" class="section level3">
-<h3><strong>Función de densidad conjunta</strong></h3>
+<p><br/><br/></p>
+<div id="función-de-densidad-conjunta" class="section level2">
+<h2><span style="color:#476885">Función de densidad conjunta
+</span></h2>
 <p>En particular para <span
 class="math inline">\(f_{_{X,Y}}(x,y)\)</span> definida en una región
 <span class="math inline">\(R\)</span>, se cumple que la integral doble
@@ -806,10 +819,9 @@ class="math inline">\(f_{_{X,Y}}(x,y)\)</span> en la región <span
 class="math inline">\(R\)</span>.</p>
 <p></br></br></br></p>
 <!-- ------------------------------------------------------- -->
-<div class="box2 with-label">
-<div class="label">
-<strong>Definición : Función de densidad conjunta</strong>
-</div>
+<div id="definición-función-de-densidad-conjunta"
+class="section level3 box4 with-label">
+<h3>Definición : Función de densidad conjunta</h3>
 <p>Lafunción de densidad conjunta para las variables <span
 class="math inline">\(X\)</span> y <span
 class="math inline">\(Y\)</span> <span
@@ -824,10 +836,8 @@ valor de <span class="math inline">\((x,y)\)</span></p></li>
 </div>
 <p><!-- ------------------------------------------------------- -->
 </br></br></br></p>
-<div class="box1 with-label">
-<div class="label">
-Ejemplo 2
-</div>
+<div id="ejemplo-2" class="section level3 box6 with-label">
+<h3>Ejemplo 2</h3>
 <p>Una empresa prestadora se servicios a domicilio tienen dos lineas
 telefónicas para que los clientes puedan realizar sus pedidos. Sea X y Y
 la proporción del tiempo en que las lineas se encuentran ocupadas. La
@@ -861,22 +871,29 @@ Ifxy=adaptIntegrate(fxy,lowerLimit=c(0,0),upperLimit=c(1,1))
 Ifxy$integral</code></pre>
 <pre><code>[1] 1</code></pre>
 <p><br/><br/></p>
-<p>Su representación gráfica</p>
-<p><br/><br/></p>
-<p><img src="img/figura317.png" alt="" width="100%" style="display: block; margin: auto;" /></p>
+<!-- Su representación gráfica  -->
+<!-- <br/><br/> -->
+<!-- # ```{r, echo=FALSE, out.width=c("40%", "40%"), fig.align="center"} -->
+<!-- # knitr::include_graphics("img/fxy-01.png") -->
+<!-- # ``` -->
+<!-- ```{r, echo=FALSE, out.width=c("40%", "40%"), fig.align="center"} -->
+<!-- knitr::include_graphics(c( -->
+<!--   "img/fxy-01.png", -->
+<!--   "img/fxfy.png" -->
+<!-- )) -->
+<!-- ``` -->
 <p><br/><br/></p>
 </div>
-<div id="densidad-marginales" class="section level3">
-<h3><strong>Densidad marginales</strong></h3>
+<div id="densidad-marginales" class="section level2">
+<h2><span style="color:#476885">Densidad marginales</span></h2>
 <p>En el caso continuo- continuo las distribuciones de densidad
 marginales se pueden encontrar a partir de la funcion de densidad
 conjunta</p>
 <p></br></br></br></p>
 <!-- ------------------------------------------------------- -->
-<div class="box2 with-label">
-<div class="label">
-<strong>Definición : Función de densidad marginal</strong>
-</div>
+<div id="definición-función-de-densidad-marginal"
+class="section level3 box4 with-label">
+<h3>Definición : Función de densidad marginal</h3>
 <p>Si <span class="math inline">\(X\)</span> y <span
 class="math inline">\(Y\)</span> son dos variables aleatorias continuas,
 entonces se define:</p>
@@ -916,15 +933,14 @@ x \Bigg) \Bigg|_{0}^{1} = \dfrac{3}{2}
 <p><br/><br/></p>
 </div>
 <div id="función-de-densidad-de-probabilidad-conjunta-acumulada"
-class="section level3">
-<h3><strong>Función de densidad de probabilidad conjunta
-acumulada</strong></h3>
+class="section level2">
+<h2><span style="color:#476885">Función de densidad de probabilidad
+conjunta acumulada </span></h2>
 <p></br></br></br></p>
 <!-- ------------------------------------------------------- -->
-<div class="box2 with-label">
-<div class="label">
-<strong>Definición Función de densidad conjunta acumulada</strong>
-</div>
+<div id="definición-función-de-densidad-conjunta-acumulada"
+class="section level3 box4 with-label">
+<h3>Definición Función de densidad conjunta acumulada</h3>
 <p>Para <span class="math inline">\(F_{_{X,Y}}(x,y)=P(X\leq x, Y\leq
 y)\)</span> se tiene en el caso de variables aleatorias continuas</p>
 <p><span class="math display">\[F_{_{X,Y}}(x,y)=\int_{-\infty}^{x}
@@ -955,14 +971,14 @@ F_{_{X,Y}}(x,y)}{\partial x \hspace{.2cm}\partial y}\)</span></p>
 <p><!-- ------------------------------------------------------- -->
 <br/><br/></p>
 </div>
-<div id="función-de-densidad-condicionales" class="section level3">
-<h3><strong>Función de densidad condicionales </strong></h3>
+<div id="función-de-densidad-condicionales" class="section level2">
+<h2><span style="color:#476885">Función de densidad condicionales
+</span></h2>
 <p><br/><br/><br/></p>
 <!-- ------------------------------------------------------- -->
-<div class="box1 with-label">
-<div class="label">
-<strong>Definición : Función de densidad condicional</strong>
-</div>
+<div id="definición-función-de-densidad-condicional-1"
+class="section level3 box4 with-label">
+<h3>Definición : Función de densidad condicional</h3>
 <p>La función de densidad condicional de <span
 class="math inline">\(X\)</span> dado que <span
 class="math inline">\(Y=y_0\)</span> está dada por:</p>
@@ -992,26 +1008,22 @@ class="math inline">\(X=x_0\)</span> está dada por:</p>
 <p><br/><br/><br/></p>
 </div>
 </div>
-<div id="covarianza-y-correlación" class="section level2">
-<h2><strong>Covarianza y correlación</strong></h2>
+<div id="covarianza-y-correlación" class="section level1">
+<h1><span style="color:#476885">Covarianza y correlación </span></h1>
 <p>Para definir el concepto de covarianza se requiere el concepto de
 valor esperado conjunto:</p>
 <p></br></br></br></p>
-<div class="box2 with-label">
-<div class="label">
-<strong>Definición : Valor esperado conjunta -Caso
-Discreta-Discreta</strong>
-</div>
+<div id="definición-valor-esperado-conjunta--caso-discreta-discreta"
+class="section level3 box4 with-label">
+<h3>Definición : Valor esperado conjunta -Caso Discreta-Discreta</h3>
 <p><span
 class="math display">\[E[X,Y]=\displaystyle\sum_{R_{X}}\displaystyle\sum_{R_{Y}}
 xy f(x,y)\]</span></p>
 </div>
 <p></br></br></p>
-<div class="box2 with-label">
-<div class="label">
-<strong>Definición : Valor esperado conjunta -Caso
-Continua-Continua</strong>
-</div>
+<div id="definición-valor-esperado-conjunta--caso-continua-continua"
+class="section level3 box4 with-label">
+<h3>Definición : Valor esperado conjunta -Caso Continua-Continua</h3>
 <hr />
 <p><span class="math display">\[E[XY]=
 \displaystyle\int_{-\infty}^{\infty}
@@ -1019,10 +1031,8 @@ Continua-Continua</strong>
 </div>
 <p><!-- ------------------------------------------------------- --></p>
 <p></br></br></br></p>
-<div class="box2 with-label">
-<div class="label">
-<strong>Definición : Covarianza</strong>
-</div>
+<div id="definición-covarianza" class="section level3 box4 with-label">
+<h3>Definición : Covarianza</h3>
 <p>Covarianza entre las variables <span
 class="math inline">\(X\)</span>,<span
 class="math inline">\(Y\)</span></p>
@@ -1030,10 +1040,8 @@ class="math inline">\(Y\)</span></p>
 </div>
 <p><!-- ------------------------------------------------------- -->
 </br></br></br></p>
-<div class="box2 with-label">
-<div class="label">
-<strong>Definición : Correlación </strong>
-</div>
+<div id="definición-correlación" class="section level3 box4 with-label">
+<h3>Definición : Correlación</h3>
 <p>Correlación entre las variables <span
 class="math inline">\(X\)</span>,<span class="math inline">\(Y\)</span>
 <span
@@ -1113,17 +1121,16 @@ class="math inline">\(\rho\)</span> <br/></p>
 </tbody>
 </table>
 <p><br/><br/></p>
-<p><img src="recurso32_files/figure-html/unnamed-chunk-11-1.png" alt="" width="960" style="display: block; margin: auto;" /><img src="recurso32_files/figure-html/unnamed-chunk-11-2.png" alt="" width="960" style="display: block; margin: auto;" /><img src="recurso32_files/figure-html/unnamed-chunk-11-3.png" alt="" width="960" style="display: block; margin: auto;" /><img src="recurso32_files/figure-html/unnamed-chunk-11-4.png" alt="" width="960" style="display: block; margin: auto;" /><img src="recurso32_files/figure-html/unnamed-chunk-11-5.png" alt="" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="recurso32_files/figure-html/unnamed-chunk-10-1.png" alt="" width="960" style="display: block; margin: auto;" /><img src="recurso32_files/figure-html/unnamed-chunk-10-2.png" alt="" width="960" style="display: block; margin: auto;" /></p>
 <p><br/><br/><br/></p>
 </div>
-<div id="independencia" class="section level2">
-<h2><strong>Independencia</strong></h2>
+<div id="independencia" class="section level1">
+<h1><span style="color:#476885">Independencia </span></h1>
 <p></br></br></br></p>
 <!-- ------------------------------------------------------- -->
-<div class="box2 with-label">
-<div class="label">
-<strong>Definición : Independencia de variables</strong>
-</div>
+<div id="definición-independencia-de-variables"
+class="section level3 box4 with-label">
+<h3>Definición : Independencia de variables</h3>
 <p>Sean <span class="math inline">\(X\)</span> y <span
 class="math inline">\(Y\)</span> dos variables aleatorias discretas o
 continuas con función de probabilidad conjunta <span
@@ -1135,13 +1142,10 @@ las variables X y Y son estadísticamente independientes si:</p>
 </div>
 <p><!-- ------------------------------------------------------- -->
 <br/><br/><br/></p>
-</div>
 <div id="problemas-sugeridos" class="section level2">
-<h2><strong>Problemas sugeridos</strong></h2>
-<div class="box1 with-label">
-<div class="label">
-Problema 1
-</div>
+<h2><span style="color:#476885">Problemas sugeridos </span></h2>
+<div id="problema-1" class="section level3 box4 with-label">
+<h3>Problema 1</h3>
 <p>Considere como <span class="math inline">\(X\)</span> el número que
 falla una máquina de control numérico (<span class="math inline">\(R_X =
 \{0, 1, 2\}\)</span>) al día y <span class="math inline">\(Y\)</span> el
@@ -1178,10 +1182,8 @@ resultado obtenido.</li>
 </ol></li>
 </ul>
 </div>
-<div class="box1 with-label">
-<div class="label">
-Problema 2
-</div>
+<div id="problema-2" class="section level3 box4 with-label">
+<h3>Problema 2</h3>
 <p>Un restaurante de comidas rápidas opera tanto en un local que da
 servicio en automovil (autoservicio) como en un segundo local que
 atiende a clientes que llegan caminando. En un día cualquiera, la
@@ -1218,10 +1220,8 @@ su resultado.</li>
 href="https://github.com/dgonzalez80/pye2021.io/blob/main/talleres/Taller301.pdf"><strong>Solución
 1, 2</strong></a></p>
 <p><br/><br/><br/></p>
-<div class="box1 with-label">
-<div class="label">
-Problema 3
-</div>
+<div id="problema-3" class="section level3 box4 with-label">
+<h3>Problema 3</h3>
 <p>Sea <span class="math inline">\(X\)</span> la proporción de agua
 (sustancia 1) y <span class="math inline">\(Y\)</span> la proporción de
 alcohol (sustancia 2) que se encuentran en una muestra de una mezcla
@@ -1252,10 +1252,8 @@ del cuarenta por ciento de la sustancia 1?</p></li>
 </ol>
 </div>
 <p><br/><br/></p>
-<div class="box1 with-label">
-<div class="label">
-Problema 4
-</div>
+<div id="problema-4" class="section level3 box4 with-label">
+<h3>Problema 4</h3>
 <ol start="2" style="list-style-type: decimal">
 <li>Una empresa arma paquetes de maní y chocolate. Cada paquete contiene
 pesos diferentes de maní y chocolate. Para un paquete seleccionado al
@@ -1295,10 +1293,8 @@ kilogramos de maní?</p></li>
 <div id="videos" class="section level2">
 <h2><strong>Videos</strong></h2>
 <p><br/><br/></p>
-<div class="box1 with-label">
-<div class="label">
-Caso Discreto-Discreto
-</div>
+<div id="caso-discreto-discreto" class="section level3 box4 with-label">
+<h3>Caso Discreto-Discreto</h3>
 <p><br/></p>
 <center>
 <iframe width="100%" height="600" src="https://www.youtube.com/embed/gvzybhu8GZ0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
@@ -1306,10 +1302,9 @@ Caso Discreto-Discreto
 </center>
 </div>
 <p><br/><br/></p>
-<div class="box1 with-label">
-<div class="label">
-Caso Continuo - Continuo
-</div>
+<div id="caso-continuo---continuo"
+class="section level3 box4 with-label">
+<h3>Caso Continuo - Continuo</h3>
 <p><br/></p>
 <center>
 <iframe width="100%" height="600" src="https://www.youtube.com/embed/YYgn3BBqfuA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
@@ -1317,6 +1312,7 @@ Caso Continuo - Continuo
 </center>
 </div>
 <p><br/><br/></p>
+</div>
 </div>
 
 

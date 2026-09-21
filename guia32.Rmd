@@ -1,7 +1,7 @@
 ---
-title: " "   
-author: "dgonzalez "
-subtitle: " "   
+title: "<span style='color:#476885 !important;'>Teoría de probabilidades</span>"
+author: <span style="color:#476885">dgonzalez </span> 
+subtitle: <span style="color:#476885"> </span> 
 output:
   html_document:
     toc: no
@@ -9,7 +9,12 @@ output:
     toc_float: yes
     code_folding: hide
     theme: flatly
+    css:
+      - style.css
+      - cajas.css
 ---
+
+
 
 
 ```{r setup, include=FALSE}
@@ -20,23 +25,14 @@ library(ggplot2)
 source("R/init.R")
 ```
 
-<br/><br/>
-
-
 
 ```{r, echo=FALSE, out.width="100%", fig.align = "center"}
-knitr::include_graphics("img/guia3.png")
+if (file.exists("img/guia3.png")) knitr::include_graphics("img/guia3.png")
 ```
 
 <br/><br/>
 
-
-
-# **Guía de aprendizaje**
-
-<br/><br/>
-
-## **Introducción**
+# Introducción
 
 <br/>
 
@@ -46,7 +42,7 @@ En esta  unidad se presentan las principales características de las variables a
 
 <br/><br/>
 
-## **Objetivos de la unidad**
+# Objetivos de la unidad
 
 <br/>
 
@@ -54,17 +50,17 @@ Al finalizar la unidad los estudiantes estarán  en  capacidad de IDENTIFICAR, C
 
 <br/><br/>
 
-## **Duración**
+# Duración
 
 <br/>
 
-La presente  unidad será desarrollada durante la semana séptima del semestre. Ademas del material suministrado  contaran con el acompañamiento del profesor en tres sesiones . Los entregables para esta unidad podrán enviarse a través de la plataforma Brightspace hasta el  21 de septiembre.
+La presente  unidad será desarrollada durante la semana novena del semestre. Ademas del material suministrado  contaran con el acompañamiento del profesor en tres sesiones . Los entregables para esta unidad podrán enviarse a través de la plataforma Brightspace hasta el  28 de septiembre.
 
 Para alcanzar los objetivos planteados se propone realizar las siguientes actividades
 
 <br/><br/>
 
-## **Cronograma de trabajo**
+# Cronograma de trabajo
 
 <br/>
 
@@ -75,12 +71,12 @@ Para alcanzar los objetivos planteados se propone realizar las siguientes activi
 |Recursos         | Capitulo  2 Navidi (Navidi, W. estadística para ingenieros y científicos. Editorial Mc Graw Hill. 2006. ) |
 |                 | Capítulos  3 y 4 Walpole  (Walpole, R. Myers, R. Myers, S. Ye, K. Probabilidad y Estadística para ingeniería y Ciencias.8 Ed. Editorial Pearson. 2007)|
 |                 |                               |
-|Fecha            |  21 de septiembre de 2025     |
+|Fecha            |  28 de septiembre de 2025     |
 |Hora             |  23.59                        |
 
 <br/><br/>
 
-## **Criterios de evaluación**
+# Criterios de evaluación
 
 <br/>
 
@@ -94,13 +90,13 @@ Para alcanzar los objetivos planteados se propone realizar las siguientes activi
 
 <br/><br/>
 
-## **Entregables** 
+# Entregables 
 
 <br/>
 
 |**Actividad321.pdf**|                            |
 |:----------------|:------------------------------|
-|Fecha            |  21 de septiembre de 2025     |
+|Fecha            |  28 de septiembre de 2025     |
 |Hora             |  23.59                        |
 
 <br/><br/><br/><br/>

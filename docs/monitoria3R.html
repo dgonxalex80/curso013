@@ -1,0 +1,1711 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="dgonzalez " />
+
+
+<title>Teoría de probabilidades</title>
+
+<script src="site_libs/header-attrs/header-attrs.js"></script>
+<script src="site_libs/jquery/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation/tabsets.js"></script>
+<script src="site_libs/navigation/codefolding.js"></script>
+<link href="site_libs/highlightjs/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs/highlight.js"></script>
+<link href="site_libs/font-awesome/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome/css/v4-shims.min.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+<link rel="stylesheet" href="cajas.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html"> </a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">
+    <span class="fa fa-home"></span>
+     
+    Estadística
+  </a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 0
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo0.html">Módulo 0</a>
+    </li>
+    <li>
+      <a href="sumatoria.html">Sumatoria</a>
+    </li>
+    <li>
+      <a href="productoria.html">Productoria</a>
+    </li>
+    <li>
+      <a href="conjuntos.html">Conjuntos</a>
+    </li>
+    <li>
+      <a href="conteo.html">Conteo</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 1
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo1.html">Módulo 1</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="guia11.html">Guía 1.1</a>
+    </li>
+    <li>
+      <a href="recurso11.html">Recursos 1.1</a>
+    </li>
+    <li>
+      <a href="basesdatos.html">Bases de datos</a>
+    </li>
+    <li>
+      <a href="introduccionR.html">Introducción a R</a>
+    </li>
+    <li>
+      <a href="codigo11.html">Código 1.1</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="guia12.html">Guía 1.2</a>
+    </li>
+    <li>
+      <a href="recurso12.html">Recursos 1.2</a>
+    </li>
+    <li>
+      <a href="codigo12.html">Código 1.2</a>
+    </li>
+    <li>
+      <a href="caso1A.html">Caso 1</a>
+    </li>
+    <li>
+      <a href="caso1B.html">Caso 2</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="guia13.html">Guía 1.3</a>
+    </li>
+    <li>
+      <a href="recurso13.html">Recursos 1.3</a>
+    </li>
+    <li>
+      <a href="codigo13.html">Código 1.3</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="monitoria1.html">Monitoria 1</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 2
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo2.html">Módulo 2</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="guia21.html">Guía 2.1</a>
+    </li>
+    <li>
+      <a href="recurso21.html">Recursos 2.1</a>
+    </li>
+    <li>
+      <a href="codigo21.html">Código 2.1</a>
+    </li>
+    <li>
+      <a href="taller211.html">Taller 211</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="guia22.html">Guía 2.2</a>
+    </li>
+    <li>
+      <a href="recurso22.html">Recursos 2.2</a>
+    </li>
+    <li>
+      <a href="taller221.html">Taller 221</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="monitoria2.html">Moitoría 2</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 3
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo3.html">Módulo 3</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="guia31.html">Guía 3.1</a>
+    </li>
+    <li>
+      <a href="recurso31.html">Recursos 3.1</a>
+    </li>
+    <li>
+      <a href="codigo31.html">Código 3.1</a>
+    </li>
+    <li>
+      <a href="taller311.html">Taller 311</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="guia32.html">Guía 3.2</a>
+    </li>
+    <li>
+      <a href="recurso32.html">Recursos 3.2</a>
+    </li>
+    <li>
+      <a href="codigo32.html">Código 3.2</a>
+    </li>
+    <li>
+      <a href="taller321.html">Taller 321</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="monitoria3.html">Moitoría 3</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 4
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo4.html">Módulo 4</a>
+    </li>
+    <li class="divider"></li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Proyecto
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="guia_proyecto1.html">Guía proyecto</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore"><span
+style="color:#476885 !important;">Teoría de probabilidades</span></h1>
+<h3 class="subtitle"><span style="color:#476885"> </span></h3>
+<h4 class="author"><span style="color:#476885">dgonzalez </span></h4>
+
+</div>
+
+
+<p><img src="img/monitoria3.png" alt="" width="100%" style="display: block; margin: auto;" /></p>
+<p><br/><br/></p>
+<div id="unidad-3.1" class="section level1">
+<h1>Unidad 3.1</h1>
+<p><br/></p>
+<p><br/><br/></p>
+<div id="problema-1.1" class="section level3 box4 with-label">
+<h3>Problema 1.1</h3>
+<p>Clasifique las siguientes variables aleatorias como discretas o
+continuas:</p>
+<ul>
+<li><span class="math inline">\(X\)</span> : el número de accidentes
+automovilísticos que ocurren al año en una ciudad determinada</li>
+<li><span class="math inline">\(Y\)</span> : el tiempo que dura un
+partido de futbol - tiempo real de juego en minutos-</li>
+<li><span class="math inline">\(M\)</span> : la cantidad de leche que
+una vaca determinada produce anualmente</li>
+<li><span class="math inline">\(N\)</span> : el número de huevos que una
+gallina pone mensualmente</li>
+<li><span class="math inline">\(P\)</span> : el número de permisos para
+construcción que los funcionarios de una ciudad emiten cada mes</li>
+<li><span class="math inline">\(Q\)</span> : el peso del grano maiz
+producido por hectarea</li>
+<li><span class="math inline">\(R\)</span> : la edad de un estudiante
+que ingresa a la universidad</li>
+<li><span class="math inline">\(S\)</span> : el número de zapatos que
+tiene un adolescente</li>
+<li><span class="math inline">\(T\)</span> : el número de crias que
+tiene una tortuga</li>
+<li><span class="math inline">\(U\)</span> : el consumo mensual de
+energía de un hogar en Cali</li>
+<li><span class="math inline">\(V\)</span> : el número de hijos por
+hagar en Colombia</li>
+<li><span class="math inline">\(W\)</span> : el número de pasajeros de
+un bus de servicio publico MIO</li>
+<li><span class="math inline">\(X\)</span> : el gasto diario de un
+estudiante universitario de la Javeriana Cali</li>
+<li><span class="math inline">\(Y\)</span> : la cantidad de calorías que
+un adulto con actividad moderada gasta diariamente</li>
+<li><span class="math inline">\(Z\)</span> : la utilidad mensual de una
+microempresa</li>
+</ul>
+</div>
+<details>
+<summary>
+<b>respuesta</b>
+</summary>
+<ul>
+<li><span class="math inline">\(X\)</span> (accidentes): variable
+discreta.</li>
+<li><span class="math inline">\(Y\)</span> (duración del partido):
+variable continua.</li>
+<li><span class="math inline">\(M\)</span> (cantidad de leche): variable
+continua.</li>
+<li><span class="math inline">\(N\)</span> (número de huevos): variable
+discreta.</li>
+<li><span class="math inline">\(P\)</span> (permisos de construcción):
+variable discreta.</li>
+<li><span class="math inline">\(Q\)</span> (peso del maíz): variable
+continua.</li>
+<li><span class="math inline">\(R\)</span> (edad): variable continua, si
+se mide el tiempo exacto desde el nacimiento; si se registra en años
+cumplidos, es discreta.</li>
+<li><span class="math inline">\(S\)</span> (cantidad de zapatos):
+variable discreta.</li>
+<li><span class="math inline">\(T\)</span> (número de crías): variable
+discreta.</li>
+<li><span class="math inline">\(U\)</span> (consumo de energía):
+variable continua.</li>
+<li><span class="math inline">\(V\)</span> (número de hijos): variable
+discreta.</li>
+<li><span class="math inline">\(W\)</span> (número de pasajeros):
+variable discreta.</li>
+<li><span class="math inline">\(X\)</span> (gasto diario): variable
+continua en el modelo habitual de medición monetaria.</li>
+<li><span class="math inline">\(Y\)</span> (calorías gastadas): variable
+continua.</li>
+<li><span class="math inline">\(Z\)</span> (utilidad mensual): variable
+continua en el modelo habitual de medición monetaria.</li>
+</ul>
+<p>Los conteos son discretos y las mediciones se modelan como continuas.
+Si se considera estrictamente la unidad monetaria mínima, el gasto y la
+utilidad toman valores discretos.</p>
+</details>
+<p><br/><br/></p>
+<div id="problema-1.2" class="section level3 box4 with-label">
+<h3>Problema 1.2</h3>
+<p>El tiempo que pasa, en horas, para que un radar detecte entre
+conductores sucesivos a los que exceden los límites de velocidad es una
+variable aleatoria continua con una función de distribución
+acumulada:</p>
+<p><span class="math display">\[F_{_{X}}(x) = \left \{
+                \begin{matrix}
+                 0  &amp; \mbox{ , }    x \leq 0\\
+                 1-exp\{-8x \}  &amp; x \geq 0
+                \end{matrix}\right.  
+                \]</span></p>
+<p>Calcule la probabilidad de que el tiempo que pase para que el radar
+detecte entre conductores sucesivos a los que exceden los límites de
+velocidad sea menor a 12 minutos</p>
+<ul>
+<li>usando la función de distribución de probabilidad acumulada de <span
+class="math inline">\(X\)</span></li>
+<li>utilizando la función de densidad de probabilidad de <span
+class="math inline">\(X\)</span></li>
+<li>Represente las función <span class="math inline">\(f(x)\)</span>
+gráficamente</li>
+</ul>
+</div>
+<details>
+<summary>
+<b>respuesta</b>
+</summary>
+<p>Primero se convierten los minutos a horas: <span
+class="math inline">\(12/60=0.2\)</span> horas.</p>
+<ul>
+<li><strong>Con la acumulada:</strong> <span
+class="math inline">\(P(X&lt;0.2)=F_X(0.2)=1-e^{-8(0.2)}=1-e^{-1.6}\approx0.798103\)</span>.</li>
+<li><strong>Con la densidad:</strong> al derivar la acumulada se
+obtiene</li>
+</ul>
+<p><span class="math display">\[
+f_X(x)=\begin{cases}8e^{-8x},&amp;x&gt;0,\\0,&amp;x&lt;0.\end{cases}
+\]</span></p>
+<p>El valor de la densidad en <span class="math inline">\(x=0\)</span>
+no afecta las probabilidades. Por tanto,</p>
+<p><span
+class="math display">\[P(X&lt;0.2)=\int_0^{0.2}8e^{-8x}\,dx=[-e^{-8x}]_0^{0.2}\approx0.798103.\]</span></p>
+<p>La probabilidad es aproximadamente <strong>79.81%</strong>.</p>
+<pre class="r"><code>curve(dexp(x, rate = 8), from = 0, to = 1, col = c31, lwd = 2,
+      xlab = &quot;Tiempo (horas)&quot;, ylab = &quot;f(x)&quot;, main = &quot;Densidad exponencial&quot;)
+abline(v = 0.2, lty = 2, col = c21)</code></pre>
+<p><img src="monitoria3R_files/figure-html/respuesta-1-2-1.png" alt="" width="576" style="display: block; margin: auto;" /></p>
+</details>
+<p><br/><br/></p>
+<div id="problema-1.3" class="section level3 box4 with-label">
+<h3>Problema 1.3</h3>
+<p>Una variable aleatoria continua <span
+class="math inline">\(X\)</span>, que puede tomar valores entre <span
+class="math inline">\(x=2\)</span> y <span
+class="math inline">\(x=5\)</span>, tiene una función de densidad data
+por:</p>
+<p><span class="math display">\[
+f_X(x)=
+\begin{cases}
+\dfrac{2(1+x)}{27}, &amp; 2\leq x\leq 5, \\[6pt]
+0, &amp; \text{en otro caso}.
+\end{cases}
+\]</span></p>
+<p>Calcule:</p>
+<ul>
+<li><span class="math inline">\(P(X &lt; 4)\)</span></li>
+<li><span class="math inline">\(P(3 \leq X &lt; 4)\)</span></li>
+<li>Represente la función <span class="math inline">\(f(x)\)</span>
+gráficamente</li>
+</ul>
+</div>
+<details>
+<summary>
+<b>respuesta</b>
+</summary>
+<p>Una primitiva de la densidad en su soporte es <span
+class="math inline">\((2x+x^2)/27\)</span>.</p>
+<ul>
+<li><span
+class="math inline">\(P(X&lt;4)=\displaystyle\int_2^4\frac{2(1+x)}{27}\,dx=\frac{24-8}{27}=\frac{16}{27}\approx0.592593\)</span>.</li>
+<li><span class="math inline">\(P(3\leq
+X&lt;4)=\displaystyle\int_3^4\frac{2(1+x)}{27}\,dx=\frac{24-15}{27}=\frac13\approx0.333333\)</span>.</li>
+</ul>
+<pre class="r"><code>curve(2 * (1 + x) / 27, from = 2, to = 5, xlim = c(1, 6),
+      ylim = c(0, 0.5), col = c31, lwd = 2, xlab = &quot;x&quot;, ylab = &quot;f(x)&quot;)
+segments(c(1, 5), 0, c(2, 6), 0, col = c31, lwd = 2)</code></pre>
+<p><img src="monitoria3R_files/figure-html/respuesta-1-3-1.png" alt="" width="576" style="display: block; margin: auto;" /></p>
+</details>
+<p><br/><br/></p>
+<div id="problema-1.4" class="section level3 box4 with-label">
+<h3>Problema 1.4</h3>
+<p>Suponga que cierto tipo de pequeñas empresas de procesamiento de
+datos están tan especializadas que algunas tienen dificultades para
+obtener utilidades durante su primer año de operación. La función de
+densidad de probabilidad está dada por:</p>
+<p><span class="math display">\[f_{_{Y}}(y) = \left \{
+                \begin{matrix}
+                ky^4 (1-y)^3 &amp; \mbox{ , }   0 \leq y \leq 1\\
+                0  &amp; \mbox{en otro caso }
+                \end{matrix}\right.  
+                \]</span></p>
+<ul>
+<li>¿Cuál es el valor de <span class="math inline">\(k\)</span> que hace
+de la anterior una función de densidad de probabilidad válida?</li>
+<li>Calcule la probabilidad de que al menos 50% de las empresas tengan
+utilidades durante el primer año</li>
+<li>Calcule la probabilidad de que al menos el 80% de las empresas
+tengan utilidad durante el primer año</li>
+<li>Represente la función <span class="math inline">\(f(x)\)</span>
+gráficamente</li>
+</ul>
+</div>
+<details>
+<summary>
+<b>respuesta</b>
+</summary>
+<p>Se interpreta <span class="math inline">\(Y\)</span> como la
+proporción de empresas que obtienen utilidades.</p>
+<ul>
+<li>Para normalizar la densidad:</li>
+</ul>
+<p><span class="math display">\[1=k\int_0^1 y^4(1-y)^3\,dy
+=k\left(\frac15-\frac36+\frac37-\frac18\right)=\frac{k}{280},
+\qquad k=280.\]</span></p>
+<ul>
+<li><span class="math inline">\(P(Y\geq0.5)=\displaystyle280\int_{0.5}^1
+y^4(1-y)^3\,dy=0.63671875\)</span>, aproximadamente
+<strong>63.67%</strong>.</li>
+<li><span class="math inline">\(P(Y\geq0.8)=\displaystyle280\int_{0.8}^1
+y^4(1-y)^3\,dy=0.0562816\)</span>, aproximadamente
+<strong>5.63%</strong>.</li>
+</ul>
+<p>Estas integrales se evalúan con la primitiva <span
+class="math inline">\(280(y^5/5-y^6/2+3y^7/7-y^8/8)\)</span>. También se
+reconoce una distribución beta con parámetros <span
+class="math inline">\(5\)</span> y <span
+class="math inline">\(4\)</span>.</p>
+<pre class="r"><code>curve(dbeta(x, shape1 = 5, shape2 = 4), from = 0, to = 1,
+      col = c31, lwd = 2, xlab = &quot;Proporción de empresas&quot;, ylab = &quot;f(y)&quot;)</code></pre>
+<p><img src="monitoria3R_files/figure-html/respuesta-1-4-1.png" alt="" width="576" style="display: block; margin: auto;" /></p>
+</details>
+<p><br/><br/></p>
+<div id="problema1.5" class="section level3 box4 with-label">
+<h3>Problema1.5</h3>
+<p>En un grupo de 10 estudiantes que participan en un proyecto
+universitario, 5 pertenecen a Ingeniería Industrial, 2 a Finanzas y 3 a
+Administración de Empresas. Para conformar un equipo de trabajo se
+seleccionan aleatoriamente 4 estudiantes, sin reemplazo.</p>
+<p>Sea <span class="math inline">\(X\)</span> el número de estudiantes
+de Ingeniería Industrial seleccionados. Determine la función de
+probabilidad de <span class="math inline">\(X\)</span> y explique sus
+resultados utilizando una fórmula apropiada.</p>
+</div>
+<details>
+<summary>
+<b>respuesta</b>
+</summary>
+<p>Como la selección es sin reemplazo, <span
+class="math inline">\(X\)</span> tiene distribución hipergeométrica. Hay
+<span class="math inline">\(\binom{10}{4}=210\)</span> equipos
+igualmente probables. Para obtener <span
+class="math inline">\(x\)</span> estudiantes de Ingeniería se eligen
+<span class="math inline">\(x\)</span> de los <span
+class="math inline">\(5\)</span> de Ingeniería y <span
+class="math inline">\(4-x\)</span> de los otros <span
+class="math inline">\(5\)</span>:</p>
+<p><span
+class="math display">\[P(X=x)=\frac{\binom{5}{x}\binom{5}{4-x}}{\binom{10}{4}},\qquad
+x=0,1,2,3,4,\]</span></p>
+<p>y la probabilidad es cero para los demás valores.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center"><span class="math inline">\(x\)</span></th>
+<th align="center">0</th>
+<th align="center">1</th>
+<th align="center">2</th>
+<th align="center">3</th>
+<th align="center">4</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><span class="math inline">\(P(X=x)\)</span></td>
+<td align="center"><span class="math inline">\(1/42\)</span></td>
+<td align="center"><span class="math inline">\(5/21\)</span></td>
+<td align="center"><span class="math inline">\(10/21\)</span></td>
+<td align="center"><span class="math inline">\(5/21\)</span></td>
+<td align="center"><span class="math inline">\(1/42\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>Las probabilidades suman <span class="math inline">\(1\)</span>. El
+resultado más probable es seleccionar dos estudiantes de Ingeniería, con
+probabilidad <span
+class="math inline">\(10/21\approx0.476190\)</span>.</p>
+</details>
+<p><br/><br/></p>
+<div id="problema-1.6" class="section level3 box4 with-label">
+<h3>Problema 1.6</h3>
+<p>En una cafetería universitaria hay 6 pedidos listos para entregar: 4
+tienen un tiempo estimado de entrega de 10 minutos cada uno y 2 de 5
+minutos cada uno. Un domiciliario selecciona aleatoriamente 3 pedidos,
+sin reemplazo, para realizar su siguiente recorrido.</p>
+<p>Sea <span class="math inline">\(T\)</span> la suma de los tiempos
+estimados de entrega de los tres pedidos seleccionados.</p>
+<p>Determine la función de probabilidad de <span
+class="math inline">\(T\)</span> y represente gráficamente la
+distribución obtenida.</p>
+</div>
+<details>
+<summary>
+<b>respuesta</b>
+</summary>
+<p>Sea <span class="math inline">\(K\)</span> el número de pedidos de 10
+minutos seleccionados. Entonces <span
+class="math inline">\(T=10K+5(3-K)=15+5K\)</span>. Como solo hay dos
+pedidos de 5 minutos, <span
+class="math inline">\(K\in\{1,2,3\}\)</span>.</p>
+<p><span
+class="math display">\[P(K=k)=\frac{\binom4k\binom2{3-k}}{\binom63},\qquad
+\binom63=20.\]</span></p>
+<table>
+<thead>
+<tr class="header">
+<th align="center"><span class="math inline">\(k\)</span></th>
+<th align="center"><span class="math inline">\(t\)</span> (minutos)</th>
+<th align="center"><span class="math inline">\(P(T=t)\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">1</td>
+<td align="center">20</td>
+<td align="center"><span class="math inline">\(4/20=0.2\)</span></td>
+</tr>
+<tr class="even">
+<td align="center">2</td>
+<td align="center">25</td>
+<td align="center"><span class="math inline">\(12/20=0.6\)</span></td>
+</tr>
+<tr class="odd">
+<td align="center">3</td>
+<td align="center">30</td>
+<td align="center"><span class="math inline">\(4/20=0.2\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>Para cualquier otro valor de <span class="math inline">\(t\)</span>,
+<span class="math inline">\(P(T=t)=0\)</span>.</p>
+<pre class="r"><code>tiempos &lt;- c(20, 25, 30)
+probabilidades &lt;- dhyper(1:3, m = 4, n = 2, k = 3)
+plot(tiempos, probabilidades, type = &quot;h&quot;, lwd = 3, col = c31,
+     ylim = c(0, 0.7), xaxt = &quot;n&quot;, xlab = &quot;T (minutos)&quot;, ylab = &quot;P(T = t)&quot;)
+axis(1, at = tiempos)
+points(tiempos, probabilidades, pch = 19, col = c31)</code></pre>
+<p><img src="monitoria3R_files/figure-html/respuesta-1-6-1.png" alt="" width="576" style="display: block; margin: auto;" /></p>
+</details>
+<p><br/><br/></p>
+<div id="problema-1.7" class="section level3 box4 with-label">
+<h3>Problema 1.7</h3>
+<p>Con base en las pruebas extensas, el fabricante de una lavadora
+determinó que el tiempo <span class="math inline">\(Y\)</span> (en años)
+para que el electrodoméstico requiera una reparación mayor se obtiene
+mediante la siguiente función de densidad de probabilidad :</p>
+<p><span class="math display">\[f_{_{Y}}(y) = \left \{
+                \begin{matrix}
+                \dfrac{1}{4} exp\{-y/4\} &amp; \mbox{ , }   y \geq 0\\
+                0  &amp; \mbox{en otro caso }
+                \end{matrix}\right.  
+                \]</span></p>
+<ul>
+<li><p>Los críticos considerarían que la lavadora es una ganga si no hay
+una probabilidad de que requiera una reparación mayor antes del sexto
+año. ¿Se puede considerar la lavadora como una ganga?</p></li>
+<li><p>¿Cuál es la probabilidad de que a lavadora requiera una
+reparación mayor durante el primer año?</p></li>
+<li><p>Represente la función <span class="math inline">\(f(x)\)</span>
+gráficamente</p></li>
+</ul>
+</div>
+<details>
+<summary>
+<b>respuesta</b>
+</summary>
+<p>La acumulada es <span
+class="math inline">\(F_Y(y)=1-e^{-y/4}\)</span> para <span
+class="math inline">\(y\geq0\)</span>.</p>
+<ul>
+<li><span
+class="math inline">\(P(Y&lt;6)=1-e^{-6/4}\approx0.776870\)</span>.
+Según el criterio literal del enunciado (probabilidad nula de reparación
+antes del sexto año), <strong>no es una ganga</strong>: la probabilidad
+de requerirla es aproximadamente <strong>77.69%</strong>. La
+probabilidad de llegar al sexto año sin esa reparación es <span
+class="math inline">\(e^{-1.5}\approx0.223130\)</span>.</li>
+<li><span
+class="math inline">\(P(Y&lt;1)=1-e^{-1/4}\approx0.221199\)</span>,
+aproximadamente <strong>22.12%</strong>.</li>
+</ul>
+<pre class="r"><code>curve(dexp(x, rate = 1/4), from = 0, to = 20, col = c31, lwd = 2,
+      xlab = &quot;Tiempo (años)&quot;, ylab = &quot;f(y)&quot;)</code></pre>
+<p><img src="monitoria3R_files/figure-html/respuesta-1-7-1.png" alt="" width="576" style="display: block; margin: auto;" /></p>
+</details>
+<p><br/><br/></p>
+<div id="problema-1.8" class="section level3 box4 with-label">
+<h3>Problema 1.8</h3>
+<p>Sea el número de llamadas telefónicas que recibe un conmutador
+durante un intervalo de 5 minutos una variable aleatoria <span
+class="math inline">\(X\)</span> con la siguiente función de
+distribución de probabilidad:</p>
+<p><br/></p>
+<p><span class="math display">\[
+f_X(x)=
+\begin{cases}
+\dfrac{e^{-2}2^x}{x!}, &amp; x=0,1,2,3,\ldots, \\[6pt]
+0, &amp; \text{en otro caso}.
+\end{cases}
+\]</span></p>
+<p><br/></p>
+<ul>
+<li>Determine la probabilidad de que <span
+class="math inline">\(X\)</span> sea igual a <span
+class="math inline">\(0, 1, 2, 3, 4, 5\)</span> y <span
+class="math inline">\(6\)</span></li>
+<li>Grafique la función de distribución de probabilidad para estos
+valores de <span class="math inline">\(X\)</span></li>
+<li>Determine la función de distribución acumulada para estos valores de
+<span class="math inline">\(X\)</span>.</li>
+<li>Represente la función <span class="math inline">\(f(x)\)</span>
+gráficamente</li>
+</ul>
+</div>
+<details>
+<summary>
+<b>respuesta</b>
+</summary>
+<p>La variable tiene distribución Poisson con parámetro <span
+class="math inline">\(\lambda=2\)</span>.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center"><span class="math inline">\(x\)</span></th>
+<th align="center"><span class="math inline">\(P(X=x)\)</span></th>
+<th align="center"><span class="math inline">\(F_X(x)=P(X\leq
+x)\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">0</td>
+<td align="center">0.135335</td>
+<td align="center">0.135335</td>
+</tr>
+<tr class="even">
+<td align="center">1</td>
+<td align="center">0.270671</td>
+<td align="center">0.406006</td>
+</tr>
+<tr class="odd">
+<td align="center">2</td>
+<td align="center">0.270671</td>
+<td align="center">0.676676</td>
+</tr>
+<tr class="even">
+<td align="center">3</td>
+<td align="center">0.180447</td>
+<td align="center">0.857123</td>
+</tr>
+<tr class="odd">
+<td align="center">4</td>
+<td align="center">0.090224</td>
+<td align="center">0.947347</td>
+</tr>
+<tr class="even">
+<td align="center">5</td>
+<td align="center">0.036089</td>
+<td align="center">0.983436</td>
+</tr>
+<tr class="odd">
+<td align="center">6</td>
+<td align="center">0.012030</td>
+<td align="center">0.995466</td>
+</tr>
+</tbody>
+</table>
+<p>En general,</p>
+<p><span class="math display">\[F_X(x)=\begin{cases}0,&amp;x&lt;0,\\
+e^{-2}\displaystyle\sum_{j=0}^{\lfloor
+x\rfloor}\frac{2^j}{j!},&amp;x\geq0.
+\end{cases}\]</span></p>
+<p>La acumulada es constante entre enteros y tiene saltos en ellos. Los
+valores de <span class="math inline">\(0\)</span> a <span
+class="math inline">\(6\)</span> no agotan el soporte: <span
+class="math inline">\(P(X&gt;6)\approx0.004534\)</span>.</p>
+<pre class="r"><code>x &lt;- 0:6
+plot(x, dpois(x, lambda = 2), type = &quot;h&quot;, lwd = 3, col = c31,
+     ylim = c(0, 0.3), xlab = &quot;Número de llamadas&quot;, ylab = &quot;P(X = x)&quot;)
+points(x, dpois(x, lambda = 2), pch = 19, col = c31)</code></pre>
+<p><img src="monitoria3R_files/figure-html/respuesta-1-8-1.png" alt="" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>plot(c(-1, x, 7), c(0, ppois(x, 2), ppois(7, 2)), type = &quot;s&quot;,
+     col = c31, lwd = 2, xlim = c(-1, 6.8), ylim = c(0, 1),
+     xlab = &quot;x&quot;, ylab = &quot;F(x)&quot;)
+points(x, ppois(x, 2), pch = 19, col = c31)
+points(x, ppois(x - 1, 2), pch = 21, bg = &quot;white&quot;, col = c31)</code></pre>
+<p><img src="monitoria3R_files/figure-html/respuesta-1-8-2.png" alt="" width="672" style="display: block; margin: auto;" /></p>
+</details>
+<p><br/><br/></p>
+<div id="problema-1.9" class="section level3 box4 with-label">
+<h3>Problema 1.9</h3>
+<p>El congestionamiento de pasajeros es un problema de servicio en los
+aeropuertos, en los cuales se instalan trenes para reducir la
+congestión. cuando se usa el tren el tiempo <span
+class="math inline">\(X\)</span>, en minutos, que toma viajar desde la
+terminal principal hasta una explanada específica tiene la siguiente
+función de densidad:</p>
+<p><span class="math display">\[f_{_{X}}(x) = \left \{
+                \begin{matrix}
+                \dfrac{1}{10} &amp; \mbox{ , }  0 \leq y \leq 10\\
+                0  &amp; \mbox{en otro caso }
+                \end{matrix}\right.  
+                \]</span></p>
+<ul>
+<li>Determine que la función de densidad de probabilidad anterior es
+válida</li>
+<li>Calcule la probabilidad de que el tiempo que le toma a un pasajero
+viajar desde la terminal principal hasta la explanada no exceda los 7
+minutos</li>
+<li>Represente la función <span class="math inline">\(f(x)\)</span>
+gráficamente</li>
+</ul>
+</div>
+<details>
+<summary>
+<b>respuesta</b>
+</summary>
+<p>En el soporte del enunciado se entiende <span
+class="math inline">\(0\leq x\leq10\)</span> (la letra <span
+class="math inline">\(y\)</span> es un error de notación).</p>
+<ul>
+<li>La densidad es no negativa y <span
+class="math inline">\(\displaystyle\int_{-\infty}^{\infty}f_X(x)\,dx=\int_0^{10}\frac1{10}\,dx=1\)</span>;
+por tanto, es válida.</li>
+<li><span
+class="math inline">\(P(X\leq7)=\displaystyle\int_0^7\frac1{10}\,dx=\frac7{10}=0.7\)</span>,
+es decir, <strong>70%</strong>.</li>
+</ul>
+<pre class="r"><code>plot(NA, xlim = c(-2, 12), ylim = c(0, 0.12),
+     xlab = &quot;Tiempo (minutos)&quot;, ylab = &quot;f(x)&quot;)
+segments(c(-2, 0, 10), c(0, 0.1, 0), c(0, 10, 12), c(0, 0.1, 0),
+         col = c31, lwd = 2)
+points(c(0, 10), c(0.1, 0.1), pch = 19, col = c31)
+points(c(0, 10), c(0, 0), pch = 21, bg = &quot;white&quot;, col = c31)</code></pre>
+<p><img src="monitoria3R_files/figure-html/respuesta-1-9-1.png" alt="" width="576" style="display: block; margin: auto;" /></p>
+</details>
+<p><br/></p>
+<p>Problemas tomado de walpole (2006)</p>
+<p><br/><br/><br/></p>
+<div id="problema-1.10" class="section level3 box4 with-label">
+<h3>Problema 1.10</h3>
+<p>Suponga que:</p>
+<p><span class="math display">\[
+f_X(x)=
+\begin{cases}
+e^{-x}, &amp; x\geq 0, \\[4pt]
+0, &amp; x&lt;0.
+\end{cases}
+\]</span></p>
+<p>Determine :</p>
+<ul>
+<li><span class="math inline">\(P(1 &lt; X)\)</span></li>
+<li><span class="math inline">\(P(1 &lt; X &lt; 2.5\)</span></li>
+<li><span class="math inline">\(P(X = 3\)</span></li>
+<li><span class="math inline">\(P(X &lt; 4)\)</span></li>
+<li>Los valores de <span class="math inline">\(Me\)</span>, <span
+class="math inline">\(Q_{1}\)</span> y <span
+class="math inline">\(Q_{3}\)</span></li>
+</ul>
+</div>
+<details>
+<summary>
+<b>respuesta</b>
+</summary>
+<p>Para <span class="math inline">\(x\geq0\)</span>, <span
+class="math inline">\(F_X(x)=1-e^{-x}\)</span>.</p>
+<ul>
+<li><span
+class="math inline">\(P(1&lt;X)=e^{-1}\approx0.367879\)</span>.</li>
+<li><span
+class="math inline">\(P(1&lt;X&lt;2.5)=e^{-1}-e^{-2.5}\approx0.285794\)</span>.</li>
+<li><span class="math inline">\(P(X=3)=0\)</span>, porque <span
+class="math inline">\(X\)</span> es continua.</li>
+<li><span
+class="math inline">\(P(X&lt;4)=1-e^{-4}\approx0.981684\)</span>.</li>
+</ul>
+<p>El cuantil de orden <span class="math inline">\(p\)</span> satisface
+<span class="math inline">\(1-e^{-q_p}=p\)</span>, de donde <span
+class="math inline">\(q_p=-\ln(1-p)\)</span>.</p>
+<ul>
+<li><span
+class="math inline">\(Me=q_{0.5}=\ln2\approx0.693147\)</span>.</li>
+<li><span
+class="math inline">\(Q_1=q_{0.25}=-\ln(0.75)\approx0.287682\)</span>.</li>
+<li><span
+class="math inline">\(Q_3=q_{0.75}=-\ln(0.25)\approx1.386294\)</span>.</li>
+</ul>
+</details>
+<p><br/><br/></p>
+<div id="problema-1.11" class="section level3 box4 with-label">
+<h3>Problema 1.11</h3>
+<p>Para una variable aleatoria con función de densidad :</p>
+<p><span class="math display">\[
+f_X(x)=
+\begin{cases}
+\dfrac{x}{8}, &amp; 3&lt;x&lt;5, \\[4pt]
+0, &amp; \text{en otro caso}.
+\end{cases}
+\]</span></p>
+<p>Determine :</p>
+<ul>
+<li><span class="math inline">\(P(X &lt; 4)\)</span></li>
+<li><span class="math inline">\(P(X &gt; 3.5)\)</span></li>
+<li><span class="math inline">\(P(4 &lt; X &lt; 5)\)</span></li>
+<li><span class="math inline">\(P((X &lt; 3.5) \cup (X &gt;
+4.5))\)</span></li>
+<li>el valor de <span class="math inline">\(Me\)</span></li>
+</ul>
+</div>
+<details>
+<summary>
+<b>respuesta</b>
+</summary>
+<p>Al integrar la densidad se obtiene</p>
+<p><span
+class="math display">\[F_X(x)=\begin{cases}0,&amp;x\leq3,\\(x^2-9)/16,&amp;3&lt;x&lt;5,\\1,&amp;x\geq5.\end{cases}\]</span></p>
+<ul>
+<li><span
+class="math inline">\(P(X&lt;4)=(16-9)/16=7/16=0.4375\)</span>.</li>
+<li><span
+class="math inline">\(P(X&gt;3.5)=(25-3.5^2)/16=51/64=0.796875\)</span>.</li>
+<li><span
+class="math inline">\(P(4&lt;X&lt;5)=(25-16)/16=9/16=0.5625\)</span>.</li>
+<li>Los eventos de la unión son disjuntos, así que <span
+class="math inline">\(P((X&lt;3.5)\cup(X&gt;4.5))=(3.5^2-9)/16+(25-4.5^2)/16=1/2\)</span>.</li>
+<li>La mediana satisface <span
+class="math inline">\((Me^2-9)/16=1/2\)</span>, por lo que <span
+class="math inline">\(Me=\sqrt{17}\approx4.123106\)</span>.</li>
+</ul>
+</details>
+<p><br/><br/></p>
+<div id="problema-1.12" class="section level3 box4 with-label">
+<h3>Problema 1.12</h3>
+<p>Suponga que <span class="math inline">\(X\)</span> tiene una función
+de distribución acumulada :</p>
+<p><span class="math display">\[F_{_{X}}(x) = \left \{
+                \begin{matrix}
+                 0    &amp; \mbox{ , } x \leq 0\\
+                 2x   &amp; \mbox{, } x &lt; 0 &lt; x 5  \\
+                 1    &amp; \mbox{ , } 5 \leq 5
+                \end{matrix}\right.  
+                \]</span></p>
+<p>Determine:</p>
+<ul>
+<li><span class="math inline">\(P(X &lt; 4)\)</span></li>
+<li><span class="math inline">\(P(X = 1.5)\)</span></li>
+<li><span class="math inline">\(P(X &gt; 3)\)</span></li>
+<li><span class="math inline">\(P(0.5 &lt; X &lt; 2.7\)</span></li>
+</ul>
+</div>
+<details>
+<summary>
+<b>respuesta</b>
+</summary>
+<p><strong>Nota sobre el enunciado:</strong> la expresión escrita no
+define una acumulada válida: <span class="math inline">\(2x\)</span>
+supera <span class="math inline">\(1\)</span> en parte del intervalo
+hasta <span class="math inline">\(5\)</span> y las condiciones de los
+tramos están mal transcritas. Para resolver se supone que la intención
+era <span class="math inline">\(F_X(x)=0.2x=x/5\)</span> en <span
+class="math inline">\(0&lt;x&lt;5\)</span>, como en los problemas 1.16 y
+1.20:</p>
+<p><span
+class="math display">\[F_X(x)=\begin{cases}0,&amp;x\leq0,\\x/5,&amp;0&lt;x&lt;5,\\1,&amp;x\geq5.\end{cases}\]</span></p>
+<p><strong>Bajo esta interpretación:</strong></p>
+<ul>
+<li><span class="math inline">\(P(X&lt;4)=4/5=0.8\)</span>.</li>
+<li><span class="math inline">\(P(X=1.5)=0\)</span>, porque la
+distribución es continua.</li>
+<li><span class="math inline">\(P(X&gt;3)=1-3/5=0.4\)</span>.</li>
+<li><span
+class="math inline">\(P(0.5&lt;X&lt;2.7)=(2.7-0.5)/5=0.44\)</span>.</li>
+</ul>
+<p>Los resultados quedan sujetos a esta corrección; la fórmula original
+no permite obtener probabilidades válidas.</p>
+</details>
+<p><br/><br/></p>
+<div id="problema-1.13" class="section level3 box4 with-label">
+<h3>Problema 1.13</h3>
+<p>Para la variable aleatoria que tiene la siguiente función de
+distribución de probabilidad :</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center"><span class="math inline">\(x\)</span></th>
+<th align="center"><span class="math inline">\(-2\)</span></th>
+<th align="center"><span class="math inline">\(-1\)</span></th>
+<th align="center"><span class="math inline">\(0\)</span></th>
+<th align="center"><span class="math inline">\(1\)</span></th>
+<th align="center"><span class="math inline">\(2\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><span class="math inline">\(f(x)\)</span></td>
+<td align="center"><span class="math inline">\(1/8\)</span></td>
+<td align="center"><span class="math inline">\(2/8\)</span></td>
+<td align="center"><span class="math inline">\(2/8\)</span></td>
+<td align="center"><span class="math inline">\(2/8\)</span></td>
+<td align="center"><span class="math inline">\(1/8\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>Determine:</p>
+<ul>
+<li><span class="math inline">\(P(X \leq 2)\)</span></li>
+<li><span class="math inline">\(P(X &gt; 3)\)</span></li>
+<li><span class="math inline">\(P(-1 \leq X \leq 1)\)</span></li>
+<li><span class="math inline">\(P(X &lt; 3.5 ; X &gt; 4.5)\)</span></li>
+<li>El valor de <span class="math inline">\(Me\)</span></li>
+</ul>
+</div>
+<details>
+<summary>
+<b>respuesta</b>
+</summary>
+<ul>
+<li><span class="math inline">\(P(X\leq2)=1\)</span>, pues todos los
+valores del soporte son menores o iguales a <span
+class="math inline">\(2\)</span>.</li>
+<li><span class="math inline">\(P(X&gt;3)=0\)</span>.</li>
+<li><span class="math inline">\(P(-1\leq
+X\leq1)=2/8+2/8+2/8=3/4=0.75\)</span>.</li>
+<li>Interpretando el punto y coma como intersección, <span
+class="math inline">\(P((X&lt;3.5)\cap(X&gt;4.5))=0\)</span>, pues no se
+pueden cumplir ambas condiciones. Si se pretendía una unión, la
+probabilidad sería <span class="math inline">\(1\)</span>, ya que
+siempre <span class="math inline">\(X&lt;3.5\)</span>.</li>
+<li><span class="math inline">\(Me=0\)</span>: <span
+class="math inline">\(F_X(-1)=3/8&lt;1/2\)</span> y <span
+class="math inline">\(F_X(0)=5/8\geq1/2\)</span>.</li>
+</ul>
+</details>
+<p><br/><br/></p>
+<div id="problema-1.14" class="section level3 box4 with-label">
+<h3>Problema 1.14</h3>
+<p>Para una variable con función de distribución de probabilidad :</p>
+<p><span class="math display">\[f_{_{X}}(x) = \left \{
+                \begin{matrix}
+                \dfrac{2x + 1}{25} &amp; \mbox{ , } x=0, 1, 2, 3, 4\\
+                0  &amp; \mbox{en otro caso }
+                \end{matrix}\right.  
+                \]</span></p>
+<p>Determine:</p>
+<ul>
+<li><span class="math inline">\(P(X =1)\)</span></li>
+<li><span class="math inline">\(P(X \leq 1)\)</span></li>
+<li><span class="math inline">\(P(2 \leq X &lt; 4)\)</span></li>
+</ul>
+</div>
+<details>
+<summary>
+<b>respuesta</b>
+</summary>
+<ul>
+<li><span
+class="math inline">\(P(X=1)=(2\cdot1+1)/25=3/25=0.12\)</span>.</li>
+<li><span
+class="math inline">\(P(X\leq1)=(1+3)/25=4/25=0.16\)</span>.</li>
+<li><span class="math inline">\(P(2\leq
+X&lt;4)=P(X=2)+P(X=3)=(5+7)/25=12/25=0.48\)</span>.</li>
+</ul>
+</details>
+<p><br/><br/></p>
+<div id="problema-1.15" class="section level3 box4 with-label">
+<h3>Problema 1.15</h3>
+<p>Para una variable aleatoria con función de distribución de
+probabilidad:</p>
+<p><span class="math display">\[
+f_X(x)=
+\begin{cases}
+\dfrac{3}{4}\left(\dfrac{1}{4}\right)^x,
+&amp; x=0,1,2,3,\ldots, \\[6pt]
+0, &amp; \text{en otro caso}.
+\end{cases}
+\]</span></p>
+<ul>
+<li><span class="math inline">\(P(X = 2)\)</span></li>
+<li><span class="math inline">\(P(X \leq 2)\)</span></li>
+<li><span class="math inline">\(P(2 \leq X\)</span></li>
+</ul>
+</div>
+<details>
+<summary>
+<b>respuesta</b>
+</summary>
+<p>Es una distribución geométrica que cuenta fallos antes del primer
+éxito, con <span class="math inline">\(p=3/4\)</span> y <span
+class="math inline">\(1-p=1/4\)</span>.</p>
+<ul>
+<li><span
+class="math inline">\(P(X=2)=\frac34(\frac14)^2=3/64=0.046875\)</span>.</li>
+<li><span
+class="math inline">\(P(X\leq2)=\frac34[1+\frac14+(\frac14)^2]=63/64=0.984375\)</span>.</li>
+<li><span class="math inline">\(P(2\leq
+X)=1-P(X\leq1)=(\frac14)^2=1/16=0.0625\)</span>.</li>
+</ul>
+</details>
+<p><br/><br/></p>
+<div id="problema-1.16" class="section level3 box4 with-label">
+<h3>Problema 1.16</h3>
+<p>Sponga que <span class="math inline">\(X\)</span> tiene una función
+de probabilidad acumulada:</p>
+<p><span class="math display">\[F_{_{X}}(x) = \left \{
+                \begin{matrix}
+                 0    &amp; \mbox{ , } x \leq 0\\
+                 0.2 x   &amp; \mbox{, } 0 &lt; x &lt; 5  \\
+                 1    &amp; \mbox{ , } x \geq 5
+                \end{matrix}\right.  
+                \]</span></p>
+<p>Determine: * <span class="math inline">\(P(X &lt; 2.8)\)</span></p>
+<ul>
+<li><span class="math inline">\(P(X &gt; 1.5)\)</span></li>
+<li><span class="math inline">\(P(X &lt; -2)\)</span></li>
+<li>Determine <span class="math inline">\(f_{_{X}}(x)\)</span></li>
+</ul>
+</div>
+<details>
+<summary>
+<b>respuesta</b>
+</summary>
+<ul>
+<li><span
+class="math inline">\(P(X&lt;2.8)=F_X(2.8)=0.2(2.8)=0.56\)</span>.</li>
+<li><span
+class="math inline">\(P(X&gt;1.5)=1-F_X(1.5)=1-0.2(1.5)=0.7\)</span>.</li>
+<li><span class="math inline">\(P(X&lt;-2)=0\)</span>, porque <span
+class="math inline">\(X\)</span> solo toma valores entre <span
+class="math inline">\(0\)</span> y <span
+class="math inline">\(5\)</span>.</li>
+<li>Derivando la acumulada se obtiene una densidad uniforme:</li>
+</ul>
+<p><span
+class="math display">\[f_X(x)=\begin{cases}0.2,&amp;0&lt;x&lt;5,\\0,&amp;\text{en
+otro caso}.\end{cases}\]</span></p>
+<pre class="r"><code>Fx &lt;- function(x) pmin(1, pmax(0, 0.2 * x))
+Fx(2.8)</code></pre>
+<pre><code>[1] 0.56</code></pre>
+</details>
+<p><br/><br/></p>
+<div id="problema-1.17" class="section level3 box4 with-label">
+<h3>Problema 1.17</h3>
+<p>El tiempo de reparación (en minutos) de una máquina fotocopiadora
+tiene una función de densidad:</p>
+<p><span class="math display">\[f_{_{X}}(x) = \left \{
+                \begin{matrix}
+                \dfrac{1}{22} exp\{-x/22\} &amp; \mbox{ , } x &gt; 0\\
+                0  &amp; \mbox{en otro caso }
+                \end{matrix}\right.  
+                \]</span></p>
+<p>Cuando el profesor de Probabilidad y Estadística se preparaba para
+imprimir el cuestionario del segundo examen parcial, fue enterado por la
+secretaria del departamento que la máquina fotocopiadora se había
+averiado y que el técnico había acabado de llegar en ese instante y
+empezado a repararla. El profesor debe contar con por lo menos 10
+minutos extras - tiempo de fotocopiado de 35 exámenes, organizar sus
+respectivas hojas de respuestas, sumado tiempo de su desplazamiento
+hasta el salón de clase, arreglo de las mesas y entrega de los
+cuestionarios a los estudiantes. Al mirar el reloj, el profesor observa
+que faltan 20 minutos para la hora en que debe empezar el examen y
+decide esperar a que el técnico repare la fotocopiadora. ¿Es acertada o
+no la decisión que tomó el profesor? Justifique su respuesta.</p>
+</div>
+<details>
+<summary>
+<b>respuesta</b>
+</summary>
+<p>Para empezar a tiempo, la reparación debe terminar en los <span
+class="math inline">\(20-10=10\)</span> minutos disponibles. Como <span
+class="math inline">\(X\)</span> es exponencial con media de <span
+class="math inline">\(22\)</span> minutos,</p>
+<p><span
+class="math display">\[P(X\leq10)=\int_0^{10}\frac1{22}e^{-x/22}\,dx
+=1-e^{-10/22}\approx0.365264.\]</span></p>
+<p>La probabilidad de retrasarse es <span
+class="math inline">\(P(X&gt;10)=e^{-10/22}\approx0.634736\)</span>,
+aproximadamente <strong>63.47%</strong>.</p>
+<p>Si el criterio es tener una probabilidad alta de iniciar
+puntualmente, <strong>no es una decisión acertada</strong>: solo tiene
+alrededor de <strong>36.53%</strong> de probabilidad de lograrlo. Una
+decisión óptima en términos de costos también dependería de las
+alternativas disponibles y de las consecuencias del retraso, que no se
+especifican.</p>
+</details>
+<!-- ```{r, echo=FALSE} -->
+<!-- library(downloadthis) -->
+<!-- download_link( -->
+<!--   link = "https://github.com/dgonxalex80/probabilidad20212.io/blob/main/talleres/Solucion_Taller_303.pdf", -->
+<!--   button_label = "Descarga: solución pdf ", -->
+<!--   button_type = "primary", -->
+<!--   has_icon = TRUE, -->
+<!--   icon = "fa fa-save", -->
+<!--   self_contained = FALSE -->
+<!-- ) -->
+<!-- ``` -->
+<p><br/><br/><br/></p>
+<div id="problema-1.18" class="section level3 box4 with-label">
+<h3>Problema 1.18</h3>
+<p>Suponga que:</p>
+<p><span class="math display">\[
+f_X(x)=
+\begin{cases}
+e^{-x}, &amp; x\geq 0, \\[4pt]
+0, &amp; x&lt;0.
+\end{cases}
+\]</span></p>
+<p>Determine :</p>
+<ul>
+<li><span class="math inline">\(E[X]\)</span></li>
+<li><span class="math inline">\(V[X]\)</span></li>
+<li><span class="math inline">\(P_{20}\)</span></li>
+</ul>
+</div>
+<details>
+<summary>
+<b>respuesta</b>
+</summary>
+<p>Se trata de una exponencial con tasa <span
+class="math inline">\(\lambda=1\)</span>.</p>
+<ul>
+<li><span class="math inline">\(E[X]=\displaystyle\int_0^\infty
+xe^{-x}\,dx=1\)</span>.</li>
+<li><span class="math inline">\(E[X^2]=\displaystyle\int_0^\infty
+x^2e^{-x}\,dx=2\)</span>; entonces <span
+class="math inline">\(V[X]=2-1^2=1\)</span>.</li>
+<li><span class="math inline">\(P_{20}\)</span> es el percentil 20:
+<span class="math inline">\(1-e^{-P_{20}}=0.2\)</span>, por lo que <span
+class="math inline">\(P_{20}=-\ln(0.8)\approx0.223144\)</span>.</li>
+</ul>
+</details>
+<p><br/><br/></p>
+<div id="problema-1.19" class="section level3 box4 with-label">
+<h3>Problema 1.19</h3>
+<p>Para una variable aleatoria con función de densidad :</p>
+<p><span class="math display">\[
+f_X(x)=
+\begin{cases}
+\dfrac{x}{8}, &amp; 3&lt;x&lt;5, \\[4pt]
+0, &amp; \text{en otro caso}.
+\end{cases}
+\]</span></p>
+<p>Determine :</p>
+<ul>
+<li><span class="math inline">\(\mu_{_{X}}\)</span></li>
+<li><span class="math inline">\(\sigma_{_{X}}\)</span></li>
+</ul>
+</div>
+<details>
+<summary>
+<b>respuesta</b>
+</summary>
+<ul>
+<li>La media es</li>
+</ul>
+<p><span class="math display">\[\mu_X=E[X]=\int_3^5x\frac{x}{8}\,dx
+=\left[\frac{x^3}{24}\right]_3^5=\frac{49}{12}\approx4.083333.\]</span></p>
+<ul>
+<li>Para hallar la desviación estándar:</li>
+</ul>
+<p><span class="math display">\[E[X^2]=\int_3^5x^2\frac{x}{8}\,dx
+=\left[\frac{x^4}{32}\right]_3^5=17,\]</span></p>
+<p><span
+class="math display">\[V[X]=17-\left(\frac{49}{12}\right)^2=\frac{47}{144},
+\qquad \sigma_X=\frac{\sqrt{47}}{12}\approx0.571305.\]</span></p>
+</details>
+<div id="problema-1.20" class="section level3 box4 with-label">
+<h3>Problema 1.20</h3>
+<p>Suponga que <span class="math inline">\(X\)</span> tiene una función
+de distribución acumulada:</p>
+<p><span class="math display">\[
+F_X(x)=
+\begin{cases}
+0, &amp; x&lt;0, \\[4pt]
+\dfrac{x}{5}, &amp; 0\leq x&lt;5, \\[4pt]
+1, &amp; x\geq 5.
+\end{cases}
+\]</span></p>
+<p>Determine :</p>
+<ul>
+<li><span class="math inline">\(E[X]\)</span></li>
+<li><span class="math inline">\(V[X]\)</span></li>
+<li><span class="math inline">\(P_{50}\)</span></li>
+<li>Se podría obtener el coeficiente de variación?. En caso afirmativo,
+¿que valor tendría?</li>
+</ul>
+</div>
+<details>
+<summary>
+<b>respuesta</b>
+</summary>
+<p>La acumulada corresponde a <span class="math inline">\(X\sim
+U(0,5)\)</span>, con densidad <span class="math inline">\(1/5\)</span>
+en ese intervalo.</p>
+<ul>
+<li><span class="math inline">\(E[X]=(0+5)/2=2.5\)</span>.</li>
+<li><span
+class="math inline">\(V[X]=(5-0)^2/12=25/12\approx2.083333\)</span>.</li>
+<li><span class="math inline">\(P_{50}=2.5\)</span>, pues <span
+class="math inline">\(F_X(2.5)=0.5\)</span>.</li>
+<li>Sí, al tener media positiva y un origen significativo para la
+variable, se puede calcular el coeficiente de variación:</li>
+</ul>
+<p><span class="math display">\[CV=\frac{\sigma_X}{\mu_X}\times100\%
+=\frac{5/\sqrt{12}}{2.5}\times100\%
+=\frac1{\sqrt3}\times100\%\approx57.74\%.\]</span></p>
+</details>
+<p><br/><br/></p>
+<div id="problema-1.21" class="section level3 box4 with-label">
+<h3>Problema 1.21</h3>
+<p>Para la variable aleatoria que tiene la siguiente función de
+distribución de probabilidad :</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center"><span class="math inline">\(x\)</span></th>
+<th align="center"><span class="math inline">\(-2\)</span></th>
+<th align="center"><span class="math inline">\(-1\)</span></th>
+<th align="center"><span class="math inline">\(0\)</span></th>
+<th align="center"><span class="math inline">\(1\)</span></th>
+<th align="center"><span class="math inline">\(2\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><span class="math inline">\(f(x)\)</span></td>
+<td align="center"><span class="math inline">\(1/8\)</span></td>
+<td align="center"><span class="math inline">\(2/8\)</span></td>
+<td align="center"><span class="math inline">\(2/8\)</span></td>
+<td align="center"><span class="math inline">\(2/8\)</span></td>
+<td align="center"><span class="math inline">\(1/8\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>Determine :</p>
+<ul>
+<li><span class="math inline">\(E[X]\)</span></li>
+<li><span class="math inline">\(V[X]\)</span></li>
+</ul>
+</div>
+<details>
+<summary>
+<b>respuesta</b>
+</summary>
+<ul>
+<li><span
+class="math inline">\(E[X]=(-2)(1/8)+(-1)(2/8)+0(2/8)+1(2/8)+2(1/8)=0\)</span>.</li>
+<li><span
+class="math inline">\(E[X^2]=4(1/8)+1(2/8)+0+1(2/8)+4(1/8)=12/8=3/2\)</span>.</li>
+</ul>
+<p>Por tanto, <span
+class="math inline">\(V[X]=E[X^2]-(E[X])^2=3/2=1.5\)</span>.</p>
+</details>
+<p><br/><br/></p>
+<div id="problema-1.22" class="section level3 box4 with-label">
+<h3>Problema 1.22</h3>
+<p>Para una variable con función de distribución de probabilidad :</p>
+<p><span class="math display">\[f_{_{X}}(x) = \left \{
+                \begin{matrix}
+                \dfrac{(2x + 1)}{25} &amp; \mbox{ , }   x=0, 1, 2, 3,
+4\\
+                0  &amp; \mbox{en otro caso }
+                \end{matrix}\right.  
+                \]</span></p>
+<p>Determine :</p>
+<ul>
+<li><span class="math inline">\(E[X]\)</span></li>
+<li><span class="math inline">\(V[X]\)</span></li>
+<li>Coeficiente de variación</li>
+</ul>
+</div>
+<details>
+<summary>
+<b>respuesta</b>
+</summary>
+<ul>
+<li><span
+class="math inline">\(E[X]=\displaystyle\sum_{x=0}^4x\frac{2x+1}{25}=\frac{0+3+10+21+36}{25}=\frac{14}{5}=2.8\)</span>.</li>
+<li><span
+class="math inline">\(E[X^2]=\displaystyle\sum_{x=0}^4x^2\frac{2x+1}{25}=\frac{0+3+20+63+144}{25}=\frac{46}{5}=9.2\)</span>.</li>
+</ul>
+<p>Entonces,</p>
+<p><span
+class="math display">\[V[X]=\frac{46}{5}-\left(\frac{14}{5}\right)^2=\frac{34}{25}=1.36.\]</span></p>
+<ul>
+<li><span
+class="math inline">\(CV=\displaystyle\frac{\sqrt{34}/5}{14/5}\times100\%=\frac{\sqrt{34}}{14}\times100\%\approx41.65\%\)</span>.</li>
+</ul>
+</details>
+<p><br/><br/></p>
+<div id="problema-1.23" class="section level3 box4 with-label">
+<h3>Problema 1.23</h3>
+<p>Para una variable aleatoria con función de distribución de
+probabilidad:</p>
+<p><span class="math display">\[
+f(x)=\frac{3}{4}\left(\frac{1}{4}\right)^x,
+\qquad x=0,1,2,3,\ldots
+\]</span></p>
+<p>Determine :</p>
+<ul>
+<li><span class="math inline">\(E[X]\)</span></li>
+<li><span class="math inline">\(V[X]\)</span></li>
+</ul>
+</div>
+<details>
+<summary>
+<b>respuesta</b>
+</summary>
+<p>La distribución es geométrica sobre <span
+class="math inline">\(\{0,1,2,\ldots\}\)</span>, con probabilidad de
+éxito <span class="math inline">\(p=3/4\)</span>.</p>
+<ul>
+<li><span
+class="math inline">\(E[X]=\displaystyle\frac{1-p}{p}=\frac{1/4}{3/4}=\frac13\approx0.333333\)</span>.</li>
+<li><span
+class="math inline">\(V[X]=\displaystyle\frac{1-p}{p^2}=\frac{1/4}{(3/4)^2}=\frac49\approx0.444444\)</span>.</li>
+</ul>
+<p>Estas fórmulas corresponden al número de fallos antes del primer
+éxito, de acuerdo con el soporte que inicia en cero.</p>
+</details>
+<p>Problemas tomados de Mongomery(2003)</p>
+<p><br/><br/></p>
+<div id="problema-1.24" class="section level3 box4 with-label">
+<h3>Problema 1.24</h3>
+<p>Una de las preocupaciones que tienen los padres hoy en dia está
+relacionada con el tiempo que pasan sus hijos usando celular. Un estudio
+determinó que el número de llamadas que un joven realiza durante un dia
+es una variable aleatoria (<span class="math inline">\(X\)</span>) con
+función de distribución :</p>
+<p><span class="math display">\[f_{_{X}}(x) = \left \{
+                \begin{matrix}
+                \dfrac{8^{x}\hspace{.2cm} exp\{-8\}}{x!} &amp; \mbox{ ,
+para } \hspace{.3cm}    x = 0,1,2,3,4,5,.....\\
+                0  &amp; \mbox{en otro caso }
+                \end{matrix}\right.  
+                \]</span></p>
+<p>El estudio afirma también que los jóvenes en promedio reciben al
+rededor de 12 llamadas por día, valor que es considerado muy alto,
+debido a que a esa edad por lo regular no se tienen actividades
+económicas que lo ameriten. También mencionan que debido a que se ha
+logrado identificar la función de distribución de probabilidad es fácil
+establecer que se trata de una variable con un comportamiento homogéneo.
+¿Está de acuerdo con la información suministrada en el artículo? .
+Justifique su respuesta.</p>
+</div>
+<details>
+<summary>
+<b>respuesta</b>
+</summary>
+<p>La función dada corresponde a una distribución Poisson con parámetro
+<span class="math inline">\(\lambda=8\)</span>. Por tanto,</p>
+<p><span class="math display">\[E[X]=8,\qquad V[X]=8,\qquad
+\sigma_X=\sqrt8\approx2.828427,\]</span></p>
+<p><span
+class="math display">\[CV=\frac{\sqrt8}{8}\times100\%\approx35.36\%.\]</span></p>
+<ul>
+<li>El modelo describe las llamadas que un joven
+<strong>realiza</strong>, cuyo promedio es <strong>8 por día</strong>.
+Si el artículo atribuye un promedio de 12 a esa misma variable,
+contradice el modelo.</li>
+<li>El texto habla de 12 llamadas <strong>recibidas</strong>. Esta es
+otra variable: el modelo de llamadas realizadas no permite confirmar ni
+refutar ese promedio.</li>
+<li>Identificar una distribución no basta para afirmar que el
+comportamiento es homogéneo. El coeficiente de variación es
+aproximadamente <span class="math inline">\(35.36\%\)</span>; si se
+adoptara, por ejemplo, un criterio de homogeneidad de <span
+class="math inline">\(CV&lt;30\%\)</span>, no lo cumpliría. Sin un
+criterio explícito no puede sostenerse esa conclusión solo con la forma
+de la distribución.</li>
+<li>Considerar el número de llamadas «muy alto» por no realizar
+actividades económicas es un juicio que no se deduce de esta función de
+probabilidad.</li>
+</ul>
+<p>Por estas razones, la información del artículo no justifica todas sus
+conclusiones.</p>
+</details>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("hide" === "show");
+});
+</script>
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

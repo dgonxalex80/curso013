@@ -447,6 +447,19 @@ $(document).ready(function () {
     </li>
     <li class="divider"></li>
     <li>
+      <a href="guia32.html">Guía 3.2</a>
+    </li>
+    <li>
+      <a href="recurso32.html">Recursos 3.2</a>
+    </li>
+    <li>
+      <a href="codigo32.html">Código 3.2</a>
+    </li>
+    <li>
+      <a href="taller321.html">Taller 321</a>
+    </li>
+    <li class="divider"></li>
+    <li>
       <a href="monitoria3.html">Moitoría 3</a>
     </li>
   </ul>
@@ -1476,29 +1489,28 @@ permanecer en la misma carpeta.</p>
 <p>El primer ejemplo muestra las 22 comunas de Cali.
 <code>st_make_valid()</code> corrige automáticamente las geometrías que
 puedan presentar inconsistencias topológicas.</p>
-<pre class="r"><code>library(sf)
-
-cali &lt;- st_read(&quot;map/cali/cali.shp&quot;, quiet = TRUE) |&gt;
-  st_make_valid() |&gt;
-  mutate(
-    comuna = as.integer(CODIGO),
-    nombre_comuna = paste(&quot;Comuna&quot;, comuna)
-  )
-
-ggplot(cali) +
-  geom_sf(fill = c12, color = c41, linewidth = 0.35) +
-  labs(
-    title = &quot;División por comunas de Cali&quot;,
-    subtitle = paste(nrow(cali), &quot;comunas representadas&quot;),
-    caption = &quot;Fuente cartográfica: Infraestructura de Datos Espaciales de Santiago de Cali&quot;
-  ) +
-  theme_void() +
-  theme(
-    plot.title = element_text(face = &quot;bold&quot;, color = c41),
-    plot.subtitle = element_text(color = c41),
-    plot.caption = element_text(color = c41, hjust = 0)
-  )</code></pre>
-<p><img src="codigo13_files/figure-html/mapa-cali-base-1.png" alt="" width="672" /></p>
+<pre class="r"><code># library(sf)
+# 
+# cali &lt;- st_read(&quot;map/cali/cali.shp&quot;, quiet = TRUE) |&gt;
+#   st_make_valid() |&gt;
+#   mutate(
+#     comuna = as.integer(CODIGO),
+#     nombre_comuna = paste(&quot;Comuna&quot;, comuna)
+#   )
+# 
+# ggplot(cali) +
+#   geom_sf(fill = c12, color = c41, linewidth = 0.35) +
+#   labs(
+#     title = &quot;División por comunas de Cali&quot;,
+#     subtitle = paste(nrow(cali), &quot;comunas representadas&quot;),
+#     caption = &quot;Fuente cartográfica: Infraestructura de Datos Espaciales de Santiago de Cali&quot;
+#   ) +
+#   theme_void() +
+#   theme(
+#     plot.title = element_text(face = &quot;bold&quot;, color = c41),
+#     plot.subtitle = element_text(color = c41),
+#     plot.caption = element_text(color = c41, hjust = 0)
+#   )</code></pre>
 </div>
 <div id="microzonificación-sísmica-de-cali" class="section level3">
 <h3>Microzonificación sísmica de Cali</h3>
@@ -1516,105 +1528,104 @@ clasificación relativa presentada en la referencia informativa. La
 leyenda muestra únicamente el nivel de intensidad asociado con cada
 color. Esta visualización es educativa y no reemplaza una consulta
 oficial para diseño estructural.</p>
-<pre class="r"><code>microzonas_cali &lt;- st_read(
-  &quot;map/cali/microzonificacion_sismica.geojson&quot;,
-  quiet = TRUE
-) |&gt;
-  st_make_valid() |&gt;
-  filter(!is.na(label)) |&gt;
-  distinct(label, .keep_all = TRUE) |&gt;
-  transmute(
-    zona = label,
-    aceleracion_maxima = am_etc,
-    intensidad = case_when(
-      zona %in% c(&quot;Zona 1&quot;, &quot;Zona 4D&quot;, &quot;Zona 4E&quot;) ~ &quot;Baja&quot;,
-      zona %in% c(&quot;Zona 4B&quot;, &quot;Zona 5&quot;, &quot;Zona 6&quot;) ~ &quot;Moderada&quot;,
-      zona %in% c(&quot;Zona 2&quot;, &quot;Zona 4A&quot;) ~ &quot;Moderada alta&quot;,
-      zona %in% c(&quot;Zona 3&quot;, &quot;Zona 4C&quot;) ~ &quot;Alta&quot;
-    ),
-    intensidad = factor(
-      intensidad,
-      levels = c(&quot;Baja&quot;, &quot;Moderada&quot;, &quot;Moderada alta&quot;, &quot;Alta&quot;)
-    )
-  )
-
-etiquetas_comunas &lt;- cali |&gt;
-  st_transform(6249) |&gt;
-  st_point_on_surface() |&gt;
-  st_transform(st_crs(microzonas_cali)) |&gt;
-  mutate(etiqueta_comuna = as.character(comuna))
-
-colores_intensidad &lt;- c(
-  &quot;Baja&quot; = &quot;#79B66A&quot;,
-  &quot;Moderada&quot; = &quot;#E7D64A&quot;,
-  &quot;Moderada alta&quot; = &quot;#F1A23A&quot;,
-  &quot;Alta&quot; = &quot;#C83E37&quot;
-)
-
-ggplot() +
-  geom_sf(
-    data = microzonas_cali,
-    aes(fill = intensidad),
-    color = &quot;white&quot;,
-    linewidth = 0.35
-  ) +
-  geom_sf(
-    data = cali,
-    fill = NA,
-    color = &quot;#455A64&quot;,
-    linewidth = 0.18,
-    alpha = 0.65
-  ) +
-  geom_sf(
-    data = etiquetas_comunas,
-    shape = 21,
-    size = 4.2,
-    stroke = 0.45,
-    fill = scales::alpha(&quot;white&quot;, 0.9),
-    color = c41
-  ) +
-  geom_sf_text(
-    data = etiquetas_comunas,
-    aes(label = etiqueta_comuna),
-    size = 2.35,
-    fontface = &quot;bold&quot;,
-    color = c41
-  ) +
-  scale_fill_manual(
-    values = colores_intensidad,
-    breaks = c(&quot;Baja&quot;, &quot;Moderada&quot;, &quot;Moderada alta&quot;, &quot;Alta&quot;),
-    labels = c(&quot;Baja&quot;, &quot;Moderada&quot;, &quot;Moderada alta&quot;, &quot;Alta&quot;),
-    drop = FALSE,
-    name = &quot;Nivel de intensidad&quot;
-  ) +
-  guides(
-    fill = guide_legend(
-      ncol = 2,
-      byrow = TRUE,
-      title.position = &quot;top&quot;
-    )
-  ) +
-  coord_sf(clip = &quot;off&quot;) +
-  labs(
-    title = &quot;Microzonificación sísmica de Santiago de Cali&quot;,
-    subtitle = &quot;Círculos numerados: comunas&quot;,
-    caption = paste(
-      &quot;Fuente: IDESC; INGEOMINAS–DAGMA (2005), mapa MZSC-RS2.&quot;,
-      &quot;Adoptado mediante Decreto municipal 0158 de 2014.&quot;
-    )
-  ) +
-  theme_void() +
-  theme(
-    plot.title = element_text(face = &quot;bold&quot;, color = c41, size = 16),
-    plot.subtitle = element_text(color = c41, size = 11),
-    plot.caption = element_text(color = c41, hjust = 0, size = 8),
-    plot.margin = margin(12, 18, 12, 18),
-    legend.position = &quot;right&quot;,
-    legend.box = &quot;vertical&quot;,
-    legend.title = element_text(face = &quot;bold&quot;),
-    legend.text = element_text(size = 8)
-  )</code></pre>
-<p><img src="codigo13_files/figure-html/mapa-microzonificacion-sismica-cali-1.png" alt="" width="864" /></p>
+<pre class="r"><code># microzonas_cali &lt;- st_read(
+#   &quot;map/cali/microzonificacion_sismica.geojson&quot;,
+#   quiet = TRUE
+# ) |&gt;
+#   st_make_valid() |&gt;
+#   filter(!is.na(label)) |&gt;
+#   distinct(label, .keep_all = TRUE) |&gt;
+#   transmute(
+#     zona = label,
+#     aceleracion_maxima = am_etc,
+#     intensidad = case_when(
+#       zona %in% c(&quot;Zona 1&quot;, &quot;Zona 4D&quot;, &quot;Zona 4E&quot;) ~ &quot;Baja&quot;,
+#       zona %in% c(&quot;Zona 4B&quot;, &quot;Zona 5&quot;, &quot;Zona 6&quot;) ~ &quot;Moderada&quot;,
+#       zona %in% c(&quot;Zona 2&quot;, &quot;Zona 4A&quot;) ~ &quot;Moderada alta&quot;,
+#       zona %in% c(&quot;Zona 3&quot;, &quot;Zona 4C&quot;) ~ &quot;Alta&quot;
+#     ),
+#     intensidad = factor(
+#       intensidad,
+#       levels = c(&quot;Baja&quot;, &quot;Moderada&quot;, &quot;Moderada alta&quot;, &quot;Alta&quot;)
+#     )
+#   )
+# 
+# etiquetas_comunas &lt;- cali |&gt;
+#   st_transform(6249) |&gt;
+#   st_point_on_surface() |&gt;
+#   st_transform(st_crs(microzonas_cali)) |&gt;
+#   mutate(etiqueta_comuna = as.character(comuna))
+# 
+# colores_intensidad &lt;- c(
+#   &quot;Baja&quot; = &quot;#79B66A&quot;,
+#   &quot;Moderada&quot; = &quot;#E7D64A&quot;,
+#   &quot;Moderada alta&quot; = &quot;#F1A23A&quot;,
+#   &quot;Alta&quot; = &quot;#C83E37&quot;
+# )
+# 
+# ggplot() +
+#   geom_sf(
+#     data = microzonas_cali,
+#     aes(fill = intensidad),
+#     color = &quot;white&quot;,
+#     linewidth = 0.35
+#   ) +
+#   geom_sf(
+#     data = cali,
+#     fill = NA,
+#     color = &quot;#455A64&quot;,
+#     linewidth = 0.18,
+#     alpha = 0.65
+#   ) +
+#   geom_sf(
+#     data = etiquetas_comunas,
+#     shape = 21,
+#     size = 4.2,
+#     stroke = 0.45,
+#     fill = scales::alpha(&quot;white&quot;, 0.9),
+#     color = c41
+#   ) +
+#   geom_sf_text(
+#     data = etiquetas_comunas,
+#     aes(label = etiqueta_comuna),
+#     size = 2.35,
+#     fontface = &quot;bold&quot;,
+#     color = c41
+#   ) +
+#   scale_fill_manual(
+#     values = colores_intensidad,
+#     breaks = c(&quot;Baja&quot;, &quot;Moderada&quot;, &quot;Moderada alta&quot;, &quot;Alta&quot;),
+#     labels = c(&quot;Baja&quot;, &quot;Moderada&quot;, &quot;Moderada alta&quot;, &quot;Alta&quot;),
+#     drop = FALSE,
+#     name = &quot;Nivel de intensidad&quot;
+#   ) +
+#   guides(
+#     fill = guide_legend(
+#       ncol = 2,
+#       byrow = TRUE,
+#       title.position = &quot;top&quot;
+#     )
+#   ) +
+#   coord_sf(clip = &quot;off&quot;) +
+#   labs(
+#     title = &quot;Microzonificación sísmica de Santiago de Cali&quot;,
+#     subtitle = &quot;Círculos numerados: comunas&quot;,
+#     caption = paste(
+#       &quot;Fuente: IDESC; INGEOMINAS–DAGMA (2005), mapa MZSC-RS2.&quot;,
+#       &quot;Adoptado mediante Decreto municipal 0158 de 2014.&quot;
+#     )
+#   ) +
+#   theme_void() +
+#   theme(
+#     plot.title = element_text(face = &quot;bold&quot;, color = c41, size = 16),
+#     plot.subtitle = element_text(color = c41, size = 11),
+#     plot.caption = element_text(color = c41, hjust = 0, size = 8),
+#     plot.margin = margin(12, 18, 12, 18),
+#     legend.position = &quot;right&quot;,
+#     legend.box = &quot;vertical&quot;,
+#     legend.title = element_text(face = &quot;bold&quot;),
+#     legend.text = element_text(size = 8)
+#   )</code></pre>
 </div>
 <div id="mapa-de-colombia" class="section level3">
 <h3>Mapa de Colombia</h3>
@@ -1631,82 +1642,81 @@ Colombia</em> de la UNGRD. La tabla
 contiene una fila para cada uno de los 32 departamentos y Bogotá, D. C.
 Se une a la cartografía GADM mediante <code>GID_1</code>, evitando
 depender de diferencias ortográficas en los nombres.</p>
-<pre class="r"><code>mapco &lt;- st_read(&quot;map/colombia/gadm41_COL_1.shp&quot;, quiet = TRUE) |&gt;
-  st_make_valid()
-
-# Riesgo sísmico relativo importado del Atlas de Riesgo de Colombia
-riesgo_sismico &lt;- read.csv(
-  &quot;map/colombia/riesgo_sismico_relativo_departamentos.csv&quot;,
-  stringsAsFactors = FALSE,
-  check.names = FALSE
-)
-
-rangos_pae &lt;- c(
-  &quot;0,0 - 0,5&quot;, &quot;0,5 - 1,0&quot;, &quot;1,0 - 1,5&quot;, &quot;1,5 - 2,0&quot;,
-  &quot;2,0 - 2,5&quot;, &quot;2,5 - 3,0&quot;, &quot;3,0 - 4,0&quot;, &quot;4,0 - 5,0&quot;,
-  &quot;5,0 - 6,0&quot;, &quot;&gt; 6,0&quot;
-)
-
-riesgo_sismico &lt;- riesgo_sismico |&gt;
-  mutate(
-    pae_sismo_relativa_rango = factor(
-      pae_sismo_relativa_rango,
-      levels = rangos_pae
-    )
-  )
-
-mapco_riesgo &lt;- mapco |&gt;
-  left_join(riesgo_sismico, by = &quot;GID_1&quot;)
-
-# Comprobaciones para que ningún territorio quede sin dato o se duplique
-stopifnot(
-  nrow(riesgo_sismico) == 33,
-  !anyDuplicated(riesgo_sismico$GID_1),
-  !any(is.na(mapco_riesgo$pae_sismo_relativa_rango))
-)
-
-ggplot(mapco_riesgo) +
-  geom_sf(
-    aes(fill = pae_sismo_relativa_rango),
-    color = &quot;white&quot;,
-    linewidth = 0.25,
-    show.legend = TRUE
-  ) +
-  scale_fill_manual(
-    values = c(
-      &quot;0,0 - 0,5&quot; = &quot;#71C09E&quot;,
-      &quot;0,5 - 1,0&quot; = &quot;#ABD190&quot;,
-      &quot;1,0 - 1,5&quot; = &quot;#E1E26A&quot;,
-      &quot;1,5 - 2,0&quot; = &quot;#FBEE6C&quot;,
-      &quot;2,0 - 2,5&quot; = &quot;#FFD110&quot;,
-      &quot;2,5 - 3,0&quot; = &quot;#F8AA21&quot;,
-      &quot;3,0 - 4,0&quot; = &quot;#F08224&quot;,
-      &quot;4,0 - 5,0&quot; = &quot;#E6342A&quot;,
-      &quot;5,0 - 6,0&quot; = &quot;#C22032&quot;,
-      &quot;&gt; 6,0&quot; = &quot;#711A0C&quot;
-    ),
-    drop = FALSE,
-    name = &quot;Riesgo sísmico relativo\n(PAE en ‰)&quot;
-  ) +
-  labs(
-    title = &quot;Riesgo sísmico de Colombia&quot;,
-    subtitle = &quot;Pérdida Anual Esperada por sismo respecto al valor expuesto (‰)&quot;,
-    caption = paste0(
-      &quot;Fuente: UNGRD (2018), Atlas de Riesgo de Colombia, Mapa 20; &quot;,
-      &quot;cálculos de Ingeniar: Risk Intelligence. Cartografía: GADM 4.1.&quot;
-    )
-  ) +
-  coord_sf(datum = NA, expand = FALSE) +
-  theme_void() +
-  theme(
-    plot.title = element_text(face = &quot;bold&quot;, color = c41),
-    plot.subtitle = element_text(color = c41),
-    plot.caption = element_text(color = c41, hjust = 0),
-    legend.position = &quot;right&quot;,
-    legend.title = element_text(face = &quot;bold&quot;),
-    legend.key.height = unit(0.48, &quot;cm&quot;)
-  )</code></pre>
-<p><img src="codigo13_files/figure-html/mapa-colombia-1.png" alt="" width="960" /></p>
+<pre class="r"><code># mapco &lt;- st_read(&quot;map/colombia/gadm41_COL_1.shp&quot;, quiet = TRUE) |&gt;
+#   st_make_valid()
+# 
+# # Riesgo sísmico relativo importado del Atlas de Riesgo de Colombia
+# riesgo_sismico &lt;- read.csv(
+#   &quot;map/colombia/riesgo_sismico_relativo_departamentos.csv&quot;,
+#   stringsAsFactors = FALSE,
+#   check.names = FALSE
+# )
+# 
+# rangos_pae &lt;- c(
+#   &quot;0,0 - 0,5&quot;, &quot;0,5 - 1,0&quot;, &quot;1,0 - 1,5&quot;, &quot;1,5 - 2,0&quot;,
+#   &quot;2,0 - 2,5&quot;, &quot;2,5 - 3,0&quot;, &quot;3,0 - 4,0&quot;, &quot;4,0 - 5,0&quot;,
+#   &quot;5,0 - 6,0&quot;, &quot;&gt; 6,0&quot;
+# )
+# 
+# riesgo_sismico &lt;- riesgo_sismico |&gt;
+#   mutate(
+#     pae_sismo_relativa_rango = factor(
+#       pae_sismo_relativa_rango,
+#       levels = rangos_pae
+#     )
+#   )
+# 
+# mapco_riesgo &lt;- mapco |&gt;
+#   left_join(riesgo_sismico, by = &quot;GID_1&quot;)
+# 
+# # Comprobaciones para que ningún territorio quede sin dato o se duplique
+# stopifnot(
+#   nrow(riesgo_sismico) == 33,
+#   !anyDuplicated(riesgo_sismico$GID_1),
+#   !any(is.na(mapco_riesgo$pae_sismo_relativa_rango))
+# )
+# 
+# ggplot(mapco_riesgo) +
+#   geom_sf(
+#     aes(fill = pae_sismo_relativa_rango),
+#     color = &quot;white&quot;,
+#     linewidth = 0.25,
+#     show.legend = TRUE
+#   ) +
+#   scale_fill_manual(
+#     values = c(
+#       &quot;0,0 - 0,5&quot; = &quot;#71C09E&quot;,
+#       &quot;0,5 - 1,0&quot; = &quot;#ABD190&quot;,
+#       &quot;1,0 - 1,5&quot; = &quot;#E1E26A&quot;,
+#       &quot;1,5 - 2,0&quot; = &quot;#FBEE6C&quot;,
+#       &quot;2,0 - 2,5&quot; = &quot;#FFD110&quot;,
+#       &quot;2,5 - 3,0&quot; = &quot;#F8AA21&quot;,
+#       &quot;3,0 - 4,0&quot; = &quot;#F08224&quot;,
+#       &quot;4,0 - 5,0&quot; = &quot;#E6342A&quot;,
+#       &quot;5,0 - 6,0&quot; = &quot;#C22032&quot;,
+#       &quot;&gt; 6,0&quot; = &quot;#711A0C&quot;
+#     ),
+#     drop = FALSE,
+#     name = &quot;Riesgo sísmico relativo\n(PAE en ‰)&quot;
+#   ) +
+#   labs(
+#     title = &quot;Riesgo sísmico de Colombia&quot;,
+#     subtitle = &quot;Pérdida Anual Esperada por sismo respecto al valor expuesto (‰)&quot;,
+#     caption = paste0(
+#       &quot;Fuente: UNGRD (2018), Atlas de Riesgo de Colombia, Mapa 20; &quot;,
+#       &quot;cálculos de Ingeniar: Risk Intelligence. Cartografía: GADM 4.1.&quot;
+#     )
+#   ) +
+#   coord_sf(datum = NA, expand = FALSE) +
+#   theme_void() +
+#   theme(
+#     plot.title = element_text(face = &quot;bold&quot;, color = c41),
+#     plot.subtitle = element_text(color = c41),
+#     plot.caption = element_text(color = c41, hjust = 0),
+#     legend.position = &quot;right&quot;,
+#     legend.title = element_text(face = &quot;bold&quot;),
+#     legend.key.height = unit(0.48, &quot;cm&quot;)
+#   )</code></pre>
 <p>La escala indica cuántas unidades monetarias se espera perder
 anualmente por cada mil unidades de valor expuesto. Por ejemplo, una PAE
 de 5‰ equivale a una pérdida media anual de 5 pesos por cada 1.000 pesos

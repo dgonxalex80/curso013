@@ -9,10 +9,10 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
-<meta name="author" content="dgonzalez" />
+<meta name="author" content="dgonzalez " />
 
 
-<title>codigo32.knit</title>
+<title>Teoría de probabilidades</title>
 
 <script src="site_libs/header-attrs/header-attrs.js"></script>
 <script src="site_libs/jquery/jquery-3.6.0.min.js"></script>
@@ -63,6 +63,7 @@ if (window.hljs) {
 
 
 <link rel="stylesheet" href="style.css" type="text/css" />
+<link rel="stylesheet" href="cajas.css" type="text/css" />
 
 
 
@@ -403,6 +404,19 @@ $(document).ready(function () {
     </li>
     <li class="divider"></li>
     <li>
+      <a href="guia32.html">Guía 3.2</a>
+    </li>
+    <li>
+      <a href="recurso32.html">Recursos 3.2</a>
+    </li>
+    <li>
+      <a href="codigo32.html">Código 3.2</a>
+    </li>
+    <li>
+      <a href="taller321.html">Taller 321</a>
+    </li>
+    <li class="divider"></li>
+    <li>
       <a href="monitoria3.html">Moitoría 3</a>
     </li>
   </ul>
@@ -452,6 +466,10 @@ $(document).ready(function () {
 
 
 
+<h1 class="title toc-ignore"><span
+style="color:#476885 !important;">Teoría de probabilidades</span></h1>
+<h3 class="subtitle"><span style="color:#476885"> </span></h3>
+<h4 class="author"><span style="color:#476885">dgonzalez </span></h4>
 
 </div>
 
@@ -459,10 +477,10 @@ $(document).ready(function () {
 <p><img src="img/codigo3.png" alt="" width="100%" style="display: block; margin: auto;" /></p>
 <p><br/><br/></p>
 <div id="caso-discreto-discreto" class="section level1">
-<h1><strong>Caso Discreto-Discreto</strong></h1>
+<h1>Caso Discreto-Discreto</h1>
 <p><br/><br/></p>
-<div id="ejemplo-1" class="section level3">
-<h3><strong>Ejemplo 1</strong></h3>
+<div id="ejemplo-1" class="section level3 box6 with-label">
+<h3>Ejemplo 1</h3>
 <p>El número de veces que falla una máquina <span
 class="math inline">\(X\)</span> con <span
 class="math inline">\(R_{X}=\{1,2,3\}\)</span> durante un dia y el
@@ -522,10 +540,10 @@ fxy</code></pre>
 [3,] 0.00 0.20 0.10</code></pre>
 <pre class="r"><code>sum(fxy)</code></pre>
 <pre><code>[1] 1</code></pre>
-<p><br/><br/></p>
 </div>
-<div id="funciones-distribución-marginales" class="section level3">
-<h3><strong>Funciones distribución marginales</strong></h3>
+<p><br/><br/></p>
+<div id="funciones-distribución-marginales" class="section level2">
+<h2>Funciones distribución marginales</h2>
 <pre class="r"><code>fxy=matrix(c(0.05,0.05,0,0.05,0.10,0.20,0.10,0.35,0.10), ncol=3 )
 fxy=addmargins(fxy,c(1,2))
 colnames(fxy)=c(&quot;1&quot;,&quot;2&quot;,&quot;3&quot;,&quot;h(y)&quot;)
@@ -538,9 +556,9 @@ fxy</code></pre>
 g(x) 0.10 0.35 0.55  1.0</code></pre>
 <p><br/><br/></p>
 </div>
-<div id="representación-gráfica-de-fxy" class="section level3">
-<h3><strong>Representación gráfica de <span
-class="math inline">\(f(x,y)\)</span></strong></h3>
+<div id="representación-gráfica-de-fxy" class="section level2">
+<h2>Representación gráfica de <span
+class="math inline">\(f(x,y)\)</span></h2>
 <p>Para construir la gráfica de X y Y debemos crear los vectores</p>
 <table>
 <tbody>
@@ -601,8 +619,8 @@ plot3D::scatter3D(x, y, fxy,
 <p><img src="codigo32_files/figure-html/unnamed-chunk-4-1.png" alt="" width="672" /></p>
 <p><br/><br/></p>
 </div>
-<div id="funciones-de-distribución-marginal" class="section level3">
-<h3><strong>Funciones de distribución marginal</strong></h3>
+<div id="funciones-de-distribución-marginal" class="section level2">
+<h2>Funciones de distribución marginal</h2>
 <pre class="r"><code>fxy=matrix(c(0.05,0.05,0,0.05,0.10,0.20,0.10,0.35,0.10), ncol=3 )
 fxy=addmargins(fxy,c(1,2))
 colnames(fxy)=c(&quot;1&quot;,&quot;2&quot;,&quot;3&quot;,&quot;h(y)&quot;)
@@ -615,8 +633,8 @@ fxy</code></pre>
 g(x) 0.10 0.35 0.55  1.0</code></pre>
 <p><br/><br/></p>
 </div>
-<div id="covarianza-y-correlación" class="section level3">
-<h3><strong>Covarianza y Correlación</strong></h3>
+<div id="covarianza-y-correlación" class="section level2">
+<h2>Covarianza y Correlación</h2>
 <pre class="r"><code>x=c(0,1,2) 
 y=c(0,1,2)
 fxy=matrix(c(0.15,0.05,0,0,0.20,0.35,0,0.10,0.15), ncol=3 )
@@ -658,9 +676,10 @@ Rho=CovXY/sqrt(Vx*Vy)</code></pre>
 </div>
 </div>
 <div id="caso-continuo-continuo" class="section level1">
-<h1><strong>Caso Continuo-continuo</strong></h1>
+<h1>Caso Continuo-continuo</h1>
 <p><br/><br/></p>
-<p><strong>Ejemplo 2</strong></p>
+<div id="ejemplo-2" class="section level3 box6 with-label">
+<h3>Ejemplo 2</h3>
 <p>Una empresa prestadora se servicios a domicilio tienen dos lineas
 telefónicas para que los clientes puedan realizar sus pedidos. Sea X y Y
 la proporción del tiempo en que las lineas se encuentran ocupadas. La
@@ -693,6 +712,7 @@ $returnCode
 <p>basado en : <a
 href="http://homepages.math.uic.edu/~jyang06/stat401/handouts/handout8.pdf"
 class="uri">http://homepages.math.uic.edu/~jyang06/stat401/handouts/handout8.pdf</a></p>
+</div>
 <p><br/><br/></p>
 <p>Ahora su representación gráfica</p>
 <pre class="r"><code>x=seq(0,1,length=10)
@@ -707,15 +727,17 @@ persp(x,y,z,theta = 20, phi = 20,expand=0.5, col = c31,
 href="https://estadistica-dma.ulpgc.es/cursoR4ULPGC/9e-grafPersp.html"
 class="uri">https://estadistica-dma.ulpgc.es/cursoR4ULPGC/9e-grafPersp.html</a></p>
 <p><br/><br/></p>
-<div id="otras-alternativas" class="section level3">
-<h3><strong>Otras alternativas</strong></h3>
+</div>
+<div id="otras-alternativas" class="section level1">
+<h1>Otras alternativas</h1>
 <p><br/></p>
-<p><img src="img/walpha2.png" /> <br/><br/></p>
-<p><img src="img/symbolab2.png" /></p>
+<p><img src="img/walpha2.png" alt="" width="100%" style="display: block; margin: auto;" /></p>
+<p><br/><br/></p>
+<p><img src="img/symbolab3.png" alt="" width="100%" style="display: block; margin: auto;" /></p>
 <p><br/><br/><br/></p>
 </div>
-<div id="otros-gráficos" class="section level2">
-<h2><strong>Otros gráficos</strong></h2>
+<div id="otros-gráficos" class="section level1">
+<h1>Otros gráficos</h1>
 <p><span class="math display">\[f(x,y) = \left \{ \begin{matrix}
 \dfrac{2}{3}\Big(x+2y\Big) &amp; \mbox{ } 0 \leq x \leq 1\\
                                      &amp; \mbox{ } 0 \leq y \leq 1 \\
@@ -817,7 +839,7 @@ z=outer(x, y, fxy)
 persp(x,y,z,theta = 40, phi = 10,expand=0.5, col = c32,
       xlab = &quot;x&quot;, ylab =&quot;y&quot;, zlab = &quot;f(x,y)&quot;,
       main=&quot; &quot;, col.main=&quot;blue&quot;)</code></pre>
-<p><img src="codigo32_files/figure-html/unnamed-chunk-14-1.png" alt="" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="codigo32_files/figure-html/unnamed-chunk-16-1.png" alt="" width="672" style="display: block; margin: auto;" /></p>
 <p><br/><br/></p>
 <pre class="r"><code># tomada de:
 # http://pj.freefaculty.org/R/WorkingExamples/plot-3d-MVNormal-1.R
@@ -838,7 +860,6 @@ persp(x,y,z,theta=20, phi=15,
       expand=.4,
       axes=TRUE,
       col=c31)</code></pre>
-</div>
 </div>
 
 
