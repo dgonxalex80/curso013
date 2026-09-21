@@ -46,7 +46,7 @@ knitr::include_graphics("img/modulos.png")
 ## Cronograma
 
 ```{r, echo=FALSE, out.width="70%", fig.align = "center"}
-knitr::include_graphics("img/calendario2.png")
+knitr::include_graphics("img/calendario3.png")
 ```
 </div>
 

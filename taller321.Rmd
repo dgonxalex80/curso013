@@ -106,7 +106,7 @@ $$\int_{-\infty}^{\infty} \int_{-\infty}^{\infty} f(x, y) \, dx \, dy = 1$$
 Un camión de entregas viaja de una ciudad A a otra ciudad B. El camión puede presentar entre 0 y 3 inconvenientes (averías o accidentes) en su recorrido de ida y regreso. Sea \( X \) el número de inconvenientes en el viaje de ida y \( Y \) el número de inconvenientes en el viaje de regreso. La distribución conjunta de \( X \) y \( Y \) está dada por la siguiente tabla:
 
 
-```{r, echo=FALSE, out.width="50%", fig.align = "left", fig.align='center'}
+```{r, echo=FALSE, out.width="60%", fig.align = "left", fig.align='center'}
 knitr::include_graphics("img/tabla321A.png")
 ```
 <!-- \[ -->
