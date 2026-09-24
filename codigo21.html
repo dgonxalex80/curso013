@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="dgonzalez " />
+
+
+<title>Teoría de probabilidades</title>
+
+<script src="site_libs/header-attrs/header-attrs.js"></script>
+<script src="site_libs/jquery/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation/tabsets.js"></script>
+<script src="site_libs/navigation/codefolding.js"></script>
+<link href="site_libs/highlightjs/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs/highlight.js"></script>
+<script src="site_libs/kePrint/kePrint.js"></script>
+<link href="site_libs/lightable/lightable.css" rel="stylesheet" />
+<link href="site_libs/font-awesome/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome/css/v4-shims.min.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+<link rel="stylesheet" href="cajas.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html"> </a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">
+    <span class="fa fa-home"></span>
+     
+    Estadística
+  </a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 0
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo0.html">Módulo 0</a>
+    </li>
+    <li>
+      <a href="sumatoria.html">Sumatoria</a>
+    </li>
+    <li>
+      <a href="productoria.html">Productoria</a>
+    </li>
+    <li>
+      <a href="conjuntos.html">Conjuntos</a>
+    </li>
+    <li>
+      <a href="conteo.html">Conteo</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 1
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo1.html">Módulo 1</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="guia11.html">Guía 1.1</a>
+    </li>
+    <li>
+      <a href="recurso11.html">Recursos 1.1</a>
+    </li>
+    <li>
+      <a href="basesdatos.html">Bases de datos</a>
+    </li>
+    <li>
+      <a href="introduccionR.html">Introducción a R</a>
+    </li>
+    <li>
+      <a href="codigo11.html">Código 1.1</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="guia12.html">Guía 1.2</a>
+    </li>
+    <li>
+      <a href="recurso12.html">Recursos 1.2</a>
+    </li>
+    <li>
+      <a href="codigo12.html">Código 1.2</a>
+    </li>
+    <li>
+      <a href="caso1A.html">Caso 1</a>
+    </li>
+    <li>
+      <a href="caso1B.html">Caso 2</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="guia13.html">Guía 1.3</a>
+    </li>
+    <li>
+      <a href="recurso13.html">Recursos 1.3</a>
+    </li>
+    <li>
+      <a href="codigo13.html">Código 1.3</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="monitoria1.html">Monitoria 1</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 2
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo2.html">Módulo 2</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="guia21.html">Guía 2.1</a>
+    </li>
+    <li>
+      <a href="recurso21.html">Recursos 2.1</a>
+    </li>
+    <li>
+      <a href="codigo21.html">Código 2.1</a>
+    </li>
+    <li>
+      <a href="taller211.html">Taller 211</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="guia22.html">Guía 2.2</a>
+    </li>
+    <li>
+      <a href="recurso22.html">Recursos 2.2</a>
+    </li>
+    <li>
+      <a href="taller221.html">Taller 221</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="monitoria2.html">Moitoría 2</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 3
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo3.html">Módulo 3</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="guia31.html">Guía 3.1</a>
+    </li>
+    <li>
+      <a href="recurso31.html">Recursos 3.1</a>
+    </li>
+    <li>
+      <a href="codigo31.html">Código 3.1</a>
+    </li>
+    <li>
+      <a href="taller311.html">Taller 311</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="guia32.html">Guía 3.2</a>
+    </li>
+    <li>
+      <a href="recurso32.html">Recursos 3.2</a>
+    </li>
+    <li>
+      <a href="codigo32.html">Código 3.2</a>
+    </li>
+    <li>
+      <a href="taller321.html">Taller 321</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="monitoria3.html">Moitoría 3</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 4
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo4.html">Módulo 4</a>
+    </li>
+    <li class="divider"></li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Proyecto
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="guia_proyecto1.html">Guía proyecto</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore"><span
+style="color:#3498C9 !important;">Teoría de probabilidades</span></h1>
+<h3 class="subtitle"><span style="color:#3498C9"> </span></h3>
+<h4 class="author"><span style="color:#3498C9">dgonzalez </span></h4>
+
+</div>
+
+
+<p><img src="img/codigo2.png" alt="" width="100%" style="display: block; margin: auto;" /></p>
+<p><br/><br/><br/></p>
+<div id="experimentos-aleatorios" class="section level1">
+<h1>Experimentos aleatorios</h1>
+<p><br/><br/></p>
+<p>Como se menciona en la Guía 2.1, un <strong>Experimento
+aleatorio</strong> se puede definir como una acción que podemos repetir
+en iguales condiciones muchas veces y cuyo resultado no conocemos
+anticipadamente</p>
+<p><br/><br/></p>
+<div id="ejemplo-1" class="section level3 box3 with-label">
+<h3>Ejemplo 1</h3>
+<p>Un ejemplo de ello es cuando estamos jugando parques y un jugador
+lanza dos dados, el resultado solo es posible de observar después de
+haber realizado la acción de lanzarlos.</p>
+<p>Al conjunto de todos los posibles valores que puede tomar el
+experimento aleatorio se le denomina <strong>Espacio muestral</strong>,
+que se denota por la letra mayúscula <strong>S</strong>.</p>
+</div>
+<p></br></br></p>
+<center>
+<img src="img/dados.gif" />
+</center>
+<p><br/></br></p>
+<p>Si el resultado de interés es la <strong>suma de los dos
+dados</strong>, su espacio muestral es:</p>
+<p><span class="math display">\[S=\{ 2,3,4,5,6,7,8,9,10,11,12
+\}\]</span> </br></br><br/></p>
+<div id="lanzamiento-de-un-dado" class="section level2">
+<h2>Lanzamiento de un dado</h2>
+<p></br></p>
+<p>Para simular el lanzamiento de un dado utilizaremos la función
+<code>sample(x, size, replace = FALSE, prob = NULL)</code>, con
+parámetros: <code>x</code> : valores del espacio muestral;
+<code>size</code> : tamaño de la muestra y <code>replace</code> : para
+determinar si la selección se realiza con reemplazo o sin reemplazo.</p>
+<p><code>sample(1:6,200, replace = TRUE)</code>, da un resultado una
+muestra de 200 valores enteros entre 1 y 6, con repetición.</p>
+<pre class="r"><code>n=200
+x=sample(1:6,n, replace = TRUE)
+td1=prop.table(table(x))
+barplot(td1, las=1, col = c31)</code></pre>
+<p><img src="codigo21_files/figure-html/unnamed-chunk-2-1.png" alt="" width="672" style="display: block; margin: auto;" /></p>
+<p></br></br><br/></p>
+</div>
+<div id="lanzamiento-de-dos-dados" class="section level2">
+<h2>Lanzamiento de dos dados</h2>
+<p>En este caso utilizamos la función <code>sample()</code> dos veces y
+se obtienen dos vectores que representan los resultados del dado1 y del
+dado2 respectivamente. Con estos resultados se construye una
+<code>data.frame()</code> de dos columnas por n filas. En ella cada fila
+de dos componentes conforma una muestra con dos valores.</p>
+<p>Para obtener la suma de los valores de los dos dados, utilizamos la
+función <code>apply(X, MARGIN, FUN, ..., simplify = TRUE)</code>
+indicando con <code>MARGIN=1</code> que la operación (siguiente
+parámetro) se realizará por filas. Por último en el parámetro
+<code>FUN</code> se asigna la función a realizar. En resumen :
+<code>suma=apply(dados, 1, sum)</code></p>
+<p></br></p>
+<pre class="r"><code>n=200
+d1=sample(1:6,n, replace = TRUE)
+d2=sample(1:6,n, replace = TRUE)
+dados=data.frame(d1,d2)
+suma=apply(dados, 1, sum)
+barplot(table(suma), las=1,cex.axis=0.7, col= c31)</code></pre>
+<p><img src="codigo21_files/figure-html/unnamed-chunk-3-1.png" alt="" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>data.frame(prop.table(table(suma)))</code></pre>
+<pre><code>   suma  Freq
+1     2 0.025
+2     3 0.040
+3     4 0.120
+4     5 0.115
+5     6 0.155
+6     7 0.165
+7     8 0.165
+8     9 0.070
+9    10 0.060
+10   11 0.055
+11   12 0.030</code></pre>
+<p></br></p>
+<p>Procedimiento alternativo</p>
+<pre class="r"><code>t=sapply(1:200, function(x){sum(sample(1:6,2,replace = TRUE))})
+barplot(table(t), las=1, cex.axis=0.7, col=c31)</code></pre>
+<p><img src="codigo21_files/figure-html/unnamed-chunk-4-1.png" alt="" width="672" style="display: block; margin: auto;" /></p>
+<p></br></br><br/></p>
+</div>
+<div id="urna" class="section level2 box3 with-label">
+<h2>Urna</h2>
+<p>Para simular la extracción de bolas de una urna, se utilizan las
+funciones <code>sample()</code> y <code>rep()</code> mostradas en el
+siguiente ejemplo :</p>
+<ul>
+<li>Simulación de urna con: 3 bolas Blancas, 5 Rojas y 4 Azules
+<ul>
+<li>1 representa las bolas blancas</li>
+<li>2 representa las bolas rojas</li>
+<li>3 representa las bolas azules</li>
+</ul></li>
+</ul>
+<pre class="r"><code>sample(c(1,2,3),10,replace = TRUE,prob=c(3,5,4))</code></pre>
+<pre><code> [1] 2 1 3 2 2 2 3 2 2 2</code></pre>
+</div>
+<p>La misma simulación con palabras</p>
+<pre class="r"><code>sample(c(&quot;Blanca&quot;,&quot;Roja&quot;,&quot;Azul&quot;),10,replace = TRUE,prob=c(3,5,4))</code></pre>
+<pre><code> [1] &quot;Roja&quot;   &quot;Roja&quot;   &quot;Azul&quot;   &quot;Azul&quot;   &quot;Blanca&quot; &quot;Roja&quot;   &quot;Blanca&quot; &quot;Roja&quot;  
+ [9] &quot;Azul&quot;   &quot;Azul&quot;  </code></pre>
+<pre class="r"><code># set.seed(123)
+
+# Extraer la muestra
+muestra &lt;- sample(
+  c(&quot;Blanca&quot;, &quot;Roja&quot;, &quot;Azul&quot;),
+  size = 10,
+  replace = TRUE,
+  prob = c(3, 5, 4)
+)
+
+# Datos para el gráfico
+df &lt;- data.frame(
+  posicion = 1:10,
+  color = muestra
+)
+
+# Representación de la muestra
+ggplot(df, aes(x = posicion, y = 1, fill = color)) +
+  geom_point(
+    shape = 21,
+    size = 14,
+    color = &quot;#333333&quot;,
+    stroke = 1.2
+  ) +
+  scale_fill_manual(
+    values = c(
+      &quot;Blanca&quot; = &quot;white&quot;,
+      &quot;Roja&quot;   = &quot;red&quot;,
+      &quot;Azul&quot;   = &quot;blue&quot;
+    )
+  ) +
+  scale_x_continuous(
+    limits = c(0.5, 10.5),
+    expand = c(0, 0)
+  ) +
+  coord_cartesian(
+    ylim = c(0.7, 1.3),
+    clip = &quot;off&quot;
+  ) +
+  theme_void() +
+  theme(
+    legend.position = &quot;none&quot;,
+    plot.margin = margin(5, 5, 5, 5)
+  )</code></pre>
+<p><img src="codigo21_files/figure-html/unnamed-chunk-7-1.png" alt="" width="672" /></p>
+</div>
+<div id="tablas-de-contingencia" class="section level1">
+<h1>Tablas de contingencia</h1>
+<p>Las tablas de contingencia o tablas cruzadas resumen conjuntamente
+dos variables cualitativas. Primero construimos una tabla con sus
+frecuencias conjuntas.</p>
+<pre class="r"><code>frecuencias &lt;- c(20, 60, 100, 30, 140, 50)
+m &lt;- matrix(frecuencias, ncol = 2)
+rownames(m) &lt;- c(&quot;Administrativo&quot;, &quot;Operativo&quot;, &quot;Vendedor&quot;)
+colnames(m) &lt;- c(&quot;Mujer&quot;, &quot;Hombre&quot;)
+m</code></pre>
+<pre><code>               Mujer Hombre
+Administrativo    20     30
+Operativo         60    140
+Vendedor         100     50</code></pre>
+<p>A continuación se adicionan las frecuencias marginales</p>
+<pre class="r"><code>addmargins(m)</code></pre>
+<pre><code>               Mujer Hombre Sum
+Administrativo    20     30  50
+Operativo         60    140 200
+Vendedor         100     50 150
+Sum              180    220 400</code></pre>
+<p>Para convertirlas en probabilidades utilizamos la función
+<code>prop.table()</code></p>
+<pre class="r"><code>prop.table(m)</code></pre>
+<pre><code>               Mujer Hombre
+Administrativo  0.05  0.075
+Operativo       0.15  0.350
+Vendedor        0.25  0.125</code></pre>
+<p>Esta función también se utiliza para calcular las probabilidades
+condicionales por filas</p>
+<pre class="r"><code>prop.table(m,1)</code></pre>
+<pre><code>                   Mujer    Hombre
+Administrativo 0.4000000 0.6000000
+Operativo      0.3000000 0.7000000
+Vendedor       0.6666667 0.3333333</code></pre>
+<p>o las probabilidades condicionales por columnas</p>
+<pre class="r"><code>prop.table(m,2)</code></pre>
+<pre><code>                   Mujer    Hombre
+Administrativo 0.1111111 0.1363636
+Operativo      0.3333333 0.6363636
+Vendedor       0.5555556 0.2272727</code></pre>
+<p><br/><br/></p>
+<div id="ejemplo" class="section level3 box6 with-label">
+<h3>Ejemplo</h3>
+<p>Supongamos que tenemos una enfermedad rara que afecta al 1% de la
+población. También sabemos que una prueba médica tiene una precisión del
+95% para detectar la enfermedad cuando está presente, pero también puede
+dar falsos positivos en un 3% de los casos en los que la enfermedad no
+está presente. Se desea calcular la probabilidad de que una persona
+tenga la enfermedad dado que la prueba dio positivo.</p>
+<p>Primero, establezcamos algunas notaciones:</p>
+<p>A: La persona tiene la enfermedad. B: La prueba da positivo.</p>
+<p>Queremos calcular <span class="math inline">\(P(A|B)\)</span>, es
+decir, la probabilidad de que la persona tenga la enfermedad dado que la
+prueba dio positivo.</p>
+</div>
+<p>Para dar solución al problema empleamos el Teorema de Bayes</p>
+<p><span class="math display">\[P(A|B) = \dfrac{P(B|A) .
+P(A)}{P(B)}\]</span></p>
+<p>Donde</p>
+<ul>
+<li><span class="math inline">\(P(A|B)\)</span>: probabilidad de que la
+persona tenga la enfermedad dado que la prueba dio positivo.</li>
+<li><span class="math inline">\(P(A)\)</span> : probabilidad de que una
+persona tenga la enfermedad (1% en este caso).</li>
+<li><span class="math inline">\(P(B)\)</span> : probabilidad de que la
+prueba dé positivo.</li>
+</ul>
+<p>Para calcular <span class="math inline">\(P(B)\)</span> usamos la
+regla de probabilidad total:</p>
+<p><span class="math display">\[P(B) = P(B|A) . P(A) + P(B|A&#39;).
+P(A&#39;)\]</span></p>
+<pre class="r"><code># Probabilidades dadas
+Prob_A &lt;- 0.01   # Probabilidad de tener la enfermedad
+Prob_B_dado_A &lt;- 0.95   # Precisión de la prueba (dar positivo dado que tiene la enfermedad)
+Prob_B_dado_noA &lt;- 0.03   # Falsos positivos (dar positivo dado que no tiene la enfermedad)
+
+# Calculamos P(not A)
+Prob_noA &lt;- 1 - Prob_A
+
+# Calculamos P(B)
+Prob_B &lt;- Prob_B_dado_A * Prob_A + Prob_B_dado_noA * Prob_noA
+
+# Calculamos P(A|B) usando el Teorema de Bayes
+Prob_A_dado_B &lt;- (Prob_B_dado_A * Prob_A) / Prob_B
+
+# Imprimimos el resultado
+cat(&quot;Probabilidad de tener la enfermedad dado que la prueba dio positivo:&quot;, Prob_A_dado_B, &quot;\n&quot;)</code></pre>
+<pre><code>Probabilidad de tener la enfermedad dado que la prueba dio positivo: 0.2423469 </code></pre>
+<p><br/><br/></p>
+<p>Tabla cruzada</p>
+<pre class="r"><code># Crear la tabla cruzada
+tabla_cruzada &lt;- matrix(c(0.95 * 0.01, 0.03 * 0.99, 0.05 * 0.01, 0.97 * 0.99), nrow = 2, byrow = TRUE)
+colnames(tabla_cruzada) &lt;- c(&quot;Enfermedad&quot;, &quot;No Enfermedad&quot;)
+rownames(tabla_cruzada) &lt;- c(&quot;Prueba Positiva&quot;, &quot;Prueba Negativa&quot;)
+
+# Imprimir la tabla cruzada con estilo
+tabla_estilizada &lt;- knitr::kable(tabla_cruzada) |&gt;
+  kableExtra::kable_styling(bootstrap_options = &quot;striped&quot;, full_width = FALSE)
+
+tabla_estilizada</code></pre>
+<table class="table table-striped" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:right;">
+Enfermedad
+</th>
+<th style="text-align:right;">
+No Enfermedad
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Prueba Positiva
+</td>
+<td style="text-align:right;">
+0.0095
+</td>
+<td style="text-align:right;">
+0.0297
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Prueba Negativa
+</td>
+<td style="text-align:right;">
+0.0005
+</td>
+<td style="text-align:right;">
+0.9603
+</td>
+</tr>
+</tbody>
+</table>
+<p><br/><br/><br/></p>
+<div id="convergencia-de-probabilidad-al-lanzar-dos-dados"
+class="section level3 box3 with-label">
+<h3>Convergencia de Probabilidad al Lanzar Dos Dados</h3>
+<p>En el siguiente problema, exploraremos cómo la probabilidad de
+obtener una suma de 7 al lanzar dos dados converge a su valor teórico a
+medida que aumentamos el número de lanzamientos. Se sabe que cuando se
+lanzan dos dados equilibrados, la suma más probable es 7.</p>
+</div>
+<p><br/></p>
+<ol style="list-style-type: decimal">
+<li><strong>Teoría:</strong> Si lanzamos dos dados equilibrados, la suma
+más probable es 7, ya que hay más combinaciones posibles para obtener
+<span class="math inline">\(7\)</span> (<span
+class="math inline">\(1+6\)</span>, <span
+class="math inline">\(2+5\)</span>, <span
+class="math inline">\(3+4\)</span>, <span
+class="math inline">\(4+3\)</span>, <span
+class="math inline">\(5+2\)</span>, <span
+class="math inline">\(6+1\)</span>) que para cualquier otra suma. La
+probabilidad teórica de obtener una suma de <span
+class="math inline">\(7\)</span> es:</li>
+</ol>
+<p><span class="math display">\[\dfrac{6}{36} = \frac{1}{6} \approx
+0.1667\]</span></p>
+<p><br/></p>
+<ol start="2" style="list-style-type: decimal">
+<li><p><strong>Simulación:</strong> Utilizaremos R para simular
+lanzamientos de dos dados y calcular la probabilidad de obtener una suma
+de <span class="math inline">\(7\)</span>. Luego, graficaremos cómo esta
+probabilidad converge a su valor teórico a medida que aumentamos el
+número de lanzamientos.</p></li>
+<li><p><strong>Reto:</strong> Ejecutar la simulación con diferentes
+tamaños de muestra y observar cómo la probabilidad de obtener una suma
+de <span class="math inline">\(7\)</span> cambia. Luego, crea un gráfico
+que muestre esta convergencia. ¿En qué punto la probabilidad simulada se
+acerca al valor teórico?</p></li>
+</ol>
+<p><br/></p>
+<ol start="4" style="list-style-type: decimal">
+<li><strong>Instrucciones:</strong></li>
+</ol>
+<ul>
+<li>Utiliza el código de simulación proporcionado y ajusta los tamaños
+de muestra según las indicaciones.</li>
+<li>Ejecuta la simulación para diferentes tamaños de muestra y registra
+los resultados.</li>
+<li>Crea un gráfico que muestre cómo la probabilidad simulada cambia con
+el tamaño de muestra.</li>
+<li>Analiza el gráfico y compara la probabilidad simulada con el valor
+teórico.</li>
+<li>Escribe una breve conclusión sobre cómo la probabilidad converge a
+medida que aumenta el tamaño de muestra.</li>
+</ul>
+<p><br/><br/></p>
+<div class="box6 with-label">
+<div class="label">
+Código R
+</div>
+<pre class="r"><code># Una sola simulación permite calcular la frecuencia acumulada
+# para todos los tamaños de muestra.
+tamanos_muestra &lt;- seq(100, 100000, by = 100)
+max_lanzamientos &lt;- max(tamanos_muestra)
+
+dado_1 &lt;- sample(1:6, max_lanzamientos, replace = TRUE)
+dado_2 &lt;- sample(1:6, max_lanzamientos, replace = TRUE)
+es_suma_7 &lt;- dado_1 + dado_2 == 7
+
+probabilidades &lt;- cumsum(es_suma_7)[tamanos_muestra] / tamanos_muestra
+
+plot(
+  tamanos_muestra, probabilidades,
+  type = &quot;l&quot;,
+  xlab = &quot;Tamaño de muestra&quot;,
+  ylab = &quot;Probabilidad de suma 7&quot;,
+  main = &quot;Convergencia de la probabilidad de suma 7 al lanzar dos dados&quot;,
+  las = 1
+)
+abline(h = 1 / 6, col = &quot;red&quot;, lwd = 2)</code></pre>
+<p><img src="codigo21_files/figure-html/unnamed-chunk-15-1.png" alt="" width="672" /></p>
+</div>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("hide" === "show");
+});
+</script>
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

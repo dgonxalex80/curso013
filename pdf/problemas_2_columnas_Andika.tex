@@ -1,0 +1,169 @@
+\documentclass[11pt,letterpaper]{article}
+
+% ============================================================
+% TIPOGRAFÍA — COMPILAR CON XeLaTeX
+% ============================================================
+\usepackage{fontspec}
+\setmainfont{Andika}
+
+% ============================================================
+% MÁRGENES
+% ============================================================
+\usepackage[margin=1.6cm]{geometry}
+
+% ============================================================
+% MATEMÁTICAS
+% ============================================================
+\usepackage{amsmath,amssymb,amsthm}
+
+% ============================================================
+% TABLAS, GRÁFICOS Y COLOR
+% ============================================================
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{booktabs}
+\usepackage{xcolor}
+\usepackage{array}
+
+% ============================================================
+% DOS COLUMNAS
+% ============================================================
+\usepackage{multicol}
+\setlength{\columnsep}{18pt}
+\setlength{\columnseprule}{0.2pt}
+
+% ============================================================
+% CONFIGURACIÓN GENERAL
+% ============================================================
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{3pt}
+\linespread{1.02}
+
+% Numeración simple: 1. 2. 3. ...
+\renewcommand{\theenumi}{\arabic{enumi}}
+\renewcommand{\labelenumi}{\theenumi.}
+
+% Listas compactas sin enumitem
+\makeatletter
+\renewenvironment{enumerate}
+  {\ifnum \@enumdepth >\thr@@\@toodeep\else
+   \advance\@enumdepth\@ne
+   \edef\@enumctr{enum\romannumeral\the\@enumdepth}%
+   \expandafter\list\csname label\@enumctr\endcsname
+     {\usecounter\@enumctr
+      \setlength{\topsep}{3pt}%
+      \setlength{\itemsep}{2pt}%
+      \setlength{\parsep}{0pt}%
+      \setlength{\partopsep}{0pt}%
+      \setlength{\leftmargin}{1.6em}%
+      \setlength{\labelsep}{0.4em}}%
+   \fi}
+  {\endlist}
+\makeatother
+
+\newcommand{\problema}[1]{%
+  \vspace{2pt}
+  \noindent\textbf{\large PROBLEMA #1}\par
+  \vspace{2pt}
+}
+
+\begin{document}
+\pagestyle{empty}
+
+\begin{multicols}{2}
+\raggedcolumns
+
+% ============================================================
+% PROBLEMA 1
+% ============================================================
+\problema{1}
+
+Un camión de entregas viaja de una ciudad A a otra ciudad B. El camión puede
+presentar entre 0 y 3 inconvenientes (averías o accidentes) en sus recorridos
+de ida y regreso. Sea \(X\) el número de inconvenientes en el viaje de ida y
+\(Y\) el número de inconvenientes en el viaje de regreso. La distribución
+conjunta de \(X\) y \(Y\) está dada por la siguiente tabla:
+
+\begin{center}
+\small
+\setlength{\tabcolsep}{5pt}
+\begin{tabular}{c|cccc}
+\toprule
+\(f(x,y)\) & \(y=0\) & \(y=1\) & \(y=2\) & \(y=3\) \\
+\midrule
+\(x=0\) & 0.01 & 0.02 & 0.07 & 0.01 \\
+\(x=1\) & 0.03 & 0.06 & 0.10 & 0.06 \\
+\(x=2\) & 0.05 & 0.12 & 0.15 & 0.08 \\
+\(x=3\) & 0.02 & 0.09 & 0.08 & 0.05 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{enumerate}
+\item Cuál es la probabilidad de que un camión pueda hacer el recorrido completo sin inconvenientes?
+\item Cuál es la probabilidad de que un camión tenga un inconveniente en el viaje de ida?
+\item Cuál es la probabilidad de que un camión encuentre dos inconvenientes en el viaje de regreso?
+\item Cuál es la probabilidad de que presente menos de cuatro inconvenientes en todo el recorrido (ida y regreso)?
+\item En cien viajes con tres inconvenientes en el recorrido de regreso, cuántos se espera que presenten dos inconvenientes en el viaje de ida?
+\item Determinar las funciones de probabilidad marginales de \(X\) y \(Y\).
+\item Determinar la función de probabilidad condicional \(P(Y\mid X=0)\).
+\item Cuántos inconvenientes se esperan en un viaje completo?
+\item Construir los gráficos de la función de probabilidad conjunta, de las marginales y de la condicional.
+\item Se pueden considerar independientes las variables \(X\) y \(Y\)?
+\end{enumerate}
+
+% ============================================================
+% PROBLEMA 2
+% ============================================================
+\problema{2}
+
+Sea \(X\) la cantidad de encogimiento (\%) de una fibra cuando se calienta a
+\(120\,^{\circ}\mathrm{C}\), y \(Y\) el encogimiento adicional cuando se
+calienta a \(140\,^{\circ}\mathrm{C}\). La función de densidad conjunta de
+\(X\) y \(Y\) está dada por
+
+\[
+f(x,y)=
+\begin{cases}
+kxy^2, & 3\leq x\leq4,\quad 0.5\leq y\leq1,\\
+0, & \text{en otro caso}.
+\end{cases}
+\]
+
+\begin{enumerate}
+\item Determinar el valor de \(k\) para que \(f(x,y)\) sea una función de densidad válida.
+\item Qué porcentaje de las fibras tienen un encogimiento menor al \(3.2\%\) a \(120\,^{\circ}\mathrm{C}\) y un encogimiento adicional mayor al \(0.8\%\) a \(140\,^{\circ}\mathrm{C}\)?
+\item Si 500 fibras presentaron un encogimiento adicional menor al \(0.8\%\) a \(140\,^{\circ}\mathrm{C}\), cuántas de ellas tuvieron un encogimiento menor al \(3.8\%\) a \(120\,^{\circ}\mathrm{C}\)?
+\item Son independientes las variables \(X\) y \(Y\)?
+\end{enumerate}
+
+% ============================================================
+% PROBLEMA 3
+% ============================================================
+\problema{3}
+
+Una empresa produce mezclas de café con tres variedades: Colombia, Bourbon y
+Caturra. Sea \(X\) la proporción del peso correspondiente a la variedad
+Colombia y \(Y\) la proporción del peso correspondiente a la variedad Bourbon
+en un paquete de café. La función de densidad conjunta de \(X\) y \(Y\) está
+dada por
+
+\[
+f(x,y)=
+\begin{cases}
+24xy, & 0\leq x\leq1,\quad 0\leq y\leq1,\quad x+y\leq1,\\
+0, & \text{en otro caso}.
+\end{cases}
+\]
+
+\begin{enumerate}
+\item Qué porcentaje de los paquetes contiene más de la mitad de su peso en café tipo Colombia?
+\item Si se distribuyeron 200 paquetes con menos de la mitad de su peso en Bourbon, cuántos de ellos contienen más de \(3/4\) de su peso en Colombia?
+\item Si 300 paquetes contienen la mitad de su peso en Colombia, cuántos de ellos contienen menos de la mitad de su peso en Bourbon?
+\item Cuál es la probabilidad de que el café Bourbon represente más de la mitad de la mezcla?
+\item Determinar las funciones marginales de \(X\) y \(Y\).
+\item Graficar las funciones marginales \(g(x)\) y \(h(y)\).
+\end{enumerate}
+
+\end{multicols}
+\end{document}

@@ -107,20 +107,20 @@ Un camión de entregas viaja de una ciudad A a otra ciudad B. El camión puede p
 
 
 ```{r, echo=FALSE, out.width="60%", fig.align = "left", fig.align='center'}
-knitr::include_graphics("img/tabla321A.png")
+#knitr::include_graphics("img/tabla321A.png")
 ```
-<!-- \[ -->
-<!-- \begin{array}{|c|c|c|c|c|} -->
-<!-- \hline -->
-<!-- f(x, y) & y = 0 & y = 1 & y = 2 & y = 3 \\ -->
-<!-- \hline -->
-<!-- x = 0   & 0.01  & 0.02  & 0.07  & 0.01 \\ -->
-<!-- x = 1   & 0.03  & 0.06  & 0.10  & 0.06 \\ -->
-<!-- x = 2   & 0.05  & 0.12  & 0.15  & 0.08 \\ -->
-<!-- x = 3   & 0.02  & 0.09  & 0.08  & 0.05 \\ -->
-<!-- \hline -->
-<!-- \end{array} -->
-<!-- \] -->
+\[
+\begin{array}{|c|c|c|c|c|}
+\hline
+f(x, y) & y = 0 & y = 1 & y = 2 & y = 3 \\
+\hline
+x = 0   & 0.01  & 0.02  & 0.07  & 0.01 \\
+x = 1   & 0.03  & 0.06  & 0.10  & 0.06 \\
+x = 2   & 0.05  & 0.12  & 0.15  & 0.08 \\
+x = 3   & 0.02  & 0.09  & 0.08  & 0.05 \\
+\hline
+\end{array}
+\]
 
 (a) ¿Cual es la probabilidad que un camión pueda hacer el recorrido completo sin problemas?
 
