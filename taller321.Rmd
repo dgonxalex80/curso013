@@ -122,15 +122,15 @@ knitr::include_graphics("img/tabla321A.png")
 <!-- \end{array} -->
 <!-- \] -->
 
-(a) ¿Qué porcentaje de las veces el camión puede hacer el recorrido completo sin problemas?
+(a) ¿Cual es la probabilidad que un camión pueda hacer el recorrido completo sin problemas?
 
-(b) ¿Qué porcentaje de las veces el camión encuentra un inconveniente en el viaje de ida?
+(b) ¿Cual es la probabilidad  que un camión tenga un inconveniente en el viaje de ida?
 
-(c) ¿Qué porcentaje de las veces el camión encuentra dos inconvenientes en el camino de regreso?
+(c) ¿Cual es la probabiliad que un camión encuentre dos inconvenientes en el camino de regreso?
 
-(d) ¿Qué porcentaje de las veces se presentan menos de cuatro inconvenientes en todo el recorrido (ida y vuelta)?
+(d) ¿Cual esla probabilidad presente menos de cuatro inconvenientes en todo el recorrido (ida y vuelta)?
 
-(e) En cien viajes de regreso con tres inconvenientes, ¿cuántos de ellos presentaron dos inconvenientes en el viaje de ida?
+(e) En cien viajes con con tres inconvenientes de regreso, ¿cuántos se espera puedan presentar dos inconvenientes en el viaje de ida?
 
 (f) Determinar las funciones de probabilidad marginales para \( X \) y \( Y \).
 
@@ -149,23 +149,22 @@ knitr::include_graphics("img/tabla321A.png")
 <div class="box6 with-label">
 ### Problema 2 
 
-Sea \( X \) la cantidad de encogimiento (\%) de una fibra cuando se calienta a 120°C y \( Y \) el encogimiento adicional cuando se calienta a 140°C. La función de densidad conjunta de \( X \) y \( Y \) está dada por:
+Sea $X$ la cantidad de encogimiento (\%) de una fibra cuando se calienta a 120°C y $Y$ el encogimiento adicional cuando se calienta a 140°C. La función de densidad conjunta de $X$ y $Y$ está dada por:
 
-\[
-f(x, y) = 
+$$f(x, y) = 
 \begin{cases}
 kxy^2 & 3 \leq x \leq 4, 0.5 \leq y \leq 1 \\
 0     & \text{en otro caso}
 \end{cases}
-\]
+$$
 
-(a) Determinar el valor de \( k \) para que \( f(x, y) \) sea una función de densidad válida.
+(a) Determinar el valor de $k$ para que $f(x, y)$ sea una función de densidad válida.
 
 (b) ¿Qué porcentaje de las fibras tienen un encogimiento menor al 3.2% a 120°C y mayor a 0.8% a 140°C?
 
 (c) Si 500 fibras presentaron un encogimiento menor a 0.8% a 140°C, ¿cuántas de ellas tuvieron un encogimiento menor a 3.8% a 120°C?
 
-(d) ¿Son independientes las variables \( X \) y \( Y \)?
+(d) ¿Son independientes las variables $X$ y $Y$?
 
 </div>
 
@@ -174,15 +173,15 @@ kxy^2 & 3 \leq x \leq 4, 0.5 \leq y \leq 1 \\
 <div class="box4 with-label">
 ### Problema 3
 
-Una empresa produce mezclas de café con tres variedades: Colombia, Bourbon y Caturra. Sea \( X \) el peso de la variedad Colombia y \( Y \) el peso de la variedad Bourbon en un paquete de café. La función de densidad conjunta de \( X \) y \( Y \) está dada por:
+Una empresa produce mezclas de café con tres variedades: Colombia, Bourbon y Caturra. Sea $X$ el peso de la variedad Colombia y $Y$ el peso de la variedad Bourbon en un paquete de café. La función de densidad conjunta de $X$ y $Y$ está dada por:
 
-\[
+$$
 f(x, y) = 
 \begin{cases}
 24xy & 0 \leq x \leq 1, 0 \leq y \leq 1, x + y \leq 1 \\
 0    & \text{en otro caso}
 \end{cases}
-\]
+$$
 
 (a) ¿Qué porcentaje de los paquetes contienen más de la mitad de su peso en café tipo Colombia?
 
@@ -192,9 +191,9 @@ f(x, y) =
 
 (d) ¿Cuál es la probabilidad de que el café Bourbon represente más de la mitad de la mezcla?
 
-(e) Determinar las funciones marginales para \( X \) y \( Y \).
+(e) Determinar las funciones marginales para $X$ y $Y$.
 
-(f) Graficar las funciones marginales \( g(x) \) y \( h(y) \).
+(f) Graficar las funciones marginales $g(x)$ y $h(y)$.
 
 
 </div>

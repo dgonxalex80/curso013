@@ -111,7 +111,7 @@ fxy=c(0.15,0.05,0, 0,0.20,0.35, 0,0.10,0.15)
 
 plot3D::scatter3D(x, y, fxy,
           colvar = NULL, 
-          col = c32,
+          col = "#476885",
           pch = 19, cex = 1,
           phi = 20, theta = 60,  
           zlab="f(xy)", xlab="x", ylab="y",
