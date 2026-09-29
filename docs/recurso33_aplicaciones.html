@@ -1,0 +1,1369 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="dgonzalez " />
+
+
+<title>Teoría de probabilidades</title>
+
+<script src="site_libs/header-attrs/header-attrs.js"></script>
+<script src="site_libs/jquery/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation/tabsets.js"></script>
+<script src="site_libs/navigation/codefolding.js"></script>
+<link href="site_libs/highlightjs/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs/highlight.js"></script>
+<link href="site_libs/font-awesome/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome/css/v4-shims.min.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+<link rel="stylesheet" href="cajas.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html"> </a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">
+    <span class="fa fa-home"></span>
+     
+    Estadística
+  </a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 0
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo0.html">Módulo 0</a>
+    </li>
+    <li>
+      <a href="sumatoria.html">Sumatoria</a>
+    </li>
+    <li>
+      <a href="productoria.html">Productoria</a>
+    </li>
+    <li>
+      <a href="conjuntos.html">Conjuntos</a>
+    </li>
+    <li>
+      <a href="conteo.html">Conteo</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 1
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo1.html">Módulo 1</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="guia11.html">Guía 1.1</a>
+    </li>
+    <li>
+      <a href="recurso11.html">Recursos 1.1</a>
+    </li>
+    <li>
+      <a href="basesdatos.html">Bases de datos</a>
+    </li>
+    <li>
+      <a href="introduccionR.html">Introducción a R</a>
+    </li>
+    <li>
+      <a href="codigo11.html">Código 1.1</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="guia12.html">Guía 1.2</a>
+    </li>
+    <li>
+      <a href="recurso12.html">Recursos 1.2</a>
+    </li>
+    <li>
+      <a href="codigo12.html">Código 1.2</a>
+    </li>
+    <li>
+      <a href="caso1A.html">Caso 1</a>
+    </li>
+    <li>
+      <a href="caso1B.html">Caso 2</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="guia13.html">Guía 1.3</a>
+    </li>
+    <li>
+      <a href="recurso13.html">Recursos 1.3</a>
+    </li>
+    <li>
+      <a href="codigo13.html">Código 1.3</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="monitoria1.html">Monitoria 1</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 2
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo2.html">Módulo 2</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="guia21.html">Guía 2.1</a>
+    </li>
+    <li>
+      <a href="recurso21.html">Recursos 2.1</a>
+    </li>
+    <li>
+      <a href="codigo21.html">Código 2.1</a>
+    </li>
+    <li>
+      <a href="taller211.html">Taller 211</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="guia22.html">Guía 2.2</a>
+    </li>
+    <li>
+      <a href="recurso22.html">Recursos 2.2</a>
+    </li>
+    <li>
+      <a href="taller221.html">Taller 221</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="monitoria2.html">Moitoría 2</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 3
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo3.html">Módulo 3</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="guia31.html">Guía 3.1</a>
+    </li>
+    <li>
+      <a href="recurso31.html">Recursos 3.1</a>
+    </li>
+    <li>
+      <a href="codigo31.html">Código 3.1</a>
+    </li>
+    <li>
+      <a href="taller311.html">Taller 311</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="guia32.html">Guía 3.2</a>
+    </li>
+    <li>
+      <a href="recurso32.html">Recursos 3.2</a>
+    </li>
+    <li>
+      <a href="codigo32.html">Código 3.2</a>
+    </li>
+    <li>
+      <a href="taller321.html">Taller 321</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="guia33.html">Guía 3.3</a>
+    </li>
+    <li>
+      <a href="recurso33-discretas.html">Recursos 3.3-discretas</a>
+    </li>
+    <li>
+      <a href="codigo33-discretas.html">Código 3.32-discretas</a>
+    </li>
+    <li>
+      <a href="taller331.html">Taller 331</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="monitoria3.html">Moitoría 3</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 4
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo4.html">Módulo 4</a>
+    </li>
+    <li class="divider"></li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Proyecto
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="guia_proyecto1.html">Guía proyecto</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore"><span
+style="color:#476885 !important;">Teoría de probabilidades</span></h1>
+<h3 class="subtitle"><span style="color:#476885"> </span></h3>
+<h4 class="author"><span style="color:#476885">dgonzalez </span></h4>
+
+</div>
+
+
+<p><img src="img/recurso3.png" alt="" width="100%" style="display: block; margin: auto;" /></p>
+<div id="modelos-especiales" class="section level1">
+<h1>Modelos especiales</h1>
+<p><br/><br/></p>
+<p>A continuación se presentan los principales conceptos teóricos de
+esta unidad, acompañados de ejemplos resueltos. Inicaremos con los
+modelos discretos</p>
+<div id="introducción" class="section level2">
+<h2>Introducción</h2>
+<p><br/><br/></p>
+<p>En las unidades abordadas previamente a esta se han trabajado las
+características de variables aleatorias tanto discretas como continuas
+dentro de las cuales están: la función de distribución de probabilidad
+<span class="math inline">\(f(x)\)</span> , para el caso discreto. La
+función de probabilidad acumulada <span
+class="math inline">\(F(x)\)</span> que representa <span
+class="math inline">\(P(X \leq x)\)</span>, el valor esperado <span
+class="math inline">\(E[X]\)</span>, la varianza <span
+class="math inline">\(V[X]\)</span>.</p>
+<p><br/><br/></p>
+<p>Ahora, el siguiente modelo :</p>
+<p><span class="math display">\[
+f_X(x)=
+\begin{cases}
+\displaystyle {10\choose x}(p)^x(1-p)^{10-x},
+&amp; x=0,1,2,\ldots,10,\\[6pt]
+0, &amp; \text{en otro caso}.
+\end{cases}
+\]</span> representa un modelo de distribución de probabilidad discreto
+para una variable con <span class="math inline">\(R_X =
+\{0,1,2,3,4,5,6,7,8,9,10 \}\)</span> . Que requiere de conocer el
+parámetro <span class="math inline">\(p\)</span>.</p>
+<p><br/><br/></p>
+<p>A este modelo lo vamos a caracterizar y representará una variable que
+se denomina <em>binomial</em>. Al tener un valor para su parámetro <span
+class="math inline">\(p\)</span>, por ejemplo <span
+class="math inline">\(p=0.80\)</span>, la función nos permitirá calcular
+cualquier valor de la probabilidad para cada uno de los valores de su
+rango.</p>
+<p><span class="math display">\[
+f_X(x)=
+\begin{cases}
+\displaystyle {10\choose x}(0.80)^x(0.20)^{10-x},
+&amp; x=0,1,2,\ldots,10,\\[6pt]
+0, &amp; \text{en otro caso}.
+\end{cases}
+\]</span> En el caso de <span class="math inline">\(f(3)= \displaystyle
+{10\choose 3}(0.80)^3(0.20)^{10-3} = 0.000786432\)</span></p>
+<p><br/><br/></p>
+<p>Tener una variable cuyo comportamiento se puede caracterizar tiene la
+ventaja de conocer fácilmente el recorrido teórico en la construcción
+del modelo, las propiedades, tendencias, valor esperado, varianza,
+función de distribución, estimadores de sus parámetros, alternativas que
+facilitan el cálculo de probabilidades, su afinidad con otras variables,
+entre otras, características que facilitan actividades como la
+simulación.</p>
+<p>El siguiente diagrama presenta los principales modelo de probabilidad
+y sus diferentes relaciones</p>
+<p><br/><br/></p>
+<p><img src="img/distribuciones1.png" alt="" width="80%" style="display: block; margin: auto;" /></p>
+<p>Fuente: construcción propia. basado en Univariate Distribution
+Relationships (<a
+href="http://www.math.wm.edu/~leemis/2008amstat.pdf">Lawrence M. LEEMIS
+and Jacquelyn T. MCQUESTON</a>)</p>
+<p><br/><br/></p>
+</div>
+</div>
+<div id="modelos-discretos" class="section level1">
+<h1>Modelos discretos</h1>
+<p><br/></p>
+<div id="algunos-modelos-discretos" class="section level2">
+<h2>Algunos modelos discretos</h2>
+<p><br/></p>
+<table style="width:100%;">
+<colgroup>
+<col width="16%" />
+<col width="16%" />
+<col width="16%" />
+<col width="16%" />
+<col width="16%" />
+<col width="16%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td align="center">Bernoulli</td>
+<td align="center">Binomial</td>
+<td align="center">Poisson</td>
+<td align="center">Hipergeométrico</td>
+<td align="center">Geométrico o de Pascal</td>
+<td align="center">Binomial negativo</td>
+</tr>
+<tr class="even">
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+</tbody>
+</table>
+<p>A continuación se presentan los modelos más comunes con sus
+principales características:</p>
+<p><br/><br/></p>
+<p>Hemos clasificado como variables discretas aquellas cuyo rango <span
+class="math inline">\(R_{X}\)</span>, corresponde a un conjunto de
+valores finito o infinito numerables. También es común que estas
+variables sean asociadas con el conteo, por lo que en su mayoría
+contienen la palabras <strong>número de…</strong></p>
+<p>A continuación se presentan los principales modelos discretos.</p>
+<p><br/><br/></p>
+</div>
+</div>
+<div id="bernoulli" class="section level1">
+<h1>Bernoulli</h1>
+<p><br/></p>
+<div style="display: flex;">
+<div id="reseña-histórica." class="section level3">
+<h3>Reseña histórica.</h3>
+<p>La distribución de Bernoulli toma su nombre del matemático suizo
+<strong>Jakob Bernoulli (1655–1705)</strong>, uno de los pioneros de la
+teoría de la probabilidad. En su obra <em>Ars Conjectandi</em> (<em>El
+arte de la conjetura</em>), publicada de manera póstuma en 1713, estudió
+experimentos con dos resultados posibles y sentó bases fundamentales
+para el análisis de ensayos repetidos. El modelo Bernoulli constituye
+hoy la forma más sencilla de representar un experimento aleatorio con
+resultados de éxito o fracaso.</p>
+</div>
+<div>
+<p><img src="img/jacobo-bernoulli.png" alt="" width="70%" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="aplicaciones-prácticas" class="section level3">
+<h3>Aplicaciones prácticas</h3>
+<p>El modelo Bernoulli se utiliza cuando interesa representar un
+resultado dicotómico en un único ensayo.</p>
+<ul>
+<li><p>En ingeniería, permite modelar situaciones como el funcionamiento
+o falla de un componente, la aceptación o rechazo de una pieza y el
+cumplimiento de una especificación de calidad.</p></li>
+<li><p>En finanzas, puede representar si un crédito entra o no en
+incumplimiento, si una inversión genera o no una rentabilidad positiva
+en un periodo, o si una transacción resulta aprobada o
+rechazada.</p></li>
+<li><p>En general, aparece en estudios médicos, encuestas, control de
+calidad y cualquier situación que pueda clasificarse mediante dos
+resultados mutuamente excluyentes.</p></li>
+</ul>
+<p><br/><br/></p>
+</div>
+<div id="distribución-bernoulli" class="section level3 box4 with-label">
+<h3>Distribución Bernoulli</h3>
+<p>Una variable que se distribuye Bernoulli, procede de un experimento
+Bernoulli, descrito por las siguientes características:</p>
+<ul>
+<li><p>El experimento consta de un ensayo.</p></li>
+<li><p>El ensayo solo tiene dos posible resultados: éxito (E), fracaso
+(F).</p></li>
+<li><p>La probabilidad de éxito es <span
+class="math inline">\(p\)</span>, la probabilidad de fracaso es <span
+class="math inline">\(1-p=q\)</span></p></li>
+</ul>
+<p>La variable objeto de estudio es <span
+class="math inline">\(X\)</span>: hay o no éxito éxitos en un ensayo de
+Bernoulli. Sus principales características son:</p>
+<p>Rango : <span class="math inline">\(R_{X}=\{0,1 \}\)</span>, Función
+de distribución de probabilidad $</p>
+<p><span class="math display">\[\begin{equation*}
+        f(x)=\left\lbrace
+        \begin{array}{lll}
+            p &amp; \mbox{si } x=1   \\
+            q &amp; \mbox{si } x=0
+        \end{array}
+        \right.
+\end{equation*}\]</span></p>
+<p><span class="math display">\[E[X]= p\]</span></p>
+<p><span class="math display">\[V[X]= pq\]</span></p>
+</div>
+<p><br/><br/></p>
+<div id="ejemplo-1" class="section level3 box6 with-label">
+<h3>Ejemplo 1</h3>
+<p>Un biólogo realiza una salida de campo para estudiar el
+comportamiento del cucarachero común. Se considera éxito si puede filmar
+al animal y fracaso si no puede hacerlo. Por información suministrada en
+artículos científicos la probabilidad de lograrlo se estima en 0.20.</p>
+</div>
+<p><br/><br/></p>
+<div id="solución" class="section level3">
+<h3>Solución</h3>
+<p>Se requiere examinar si dentro de este contexto existe una variable
+que proceda de un experimento Bernoulli y ese caso como se podría
+caracterizar.</p>
+<p>Primero es necesario revisar las características de un experimento
+Bernoulli y confrontarlas contra el contexto presentado en el
+ejemplo.</p>
+<p>Primero existe un solo ensayo o salida de campo, durante después de
+la salida de campo se pueden obtener dos resultados posibles: lograr el
+objetivo de visualizar y filmar al animal (Éxito) y por otro lado el no
+lograrlo (Fracaso). También se posee la probabilidad de éxito (<span
+class="math inline">\(0.20\)</span>), este caso establecida mediante el
+enfoque subjetivo de un experto en un artículo científico. Lo anterior
+nos permite poder asociar la variable que llamaremos <span
+class="math inline">\(X\)</span> asociada con el poder o no realizar la
+filmación.</p>
+<p>La variable aleatoria se define en este caso como:</p>
+<p><span class="math display">\[X =\left\lbrace
+\begin{array}{lll}
+    1 &amp; \mbox{si se realiza la filmación del ave}   \\
+    0 &amp; \mbox{si no se logra realizar la filmación}
+\end{array}
+\right.\]</span></p>
+<p>y su función de distribución de probabilidad está dada por:</p>
+<p><span class="math display">\[f(x)= 0.2^{x} (1-0.2)^{1-x} ,\text{ si }
+x=0,1.\]</span> <span class="math display">\[E[X]=p =0.20\]</span></p>
+<p><span class="math display">\[V[X] =p(1-p)= 0.16\]</span>
+<br/><br/></p>
+</div>
+</div>
+<div id="binomial" class="section level1">
+<h1>binomial</h1>
+<p><br/></p>
+<div style="display: flex;">
+<div>
+<div id="reseña-histórica.-1" class="section level3">
+<h3>Reseña histórica.</h3>
+<p>La distribución binomial está estrechamente ligada a los trabajos de
+Jakob Bernoulli, quien estudió la repetición de ensayos con dos
+resultados posibles en Ars Conjectandi, obra publicada en 1713. Sus
+investigaciones, motivadas en parte por problemas relacionados con los
+juegos de azar, permitieron formalizar el estudio del número de éxitos
+obtenidos al repetir varias veces un mismo experimento. La distribución
+binomial puede entenderse, por tanto, como una extensión natural del
+modelo Bernoulli de un ensayo a <span class="math inline">\(n\)</span>
+ensayos.</p>
+<audio controls preload="metadata">
+<source src="audios/binomial-01.wav" type="audio/wav">
+</audio>
+<p>:::</p>
+<div>
+<p><img src="img/jacobo-bernoulli.png" alt="" width="70%" style="display: block; margin: auto;" /></p>
+</div>
+<p>::::</p>
+<p><br/><br/></p>
+</div>
+<div id="aplicaciones-prácticas-1" class="section level3">
+<h3>Aplicaciones prácticas</h3>
+<p>La distribución binomial permite estudiar el número de éxitos
+obtenidos en un número fijo de ensayos Bernoulli independientes con
+igual probabilidad de éxito.</p>
+<p>*En ingeniería: se aplica al número de componentes defectuosos en un
+lote, equipos que superan una prueba o procesos que cumplen una
+especificación.</p>
+<ul>
+<li><p>En finanzas, puede emplearse para contar créditos que entran en
+mora, operaciones rentables dentro de un conjunto de transacciones o
+clientes que aceptan un producto financiero.</p></li>
+<li><p>En general, es útil en encuestas, ensayos clínicos, mercadeo y
+experimentos donde se cuenta cuántas veces ocurre un evento entre <span
+class="math inline">\(n\)</span> oportunidades.</p></li>
+</ul>
+<p><br/></p>
+</div>
+<div id="distribución-binomial" class="section level3 box4 with-label">
+<h3>Distribución binomial</h3>
+<p>Una variable con distribución binomial es aquella que procede de un
+experimento binomial.</p>
+<p>Ahora un experimento binomial tiene las siguientes
+características:</p>
+<ul>
+<li><p>El experimento consta de <span class="math inline">\(n\)</span>
+ensayos</p></li>
+<li><p>Cada ensayo tiene solo dos posible resultados: éxito (E) o
+fracaso (F) (experimento Bernoulli),</p></li>
+<li><p>La probabilidad de éxito es igual a <span
+class="math inline">\(p\)</span> y se mantiene fija para todos los
+ensayos P(E). La probabilidad de fracaso es <span
+class="math inline">\((1-p)=q\)</span>,</p></li>
+<li><p>Los ensayos son independientes,</p></li>
+<li><p>La variable objeto de estudio <span
+class="math inline">\(X\)</span>, corresponde al <strong>número de
+éxitos obtenidos en los <span class="math inline">\(n\)</span>
+ensayos</strong>.</p></li>
+<li><p>Se puede decir que la suma de <span
+class="math inline">\(n\)</span> variables independientes con
+distribución Bernoulli(<span class="math inline">\(p\)</span>), se
+distribuye de manera Bionomial(<span
+class="math inline">\(n,p\)</span>)</p></li>
+</ul>
+<p>La función de distribución de probabilidad está dada por:</p>
+<p><span class="math display">\[\begin{equation*}
+        f(x)=\left\lbrace
+        \begin{array}{lll}
+            \displaystyle\binom{n}{x} p^{x} (1-p)^{n-x} &amp;,&amp;
+x=0,1,2, \ldots, n   \\
+            &amp;&amp;\\
+            0 &amp;,&amp; \mbox{en otro caso}
+        \end{array}
+        \right.
+\end{equation*}\]</span></p>
+<p><span class="math display">\[E[X]=np\]</span></p>
+<p><span class="math display">\[V[X]= np(1-p) \]</span></p>
+</div>
+<p><br/><br/></p>
+<div id="ejemplo-2" class="section level3 box6 with-label">
+<h3>Ejemplo 2</h3>
+<p>Un sistema de seguridad para casas está diseñado para tener una
+confiabilidad del 90% . Suponga que diez casas equipadas con este
+dispositivo sufrieron tentativa de robo. Se requiere calcular la
+probabilidad de que en siete de las diez, la alarma se activará.</p>
+</div>
+<p><br/><br/></p>
+<div id="solución-1" class="section level3">
+<h3>Solución</h3>
+<p>En este caso la variable <span class="math inline">\(X\)</span> se
+define como el número de casas de las diez en las que se activa el
+sistema de alarma. Observe que en cada caso se puede presentar dos
+posibles resultados frente a la tentativa de robo :</p>
+<ul>
+<li><p>La alarma se active (E) o que el sistema falle y no se active
+(F), los cuales conforman los eventos de exito (E) y fracaso
+(F).</p></li>
+<li><p>Los sistemas operan de manera independiente y se pueden
+considerar como idénticos.</p></li>
+<li><p>La probabilidad de que un equipo se active frente a una tentativa
+de robo es de 0.9 (<span class="math inline">\(p\)</span>) y por tanto
+la probabilidad de que no funcione será de 0.1 (<span
+class="math inline">\(q\)</span>)</p></li>
+<li><p>Se tienen diez casas, que representaría la realización de nueve
+ensayos, bajo las mismas condiciones.</p></li>
+</ul>
+<p>Por las anteriores razones, el proceso enunciado corresponde a un
+experimento binomial y por tanto podemos afirmar que la variable X:
+número de sistemas que se activan ante la tentativa de robo, es una
+variable con distribución binomial con parámetros <span
+class="math inline">\(n=10\)</span> y <span
+class="math inline">\(p=0.90\)</span>.</p>
+<p>Para calcular la probabilidad requerida utilizamos la función de
+distribución de probabilidad del modelo Binomial</p>
+<p><span class="math display">\[\begin{equation*}
+    \begin{array}{lcl}
+        f(7) = P(X=7)&amp;=&amp; \displaystyle\binom{10}{7} 0.90^{7}
+0.10^{2} \\
+        &amp;=&amp; 0.05739563
+    \end{array}
+\end{equation*}\]</span></p>
+<p>En R se corre el siguiente código:</p>
+<pre class="r"><code> dbinom(7,10,0.90)</code></pre>
+<pre><code>[1] 0.05739563</code></pre>
+<p>La siguiente gráfica corresponde a la función de distribución de
+probabilidad del ejemplo2 :binomial con <span
+class="math inline">\(n=10\)</span> y <span
+class="math inline">\(p=0.90\)</span></p>
+<p>Distribución binomial <span class="math inline">\(n=10\)</span>,
+<span class="math inline">\(p=0.90\)</span>
+<img src="recurso33_aplicaciones_files/figure-html/unnamed-chunk-6-1.png" alt="" width="672" style="display: block; margin: auto;" /></p>
+<div
+style="display: flex; gap: 30px; align-items: center; justify-content: center;">
+<p><audio controls preload="metadata">
+<source src="audios/binomial-02.wav" type="audio/wav"> </audio></p>
+<p><audio controls preload="metadata">
+<source src="audios/binomial-03.wav" type="audio/wav"> </audio></p>
+</div>
+</div>
+<p><br/><br/></p>
+</div>
+<div id="poisson" class="section level1">
+<h1>Poisson</h1>
+<p><br/></p>
+<div style="display: flex;">
+<div id="reseña-histórica.-2" class="section level3">
+<h3>Reseña histórica.</h3>
+<p>La distribución de Poisson debe su nombre al matemático y físico
+francés <strong>Siméon Denis Poisson (1781–1840)</strong>. Fue
+presentada en 1837 en su obra <em>Recherches sur la probabilité des
+jugements en matière criminelle et en matière civile</em>, dentro de sus
+estudios sobre probabilidades aplicadas a decisiones judiciales. Con el
+tiempo, el modelo adquirió gran importancia para describir el número de
+sucesos que ocurren en un intervalo de tiempo, espacio u otra unidad de
+observación cuando estos eventos aparecen de manera aleatoria.</p>
+</div>
+<div>
+<p><img src="img/simeon-poisson.png" alt="" width="70%" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="aplicaciones-prácticas-2" class="section level3">
+<h3>Aplicaciones prácticas</h3>
+<p>La distribución de Poisson se utiliza para modelar el número de
+eventos que ocurren en un intervalo de tiempo, espacio, longitud, área u
+otra unidad de observación, bajo determinados supuestos.</p>
+<ul>
+<li><p>En ingeniería, se emplea para estudiar fallas de equipos,
+defectos por unidad de producción, llegadas a sistemas de servicio,
+accidentes o interrupciones.</p></li>
+<li><p>En finanzas, puede modelar el número de reclamaciones,
+incumplimientos, transacciones o llegadas de órdenes durante un
+periodo.</p></li>
+<li><p>En general, se aplica al conteo de llamadas, pacientes,
+accidentes, solicitudes, llegadas y otros eventos relativamente poco
+frecuentes.</p></li>
+</ul>
+<p><br/></p>
+</div>
+<div id="distribución-poisson" class="section level3 box4 with-label">
+<h3>Distribución Poisson</h3>
+<p>La función de distribución de probabilidad de una variable con
+distribución Poisson esta dada por siguiente la expresión:</p>
+<p><span class="math inline">\(\begin{equation*}
+        f(x)=\left\lbrace
+        \begin{array}{lll}
+            \dfrac{\lambda^{x}}{x!} \hspace{.2cm} e^{-\lambda}
+&amp;,&amp; x \geq 0   \\
+            &amp;&amp;\\
+            0 &amp;,&amp; \mbox{en otro caso}
+        \end{array}
+        \right.
+    \end{equation*}\)</span></p>
+<p>Donde <span class="math inline">\(\lambda\)</span> es la cantidad
+promedio de ocurrencias en el periodo de interés.</p>
+<p><span class="math display">\[E[X]=\lambda\]</span></p>
+<p><span class="math display">\[V[X]=\lambda \]</span> La variable
+objeto de estudio <span class="math inline">\(X\)</span> es el
+<strong>número de eventos que ocurren por unidad de tiempo, longitud,
+superficie o volumen</strong></p>
+</div>
+<p>La siguiente gráfica representa la distribución de masa de una
+variable de Poisson con media 2.</p>
+<p><strong>Distribución Poisson (<span
+class="math inline">\(\lambda=2\)</span>)</strong></p>
+<p><img src="recurso33_aplicaciones_files/figure-html/unnamed-chunk-8-1.png" alt="" width="672" style="display: block; margin: auto;" /></p>
+<p><br/><br/></p>
+<div id="ejemplo-3" class="section level3 box6 with-label">
+<h3>Ejemplo 3</h3>
+<p>Se estima que en el cruce más importante de la cuidad, ocurren 2
+accidentes por día y se desea valorar la probabilidad de que en un día
+cualquiera no ocurra ningún accidente en dicho cruce.</p>
+</div>
+<p><br/><br/></p>
+<div id="solución-2" class="section level3">
+<h3><strong>Solución</strong></h3>
+<p>El número de accidentes que pueden ocurrir en este cruce, para un dia
+cualquiera, se puede considerar como una variable aleatoria con
+distribución Poisson, pues la variable hace referencia al número de
+eventos que se pueden presentar en un determinado espacio de tiempo.
+Para calcular la probabilidad de que no ocurra ningún evento, utilizamos
+el modelo Poisson:</p>
+<p><span class="math display">\[f(0) = P(X = 0) = \dfrac{2^{0}}{0!}
+\hspace{.2cm} e^{-2}=0.135335\]</span></p>
+<pre class="r"><code>dpois(0,2)</code></pre>
+<pre><code>[1] 0.1353353</code></pre>
+<p><br/><br/></p>
+</div>
+</div>
+<div id="hipergeometrico" class="section level1">
+<h1>hipergeometrico</h1>
+<div style="display: flex;">
+<div id="reseña-histórica.-3" class="section level3">
+<h3>Reseña histórica.</h3>
+<p>La distribución hipergeométrica tiene sus raíces en el desarrollo
+temprano de la combinatoria y de la teoría de la probabilidad,
+especialmente en los problemas de muestreo de urnas estudiados desde los
+siglos XVII y XVIII. Su nombre está relacionado con la forma matemática
+de sus probabilidades y con las series hipergeométricas. El modelo
+resulta especialmente útil cuando se realizan selecciones <strong>sin
+reemplazo</strong>, situación en la cual la probabilidad de éxito cambia
+de una extracción a otra y los ensayos dejan de ser independientes. no
+suele atribuirse de forma exclusiva a una sola persona. Su origen
+histórico está ligado al desarrollo de la combinatoria y de la teoría
+clásica de probabilidades, especialmente a trabajos de Jacob Bernoulli
+(1655–1705) y Abraham de Moivre (1667–1754).</p>
+</div>
+<div>
+<p><img src="img/abraham-moivre.png" alt="" width="90%" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="aplicaciones-prácticas-3" class="section level3">
+<h3>Aplicaciones prácticas</h3>
+<p>La distribución hipergeométrica es apropiada cuando se selecciona una
+muestra <strong>sin reemplazo</strong> de una población finita que
+contiene elementos clasificados en dos categorías.</p>
+<ul>
+<li><p>En ingeniería, permite evaluar cuántas piezas defectuosas pueden
+aparecer al inspeccionar una muestra tomada de un lote.</p></li>
+<li><p>*En finanzas, puede utilizarse en auditorías para estudiar una
+muestra de operaciones, facturas o cuentas seleccionadas de una
+población finita.</p></li>
+<li><p>En general , es frecuente en control de calidad, auditoría,
+muestreo de inventarios y selección de individuos u objetos cuando cada
+extracción modifica la composición de la población restante.</p></li>
+</ul>
+<p><br/></p>
+</div>
+<div id="distribución-hipergeometrica"
+class="section level3 box4 with-label">
+<h3>Distribución hipergeometrica</h3>
+<p>Se tiene un conjunto de <span class="math inline">\(N\)</span>
+objetos que contiene <span class="math inline">\(K\)</span> objetos
+clasificados como éxitos y <span class="math inline">\(N-K\)</span>
+objetos clasificados como fracasos. Una muestra de tamaño <span
+class="math inline">\(n\)</span> objetos es seleccionada al azar (sin
+reemplazo) de la población de <span class="math inline">\(N\)</span>
+objetos, donde <span class="math inline">\(K \leq N\)</span> y $n N $.
+La variable de interés <span class="math inline">\(X\)</span>
+corresponde al <strong>número de éxitos obtenidos en la
+muestra</strong>.</p>
+<p>Su función de masa de probabilidad esta dada por</p>
+<p><span class="math display">\[\begin{equation*}
+        f(x)=\left\lbrace
+        \begin{array}{lll}
+            \dfrac{\displaystyle\binom{K}{x}
+\displaystyle\binom{N-K}{n-x}}{\displaystyle\binom{N}{n}} &amp;, {\text{
+si }\max(0,K+n-N) \leq x \leq \min(n,K) }&amp;   \\
+            &amp;\\
+            0, \mbox{en otro caso}
+        \end{array}
+        \right.
+    \end{equation*}\]</span></p>
+<p><span class="math display">\[E[X]=\dfrac{nK}{N}\]</span> <span
+class="math display">\[V[X]=n\Bigg(\frac{K}{N}\Bigg)
+\Bigg(1-\dfrac{K}{N}\Bigg)\Bigg(\dfrac{N-n}{N-1}\Bigg)\]</span></p>
+</div>
+<p><strong>Distribución binomial hipergeometrica (<span
+class="math inline">\(m=95, n=5, k=10\)</span>)</strong></p>
+<p><img src="recurso33_aplicaciones_files/figure-html/unnamed-chunk-11-1.png" alt="" width="672" style="display: block; margin: auto;" /></p>
+<p><br/><br/></p>
+<p><br/></p>
+<div id="ejemplo-4" class="section level3 box6 with-label">
+<h3>Ejemplo 4</h3>
+<p>Las tarjetas de circuito impreso se someten a una prueba de
+funcionamiento antes de ser ensambladas en un dispositivo de seguridad,
+después de ser rellenado con chips semiconductores. Un lote de estas
+tarjetas contiene 140 unidades y se seleccionan aleatoriamente 20 sin
+reemplazo para realizar una prueba de control de calidad internacional.
+Si 5 tarjetas son defectuosas, ¿cuál es la probabilidad de que al menos
+1 tarjeta defectuosa aparezca en la muestra? (3-92. Mongomery)</p>
+</div>
+<div id="solución-3" class="section level3">
+<h3><strong>Solución</strong></h3>
+<p><span class="math inline">\(\begin{eqnarray*}
+    P(X\geq 1)=1-P(X=0)
+    &amp;=&amp; 1 -
+\dfrac{\displaystyle\binom{5}{0}\displaystyle\binom{135}{20}}{\displaystyle\binom{140}{20}}\\
+    &amp;=&amp; 1-\big[ 0.4570594  \big] \\
+    &amp;=&amp; 0.5429406
+\end{eqnarray*}\)</span></p>
+<pre class="r"><code>phyper(0,5,135,20, lower.tail = FALSE)</code></pre>
+<pre><code>[1] 0.5429406</code></pre>
+<p><br/><br/></p>
+</div>
+</div>
+<div id="geométrico-o-de-pascal" class="section level1">
+<h1>geométrico o de Pascal</h1>
+<div style="display: flex;">
+<div id="reseña-histórica.-4" class="section level3">
+<h3>Reseña histórica.</h3>
+<p>La distribución geométrica surgió en el contexto de los primeros
+estudios sistemáticos sobre ensayos repetidos desarrollados durante los
+siglos XVII y XVIII. Está vinculada a los trabajos de <strong>Blaise
+Pascal</strong> y, posteriormente, de <strong>Jakob Bernoulli</strong>,
+cuya obra <em>Ars Conjectandi</em> consolidó muchas de las ideas
+fundamentales sobre sucesiones de ensayos Bernoulli.</p>
+</div>
+<div>
+<p><img src="img/blaise-pascal.png" alt="" width="70%" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="aplicaciones-prácticas-4" class="section level3">
+<h3>Aplicaciones prácticas</h3>
+<p>La distribución geométrica modela el número de ensayos necesarios
+hasta obtener el primer éxito en una secuencia de ensayos Bernoulli
+independientes.</p>
+<ul>
+<li><p>En ingeniería, puede representar el número de intentos necesarios
+hasta lograr una transmisión correcta, detectar una falla o conseguir
+que un proceso cumpla una condición.</p></li>
+<li><p>En finanzas, puede describir el número de operaciones hasta
+obtener la primera ganancia bajo un modelo simplificado o el número de
+contactos hasta conseguir la primera respuesta favorable.</p></li>
+<li><p>En general, resulta útil para analizar tiempos de espera
+expresados como número de intentos hasta la primera ocurrencia de un
+evento.</p></li>
+</ul>
+<p>Este modelo describe el número de ensayos necesarios hasta obtener el
+primer éxito. Los valores que puede tomar esta variable son:</p>
+<p><br/></p>
+<table>
+<thead>
+<tr class="header">
+<th align="left"><span class="math inline">\(x\)</span></th>
+<th align="left">eventos</th>
+<th align="left"><span class="math inline">\(f(x)\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><span class="math inline">\(1\)</span></td>
+<td align="left"><span class="math inline">\(E\)</span></td>
+<td align="left"><span class="math inline">\(p\)</span></td>
+</tr>
+<tr class="even">
+<td align="left"><span class="math inline">\(2\)</span></td>
+<td align="left"><span class="math inline">\(FE\)</span></td>
+<td align="left"><span class="math inline">\(p(1-p)\)</span></td>
+</tr>
+<tr class="odd">
+<td align="left"><span class="math inline">\(3\)</span></td>
+<td align="left"><span class="math inline">\(FFE\)</span></td>
+<td align="left"><span class="math inline">\(p(1-p)^{2}\)</span></td>
+</tr>
+<tr class="even">
+<td align="left"><span class="math inline">\(4\)</span></td>
+<td align="left"><span class="math inline">\(FFFE\)</span></td>
+<td align="left"><span class="math inline">\(p(1-p)^{3}\)</span></td>
+</tr>
+<tr class="odd">
+<td align="left"><span class="math inline">\(5\)</span></td>
+<td align="left"><span class="math inline">\(FFFFE\)</span></td>
+<td align="left"><span class="math inline">\(p(1-b)^{4}\)</span></td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left"><span class="math inline">\(x\)</span></td>
+<td align="left">$FFFF FE</td>
+<td align="left"><span class="math inline">\(p(1-p)^{x-1}\)</span></td>
+</tr>
+</tbody>
+</table>
+<p><br/></p>
+<p>La variable <span class="math inline">\(X\)</span> toma el valor de
+<span class="math inline">\(1\)</span> cuando el éxito ocurre en el
+primer intento. Cuando el primer éxito ocurre en el evento dos, <span
+class="math inline">\(X\)</span> es igual a <span
+class="math inline">\(2\)</span>, es decir que la variable con
+distribución geométrica corresponde al <strong>número del evento donde
+ocurre el primer éxito</strong>.</p>
+<p><br/></p>
+</div>
+<div id="distribución-geométrica"
+class="section level3 box4 with-label">
+<h3>Distribución geométrica</h3>
+<p><span class="math display">\[\begin{equation*}
+        f(x)=\left\lbrace
+        \begin{array}{lll}
+            p(1-p)^{x-1}     &amp;,&amp; x \geq 1   \\
+            &amp;&amp;\\
+            0 &amp;,&amp; \mbox{en otro caso}
+        \end{array}
+        \right.
+\end{equation*}\]</span></p>
+<p><span class="math display">\[E[X]=\dfrac{1}{p}\]</span></p>
+<p><span class="math display">\[V[X]=\dfrac{1-p}{p^{2}} \]</span></p>
+</div>
+<p>Nota: En R la variable corresponde al <strong>número de fracasos
+necesarios para obtener el primer exito</strong> <br/><br/></p>
+<p><strong>Distribución geométrica o de Pascal (<span
+class="math inline">\(p=0.5\)</span>)</strong></p>
+<p><img src="recurso33_aplicaciones_files/figure-html/unnamed-chunk-14-1.png" alt="" width="672" style="display: block; margin: auto;" /></p>
+<p><br/><br/></p>
+<div id="ejemplo-5" class="section level3 box6 with-label">
+<h3>Ejemplo 5</h3>
+<p>En un estudio realizado en peces, los animales son sometidos a
+pruebas para determinar si poseen o no un gen que aumenta el riesgo de
+una enfermedad mortal. la probabilidad de que una animal de la especie
+en estudio tenga el gen es 0,5. Cuál es la probabilidad de que 3 o más
+animales deban ser sometidos a pruebas antes de detectar el primer pez
+con el gen objeto de estudio?</p>
+</div>
+<p><br/><br/></p>
+<div id="solución-4" class="section level3">
+<h3><strong>Solución</strong></h3>
+<p><span class="math display">\[\begin{eqnarray*}
+    P(X\geq 3)&amp;=&amp; 1-P(X\leq 2)\\
+    &amp;=&amp; 1-[p(1)+p(2)] \\
+    &amp;=&amp; 1-[0.5+0.5 \times 0.5] \\
+    &amp;=&amp;0.25
+\end{eqnarray*}\]</span></p>
+<pre class="r"><code>dgeom(2, 0.50)</code></pre>
+<pre><code>[1] 0.125</code></pre>
+<pre class="r"><code>0.50*0.50</code></pre>
+<pre><code>[1] 0.25</code></pre>
+<p><br/><br/></p>
+</div>
+</div>
+<div id="binomial-negativo" class="section level1">
+<h1>binomial negativo</h1>
+<p><br/></p>
+<div style="display: flex;">
+<div id="reseña-histórica.-5" class="section level3">
+<h3>Reseña histórica.</h3>
+<p>La distribución binomial negativa se desarrolló como una extensión de
+los modelos asociados con ensayos Bernoulli repetidos y está
+estrechamente relacionada con la distribución geométrica. Mientras la
+distribución geométrica estudia el número de ensayos requerido para
+alcanzar el primer éxito, la binomial negativa generaliza esta idea al
+número de ensayos necesario para alcanzar un número determinado de
+éxitos. Su formulación se consolidó con el desarrollo de la teoría de la
+probabilidad y posteriormente adquirió numerosas aplicaciones en el
+análisis de datos de conteo.</p>
+</div>
+<div>
+<p><img src="img/abraham-moivre.png" alt="" width="70%" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="aplicaciones-prácticas-5" class="section level3">
+<h3>Aplicaciones prácticas</h3>
+<p>La distribución binomial negativa generaliza el modelo geométrico y
+permite estudiar el número de ensayos necesarios hasta alcanzar un
+número prefijado de éxitos.</p>
+<ul>
+<li><p>En ingeniería, puede representar el número de pruebas requeridas
+hasta conseguir cierto número de componentes conformes, transmisiones
+exitosas o eventos de interés.</p></li>
+<li><p>En finanzas, puede utilizarse para modelar el número de
+operaciones necesarias hasta alcanzar determinado número de resultados
+favorables y, en otra parametrización, para datos de conteo con
+variabilidad superior a la que admite un modelo Poisson.</p></li>
+<li><p>En general, se emplea en confiabilidad, seguros, epidemiología y
+análisis de conteos.</p></li>
+</ul>
+<p><br/></p>
+</div>
+<div id="distribución-binomial-negativa"
+class="section level3 box4 with-label">
+<h3>Distribución binomial negativa</h3>
+<p>Se considera una generalización de la distribución Geométrica. En
+este caso la variable objeto de estudio corresponde a <span
+class="math inline">\(X\)</span>: <strong>número de ensayos requeridos
+para obtener <span class="math inline">\(r\)</span> éxitos</strong>.
+Esta variable se obtiene al sumar <span class="math inline">\(r\)</span>
+variables con distribución Geométrica con igual parámetro <span
+class="math inline">\(p\)</span>.</p>
+<p>Su función de masa está dada por :</p>
+<p><span class="math display">\[\begin{equation*}
+        f(x)=\left\lbrace
+        \begin{array}{lll}
+            \displaystyle \binom{x-1}{r-1} p^{r}
+(1-p)^{x-r}     &amp;,&amp; x= r, r+1,  \ldots    \\
+            &amp;&amp;\\
+            0 &amp;,&amp; \mbox{en otro caso}
+        \end{array}
+        \right.
+    \end{equation*}\]</span></p>
+<p><span class="math display">\[E[X]=\dfrac{r}{p}\]</span></p>
+<p><span class="math display">\[V[X]=\dfrac{r(1-p)}{p^{2}}\]</span></p>
+</div>
+<p><br/><br/></p>
+<p><strong>Distribución binomial negativa (<span
+class="math inline">\(k=2, p=0.50\)</span>)</strong></p>
+<p><img src="recurso33_aplicaciones_files/figure-html/unnamed-chunk-17-1.png" alt="" width="672" style="display: block; margin: auto;" /></p>
+<p><br/><br/></p>
+<div id="ejemplo-6" class="section level3 box6 with-label">
+<h3>Ejemplo 6</h3>
+<p>Un sitio Web está soportado por tres servidores idénticos. Sólo uno
+de ellos se utiliza para operar el sitio, y los otros dos son de
+repuesto, los cuales se activan en caso de que el sistema principal
+falle. La probabilidad de falla en el sistema principal (o cualquier
+otro sistema de repuesto activado) ante una solicitud de servicio es
+0,0005. Suponiendo que cada solicitud representa un juicio
+independiente, cuál es el número medio de solicitudes que se espera
+hasta el fracaso de los tres servidores?</p>
+</div>
+<p><br/><br/></p>
+<div id="solución-5" class="section level3">
+<h3><strong>Solución</strong></h3>
+<p><span class="math display">\[E[X]=\dfrac{3}{0.0005}= 6000 \]</span>
+<br/><br/></p>
+<p><br/><br/><br/><br/></p>
+</div>
+</div>
+<div id="código-r" class="section level1 box3 with-label">
+<h1>Código R</h1>
+<table>
+<thead>
+<tr class="header">
+<th align="left">modelo</th>
+<th align="left"><span class="math inline">\(F(x)\)</span></th>
+<th align="left"><span class="math inline">\(X_{p}\)</span></th>
+<th align="left"><span class="math inline">\(f(x)\)</span></th>
+<th align="left">aleatorio</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Binomial</td>
+<td align="left">pbinom</td>
+<td align="left">qbinom</td>
+<td align="left">dbinom</td>
+<td align="left">rbinom</td>
+</tr>
+<tr class="even">
+<td align="left">Geometrica</td>
+<td align="left">pgeom</td>
+<td align="left">qgeom</td>
+<td align="left">dgeom</td>
+<td align="left">rgeom</td>
+</tr>
+<tr class="odd">
+<td align="left">Hipergeomet.</td>
+<td align="left">phyper</td>
+<td align="left">qhyper</td>
+<td align="left">dhyper</td>
+<td align="left">rhyper</td>
+</tr>
+<tr class="even">
+<td align="left">Poisson</td>
+<td align="left">ppois</td>
+<td align="left">qpois</td>
+<td align="left">dpois</td>
+<td align="left">rpois</td>
+</tr>
+<tr class="odd">
+<td align="left">Binomial Negativa</td>
+<td align="left">pnbinom</td>
+<td align="left">qnbinom</td>
+<td align="left">dnbinom</td>
+<td align="left">rnbinom</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><br/><br/><br/></p>
+</div>
+</div>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("hide" === "show");
+});
+</script>
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

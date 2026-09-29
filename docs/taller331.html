@@ -9,10 +9,10 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
-<meta name="author" content="dgonzalez" />
+<meta name="author" content="dgonzalez " />
 
 
-<title>taller331.knit</title>
+<title>Teoría de probabilidades</title>
 
 <script src="site_libs/header-attrs/header-attrs.js"></script>
 <script src="site_libs/jquery/jquery-3.6.0.min.js"></script>
@@ -63,6 +63,7 @@ if (window.hljs) {
 
 
 <link rel="stylesheet" href="style.css" type="text/css" />
+<link rel="stylesheet" href="cajas.css" type="text/css" />
 
 
 
@@ -416,6 +417,19 @@ $(document).ready(function () {
     </li>
     <li class="divider"></li>
     <li>
+      <a href="guia33.html">Guía 3.3</a>
+    </li>
+    <li>
+      <a href="recurso33-discretas.html">Recursos 3.3-discretas</a>
+    </li>
+    <li>
+      <a href="codigo33-discretas.html">Código 3.32-discretas</a>
+    </li>
+    <li>
+      <a href="taller331.html">Taller 331</a>
+    </li>
+    <li class="divider"></li>
+    <li>
       <a href="monitoria3.html">Moitoría 3</a>
     </li>
   </ul>
@@ -465,6 +479,9 @@ $(document).ready(function () {
 
 
 
+<h1 class="title toc-ignore"><span
+style="color:#476885 !important;">Teoría de probabilidades</span></h1>
+<h4 class="author"><span style="color:#476885">dgonzalez </span></h4>
 
 </div>
 
@@ -472,10 +489,8 @@ $(document).ready(function () {
 <p></br></br></br></p>
 <p><img src="img/taller3.png" alt="" width="100%" style="display: block; margin: auto auto auto 0;" /></p>
 <p></br></br></p>
-<div class="box2 with-label">
-<div class="label">
-Problema 1
-</div>
+<div id="problema-1" class="section level3 box4 with-label">
+<h3>Problema 1</h3>
 <p>Para una variable aleatoria con distribución binomial <span
 class="math inline">\(X  \sim binom(x, n=10, p=0.5)\)</span> .</p>
 <p>Determine:</p>
@@ -491,10 +506,8 @@ class="math inline">\(f_{_{X}}(x)\)</span></li>
 </ul>
 </div>
 <p></br></br></p>
-<div class="box2 with-label">
-<div class="label">
-Problema 2
-</div>
+<div id="problema-2" class="section level3 box4 with-label">
+<h3>Problema 2</h3>
 <p>Sea una variable geométrica <span class="math inline">\(X \sim
 geomn,(x,p=0.05)\)</span></p>
 <p>Determine :</p>
@@ -509,10 +522,8 @@ class="math inline">\(f_{_{X}}(x)\)</span></li>
 </ul>
 </div>
 <p></br></br></p>
-<div class="box2 with-label">
-<div class="label">
-Problema 3
-</div>
+<div id="problema-3" class="section level3 box4 with-label">
+<h3>Problema 3</h3>
 <p>Suponga que X tiene una distribución hipergeometrica con <span
 class="math inline">\(N=100\)</span>, <span
 class="math inline">\(n=4\)</span> y <span
@@ -527,10 +538,8 @@ class="math inline">\(P(X = 4)\)</span><br />
 class="math inline">\(f_{_{X}}(x)\)</span></p>
 </div>
 <p></br></br></p>
-<div class="box2 with-label">
-<div class="label">
-Problema 4
-</div>
+<div id="problema-4" class="section level3 box4 with-label">
+<h3>Problema 4</h3>
 <p>Suponga que X tiene una distribución Poisson con media <span
 class="math inline">\(\lambda=4\)</span> (<span
 class="math inline">\(X  \sim pois(x,\lambda=4)\)</span>).</p>
@@ -546,10 +555,8 @@ class="math inline">\(f_{_{X}}(x)\)</span></li>
 </ul>
 </div>
 <p></br></br></p>
-<div class="box2 with-label">
-<div class="label">
-Problema 5
-</div>
+<div id="problema-5" class="section level3 box4 with-label">
+<h3>Problema 5</h3>
 <p>Sea la variable <span class="math inline">\(X\)</span> con
 distribución binomial negativa con N=100 , K=20, n=5 (<span
 class="math inline">\(X \sim nbinom(x,n,p,mu)\)</span> )</p>
@@ -567,10 +574,8 @@ class="math inline">\(f_{_{X}}(x)\)</span></li>
 </ul>
 </div>
 <p></br></br></p>
-<div class="box2 with-label">
-<div class="label">
-Problema 6
-</div>
+<div id="problema-6" class="section level3 box4 with-label">
+<h3>Problema 6</h3>
 <p>En un cargamento grande de llantas para automóviles, del cual el 5%
 tiene imperfecciones. Se eligen de manera aleatoria 4 llantas para ser
 instalada en un automóvil. (Sea X el número de llantas con
@@ -586,10 +591,8 @@ imperfecciones?</li>
 </ul>
 </div>
 <p></br></br></p>
-<div class="box2 with-label">
-<div class="label">
-Problema 7
-</div>
+<div id="problema-7" class="section level3 box4 with-label">
+<h3>Problema 7</h3>
 <p>Los clientes llegan al mostrador de una tienda de acuerdo con una
 variable aleatoria Poisson con una frecuencia promedio de ocho clientes
 por hora.</p>
@@ -606,10 +609,8 @@ tienda entre las 2 PM y las 4:30 PM.</li>
 </ul>
 </div>
 <p></br></br></p>
-<div class="box2 with-label">
-<div class="label">
-Problema 8
-</div>
+<div id="problema-8" class="section level3 box4 with-label">
+<h3>Problema 8</h3>
 <p>Se está desarrollando una nueva variedad de maíz en una extensión de
 experimentación agrícola. Se espera que tenga una tasa de germinación
 del 90%. Para verificar esto, se plantan 20 semillas en suelos de
@@ -618,10 +619,8 @@ idéntica composición y se les dedican los mismos cuidados. Si la cifra
 germinan 15 o menos, ¿hay razón para sospechar de la cifra 90%?</p>
 </div>
 <p></br></br></p>
-<div class="box2 with-label">
-<div class="label">
-Problema 9
-</div>
+<div id="problema-9" class="section level3 box4 with-label">
+<h3>Problema 9</h3>
 <p>Un examen de Probabilidad consta de 100 preguntas de selección
 múltiple, cada una con cuatro opciones de respuesta. Maria responde cada
 pregunta al azar y sus respuestas son independientes</p>
@@ -636,10 +635,8 @@ erróneamente hasta responder 5 preguntas correctamente?</li>
 </ul>
 </div>
 <p></br></br></p>
-<div class="box2 with-label">
-<div class="label">
-Problema 10
-</div>
+<div id="problema-10" class="section level3 box4 with-label">
+<h3>Problema 10</h3>
 <p>Se sospecha que muchas muestras de agua, todas del mismo tamaño y
 tomadas del Hillbank River, han sido contaminadas por operarios
 irresponsables de una planta de tratamiento de aguas. Se contó el número
@@ -654,10 +651,8 @@ calcular la probabilidad de que:</p>
 </ul>
 </div>
 <p></br></br></p>
-<div class="box2 with-label">
-<div class="label">
-Problema 11
-</div>
+<div id="problema-11" class="section level3 box4 with-label">
+<h3>Problema 11</h3>
 <p>Una aéreolinea nacional tiene aviones de 100 asientos para el
 servicio de transporte nacional. Se estima que la probabilidad de que
 una persona llegue al vuelo es de 0.90, debido a lo cual la aereolinea
@@ -666,10 +661,8 @@ sillas vacias. ¿cuál es la probabilidad de que todas las personas que
 lleguen para abordar el avión tengan asiento?</p>
 </div>
 <p></br></br></p>
-<div class="box2 with-label">
-<div class="label">
-Problema 12
-</div>
+<div id="problema-12" class="section level3 box4 with-label">
+<h3>Problema 12</h3>
 <p>El número de grietas en un pavimento se estima en una grieta por cada
 100m en promedio. Se desea estimar la probabilidad de:</p>
 <ul>
@@ -679,14 +672,28 @@ Problema 12
 </ul>
 </div>
 <p></br></br></p>
-<div class="box2 with-label">
-<div class="label">
-Problema 13
-</div>
-<p>Un sistema de seguridad para casas está diseñado para tener una
-confiabilidad del 95% . Suponga que 10 casas equipadas con este
-dispositivo sufrieron tentativa de robo. Se requiere calcular la
-probabilidad de que en siete de las nueve, la alarma se activará.</p>
+<div id="problema-13" class="section level3 box4 with-label">
+<h3>Problema 13</h3>
+<p>Una empresa fabricante de sensores electrónicos ha determinado, a
+partir de sus registros históricos, que el 92% de los sensores
+producidos supera satisfactoriamente la prueba final de calidad. Como
+parte del control del proceso, al finalizar cada turno un ingeniero
+selecciona aleatoriamente 12 sensores y registra si cada uno supera o no
+la prueba. Se considera que los resultados son independientes y que las
+condiciones de producción permanecen estables. La empresa ha establecido
+que, si la posibilidad de que los 12 sensores seleccionados superen la
+prueba es superior al 35%, reducirá la frecuencia de las inspecciones
+durante el siguiente mes; si la posibilidad de obtener al menos 11
+sensores aprobados es superior al 70%, clasificará el proceso como de
+alta confiabilidad; si la posibilidad de encontrar dos o más sensores
+que no superen la prueba excede el 20%, realizará una revisión
+preventiva de los equipos de producción; y si la posibilidad de que
+menos de 10 sensores superen la prueba es inferior al 10%, la aparición
+de un resultado de este tipo será considerada una señal de alerta que
+requerirá investigar las condiciones del proceso. A partir de esta
+información, identifique el modelo probabilístico apropiado y sus
+parámetros, evalúe las directrices establecidas y determine las
+decisiones que debería tomar la empresa.</p>
 </div>
 <p></br></br></br></br></p>
 <div class="box3 with-label">

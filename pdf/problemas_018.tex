@@ -1,0 +1,79 @@
+\documentclass[11pt,letterpaper]{article}
+
+% ============================================================
+% TIPOGRAFÍA — COMPILAR CON XeLaTeX
+% ============================================================
+\usepackage{fontspec}
+\setmainfont{Andika}
+
+% ============================================================
+% MÁRGENES
+% ============================================================
+\usepackage[margin=1.6cm]{geometry}
+
+% ============================================================
+% MATEMÁTICAS
+% ============================================================
+\usepackage{amsmath,amssymb,amsthm}
+
+% ============================================================
+% TABLAS, GRÁFICOS Y COLOR
+% ============================================================
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{booktabs}
+\usepackage{xcolor}
+\usepackage{array}
+
+% ============================================================
+% DOS COLUMNAS
+% ============================================================
+\usepackage{multicol}
+\setlength{\columnsep}{18pt}
+\setlength{\columnseprule}{0.2pt}
+
+% ============================================================
+% CONFIGURACIÓN GENERAL
+% ============================================================
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{3pt}
+\linespread{1.02}
+
+% Numeración simple: 1. 2. 3. ...
+\renewcommand{\theenumi}{\arabic{enumi}}
+\renewcommand{\labelenumi}{\theenumi.}
+
+% Listas compactas sin enumitem
+\makeatletter
+\renewenvironment{enumerate}
+  {\ifnum \@enumdepth >\thr@@\@toodeep\else
+   \advance\@enumdepth\@ne
+   \edef\@enumctr{enum\romannumeral\the\@enumdepth}%
+   \expandafter\list\csname label\@enumctr\endcsname
+     {\usecounter\@enumctr
+      \setlength{\topsep}{3pt}%
+      \setlength{\itemsep}{2pt}%
+      \setlength{\parsep}{0pt}%
+      \setlength{\partopsep}{0pt}%
+      \setlength{\leftmargin}{1.6em}%
+      \setlength{\labelsep}{0.4em}}%
+   \fi}
+  {\endlist}
+\makeatother
+
+\newcommand{\problema}[1]{%
+  \vspace{2pt}
+  \noindent\textbf{\large PROBLEMA #1}\par
+  \vspace{2pt}
+}
+
+\begin{document}
+\pagestyle{empty}
+
+\begin{multicols}{2}
+\raggedcolumns
+
+
+
+\end{multicols}
+\end{document}

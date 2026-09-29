@@ -207,3 +207,58 @@ CAJAS DEL CURSO
 .main-container div.box4 > h3:first-child,
 .main-container div.box5 > h3:first-child,
 .main-container div.box6 > h3:first-child { font-size:26px !important; }
+
+
+
+/* =========================================================
+   CAJA DOBLE
+   Una caja dividida en dos columnas
+   ========================================================= */
+
+.caja-doble {
+    display: grid !important;
+    grid-template-columns: 70% 30%;
+    align-items: center;
+    width: 100%;
+    box-sizing: border-box;
+    margin: 1.5rem 0;
+}
+
+/* Primera columna */
+.caja-doble > div:nth-child(1) {
+    padding-right: 30px;
+    box-sizing: border-box;
+}
+
+/* Segunda columna */
+.caja-doble > div:nth-child(2) {
+    text-align: center;
+    box-sizing: border-box;
+}
+
+/* Imágenes de la segunda columna */
+.caja-doble > div:nth-child(2) img {
+    display: block;
+    width: auto !important;
+    max-width: 90% !important;
+    max-height: 300px;
+    height: auto !important;
+    margin: 0 auto;
+}
+
+/* En dispositivos pequeños se convierte en una sola columna */
+@media (max-width: 768px) {
+
+    .caja-doble {
+        grid-template-columns: 1fr;
+    }
+
+    .caja-doble > div:nth-child(1) {
+        padding-right: 0;
+        margin-bottom: 20px;
+    }
+
+    .caja-doble > div:nth-child(2) {
+        width: 100%;
+    }
+}

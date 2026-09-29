@@ -105,8 +105,17 @@ navbar:
         - text: "Código 3.2"  
           href: codigo32.html
         - text: "Taller 321"  
-          href: taller321.html     
-
+          href: taller321.html   
+          
+        - text: "--------"  
+        - text: "Guía 3.3"
+          href: guia33.html        
+        - text: "Recursos 3.3-discretas"
+          href: recurso33-discretas.html
+        - text: "Código 3.32-discretas"  
+          href: codigo33-discretas.html
+        - text: "Taller 331"  
+          href: taller331.html             
         - text: "--------"   
         - text: "Moitoría 3"  
           href: monitoria3.html              

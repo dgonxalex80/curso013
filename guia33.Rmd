@@ -29,12 +29,9 @@ knitr::include_graphics("img/guia3.png")
 ```
 
 
-
-# **Guía de aprendizaje 3.3**
-
 <br/><br/>
 
-## **Introducción**
+# Introducción
 
 En las unidades 3.1 y 3.2 hemos recorrido los principales conceptos relacionados caracterización de las variables aleatorias tanto discretas como continuas.  Características como:  $f(x)$, $F(x)$, $E[X]$, $V[X]$, en el caso univariado. Para el caso conjunto : $f(x,y)$, $F(x,y)$, $E[XY]$, $Cov[XY]$  y  $\rho$. 
 
@@ -43,44 +40,44 @@ En esta unidad se presentan los principales modelos estadísticos tanto para var
 
 <br/><br/>
 
-## **Objetivos de la unidad**
+# Objetivos de la unidad
 
 Al finalizar la unidad los estudiantes estarán  en  capacidad de  IDENTIFICAR, CALCULAR y APLICAR los diferentes modelos de probabilidad para la solución de problemas en contexto  y su representación a través de la simulación.
 
 <br/><br/>
 
-## **Duración**
+# Duración
 
-La presente  unidad será desarrollada durante la comprendida entre 22 de septiembre al 5 de octubre.      
+La presente  unidad será desarrollada durante la comprendida entre 30 de septiembre al 14 de octubre.      
 Ademas del material suministrado  contaran con el acompañamiento del profesor en las  sesiones descritas en el calentadario.
 
 Para alcanzar los objetivos planteados se propone realizar las siguientes actividades
 
 <br/><br/>
 
-## **Cronograma de trabajo**
+# Cronograma de trabajo
 
 
 |Actividad        | Descripción                                                             | 
 |:----------------|:------------------------------------------------------------------------|
 |**Actividad 331**| Construir un poster en formato A2 (42 cm x 59.4 cm). para el modelo asignado que contenga sus principales características.&nbsp; Para la sustentación del poster se debe elaborar un VÍDEO de no mas de 5 minutos y enviar el enlace para su visualización y evaluación.   |
 |                 | Trabajo enindividual                              |
-|Fecha entrega    | 2 de octubre de 2025 - **presentación de videos**                  |
-|Hora             | 14:00                                                                  |
+|Fecha entrega    | 14 de octubre de 2026 - **presentación de videos**                  |
+|Hora             | 11:30                                                                  |
 
 
 <br/><br/>
 
 |                |                                                                         | 
 |:---------------|:------------------------------------------------------------------------|
-|**Activiad 332**| A cada estudiante se le ha asignado&nbsp; 4 PROBLEMAS contenidos en la Actividad332. Se podrá cambiar uno de los problemas asignados por otro de su preferencia dentro de los restantes.                   | 
+|**Activiad 332**| Cada estudiante deberá desarrollar el taller-331 que recoge los principales conceptos relacionados con variables aleatorias discretas, y sus aplicaciones en la estimación de probabilidades.| 
 |               | Trabajo individual                                                       |
 |Fecha          | 15 de octubre de 2025                                                      |
 |Hora           | 23:59                                                                    |
 
 <br/><br/>
 
-## **Criterios de evaluación**
+# Criterios de evaluación
 
 <br/><br/>
 
@@ -93,14 +90,14 @@ Para alcanzar los objetivos planteados se propone realizar las siguientes activi
 	
 <br/><br/>
 
-## **Entregables** 
+# Entregables 
 
 <br/><br/>
 
 |Actividad      | Descripción                             | 
 |:--------------|:----------------------------------------|
-|Actividad 331  | **poster** y presentación del mismo a través de video. Jueves 2 de octubre. Hora: 14:00
-|Actividad 332  | enlace de Rmd publicado en **RPub** con el desarrollo del problema asignado. Domingo 15 de octubre. Hora : 23:59 |
+|Actividad 331  | **poster** y presentación del mismo a través de video. 14 de octubre. 
+|Actividad 332  | taller 331 - enlace RPub ||
 
 
 <br/><br/><br/><br/>

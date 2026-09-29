@@ -46,17 +46,17 @@ knitr::include_graphics("img/codigo3.png")
 
 <br/><br/>
 
-# **Funciones modelos**
+# Funciones modelos
 
 <br/><br/>
 
-#### **Código R**
+### Código R
 
 Existe un grupo de modelos identificados para las variables aleatorias tanto discretas como continuas que son utilizadas con frecuencia en diferentes contextos. A continuación se relacionan los principales modelos:
 
 <br/><br/>
 
-#### **Modelos discretos**:
+### Modelos discretos:
 
 + Bernoulli, 
 + binomial,
@@ -67,7 +67,7 @@ Existe un grupo de modelos identificados para las variables aleatorias tanto dis
 
 <br/><br/>
 
-#### **Modelos continuos**:
+### Modelos continuos:
 
 + uniforme
 + normal
@@ -148,7 +148,7 @@ En cada caso si no recuerda las sintaxis de la función puede hacer uso de las a
 
 <br/><br/>
 
-<div class="box2 with-label">
+<div class="box6 with-label">
 <div class="label">Ejemplo 1</div>
 
 Sea una variables con distribución binomial con parámetros $n=20$ y $p=0.30$ , lo cual se puede simbolizar como : $X\sim b(x; 20,0.30)$
@@ -167,7 +167,7 @@ En este caso se requieren realizar los siguientes procesos:
 
 <br/><br/><br/>
 
-### **Solución**
+### Solución
 
 1. Calcular la probabilidad de $$ P(X=7) = \dbinom{20}{7} 0.30^{7} (10.30)^{(20-7)}$$
 
@@ -245,7 +245,7 @@ ggplot(dat) + geom_point(aes(x, fx),colour = c31, size = 2) +
 
 <br/><br/>
 
-<div class="box2 with-label">
+<div class="box6 with-label">
 <div class="label">Ejemplo 2</div>
 
 Ahora supongamos que se tiene una variable continua con distribución normal, con media 50 y varianza 100, es decir desviación estándar 10, lo cual se puede representar como $X\sim N(50,100)$.  
@@ -264,7 +264,7 @@ En este caso vamos a hallar los siguientes valores:
 
 <br/><br/><br/>
 
-### **Solución**
+### Solución
 
 <br/>
 
@@ -337,7 +337,7 @@ Por otro lado el proceso de simulación de variables estadísticas esta relacion
 
 <br/><br/><br/>
 
-# **Método de Montecarlo** 
+# Método de Montecarlo 
 
 Es un método no determinista o estadístico numérico, usado para aproximar expresiones matemáticas complejas y costosas de evaluar con exactitud. El método se llamó así en referencia al Casino de Montecarlo (Mónaco) por ser “la capital del juego de azar”, al ser la ruleta un generador simple de números aleatorios. El nombre y el desarrollo sistemático de los métodos de Montecarlo datan aproximadamente de 1944 y se mejoraron enormemente con el desarrollo de la computadora.  
 
@@ -372,7 +372,7 @@ Problema 3 capitulo 4 Navidi(2006)
 
 <br/><br/>
 
-### **Solución**
+### Solución
 
 ```{r, fig.align='center'}
 	X2=rnorm(1000,mean=2.0,sd=0.1)    #  generación de números aleatorios  de X
@@ -394,7 +394,7 @@ summarytools::descr(A2)
 <br/><br/><br/>
 
 
-# **App Probability Distributions** 
+# App Probability Distributions 
 
 Esta aplicación permite calcular probabilidades desde el celular
 

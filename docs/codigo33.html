@@ -416,6 +416,19 @@ $(document).ready(function () {
     </li>
     <li class="divider"></li>
     <li>
+      <a href="guia33.html">Guía 3.3</a>
+    </li>
+    <li>
+      <a href="recurso33-discretas.html">Recursos 3.3-discretas</a>
+    </li>
+    <li>
+      <a href="codigo33-discretas.html">Código 3.32-discretas</a>
+    </li>
+    <li>
+      <a href="taller331.html">Taller 331</a>
+    </li>
+    <li class="divider"></li>
+    <li>
       <a href="monitoria3.html">Moitoría 3</a>
     </li>
   </ul>
@@ -473,18 +486,18 @@ $(document).ready(function () {
 <p><br/><br/><br/></p>
 <p><br/><br/></p>
 <div id="funciones-modelos" class="section level1">
-<h1><strong>Funciones modelos</strong></h1>
+<h1>Funciones modelos</h1>
 <p><br/><br/></p>
-<div id="código-r" class="section level4">
-<h4><strong>Código R</strong></h4>
+<div id="código-r" class="section level3">
+<h3>Código R</h3>
 <p>Existe un grupo de modelos identificados para las variables
 aleatorias tanto discretas como continuas que son utilizadas con
 frecuencia en diferentes contextos. A continuación se relacionan los
 principales modelos:</p>
 <p><br/><br/></p>
 </div>
-<div id="modelos-discretos" class="section level4">
-<h4><strong>Modelos discretos</strong>:</h4>
+<div id="modelos-discretos" class="section level3">
+<h3>Modelos discretos:</h3>
 <ul>
 <li>Bernoulli,</li>
 <li>binomial,</li>
@@ -495,8 +508,8 @@ principales modelos:</p>
 </ul>
 <p><br/><br/></p>
 </div>
-<div id="modelos-continuos" class="section level4">
-<h4><strong>Modelos continuos</strong>:</h4>
+<div id="modelos-continuos" class="section level3">
+<h3>Modelos continuos:</h3>
 <ul>
 <li>uniforme</li>
 <li>normal</li>
@@ -687,7 +700,7 @@ class="math inline">\(P(X=x)\)</span></td>
 </table>
 <p><br/><br/></p>
 <p><br/><br/></p>
-<div class="box2 with-label">
+<div class="box6 with-label">
 <div class="label">
 Ejemplo 1
 </div>
@@ -715,7 +728,7 @@ class="math inline">\(F(x)\)</span></li>
 <p><br/><br/><br/></p>
 </div>
 <div id="solución" class="section level3">
-<h3><strong>Solución</strong></h3>
+<h3>Solución</h3>
 <ol style="list-style-type: decimal">
 <li>Calcular la probabilidad de <span class="math display">\[ P(X=7) =
 \dbinom{20}{7} 0.30^{7} (10.30)^{(20-7)}\]</span></li>
@@ -804,7 +817,7 @@ ggplot(dat) + geom_point(aes(x, fx),colour = c31, size = 2) +
 <p><img src="codigo33_files/figure-html/unnamed-chunk-9-1.png" alt="" width="672" style="display: block; margin: auto;" /></p>
 <p><br/><br/><br/></p>
 <p><br/><br/></p>
-<div class="box2 with-label">
+<div class="box6 with-label">
 <div class="label">
 Ejemplo 2
 </div>
@@ -832,7 +845,7 @@ class="math inline">\(F(x)\)</span></li>
 <p><br/><br/><br/></p>
 </div>
 <div id="solución-1" class="section level3">
-<h3><strong>Solución</strong></h3>
+<h3>Solución</h3>
 <p><br/></p>
 <ol style="list-style-type: decimal">
 <li>Calcular la probabilidad de que un valor de <span
@@ -899,7 +912,7 @@ se describe brevemente su origen.</p>
 </div>
 </div>
 <div id="método-de-montecarlo" class="section level1">
-<h1><strong>Método de Montecarlo</strong></h1>
+<h1>Método de Montecarlo</h1>
 <p>Es un método no determinista o estadístico numérico, usado para
 aproximar expresiones matemáticas complejas y costosas de evaluar con
 exactitud. El método se llamó así en referencia al Casino de Montecarlo
@@ -943,7 +956,7 @@ normal?</p></li>
 <p>Problema 3 capitulo 4 Navidi(2006)</p>
 <p><br/><br/></p>
 <div id="solución-2" class="section level3">
-<h3><strong>Solución</strong></h3>
+<h3>Solución</h3>
 <pre class="r"><code>    X2=rnorm(1000,mean=2.0,sd=0.1)    #  generación de números aleatorios  de X
     Y2=rnorm(1000,mean=3.0,sd=0.2)    #  generación de números aleatorios  de Y
     Z2=data.frame(X2,Y2)              #  generación de matriz de X,Y
@@ -983,7 +996,7 @@ normal?</p></li>
 </div>
 </div>
 <div id="app-probability-distributions" class="section level1">
-<h1><strong>App Probability Distributions</strong></h1>
+<h1>App Probability Distributions</h1>
 <p>Esta aplicación permite calcular probabilidades desde el celular</p>
 <p><img src="img/AppPD.png" alt="" width="40%" style="display: block; margin: auto;" /></p>
 </div>

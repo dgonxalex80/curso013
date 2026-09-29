@@ -1,7 +1,7 @@
 ---
-title: " "
-subtitle: " " 
-author: "dgonzalez "
+title: "<span style='color:#476885 !important;'>Teoría de probabilidades</span>"
+author: <span style="color:#476885">dgonzalez </span> 
+# subtitle: <span style="color:#476885"> </span> 
 output:
   html_document:
     toc: no
@@ -9,8 +9,11 @@ output:
     toc_float: yes
     code_folding: hide
     theme: flatly
-    css: style.css
----
+    css:
+      - style.css
+      - cajas.css
+---     
+
 
 
 
@@ -52,8 +55,8 @@ knitr::include_graphics("img/taller3.png")
 
 </br></br>
 
-<div class="box2 with-label">
-<div class="label">Problema 1</div>
+<div class="box4 with-label">
+### Problema 1
 
 Para una variable aleatoria con distribución binomial $X  \sim binom(x, n=10, p=0.5)$  . 
 
@@ -71,8 +74,8 @@ Determine:
 
 </br></br>
 
-<div class="box2 with-label">
-<div class="label">Problema 2</div>
+<div class="box4 with-label">
+### Problema 2
 
 Sea una variable geométrica $X \sim geomn,(x,p=0.05)$
 
@@ -89,8 +92,8 @@ Determine :
 
 </br></br>
 
-<div class="box2 with-label">
-<div class="label">Problema 3</div>
+<div class="box4 with-label">
+### Problema 3
 
 Suponga que X tiene una distribución hipergeometrica con $N=100$, $n=4$ y $K=20$. ($X \sim hyper(x,N=100,n=4,k=20)$)
 
@@ -107,8 +110,8 @@ Determine:
 
 </br></br>
 
-<div class="box2 with-label">
-<div class="label">Problema 4</div>
+<div class="box4 with-label">
+### Problema 4
 
 Suponga que X tiene una distribución Poisson con media $\lambda=4$ ($X  \sim pois(x,\lambda=4)$). 
 
@@ -125,8 +128,8 @@ Determine:
 
 </br></br>
 
-<div class="box2 with-label">
-<div class="label">Problema 5</div>
+<div class="box4 with-label">
+### Problema 5
 
 Sea la variable $X$ con distribución binomial negativa con N=100 , K=20, n=5 ($X \sim nbinom(x,n,p,mu)$ )	
 
@@ -144,8 +147,8 @@ Determine:
 
 </br></br>
 
-<div class="box2 with-label">
-<div class="label">Problema 6</div>
+<div class="box4 with-label">
+### Problema 6
 
 En un cargamento grande de llantas para automóviles, del cual el 5% tiene imperfecciones. Se eligen de manera aleatoria 4 llantas para ser instalada en un automóvil.  (Sea X el número de llantas con imperfecciones. $X  \sim binom(n=4, p=0.05$ )
 
@@ -158,8 +161,8 @@ En un cargamento grande de llantas para automóviles, del cual el 5% tiene imper
 
 </br></br>
 
-<div class="box2 with-label">
-<div class="label">Problema 7</div>
+<div class="box4 with-label">
+### Problema 7
 
 Los clientes llegan al mostrador de una tienda de acuerdo con una variable aleatoria Poisson con una frecuencia promedio de ocho clientes por hora. 
 
@@ -173,8 +176,8 @@ Los clientes llegan al mostrador de una tienda de acuerdo con una variable aleat
 
 </br></br>
 
-<div class="box2 with-label">
-<div class="label">Problema 8</div>
+<div class="box4 with-label">
+### Problema 8
 
 Se está desarrollando una nueva variedad de maíz en una extensión de experimentación agrícola. Se espera que tenga una tasa de germinación del 90\%. Para verificar esto, se plantan 20 semillas en suelos de idéntica composición y se les dedican los mismos cuidados. Si la cifra 90\% es correcta, ¿cuántas semillas se espera que germinen? Si sólo germinan 15 o menos, ¿hay razón para sospechar de la cifra 90\%?
 
@@ -183,8 +186,8 @@ Se está desarrollando una nueva variedad de maíz en una extensión de experime
 
 </br></br>
 
-<div class="box2 with-label">
-<div class="label">Problema 9</div>
+<div class="box4 with-label">
+### Problema 9
 
 Un examen de Probabilidad consta de 100 preguntas de selección múltiple, cada una con cuatro opciones de respuesta. Maria responde cada pregunta al azar y sus respuestas son independientes 
 
@@ -199,8 +202,8 @@ Un examen de Probabilidad consta de 100 preguntas de selección múltiple, cada 
 
 </br></br>
 
-<div class="box2 with-label">
-<div class="label">Problema 10</div>
+<div class="box4 with-label">
+### Problema 10
 
 
  Se sospecha que muchas muestras de agua, todas del mismo tamaño y tomadas del Hillbank River, han sido contaminadas por operarios irresponsables de una planta de tratamiento de aguas. Se contó el número de microorganismos conformes en cada muestra. El número medio de microorganismos por muestra fue de 15. Suponiendo que el número de microorganismos se distribuye según una distribución de Poisson, calcular la probabilidad de que:
@@ -214,8 +217,8 @@ Un examen de Probabilidad consta de 100 preguntas de selección múltiple, cada 
 
 </br></br>
 
-<div class="box2 with-label">
-<div class="label">Problema 11</div>
+<div class="box4 with-label">
+### Problema 11
 
 Una aéreolinea nacional tiene aviones de 100 asientos para el servicio de transporte nacional. Se estima que la probabilidad de que una persona llegue al vuelo es de 0.90, debido a lo cual  la aereolinea vende 105 tiquetes con el fin de minimizar la partida de aviones con sillas vacias. ¿cuál es la probabilidad de que todas las personas que lleguen para abordar el avión tengan asiento?   
 
@@ -224,8 +227,8 @@ Una aéreolinea nacional tiene aviones de 100 asientos para el servicio de trans
 
 </br></br>
 
-<div class="box2 with-label">
-<div class="label">Problema 12</div>
+<div class="box4 with-label">
+### Problema 12
 
 El número de grietas en un pavimento se estima en una grieta por cada 100m  en promedio. Se desea estimar la probabilidad de:
 
@@ -238,10 +241,10 @@ El número de grietas en un pavimento se estima en una grieta por cada 100m  en 
 
 </br></br>
 
-<div class="box2 with-label">
-<div class="label">Problema 13</div>
+<div class="box4 with-label">
+### Problema 13
 
-Un sistema de seguridad para casas está diseñado para tener una confiabilidad del 95\% . Suponga que 10 casas equipadas con este dispositivo sufrieron tentativa de robo. Se requiere calcular la probabilidad de que en siete de las nueve, la alarma se activará. 
+Una empresa fabricante de sensores electrónicos ha determinado, a partir de sus registros históricos, que el 92% de los sensores producidos supera satisfactoriamente la prueba final de calidad. Como parte del control del proceso, al finalizar cada turno un ingeniero selecciona aleatoriamente 12 sensores y registra si cada uno supera o no la prueba. Se considera que los resultados son independientes y que las condiciones de producción permanecen estables. La empresa ha establecido que, si la posibilidad de que los 12 sensores seleccionados superen la prueba es superior al 35%, reducirá la frecuencia de las inspecciones durante el siguiente mes; si la posibilidad de obtener al menos 11 sensores aprobados es superior al 70%, clasificará el proceso como de alta confiabilidad; si la posibilidad de encontrar dos o más sensores que no superen la prueba excede el 20%, realizará una revisión preventiva de los equipos de producción; y si la posibilidad de que menos de 10 sensores superen la prueba es inferior al 10%, la aparición de un resultado de este tipo será considerada una señal de alerta que requerirá investigar las condiciones del proceso. A partir de esta información, identifique el modelo probabilístico apropiado y sus parámetros, evalúe las directrices establecidas y determine las decisiones que debería tomar la empresa.
 			
 </div>
 
