@@ -99,7 +99,7 @@ Suponga que X tiene una distribución hipergeometrica con $N=100$, $n=4$ y $K=20
 
 Determine:
 
-  $P(X = 1)$
+*  $P(X = 1)$
 *  $P(X = 6)$
 *  $P(X  \geq 1)$
 *  $P(X = 4)$  

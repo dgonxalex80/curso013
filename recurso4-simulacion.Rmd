@@ -1,0 +1,980 @@
+---
+title: "<span style='color:#476885 !important;'>Teoría de probabilidades</span>"
+author: <span style="color:#476885">dgonzalez </span>
+subtitle: <span style="color:#476885"> </span>
+output:
+  html_document:
+    toc: no
+    toc_depth: 2
+    toc_float: yes
+    code_folding: hide
+    theme: flatly
+    css:
+      - style.css
+      - cajas-2.css
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(comment = NA, warning = FALSE, message = FALSE)
+
+# colores del curso
+source("R/init.R")
+```
+
+```{r, echo=FALSE, out.width="100%", fig.align="center"}
+# knitr::include_graphics("img/recurso4.png")
+```
+
+# Simulación
+
+<br/><br/>
+
+En las unidades anteriores se han estudiado variables aleatorias, funciones de distribución de probabilidad y algunos modelos probabilísticos especiales. Estos modelos permiten representar matemáticamente fenómenos en los que existe **incertidumbre**.
+
+Hasta ahora, gran parte del trabajo se ha concentrado en preguntas como:
+
+* ¿cuál es la probabilidad de que ocurra determinado evento?,
+* ¿cuál es el valor esperado de una variable?,
+* ¿cuál es su variabilidad?,
+* ¿qué modelo de probabilidad describe adecuadamente un fenómeno?
+
+En esta unidad cambiaremos parcialmente la dirección del análisis. En lugar de utilizar únicamente el modelo para **calcular probabilidades**, utilizaremos el modelo para **generar artificialmente posibles realizaciones del sistema**.
+
+Esta idea constituye la base de la **simulación**.
+
+<br/><br/>
+
+<div class="box4 with-label">
+
+### Idea fundamental
+
+**Simular** consiste en construir y ejecutar un modelo que imita el comportamiento de un sistema real con el propósito de estudiar cómo podría comportarse bajo diferentes condiciones.
+
+Cuando el sistema contiene incertidumbre, la simulación utiliza variables aleatorias para representar los elementos que no pueden conocerse exactamente de antemano.
+
+</div>
+
+<br/><br/>
+
+La simulación tendrá un papel especialmente importante en el proyecto del curso porque constituye uno de los componentes fundamentales para la construcción de un **gemelo digital**. Un gemelo digital requiere una representación computacional del sistema real y un mecanismo que permita reproducir su comportamiento, evaluar escenarios y analizar posibles decisiones.
+
+# Del modelo probabilístico a la simulación
+
+<br/>
+
+Supongamos que el tiempo entre llegadas de usuarios a un sistema puede representarse mediante una variable aleatoria $X$. Conocer la distribución de $X$ permite calcular probabilidades. Sin embargo, también permite generar valores que representen posibles tiempos entre llegadas.
+
+Por ejemplo, si se generan los valores
+
+$$
+1.8,\quad 0.7,\quad 2.4,\quad 1.1,\quad 3.2,
+$$
+
+estos pueden interpretarse como cinco posibles tiempos entre llegadas producidos por el modelo.
+
+Al acumularlos se obtienen instantes simulados de llegada:
+
+$$
+1.8,\quad 2.5,\quad 4.9,\quad 6.0,\quad 9.2.
+$$
+
+De esta forma, un modelo probabilístico deja de ser únicamente una expresión matemática y se convierte en un **generador de comportamiento para el sistema**.
+
+<br/><br/>
+
+<div class="box6 with-label">
+
+### De la probabilidad al gemelo digital
+
+Una secuencia útil para el proyecto puede representarse como:
+
+$$
+\boxed{\text{Sistema real}}
+\longrightarrow
+\boxed{\text{Datos}}
+\longrightarrow
+\boxed{\text{Modelo probabilístico}}
+\longrightarrow
+\boxed{\text{Simulación}}
+\longrightarrow
+\boxed{\text{Indicadores}}
+\longrightarrow
+\boxed{\text{Decisiones}}
+$$
+
+El **gemelo digital** integra estos elementos en una representación computacional que busca reproducir y analizar el comportamiento del sistema real.
+
+</div>
+
+# ¿Por qué simular?
+
+<br/>
+
+En numerosos problemas de ingeniería es difícil, costoso o incluso imposible experimentar directamente con el sistema real. La simulación permite construir un laboratorio computacional en el que se pueden estudiar alternativas sin intervenir inicialmente el sistema físico.
+
+Algunas preguntas que pueden estudiarse mediante simulación son:
+
+* ¿qué ocurre si aumenta la demanda de un servicio?,
+* ¿qué pasa si se reduce el número de servidores disponibles?,
+* ¿cómo cambia el tiempo de espera si se modifica la capacidad del sistema?,
+* ¿cuántas fallas podrían ocurrir durante una jornada?,
+* ¿qué nivel de inventario sería necesario ante una demanda incierta?,
+* ¿qué ocurre con la congestión si aumenta el flujo de usuarios?,
+* ¿cuál es la probabilidad de superar cierto nivel crítico de operación?
+
+<br/><br/>
+
+### Aplicaciones prácticas
+
+* **Ingeniería industrial:** líneas de producción, inventarios, mantenimiento, logística y sistemas de colas.
+* **Ingeniería mecánica:** confiabilidad de componentes, tiempos hasta falla y comportamiento de sistemas sometidos a variabilidad.
+* **Ingeniería de sistemas y multimedia:** tráfico de usuarios, servidores, tiempos de respuesta, videojuegos y sistemas interactivos.
+* **Finanzas:** riesgo, rentabilidad, pérdidas potenciales y evaluación de escenarios.
+* **Servicios:** restaurantes, cafeterías, bancos, parqueaderos, hospitales y centros de atención.
+
+# Elementos de una simulación
+
+<br/>
+
+Para construir una simulación es necesario identificar varios componentes.
+
+<div class="box4 with-label">
+
+### Componentes básicos
+
+**1. Sistema:** conjunto de elementos que interactúan y cuyo comportamiento interesa estudiar.
+
+**2. Variables de entrada:** características que determinan las condiciones de operación del sistema.
+
+**3. Variables aleatorias:** representan aquellos componentes cuyo comportamiento no es completamente predecible.
+
+**4. Parámetros:** valores que caracterizan los modelos utilizados.
+
+**5. Reglas de operación:** describen cómo interactúan los elementos del sistema.
+
+**6. Variables de salida:** indicadores utilizados para evaluar el comportamiento del sistema.
+
+</div>
+
+<br/><br/>
+
+Por ejemplo, para simular una cafetería universitaria podrían considerarse:
+
+| Elemento | Ejemplo |
+|:--|:--|
+| Sistema | cafetería |
+| Entrada | estudiantes que llegan |
+| Variable aleatoria | tiempo entre llegadas |
+| Variable aleatoria | tiempo de atención |
+| Recurso | cajas disponibles |
+| Regla | atender en orden de llegada |
+| Salida | tiempo promedio de espera |
+| Salida | longitud promedio de la fila |
+| Salida | utilización de las cajas |
+
+# Números pseudoaleatorios
+
+<br/>
+
+La simulación computacional requiere generar valores que reproduzcan la incertidumbre. Para ello se utilizan **números pseudoaleatorios**.
+
+Una computadora es un sistema determinista. Por esta razón, los números utilizados en una simulación no son aleatorios en sentido estricto: son generados mediante algoritmos diseñados para producir secuencias que presentan propiedades similares a las de una sucesión aleatoria.
+
+La base de muchos procedimientos de simulación es la distribución uniforme continua en el intervalo $(0,1)$:
+
+$$
+U \sim U(0,1).
+$$
+
+Su función de densidad es
+
+$$
+f_U(u)=
+\begin{cases}
+1, & 0<u<1,\\
+0, & \text{en otro caso}.
+\end{cases}
+$$
+
+En R, una secuencia de números pseudoaleatorios uniformes puede generarse mediante `runif()`.
+
+```{r}
+set.seed(123)
+runif(10)
+```
+
+# La semilla de simulación
+
+<br/>
+
+Cuando se ejecuta varias veces una simulación se obtienen, en general, resultados diferentes. Esto es deseable porque se pretende representar la variabilidad del fenómeno.
+
+Sin embargo, durante el desarrollo y validación de un modelo puede ser necesario reproducir exactamente una secuencia de resultados. Para ello se utiliza una **semilla**.
+
+```{r}
+set.seed(2026)
+runif(5)
+```
+
+Si se vuelve a utilizar la misma semilla, R genera nuevamente la misma secuencia.
+
+```{r}
+set.seed(2026)
+runif(5)
+```
+
+<div class="box6 with-label">
+
+### Importancia para el proyecto
+
+La semilla permite que un experimento de simulación sea **reproducible**. Esto facilita comparar escenarios, revisar errores y comprobar que dos estudiantes o investigadores están ejecutando exactamente el mismo experimento computacional.
+
+</div>
+
+# Simulación de variables aleatorias en R
+
+<br/>
+
+R dispone de funciones específicas para generar realizaciones de muchos modelos probabilísticos. En general, las funciones que comienzan por la letra `r` permiten **generar valores aleatorios**.
+
+| Modelo | Función en R |
+|:--|:--|
+| Bernoulli/Binomial | `rbinom()` |
+| Poisson | `rpois()` |
+| Geométrica | `rgeom()` |
+| Binomial negativa | `rnbinom()` |
+| Hipergeométrica | `rhyper()` |
+| Uniforme | `runif()` |
+| Normal | `rnorm()` |
+| Exponencial | `rexp()` |
+
+La instrucción general tiene la forma
+
+```r
+rmodelo(n, parametros)
+```
+
+donde `n` corresponde al número de realizaciones que se desean generar.
+
+# Ejemplo 1. Simulación de un resultado Bernoulli
+
+<br/>
+
+<div class="box6 with-label">
+
+### Ejemplo 1
+
+En una estación automática de inspección, cada pieza puede clasificarse como **conforme** o **no conforme**. La probabilidad de que una pieza sea conforme es $0.92$.
+
+Simule el resultado de una pieza y posteriormente una secuencia de 20 piezas.
+
+</div>
+
+<br/><br/>
+
+### Solución
+
+Definamos
+
+$$
+X=
+\begin{cases}
+1, & \text{si la pieza es conforme},\\
+0, & \text{si la pieza no es conforme}.
+\end{cases}
+$$
+
+Entonces
+
+$$
+X\sim Bernoulli(0.92).
+$$
+
+En R, un ensayo Bernoulli puede generarse como una binomial con $n=1$.
+
+```{r}
+set.seed(123)
+rbinom(1, size = 1, prob = 0.92)
+```
+
+Para simular 20 piezas:
+
+```{r}
+set.seed(123)
+piezas <- rbinom(20, size = 1, prob = 0.92)
+piezas
+```
+
+La proporción simulada de piezas conformes es
+
+```{r}
+mean(piezas)
+```
+
+# Ejemplo 2. Simulación de una variable binomial
+
+<br/>
+
+<div class="box6 with-label">
+
+### Ejemplo 2
+
+En un proceso de manufactura, la probabilidad de que una pieza presente una falla es $0.05$. Durante una jornada se inspeccionan 100 piezas.
+
+Simule el número de piezas con falla y repita el experimento para 1000 jornadas.
+
+</div>
+
+<br/><br/>
+
+### Solución
+
+Si $X$ representa el número de piezas con falla entre 100 piezas, entonces
+
+$$
+X\sim Binomial(100,0.05).
+$$
+
+Una jornada puede simularse mediante:
+
+```{r}
+set.seed(123)
+rbinom(1, size = 100, prob = 0.05)
+```
+
+Ahora se simulan 1000 jornadas:
+
+```{r}
+set.seed(123)
+fallas <- rbinom(1000, size = 100, prob = 0.05)
+
+mean(fallas)
+var(fallas)
+```
+
+Teóricamente,
+
+$$
+E[X]=np=100(0.05)=5
+$$
+
+y
+
+$$
+V[X]=np(1-p)=100(0.05)(0.95)=4.75.
+$$
+
+Al aumentar el número de simulaciones, los resultados obtenidos mediante simulación tienden a aproximarse a estas características teóricas.
+
+# Ejemplo 3. Simulación de llegadas mediante Poisson
+
+<br/>
+
+<div class="box6 with-label">
+
+### Ejemplo 3
+
+A un punto de atención llegan en promedio 8 usuarios cada 10 minutos. Suponga que el número de llegadas durante intervalos de 10 minutos puede representarse mediante una distribución Poisson.
+
+Simule el número de usuarios que llegan durante 12 intervalos consecutivos.
+
+</div>
+
+<br/><br/>
+
+### Solución
+
+Sea $X$ el número de usuarios que llegan durante 10 minutos. Entonces
+
+$$
+X\sim Poisson(8).
+$$
+
+```{r}
+set.seed(123)
+llegadas <- rpois(12, lambda = 8)
+llegadas
+```
+
+El total simulado de usuarios durante los 12 intervalos es
+
+```{r}
+sum(llegadas)
+```
+
+Este tipo de simulación permite generar una **demanda artificial** que posteriormente puede ingresar al modelo computacional de un sistema de atención.
+
+# Ejemplo 4. Simulación de una variable uniforme
+
+<br/>
+
+<div class="box6 with-label">
+
+### Ejemplo 4
+
+El tiempo requerido por un vehículo para recorrer un tramo interno de una planta industrial puede variar entre 4 y 7 minutos. Para una primera aproximación se supone que cualquier valor dentro de este intervalo es igualmente probable.
+
+Simule 20 tiempos de recorrido.
+
+</div>
+
+<br/><br/>
+
+### Solución
+
+Si $X$ representa el tiempo de recorrido,
+
+$$
+X\sim U(4,7).
+$$
+
+```{r}
+set.seed(123)
+tiempos <- runif(20, min = 4, max = 7)
+round(tiempos, 2)
+```
+
+# Método de transformación inversa
+
+<br/>
+
+Una pregunta importante es: **¿cómo puede un número uniforme entre 0 y 1 transformarse en una observación de otra distribución?**
+
+Una de las respuestas más importantes es el **método de transformación inversa**.
+
+Sea $X$ una variable aleatoria continua con función de distribución acumulada
+
+$$
+F(x)=P(X\leq x).
+$$
+
+Si
+
+$$
+U\sim U(0,1),
+$$
+
+y se define
+
+$$
+X=F^{-1}(U),
+$$
+
+entonces $X$ posee función de distribución acumulada $F(x)$.
+
+<br/><br/>
+
+<div class="box4 with-label">
+
+### Algoritmo de transformación inversa
+
+1. Generar $U\sim U(0,1)$.
+2. Igualar $U=F(x)$.
+3. Despejar $x$.
+4. El valor obtenido corresponde a una realización simulada de $X$.
+
+</div>
+
+# Ejemplo 5. Generación de una variable exponencial
+
+<br/>
+
+Suponga que el tiempo entre llegadas de usuarios puede representarse mediante una distribución exponencial con parámetro $\lambda$.
+
+Su función de distribución acumulada es
+
+$$
+F(x)=1-e^{-\lambda x}, \qquad x\geq 0.
+$$
+
+Igualando $F(x)=U$:
+
+$$
+U=1-e^{-\lambda x}.
+$$
+
+Entonces
+
+$$
+e^{-\lambda x}=1-U,
+$$
+
+$$
+-\lambda x=\ln(1-U),
+$$
+
+y finalmente
+
+$$
+X=-\frac{1}{\lambda}\ln(1-U).
+$$
+
+Como $1-U$ también se distribuye uniformemente en $(0,1)$, es común escribir
+
+$$
+X=-\frac{1}{\lambda}\ln(U).
+$$
+
+Supongamos $\lambda=0.5$ llegadas por minuto.
+
+```{r}
+set.seed(123)
+U <- runif(10)
+X <- -(1 / 0.5) * log(U)
+round(X, 2)
+```
+
+R realiza directamente este procedimiento mediante
+
+```{r}
+set.seed(123)
+rexp(10, rate = 0.5)
+```
+
+# Simulación Monte Carlo
+
+<br/>
+
+La simulación no se limita a generar una sola realización. Una de sus principales ventajas consiste en **repetir muchas veces un experimento aleatorio** para estudiar la distribución de sus posibles resultados.
+
+Este enfoque recibe frecuentemente el nombre de **simulación Monte Carlo**.
+
+<div class="box4 with-label">
+
+### Idea de Monte Carlo
+
+Si un resultado depende de variables aleatorias y su comportamiento no puede conocerse fácilmente mediante una solución analítica, podemos:
+
+1. generar valores aleatorios para las entradas,
+2. calcular el resultado del modelo,
+3. repetir el procedimiento muchas veces,
+4. estudiar la distribución de los resultados obtenidos.
+
+</div>
+
+# Ejemplo 6. Riesgo de superar la capacidad
+
+<br/>
+
+<div class="box6 with-label">
+
+### Ejemplo 6
+
+Un sistema puede atender como máximo 15 solicitudes durante un intervalo. El número de solicitudes que llegan se modela mediante
+
+$$
+X\sim Poisson(12).
+$$
+
+Utilice simulación para estimar la probabilidad de que la demanda supere la capacidad.
+
+</div>
+
+<br/><br/>
+
+### Solución
+
+Se simulan muchas realizaciones del número de solicitudes y se identifica en cuántas de ellas se presenta
+
+$$
+X>15.
+$$
+
+```{r}
+set.seed(123)
+B <- 10000
+x <- rpois(B, lambda = 12)
+
+mean(x > 15)
+```
+
+La expresión `x > 15` produce valores `TRUE` y `FALSE`. R interpreta `TRUE` como 1 y `FALSE` como 0. Por esta razón, el promedio corresponde a la proporción de simulaciones en las que la capacidad fue superada.
+
+El valor exacto puede obtenerse mediante
+
+```{r}
+1 - ppois(15, lambda = 12)
+```
+
+La comparación entre ambos resultados permite comprender una idea fundamental: **la simulación aproxima cantidades probabilísticas mediante repetición**.
+
+# Número de repeticiones
+
+<br/>
+
+Los resultados de una simulación presentan variabilidad. Si se realizan pocas repeticiones, la estimación puede cambiar considerablemente entre una ejecución y otra.
+
+Considere nuevamente
+
+$$
+P(X>15), \qquad X\sim Poisson(12).
+$$
+
+```{r}
+set.seed(123)
+
+B <- c(100, 1000, 10000, 100000)
+
+estimaciones <- sapply(B, function(n){
+  mean(rpois(n, lambda = 12) > 15)
+})
+
+data.frame(repeticiones = B,
+           probabilidad_estimada = estimaciones)
+```
+
+En general, un mayor número de repeticiones produce resultados más estables, aunque también incrementa el esfuerzo computacional.
+
+# Una simulación como experimento computacional
+
+<br/>
+
+Una simulación debe diseñarse de forma semejante a un experimento. No basta con generar números aleatorios. Es necesario definir claramente qué se desea estudiar.
+
+Una estructura básica es:
+
+$$
+\boxed{\text{Entradas}}
+\longrightarrow
+\boxed{\text{Modelo}}
+\longrightarrow
+\boxed{\text{Simulación}}
+\longrightarrow
+\boxed{\text{Salidas}}
+$$
+
+Por ejemplo:
+
+| Componente | Sistema de atención |
+|:--|:--|
+| Entrada | tasa de llegada |
+| Entrada | tiempo de servicio |
+| Decisión | número de servidores |
+| Simulación | secuencia de llegadas y servicios |
+| Salida | tiempo de espera |
+| Salida | tamaño de la fila |
+| Salida | utilización |
+
+# Primer modelo para un gemelo digital
+
+<br/>
+
+Un gemelo digital puede comenzar con un modelo muy sencillo. No es necesario reproducir inmediatamente todos los detalles del sistema real. Es preferible construir inicialmente un **modelo mínimo funcional**, verificarlo y posteriormente incorporar nuevos componentes.
+
+Consideremos un punto de atención con **un servidor**.
+
+Para cada usuario se requiere conocer:
+
+* el tiempo entre llegadas,
+* el instante de llegada,
+* el tiempo de servicio,
+* el instante de inicio de atención,
+* el tiempo de espera,
+* el instante de salida.
+
+Supongamos que los tiempos entre llegadas siguen una distribución exponencial con media 3 minutos y que los tiempos de servicio siguen una distribución uniforme entre 2 y 4 minutos.
+
+Entonces
+
+$$
+T_L\sim Exponencial\left(\lambda=\frac{1}{3}\right)
+$$
+
+y
+
+$$
+T_S\sim U(2,4).
+$$
+
+# Ejemplo 7. Simulación de una fila con un servidor
+
+<br/>
+
+<div class="box6 with-label">
+
+### Ejemplo 7
+
+Simule la llegada y atención de 20 usuarios en un punto de servicio con un único servidor. Los tiempos entre llegadas tienen media de 3 minutos y los tiempos de servicio se distribuyen uniformemente entre 2 y 4 minutos.
+
+Determine el tiempo de espera de cada usuario.
+
+</div>
+
+<br/><br/>
+
+### Solución
+
+```{r}
+set.seed(123)
+
+n <- 20
+
+# Entradas aleatorias
+tiempo_entre_llegadas <- rexp(n, rate = 1/3)
+tiempo_servicio <- runif(n, min = 2, max = 4)
+
+# Instantes de llegada
+llegada <- cumsum(tiempo_entre_llegadas)
+
+# Variables del sistema
+inicio <- numeric(n)
+salida <- numeric(n)
+espera <- numeric(n)
+
+# Primer usuario
+inicio[1] <- llegada[1]
+salida[1] <- inicio[1] + tiempo_servicio[1]
+espera[1] <- 0
+
+# Usuarios siguientes
+for(i in 2:n){
+  inicio[i] <- max(llegada[i], salida[i-1])
+  espera[i] <- inicio[i] - llegada[i]
+  salida[i] <- inicio[i] + tiempo_servicio[i]
+}
+
+simulacion <- data.frame(
+  usuario = 1:n,
+  entre_llegadas = round(tiempo_entre_llegadas, 2),
+  llegada = round(llegada, 2),
+  servicio = round(tiempo_servicio, 2),
+  inicio = round(inicio, 2),
+  espera = round(espera, 2),
+  salida = round(salida, 2)
+)
+
+simulacion
+```
+
+El tiempo promedio de espera es
+
+```{r}
+mean(espera)
+```
+
+y la proporción de usuarios que tuvieron que esperar es
+
+```{r}
+mean(espera > 0)
+```
+
+Este ejemplo ya contiene varios componentes de un **modelo dinámico del sistema**: entidades, eventos, tiempos aleatorios, reglas de operación y métricas de desempeño.
+
+# Del modelo de simulación al gemelo digital
+
+<br/>
+
+La simulación anterior todavía no constituye por sí sola un gemelo digital completo. Sin embargo, representa un paso fundamental para construirlo.
+
+<div class="box4 with-label">
+
+### Evolución del modelo
+
+**Nivel 1. Modelo conceptual**  
+Identificar sistema, entidades, recursos, eventos, variables y reglas.
+
+**Nivel 2. Modelo probabilístico**  
+Caracterizar la incertidumbre mediante distribuciones de probabilidad.
+
+**Nivel 3. Modelo de simulación**  
+Reproducir computacionalmente el comportamiento del sistema.
+
+**Nivel 4. Modelo alimentado con datos**  
+Estimar parámetros y actualizar entradas utilizando observaciones del sistema real.
+
+**Nivel 5. Gemelo digital**  
+Conectar el modelo con información del sistema real, visualizar su estado y utilizar la simulación para evaluar escenarios y apoyar decisiones.
+
+</div>
+
+# Verificación y validación
+
+<br/>
+
+Una simulación puede ejecutar correctamente en R y, aun así, representar mal el sistema real. Por esta razón deben distinguirse dos actividades.
+
+**Verificación:** comprobar que el modelo computacional fue implementado correctamente.
+
+> ¿Construimos correctamente el modelo que habíamos diseñado?
+
+**Validación:** evaluar si el modelo representa adecuadamente el comportamiento del sistema real para el propósito del estudio.
+
+> ¿El modelo que construimos representa suficientemente bien el sistema real?
+
+Para el proyecto del curso ambas actividades serán necesarias.
+
+# Comparación de escenarios
+
+<br/>
+
+Una de las mayores ventajas de la simulación consiste en modificar condiciones sin intervenir físicamente el sistema.
+
+En un sistema de atención podrían compararse, por ejemplo:
+
+* escenario actual,
+* aumento de la demanda en 20%,
+* reducción del tiempo promedio de servicio,
+* incorporación de un nuevo servidor,
+* cambio en los horarios de operación.
+
+Cada escenario debe evaluarse utilizando los mismos indicadores para facilitar la comparación.
+
+# Indicadores para el proyecto
+
+<br/>
+
+Dependiendo del sistema seleccionado, algunos indicadores útiles son:
+
+* tiempo promedio de espera,
+* tiempo máximo de espera,
+* longitud promedio de la fila,
+* número máximo de usuarios en cola,
+* utilización de recursos,
+* cantidad de usuarios atendidos,
+* cantidad de usuarios que abandonan el sistema,
+* probabilidad de congestión,
+* número de fallas,
+* tiempo de inactividad,
+* nivel de inventario,
+* demanda no satisfecha.
+
+<div class="box6 with-label">
+
+### Regla para el proyecto
+
+Un gemelo digital no debe limitarse a **mostrar** el sistema. Debe permitir **medir su comportamiento**.
+
+Por esta razón, desde el inicio del proyecto deben definirse las variables de entrada y los indicadores de salida que permitirán evaluar cada escenario.
+
+</div>
+
+# Flujo de trabajo para el proyecto
+
+<br/>
+
+La simulación dentro del proyecto puede desarrollarse siguiendo la siguiente secuencia:
+
+1. **Delimitar el sistema real.** Determinar dónde empieza y termina el sistema que se desea representar.
+2. **Identificar entidades y recursos.** Personas, vehículos, máquinas, computadores, mesas, cajas, espacios, etc.
+3. **Identificar eventos.** Llegadas, salidas, fallas, reparaciones, inicio y finalización de servicios.
+4. **Recolectar datos.** Obtener observaciones del comportamiento real.
+5. **Definir variables aleatorias.** Determinar qué elementos presentan incertidumbre.
+6. **Proponer modelos probabilísticos.** Bernoulli, binomial, Poisson, uniforme, exponencial u otros modelos apropiados.
+7. **Estimar parámetros.** Utilizar datos para obtener los valores requeridos por los modelos.
+8. **Programar la simulación.** Construir las reglas que reproducen la dinámica del sistema.
+9. **Verificar y validar.** Revisar la implementación y contrastar el comportamiento simulado con el real.
+10. **Definir escenarios.** Modificar entradas o decisiones relevantes.
+11. **Ejecutar múltiples repeticiones.** Reconocer que una sola corrida no representa toda la incertidumbre.
+12. **Comparar indicadores.** Analizar el efecto de los escenarios sobre el desempeño del sistema.
+13. **Visualizar resultados.** Incorporar posteriormente estos elementos a la interfaz del gemelo digital.
+
+# Actividad propuesta
+
+<br/>
+
+<div class="box6 with-label">
+
+### Actividad: primer prototipo de simulación
+
+Para el sistema seleccionado por el grupo en el proyecto:
+
+1. describa brevemente el sistema real;
+2. identifique al menos una entidad y un recurso;
+3. identifique al menos dos eventos;
+4. seleccione una variable aleatoria relevante;
+5. indique qué modelo de probabilidad podría utilizarse inicialmente;
+6. identifique el parámetro o parámetros necesarios;
+7. genere en R al menos 100 realizaciones de la variable;
+8. represente gráficamente los valores simulados;
+9. proponga al menos dos indicadores de desempeño;
+10. describa un escenario alternativo que sería interesante estudiar mediante el futuro gemelo digital.
+
+</div>
+
+# Ejemplo de estructura en R para el proyecto
+
+<br/>
+
+El siguiente esquema puede utilizarse como punto de partida. Los modelos y parámetros deberán modificarse de acuerdo con cada sistema.
+
+```{r eval=FALSE}
+# ============================================================
+# 1. Parámetros
+# ============================================================
+set.seed(123)
+
+n <- 100
+lambda_llegadas <- 1/3
+servicio_min <- 2
+servicio_max <- 4
+
+# ============================================================
+# 2. Generación de entradas aleatorias
+# ============================================================
+entre_llegadas <- rexp(n, rate = lambda_llegadas)
+servicio <- runif(n, min = servicio_min, max = servicio_max)
+
+# ============================================================
+# 3. Estado inicial
+# ============================================================
+llegada <- cumsum(entre_llegadas)
+inicio <- numeric(n)
+salida <- numeric(n)
+espera <- numeric(n)
+
+# ============================================================
+# 4. Reglas del sistema
+# ============================================================
+inicio[1] <- llegada[1]
+espera[1] <- 0
+salida[1] <- inicio[1] + servicio[1]
+
+for(i in 2:n){
+  inicio[i] <- max(llegada[i], salida[i-1])
+  espera[i] <- inicio[i] - llegada[i]
+  salida[i] <- inicio[i] + servicio[i]
+}
+
+# ============================================================
+# 5. Resultados
+# ============================================================
+resultados <- data.frame(
+  usuario = 1:n,
+  llegada = llegada,
+  servicio = servicio,
+  espera = espera,
+  salida = salida
+)
+
+# ============================================================
+# 6. Indicadores
+# ============================================================
+mean(resultados$espera)
+max(resultados$espera)
+mean(resultados$espera > 0)
+```
+
+# Para recordar
+
+<br/>
+
+<div class="box4 with-label">
+
+### Ideas fundamentales
+
+* La simulación permite experimentar con un **modelo** en lugar de experimentar directamente con el sistema real.
+* Los números pseudoaleatorios permiten incorporar **incertidumbre** al modelo.
+* Las distribuciones de probabilidad estudiadas anteriormente pueden utilizarse para generar las **entradas aleatorias** de una simulación.
+* Una sola corrida representa únicamente una posible evolución del sistema.
+* La repetición permite estudiar la **variabilidad de los resultados**.
+* La simulación Monte Carlo permite aproximar probabilidades y otras medidas mediante repetición.
+* La verificación comprueba la implementación del modelo; la validación evalúa su correspondencia con el sistema real.
+* La simulación constituye uno de los componentes centrales para avanzar desde un modelo probabilístico hacia un **gemelo digital**.
+
+</div>
+
+<br/><br/>
+
+# Referencia
+
+Navidi, W. *Estadística para ingenieros y científicos*. Capítulo 4. Sección dedicada a simulación. El presente recurso reorganiza y amplía los conceptos con ejemplos en R y una orientación específica hacia el proyecto de gemelos digitales del curso.

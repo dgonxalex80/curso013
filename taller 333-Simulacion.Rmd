@@ -1,0 +1,552 @@
+---
+title: "<span style='color:#476885 !important;'>Teoría de probabilidades</span>"
+author: <span style="color:#476885">dgonzalez </span> 
+# subtitle: <span style="color:#476885"> </span> 
+output:
+  html_document:
+    toc: no
+    toc_depth: 2
+    toc_float: yes
+    code_folding: hide
+    theme: flatly
+    css:
+      - style.css
+      - cajas.css
+---   
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE,
+  message = FALSE,
+  warning = FALSE
+)
+```
+
+
+</br></br>
+
+```{r, echo=FALSE, out.width="100%", fig.align = "left"}
+knitr::include_graphics("img/taller3.png")
+```
+
+</br></br>
+
+
+# Propósito
+
+Los siguientes minicasos están construidos a partir de los ejercicios de simulación presentados en el capítulo 4 de *Estadística para ingenieros y científicos* de Navidi. Se conserva la estructura probabilística y el objetivo estadístico de cada ejercicio, pero se reformulan como situaciones de decisión, análisis y modelación.
+
+El propósito no es únicamente practicar la generación de números aleatorios. En cada minicaso el estudiante debe identificar:
+
+- el **sistema** que se desea representar;
+- las **variables aleatorias** que describen su comportamiento;
+- las **distribuciones de probabilidad** apropiadas;
+- la forma de construir una **réplica simulada** del sistema;
+- los **indicadores de desempeño** que deben estimarse;
+- y la decisión que podría tomarse a partir de los resultados.
+
+Esta lógica será posteriormente utilizada en la construcción de **gemelos digitales**, donde un sistema real se representa mediante un modelo computacional que permite reproducir su comportamiento, experimentar con escenarios y evaluar decisiones.
+
+> **Recomendación general.** Salvo que se indique algo diferente, utilice al menos **1 000 réplicas** y establezca una semilla con `set.seed()` para garantizar la reproducibilidad.
+
+<br/><br/><br/>
+
+<div class="box4 with-label">
+### Problema 1:  Control de calidad de dos proveedores
+
+Una empresa fabricante de equipos industriales recibe un componente crítico de dos proveedores. El **proveedor A** presenta históricamente una probabilidad de defecto de $0.025$ por pieza, mientras que para el **proveedor B** la probabilidad es $0.05$. Cada despacho contiene **100 piezas de cada proveedor**.
+
+El responsable de calidad desea construir un modelo de simulación que permita anticipar el comportamiento de los despachos antes de modificar la política de abastecimiento.
+
+#### Reto de simulación
+
+1. Defina $X$ como el número de piezas defectuosas en un despacho de 100 piezas del proveedor A y $Y$ como el número correspondiente al proveedor B. Identifique las distribuciones de $X$ y $Y$.
+2. Genere **1 000 despachos simulados** para cada proveedor.
+3. Estime la probabilidad de que el número total de piezas defectuosas de ambos proveedores sea menor que 10.
+4. Estime la probabilidad de que un despacho del proveedor A tenga más piezas defectuosas que uno del proveedor B.
+5. Construya una gráfica de probabilidad normal para el número total de defectuosos y analice si la distribución resultante puede considerarse aproximadamente normal.
+6. Explique qué información del minicaso sería útil incorporar a un futuro gemelo digital del proceso de recepción e inspección.
+
+
+</div>
+
+<br/><br/><br/>
+
+
+<div class="box4 with-label">
+### Problema 2. Comparación de diseños de un circuito
+
+Un equipo de ingeniería electrónica está evaluando dos diseños alternativos de un circuito semiconductor. La duración del **diseño 1**, medida en horas, puede modelarse mediante una distribución exponencial con parámetro $\lambda=10^{-4}$, mientras que la duración del **diseño 2** sigue una distribución lognormal con parámetros $\mu=6$ y $\sigma^2=5.4$.
+
+Antes de seleccionar un diseño para las siguientes pruebas de laboratorio, los ingenieros quieren comparar ambos mediante simulación.
+
+#### Reto de simulación
+
+1. Genere **1 000 pares de tiempos de vida**, uno para cada diseño.
+2. Estime la probabilidad de que un circuito construido con el diseño 1 dure más que uno construido con el diseño 2.
+3. Estime la probabilidad de que la duración del diseño 1 sea al menos el doble de la duración del diseño 2.
+4. Compare gráficamente las distribuciones simuladas de duración.
+5. Determine qué indicadores adicionales serían útiles para comparar la confiabilidad de ambos diseños dentro de un gemelo digital.
+
+</div>
+
+<br/><br/><br/>
+
+<div class="box4 with-label">
+### Problema 3. Variabilidad dimensional en la fabricación de placas
+
+Una planta fabrica placas rectangulares para un dispositivo de precisión. Debido a la variabilidad del proceso, la **longitud** $X$ de una placa se distribuye como
+
+$$
+X \sim N(2.0,0.1^2),
+$$
+
+mientras que el **ancho** $Y$ se distribuye como
+
+$$
+Y \sim N(3.0,0.2^2).
+$$
+
+Se supone que longitud y ancho son independientes. El área de una placa terminada está dada por
+
+$$
+A=XY.
+$$
+
+El ingeniero de proceso necesita conocer la variabilidad del área sin recurrir inicialmente a una aproximación analítica.
+
+#### Reto de simulación
+
+1. Simule **1 000 placas** y calcule el área de cada una.
+2. Estime la media y la variabilidad del área.
+3. Estime
+
+$$
+P(5.9<A<6.1).
+$$
+
+4. Construya una gráfica de probabilidad normal para las áreas simuladas.
+5. Evalúe, con apoyo gráfico, si el área puede considerarse aproximadamente normal.
+6. Explique cómo podría emplearse este modelo como componente de un gemelo digital del proceso de manufactura.
+
+</div>
+
+<br/><br/><br/>
+
+<div class="box4 with-label">
+### Problema 4. Resistencia de un cable de cuatro alambres
+
+Un cable de seguridad está compuesto por **cuatro alambres**. La fuerza de ruptura de cada alambre se modela mediante una distribución normal con media de **10 kN** y desviación estándar de **1 kN**.
+
+El procedimiento de diseño establece que la fuerza del cable completo se aproxima mediante el **método del cable cuadrado**: la fuerza del cable es igual a la resistencia del alambre más débil multiplicada por el número de alambres.
+
+Por tanto, si $F_1,\ldots,F_4$ son las resistencias individuales,
+
+$$
+F_{\text{cable}}=4\min(F_1,F_2,F_3,F_4).
+$$
+
+#### Reto de simulación
+
+1. Simule al menos **1 000 cables**.
+2. Estime la fuerza media de ruptura del cable.
+3. Estime la mediana y la desviación estándar de la fuerza de ruptura.
+4. Una aplicación exige que
+
+$$
+P(F_{\text{cable}}<28)<0.01.
+$$
+
+Estime esta probabilidad y determine si el requisito técnico se cumple.
+5. Analice por qué el comportamiento del elemento más débil es determinante en este sistema.
+6. Proponga cómo representar los cuatro alambres y su degradación en un gemelo digital del cable.
+
+
+</div>
+
+<br/><br/><br/>
+
+<div class="box4 with-label">
+### Problema 5. Confiabilidad conjunta de dos láseres
+
+Un sistema óptico utiliza dos láseres que operan de manera independiente. La duración, en horas, de cada láser sigue una distribución lognormal con
+
+$$
+\mu=8, \qquad \sigma^2=2.4.
+$$
+
+El equipo de mantenimiento desea conocer la confiabilidad conjunta de los dos dispositivos para planificar inspecciones y reemplazos.
+
+#### Reto de simulación
+
+1. Simule **1 000 pares de tiempos de vida**.
+2. Estime la probabilidad de que la suma de las duraciones de los dos láseres sea superior a **20 000 horas**.
+3. Estime la probabilidad de que **ambos láseres** duren más de **3 000 horas**.
+4. Estime la probabilidad de que **ambos fallen antes de 10 000 horas**.
+5. Compare los resultados con las distribuciones individuales de duración.
+6. Explique cómo una simulación como ésta puede apoyar un módulo de mantenimiento predictivo dentro de un gemelo digital.
+
+</div>
+
+<br/><br/><br/>
+
+
+<div class="box4 with-label">
+### Problema 6. Estimación de $\pi$ mediante Monte Carlo
+
+Un equipo de analítica desea demostrar cómo una cantidad matemática puede estimarse mediante experimentación computacional. Para ello se considera un cuadrado de lado 1 que contiene un cuarto de círculo de radio 1.
+
+Se generan puntos aleatorios $(X,Y)$ uniformemente distribuidos en el cuadrado. Un punto pertenece al cuarto de círculo cuando
+
+$$
+X^2+Y^2\leq 1.
+$$
+
+Como la razón entre el área del cuarto de círculo y la del cuadrado es $\pi/4$, la proporción de puntos que caen dentro del círculo puede utilizarse para estimar $\pi$.
+
+#### Reto de simulación
+
+1. Genere **1 000 valores** de $X$ provenientes de una distribución uniforme entre 0 y 1.
+2. Genere **1 000 valores** independientes de $Y$ con la misma distribución.
+3. Clasifique cada punto como interior o exterior al cuarto de círculo.
+4. Calcule
+
+$$
+\widehat{\pi}=4\frac{\text{número de puntos dentro del círculo}}{\text{número total de puntos}}.
+$$
+
+5. Compare $\widehat{\pi}$ con el valor real de $\pi$.
+6. Repita el experimento utilizando tamaños de simulación de 100, 1 000, 10 000 y 100 000 puntos. Analice qué ocurre con la estimación.
+7. Explique la relación entre este experimento y el principio general de simulación Monte Carlo.
+
+
+</div>
+
+<br/><br/><br/>
+
+
+<div class="box4 with-label">
+### Problema 7. Trayectoria de un dispositivo móvil
+
+En una red de computadores móviles se modela el movimiento de un dispositivo mediante trayectorias aleatorias dentro de una región cuadrada de lado 1. Para representar un desplazamiento elemental se seleccionan independientemente dos puntos:
+
+$$
+(X_1,Y_1), \qquad (X_2,Y_2),
+$$
+
+donde las cuatro coordenadas siguen una distribución uniforme entre 0 y 1.
+
+La longitud de la trayectoria es
+
+$$
+L=\sqrt{(X_2-X_1)^2+(Y_2-Y_1)^2}.
+$$
+
+Los ingenieros necesitan estimar características de estas trayectorias para incorporarlas posteriormente a un simulador de movilidad.
+
+#### Reto de simulación
+
+1. Genere **1 000 pares de puntos iniciales y finales**.
+2. Calcule las 1 000 longitudes $L$.
+3. Estime la longitud media de una trayectoria.
+4. El valor teórico de referencia de la media es aproximadamente **0.521405**. Compare su resultado con este valor.
+5. Estime la probabilidad de que una trayectoria tenga longitud superior a una unidad.
+6. Construya un histograma de las longitudes simuladas.
+7. Explique cómo extendería este modelo para representar múltiples desplazamientos de un dispositivo dentro de un gemelo digital de una red móvil.
+
+
+</div>
+
+<br/><br/><br/>
+
+<div class="box4 with-label">
+### Problema 8. Rediseño de un sistema para aumentar su vida útil
+
+Un sistema técnico posee varios componentes y los ingenieros estudian dos alternativas de rediseño. La primera consiste en reemplazar el **componente A** por uno nuevo cuya vida útil sigue una distribución
+
+$$
+A_{\text{nuevo}}\sim \text{Exp}(1/2),
+$$
+
+mientras que la segunda consiste en reemplazar el **componente B** por otro cuya vida útil sigue
+
+$$
+B_{\text{nuevo}}\sim \text{Exp}(1/3).
+$$
+
+La estructura restante del sistema y las distribuciones de sus componentes corresponden al modelo de confiabilidad estudiado previamente.
+
+El equipo no desea tomar la decisión utilizando únicamente la vida media de los nuevos componentes, pues diferentes criterios de confiabilidad pueden conducir a decisiones diferentes.
+
+#### Reto de simulación
+
+1. Simule al menos **1 000 tiempos de vida del sistema** bajo la alternativa de reemplazar A.
+2. Simule al menos **1 000 tiempos de vida** bajo la alternativa de reemplazar B.
+3. Compare las medianas de duración de ambas alternativas.
+4. Compare la probabilidad de que el sistema falle antes de un mes.
+5. Calcule y compare el **percentil 100** de los tiempos de vida simulados, interpretándolo con cautela como el máximo observado en cada simulación.
+6. Discuta por qué la alternativa preferida puede cambiar según el criterio utilizado.
+7. Explique cómo esta comparación de escenarios representa una de las funciones centrales de un gemelo digital.
+
+
+</div>
+
+<br/><br/><br/>
+
+<div class="box4 with-label">
+### Problema 9. Sistema en serie con dos componentes
+
+Un equipo industrial está formado por dos componentes, **A** y **B**, conectados en serie. El sistema funciona únicamente mientras ambos componentes estén operativos.
+
+La duración del componente A, en meses, sigue una distribución lognormal con
+
+$$
+\mu=1,\qquad \sigma=0.5,
+$$
+
+y la duración de B sigue una distribución lognormal con
+
+$$
+\mu=2,\qquad \sigma=1.
+$$
+
+Si $T_A$ y $T_B$ representan los tiempos de vida, entonces
+
+$$
+T_{\text{sistema}}=\min(T_A,T_B).
+$$
+
+#### Reto de simulación
+
+1. Genere al menos **1 000 tiempos de vida del sistema**.
+2. Estime la vida media del sistema.
+3. Estime la probabilidad de que el sistema falle antes de dos meses.
+4. Estime el percentil 20 de los tiempos de vida.
+5. Construya una gráfica de probabilidad normal y evalúe si los tiempos de vida pueden considerarse aproximadamente normales.
+6. Construya un histograma y analice si la distribución es aproximadamente simétrica o presenta sesgo.
+7. Identifique cuál de los dos componentes condiciona con mayor frecuencia la falla del sistema y explique cómo utilizaría esta información en mantenimiento.
+
+</div>
+
+<br/><br/><br/>
+
+
+<div class="box4 with-label">
+### Problema 10. Sistema serie-paralelo de cuatro componentes
+
+Un sistema de respaldo está formado por dos subsistemas conectados **en serie**. Cada subsistema contiene dos componentes conectados **en paralelo**.
+
+El primer subsistema contiene A y B y sólo falla cuando **ambos** han fallado. El segundo contiene C y D y se comporta de la misma forma. El sistema completo falla cuando cualquiera de los dos subsistemas deja de funcionar.
+
+Los tiempos de vida, en meses, son independientes y se distribuyen como:
+
+$$
+A\sim \text{Exp}(1),\qquad
+B\sim \text{Exp}(0.1),
+$$
+
+$$
+C\sim \text{Exp}(0.2),\qquad
+D\sim \text{Exp}(0.2).
+$$
+
+Por tanto,
+
+$$
+T_{AB}=\max(T_A,T_B),
+$$
+
+$$
+T_{CD}=\max(T_C,T_D),
+$$
+
+y
+
+$$
+T_{\text{sistema}}=\min(T_{AB},T_{CD}).
+$$
+
+#### Reto de simulación
+
+1. Genere al menos **1 000 tiempos de vida del sistema**.
+2. Estime la vida media.
+3. Estime la mediana.
+4. Estime la probabilidad de que el sistema funcione más de seis meses.
+5. Estime el percentil 90 de los tiempos de vida.
+6. Estime la probabilidad de que el subsistema AB falle antes que CD.
+7. Identifique mediante la simulación los componentes y subsistemas críticos.
+8. Explique por qué este modelo constituye una base natural para un gemelo digital de confiabilidad.
+
+</div>
+
+<br/><br/><br/>
+
+
+<div class="box4 with-label">
+### Problema 11. Datación de una pieza arqueológica
+
+Un laboratorio de arqueometría utiliza carbono-14 para estimar la antigüedad de una pieza. Si $X$ representa el número de partículas emitidas durante diez minutos por un fragmento óseo de **10 000 años** que contiene 1 g de carbono, se supone que
+
+$$
+X\sim \text{Poisson}(45.62).
+$$
+
+Para cada valor observado $X$, la edad estimada, en años, se calcula mediante
+
+$$
+\widehat{t}=
+-\frac{\ln(15.3)-\ln(X/10)}{0.0001210}.
+$$
+
+El laboratorio desea estudiar la incertidumbre introducida por la variabilidad aleatoria del conteo de partículas.
+
+#### Reto de simulación
+
+1. Genere una muestra simulada de **1 000 valores de $X$**.
+2. Calcule las 1 000 edades estimadas $\widehat{t}$.
+3. Estime la media de $\widehat{t}$.
+4. Estime su desviación estándar.
+5. Estime la probabilidad de que la edad estimada se encuentre a **1 000 años** o menos de la edad real de 10 000 años:
+
+$$
+P(|\widehat{t}-10000|\leq1000).
+$$
+
+6. Estime
+
+$$
+P(|\widehat{t}-10000|>2000).
+$$
+
+7. Construya una gráfica de probabilidad normal para $\widehat{t}$ y evalúe si su distribución es aproximadamente normal.
+8. Explique cómo la simulación permite cuantificar la incertidumbre de un instrumento o modelo de medición.
+
+</div>
+
+<br/><br/><br/>
+
+<div class="box4 with-label">
+### Problema 12. ¿Media o mediana para estimar el centro?
+
+Un equipo de análisis debe estimar el centro de una población normal $N(0,1)$. Dos analistas proponen estimadores diferentes: uno recomienda la **media muestral** y el otro la **mediana muestral**.
+
+Para comparar su precisión se realizará un experimento de simulación utilizando muestras pequeñas de tamaño
+
+$$
+n=5.
+$$
+
+#### Reto de simulación
+
+1. Genere al menos **1 000 muestras independientes de tamaño 5** de una población $N(0,1)$.
+2. Para cada muestra calcule su mediana.
+3. Calcule la media y la desviación estándar de las 1 000 medianas.
+4. Para cada muestra calcule también su media muestral.
+5. Calcule la media y la desviación estándar de las 1 000 medias.
+6. Como el verdadero valor del parámetro es $\mu=0$, estime el **sesgo** y la **incertidumbre**, medida mediante la desviación estándar, de ambos estimadores.
+7. Compare la precisión de la media y la mediana.
+8. Explique por qué ejecutar repetidamente el mismo proceso de muestreo permite estudiar propiedades de un estimador que no son visibles a partir de una única muestra.
+
+</div>
+
+<br/><br/><br/>
+
+<div class="box4 with-label">
+### Problema 13. Bootstrap para evaluar un estimador de tasa
+
+Un analista dispone únicamente de la siguiente muestra de ocho tiempos observados:
+
+$$
+2.74,\;6.41,\;4.96,\;1.65,\;6.38,\;0.19,\;0.52,\;8.38.
+$$
+
+Se supone que los datos provienen de una distribución exponencial $\text{Exp}(\lambda)$ y se desea estimar el parámetro mediante
+
+$$
+\widehat{\lambda}=\frac{1}{\bar X}.
+$$
+
+Como sólo se dispone de una muestra pequeña, el analista decide utilizar **bootstrap** para estudiar el sesgo y la incertidumbre del estimador.
+
+#### Reto de simulación
+
+1. Calcule $\widehat{\lambda}=1/\bar X$ para la muestra original.
+2. Genere **1 000 muestras bootstrap de tamaño 8**, seleccionando con reemplazo a partir de los ocho valores observados.
+3. Para cada muestra bootstrap calcule
+
+$$
+\widehat{\lambda}^{*}=\frac{1}{\bar X^{*}}.
+$$
+
+4. Calcule la media de las 1 000 estimaciones bootstrap.
+5. Calcule la desviación estándar de las estimaciones bootstrap como medida de incertidumbre.
+6. Estime el sesgo mediante
+
+$$
+\widehat{\operatorname{sesgo}}
+=
+\overline{\widehat{\lambda}^{*}}-\widehat{\lambda}.
+$$
+
+7. Construya un histograma de la distribución bootstrap de $\widehat{\lambda}^{*}$.
+8. Explique por qué el bootstrap es también una técnica de simulación y qué ventaja ofrece cuando no se conoce completamente la distribución muestral de un estimador.
+
+</div>
+
+<br/><br/><br/>
+
+
+
+# Integración con el proyecto de gemelos digitales
+
+Los trece minicasos anteriores muestran diferentes usos de la simulación. Sin embargo, todos pueden organizarse mediante una misma estructura conceptual:
+
+$$
+\boxed{
+\text{Sistema real}
+\rightarrow
+\text{modelo probabilístico}
+\rightarrow
+\text{generación de escenarios}
+\rightarrow
+\text{simulación}
+\rightarrow
+\text{indicadores}
+\rightarrow
+\text{decisión}
+}
+$$
+
+En un **gemelo digital**, esta estructura se amplía al incorporar información del sistema real y actualizar el modelo a medida que se reciben nuevos datos.
+
+## Actividad integradora
+
+Seleccione uno de los minicasos anteriores y prepare una primera especificación de un gemelo digital respondiendo:
+
+1. ¿Cuál es el **sistema real**?
+2. ¿Cuáles son las **entidades**?
+3. ¿Cuáles son sus **variables de estado**?
+4. ¿Qué variables son **aleatorias**?
+5. ¿Qué distribuciones de probabilidad se utilizarán?
+6. ¿Qué parámetros deberán obtenerse de datos reales?
+7. ¿Qué constituye una **réplica** de la simulación?
+8. ¿Qué indicadores de desempeño se calcularán?
+9. ¿Qué escenarios o políticas podrían compararse?
+10. ¿Qué información del sistema real permitiría actualizar posteriormente el modelo?
+
+Finalmente, represente la arquitectura inicial mediante:
+
+$$
+\boxed{
+\text{Datos del sistema}
+\longrightarrow
+\text{modelo}
+\longrightarrow
+\text{simulador}
+\longrightarrow
+\text{indicadores}
+\longrightarrow
+\text{visualización}
+}
+$$
+
+Esta arquitectura servirá como punto de partida para transformar posteriormente el modelo de simulación en un **gemelo digital interactivo**.

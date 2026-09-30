@@ -1,0 +1,1589 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="dgonzalez " />
+
+
+<title>Teoría de probabilidades</title>
+
+<script src="site_libs/header-attrs/header-attrs.js"></script>
+<script src="site_libs/jquery/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation/tabsets.js"></script>
+<script src="site_libs/navigation/codefolding.js"></script>
+<link href="site_libs/highlightjs/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs/highlight.js"></script>
+<link href="site_libs/font-awesome/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome/css/v4-shims.min.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+<link rel="stylesheet" href="cajas-2.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html"> </a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">
+    <span class="fa fa-home"></span>
+     
+    Estadística
+  </a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 0
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo0.html">Módulo 0</a>
+    </li>
+    <li>
+      <a href="sumatoria.html">Sumatoria</a>
+    </li>
+    <li>
+      <a href="productoria.html">Productoria</a>
+    </li>
+    <li>
+      <a href="conjuntos.html">Conjuntos</a>
+    </li>
+    <li>
+      <a href="conteo.html">Conteo</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 1
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo1.html">Módulo 1</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="guia11.html">Guía 1.1</a>
+    </li>
+    <li>
+      <a href="recurso11.html">Recursos 1.1</a>
+    </li>
+    <li>
+      <a href="basesdatos.html">Bases de datos</a>
+    </li>
+    <li>
+      <a href="introduccionR.html">Introducción a R</a>
+    </li>
+    <li>
+      <a href="codigo11.html">Código 1.1</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="guia12.html">Guía 1.2</a>
+    </li>
+    <li>
+      <a href="recurso12.html">Recursos 1.2</a>
+    </li>
+    <li>
+      <a href="codigo12.html">Código 1.2</a>
+    </li>
+    <li>
+      <a href="caso1A.html">Caso 1</a>
+    </li>
+    <li>
+      <a href="caso1B.html">Caso 2</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="guia13.html">Guía 1.3</a>
+    </li>
+    <li>
+      <a href="recurso13.html">Recursos 1.3</a>
+    </li>
+    <li>
+      <a href="codigo13.html">Código 1.3</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="monitoria1.html">Monitoria 1</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 2
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo2.html">Módulo 2</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="guia21.html">Guía 2.1</a>
+    </li>
+    <li>
+      <a href="recurso21.html">Recursos 2.1</a>
+    </li>
+    <li>
+      <a href="codigo21.html">Código 2.1</a>
+    </li>
+    <li>
+      <a href="taller211.html">Taller 211</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="guia22.html">Guía 2.2</a>
+    </li>
+    <li>
+      <a href="recurso22.html">Recursos 2.2</a>
+    </li>
+    <li>
+      <a href="taller221.html">Taller 221</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="monitoria2.html">Moitoría 2</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 3
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo3.html">Módulo 3</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="guia31.html">Guía 3.1</a>
+    </li>
+    <li>
+      <a href="recurso31.html">Recursos 3.1</a>
+    </li>
+    <li>
+      <a href="codigo31.html">Código 3.1</a>
+    </li>
+    <li>
+      <a href="taller311.html">Taller 311</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="guia32.html">Guía 3.2</a>
+    </li>
+    <li>
+      <a href="recurso32.html">Recursos 3.2</a>
+    </li>
+    <li>
+      <a href="codigo32.html">Código 3.2</a>
+    </li>
+    <li>
+      <a href="taller321.html">Taller 321</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="guia33.html">Guía 3.3</a>
+    </li>
+    <li>
+      <a href="recurso33-discretas.html">Recursos 3.3-discretas</a>
+    </li>
+    <li>
+      <a href="codigo33-discretas.html">Código 3.32-discretas</a>
+    </li>
+    <li>
+      <a href="taller331.html">Taller 331</a>
+    </li>
+    <li>
+      <a href="actividad334.html">Asignacion A334</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="monitoria3.html">Moitoría 3</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 4
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo4.html">Módulo 4</a>
+    </li>
+    <li class="divider"></li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Proyecto
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="guia_proyecto1.html">Guía proyecto</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore"><span
+style="color:#476885 !important;">Teoría de probabilidades</span></h1>
+<h3 class="subtitle"><span style="color:#476885"> </span></h3>
+<h4 class="author"><span style="color:#476885">dgonzalez </span></h4>
+
+</div>
+
+
+<div id="simulación" class="section level1">
+<h1>Simulación</h1>
+<p><br/><br/></p>
+<p>En las unidades anteriores se han estudiado variables aleatorias,
+funciones de distribución de probabilidad y algunos modelos
+probabilísticos especiales. Estos modelos permiten representar
+matemáticamente fenómenos en los que existe
+<strong>incertidumbre</strong>.</p>
+<p>Hasta ahora, gran parte del trabajo se ha concentrado en preguntas
+como:</p>
+<ul>
+<li>¿cuál es la probabilidad de que ocurra determinado evento?,</li>
+<li>¿cuál es el valor esperado de una variable?,</li>
+<li>¿cuál es su variabilidad?,</li>
+<li>¿qué modelo de probabilidad describe adecuadamente un fenómeno?</li>
+</ul>
+<p>En esta unidad cambiaremos parcialmente la dirección del análisis. En
+lugar de utilizar únicamente el modelo para <strong>calcular
+probabilidades</strong>, utilizaremos el modelo para <strong>generar
+artificialmente posibles realizaciones del sistema</strong>.</p>
+<p>Esta idea constituye la base de la <strong>simulación</strong>.</p>
+<p><br/><br/></p>
+<div id="idea-fundamental" class="section level3 box4 with-label">
+<h3>Idea fundamental</h3>
+<p><strong>Simular</strong> consiste en construir y ejecutar un modelo
+que imita el comportamiento de un sistema real con el propósito de
+estudiar cómo podría comportarse bajo diferentes condiciones.</p>
+<p>Cuando el sistema contiene incertidumbre, la simulación utiliza
+variables aleatorias para representar los elementos que no pueden
+conocerse exactamente de antemano.</p>
+</div>
+<p><br/><br/></p>
+<p>La simulación tendrá un papel especialmente importante en el proyecto
+del curso porque constituye uno de los componentes fundamentales para la
+construcción de un <strong>gemelo digital</strong>. Un gemelo digital
+requiere una representación computacional del sistema real y un
+mecanismo que permita reproducir su comportamiento, evaluar escenarios y
+analizar posibles decisiones.</p>
+</div>
+<div id="del-modelo-probabilístico-a-la-simulación"
+class="section level1">
+<h1>Del modelo probabilístico a la simulación</h1>
+<p><br/></p>
+<p>Supongamos que el tiempo entre llegadas de usuarios a un sistema
+puede representarse mediante una variable aleatoria <span
+class="math inline">\(X\)</span>. Conocer la distribución de <span
+class="math inline">\(X\)</span> permite calcular probabilidades. Sin
+embargo, también permite generar valores que representen posibles
+tiempos entre llegadas.</p>
+<p>Por ejemplo, si se generan los valores</p>
+<p><span class="math display">\[
+1.8,\quad 0.7,\quad 2.4,\quad 1.1,\quad 3.2,
+\]</span></p>
+<p>estos pueden interpretarse como cinco posibles tiempos entre llegadas
+producidos por el modelo.</p>
+<p>Al acumularlos se obtienen instantes simulados de llegada:</p>
+<p><span class="math display">\[
+1.8,\quad 2.5,\quad 4.9,\quad 6.0,\quad 9.2.
+\]</span></p>
+<p>De esta forma, un modelo probabilístico deja de ser únicamente una
+expresión matemática y se convierte en un <strong>generador de
+comportamiento para el sistema</strong>.</p>
+<p><br/><br/></p>
+<div id="de-la-probabilidad-al-gemelo-digital"
+class="section level3 box6 with-label">
+<h3>De la probabilidad al gemelo digital</h3>
+<p>Una secuencia útil para el proyecto puede representarse como:</p>
+<p><span class="math display">\[
+\boxed{\text{Sistema real}}
+\longrightarrow
+\boxed{\text{Datos}}
+\longrightarrow
+\boxed{\text{Modelo probabilístico}}
+\longrightarrow
+\boxed{\text{Simulación}}
+\longrightarrow
+\boxed{\text{Indicadores}}
+\longrightarrow
+\boxed{\text{Decisiones}}
+\]</span></p>
+<p>El <strong>gemelo digital</strong> integra estos elementos en una
+representación computacional que busca reproducir y analizar el
+comportamiento del sistema real.</p>
+</div>
+</div>
+<div id="por-qué-simular" class="section level1">
+<h1>¿Por qué simular?</h1>
+<p><br/></p>
+<p>En numerosos problemas de ingeniería es difícil, costoso o incluso
+imposible experimentar directamente con el sistema real. La simulación
+permite construir un laboratorio computacional en el que se pueden
+estudiar alternativas sin intervenir inicialmente el sistema físico.</p>
+<p>Algunas preguntas que pueden estudiarse mediante simulación son:</p>
+<ul>
+<li>¿qué ocurre si aumenta la demanda de un servicio?,</li>
+<li>¿qué pasa si se reduce el número de servidores disponibles?,</li>
+<li>¿cómo cambia el tiempo de espera si se modifica la capacidad del
+sistema?,</li>
+<li>¿cuántas fallas podrían ocurrir durante una jornada?,</li>
+<li>¿qué nivel de inventario sería necesario ante una demanda
+incierta?,</li>
+<li>¿qué ocurre con la congestión si aumenta el flujo de usuarios?,</li>
+<li>¿cuál es la probabilidad de superar cierto nivel crítico de
+operación?</li>
+</ul>
+<p><br/><br/></p>
+<div id="aplicaciones-prácticas" class="section level3">
+<h3>Aplicaciones prácticas</h3>
+<ul>
+<li><strong>Ingeniería industrial:</strong> líneas de producción,
+inventarios, mantenimiento, logística y sistemas de colas.</li>
+<li><strong>Ingeniería mecánica:</strong> confiabilidad de componentes,
+tiempos hasta falla y comportamiento de sistemas sometidos a
+variabilidad.</li>
+<li><strong>Ingeniería de sistemas y multimedia:</strong> tráfico de
+usuarios, servidores, tiempos de respuesta, videojuegos y sistemas
+interactivos.</li>
+<li><strong>Finanzas:</strong> riesgo, rentabilidad, pérdidas
+potenciales y evaluación de escenarios.</li>
+<li><strong>Servicios:</strong> restaurantes, cafeterías, bancos,
+parqueaderos, hospitales y centros de atención.</li>
+</ul>
+</div>
+</div>
+<div id="elementos-de-una-simulación" class="section level1">
+<h1>Elementos de una simulación</h1>
+<p><br/></p>
+<p>Para construir una simulación es necesario identificar varios
+componentes.</p>
+<div id="componentes-básicos" class="section level3 box4 with-label">
+<h3>Componentes básicos</h3>
+<p><strong>1. Sistema:</strong> conjunto de elementos que interactúan y
+cuyo comportamiento interesa estudiar.</p>
+<p><strong>2. Variables de entrada:</strong> características que
+determinan las condiciones de operación del sistema.</p>
+<p><strong>3. Variables aleatorias:</strong> representan aquellos
+componentes cuyo comportamiento no es completamente predecible.</p>
+<p><strong>4. Parámetros:</strong> valores que caracterizan los modelos
+utilizados.</p>
+<p><strong>5. Reglas de operación:</strong> describen cómo interactúan
+los elementos del sistema.</p>
+<p><strong>6. Variables de salida:</strong> indicadores utilizados para
+evaluar el comportamiento del sistema.</p>
+</div>
+<p><br/><br/></p>
+<p>Por ejemplo, para simular una cafetería universitaria podrían
+considerarse:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Elemento</th>
+<th align="left">Ejemplo</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Sistema</td>
+<td align="left">cafetería</td>
+</tr>
+<tr class="even">
+<td align="left">Entrada</td>
+<td align="left">estudiantes que llegan</td>
+</tr>
+<tr class="odd">
+<td align="left">Variable aleatoria</td>
+<td align="left">tiempo entre llegadas</td>
+</tr>
+<tr class="even">
+<td align="left">Variable aleatoria</td>
+<td align="left">tiempo de atención</td>
+</tr>
+<tr class="odd">
+<td align="left">Recurso</td>
+<td align="left">cajas disponibles</td>
+</tr>
+<tr class="even">
+<td align="left">Regla</td>
+<td align="left">atender en orden de llegada</td>
+</tr>
+<tr class="odd">
+<td align="left">Salida</td>
+<td align="left">tiempo promedio de espera</td>
+</tr>
+<tr class="even">
+<td align="left">Salida</td>
+<td align="left">longitud promedio de la fila</td>
+</tr>
+<tr class="odd">
+<td align="left">Salida</td>
+<td align="left">utilización de las cajas</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="números-pseudoaleatorios" class="section level1">
+<h1>Números pseudoaleatorios</h1>
+<p><br/></p>
+<p>La simulación computacional requiere generar valores que reproduzcan
+la incertidumbre. Para ello se utilizan <strong>números
+pseudoaleatorios</strong>.</p>
+<p>Una computadora es un sistema determinista. Por esta razón, los
+números utilizados en una simulación no son aleatorios en sentido
+estricto: son generados mediante algoritmos diseñados para producir
+secuencias que presentan propiedades similares a las de una sucesión
+aleatoria.</p>
+<p>La base de muchos procedimientos de simulación es la distribución
+uniforme continua en el intervalo <span
+class="math inline">\((0,1)\)</span>:</p>
+<p><span class="math display">\[
+U \sim U(0,1).
+\]</span></p>
+<p>Su función de densidad es</p>
+<p><span class="math display">\[
+f_U(u)=
+\begin{cases}
+1, &amp; 0&lt;u&lt;1,\\
+0, &amp; \text{en otro caso}.
+\end{cases}
+\]</span></p>
+<p>En R, una secuencia de números pseudoaleatorios uniformes puede
+generarse mediante <code>runif()</code>.</p>
+<pre class="r"><code>set.seed(123)
+runif(10)</code></pre>
+<pre><code> [1] 0.2875775 0.7883051 0.4089769 0.8830174 0.9404673 0.0455565 0.5281055
+ [8] 0.8924190 0.5514350 0.4566147</code></pre>
+</div>
+<div id="la-semilla-de-simulación" class="section level1">
+<h1>La semilla de simulación</h1>
+<p><br/></p>
+<p>Cuando se ejecuta varias veces una simulación se obtienen, en
+general, resultados diferentes. Esto es deseable porque se pretende
+representar la variabilidad del fenómeno.</p>
+<p>Sin embargo, durante el desarrollo y validación de un modelo puede
+ser necesario reproducir exactamente una secuencia de resultados. Para
+ello se utiliza una <strong>semilla</strong>.</p>
+<pre class="r"><code>set.seed(2026)
+runif(5)</code></pre>
+<pre><code>[1] 0.6986735 0.5565305 0.1401400 0.2857233 0.5553690</code></pre>
+<p>Si se vuelve a utilizar la misma semilla, R genera nuevamente la
+misma secuencia.</p>
+<pre class="r"><code>set.seed(2026)
+runif(5)</code></pre>
+<pre><code>[1] 0.6986735 0.5565305 0.1401400 0.2857233 0.5553690</code></pre>
+<div id="importancia-para-el-proyecto"
+class="section level3 box6 with-label">
+<h3>Importancia para el proyecto</h3>
+<p>La semilla permite que un experimento de simulación sea
+<strong>reproducible</strong>. Esto facilita comparar escenarios,
+revisar errores y comprobar que dos estudiantes o investigadores están
+ejecutando exactamente el mismo experimento computacional.</p>
+</div>
+</div>
+<div id="simulación-de-variables-aleatorias-en-r"
+class="section level1">
+<h1>Simulación de variables aleatorias en R</h1>
+<p><br/></p>
+<p>R dispone de funciones específicas para generar realizaciones de
+muchos modelos probabilísticos. En general, las funciones que comienzan
+por la letra <code>r</code> permiten <strong>generar valores
+aleatorios</strong>.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Modelo</th>
+<th align="left">Función en R</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Bernoulli/Binomial</td>
+<td align="left"><code>rbinom()</code></td>
+</tr>
+<tr class="even">
+<td align="left">Poisson</td>
+<td align="left"><code>rpois()</code></td>
+</tr>
+<tr class="odd">
+<td align="left">Geométrica</td>
+<td align="left"><code>rgeom()</code></td>
+</tr>
+<tr class="even">
+<td align="left">Binomial negativa</td>
+<td align="left"><code>rnbinom()</code></td>
+</tr>
+<tr class="odd">
+<td align="left">Hipergeométrica</td>
+<td align="left"><code>rhyper()</code></td>
+</tr>
+<tr class="even">
+<td align="left">Uniforme</td>
+<td align="left"><code>runif()</code></td>
+</tr>
+<tr class="odd">
+<td align="left">Normal</td>
+<td align="left"><code>rnorm()</code></td>
+</tr>
+<tr class="even">
+<td align="left">Exponencial</td>
+<td align="left"><code>rexp()</code></td>
+</tr>
+</tbody>
+</table>
+<p>La instrucción general tiene la forma</p>
+<pre class="r"><code>rmodelo(n, parametros)</code></pre>
+<p>donde <code>n</code> corresponde al número de realizaciones que se
+desean generar.</p>
+</div>
+<div id="ejemplo-1.-simulación-de-un-resultado-bernoulli"
+class="section level1">
+<h1>Ejemplo 1. Simulación de un resultado Bernoulli</h1>
+<p><br/></p>
+<div id="ejemplo-1" class="section level3 box6 with-label">
+<h3>Ejemplo 1</h3>
+<p>En una estación automática de inspección, cada pieza puede
+clasificarse como <strong>conforme</strong> o <strong>no
+conforme</strong>. La probabilidad de que una pieza sea conforme es
+<span class="math inline">\(0.92\)</span>.</p>
+<p>Simule el resultado de una pieza y posteriormente una secuencia de 20
+piezas.</p>
+</div>
+<p><br/><br/></p>
+<div id="solución" class="section level3">
+<h3>Solución</h3>
+<p>Definamos</p>
+<p><span class="math display">\[
+X=
+\begin{cases}
+1, &amp; \text{si la pieza es conforme},\\
+0, &amp; \text{si la pieza no es conforme}.
+\end{cases}
+\]</span></p>
+<p>Entonces</p>
+<p><span class="math display">\[
+X\sim Bernoulli(0.92).
+\]</span></p>
+<p>En R, un ensayo Bernoulli puede generarse como una binomial con <span
+class="math inline">\(n=1\)</span>.</p>
+<pre class="r"><code>set.seed(123)
+rbinom(1, size = 1, prob = 0.92)</code></pre>
+<pre><code>[1] 1</code></pre>
+<p>Para simular 20 piezas:</p>
+<pre class="r"><code>set.seed(123)
+piezas &lt;- rbinom(20, size = 1, prob = 0.92)
+piezas</code></pre>
+<pre><code> [1] 1 1 1 1 0 1 1 1 1 1 0 1 1 1 1 1 1 1 1 0</code></pre>
+<p>La proporción simulada de piezas conformes es</p>
+<pre class="r"><code>mean(piezas)</code></pre>
+<pre><code>[1] 0.85</code></pre>
+</div>
+</div>
+<div id="ejemplo-2.-simulación-de-una-variable-binomial"
+class="section level1">
+<h1>Ejemplo 2. Simulación de una variable binomial</h1>
+<p><br/></p>
+<div id="ejemplo-2" class="section level3 box6 with-label">
+<h3>Ejemplo 2</h3>
+<p>En un proceso de manufactura, la probabilidad de que una pieza
+presente una falla es <span class="math inline">\(0.05\)</span>. Durante
+una jornada se inspeccionan 100 piezas.</p>
+<p>Simule el número de piezas con falla y repita el experimento para
+1000 jornadas.</p>
+</div>
+<p><br/><br/></p>
+<div id="solución-1" class="section level3">
+<h3>Solución</h3>
+<p>Si <span class="math inline">\(X\)</span> representa el número de
+piezas con falla entre 100 piezas, entonces</p>
+<p><span class="math display">\[
+X\sim Binomial(100,0.05).
+\]</span></p>
+<p>Una jornada puede simularse mediante:</p>
+<pre class="r"><code>set.seed(123)
+rbinom(1, size = 100, prob = 0.05)</code></pre>
+<pre><code>[1] 4</code></pre>
+<p>Ahora se simulan 1000 jornadas:</p>
+<pre class="r"><code>set.seed(123)
+fallas &lt;- rbinom(1000, size = 100, prob = 0.05)
+
+mean(fallas)</code></pre>
+<pre><code>[1] 4.987</code></pre>
+<pre class="r"><code>var(fallas)</code></pre>
+<pre><code>[1] 4.635466</code></pre>
+<p>Teóricamente,</p>
+<p><span class="math display">\[
+E[X]=np=100(0.05)=5
+\]</span></p>
+<p>y</p>
+<p><span class="math display">\[
+V[X]=np(1-p)=100(0.05)(0.95)=4.75.
+\]</span></p>
+<p>Al aumentar el número de simulaciones, los resultados obtenidos
+mediante simulación tienden a aproximarse a estas características
+teóricas.</p>
+</div>
+</div>
+<div id="ejemplo-3.-simulación-de-llegadas-mediante-poisson"
+class="section level1">
+<h1>Ejemplo 3. Simulación de llegadas mediante Poisson</h1>
+<p><br/></p>
+<div id="ejemplo-3" class="section level3 box6 with-label">
+<h3>Ejemplo 3</h3>
+<p>A un punto de atención llegan en promedio 8 usuarios cada 10 minutos.
+Suponga que el número de llegadas durante intervalos de 10 minutos puede
+representarse mediante una distribución Poisson.</p>
+<p>Simule el número de usuarios que llegan durante 12 intervalos
+consecutivos.</p>
+</div>
+<p><br/><br/></p>
+<div id="solución-2" class="section level3">
+<h3>Solución</h3>
+<p>Sea <span class="math inline">\(X\)</span> el número de usuarios que
+llegan durante 10 minutos. Entonces</p>
+<p><span class="math display">\[
+X\sim Poisson(8).
+\]</span></p>
+<pre class="r"><code>set.seed(123)
+llegadas &lt;- rpois(12, lambda = 8)
+llegadas</code></pre>
+<pre><code> [1]  6 10  7 11 13  4  8 12  8  8 13  8</code></pre>
+<p>El total simulado de usuarios durante los 12 intervalos es</p>
+<pre class="r"><code>sum(llegadas)</code></pre>
+<pre><code>[1] 108</code></pre>
+<p>Este tipo de simulación permite generar una <strong>demanda
+artificial</strong> que posteriormente puede ingresar al modelo
+computacional de un sistema de atención.</p>
+</div>
+</div>
+<div id="ejemplo-4.-simulación-de-una-variable-uniforme"
+class="section level1">
+<h1>Ejemplo 4. Simulación de una variable uniforme</h1>
+<p><br/></p>
+<div id="ejemplo-4" class="section level3 box6 with-label">
+<h3>Ejemplo 4</h3>
+<p>El tiempo requerido por un vehículo para recorrer un tramo interno de
+una planta industrial puede variar entre 4 y 7 minutos. Para una primera
+aproximación se supone que cualquier valor dentro de este intervalo es
+igualmente probable.</p>
+<p>Simule 20 tiempos de recorrido.</p>
+</div>
+<p><br/><br/></p>
+<div id="solución-3" class="section level3">
+<h3>Solución</h3>
+<p>Si <span class="math inline">\(X\)</span> representa el tiempo de
+recorrido,</p>
+<p><span class="math display">\[
+X\sim U(4,7).
+\]</span></p>
+<pre class="r"><code>set.seed(123)
+tiempos &lt;- runif(20, min = 4, max = 7)
+round(tiempos, 2)</code></pre>
+<pre><code> [1] 4.86 6.36 5.23 6.65 6.82 4.14 5.58 6.68 5.65 5.37 6.87 5.36 6.03 5.72 4.31
+[16] 6.70 4.74 4.13 4.98 6.86</code></pre>
+</div>
+</div>
+<div id="método-de-transformación-inversa" class="section level1">
+<h1>Método de transformación inversa</h1>
+<p><br/></p>
+<p>Una pregunta importante es: <strong>¿cómo puede un número uniforme
+entre 0 y 1 transformarse en una observación de otra
+distribución?</strong></p>
+<p>Una de las respuestas más importantes es el <strong>método de
+transformación inversa</strong>.</p>
+<p>Sea <span class="math inline">\(X\)</span> una variable aleatoria
+continua con función de distribución acumulada</p>
+<p><span class="math display">\[
+F(x)=P(X\leq x).
+\]</span></p>
+<p>Si</p>
+<p><span class="math display">\[
+U\sim U(0,1),
+\]</span></p>
+<p>y se define</p>
+<p><span class="math display">\[
+X=F^{-1}(U),
+\]</span></p>
+<p>entonces <span class="math inline">\(X\)</span> posee función de
+distribución acumulada <span class="math inline">\(F(x)\)</span>.</p>
+<p><br/><br/></p>
+<div id="algoritmo-de-transformación-inversa"
+class="section level3 box4 with-label">
+<h3>Algoritmo de transformación inversa</h3>
+<ol style="list-style-type: decimal">
+<li>Generar <span class="math inline">\(U\sim U(0,1)\)</span>.</li>
+<li>Igualar <span class="math inline">\(U=F(x)\)</span>.</li>
+<li>Despejar <span class="math inline">\(x\)</span>.</li>
+<li>El valor obtenido corresponde a una realización simulada de <span
+class="math inline">\(X\)</span>.</li>
+</ol>
+</div>
+</div>
+<div id="ejemplo-5.-generación-de-una-variable-exponencial"
+class="section level1">
+<h1>Ejemplo 5. Generación de una variable exponencial</h1>
+<p><br/></p>
+<p>Suponga que el tiempo entre llegadas de usuarios puede representarse
+mediante una distribución exponencial con parámetro <span
+class="math inline">\(\lambda\)</span>.</p>
+<p>Su función de distribución acumulada es</p>
+<p><span class="math display">\[
+F(x)=1-e^{-\lambda x}, \qquad x\geq 0.
+\]</span></p>
+<p>Igualando <span class="math inline">\(F(x)=U\)</span>:</p>
+<p><span class="math display">\[
+U=1-e^{-\lambda x}.
+\]</span></p>
+<p>Entonces</p>
+<p><span class="math display">\[
+e^{-\lambda x}=1-U,
+\]</span></p>
+<p><span class="math display">\[
+-\lambda x=\ln(1-U),
+\]</span></p>
+<p>y finalmente</p>
+<p><span class="math display">\[
+X=-\frac{1}{\lambda}\ln(1-U).
+\]</span></p>
+<p>Como <span class="math inline">\(1-U\)</span> también se distribuye
+uniformemente en <span class="math inline">\((0,1)\)</span>, es común
+escribir</p>
+<p><span class="math display">\[
+X=-\frac{1}{\lambda}\ln(U).
+\]</span></p>
+<p>Supongamos <span class="math inline">\(\lambda=0.5\)</span> llegadas
+por minuto.</p>
+<pre class="r"><code>set.seed(123)
+U &lt;- runif(10)
+X &lt;- -(1 / 0.5) * log(U)
+round(X, 2)</code></pre>
+<pre><code> [1] 2.49 0.48 1.79 0.25 0.12 6.18 1.28 0.23 1.19 1.57</code></pre>
+<p>R realiza directamente este procedimiento mediante</p>
+<pre class="r"><code>set.seed(123)
+rexp(10, rate = 0.5)</code></pre>
+<pre><code> [1] 1.68691452 1.15322054 2.65810974 0.06315472 0.11242195 0.63300243
+ [7] 0.62845458 0.29053361 5.45247293 0.05830689</code></pre>
+</div>
+<div id="simulación-monte-carlo" class="section level1">
+<h1>Simulación Monte Carlo</h1>
+<p><br/></p>
+<p>La simulación no se limita a generar una sola realización. Una de sus
+principales ventajas consiste en <strong>repetir muchas veces un
+experimento aleatorio</strong> para estudiar la distribución de sus
+posibles resultados.</p>
+<p>Este enfoque recibe frecuentemente el nombre de <strong>simulación
+Monte Carlo</strong>.</p>
+<div id="idea-de-monte-carlo" class="section level3 box4 with-label">
+<h3>Idea de Monte Carlo</h3>
+<p>Si un resultado depende de variables aleatorias y su comportamiento
+no puede conocerse fácilmente mediante una solución analítica,
+podemos:</p>
+<ol style="list-style-type: decimal">
+<li>generar valores aleatorios para las entradas,</li>
+<li>calcular el resultado del modelo,</li>
+<li>repetir el procedimiento muchas veces,</li>
+<li>estudiar la distribución de los resultados obtenidos.</li>
+</ol>
+</div>
+</div>
+<div id="ejemplo-6.-riesgo-de-superar-la-capacidad"
+class="section level1">
+<h1>Ejemplo 6. Riesgo de superar la capacidad</h1>
+<p><br/></p>
+<div id="ejemplo-6" class="section level3 box6 with-label">
+<h3>Ejemplo 6</h3>
+<p>Un sistema puede atender como máximo 15 solicitudes durante un
+intervalo. El número de solicitudes que llegan se modela mediante</p>
+<p><span class="math display">\[
+X\sim Poisson(12).
+\]</span></p>
+<p>Utilice simulación para estimar la probabilidad de que la demanda
+supere la capacidad.</p>
+</div>
+<p><br/><br/></p>
+<div id="solución-4" class="section level3">
+<h3>Solución</h3>
+<p>Se simulan muchas realizaciones del número de solicitudes y se
+identifica en cuántas de ellas se presenta</p>
+<p><span class="math display">\[
+X&gt;15.
+\]</span></p>
+<pre class="r"><code>set.seed(123)
+B &lt;- 10000
+x &lt;- rpois(B, lambda = 12)
+
+mean(x &gt; 15)</code></pre>
+<pre><code>[1] 0.1529</code></pre>
+<p>La expresión <code>x &gt; 15</code> produce valores <code>TRUE</code>
+y <code>FALSE</code>. R interpreta <code>TRUE</code> como 1 y
+<code>FALSE</code> como 0. Por esta razón, el promedio corresponde a la
+proporción de simulaciones en las que la capacidad fue superada.</p>
+<p>El valor exacto puede obtenerse mediante</p>
+<pre class="r"><code>1 - ppois(15, lambda = 12)</code></pre>
+<pre><code>[1] 0.1555843</code></pre>
+<p>La comparación entre ambos resultados permite comprender una idea
+fundamental: <strong>la simulación aproxima cantidades probabilísticas
+mediante repetición</strong>.</p>
+</div>
+</div>
+<div id="número-de-repeticiones" class="section level1">
+<h1>Número de repeticiones</h1>
+<p><br/></p>
+<p>Los resultados de una simulación presentan variabilidad. Si se
+realizan pocas repeticiones, la estimación puede cambiar
+considerablemente entre una ejecución y otra.</p>
+<p>Considere nuevamente</p>
+<p><span class="math display">\[
+P(X&gt;15), \qquad X\sim Poisson(12).
+\]</span></p>
+<pre class="r"><code>set.seed(123)
+
+B &lt;- c(100, 1000, 10000, 100000)
+
+estimaciones &lt;- sapply(B, function(n){
+  mean(rpois(n, lambda = 12) &gt; 15)
+})
+
+data.frame(repeticiones = B,
+           probabilidad_estimada = estimaciones)</code></pre>
+<pre><code>  repeticiones probabilidad_estimada
+1        1e+02               0.12000
+2        1e+03               0.14700
+3        1e+04               0.15700
+4        1e+05               0.15657</code></pre>
+<p>En general, un mayor número de repeticiones produce resultados más
+estables, aunque también incrementa el esfuerzo computacional.</p>
+</div>
+<div id="una-simulación-como-experimento-computacional"
+class="section level1">
+<h1>Una simulación como experimento computacional</h1>
+<p><br/></p>
+<p>Una simulación debe diseñarse de forma semejante a un experimento. No
+basta con generar números aleatorios. Es necesario definir claramente
+qué se desea estudiar.</p>
+<p>Una estructura básica es:</p>
+<p><span class="math display">\[
+\boxed{\text{Entradas}}
+\longrightarrow
+\boxed{\text{Modelo}}
+\longrightarrow
+\boxed{\text{Simulación}}
+\longrightarrow
+\boxed{\text{Salidas}}
+\]</span></p>
+<p>Por ejemplo:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Componente</th>
+<th align="left">Sistema de atención</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Entrada</td>
+<td align="left">tasa de llegada</td>
+</tr>
+<tr class="even">
+<td align="left">Entrada</td>
+<td align="left">tiempo de servicio</td>
+</tr>
+<tr class="odd">
+<td align="left">Decisión</td>
+<td align="left">número de servidores</td>
+</tr>
+<tr class="even">
+<td align="left">Simulación</td>
+<td align="left">secuencia de llegadas y servicios</td>
+</tr>
+<tr class="odd">
+<td align="left">Salida</td>
+<td align="left">tiempo de espera</td>
+</tr>
+<tr class="even">
+<td align="left">Salida</td>
+<td align="left">tamaño de la fila</td>
+</tr>
+<tr class="odd">
+<td align="left">Salida</td>
+<td align="left">utilización</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="primer-modelo-para-un-gemelo-digital" class="section level1">
+<h1>Primer modelo para un gemelo digital</h1>
+<p><br/></p>
+<p>Un gemelo digital puede comenzar con un modelo muy sencillo. No es
+necesario reproducir inmediatamente todos los detalles del sistema real.
+Es preferible construir inicialmente un <strong>modelo mínimo
+funcional</strong>, verificarlo y posteriormente incorporar nuevos
+componentes.</p>
+<p>Consideremos un punto de atención con <strong>un
+servidor</strong>.</p>
+<p>Para cada usuario se requiere conocer:</p>
+<ul>
+<li>el tiempo entre llegadas,</li>
+<li>el instante de llegada,</li>
+<li>el tiempo de servicio,</li>
+<li>el instante de inicio de atención,</li>
+<li>el tiempo de espera,</li>
+<li>el instante de salida.</li>
+</ul>
+<p>Supongamos que los tiempos entre llegadas siguen una distribución
+exponencial con media 3 minutos y que los tiempos de servicio siguen una
+distribución uniforme entre 2 y 4 minutos.</p>
+<p>Entonces</p>
+<p><span class="math display">\[
+T_L\sim Exponencial\left(\lambda=\frac{1}{3}\right)
+\]</span></p>
+<p>y</p>
+<p><span class="math display">\[
+T_S\sim U(2,4).
+\]</span></p>
+</div>
+<div id="ejemplo-7.-simulación-de-una-fila-con-un-servidor"
+class="section level1">
+<h1>Ejemplo 7. Simulación de una fila con un servidor</h1>
+<p><br/></p>
+<div id="ejemplo-7" class="section level3 box6 with-label">
+<h3>Ejemplo 7</h3>
+<p>Simule la llegada y atención de 20 usuarios en un punto de servicio
+con un único servidor. Los tiempos entre llegadas tienen media de 3
+minutos y los tiempos de servicio se distribuyen uniformemente entre 2 y
+4 minutos.</p>
+<p>Determine el tiempo de espera de cada usuario.</p>
+</div>
+<p><br/><br/></p>
+<div id="solución-5" class="section level3">
+<h3>Solución</h3>
+<pre class="r"><code>set.seed(123)
+
+n &lt;- 20
+
+# Entradas aleatorias
+tiempo_entre_llegadas &lt;- rexp(n, rate = 1/3)
+tiempo_servicio &lt;- runif(n, min = 2, max = 4)
+
+# Instantes de llegada
+llegada &lt;- cumsum(tiempo_entre_llegadas)
+
+# Variables del sistema
+inicio &lt;- numeric(n)
+salida &lt;- numeric(n)
+espera &lt;- numeric(n)
+
+# Primer usuario
+inicio[1] &lt;- llegada[1]
+salida[1] &lt;- inicio[1] + tiempo_servicio[1]
+espera[1] &lt;- 0
+
+# Usuarios siguientes
+for(i in 2:n){
+  inicio[i] &lt;- max(llegada[i], salida[i-1])
+  espera[i] &lt;- inicio[i] - llegada[i]
+  salida[i] &lt;- inicio[i] + tiempo_servicio[i]
+}
+
+simulacion &lt;- data.frame(
+  usuario = 1:n,
+  entre_llegadas = round(tiempo_entre_llegadas, 2),
+  llegada = round(llegada, 2),
+  servicio = round(tiempo_servicio, 2),
+  inicio = round(inicio, 2),
+  espera = round(espera, 2),
+  salida = round(salida, 2)
+)
+
+simulacion</code></pre>
+<pre><code>   usuario entre_llegadas llegada servicio inicio espera salida
+1        1           2.53    2.53     2.96   2.53   0.00   5.49
+2        2           1.73    4.26     3.52   5.49   1.23   9.00
+3        3           3.99    8.25     2.43   9.00   0.76  11.44
+4        4           0.09    8.34     2.64  11.44   3.09  14.07
+5        5           0.17    8.51     2.46  14.07   5.56  16.54
+6        6           0.95    9.46     2.29  16.54   7.08  18.82
+7        7           0.94   10.40     2.83  18.82   8.42  21.65
+8        8           0.44   10.84     2.83  21.65  10.81  24.48
+9        9           8.18   19.02     2.74  24.48   5.46  27.22
+10      10           0.09   19.10     2.30  27.22   8.11  29.52
+11      11           3.01   22.12     2.28  29.52   7.40  31.80
+12      12           1.44   23.56     2.47  31.80   8.24  34.26
+13      13           0.84   24.40     2.93  34.26   9.86  37.20
+14      14           1.13   25.53     2.53  37.20  11.66  39.73
+15      15           0.56   26.10     3.72  39.73  13.63  43.44
+16      16           2.55   28.65     2.09  43.44  14.79  45.53
+17      17           4.69   33.34     2.88  45.53  12.20  48.42
+18      18           1.44   34.77     3.60  48.42  13.64  52.02
+19      19           1.77   36.55     2.24  52.02  15.47  54.26
+20      20          12.12   48.67     3.12  54.26   5.59  57.38</code></pre>
+<p>El tiempo promedio de espera es</p>
+<pre class="r"><code>mean(espera)</code></pre>
+<pre><code>[1] 8.14979</code></pre>
+<p>y la proporción de usuarios que tuvieron que esperar es</p>
+<pre class="r"><code>mean(espera &gt; 0)</code></pre>
+<pre><code>[1] 0.95</code></pre>
+<p>Este ejemplo ya contiene varios componentes de un <strong>modelo
+dinámico del sistema</strong>: entidades, eventos, tiempos aleatorios,
+reglas de operación y métricas de desempeño.</p>
+</div>
+</div>
+<div id="del-modelo-de-simulación-al-gemelo-digital"
+class="section level1">
+<h1>Del modelo de simulación al gemelo digital</h1>
+<p><br/></p>
+<p>La simulación anterior todavía no constituye por sí sola un gemelo
+digital completo. Sin embargo, representa un paso fundamental para
+construirlo.</p>
+<div id="evolución-del-modelo" class="section level3 box4 with-label">
+<h3>Evolución del modelo</h3>
+<p><strong>Nivel 1. Modelo conceptual</strong><br />
+Identificar sistema, entidades, recursos, eventos, variables y
+reglas.</p>
+<p><strong>Nivel 2. Modelo probabilístico</strong><br />
+Caracterizar la incertidumbre mediante distribuciones de
+probabilidad.</p>
+<p><strong>Nivel 3. Modelo de simulación</strong><br />
+Reproducir computacionalmente el comportamiento del sistema.</p>
+<p><strong>Nivel 4. Modelo alimentado con datos</strong><br />
+Estimar parámetros y actualizar entradas utilizando observaciones del
+sistema real.</p>
+<p><strong>Nivel 5. Gemelo digital</strong><br />
+Conectar el modelo con información del sistema real, visualizar su
+estado y utilizar la simulación para evaluar escenarios y apoyar
+decisiones.</p>
+</div>
+</div>
+<div id="verificación-y-validación" class="section level1">
+<h1>Verificación y validación</h1>
+<p><br/></p>
+<p>Una simulación puede ejecutar correctamente en R y, aun así,
+representar mal el sistema real. Por esta razón deben distinguirse dos
+actividades.</p>
+<p><strong>Verificación:</strong> comprobar que el modelo computacional
+fue implementado correctamente.</p>
+<blockquote>
+<p>¿Construimos correctamente el modelo que habíamos diseñado?</p>
+</blockquote>
+<p><strong>Validación:</strong> evaluar si el modelo representa
+adecuadamente el comportamiento del sistema real para el propósito del
+estudio.</p>
+<blockquote>
+<p>¿El modelo que construimos representa suficientemente bien el sistema
+real?</p>
+</blockquote>
+<p>Para el proyecto del curso ambas actividades serán necesarias.</p>
+</div>
+<div id="comparación-de-escenarios" class="section level1">
+<h1>Comparación de escenarios</h1>
+<p><br/></p>
+<p>Una de las mayores ventajas de la simulación consiste en modificar
+condiciones sin intervenir físicamente el sistema.</p>
+<p>En un sistema de atención podrían compararse, por ejemplo:</p>
+<ul>
+<li>escenario actual,</li>
+<li>aumento de la demanda en 20%,</li>
+<li>reducción del tiempo promedio de servicio,</li>
+<li>incorporación de un nuevo servidor,</li>
+<li>cambio en los horarios de operación.</li>
+</ul>
+<p>Cada escenario debe evaluarse utilizando los mismos indicadores para
+facilitar la comparación.</p>
+</div>
+<div id="indicadores-para-el-proyecto" class="section level1">
+<h1>Indicadores para el proyecto</h1>
+<p><br/></p>
+<p>Dependiendo del sistema seleccionado, algunos indicadores útiles
+son:</p>
+<ul>
+<li>tiempo promedio de espera,</li>
+<li>tiempo máximo de espera,</li>
+<li>longitud promedio de la fila,</li>
+<li>número máximo de usuarios en cola,</li>
+<li>utilización de recursos,</li>
+<li>cantidad de usuarios atendidos,</li>
+<li>cantidad de usuarios que abandonan el sistema,</li>
+<li>probabilidad de congestión,</li>
+<li>número de fallas,</li>
+<li>tiempo de inactividad,</li>
+<li>nivel de inventario,</li>
+<li>demanda no satisfecha.</li>
+</ul>
+<div id="regla-para-el-proyecto" class="section level3 box6 with-label">
+<h3>Regla para el proyecto</h3>
+<p>Un gemelo digital no debe limitarse a <strong>mostrar</strong> el
+sistema. Debe permitir <strong>medir su comportamiento</strong>.</p>
+<p>Por esta razón, desde el inicio del proyecto deben definirse las
+variables de entrada y los indicadores de salida que permitirán evaluar
+cada escenario.</p>
+</div>
+</div>
+<div id="flujo-de-trabajo-para-el-proyecto" class="section level1">
+<h1>Flujo de trabajo para el proyecto</h1>
+<p><br/></p>
+<p>La simulación dentro del proyecto puede desarrollarse siguiendo la
+siguiente secuencia:</p>
+<ol style="list-style-type: decimal">
+<li><strong>Delimitar el sistema real.</strong> Determinar dónde empieza
+y termina el sistema que se desea representar.</li>
+<li><strong>Identificar entidades y recursos.</strong> Personas,
+vehículos, máquinas, computadores, mesas, cajas, espacios, etc.</li>
+<li><strong>Identificar eventos.</strong> Llegadas, salidas, fallas,
+reparaciones, inicio y finalización de servicios.</li>
+<li><strong>Recolectar datos.</strong> Obtener observaciones del
+comportamiento real.</li>
+<li><strong>Definir variables aleatorias.</strong> Determinar qué
+elementos presentan incertidumbre.</li>
+<li><strong>Proponer modelos probabilísticos.</strong> Bernoulli,
+binomial, Poisson, uniforme, exponencial u otros modelos
+apropiados.</li>
+<li><strong>Estimar parámetros.</strong> Utilizar datos para obtener los
+valores requeridos por los modelos.</li>
+<li><strong>Programar la simulación.</strong> Construir las reglas que
+reproducen la dinámica del sistema.</li>
+<li><strong>Verificar y validar.</strong> Revisar la implementación y
+contrastar el comportamiento simulado con el real.</li>
+<li><strong>Definir escenarios.</strong> Modificar entradas o decisiones
+relevantes.</li>
+<li><strong>Ejecutar múltiples repeticiones.</strong> Reconocer que una
+sola corrida no representa toda la incertidumbre.</li>
+<li><strong>Comparar indicadores.</strong> Analizar el efecto de los
+escenarios sobre el desempeño del sistema.</li>
+<li><strong>Visualizar resultados.</strong> Incorporar posteriormente
+estos elementos a la interfaz del gemelo digital.</li>
+</ol>
+</div>
+<div id="actividad-propuesta" class="section level1">
+<h1>Actividad propuesta</h1>
+<p><br/></p>
+<div id="actividad-primer-prototipo-de-simulación"
+class="section level3 box6 with-label">
+<h3>Actividad: primer prototipo de simulación</h3>
+<p>Para el sistema seleccionado por el grupo en el proyecto:</p>
+<ol style="list-style-type: decimal">
+<li>describa brevemente el sistema real;</li>
+<li>identifique al menos una entidad y un recurso;</li>
+<li>identifique al menos dos eventos;</li>
+<li>seleccione una variable aleatoria relevante;</li>
+<li>indique qué modelo de probabilidad podría utilizarse
+inicialmente;</li>
+<li>identifique el parámetro o parámetros necesarios;</li>
+<li>genere en R al menos 100 realizaciones de la variable;</li>
+<li>represente gráficamente los valores simulados;</li>
+<li>proponga al menos dos indicadores de desempeño;</li>
+<li>describa un escenario alternativo que sería interesante estudiar
+mediante el futuro gemelo digital.</li>
+</ol>
+</div>
+</div>
+<div id="ejemplo-de-estructura-en-r-para-el-proyecto"
+class="section level1">
+<h1>Ejemplo de estructura en R para el proyecto</h1>
+<p><br/></p>
+<p>El siguiente esquema puede utilizarse como punto de partida. Los
+modelos y parámetros deberán modificarse de acuerdo con cada
+sistema.</p>
+<pre class="r"><code># ============================================================
+# 1. Parámetros
+# ============================================================
+set.seed(123)
+
+n &lt;- 100
+lambda_llegadas &lt;- 1/3
+servicio_min &lt;- 2
+servicio_max &lt;- 4
+
+# ============================================================
+# 2. Generación de entradas aleatorias
+# ============================================================
+entre_llegadas &lt;- rexp(n, rate = lambda_llegadas)
+servicio &lt;- runif(n, min = servicio_min, max = servicio_max)
+
+# ============================================================
+# 3. Estado inicial
+# ============================================================
+llegada &lt;- cumsum(entre_llegadas)
+inicio &lt;- numeric(n)
+salida &lt;- numeric(n)
+espera &lt;- numeric(n)
+
+# ============================================================
+# 4. Reglas del sistema
+# ============================================================
+inicio[1] &lt;- llegada[1]
+espera[1] &lt;- 0
+salida[1] &lt;- inicio[1] + servicio[1]
+
+for(i in 2:n){
+  inicio[i] &lt;- max(llegada[i], salida[i-1])
+  espera[i] &lt;- inicio[i] - llegada[i]
+  salida[i] &lt;- inicio[i] + servicio[i]
+}
+
+# ============================================================
+# 5. Resultados
+# ============================================================
+resultados &lt;- data.frame(
+  usuario = 1:n,
+  llegada = llegada,
+  servicio = servicio,
+  espera = espera,
+  salida = salida
+)
+
+# ============================================================
+# 6. Indicadores
+# ============================================================
+mean(resultados$espera)
+max(resultados$espera)
+mean(resultados$espera &gt; 0)</code></pre>
+</div>
+<div id="para-recordar" class="section level1">
+<h1>Para recordar</h1>
+<p><br/></p>
+<div id="ideas-fundamentales" class="section level3 box4 with-label">
+<h3>Ideas fundamentales</h3>
+<ul>
+<li>La simulación permite experimentar con un <strong>modelo</strong> en
+lugar de experimentar directamente con el sistema real.</li>
+<li>Los números pseudoaleatorios permiten incorporar
+<strong>incertidumbre</strong> al modelo.</li>
+<li>Las distribuciones de probabilidad estudiadas anteriormente pueden
+utilizarse para generar las <strong>entradas aleatorias</strong> de una
+simulación.</li>
+<li>Una sola corrida representa únicamente una posible evolución del
+sistema.</li>
+<li>La repetición permite estudiar la <strong>variabilidad de los
+resultados</strong>.</li>
+<li>La simulación Monte Carlo permite aproximar probabilidades y otras
+medidas mediante repetición.</li>
+<li>La verificación comprueba la implementación del modelo; la
+validación evalúa su correspondencia con el sistema real.</li>
+<li>La simulación constituye uno de los componentes centrales para
+avanzar desde un modelo probabilístico hacia un <strong>gemelo
+digital</strong>.</li>
+</ul>
+</div>
+<p><br/><br/></p>
+</div>
+<div id="referencia" class="section level1">
+<h1>Referencia</h1>
+<p>Navidi, W. <em>Estadística para ingenieros y científicos</em>.
+Capítulo 4. Sección dedicada a simulación. El presente recurso
+reorganiza y amplía los conceptos con ejemplos en R y una orientación
+específica hacia el proyecto de gemelos digitales del curso.</p>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("hide" === "show");
+});
+</script>
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

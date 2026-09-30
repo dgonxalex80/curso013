@@ -1,0 +1,58 @@
+---
+title: <span style="color:#476885">Teoría de Probabilidades</span>
+author: "dgonzalez "
+subtitle:  
+output:
+  html_document:
+    toc: no
+    toc_depth: 2
+    toc_float: yes
+    theme: flatly
+    css:
+      - style.css
+      - cajas.css
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+source("R/init.R")
+```
+
+
+```{r, echo=FALSE, out.width="100%", fig.align = "center"}
+knitr::include_graphics("img/modulo3.png")
+```
+
+## Modelos de probabilidad
+
+Asignación de distribuciones de probabilidad para la elaboración de poster
+
+|	id estudiante	|	modelo discreto	|	modelo continuo	|
+|--------------:|:----------------|:----------------|
+|	9031249	|	binomial	|	uniforme continua	|
+|	9038293	|	Poisson	|	normal	|
+|	9017713	|	geométrico	|	exponencial	|
+|	9036477	|	hipergeometrico	|	gamma	|
+|	8973508	|	binomial negativo	|	Weibull	|
+|	9038822	|	binomial	|	lognormal	|
+|	9037796	|	Poisson	|	beta	|
+|	9029726	|	geométrico	|	Chi-cuadrado	|
+|	9037079	|	hipergeometrico	|	t-Student	|
+|	9041139	|	binomial negativo	|	F	|
+|	9040973	|	binomial	|	logistica	|
+|	9018284	|	Poisson	|	Pareto	|
+|	9034435	|	geométrico	|	Cauchy	|
+|	9018406	|	hipergeometrico	|	uniforme continua	|
+|	9033835	|	binomial negativo	|	normal	|
+|	9038927	|	binomial	|	exponencial	|
+|	9014130	|	Poisson	|	gamma	|
+|	9033834	|	geométrico	|	Weibull	|
+|	9037797	|	hipergeometrico	|	lognormal	|
+|	9039386	|	binomial negativo	|	beta	|
+|	9036297	|	binomial	|	Chi-cuadrado	|
+|	9036018	|	Poisson	|	t-Student	|
+|	9010911	|	geométrico	|	F	|
+|	9037598	|	hipergeometrico	|	logistica	|
+|	9028711	|	binomial negativo	|	Pareto	|
+|	9033359	|	Poisson	|	Cauchy	|

@@ -1,0 +1,1171 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="dgonzalez " />
+
+
+<title>Teoría de probabilidades</title>
+
+<script src="site_libs/header-attrs/header-attrs.js"></script>
+<script src="site_libs/jquery/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation/tabsets.js"></script>
+<script src="site_libs/navigation/codefolding.js"></script>
+<link href="site_libs/highlightjs/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs/highlight.js"></script>
+<link href="site_libs/font-awesome/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome/css/v4-shims.min.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+<link rel="stylesheet" href="cajas.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html"> </a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">
+    <span class="fa fa-home"></span>
+     
+    Estadística
+  </a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 0
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo0.html">Módulo 0</a>
+    </li>
+    <li>
+      <a href="sumatoria.html">Sumatoria</a>
+    </li>
+    <li>
+      <a href="productoria.html">Productoria</a>
+    </li>
+    <li>
+      <a href="conjuntos.html">Conjuntos</a>
+    </li>
+    <li>
+      <a href="conteo.html">Conteo</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 1
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo1.html">Módulo 1</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="guia11.html">Guía 1.1</a>
+    </li>
+    <li>
+      <a href="recurso11.html">Recursos 1.1</a>
+    </li>
+    <li>
+      <a href="basesdatos.html">Bases de datos</a>
+    </li>
+    <li>
+      <a href="introduccionR.html">Introducción a R</a>
+    </li>
+    <li>
+      <a href="codigo11.html">Código 1.1</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="guia12.html">Guía 1.2</a>
+    </li>
+    <li>
+      <a href="recurso12.html">Recursos 1.2</a>
+    </li>
+    <li>
+      <a href="codigo12.html">Código 1.2</a>
+    </li>
+    <li>
+      <a href="caso1A.html">Caso 1</a>
+    </li>
+    <li>
+      <a href="caso1B.html">Caso 2</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="guia13.html">Guía 1.3</a>
+    </li>
+    <li>
+      <a href="recurso13.html">Recursos 1.3</a>
+    </li>
+    <li>
+      <a href="codigo13.html">Código 1.3</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="monitoria1.html">Monitoria 1</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 2
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo2.html">Módulo 2</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="guia21.html">Guía 2.1</a>
+    </li>
+    <li>
+      <a href="recurso21.html">Recursos 2.1</a>
+    </li>
+    <li>
+      <a href="codigo21.html">Código 2.1</a>
+    </li>
+    <li>
+      <a href="taller211.html">Taller 211</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="guia22.html">Guía 2.2</a>
+    </li>
+    <li>
+      <a href="recurso22.html">Recursos 2.2</a>
+    </li>
+    <li>
+      <a href="taller221.html">Taller 221</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="monitoria2.html">Moitoría 2</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 3
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo3.html">Módulo 3</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="guia31.html">Guía 3.1</a>
+    </li>
+    <li>
+      <a href="recurso31.html">Recursos 3.1</a>
+    </li>
+    <li>
+      <a href="codigo31.html">Código 3.1</a>
+    </li>
+    <li>
+      <a href="taller311.html">Taller 311</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="guia32.html">Guía 3.2</a>
+    </li>
+    <li>
+      <a href="recurso32.html">Recursos 3.2</a>
+    </li>
+    <li>
+      <a href="codigo32.html">Código 3.2</a>
+    </li>
+    <li>
+      <a href="taller321.html">Taller 321</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="guia33.html">Guía 3.3</a>
+    </li>
+    <li>
+      <a href="recurso33-discretas.html">Recursos 3.3-discretas</a>
+    </li>
+    <li>
+      <a href="codigo33-discretas.html">Código 3.32-discretas</a>
+    </li>
+    <li>
+      <a href="taller331.html">Taller 331</a>
+    </li>
+    <li>
+      <a href="actividad334.html">Asignacion A334</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="monitoria3.html">Moitoría 3</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 4
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo4.html">Módulo 4</a>
+    </li>
+    <li class="divider"></li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Proyecto
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="guia_proyecto1.html">Guía proyecto</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore"><span
+style="color:#476885 !important;">Teoría de probabilidades</span></h1>
+<h4 class="author"><span style="color:#476885">dgonzalez </span></h4>
+
+</div>
+
+
+<p></br></br></p>
+<p><img src="img/taller3.png" alt="" width="100%" style="display: block; margin: auto auto auto 0;" /></p>
+<p></br></br></p>
+<div id="propósito" class="section level1">
+<h1>Propósito</h1>
+<p>Los siguientes minicasos están construidos a partir de los ejercicios
+de simulación presentados en el capítulo 4 de <em>Estadística para
+ingenieros y científicos</em> de Navidi. Se conserva la estructura
+probabilística y el objetivo estadístico de cada ejercicio, pero se
+reformulan como situaciones de decisión, análisis y modelación.</p>
+<p>El propósito no es únicamente practicar la generación de números
+aleatorios. En cada minicaso el estudiante debe identificar:</p>
+<ul>
+<li>el <strong>sistema</strong> que se desea representar;</li>
+<li>las <strong>variables aleatorias</strong> que describen su
+comportamiento;</li>
+<li>las <strong>distribuciones de probabilidad</strong> apropiadas;</li>
+<li>la forma de construir una <strong>réplica simulada</strong> del
+sistema;</li>
+<li>los <strong>indicadores de desempeño</strong> que deben
+estimarse;</li>
+<li>y la decisión que podría tomarse a partir de los resultados.</li>
+</ul>
+<p>Esta lógica será posteriormente utilizada en la construcción de
+<strong>gemelos digitales</strong>, donde un sistema real se representa
+mediante un modelo computacional que permite reproducir su
+comportamiento, experimentar con escenarios y evaluar decisiones.</p>
+<blockquote>
+<p><strong>Recomendación general.</strong> Salvo que se indique algo
+diferente, utilice al menos <strong>1 000 réplicas</strong> y establezca
+una semilla con <code>set.seed()</code> para garantizar la
+reproducibilidad.</p>
+</blockquote>
+<p><br/><br/><br/></p>
+<div id="problema-1-control-de-calidad-de-dos-proveedores"
+class="section level3 box4 with-label">
+<h3>Problema 1: Control de calidad de dos proveedores</h3>
+<p>Una empresa fabricante de equipos industriales recibe un componente
+crítico de dos proveedores. El <strong>proveedor A</strong> presenta
+históricamente una probabilidad de defecto de <span
+class="math inline">\(0.025\)</span> por pieza, mientras que para el
+<strong>proveedor B</strong> la probabilidad es <span
+class="math inline">\(0.05\)</span>. Cada despacho contiene <strong>100
+piezas de cada proveedor</strong>.</p>
+<p>El responsable de calidad desea construir un modelo de simulación que
+permita anticipar el comportamiento de los despachos antes de modificar
+la política de abastecimiento.</p>
+<div id="reto-de-simulación" class="section level4">
+<h4>Reto de simulación</h4>
+<ol style="list-style-type: decimal">
+<li>Defina <span class="math inline">\(X\)</span> como el número de
+piezas defectuosas en un despacho de 100 piezas del proveedor A y <span
+class="math inline">\(Y\)</span> como el número correspondiente al
+proveedor B. Identifique las distribuciones de <span
+class="math inline">\(X\)</span> y <span
+class="math inline">\(Y\)</span>.</li>
+<li>Genere <strong>1 000 despachos simulados</strong> para cada
+proveedor.</li>
+<li>Estime la probabilidad de que el número total de piezas defectuosas
+de ambos proveedores sea menor que 10.</li>
+<li>Estime la probabilidad de que un despacho del proveedor A tenga más
+piezas defectuosas que uno del proveedor B.</li>
+<li>Construya una gráfica de probabilidad normal para el número total de
+defectuosos y analice si la distribución resultante puede considerarse
+aproximadamente normal.</li>
+<li>Explique qué información del minicaso sería útil incorporar a un
+futuro gemelo digital del proceso de recepción e inspección.</li>
+</ol>
+</div>
+</div>
+<p><br/><br/><br/></p>
+<div id="problema-2.-comparación-de-diseños-de-un-circuito"
+class="section level3 box4 with-label">
+<h3>Problema 2. Comparación de diseños de un circuito</h3>
+<p>Un equipo de ingeniería electrónica está evaluando dos diseños
+alternativos de un circuito semiconductor. La duración del
+<strong>diseño 1</strong>, medida en horas, puede modelarse mediante una
+distribución exponencial con parámetro <span
+class="math inline">\(\lambda=10^{-4}\)</span>, mientras que la duración
+del <strong>diseño 2</strong> sigue una distribución lognormal con
+parámetros <span class="math inline">\(\mu=6\)</span> y <span
+class="math inline">\(\sigma^2=5.4\)</span>.</p>
+<p>Antes de seleccionar un diseño para las siguientes pruebas de
+laboratorio, los ingenieros quieren comparar ambos mediante
+simulación.</p>
+<div id="reto-de-simulación-1" class="section level4">
+<h4>Reto de simulación</h4>
+<ol style="list-style-type: decimal">
+<li>Genere <strong>1 000 pares de tiempos de vida</strong>, uno para
+cada diseño.</li>
+<li>Estime la probabilidad de que un circuito construido con el diseño 1
+dure más que uno construido con el diseño 2.</li>
+<li>Estime la probabilidad de que la duración del diseño 1 sea al menos
+el doble de la duración del diseño 2.</li>
+<li>Compare gráficamente las distribuciones simuladas de duración.</li>
+<li>Determine qué indicadores adicionales serían útiles para comparar la
+confiabilidad de ambos diseños dentro de un gemelo digital.</li>
+</ol>
+</div>
+</div>
+<p><br/><br/><br/></p>
+<div
+id="problema-3.-variabilidad-dimensional-en-la-fabricación-de-placas"
+class="section level3 box4 with-label">
+<h3>Problema 3. Variabilidad dimensional en la fabricación de
+placas</h3>
+<p>Una planta fabrica placas rectangulares para un dispositivo de
+precisión. Debido a la variabilidad del proceso, la
+<strong>longitud</strong> <span class="math inline">\(X\)</span> de una
+placa se distribuye como</p>
+<p><span class="math display">\[
+X \sim N(2.0,0.1^2),
+\]</span></p>
+<p>mientras que el <strong>ancho</strong> <span
+class="math inline">\(Y\)</span> se distribuye como</p>
+<p><span class="math display">\[
+Y \sim N(3.0,0.2^2).
+\]</span></p>
+<p>Se supone que longitud y ancho son independientes. El área de una
+placa terminada está dada por</p>
+<p><span class="math display">\[
+A=XY.
+\]</span></p>
+<p>El ingeniero de proceso necesita conocer la variabilidad del área sin
+recurrir inicialmente a una aproximación analítica.</p>
+<div id="reto-de-simulación-2" class="section level4">
+<h4>Reto de simulación</h4>
+<ol style="list-style-type: decimal">
+<li>Simule <strong>1 000 placas</strong> y calcule el área de cada
+una.</li>
+<li>Estime la media y la variabilidad del área.</li>
+<li>Estime</li>
+</ol>
+<p><span class="math display">\[
+P(5.9&lt;A&lt;6.1).
+\]</span></p>
+<ol start="4" style="list-style-type: decimal">
+<li>Construya una gráfica de probabilidad normal para las áreas
+simuladas.</li>
+<li>Evalúe, con apoyo gráfico, si el área puede considerarse
+aproximadamente normal.</li>
+<li>Explique cómo podría emplearse este modelo como componente de un
+gemelo digital del proceso de manufactura.</li>
+</ol>
+</div>
+</div>
+<p><br/><br/><br/></p>
+<div id="problema-4.-resistencia-de-un-cable-de-cuatro-alambres"
+class="section level3 box4 with-label">
+<h3>Problema 4. Resistencia de un cable de cuatro alambres</h3>
+<p>Un cable de seguridad está compuesto por <strong>cuatro
+alambres</strong>. La fuerza de ruptura de cada alambre se modela
+mediante una distribución normal con media de <strong>10 kN</strong> y
+desviación estándar de <strong>1 kN</strong>.</p>
+<p>El procedimiento de diseño establece que la fuerza del cable completo
+se aproxima mediante el <strong>método del cable cuadrado</strong>: la
+fuerza del cable es igual a la resistencia del alambre más débil
+multiplicada por el número de alambres.</p>
+<p>Por tanto, si <span class="math inline">\(F_1,\ldots,F_4\)</span> son
+las resistencias individuales,</p>
+<p><span class="math display">\[
+F_{\text{cable}}=4\min(F_1,F_2,F_3,F_4).
+\]</span></p>
+<div id="reto-de-simulación-3" class="section level4">
+<h4>Reto de simulación</h4>
+<ol style="list-style-type: decimal">
+<li>Simule al menos <strong>1 000 cables</strong>.</li>
+<li>Estime la fuerza media de ruptura del cable.</li>
+<li>Estime la mediana y la desviación estándar de la fuerza de
+ruptura.</li>
+<li>Una aplicación exige que</li>
+</ol>
+<p><span class="math display">\[
+P(F_{\text{cable}}&lt;28)&lt;0.01.
+\]</span></p>
+<p>Estime esta probabilidad y determine si el requisito técnico se
+cumple. 5. Analice por qué el comportamiento del elemento más débil es
+determinante en este sistema. 6. Proponga cómo representar los cuatro
+alambres y su degradación en un gemelo digital del cable.</p>
+</div>
+</div>
+<p><br/><br/><br/></p>
+<div id="problema-5.-confiabilidad-conjunta-de-dos-láseres"
+class="section level3 box4 with-label">
+<h3>Problema 5. Confiabilidad conjunta de dos láseres</h3>
+<p>Un sistema óptico utiliza dos láseres que operan de manera
+independiente. La duración, en horas, de cada láser sigue una
+distribución lognormal con</p>
+<p><span class="math display">\[
+\mu=8, \qquad \sigma^2=2.4.
+\]</span></p>
+<p>El equipo de mantenimiento desea conocer la confiabilidad conjunta de
+los dos dispositivos para planificar inspecciones y reemplazos.</p>
+<div id="reto-de-simulación-4" class="section level4">
+<h4>Reto de simulación</h4>
+<ol style="list-style-type: decimal">
+<li>Simule <strong>1 000 pares de tiempos de vida</strong>.</li>
+<li>Estime la probabilidad de que la suma de las duraciones de los dos
+láseres sea superior a <strong>20 000 horas</strong>.</li>
+<li>Estime la probabilidad de que <strong>ambos láseres</strong> duren
+más de <strong>3 000 horas</strong>.</li>
+<li>Estime la probabilidad de que <strong>ambos fallen antes de 10 000
+horas</strong>.</li>
+<li>Compare los resultados con las distribuciones individuales de
+duración.</li>
+<li>Explique cómo una simulación como ésta puede apoyar un módulo de
+mantenimiento predictivo dentro de un gemelo digital.</li>
+</ol>
+</div>
+</div>
+<p><br/><br/><br/></p>
+<div id="problema-6.-estimación-de-pi-mediante-monte-carlo"
+class="section level3 box4 with-label">
+<h3>Problema 6. Estimación de <span class="math inline">\(\pi\)</span>
+mediante Monte Carlo</h3>
+<p>Un equipo de analítica desea demostrar cómo una cantidad matemática
+puede estimarse mediante experimentación computacional. Para ello se
+considera un cuadrado de lado 1 que contiene un cuarto de círculo de
+radio 1.</p>
+<p>Se generan puntos aleatorios <span
+class="math inline">\((X,Y)\)</span> uniformemente distribuidos en el
+cuadrado. Un punto pertenece al cuarto de círculo cuando</p>
+<p><span class="math display">\[
+X^2+Y^2\leq 1.
+\]</span></p>
+<p>Como la razón entre el área del cuarto de círculo y la del cuadrado
+es <span class="math inline">\(\pi/4\)</span>, la proporción de puntos
+que caen dentro del círculo puede utilizarse para estimar <span
+class="math inline">\(\pi\)</span>.</p>
+<div id="reto-de-simulación-5" class="section level4">
+<h4>Reto de simulación</h4>
+<ol style="list-style-type: decimal">
+<li>Genere <strong>1 000 valores</strong> de <span
+class="math inline">\(X\)</span> provenientes de una distribución
+uniforme entre 0 y 1.</li>
+<li>Genere <strong>1 000 valores</strong> independientes de <span
+class="math inline">\(Y\)</span> con la misma distribución.</li>
+<li>Clasifique cada punto como interior o exterior al cuarto de
+círculo.</li>
+<li>Calcule</li>
+</ol>
+<p><span class="math display">\[
+\widehat{\pi}=4\frac{\text{número de puntos dentro del
+círculo}}{\text{número total de puntos}}.
+\]</span></p>
+<ol start="5" style="list-style-type: decimal">
+<li>Compare <span class="math inline">\(\widehat{\pi}\)</span> con el
+valor real de <span class="math inline">\(\pi\)</span>.</li>
+<li>Repita el experimento utilizando tamaños de simulación de 100, 1
+000, 10 000 y 100 000 puntos. Analice qué ocurre con la estimación.</li>
+<li>Explique la relación entre este experimento y el principio general
+de simulación Monte Carlo.</li>
+</ol>
+</div>
+</div>
+<p><br/><br/><br/></p>
+<div id="problema-7.-trayectoria-de-un-dispositivo-móvil"
+class="section level3 box4 with-label">
+<h3>Problema 7. Trayectoria de un dispositivo móvil</h3>
+<p>En una red de computadores móviles se modela el movimiento de un
+dispositivo mediante trayectorias aleatorias dentro de una región
+cuadrada de lado 1. Para representar un desplazamiento elemental se
+seleccionan independientemente dos puntos:</p>
+<p><span class="math display">\[
+(X_1,Y_1), \qquad (X_2,Y_2),
+\]</span></p>
+<p>donde las cuatro coordenadas siguen una distribución uniforme entre 0
+y 1.</p>
+<p>La longitud de la trayectoria es</p>
+<p><span class="math display">\[
+L=\sqrt{(X_2-X_1)^2+(Y_2-Y_1)^2}.
+\]</span></p>
+<p>Los ingenieros necesitan estimar características de estas
+trayectorias para incorporarlas posteriormente a un simulador de
+movilidad.</p>
+<div id="reto-de-simulación-6" class="section level4">
+<h4>Reto de simulación</h4>
+<ol style="list-style-type: decimal">
+<li>Genere <strong>1 000 pares de puntos iniciales y
+finales</strong>.</li>
+<li>Calcule las 1 000 longitudes <span
+class="math inline">\(L\)</span>.</li>
+<li>Estime la longitud media de una trayectoria.</li>
+<li>El valor teórico de referencia de la media es aproximadamente
+<strong>0.521405</strong>. Compare su resultado con este valor.</li>
+<li>Estime la probabilidad de que una trayectoria tenga longitud
+superior a una unidad.</li>
+<li>Construya un histograma de las longitudes simuladas.</li>
+<li>Explique cómo extendería este modelo para representar múltiples
+desplazamientos de un dispositivo dentro de un gemelo digital de una red
+móvil.</li>
+</ol>
+</div>
+</div>
+<p><br/><br/><br/></p>
+<div id="problema-8.-rediseño-de-un-sistema-para-aumentar-su-vida-útil"
+class="section level3 box4 with-label">
+<h3>Problema 8. Rediseño de un sistema para aumentar su vida útil</h3>
+<p>Un sistema técnico posee varios componentes y los ingenieros estudian
+dos alternativas de rediseño. La primera consiste en reemplazar el
+<strong>componente A</strong> por uno nuevo cuya vida útil sigue una
+distribución</p>
+<p><span class="math display">\[
+A_{\text{nuevo}}\sim \text{Exp}(1/2),
+\]</span></p>
+<p>mientras que la segunda consiste en reemplazar el <strong>componente
+B</strong> por otro cuya vida útil sigue</p>
+<p><span class="math display">\[
+B_{\text{nuevo}}\sim \text{Exp}(1/3).
+\]</span></p>
+<p>La estructura restante del sistema y las distribuciones de sus
+componentes corresponden al modelo de confiabilidad estudiado
+previamente.</p>
+<p>El equipo no desea tomar la decisión utilizando únicamente la vida
+media de los nuevos componentes, pues diferentes criterios de
+confiabilidad pueden conducir a decisiones diferentes.</p>
+<div id="reto-de-simulación-7" class="section level4">
+<h4>Reto de simulación</h4>
+<ol style="list-style-type: decimal">
+<li>Simule al menos <strong>1 000 tiempos de vida del sistema</strong>
+bajo la alternativa de reemplazar A.</li>
+<li>Simule al menos <strong>1 000 tiempos de vida</strong> bajo la
+alternativa de reemplazar B.</li>
+<li>Compare las medianas de duración de ambas alternativas.</li>
+<li>Compare la probabilidad de que el sistema falle antes de un
+mes.</li>
+<li>Calcule y compare el <strong>percentil 100</strong> de los tiempos
+de vida simulados, interpretándolo con cautela como el máximo observado
+en cada simulación.</li>
+<li>Discuta por qué la alternativa preferida puede cambiar según el
+criterio utilizado.</li>
+<li>Explique cómo esta comparación de escenarios representa una de las
+funciones centrales de un gemelo digital.</li>
+</ol>
+</div>
+</div>
+<p><br/><br/><br/></p>
+<div id="problema-9.-sistema-en-serie-con-dos-componentes"
+class="section level3 box4 with-label">
+<h3>Problema 9. Sistema en serie con dos componentes</h3>
+<p>Un equipo industrial está formado por dos componentes,
+<strong>A</strong> y <strong>B</strong>, conectados en serie. El sistema
+funciona únicamente mientras ambos componentes estén operativos.</p>
+<p>La duración del componente A, en meses, sigue una distribución
+lognormal con</p>
+<p><span class="math display">\[
+\mu=1,\qquad \sigma=0.5,
+\]</span></p>
+<p>y la duración de B sigue una distribución lognormal con</p>
+<p><span class="math display">\[
+\mu=2,\qquad \sigma=1.
+\]</span></p>
+<p>Si <span class="math inline">\(T_A\)</span> y <span
+class="math inline">\(T_B\)</span> representan los tiempos de vida,
+entonces</p>
+<p><span class="math display">\[
+T_{\text{sistema}}=\min(T_A,T_B).
+\]</span></p>
+<div id="reto-de-simulación-8" class="section level4">
+<h4>Reto de simulación</h4>
+<ol style="list-style-type: decimal">
+<li>Genere al menos <strong>1 000 tiempos de vida del
+sistema</strong>.</li>
+<li>Estime la vida media del sistema.</li>
+<li>Estime la probabilidad de que el sistema falle antes de dos
+meses.</li>
+<li>Estime el percentil 20 de los tiempos de vida.</li>
+<li>Construya una gráfica de probabilidad normal y evalúe si los tiempos
+de vida pueden considerarse aproximadamente normales.</li>
+<li>Construya un histograma y analice si la distribución es
+aproximadamente simétrica o presenta sesgo.</li>
+<li>Identifique cuál de los dos componentes condiciona con mayor
+frecuencia la falla del sistema y explique cómo utilizaría esta
+información en mantenimiento.</li>
+</ol>
+</div>
+</div>
+<p><br/><br/><br/></p>
+<div id="problema-10.-sistema-serie-paralelo-de-cuatro-componentes"
+class="section level3 box4 with-label">
+<h3>Problema 10. Sistema serie-paralelo de cuatro componentes</h3>
+<p>Un sistema de respaldo está formado por dos subsistemas conectados
+<strong>en serie</strong>. Cada subsistema contiene dos componentes
+conectados <strong>en paralelo</strong>.</p>
+<p>El primer subsistema contiene A y B y sólo falla cuando
+<strong>ambos</strong> han fallado. El segundo contiene C y D y se
+comporta de la misma forma. El sistema completo falla cuando cualquiera
+de los dos subsistemas deja de funcionar.</p>
+<p>Los tiempos de vida, en meses, son independientes y se distribuyen
+como:</p>
+<p><span class="math display">\[
+A\sim \text{Exp}(1),\qquad
+B\sim \text{Exp}(0.1),
+\]</span></p>
+<p><span class="math display">\[
+C\sim \text{Exp}(0.2),\qquad
+D\sim \text{Exp}(0.2).
+\]</span></p>
+<p>Por tanto,</p>
+<p><span class="math display">\[
+T_{AB}=\max(T_A,T_B),
+\]</span></p>
+<p><span class="math display">\[
+T_{CD}=\max(T_C,T_D),
+\]</span></p>
+<p>y</p>
+<p><span class="math display">\[
+T_{\text{sistema}}=\min(T_{AB},T_{CD}).
+\]</span></p>
+<div id="reto-de-simulación-9" class="section level4">
+<h4>Reto de simulación</h4>
+<ol style="list-style-type: decimal">
+<li>Genere al menos <strong>1 000 tiempos de vida del
+sistema</strong>.</li>
+<li>Estime la vida media.</li>
+<li>Estime la mediana.</li>
+<li>Estime la probabilidad de que el sistema funcione más de seis
+meses.</li>
+<li>Estime el percentil 90 de los tiempos de vida.</li>
+<li>Estime la probabilidad de que el subsistema AB falle antes que
+CD.</li>
+<li>Identifique mediante la simulación los componentes y subsistemas
+críticos.</li>
+<li>Explique por qué este modelo constituye una base natural para un
+gemelo digital de confiabilidad.</li>
+</ol>
+</div>
+</div>
+<p><br/><br/><br/></p>
+<div id="problema-11.-datación-de-una-pieza-arqueológica"
+class="section level3 box4 with-label">
+<h3>Problema 11. Datación de una pieza arqueológica</h3>
+<p>Un laboratorio de arqueometría utiliza carbono-14 para estimar la
+antigüedad de una pieza. Si <span class="math inline">\(X\)</span>
+representa el número de partículas emitidas durante diez minutos por un
+fragmento óseo de <strong>10 000 años</strong> que contiene 1 g de
+carbono, se supone que</p>
+<p><span class="math display">\[
+X\sim \text{Poisson}(45.62).
+\]</span></p>
+<p>Para cada valor observado <span class="math inline">\(X\)</span>, la
+edad estimada, en años, se calcula mediante</p>
+<p><span class="math display">\[
+\widehat{t}=
+-\frac{\ln(15.3)-\ln(X/10)}{0.0001210}.
+\]</span></p>
+<p>El laboratorio desea estudiar la incertidumbre introducida por la
+variabilidad aleatoria del conteo de partículas.</p>
+<div id="reto-de-simulación-10" class="section level4">
+<h4>Reto de simulación</h4>
+<ol style="list-style-type: decimal">
+<li>Genere una muestra simulada de <strong>1 000 valores de <span
+class="math inline">\(X\)</span></strong>.</li>
+<li>Calcule las 1 000 edades estimadas <span
+class="math inline">\(\widehat{t}\)</span>.</li>
+<li>Estime la media de <span
+class="math inline">\(\widehat{t}\)</span>.</li>
+<li>Estime su desviación estándar.</li>
+<li>Estime la probabilidad de que la edad estimada se encuentre a
+<strong>1 000 años</strong> o menos de la edad real de 10 000 años:</li>
+</ol>
+<p><span class="math display">\[
+P(|\widehat{t}-10000|\leq1000).
+\]</span></p>
+<ol start="6" style="list-style-type: decimal">
+<li>Estime</li>
+</ol>
+<p><span class="math display">\[
+P(|\widehat{t}-10000|&gt;2000).
+\]</span></p>
+<ol start="7" style="list-style-type: decimal">
+<li>Construya una gráfica de probabilidad normal para <span
+class="math inline">\(\widehat{t}\)</span> y evalúe si su distribución
+es aproximadamente normal.</li>
+<li>Explique cómo la simulación permite cuantificar la incertidumbre de
+un instrumento o modelo de medición.</li>
+</ol>
+</div>
+</div>
+<p><br/><br/><br/></p>
+<div id="problema-12.-media-o-mediana-para-estimar-el-centro"
+class="section level3 box4 with-label">
+<h3>Problema 12. ¿Media o mediana para estimar el centro?</h3>
+<p>Un equipo de análisis debe estimar el centro de una población normal
+<span class="math inline">\(N(0,1)\)</span>. Dos analistas proponen
+estimadores diferentes: uno recomienda la <strong>media
+muestral</strong> y el otro la <strong>mediana muestral</strong>.</p>
+<p>Para comparar su precisión se realizará un experimento de simulación
+utilizando muestras pequeñas de tamaño</p>
+<p><span class="math display">\[
+n=5.
+\]</span></p>
+<div id="reto-de-simulación-11" class="section level4">
+<h4>Reto de simulación</h4>
+<ol style="list-style-type: decimal">
+<li>Genere al menos <strong>1 000 muestras independientes de tamaño
+5</strong> de una población <span
+class="math inline">\(N(0,1)\)</span>.</li>
+<li>Para cada muestra calcule su mediana.</li>
+<li>Calcule la media y la desviación estándar de las 1 000
+medianas.</li>
+<li>Para cada muestra calcule también su media muestral.</li>
+<li>Calcule la media y la desviación estándar de las 1 000 medias.</li>
+<li>Como el verdadero valor del parámetro es <span
+class="math inline">\(\mu=0\)</span>, estime el <strong>sesgo</strong> y
+la <strong>incertidumbre</strong>, medida mediante la desviación
+estándar, de ambos estimadores.</li>
+<li>Compare la precisión de la media y la mediana.</li>
+<li>Explique por qué ejecutar repetidamente el mismo proceso de muestreo
+permite estudiar propiedades de un estimador que no son visibles a
+partir de una única muestra.</li>
+</ol>
+</div>
+</div>
+<p><br/><br/><br/></p>
+<div id="problema-13.-bootstrap-para-evaluar-un-estimador-de-tasa"
+class="section level3 box4 with-label">
+<h3>Problema 13. Bootstrap para evaluar un estimador de tasa</h3>
+<p>Un analista dispone únicamente de la siguiente muestra de ocho
+tiempos observados:</p>
+<p><span class="math display">\[
+2.74,\;6.41,\;4.96,\;1.65,\;6.38,\;0.19,\;0.52,\;8.38.
+\]</span></p>
+<p>Se supone que los datos provienen de una distribución exponencial
+<span class="math inline">\(\text{Exp}(\lambda)\)</span> y se desea
+estimar el parámetro mediante</p>
+<p><span class="math display">\[
+\widehat{\lambda}=\frac{1}{\bar X}.
+\]</span></p>
+<p>Como sólo se dispone de una muestra pequeña, el analista decide
+utilizar <strong>bootstrap</strong> para estudiar el sesgo y la
+incertidumbre del estimador.</p>
+<div id="reto-de-simulación-12" class="section level4">
+<h4>Reto de simulación</h4>
+<ol style="list-style-type: decimal">
+<li>Calcule <span class="math inline">\(\widehat{\lambda}=1/\bar
+X\)</span> para la muestra original.</li>
+<li>Genere <strong>1 000 muestras bootstrap de tamaño 8</strong>,
+seleccionando con reemplazo a partir de los ocho valores
+observados.</li>
+<li>Para cada muestra bootstrap calcule</li>
+</ol>
+<p><span class="math display">\[
+\widehat{\lambda}^{*}=\frac{1}{\bar X^{*}}.
+\]</span></p>
+<ol start="4" style="list-style-type: decimal">
+<li>Calcule la media de las 1 000 estimaciones bootstrap.</li>
+<li>Calcule la desviación estándar de las estimaciones bootstrap como
+medida de incertidumbre.</li>
+<li>Estime el sesgo mediante</li>
+</ol>
+<p><span class="math display">\[
+\widehat{\operatorname{sesgo}}
+=
+\overline{\widehat{\lambda}^{*}}-\widehat{\lambda}.
+\]</span></p>
+<ol start="7" style="list-style-type: decimal">
+<li>Construya un histograma de la distribución bootstrap de <span
+class="math inline">\(\widehat{\lambda}^{*}\)</span>.</li>
+<li>Explique por qué el bootstrap es también una técnica de simulación y
+qué ventaja ofrece cuando no se conoce completamente la distribución
+muestral de un estimador.</li>
+</ol>
+</div>
+</div>
+<p><br/><br/><br/></p>
+</div>
+<div id="integración-con-el-proyecto-de-gemelos-digitales"
+class="section level1">
+<h1>Integración con el proyecto de gemelos digitales</h1>
+<p>Los trece minicasos anteriores muestran diferentes usos de la
+simulación. Sin embargo, todos pueden organizarse mediante una misma
+estructura conceptual:</p>
+<p><span class="math display">\[
+\boxed{
+\text{Sistema real}
+\rightarrow
+\text{modelo probabilístico}
+\rightarrow
+\text{generación de escenarios}
+\rightarrow
+\text{simulación}
+\rightarrow
+\text{indicadores}
+\rightarrow
+\text{decisión}
+}
+\]</span></p>
+<p>En un <strong>gemelo digital</strong>, esta estructura se amplía al
+incorporar información del sistema real y actualizar el modelo a medida
+que se reciben nuevos datos.</p>
+<div id="actividad-integradora" class="section level2">
+<h2>Actividad integradora</h2>
+<p>Seleccione uno de los minicasos anteriores y prepare una primera
+especificación de un gemelo digital respondiendo:</p>
+<ol style="list-style-type: decimal">
+<li>¿Cuál es el <strong>sistema real</strong>?</li>
+<li>¿Cuáles son las <strong>entidades</strong>?</li>
+<li>¿Cuáles son sus <strong>variables de estado</strong>?</li>
+<li>¿Qué variables son <strong>aleatorias</strong>?</li>
+<li>¿Qué distribuciones de probabilidad se utilizarán?</li>
+<li>¿Qué parámetros deberán obtenerse de datos reales?</li>
+<li>¿Qué constituye una <strong>réplica</strong> de la simulación?</li>
+<li>¿Qué indicadores de desempeño se calcularán?</li>
+<li>¿Qué escenarios o políticas podrían compararse?</li>
+<li>¿Qué información del sistema real permitiría actualizar
+posteriormente el modelo?</li>
+</ol>
+<p>Finalmente, represente la arquitectura inicial mediante:</p>
+<p><span class="math display">\[
+\boxed{
+\text{Datos del sistema}
+\longrightarrow
+\text{modelo}
+\longrightarrow
+\text{simulador}
+\longrightarrow
+\text{indicadores}
+\longrightarrow
+\text{visualización}
+}
+\]</span></p>
+<p>Esta arquitectura servirá como punto de partida para transformar
+posteriormente el modelo de simulación en un <strong>gemelo digital
+interactivo</strong>.</p>
+</div>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("hide" === "show");
+});
+</script>
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
