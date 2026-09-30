@@ -187,9 +187,11 @@ $$V[X]= pq$$
 
 <div class="box6 with-label">
 ### Ejemplo 1
+Un grupo de estudiantes del área de Negocios Internacionales realiza una visita a las instalaciones de un puerto marítimo para observar en campo los procesos tanto de importación como de exportación.
 
-Un biólogo realiza una salida de campo para estudiar el comportamiento del cucarachero común. Se considera éxito si puede filmar al animal y fracaso si no puede hacerlo. Por información suministrada en artículos científicos la probabilidad de lograrlo se estima en 0.20. 
+Se considera éxito si logran observar y documentar completamente cada uno de los procesos, y fracaso si no pueden observarlos o la información resulta incompleta.
 
+Con base en experiencias previas, la probabilidad de lograrlo se estima en 0.80.
 
 </div>
 
@@ -863,6 +865,44 @@ $$E[X]=\dfrac{3}{0.0005}= 6000 $$
 
 
 
+# Ejemplos de cálculo 
+
+En una variable aleatoria discreta se pueden calcular dos tipos de probabilidades:
+
+$$
+f(x)=P(X=x)
+$$
+
+corresponde a la probabilidad de que la variable aleatoria tome **exactamente**
+el valor $x$, mientras que
+
+$$
+F(x)=P(X\leq x)
+$$
+
+corresponde a la probabilidad **acumulada** hasta el valor $x$.
 
 
+<div class="box3 with-label">
+| Modelo           | Parámetros del ejemplo |                   | Código R                         | 
+|:-----------------|:-----------------------|:------------------|:---------------------------------|
+| **Binomial**     | $n=10$                 |$f(4)=P(X=4)$      | `dbinom(4, size=10, prob=0.30)`  | 
+|                  | $p=0.30$               |$F(4)=P(X\leq4)$   | `pbinom(4, size=10, prob=0.30)`  |
+|                  | $x=4$                  |                   |                                  | 
+|                  |                        |                   |                                  | 
+| **Geométrica**   | $p=0.25$               |$P(X=3)$           | `dgeom(3, prob=0.25)`            |
+|                  | $x=3$                  |$P(X\leq3)$        | `pgeom(3, prob=0.25)`            |
+|                  |                        |                   |                                  |
+| **Hipergeométrica**| $N=20$               |$f(2)=P(X=2)$      | `dhyper(2, m=7, n=13, k=5)`      |
+|                    | $K=7$                |$F(2)=P(X\leq2)$   | `phyper(2, m=7, n=13, k=5)`      |
+|                    | $n=5$                |                   |                                  |
+|                    | $x=2$                |                   |                                  |
+|                    |                      |                   |                                  |  
+| **Poisson**      |$\lambda=3$             |$f(2)=P(X=2)$      | `dpois(2, lambda=3)`             |
+|                  |$x=2$                   |$F(2)=P(X\leq2)$   | `ppois(2, lambda=3)`             |
+|                  |                        |                   |                                  |
+| **Binomial negativa** |$r=4$              |$P(X=3)$           | `dnbinom(3, size=4, prob=0.40)`  |
+|                       |$p=0.40$           | $P(X\leq3)$       | `pnbinom(3, size=4, prob=0.40)`  |
+|                       |$x=3$              |                   |                                  |
+</div>
 

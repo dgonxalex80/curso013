@@ -671,10 +671,14 @@ de distribución de probabilidad $</p>
 <p><br/><br/></p>
 <div id="ejemplo-1" class="section level3 box6 with-label">
 <h3>Ejemplo 1</h3>
-<p>Un biólogo realiza una salida de campo para estudiar el
-comportamiento del cucarachero común. Se considera éxito si puede filmar
-al animal y fracaso si no puede hacerlo. Por información suministrada en
-artículos científicos la probabilidad de lograrlo se estima en 0.20.</p>
+<p>Un grupo de estudiantes del área de Negocios Internacionales realiza
+una visita a las instalaciones de un puerto marítimo para observar en
+campo los procesos tanto de importación como de exportación.</p>
+<p>Se considera éxito si logran observar y documentar completamente cada
+uno de los procesos, y fracaso si no pueden observarlos o la información
+resulta incompleta.</p>
+<p>Con base en experiencias previas, la probabilidad de lograrlo se
+estima en 0.80.</p>
 </div>
 <p><br/><br/></p>
 <div id="solución" class="section level3">
@@ -1346,6 +1350,153 @@ hasta el fracaso de los tres servidores?</p>
 </table>
 </div>
 <p><br/><br/><br/></p>
+<div id="ejemplos-de-cálculo" class="section level1">
+<h1>Ejemplos de cálculo</h1>
+<p>En una variable aleatoria discreta se pueden calcular dos tipos de
+probabilidades:</p>
+<p><span class="math display">\[
+f(x)=P(X=x)
+\]</span></p>
+<p>corresponde a la probabilidad de que la variable aleatoria tome
+<strong>exactamente</strong> el valor <span
+class="math inline">\(x\)</span>, mientras que</p>
+<p><span class="math display">\[
+F(x)=P(X\leq x)
+\]</span></p>
+<p>corresponde a la probabilidad <strong>acumulada</strong> hasta el
+valor <span class="math inline">\(x\)</span>.</p>
+<div class="box3 with-label">
+<table>
+<colgroup>
+<col width="18%" />
+<col width="25%" />
+<col width="20%" />
+<col width="35%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Modelo</th>
+<th align="left">Parámetros del ejemplo</th>
+<th align="left"></th>
+<th align="left">Código R</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><strong>Binomial</strong></td>
+<td align="left"><span class="math inline">\(n=10\)</span></td>
+<td align="left"><span class="math inline">\(f(4)=P(X=4)\)</span></td>
+<td align="left"><code>dbinom(4, size=10, prob=0.30)</code></td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left"><span class="math inline">\(p=0.30\)</span></td>
+<td align="left"><span
+class="math inline">\(F(4)=P(X\leq4)\)</span></td>
+<td align="left"><code>pbinom(4, size=10, prob=0.30)</code></td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left"><span class="math inline">\(x=4\)</span></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left"><strong>Geométrica</strong></td>
+<td align="left"><span class="math inline">\(p=0.25\)</span></td>
+<td align="left"><span class="math inline">\(P(X=3)\)</span></td>
+<td align="left"><code>dgeom(3, prob=0.25)</code></td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left"><span class="math inline">\(x=3\)</span></td>
+<td align="left"><span class="math inline">\(P(X\leq3)\)</span></td>
+<td align="left"><code>pgeom(3, prob=0.25)</code></td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left"><strong>Hipergeométrica</strong></td>
+<td align="left"><span class="math inline">\(N=20\)</span></td>
+<td align="left"><span class="math inline">\(f(2)=P(X=2)\)</span></td>
+<td align="left"><code>dhyper(2, m=7, n=13, k=5)</code></td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left"><span class="math inline">\(K=7\)</span></td>
+<td align="left"><span
+class="math inline">\(F(2)=P(X\leq2)\)</span></td>
+<td align="left"><code>phyper(2, m=7, n=13, k=5)</code></td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left"><span class="math inline">\(n=5\)</span></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left"><span class="math inline">\(x=2\)</span></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left"><strong>Poisson</strong></td>
+<td align="left"><span class="math inline">\(\lambda=3\)</span></td>
+<td align="left"><span class="math inline">\(f(2)=P(X=2)\)</span></td>
+<td align="left"><code>dpois(2, lambda=3)</code></td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left"><span class="math inline">\(x=2\)</span></td>
+<td align="left"><span
+class="math inline">\(F(2)=P(X\leq2)\)</span></td>
+<td align="left"><code>ppois(2, lambda=3)</code></td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left"><strong>Binomial negativa</strong></td>
+<td align="left"><span class="math inline">\(r=4\)</span></td>
+<td align="left"><span class="math inline">\(P(X=3)\)</span></td>
+<td align="left"><code>dnbinom(3, size=4, prob=0.40)</code></td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left"><span class="math inline">\(p=0.40\)</span></td>
+<td align="left"><span class="math inline">\(P(X\leq3)\)</span></td>
+<td align="left"><code>pnbinom(3, size=4, prob=0.40)</code></td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left"><span class="math inline">\(x=3\)</span></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 
 
 
