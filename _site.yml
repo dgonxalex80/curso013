@@ -112,8 +112,8 @@ navbar:
           href: guia33.html        
         - text: "Recursos 3.3-discretas"
           href: recurso33-discretas.html
-        - text: "Código 3.32-discretas"  
-          href: codigo33-discretas.html
+        - text: "Código 3.32 discretas"  
+          href: codigo33_discretas.html
         - text: "Taller 331"  
           href: taller331.html 
         - text: "Asignacion A334"  

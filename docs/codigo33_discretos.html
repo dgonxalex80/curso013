@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="dgonzalez" />
+
+
+<title>codigo33_discretos.knit</title>
+
+<script src="site_libs/header-attrs/header-attrs.js"></script>
+<script src="site_libs/jquery/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation/tabsets.js"></script>
+<script src="site_libs/navigation/codefolding.js"></script>
+<link href="site_libs/highlightjs/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs/highlight.js"></script>
+<link href="site_libs/font-awesome/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome/css/v4-shims.min.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html"> </a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">
+    <span class="fa fa-home"></span>
+     
+    Estadística
+  </a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 0
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo0.html">Módulo 0</a>
+    </li>
+    <li>
+      <a href="sumatoria.html">Sumatoria</a>
+    </li>
+    <li>
+      <a href="productoria.html">Productoria</a>
+    </li>
+    <li>
+      <a href="conjuntos.html">Conjuntos</a>
+    </li>
+    <li>
+      <a href="conteo.html">Conteo</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 1
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo1.html">Módulo 1</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="guia11.html">Guía 1.1</a>
+    </li>
+    <li>
+      <a href="recurso11.html">Recursos 1.1</a>
+    </li>
+    <li>
+      <a href="basesdatos.html">Bases de datos</a>
+    </li>
+    <li>
+      <a href="introduccionR.html">Introducción a R</a>
+    </li>
+    <li>
+      <a href="codigo11.html">Código 1.1</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="guia12.html">Guía 1.2</a>
+    </li>
+    <li>
+      <a href="recurso12.html">Recursos 1.2</a>
+    </li>
+    <li>
+      <a href="codigo12.html">Código 1.2</a>
+    </li>
+    <li>
+      <a href="caso1A.html">Caso 1</a>
+    </li>
+    <li>
+      <a href="caso1B.html">Caso 2</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="guia13.html">Guía 1.3</a>
+    </li>
+    <li>
+      <a href="recurso13.html">Recursos 1.3</a>
+    </li>
+    <li>
+      <a href="codigo13.html">Código 1.3</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="monitoria1.html">Monitoria 1</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 2
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo2.html">Módulo 2</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="guia21.html">Guía 2.1</a>
+    </li>
+    <li>
+      <a href="recurso21.html">Recursos 2.1</a>
+    </li>
+    <li>
+      <a href="codigo21.html">Código 2.1</a>
+    </li>
+    <li>
+      <a href="taller211.html">Taller 211</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="guia22.html">Guía 2.2</a>
+    </li>
+    <li>
+      <a href="recurso22.html">Recursos 2.2</a>
+    </li>
+    <li>
+      <a href="taller221.html">Taller 221</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="monitoria2.html">Moitoría 2</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 3
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo3.html">Módulo 3</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="guia31.html">Guía 3.1</a>
+    </li>
+    <li>
+      <a href="recurso31.html">Recursos 3.1</a>
+    </li>
+    <li>
+      <a href="codigo31.html">Código 3.1</a>
+    </li>
+    <li>
+      <a href="taller311.html">Taller 311</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="guia32.html">Guía 3.2</a>
+    </li>
+    <li>
+      <a href="recurso32.html">Recursos 3.2</a>
+    </li>
+    <li>
+      <a href="codigo32.html">Código 3.2</a>
+    </li>
+    <li>
+      <a href="taller321.html">Taller 321</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="guia33.html">Guía 3.3</a>
+    </li>
+    <li>
+      <a href="recurso33-discretas.html">Recursos 3.3-discretas</a>
+    </li>
+    <li>
+      <a href="codigo33_discretas.html">Código 3.32 discretas</a>
+    </li>
+    <li>
+      <a href="taller331.html">Taller 331</a>
+    </li>
+    <li>
+      <a href="actividad334.html">Asignacion A334</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="monitoria3.html">Moitoría 3</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 4
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo4.html">Módulo 4</a>
+    </li>
+    <li class="divider"></li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Proyecto
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="guia_proyecto1.html">Guía proyecto</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
+
+
+
+</div>
+
+
+<p><img src="img/codigo3.png" alt="" width="100%" style="display: block; margin: auto;" /></p>
+<p><br/><br/><br/></p>
+<pre class="r"><code># ============================================================
+# DISTRIBUCIÓN BERNOULLI
+# X ~ Bernoulli(p)
+# En R se trabaja como una Binomial con size = 1
+# ============================================================
+
+p &lt;- 0.60
+
+# P(X = x)
+dbinom(0, size = 1, prob = p)</code></pre>
+<pre><code>[1] 0.4</code></pre>
+<pre class="r"><code>dbinom(1, size = 1, prob = p)</code></pre>
+<pre><code>[1] 0.6</code></pre>
+<pre class="r"><code># P(X &lt;= x)
+pbinom(0, size = 1, prob = p)</code></pre>
+<pre><code>[1] 0.4</code></pre>
+<pre class="r"><code>pbinom(1, size = 1, prob = p)</code></pre>
+<pre><code>[1] 1</code></pre>
+<pre class="r"><code># Cuantil
+qbinom(0.60, size = 1, prob = p)</code></pre>
+<pre><code>[1] 1</code></pre>
+<pre class="r"><code># Generación de valores aleatorios
+rbinom(10, size = 1, prob = p)</code></pre>
+<pre><code> [1] 1 1 0 0 1 0 1 1 1 0</code></pre>
+<pre class="r"><code># ============================================================
+# DISTRIBUCIÓN BINOMIAL
+# X ~ Binomial(n, p)
+# ============================================================
+
+n &lt;- 10
+p &lt;- 0.30
+x &lt;- 0:n
+
+# P(X = x)
+dbinom(x, size = n, prob = p)</code></pre>
+<pre><code> [1] 0.0282475249 0.1210608210 0.2334744405 0.2668279320 0.2001209490
+ [6] 0.1029193452 0.0367569090 0.0090016920 0.0014467005 0.0001377810
+[11] 0.0000059049</code></pre>
+<pre class="r"><code># P(X &lt;= x)
+pbinom(x, size = n, prob = p)</code></pre>
+<pre><code> [1] 0.02824752 0.14930835 0.38278279 0.64961072 0.84973167 0.95265101
+ [7] 0.98940792 0.99840961 0.99985631 0.99999410 1.00000000</code></pre>
+<pre class="r"><code># Cuantiles
+qbinom(c(0.25, 0.50, 0.75), size = n, prob = p)</code></pre>
+<pre><code>[1] 2 3 4</code></pre>
+<pre class="r"><code># Generación de valores aleatorios
+rbinom(20, size = n, prob = p)</code></pre>
+<pre><code> [1] 3 4 4 4 3 4 3 4 0 3 2 2 3 2 1 2 4 3 4 1</code></pre>
+<pre class="r"><code># ============================================================
+# DISTRIBUCIÓN POISSON
+# X ~ Poisson(lambda)
+# ============================================================
+
+lambda &lt;- 4
+x &lt;- 0:15
+
+# P(X = x)
+dpois(x, lambda = lambda)</code></pre>
+<pre><code> [1] 1.831564e-02 7.326256e-02 1.465251e-01 1.953668e-01 1.953668e-01
+ [6] 1.562935e-01 1.041956e-01 5.954036e-02 2.977018e-02 1.323119e-02
+[11] 5.292477e-03 1.924537e-03 6.415123e-04 1.973884e-04 5.639669e-05
+[16] 1.503912e-05</code></pre>
+<pre class="r"><code># P(X &lt;= x)
+ppois(x, lambda = lambda)</code></pre>
+<pre><code> [1] 0.01831564 0.09157819 0.23810331 0.43347012 0.62883694 0.78513039
+ [7] 0.88932602 0.94886638 0.97863657 0.99186776 0.99716023 0.99908477
+[13] 0.99972628 0.99992367 0.99998007 0.99999511</code></pre>
+<pre class="r"><code># Cuantiles
+qpois(c(0.25, 0.50, 0.75), lambda = lambda)</code></pre>
+<pre><code>[1] 3 4 5</code></pre>
+<pre class="r"><code># Generación de valores aleatorios
+rpois(20, lambda = lambda)</code></pre>
+<pre><code> [1] 4 9 7 6 2 2 5 3 5 3 2 5 2 4 4 4 3 4 8 4</code></pre>
+<pre class="r"><code># ============================================================
+# DISTRIBUCIÓN GEOMÉTRICA
+# X = número de fracasos antes del primer éxito
+# ============================================================
+
+p &lt;- 0.25
+x &lt;- 0:15
+
+# P(X = x)
+dgeom(x, prob = p)</code></pre>
+<pre><code> [1] 0.250000000 0.187500000 0.140625000 0.105468750 0.079101562 0.059326172
+ [7] 0.044494629 0.033370972 0.025028229 0.018771172 0.014078379 0.010558784
+[13] 0.007919088 0.005939316 0.004454487 0.003340865</code></pre>
+<pre class="r"><code># P(X &lt;= x)
+pgeom(x, prob = p)</code></pre>
+<pre><code> [1] 0.2500000 0.4375000 0.5781250 0.6835938 0.7626953 0.8220215 0.8665161
+ [8] 0.8998871 0.9249153 0.9436865 0.9577649 0.9683236 0.9762427 0.9821821
+[15] 0.9866365 0.9899774</code></pre>
+<pre class="r"><code># Cuantiles
+qgeom(c(0.25, 0.50, 0.75), prob = p)</code></pre>
+<pre><code>[1] 0 2 4</code></pre>
+<pre class="r"><code># Generación de valores aleatorios
+rgeom(20, prob = p)</code></pre>
+<pre><code> [1] 1 8 0 0 1 2 3 5 1 1 2 5 0 8 3 3 2 4 4 3</code></pre>
+<pre class="r"><code># ============================================================
+# DISTRIBUCIÓN HIPERGEOMÉTRICA
+# m = número de elementos tipo éxito
+# n = número de elementos tipo fracaso
+# k = tamaño de la muestra
+# ============================================================
+
+m &lt;- 8
+n &lt;- 12
+k &lt;- 5
+x &lt;- 0:k
+
+# P(X = x)
+dhyper(x, m = m, n = n, k = k)</code></pre>
+<pre><code>[1] 0.051083591 0.255417957 0.397316821 0.238390093 0.054179567 0.003611971</code></pre>
+<pre class="r"><code># P(X &lt;= x)
+phyper(x, m = m, n = n, k = k)</code></pre>
+<pre><code>[1] 0.05108359 0.30650155 0.70381837 0.94220846 0.99638803 1.00000000</code></pre>
+<pre class="r"><code># Cuantiles
+qhyper(c(0.25, 0.50, 0.75), m = m, n = n, k = k)</code></pre>
+<pre><code>[1] 1 2 3</code></pre>
+<pre class="r"><code># Generación de valores aleatorios
+rhyper(20, m = m, n = n, k = k)</code></pre>
+<pre><code> [1] 2 3 1 2 1 2 1 3 3 2 2 2 2 3 2 3 2 3 1 2</code></pre>
+<pre class="r"><code># ============================================================
+# DISTRIBUCIÓN BINOMIAL NEGATIVA
+# X = número de fracasos antes de alcanzar size éxitos
+# ============================================================
+
+size &lt;- 4
+p &lt;- 0.40
+x &lt;- 0:20
+
+# P(X = x)
+dnbinom(x, size = size, prob = p)</code></pre>
+<pre><code> [1] 0.025600000 0.061440000 0.092160000 0.110592000 0.116121600 0.111476736
+ [7] 0.100329062 0.085996339 0.070946980 0.056757584 0.044270915 0.033806881
+[13] 0.025355161 0.018723811 0.013641634 0.009821976 0.006998158 0.004939876
+[19] 0.003457913 0.002402340 0.001657614</code></pre>
+<pre class="r"><code># P(X &lt;= x)
+pnbinom(x, size = size, prob = p)</code></pre>
+<pre><code> [1] 0.0256000 0.0870400 0.1792000 0.2897920 0.4059136 0.5173903 0.6177194
+ [8] 0.7037157 0.7746627 0.8314203 0.8756912 0.9094981 0.9348533 0.9535771
+[15] 0.9672187 0.9770407 0.9840388 0.9889787 0.9924366 0.9948390 0.9964966</code></pre>
+<pre class="r"><code># Cuantiles
+qnbinom(c(0.25, 0.50, 0.75), size = size, prob = p)</code></pre>
+<pre><code>[1] 3 5 8</code></pre>
+<pre class="r"><code># Generación de valores aleatorios
+rnbinom(20, size = size, prob = p)</code></pre>
+<pre><code> [1]  8  8 18  5  3  3  2  4  7  5  2  7  3  2  9  4  6  2  3  8</code></pre>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("hide" === "show");
+});
+</script>
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

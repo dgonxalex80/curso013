@@ -1,0 +1,1071 @@
+---
+title: "<span style='color:#476885 !important;'>Teoría de probabilidades</span>"
+author: <span style="color:#476885">dgonzalez </span> 
+subtitle: <span style="color:#476885"> </span> 
+output:
+  html_document:
+    toc: no
+    toc_depth: 2
+    toc_float: yes
+    code_folding: show
+    theme: flatly
+    css:
+      - style.css
+      - cajas.css
+---  
+
+
+```{r, echo=FALSE, out.width="100%", fig.align = "center"}
+knitr::include_graphics("img/codigo3.png")
+```
+
+<br/><br/>
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE,
+  message = FALSE,
+  warning = FALSE,
+  comment = NA
+)
+
+library(tidyverse)
+
+# Colores utilizados en los recursos del curso.
+# Si se dispone del archivo R/init.R, se cargan desde allí.
+if (file.exists("R/init.R")) {
+  source("R/init.R")
+}
+
+# Colores alternativos si c31 y c32 no existen.
+if (!exists("c31")) c31 <- "#476885"
+if (!exists("c32")) c32 <- "#71899A"
+```
+
+<br/><br/>
+
+# Funciones para modelos discretos
+
+En **R**, las funciones asociadas con los principales modelos de probabilidad se identifican mediante una letra inicial que indica el tipo de cálculo que se desea realizar.
+
++ **d**: calcula la función de probabilidad $f(x)=P(X=x)$.
++ **p**: calcula la función de distribución acumulada $F(x)=P(X\leq x)$.
++ **q**: calcula cuantiles o percentiles $x_p$.
++ **r**: genera números aleatorios de la distribución especificada.
+
+Por ejemplo, para una distribución binomial se utilizan las funciones `dbinom()`, `pbinom()`, `qbinom()` y `rbinom()`.
+
+<br/>
+
+| Modelo | $f(x)$ | $F(x)$ | $x_p$ | Aleatorio |
+|:--|:--:|:--:|:--:|:--:|
+| Bernoulli | `dbinom` | `pbinom` | `qbinom` | `rbinom` |
+| Binomial | `dbinom` | `pbinom` | `qbinom` | `rbinom` |
+| Poisson | `dpois` | `ppois` | `qpois` | `rpois` |
+| Geométrico | `dgeom` | `pgeom` | `qgeom` | `rgeom` |
+| Hipergeométrico | `dhyper` | `phyper` | `qhyper` | `rhyper` |
+| Binomial negativo | `dnbinom` | `pnbinom` | `qnbinom` | `rnbinom` |
+
+<br/>
+
+Cuando no se recuerde la sintaxis de una función puede consultarse la ayuda de **R**. Por ejemplo:
+
+```{r, eval=FALSE}
+help("dbinom")
+help("pbinom")
+?dpois
+```
+
+<br/><br/>
+
+# Distribución Bernoulli
+
+Una variable aleatoria Bernoulli solamente puede tomar los valores $0$ y $1$. Se puede representar como
+
+$$
+X\sim Bernoulli(p)
+$$
+
+donde $p=P(X=1)$ es la probabilidad de éxito y $1-p=P(X=0)$ es la probabilidad de fracaso.
+
+En **R** no existe una función denominada `dbern()`. La distribución Bernoulli se trabaja como un caso particular de la distribución binomial con un solo ensayo, es decir, `size = 1`.
+
+Supongamos que
+
+$$
+X\sim Bernoulli(0.70).
+$$
+
+Se realizarán los siguientes procesos:
+
+1. Calcular $P(X=1)$.
+2. Calcular $P(X=0)$.
+3. Construir la tabla de $f(x)$ y $F(x)$.
+4. Calcular un cuantil.
+5. Generar 15 observaciones aleatorias.
+6. Representar gráficamente $f(x)$ y $F(x)$.
+
+<br/>
+<div class="box4 with-label">
+### Función de probabilidad
+
+```{r}
+# P(X = 1)
+dbinom(1, size = 1, prob = 0.70)
+
+# P(X = 0)
+dbinom(0, size = 1, prob = 0.70)
+```
+</div>
+
+<br/><br/>
+
+<div class="box4 with-label">
+### Función de distribución acumulada
+
+```{r}
+# P(X <= 0)
+pbinom(0, size = 1, prob = 0.70)
+
+# P(X <= 1)
+pbinom(1, size = 1, prob = 0.70)
+```
+
+</div>
+
+<br/><br/>
+
+<div class="box4 with-label">
+### Tabla 
+
+```{r}
+x <- 0:1
+
+fx <- dbinom(x, size = 1, prob = 0.70)
+Fx <- pbinom(x, size = 1, prob = 0.70)
+
+data.frame(
+  x = x,
+  fx = round(fx, 4),
+  Fx = round(Fx, 4)
+)
+```
+
+</div>
+
+<br/><br/>
+
+<div class="box4 with-label">
+### Cuantil
+
+```{r}
+# Percentil 50
+qbinom(0.50, size = 1, prob = 0.70)
+```
+
+</div>
+
+<br/><br/>
+
+<div class="box4 with-label">
+### Generación de números aleatorios
+
+```{r}
+# Genera 15 resultados Bernoulli
+set.seed(123)
+rbinom(15, size = 1, prob = 0.70)
+```
+
+</div>
+
+<br/><br/>
+
+<div class="box4 with-label">
+### Gráfica de la función de distribución de probabilidad
+
+```{r, fig.align='center'}
+x <- 0:1
+
+plot(
+  x,
+  dbinom(x, size = 1, prob = 0.70),
+  pch = 19,
+  las = 1,
+  xlab = "x",
+  ylab = "f(x)",
+  col = c31,
+  ylim = c(0, 1)
+)
+
+grid()
+```
+
+</div>
+
+<br/><br/>
+
+<div class="box4 with-label">
+### Gráfica de función acumulada
+
+```{r, fig.align='center'}
+plot(
+  x,
+  pbinom(x, size = 1, prob = 0.70),
+  type = "s",
+  pch = 19,
+  las = 1,
+  xlab = "x",
+  ylab = "F(x)",
+  col = c31,
+  ylim = c(0, 1)
+)
+
+grid()
+```
+
+</div>
+
+<br/><br/><br/><br/>
+
+# Distribución binomial
+
+La distribución binomial permite modelar el número de éxitos obtenidos en $n$ ensayos Bernoulli independientes, cuando la probabilidad de éxito $p$ permanece constante.
+
+Supongamos
+
+$$
+X\sim Binomial(20,0.30).
+$$
+
+En este caso se realizarán los siguientes procesos:
+
+1. Calcular $P(X=7)$.
+2. Calcular $P(X\leq 7)$.
+3. Calcular $P(X>7)$.
+4. Construir la tabla de $f(x)$ y $F(x)$.
+5. Calcular un percentil.
+6. Generar 15 números aleatorios.
+7. Construir las gráficas de $f(x)$ y $F(x)$.
+
+<br/><br/>
+
+<div class="box4 with-label">
+### Función de probabilidad
+
+```{r}
+# P(X = 7)
+dbinom(7, size = 20, prob = 0.30)
+```
+
+
+</div>
+
+<br/><br/>
+
+<div class="box4 with-label">
+### Probabilidad acumulada
+
+```{r}
+# P(X <= 7)
+pbinom(7, size = 20, prob = 0.30)
+```
+
+</div>
+
+<br/><br/>
+
+<div class="box4 with-label">
+### Probabilidad de cola superior
+
+```{r}
+# P(X > 7)
+pbinom(7, size = 20, prob = 0.30, lower.tail = FALSE)
+```
+
+
+</div>
+
+<br/><br/>
+
+<div class="box4 with-label">
+### Tabla 
+
+```{r}
+x <- 0:20
+
+fx <- dbinom(x, size = 20, prob = 0.30)
+Fx <- pbinom(x, size = 20, prob = 0.30)
+
+data.frame(
+  x = x,
+  fx = round(fx, 4),
+  Fx = round(Fx, 4)
+)
+```
+
+
+</div>
+
+<br/><br/>
+
+<div class="box4 with-label">
+### Cuantil
+
+```{r}
+# Percentil 90
+qbinom(0.90, size = 20, prob = 0.30)
+```
+
+</div>
+
+<br/><br/>
+
+<div class="box4 with-label">
+### Generación de números aleatorios
+
+```{r}
+set.seed(123)
+
+# Genera 15 observaciones de X
+rbinom(15, size = 20, prob = 0.30)
+```
+
+
+</div>
+
+<br/><br/>
+
+<div class="box4 with-label">
+### Gráfica de la función de distribución de probabilidad
+
+```{r, fig.align='center'}
+x <- 0:20
+
+plot(
+  x,
+  dbinom(x, size = 20, prob = 0.30),
+  pch = 19,
+  las = 1,
+  xlab = "x",
+  ylab = "f(x)",
+  col = c31
+)
+
+grid()
+```
+
+</div>
+
+<br/><br/>
+
+<div class="box4 with-label">
+### Gráfica de la función de probabilidad acumulada
+
+```{r, fig.align='center'}
+plot(
+  x,
+  pbinom(x, size = 20, prob = 0.30),
+  type = "s",
+  pch = 19,
+  las = 1,
+  xlab = "x",
+  ylab = "F(x)",
+  col = c31
+)
+
+grid()
+```
+</div>
+
+<br/><br/><br/><br/>
+
+# Distribución Poisson
+
+La distribución Poisson se utiliza para modelar el número de ocurrencias de un evento en un intervalo determinado. Su parámetro es $\lambda$, que representa el número promedio de ocurrencias en dicho intervalo.
+
+Supongamos
+
+$$
+X\sim Poisson(4).
+$$
+
+Como la distribución Poisson tiene soporte infinito, para construir tablas y gráficas se seleccionará un rango suficientemente amplio de valores de $x$.
+
+
+<br/><br/>
+
+<div class="box4 with-label">
+### Función de probabilidad
+
+```{r}
+# P(X = 5)
+dpois(5, lambda = 4)
+```
+
+
+</div>
+
+<br/><br/>
+
+<div class="box4 with-label">
+### Probabilidad acumulada
+
+```{r}
+# P(X <= 5)
+ppois(5, lambda = 4)
+```
+
+
+</div>
+
+<br/><br/>
+
+<div class="box4 with-label">
+### Probabilidad de cola superior
+
+```{r}
+# P(X > 5)
+ppois(5, lambda = 4, lower.tail = FALSE)
+```
+
+</div>
+
+<br/><br/>
+
+<div class="box4 with-label">
+### Tabla
+
+```{r}
+# Se muestran valores entre 0 y 15
+x <- 0:15
+
+fx <- dpois(x, lambda = 4)
+Fx <- ppois(x, lambda = 4)
+
+data.frame(
+  x = x,
+  fx = round(fx, 4),
+  Fx = round(Fx, 4)
+)
+```
+
+
+</div>
+
+<br/><br/>
+
+<div class="box4 with-label">
+### Cuantil
+
+```{r}
+# Percentil 95
+qpois(0.95, lambda = 4)
+```
+
+
+</div>
+
+<br/><br/>
+
+<div class="box4 with-label">
+### Generación de números aleatorios
+
+```{r}
+set.seed(123)
+
+# Genera 15 observaciones Poisson
+rpois(15, lambda = 4)
+```
+
+
+</div>
+
+<br/><br/>
+
+<div class="box4 with-label">
+### Gráfica de la función de distribución de probabilidad
+
+```{r, fig.align='center'}
+x <- 0:15
+
+plot(
+  x,
+  dpois(x, lambda = 4),
+  pch = 19,
+  las = 1,
+  xlab = "x",
+  ylab = "f(x)",
+  col = c31
+)
+
+grid()
+```
+
+
+</div>
+
+<br/><br/>
+
+<div class="box4 with-label">
+### Gráfica de la función de probabilidad acumulada
+
+```{r, fig.align='center'}
+plot(
+  x,
+  ppois(x, lambda = 4),
+  type = "s",
+  pch = 19,
+  las = 1,
+  xlab = "x",
+  ylab = "F(x)",
+  col = c31
+)
+
+grid()
+```
+</div>
+
+<br/><br/><br/><br/>
+
+# Distribución geométrica
+
+La distribución geométrica modela el número de fracasos que ocurren antes de obtener el primer éxito.
+
+**Importante:** esta es la parametrización utilizada por **R**. Por esta razón, la variable toma los valores
+
+$$
+X=0,1,2,\ldots
+$$
+
+El valor $X=0$ significa que el primer ensayo produjo inmediatamente un éxito.
+
+Supongamos
+
+$$
+X\sim Geométrica(0.25).
+$$
+
+
+<br/><br/>
+
+<div class="box4 with-label">
+### Función de distribución de probabilidad
+
+```{r}
+# P(X = 3)
+# Probabilidad de tener 3 fracasos antes del primer éxito
+dgeom(3, prob = 0.25)
+```
+
+</div>
+
+<br/><br/>
+
+<div class="box4 with-label">
+### Probabilidad acumulada
+
+```{r}
+# P(X <= 3)
+pgeom(3, prob = 0.25)
+```
+
+
+</div>
+
+<br/><br/>
+
+<div class="box4 with-label">
+### Probabilidad de cola superior
+
+```{r}
+# P(X > 3)
+pgeom(3, prob = 0.25, lower.tail = FALSE)
+```
+
+
+</div>
+
+<br/><br/>
+
+<div class="box4 with-label">
+### Tabla 
+
+```{r}
+# Se muestran los primeros valores de la distribución
+x <- 0:15
+
+fx <- dgeom(x, prob = 0.25)
+Fx <- pgeom(x, prob = 0.25)
+
+data.frame(
+  x = x,
+  fx = round(fx, 4),
+  Fx = round(Fx, 4)
+)
+```
+
+</div>
+
+<br/><br/>
+
+<div class="box4 with-label">
+### Cuantil
+
+```{r}
+# Percentil 90
+qgeom(0.90, prob = 0.25)
+```
+
+</div>
+
+<br/><br/>
+
+<div class="box4 with-label">
+### Generación de números aleatorios
+
+```{r}
+set.seed(123)
+
+# Número de fracasos antes del primer éxito
+rgeom(15, prob = 0.25)
+```
+</div>
+
+<br/><br/>
+
+<div class="box4 with-label">
+### Gráfica de la función de distribución de probabilidad
+
+```{r, fig.align='center'}
+x <- 0:15
+
+plot(
+  x,
+  dgeom(x, prob = 0.25),
+  pch = 19,
+  las = 1,
+  xlab = "Número de fracasos",
+  ylab = "f(x)",
+  col = c31
+)
+
+grid()
+```
+
+</div>
+
+<br/><br/>
+
+<div class="box4 with-label">
+### Gráfica de la función de probabilidad acumulada
+
+```{r, fig.align='center'}
+plot(
+  x,
+  pgeom(x, prob = 0.25),
+  type = "s",
+  pch = 19,
+  las = 1,
+  xlab = "Número de fracasos",
+  ylab = "F(x)",
+  col = c31
+)
+
+grid()
+```
+</div>
+
+<br/><br/><br/><br/>
+
+# Distribución hipergeométrica
+
+La distribución hipergeométrica se utiliza cuando se selecciona una muestra **sin reemplazo** de una población finita que contiene dos tipos de elementos.
+
+En las funciones de **R**:
+
++ `m`: número de elementos considerados éxitos en la población.
++ `n`: número de elementos considerados fracasos en la población.
++ `k`: tamaño de la muestra.
++ `x`: número de éxitos observados en la muestra.
+
+Supongamos una población con 8 elementos tipo éxito y 12 tipo fracaso, de la cual se seleccionan 5 elementos sin reemplazo.
+
+$$
+X\sim Hipergeométrica(m=8,n=12,k=5).
+$$
+
+
+<br/><br/>
+
+<div class="box4 with-label">
+### Función de distribución de probabilidad
+
+```{r}
+# P(X = 2)
+dhyper(2, m = 8, n = 12, k = 5)
+```
+
+</div>
+
+<br/><br/>
+
+<div class="box4 with-label">
+### Probabilidad acumulada
+
+```{r}
+# P(X <= 2)
+phyper(2, m = 8, n = 12, k = 5)
+```
+
+</div>
+
+<br/><br/>
+
+<div class="box4 with-label">
+### Probabilidad de cola superior
+
+```{r}
+# P(X > 2)
+phyper(2, m = 8, n = 12, k = 5, lower.tail = FALSE)
+```
+
+</div>
+
+<br/><br/>
+
+<div class="box4 with-label">
+### Rango posible de la variable
+
+El rango de una variable hipergeométrica depende de los parámetros de la población y del tamaño de muestra. Se puede obtener mediante:
+
+```{r}
+m <- 8
+n <- 12
+k <- 5
+
+xmin <- max(0, k - n)
+xmax <- min(k, m)
+
+x <- xmin:xmax
+
+x
+```
+
+
+</div>
+
+<br/><br/>
+
+<div class="box4 with-label">
+### Tabla 
+
+```{r}
+fx <- dhyper(x, m = m, n = n, k = k)
+Fx <- phyper(x, m = m, n = n, k = k)
+
+data.frame(
+  x = x,
+  fx = round(fx, 4),
+  Fx = round(Fx, 4)
+)
+```
+
+</div>
+
+<br/><br/>
+
+<div class="box4 with-label">
+### Cuantil
+
+```{r}
+# Percentil 90
+qhyper(0.90, m = 8, n = 12, k = 5)
+```
+
+</div>
+
+<br/><br/>
+
+<div class="box4 with-label">
+### Generación de números aleatorios
+
+```{r}
+set.seed(123)
+
+# Genera 15 muestras y registra el número de éxitos
+rhyper(15, m = 8, n = 12, k = 5)
+```
+
+</div>
+
+<br/><br/>
+
+<div class="box4 with-label">
+### Gráfica de la función de distribución de probabilidad
+
+```{r, fig.align='center'}
+plot(
+  x,
+  dhyper(x, m = m, n = n, k = k),
+  pch = 19,
+  las = 1,
+  xlab = "x",
+  ylab = "f(x)",
+  col = c31
+)
+
+grid()
+```
+
+</div>
+
+<br/><br/>
+
+<div class="box4 with-label">
+### Gráfica de la función de probabilidad acumulada
+
+```{r, fig.align='center'}
+plot(
+  x,
+  phyper(x, m = m, n = n, k = k),
+  type = "s",
+  pch = 19,
+  las = 1,
+  xlab = "x",
+  ylab = "F(x)",
+  col = c31
+)
+
+grid()
+```
+
+</div>
+
+<br/><br/><br/><br/>
+
+# Distribución binomial negativa
+
+La distribución binomial negativa permite modelar el número de fracasos que ocurren antes de alcanzar un número determinado de éxitos.
+
+En **R**, el parámetro `size` representa el número de éxitos que se desean alcanzar y `prob` representa la probabilidad de éxito en cada ensayo.
+
+Supongamos que se desean alcanzar 4 éxitos y que la probabilidad de éxito en cada ensayo es 0.40:
+
+$$
+X\sim BN(size=4,p=0.40).
+$$
+
+En esta parametrización, $X$ representa el **número de fracasos antes de obtener el cuarto éxito**.
+
+
+<br/><br/>
+
+<div class="box4 with-label">
+### Función de distribución de probabilidad
+
+```{r}
+# P(X = 5)
+# Probabilidad de tener 5 fracasos antes de alcanzar 4 éxitos
+dnbinom(5, size = 4, prob = 0.40)
+```
+
+
+</div>
+
+<br/><br/>
+
+<div class="box4 with-label">
+### Probabilidad acumulada
+
+```{r}
+# P(X <= 5)
+pnbinom(5, size = 4, prob = 0.40)
+```
+
+
+</div>
+
+<br/><br/>
+
+<div class="box4 with-label">
+### Probabilidad de cola superior
+
+```{r}
+# P(X > 5)
+pnbinom(5, size = 4, prob = 0.40, lower.tail = FALSE)
+```
+
+</div>
+
+<br/><br/>
+
+<div class="box4 with-label">
+### Tabla 
+
+```{r}
+# La distribución tiene soporte infinito.
+# Para la tabla se seleccionan los valores de 0 a 25.
+x <- 0:25
+
+fx <- dnbinom(x, size = 4, prob = 0.40)
+Fx <- pnbinom(x, size = 4, prob = 0.40)
+
+data.frame(
+  x = x,
+  fx = round(fx, 4),
+  Fx = round(Fx, 4)
+)
+```
+
+</div>
+
+<br/><br/>
+
+<div class="box4 with-label">
+### Cuantil
+
+```{r}
+# Percentil 95
+qnbinom(0.95, size = 4, prob = 0.40)
+```
+
+</div>
+
+<br/><br/>
+
+<div class="box4 with-label">
+### Generación de números aleatorios
+
+```{r}
+set.seed(123)
+
+# Número de fracasos antes de alcanzar 4 éxitos
+rnbinom(15, size = 4, prob = 0.40)
+```
+
+</div>
+
+<br/><br/>
+
+<div class="box4 with-label">
+### Gráfica de la función de distribución acumulada
+
+```{r, fig.align='center'}
+x <- 0:25
+
+plot(
+  x,
+  dnbinom(x, size = 4, prob = 0.40),
+  pch = 19,
+  las = 1,
+  xlab = "Número de fracasos",
+  ylab = "f(x)",
+  col = c31
+)
+
+grid()
+```
+
+
+</div>
+
+<br/><br/>
+
+<div class="box4 with-label">
+### Gráfica de la función de probabilidad acumulada
+
+```{r, fig.align='center'}
+plot(
+  x,
+  pnbinom(x, size = 4, prob = 0.40),
+  type = "s",
+  pch = 19,
+  las = 1,
+  xlab = "Número de fracasos",
+  ylab = "F(x)",
+  col = c31
+)
+
+grid()
+```
+
+</div>
+
+<br/><br/><br/><br/>
+
+# Resumen de sintaxis
+
+La siguiente sección permite consultar rápidamente la sintaxis básica de las funciones utilizadas.
+
+
+<div class="box4 with-label">
+
+```{r, eval=FALSE}
+# ============================================================
+# BERNOULLI
+# Se implementa como Binomial(size = 1)
+# ============================================================
+
+dbinom(x, size = 1, prob = p)
+pbinom(q, size = 1, prob = p)
+qbinom(p, size = 1, prob = p)
+rbinom(n, size = 1, prob = p)
+
+
+# ============================================================
+# BINOMIAL
+# ============================================================
+
+dbinom(x, size, prob)
+pbinom(q, size, prob, lower.tail = TRUE)
+qbinom(p, size, prob, lower.tail = TRUE)
+rbinom(n, size, prob)
+
+
+# ============================================================
+# POISSON
+# ============================================================
+
+dpois(x, lambda)
+ppois(q, lambda, lower.tail = TRUE)
+qpois(p, lambda, lower.tail = TRUE)
+rpois(n, lambda)
+
+
+# ============================================================
+# GEOMÉTRICA
+# X = número de fracasos antes del primer éxito
+# ============================================================
+
+dgeom(x, prob)
+pgeom(q, prob, lower.tail = TRUE)
+qgeom(p, prob, lower.tail = TRUE)
+rgeom(n, prob)
+
+
+# ============================================================
+# HIPERGEOMÉTRICA
+# m = éxitos en la población
+# n = fracasos en la población
+# k = tamaño de muestra
+# ============================================================
+
+dhyper(x, m, n, k)
+phyper(q, m, n, k, lower.tail = TRUE)
+qhyper(p, m, n, k, lower.tail = TRUE)
+rhyper(nn, m, n, k)
+
+
+# ============================================================
+# BINOMIAL NEGATIVA
+# X = fracasos antes de alcanzar 'size' éxitos
+# ============================================================
+
+dnbinom(x, size, prob)
+pnbinom(q, size, prob, lower.tail = TRUE)
+qnbinom(p, size, prob, lower.tail = TRUE)
+rnbinom(n, size, prob)
+```
+
+
+</div>

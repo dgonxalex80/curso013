@@ -1,0 +1,185 @@
+---
+title:  " "
+subtitle: "  " 
+author: "dgonzalez "
+output:
+  html_document:
+    toc: no
+    toc_depth: 2
+    toc_float: yes
+    code_folding: hide
+    theme: flatly
+    css: style.css
+---  
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE, comment = NA)
+library(psych)
+library(summarytools)
+library(tidyverse)
+# install.packages("devtools")
+#devtools::install_github("dgonxalex80/paqueteDEG")
+#library(paqueteDEG)
+
+# colores
+source("R/init.R")
+
+# install.packages('gtools')
+# install.packages("TeachingSampling")
+
+#load library
+#library(gtools)
+#library(TeachingSampling)
+#library(readr)
+#base_muestreo <- read_delim("data/base_muestreo.csv", 
+#    delim = ";", escape_double = FALSE, col_types = cols(ID = col_integer()), 
+#    trim_ws = TRUE)
+
+
+```
+
+```{r, echo=FALSE, out.width="100%", fig.align = "center"}
+knitr::include_graphics("img/codigo3.png")
+```
+
+<br/><br/><br/>
+
+```{r}
+# ============================================================
+# DISTRIBUCIÓN BERNOULLI
+# X ~ Bernoulli(p)
+# En R se trabaja como una Binomial con size = 1
+# ============================================================
+
+p <- 0.60
+
+# P(X = x)
+dbinom(0, size = 1, prob = p)
+dbinom(1, size = 1, prob = p)
+
+# P(X <= x)
+pbinom(0, size = 1, prob = p)
+pbinom(1, size = 1, prob = p)
+
+# Cuantil
+qbinom(0.60, size = 1, prob = p)
+
+# Generación de valores aleatorios
+rbinom(10, size = 1, prob = p)
+```
+
+```{r}
+# ============================================================
+# DISTRIBUCIÓN BINOMIAL
+# X ~ Binomial(n, p)
+# ============================================================
+
+n <- 10
+p <- 0.30
+x <- 0:n
+
+# P(X = x)
+dbinom(x, size = n, prob = p)
+
+# P(X <= x)
+pbinom(x, size = n, prob = p)
+
+# Cuantiles
+qbinom(c(0.25, 0.50, 0.75), size = n, prob = p)
+
+# Generación de valores aleatorios
+rbinom(20, size = n, prob = p)
+```
+
+```{r}
+# ============================================================
+# DISTRIBUCIÓN POISSON
+# X ~ Poisson(lambda)
+# ============================================================
+
+lambda <- 4
+x <- 0:15
+
+# P(X = x)
+dpois(x, lambda = lambda)
+
+# P(X <= x)
+ppois(x, lambda = lambda)
+
+# Cuantiles
+qpois(c(0.25, 0.50, 0.75), lambda = lambda)
+
+# Generación de valores aleatorios
+rpois(20, lambda = lambda)
+```
+
+```{r}
+# ============================================================
+# DISTRIBUCIÓN GEOMÉTRICA
+# X = número de fracasos antes del primer éxito
+# ============================================================
+
+p <- 0.25
+x <- 0:15
+
+# P(X = x)
+dgeom(x, prob = p)
+
+# P(X <= x)
+pgeom(x, prob = p)
+
+# Cuantiles
+qgeom(c(0.25, 0.50, 0.75), prob = p)
+
+# Generación de valores aleatorios
+rgeom(20, prob = p)
+```
+
+```{r}
+# ============================================================
+# DISTRIBUCIÓN HIPERGEOMÉTRICA
+# m = número de elementos tipo éxito
+# n = número de elementos tipo fracaso
+# k = tamaño de la muestra
+# ============================================================
+
+m <- 8
+n <- 12
+k <- 5
+x <- 0:k
+
+# P(X = x)
+dhyper(x, m = m, n = n, k = k)
+
+# P(X <= x)
+phyper(x, m = m, n = n, k = k)
+
+# Cuantiles
+qhyper(c(0.25, 0.50, 0.75), m = m, n = n, k = k)
+
+# Generación de valores aleatorios
+rhyper(20, m = m, n = n, k = k)
+```
+
+```{r}
+# ============================================================
+# DISTRIBUCIÓN BINOMIAL NEGATIVA
+# X = número de fracasos antes de alcanzar size éxitos
+# ============================================================
+
+size <- 4
+p <- 0.40
+x <- 0:20
+
+# P(X = x)
+dnbinom(x, size = size, prob = p)
+
+# P(X <= x)
+pnbinom(x, size = size, prob = p)
+
+# Cuantiles
+qnbinom(c(0.25, 0.50, 0.75), size = size, prob = p)
+
+# Generación de valores aleatorios
+rnbinom(20, size = size, prob = p)
+```
