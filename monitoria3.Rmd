@@ -128,7 +128,7 @@ Una variable aleatoria continua $X$, que puede tomar valores entre $x=2$ y $x=5$
 $$
 f_X(x)=
 \begin{cases}
-\dfrac{2(1+x)}{27}, & 2\leq x\leq 5, \\[6pt]
+\dfrac{2(1+x)}{39}, & 2\leq x\leq 5, \\[6pt]
 0, & \text{en otro caso}.
 \end{cases}
 $$
@@ -387,7 +387,7 @@ El congestionamiento de pasajeros es un problema de servicio en los aeropuertos,
 
  $$f_{_{X}}(x) = \left \{ 
 				\begin{matrix} 
-				\dfrac{1}{10} & \mbox{ , }	0 \leq y \leq 10\\ 
+				\dfrac{1}{10} & \mbox{ , }	0 \leq x \leq 10\\ 
 				0  & \mbox{en otro caso }
 				\end{matrix}\right.  
 				$$
@@ -441,8 +441,8 @@ $$
 Determine :
 
 * $P(1 < X)$
-* $P(1 < X < 2.5$
-* $P(X = 3$
+* $P(1 < X < 2.5)$
+* $P(X = 3)$
 * $P(X < 4)$
 * Los valores de $Me$, $Q_{1}$ y $Q_{3}$
 
@@ -519,8 +519,8 @@ Suponga que $X$ tiene una función de distribución acumulada :
 $$F_{_{X}}(x) = \left \{ 
 				\begin{matrix} 
 				 0    & \mbox{ , } x \leq 0\\ 
-				 2x   & \mbox{, } x < 0 < x 5  \\
-				 1    & \mbox{ , } 5 \leq 5
+				 2x   & \mbox{, } 0 < x <5  \\
+				 1    & \mbox{ , } x \geq 5
 				\end{matrix}\right.  
 				$$
 
@@ -999,7 +999,7 @@ El estudio afirma también que los jóvenes en promedio reciben al rededor de 12
 <br/><br/><br/>
 <!-- =======================================================  -->
 
-# **Unidad 3.2**
+# Unidad 3.2
 
 <div class="box4 with-label">
 ### Problema 2.1
@@ -1024,7 +1024,7 @@ a. Determine :
 
   * $P(X \geq 1 ; Y \geq 1 )$
   * $P(X=1)$
-  * $P(Y \leq 1$
+  * $P(Y \leq 1)$
 
 b. Encuentre $P(Y = 1 | X = 2)$ , exprese en palabras el resultado
 
@@ -1035,7 +1035,7 @@ c. Determine si existe dependencia entre  las dos variables ( calcule $Cov[XY]$ 
 <br/><br/>
 
 <div class="box4 with-label">
-### roblema 2.2
+### Problema 2.2
 
 Un restaurante de  comidas rápidas opera tanto en un local que da servicios a clientes que llegan en automóviles (servicio-auto) como como en un segundo local en el que atiende a los clientes que llegan caminando. En un dia cualquiera, la proporción del tiempo en servicio del servicio-auto que se representa por $X$  y $Y$ que representa la proporción de tiempo que el segundo local esa en servicio, están representadas por la función de densidad conjunta dada por :
 
@@ -1075,7 +1075,7 @@ f_{_{X,Y}}(x,y)=\left\lbrace
 \begin{array}{ccl}
 2 & ,  &  0 \leq x \leq 1 \\
   &    &  0\leq y \leq 1  \\
-  &    &  x * y  \leq 1   \\
+  &    &  x + y  \leq 1   \\
   &&\\
 0&;& \text{en otro caso.}
 \end{array}
@@ -1121,4 +1121,717 @@ c. Cien paquetes contienen menos de seis kilogramos de maní, ¿cuántos de ello
 d. Doscientos paquetes seleccionados aleatoriamente contienen cinco kilogramos de chocolate, ¿cuántos de ellos contienen más de ocho kilogramos de maní?
 
 </div>
+
+
+
+<!-- -------------------------------------------------------------------------------- -->
+
+<br/><br/><br/>
+<!-- =======================================================  -->
+
+# Unidad 3.3
+
+<!-- =======================================================  -->
+# **Unidad 3.3**
+
+
+<br/><br/>
+
+El siguiente taller tiene como objetivo el entendimiento de los diferentes modelos de probabilidad mas utiizados para **variables discretas** y utilizar el programa RStudio en su solución.
+
+
+<br/><br/>
+
+<div class="box4 with-label">
+### Problema 3.1
+
+
+**Modelo binomial** Para una variable aleatoria con distribución binomial $X sim binom(x, n=10, p=0.2)$  Determine:
+
+a. $P(X = 5)$
+
+$$P(X=5) = \displaystyle\binom{10}{5} 0.2^{5} (1-0.2)^{10-5}$$
+
+```{r}
+# dbinom(x,     # valor de x
+#        size,  # tamaño
+#        prob)  # probabilidad de exito
+
+dbinom(5,10,0.2)
+```
+
+
+<br/><br/>
+
+b. $P(X \leq 2)$
+
+$$P(X\leq 2) = \sum_{x=0}^{2}\displaystyle\binom{10}{x} 0.2^{x} (1-0.2)^{10-x} =f(0)+f(1)+f(2)$$
+
+```{r}
+pbinom(2,10,0.2)
+```
+
+
+<br/><br/>
+
+c. $P(3 \leq  X < 5)$
+
+$$P(3 \leq  X < 5) = F(4) - F(2) = f(3) + f(4)$$
+
+```{r}
+pbinom(4,10,0.2)-pbinom(2,10,0.2)
+```
+
+
+<br/><br/>
+
+d. $P(X \geq 8)$
+
+$$P(X \geq 8) = f(8) + f(9) + f(10) = 1 - F(7)$$
+
+```{r}
+pbinom(7,10,0.2, lower.tail = FALSE)
+```
+
+
+
+<br/><br/>
+
+e. Construya la gráfica de $f(x)$
+
+```{r }
+x=0:10
+fx=dbinom(x,10,0.2)
+plot(x,fx,
+     main = " Distribución binomial(n=10, p=0.20)",
+     pch=19, col = c32)
+grid()
+abline(v = 1:10,  lty = 2, col = c31)
+```
+
+</div>
+
+<br/><br/>
+
+
+<div class="box4 with-label">
+### Problema 3.2
+
+**Modelo geometrico**  Sea una variable geométrica $X \sim geomn,(x,p=0.05)$ . Determine :
+
+a. $P(X = 1)$
+
+```{r}
+# dgeom(x,    # valor de x
+#       prob) # probabilidad de exito
+
+dgeom(1,0.05)
+```
+
+
+b. $P(X \leq 2)$
+
+c. $P(X = 8)$
+
+d. $P(X \geq 2)$
+
+e. Construya la gráfica de $f(x)$
+
+</div>
+
+<br/><br/>
+
+
+<div class="box4 with-label">
+### Problema 3.3
+
+**3. Modelo hipergeometrico** Suponga que $X$ tiene una distribución hipergeometrica con $N=100$, $n=4$ y $K=20$. ($X\sim hyper(x,N=100,n=4,k=20)$) Determine:
+
+a. $P(X = 1)$
+
+```{r}
+# dhyper(x,   # valor de x
+#        m,   # casos existoros : k = 20
+#        n,   # casos no exitosos : N-k = 80
+#        k)   # muestra que se extrae  :n = 4
+# m*n = N : total de la urna  : 100
+#
+dhyper(1, m=20, n=80, k=4 )
+```
+
+
+b. $P(X = 6)$
+
+c. $P(X \geq 1)$
+
+d. $P(X = 4)$
+
+e. Construya la gráfica de $f(x)$
+
+</div>
+
+<br/><br/>
+
+<div class="box4 with-label">
+### Problema 3.4
+
+**Modelo Poisson** Suponga que $X$ tiene una distribución Poisson con media $lambda=4$ ($X \sim pois(x,lambda=4)$). Determine:
+
+a. $P(X = 0)$
+
+```{r}
+#  dpois(x,       # valor de x
+#        lambda)  # media o lambda
+dpois(0,4)
+```
+
+
+b. $P(X = 4)$
+
+c. $P(X \geq 2)$
+
+d. $P(X \leq 2)$
+
+e. Construya la gráfica de $f(x)$
+
+</div>
+
+<br/><br/>
+
+<div class="box4 with-label">
+### Problema 3.5
+
+**Modelo binomial negativo** Sea la variable $X$ con distribución binomial negativa con $p=0.20$ y $k=3$, $n=5$.	Determine:
+
+a. $P(X = 3)$
+
+```{r}
+# dnbinom(x,     # valor de x
+#         size,  # numero de exitos requeridos
+#         prob)  # probabilidad de exito
+
+dnbinom(3,3,0.20)
+```
+
+
+b. $P(X = 6)$
+
+c. $P(X \geq 10)$
+
+d. $P(X \leq 12)$
+
+e. $EX$ y $VX$
+
+f. Construya la gráfica de $f(x)$
+
+</div>
+
+<br/><br/>
+
+<div class="box4 with-label">
+### Problema 3.6
+
+**Modelo binomial** En un cargamento grande de llantas para automóviles, el 5 tiene imperfecciones. Se eligen de manera aleatoria 4 llantas para ser instalada en un automóvil.  (Sea X el número de llantas con imperfecciones. $X \sim binom(n=4, p=0.05$ )
+
+a. ¿ Cuál es la probabilidad de que ninguna de las llantas tenga imperfecciones?
+
+b. ¿ Cuál es la probabilidad de que sólo una de las llantas tenga imperfecciones?
+
+c. ¿ Cuál es la probabilidad de una o más llantas tenga imperfecciones?
+
+</div>
+
+<br/><br/>
+
+<div class="box4 with-label">
+### Problema 3.7
+
+**Modelo Poisson** Los clientes llegan al mostrador de una tienda de acuerdo con una variable aleatoria Poisson con una frecuencia promedio de ocho clientes por hora.
+
+a. Calcule la probabilidad de que entre las 8 AM y las 9 AM lleguen exactamente cinco clientes.
+
+b. Calcule la probabilidad de que entre las 2:30 PM y las 3:30 PM no lleguen más de tres clientes.
+
+c. Calcule la probabilidad de que lleguen exactamente dos clientes dentro de un intervalo de dos horas continuas, por ejemplo entre 10 AM y 12 M.
+
+d. Calcule el valor esperado del número de personas que llegan a la tienda entre las 2 PM y las 4:30 PM.
+
+</div>
+
+<br/><br/>
+
+<div class="box4 with-label">
+### Problema 3.8
+
+Se está desarrollando una nueva variedad de maíz en una extensión de experimentación agrícola. Se espera que tenga una tasa de germinación del 90. Para verificar esto, se plantan 20 semillas en suelos de idéntica composición y se les dedican los mismos cuidados. Si la cifra 90 es correcta, ¿cuántas semillas se espera que germinen? Si sólo germinan 15 o menos, ¿hay razón para sospechar de la cifra 90?
+
+</div>
+
+<br/><br/>
+
+
+<div class="box4 with-label">
+### Problema 3.9
+
+Un examen de Probabilidad consta de 100 preguntas de selección múltiple, cada una con cuatro opciones de respuesta. Maria responde cada pregunta al azar y sus respuestas son independientes
+
+a. Si para aprobar el examen Maria debe responder mínimo 60 preguntas correctamente, calcule la probabilidad de que Maria apruebe el examen.
+
+b. Calcule la probabilidad de que Maria  deba responder 10 preguntas hasta responder la primera pregunta correctamente.
+
+c. ¿Cuál es el número esperado de preguntas que Maria responderá erróneamente hasta responder 5 preguntas correctamente?
+
+
+</div>
+
+<br/><br/>
+
+<div class="box4 with-label">
+### Problema 3.10
+
+Se sospecha que muchas muestras de agua, todas del mismo tamaño y tomadas del Hillbank River, han sido contaminadas por operarios irresponsables de una planta de tratamiento de aguas. Se contó el número de microorganismos conformes en cada muestra. El número medio de microorganismos por muestra fue de 15. Suponiendo que el número de microorganismos se distribuye según una distribución de Poisson, calcular la probabilidad de que:
+
+a. La siguiente muestra contenga al menos 17 microorganismos.
+
+b. La siguiente muestra contenga 18 o menos microorganismos.
+
+c. La siguiente muestra contenga exactamente dos microorganismos.
+
+</div>
+
+<br/><br/>
+
+<div class="box4 with-label">
+### Problema 3.11
+
+Una aéreolinea nacional tiene aviones de 100 asientos para el servicio de transporte nacional. Se estima que la probabilidad de que una persona llegue al vuelo es de 0.90, debido a lo cual  la aereolinea vende 105 tiquetes con el fin de minimizar la partida de aviones con sillas vacias. ¿cuál es la probabilidad de que todas las personas que lleguen para abordar el avión tengan asiento?
+
+</div>
+
+<br/><br/>
+
+<div class="box4 with-label">
+### Problema 3.12
+
+El número de grietas en un pavimento se estima en una grieta por cada 100m  en promedio. Se desea estimar la probabilidad de:
+
+a. Haya exactamente 8 grietas en una longitud de 500 m
+
+b. No se presente ninguna grieta en 100 m
+
+c. Se presenten menos de 2 grietas en 500 m
+
+</div>
+
+<br/><br/>
+
+<div class="box4 with-label">
+### Problema 3.13
+
+Un sistema de seguridad para casas está diseñado para tener una confiabilidad del 95 . Suponga que 10 casas equipadas con este dispositivo sufrieron tentativa de robo. Se requiere calcular la probabilidad de que en siete de las nueve, la alarma se activará.
+
+</div>
+
+<br/><br/>
+
+
+```{r, echo=FALSE}
+# library(downloadthis)
+# download_link(
+#   link = "https://github.com/dgonxalex80/probabilidad20212.io/blob/main/talleres/Solucion_Taller_%20307.pdf",
+#   button_label = "Descarga: solución pdf ",
+#   button_type = "primary",
+#   has_icon = TRUE,
+#   icon = "fa fa-save",
+#   self_contained = FALSE
+# )
+```
+
+<div class="box4 with-label">
+### Problema 3.14
+
+**Modelo uniforme** Para una variable aleatoria $X\sim unif(x,a,b)$  con $a=10$ y $b=20$ determine:
+
+a. Construya un bosquejo de la gráfica de la función de densidad de probabilidad $f_{_{X}}(x)$.
+
+b. $P(X \leq 12)$.
+
+c. $P(13\leq X <15)$.
+
+d. $P(X\geq 18)$ .
+
+e. $E[X]$ y $V[X]$.
+
+</div>
+
+<br/><br/>
+
+<div class="box4 with-label">
+### Problema 3.15
+
+**Modelo normal** Para una variable $Z\sim N(0,1)$, determine el área:
+
+a.  A la derecha de z = - 0.85.
+
+```{r}
+pnorm(-0.85, lower.tail = FALSE)
+1-pnorm(-0.85)
+```
+
+
+b.Entre $z = 0.40$ y $z = 1.30$.
+
+c. Entre $z = -0.30$ y $z = 0.90$.
+
+d.  Desde $z = -1.50$ hasta $z = -0.45$.
+
+**Nota**: en cada caso realice un  bosquejo del área que representa la probabilidad
+
+</div>
+
+<br/><br/>
+
+<div class="box4 with-label">
+### Problema 3.16
+
+**Modelo normal estandar** Para una variable $Z\sim N(0,1)$, determine el área:
+
+a.	A la izquierda de $z = 0.56$.
+
+b. Entre $z = - 2.93$ y $z = -2.06$.
+
+c. Entre $z = -1.08$ y $z = 0.70$.
+
+d. Desde $z = 0.96$ hasta $z = 1.62$.
+
+Nota: En cada caso represente gráficamente los valores solicitados
+
+</div>
+
+<br/><br/>
+
+<div class="box4 with-label">
+### Problema 3.17
+
+**Modelo normal** Para una variable aleatoria continua $X\sim norm(\mu=150, \sigma^{2}=1000)$ determine:
+
+a. Realice un bosquejo de la gráfica de la función de  densidad de probabilidad de $X$
+
+b. $P(X \leq 130)$.
+
+```{r}
+pnorm(130, 150, sqrt(1000))
+```
+
+
+c. $P(300 \leq X \leq 400)$.
+
+d. $P(X\geq 550)$.
+
+e. Determine el valor de $k$ que cumpla : $P(\mu-k < X < \mu+k)= 0.90$.
+
+f. Determine el valor de $k$ que cumpla : $P(\mu-k < X < \mu+k)= 0.95$.
+
+</div>
+
+<br/><br/>
+
+<div class="box4 with-label">
+### Problema 3.18
+
+**Modelo exponencial** Sea $X$ una variable aleatoria con distribución exponencial . ($X\sim exp(\lambda=2)$). Determine:
+
+a. $P(X \leq 1)$.
+
+```{r}
+pexp(1,2)
+```
+
+
+b. $P(X \geq 2)$.
+
+c. $P(1 < X < 2)$.
+
+d. Realice un bosquejo de la gráfica de $f_{_{X}}(x)$
+
+</div>
+
+<br/><br/>
+
+<div class="box4 with-label">
+### Problema 3.19
+
+Doris  y Mauricio quedan en encontrarse entre las 5:00 pm y 6:00 pm en Unicentro. Sea $X$ el tiempo que transcurre entre las 5:00 pm y el momento en que llega Doris y $Y$ el tiempo que transcurre entre las 5:00 pm y el momento en que llega Mauricio. Suponga que X y Y son variables aleatorias independientes uniformemente distribuidas en el intervalo [0; 60]  en minutos.
+
+a. Cuál es la distribución de probabilidad conjunta de X y Y?
+
+b. ¿Cuál es la probabilidad de que ambos lleguen entre las 5:30 y 5:40?
+
+c. Sea T = X − Y el tiempo que Mauricio espera a Doris. ¿Cuánto debe esperar en promedio Mauricio a Doris?
+
+d. Si Doris y Mauricio acuerdan además, que cada uno esperará al otro un máximo 10 minutos. Cuál es la probabilidad de que Mauricio y Doris se encuentren?
+
+</div>
+
+<br/><br/>
+
+<div class="box4 with-label">
+### Problema 3.20
+
+Para una variable aleatoria $Y$ que representa las puntuaciones obtenidas en una prueba y cuya distribución es aproximadamente normal con media de $480$ puntos y desviación estándar de $90$ puntos, determine:
+
+a. ¿Cuál es la proporción de puntuaciones mayores a 700?
+
+b. ¿Cuál es el 25o. percentil de las puntuaciones?
+
+c. Si la puntuación de alguien es de 600, ¿en qué percentil se encuentra?
+
+d. ¿Qué proporción de las puntuaciones se encuentra entre 420 y 520?
+
+</div>
+
+<br/><br/>
+
+
+<div class="box4 with-label">
+### Problema 3.21
+
+Suponga que la estatura de las personas en una población sigue la curva normal con media de 64.3 pulgadas y desviación estándar de 2.6 pulgadas.
+
+a. ¿Qué proporción de personas en esa región tiene estatura entre 60 y 66 pulgadas?
+
+b. La estatura de Juan es 0.5 de desviación estándar mayor a la media. ¿Qué proporción de personas miden más que Juan?
+
+c. ¿Cuánto mide una persona cuya estatura se encuentra en el 90o. percentil?
+
+d. Se elige aleatoriamente una persona de esta población. ¿Cuál es la probabilidad de que ella mida más de 67 pulgadas?
+
+e. Se elige aleatoriamente a cinco personas de esta población. ¿Cuál es la probabilidad de que sólo una de ellas mida más de 67 pulgadas?
+
+
+</div>
+
+<br/><br/>
+
+<div class="box4 with-label">
+### Problema 3.22
+
+La resistencia de una aleación de aluminio se distribuye normalmente con media de 10 gigapascales (GPa) y desviación estándar de 1.4 GPa.
+
+a. ¿Cuál es la probabilidad de que una muestra de esta aleación tenga resistencia mayor a 12 GPa?
+
+b. Determine el primer cuartil de la resistencia de esta aleación.
+
+c. Determine el 95o. percentil de la resistencia de esta aleación.
+
+</div>
+
+<br/><br/>
+
+<div class="box4 with-label">
+### Problema 3.23
+
+La vida útil de una bombilla de un vehículo opera en un ambiente a alta temperatura dada su cercania al motor del vehículo. Esta variable medida en años sigue aproximadamente una distribución lognormal con media $\mu=1.2$ y varianza $\sigma^{2} =0.4$ .
+
+a. Determine el tiempo medio de vida de la bombilla
+
+b. Determine la probabilidad de que la bombilla dure entre 3 y 6 años
+
+c. Determine  el valor de la mediana
+
+d. Determine el percentil 95° de los tiempos de vida
+
+</div>
+
+<br/><br/>
+
+
+<div class="box4 with-label">
+### Problema 3.24
+
+Un indicador importante para el control del estado físico de una persona es el Indice de Masa Corporal (IMC).  Este indice se obtiene al dividir el valor de la masa  corporal de  una persona ($kg$) entre el cuadrado de la talla de la persona ($m^{2}$). En su artículo W.Bolch y E Farfan establecen que este indice (en $kg/m^{2}$)se distribuye  aproximadamente lognormal con media $\mu=3.215$ y $\sigma = 0.157$ para hombre con edad entre 17 y 25 años.
+
+La organización mundial de la salud ha establecido rangos para este indice y los ha clasificado de acuerdo al riesgo así:
+
+* De 25.0 a 29.9 :  Sobrepeso o no obeso ;
+* Entre 30 a 34.9 : Obesidad clase 1 o de bajo riesgo.
+* Entre 35 y 39.9 : Obesidad clase 2 o de riesgo medio.
+* Más de 40: Obesidad clase 3 o de alto riesgo.
+
+Con el fin de establecer una campaña sobre buenos hábitos en el deporte y la dieta el Centro de Bienestar Universitario desea conocer las proporciones de una población de jóvenes con estas edades, en cada uno de los rangos establecidos.
+
+</div>
+
+<br/><br/>
+
+<div class="box4 with-label">
+### Problema 3.25
+
+Un fabricante manifiesta que su producto principal (un ventilador para el  hogar ) dura más de 9000 horas.de uso. Que si algún cliente presenta una avería en su producto antes de este tiempo, él garantiza la entrega de otro de similares condiciones como parte de su estrategia de venta. Uno de  sus asesores le indica que no es adecuado realizar esta promoción y que será muy costosa realizarla. Con  el fin de validad quien tiene la razón, le entregan a Usted la siguiente información:  La variable  tiempo de vida de un ventilador de similares condiciones se puede modelar mediante una distribución Weibull con parámetros : $\alpha=1.5$ y $\beta=0.0001$ . ¿quien tiene la razón?
+
+</div>
+
+<br/><br/>
+
+<div class="box4 with-label">
+### Problema 3.26
+
+Una de las dificultades que presentan las Empresas Municipales se relaciona con la reparación de rupturas de tubos de alcantarillados debido especialmente a la antigüedad de las tuberías y a las raíces de los árboles que los rompen y generan suspensiones en el servicio de agua. Para la reparación de estos daños la empresa contrata con terceros los arreglos. La empresa conoce que el tiempo de reparación (en horas) se puede modelar mediante una distribución gamma con parámetros $\alpha=2$ y $\beta=1/2$, pero además tienen como indicador de calidad que el tiempo máximo de reparación no debe exceder una hora. ¿Qué tan probable es que se cumpla esta política con las actuales condiciones?
+
+</div>
+
+<br/><br/>
+
+<div class="box4 with-label">
+### Problema 3.27
+
+Uno de los producto más vendidos por IK, fabricantes de cocinas integrales, corresponde a un novedoso estilo de puertas para gabinetes. Cada una de las puertas se construye ensamblando tres partes de madra $P_1$, $P_2$ y $P_3$, que son cortadas y procesadas por tres operarios y máquinas diferentes. Un estudio realizado recientemente en estos tres procesos determinó que el ancho de cada pieza se distribuye aproximadamente normal con medias : $10.4$ cm, $7.2$ cm y $12.2$  respectivamente y con desviaciones de : $0.2$ cm, $0.1$ cm y $0.3$ cm respectivamente. Para pegar las piezas se emplea una cinta doble faz de espesor de $0.1$ cm, la cual se considera constante.
+
+Para garantizar la calidad de los gabinetes, se debe obtener un ancho de la puerta entre 29.6 y 30.3 cm. El producto por debajo de este intervalo de ser desechado y no podrá ser reutilizado. Por el contrario los producrtos que estén por encima de estas especificaciones descritas, deberan ser reprocesados para ser evaluados nuevamente.
+
+Como politicas de calidad, la empresa tiene que el proceso se encuentra bajo control siempre y cuando el porcentaje de material desechado no supere el 5% de la producción y el material reprocesado sea inferior al 2%.
+
+a. Basados en la información anterior, es posible establecer si el proceso de fabricación de las puertas está bajo control? En caso de poder hacerlo, realice los cálculos y determine el estado del proceso. En todos los casos justifique la respuesta.
+
+b. Actualmente la empresa tiene una capacidad para fabricar 120 puertas diariamente y se tiene como meta que de ellas por lo menos 100 se encuentren dentro de los estandares establecidos por la empresa.
+Suponiendo que la pruducción en la empresa se mantiene con las características descritas anteriormente, qué tan probable es cumplir la meta planteada? Justirique su respuesta.
+
+</div>
+
+<br/><br/>
+
+```{r, echo=FALSE}
+# library(downloadthis)
+# download_link(
+#   link = "https://github.com/dgonxalex80/probabilidad20212.io/blob/main/talleres/Solucion_Taller_%20308.pdf",
+#   button_label = "Descarga: solución pdf ",
+#   button_type = "primary",
+#   has_icon = TRUE,
+#   icon = "fa fa-save",
+#   self_contained = FALSE
+# )
+```
+
+<br/><br/><br/>
+
+<div class="box4 with-label">
+### Problema 3.28
+
+Para una variable $Z$ con distribución de probabilidad normal estandar determine el área bajo la curva:
+
+a. $P(Z < 1.32)$
+
+b. $P(Z > 1.45)$.
+
+c. $P(Z > -2.15)$.
+
+d. $P(-2.34 < Z < 1.76)$.
+
+e. $P( -0.50 < Z < -1.35)$
+
+f. $P(0.60 > Z > 1.62)$
+
+g. $P(-1 < Z < 1)$
+
+h. $P(-2 < Z < 2)$
+
+</div>
+
+<br/><br/>
+
+<div class="box4 with-label">
+### Problema 3.29
+
+Asuma que $Z$ tiene una distribución normal estándar. Determine el valor de $z$ para las siguientes probabilidades:
+
+a. $P(Z < z) = 0.90$
+
+```{r}
+qnorm(0.90)
+```
+
+
+b. $P(Z < z ) = 0.50$
+
+c. $P(Z > z) = 0.10$
+
+d. $P(Z > z) = 0.90$
+
+e. $P(-z < Z < z) =0.95$
+
+f. $P(-z < Z < z) =0.99$
+
+g. $P(-z < Z < z) =0.68$
+
+h. $P(-z < Z < z) =0.9973$
+
+</div>
+
+<br/><br/>
+
+<div class="box4 with-label">
+### Problema 3.30
+
+Para una variable aleatoria $X$ con distribución normal con media 10 y desviación estándar de 2, determine:
+
+a. $P(X < 13)$
+
+b. $P(X > 9)$
+
+c. $P( 6 < X < 14)$
+
+d. $P( 2 < X < 4)$
+
+e. $P(-2 < X < 8)$
+
+</div>
+
+<br/><br/>
+
+<div class="box4 with-label">
+### Problema 3.31
+
+Para $X \sim N(\mu=10, \sigma^{2}=4)$ determine el valor de $x$:
+
+a. $P(X > x) = 0.50$
+
+b. $P(X > x) = 0.95$
+
+c. $P( x < X < 10) = 0.20$
+
+d. $P( -x < X-10 < x) = 0.95$
+
+e. $P(-x < X-10 < x) = 0.99$
+
+</div>
+
+<br/><br/>
+
+<div class="box4 with-label">
+### Problema 3.32
+
+Para una variable $X \sim N(5,16)$ determine:
+
+a. $P(X < 11)$
+
+b. $P(X > 0)$
+
+c. $P(3 < X < 7)$
+
+d. $P(-2 < X < 9)$
+
+e. $P(2 < X < 8)$
+
+f. $P(X > x) = 0.55$
+
+g. $P(x < X < 9) = 0.95$
+
+h. $P(3 < X < x) = 0.99$
+
+
+</div>
+
+<br/><br/>
+
+<br/><br/>
 

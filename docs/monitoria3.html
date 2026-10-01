@@ -668,7 +668,7 @@ por:</p>
 <p><span class="math display">\[
 f_X(x)=
 \begin{cases}
-\dfrac{2(1+x)}{27}, &amp; 2\leq x\leq 5, \\[6pt]
+\dfrac{2(1+x)}{39}, &amp; 2\leq x\leq 5, \\[6pt]
 0, &amp; \text{en otro caso}.
 \end{cases}
 \]</span></p>
@@ -886,7 +886,7 @@ terminal principal hasta una explanada específica tiene la siguiente
 función de densidad:</p>
 <p><span class="math display">\[f_{_{X}}(x) = \left \{
                 \begin{matrix}
-                \dfrac{1}{10} &amp; \mbox{ , }  0 \leq y \leq 10\\
+                \dfrac{1}{10} &amp; \mbox{ , }  0 \leq x \leq 10\\
                 0  &amp; \mbox{en otro caso }
                 \end{matrix}\right.  
                 \]</span></p>
@@ -930,8 +930,8 @@ e^{-x}, &amp; x\geq 0, \\[4pt]
 <p>Determine :</p>
 <ul>
 <li><span class="math inline">\(P(1 &lt; X)\)</span></li>
-<li><span class="math inline">\(P(1 &lt; X &lt; 2.5\)</span></li>
-<li><span class="math inline">\(P(X = 3\)</span></li>
+<li><span class="math inline">\(P(1 &lt; X &lt; 2.5)\)</span></li>
+<li><span class="math inline">\(P(X = 3)\)</span></li>
 <li><span class="math inline">\(P(X &lt; 4)\)</span></li>
 <li>Los valores de <span class="math inline">\(Me\)</span>, <span
 class="math inline">\(Q_{1}\)</span> y <span
@@ -989,8 +989,8 @@ de distribución acumulada :</p>
 <p><span class="math display">\[F_{_{X}}(x) = \left \{
                 \begin{matrix}
                  0    &amp; \mbox{ , } x \leq 0\\
-                 2x   &amp; \mbox{, } x &lt; 0 &lt; x 5  \\
-                 1    &amp; \mbox{ , } 5 \leq 5
+                 2x   &amp; \mbox{, } 0 &lt; x &lt;5  \\
+                 1    &amp; \mbox{ , } x \geq 5
                 \end{matrix}\right.  
                 \]</span></p>
 <p>Determine:</p>
@@ -1392,7 +1392,7 @@ Justifique su respuesta.</p>
 <!-- =======================================================  --></p>
 </div>
 <div id="unidad-3.2" class="section level1">
-<h1><strong>Unidad 3.2</strong></h1>
+<h1>Unidad 3.2</h1>
 <div id="problema-2.1" class="section level3 box4 with-label">
 <h3>Problema 2.1</h3>
 <p>Considere como <span class="math inline">\(X\)</span> el número de
@@ -1415,7 +1415,7 @@ por :</p>
 <ul>
 <li><span class="math inline">\(P(X \geq 1 ; Y \geq 1 )\)</span></li>
 <li><span class="math inline">\(P(X=1)\)</span></li>
-<li><span class="math inline">\(P(Y \leq 1\)</span></li>
+<li><span class="math inline">\(P(Y \leq 1)\)</span></li>
 </ul>
 <ol start="2" style="list-style-type: lower-alpha">
 <li><p>Encuentre <span class="math inline">\(P(Y = 1 | X = 2)\)</span> ,
@@ -1426,8 +1426,8 @@ obtenido</p></li>
 </ol>
 </div>
 <p><br/><br/></p>
-<div id="roblema-2.2" class="section level3 box4 with-label">
-<h3>roblema 2.2</h3>
+<div id="problema-2.2" class="section level3 box4 with-label">
+<h3>Problema 2.2</h3>
 <p>Un restaurante de comidas rápidas opera tanto en un local que da
 servicios a clientes que llegan en automóviles (servicio-auto) como como
 en un segundo local en el que atiende a los clientes que llegan
@@ -1475,7 +1475,7 @@ f_{_{X,Y}}(x,y)=\left\lbrace
 \begin{array}{ccl}
 2 &amp; ,  &amp;  0 \leq x \leq 1 \\
   &amp;    &amp;  0\leq y \leq 1  \\
-  &amp;    &amp;  x * y  \leq 1   \\
+  &amp;    &amp;  x + y  \leq 1   \\
   &amp;&amp;\\
 0&amp;;&amp; \text{en otro caso.}
 \end{array}
@@ -1528,6 +1528,672 @@ kilogramos de chocolate, ¿cuántos de ellos contienen más de ocho
 kilogramos de maní?</p></li>
 </ol>
 </div>
+<!-- -------------------------------------------------------------------------------- -->
+<p><br/><br/><br/>
+<!-- =======================================================  --></p>
+</div>
+<div id="unidad-3.3" class="section level1">
+<h1>Unidad 3.3</h1>
+<!-- =======================================================  -->
+</div>
+<div id="unidad-3.3-1" class="section level1">
+<h1><strong>Unidad 3.3</strong></h1>
+<p><br/><br/></p>
+<p>El siguiente taller tiene como objetivo el entendimiento de los
+diferentes modelos de probabilidad mas utiizados para <strong>variables
+discretas</strong> y utilizar el programa RStudio en su solución.</p>
+<p><br/><br/></p>
+<div id="problema-3.1" class="section level3 box4 with-label">
+<h3>Problema 3.1</h3>
+<p><strong>Modelo binomial</strong> Para una variable aleatoria con
+distribución binomial <span class="math inline">\(X sim binom(x, n=10,
+p=0.2)\)</span> Determine:</p>
+<ol style="list-style-type: lower-alpha">
+<li><span class="math inline">\(P(X = 5)\)</span></li>
+</ol>
+<p><span class="math display">\[P(X=5) = \displaystyle\binom{10}{5}
+0.2^{5} (1-0.2)^{10-5}\]</span></p>
+<pre class="r"><code># dbinom(x,     # valor de x
+#        size,  # tamaño
+#        prob)  # probabilidad de exito
+
+dbinom(5,10,0.2)</code></pre>
+<pre><code>[1] 0.02642412</code></pre>
+<p><br/><br/></p>
+<ol start="2" style="list-style-type: lower-alpha">
+<li><span class="math inline">\(P(X \leq 2)\)</span></li>
+</ol>
+<p><span class="math display">\[P(X\leq 2) =
+\sum_{x=0}^{2}\displaystyle\binom{10}{x} 0.2^{x} (1-0.2)^{10-x}
+=f(0)+f(1)+f(2)\]</span></p>
+<pre class="r"><code>pbinom(2,10,0.2)</code></pre>
+<pre><code>[1] 0.6777995</code></pre>
+<p><br/><br/></p>
+<ol start="3" style="list-style-type: lower-alpha">
+<li><span class="math inline">\(P(3 \leq  X &lt; 5)\)</span></li>
+</ol>
+<p><span class="math display">\[P(3 \leq  X &lt; 5) = F(4) - F(2) = f(3)
++ f(4)\]</span></p>
+<pre class="r"><code>pbinom(4,10,0.2)-pbinom(2,10,0.2)</code></pre>
+<pre><code>[1] 0.289407</code></pre>
+<p><br/><br/></p>
+<ol start="4" style="list-style-type: lower-alpha">
+<li><span class="math inline">\(P(X \geq 8)\)</span></li>
+</ol>
+<p><span class="math display">\[P(X \geq 8) = f(8) + f(9) + f(10) = 1 -
+F(7)\]</span></p>
+<pre class="r"><code>pbinom(7,10,0.2, lower.tail = FALSE)</code></pre>
+<pre><code>[1] 7.79264e-05</code></pre>
+<p><br/><br/></p>
+<ol start="5" style="list-style-type: lower-alpha">
+<li>Construya la gráfica de <span
+class="math inline">\(f(x)\)</span></li>
+</ol>
+<pre class="r"><code>x=0:10
+fx=dbinom(x,10,0.2)
+plot(x,fx,
+     main = &quot; Distribución binomial(n=10, p=0.20)&quot;,
+     pch=19, col = c32)
+grid()
+abline(v = 1:10,  lty = 2, col = c31)</code></pre>
+<p><img src="monitoria3_files/figure-html/unnamed-chunk-7-1.png" alt="" width="672" /></p>
+</div>
+<p><br/><br/></p>
+<div id="problema-3.2" class="section level3 box4 with-label">
+<h3>Problema 3.2</h3>
+<p><strong>Modelo geometrico</strong> Sea una variable geométrica <span
+class="math inline">\(X \sim geomn,(x,p=0.05)\)</span> . Determine :</p>
+<ol style="list-style-type: lower-alpha">
+<li><span class="math inline">\(P(X = 1)\)</span></li>
+</ol>
+<pre class="r"><code># dgeom(x,    # valor de x
+#       prob) # probabilidad de exito
+
+dgeom(1,0.05)</code></pre>
+<pre><code>[1] 0.0475</code></pre>
+<ol start="2" style="list-style-type: lower-alpha">
+<li><p><span class="math inline">\(P(X \leq 2)\)</span></p></li>
+<li><p><span class="math inline">\(P(X = 8)\)</span></p></li>
+<li><p><span class="math inline">\(P(X \geq 2)\)</span></p></li>
+<li><p>Construya la gráfica de <span
+class="math inline">\(f(x)\)</span></p></li>
+</ol>
+</div>
+<p><br/><br/></p>
+<div id="problema-3.3" class="section level3 box4 with-label">
+<h3>Problema 3.3</h3>
+<p><strong>3. Modelo hipergeometrico</strong> Suponga que <span
+class="math inline">\(X\)</span> tiene una distribución hipergeometrica
+con <span class="math inline">\(N=100\)</span>, <span
+class="math inline">\(n=4\)</span> y <span
+class="math inline">\(K=20\)</span>. (<span class="math inline">\(X\sim
+hyper(x,N=100,n=4,k=20)\)</span>) Determine:</p>
+<ol style="list-style-type: lower-alpha">
+<li><span class="math inline">\(P(X = 1)\)</span></li>
+</ol>
+<pre class="r"><code># dhyper(x,   # valor de x
+#        m,   # casos existoros : k = 20
+#        n,   # casos no exitosos : N-k = 80
+#        k)   # muestra que se extrae  :n = 4
+# m*n = N : total de la urna  : 100
+#
+dhyper(1, m=20, n=80, k=4 )</code></pre>
+<pre><code>[1] 0.4190527</code></pre>
+<ol start="2" style="list-style-type: lower-alpha">
+<li><p><span class="math inline">\(P(X = 6)\)</span></p></li>
+<li><p><span class="math inline">\(P(X \geq 1)\)</span></p></li>
+<li><p><span class="math inline">\(P(X = 4)\)</span></p></li>
+<li><p>Construya la gráfica de <span
+class="math inline">\(f(x)\)</span></p></li>
+</ol>
+</div>
+<p><br/><br/></p>
+<div id="problema-3.4" class="section level3 box4 with-label">
+<h3>Problema 3.4</h3>
+<p><strong>Modelo Poisson</strong> Suponga que <span
+class="math inline">\(X\)</span> tiene una distribución Poisson con
+media <span class="math inline">\(lambda=4\)</span> (<span
+class="math inline">\(X \sim pois(x,lambda=4)\)</span>). Determine:</p>
+<ol style="list-style-type: lower-alpha">
+<li><span class="math inline">\(P(X = 0)\)</span></li>
+</ol>
+<pre class="r"><code>#  dpois(x,       # valor de x
+#        lambda)  # media o lambda
+dpois(0,4)</code></pre>
+<pre><code>[1] 0.01831564</code></pre>
+<ol start="2" style="list-style-type: lower-alpha">
+<li><p><span class="math inline">\(P(X = 4)\)</span></p></li>
+<li><p><span class="math inline">\(P(X \geq 2)\)</span></p></li>
+<li><p><span class="math inline">\(P(X \leq 2)\)</span></p></li>
+<li><p>Construya la gráfica de <span
+class="math inline">\(f(x)\)</span></p></li>
+</ol>
+</div>
+<p><br/><br/></p>
+<div id="problema-3.5" class="section level3 box4 with-label">
+<h3>Problema 3.5</h3>
+<p><strong>Modelo binomial negativo</strong> Sea la variable <span
+class="math inline">\(X\)</span> con distribución binomial negativa con
+<span class="math inline">\(p=0.20\)</span> y <span
+class="math inline">\(k=3\)</span>, <span
+class="math inline">\(n=5\)</span>. Determine:</p>
+<ol style="list-style-type: lower-alpha">
+<li><span class="math inline">\(P(X = 3)\)</span></li>
+</ol>
+<pre class="r"><code># dnbinom(x,     # valor de x
+#         size,  # numero de exitos requeridos
+#         prob)  # probabilidad de exito
+
+dnbinom(3,3,0.20)</code></pre>
+<pre><code>[1] 0.04096</code></pre>
+<ol start="2" style="list-style-type: lower-alpha">
+<li><p><span class="math inline">\(P(X = 6)\)</span></p></li>
+<li><p><span class="math inline">\(P(X \geq 10)\)</span></p></li>
+<li><p><span class="math inline">\(P(X \leq 12)\)</span></p></li>
+<li><p><span class="math inline">\(EX\)</span> y <span
+class="math inline">\(VX\)</span></p></li>
+<li><p>Construya la gráfica de <span
+class="math inline">\(f(x)\)</span></p></li>
+</ol>
+</div>
+<p><br/><br/></p>
+<div id="problema-3.6" class="section level3 box4 with-label">
+<h3>Problema 3.6</h3>
+<p><strong>Modelo binomial</strong> En un cargamento grande de llantas
+para automóviles, el 5 tiene imperfecciones. Se eligen de manera
+aleatoria 4 llantas para ser instalada en un automóvil. (Sea X el número
+de llantas con imperfecciones. <span class="math inline">\(X \sim
+binom(n=4, p=0.05\)</span> )</p>
+<ol style="list-style-type: lower-alpha">
+<li><p>¿ Cuál es la probabilidad de que ninguna de las llantas tenga
+imperfecciones?</p></li>
+<li><p>¿ Cuál es la probabilidad de que sólo una de las llantas tenga
+imperfecciones?</p></li>
+<li><p>¿ Cuál es la probabilidad de una o más llantas tenga
+imperfecciones?</p></li>
+</ol>
+</div>
+<p><br/><br/></p>
+<div id="problema-3.7" class="section level3 box4 with-label">
+<h3>Problema 3.7</h3>
+<p><strong>Modelo Poisson</strong> Los clientes llegan al mostrador de
+una tienda de acuerdo con una variable aleatoria Poisson con una
+frecuencia promedio de ocho clientes por hora.</p>
+<ol style="list-style-type: lower-alpha">
+<li><p>Calcule la probabilidad de que entre las 8 AM y las 9 AM lleguen
+exactamente cinco clientes.</p></li>
+<li><p>Calcule la probabilidad de que entre las 2:30 PM y las 3:30 PM no
+lleguen más de tres clientes.</p></li>
+<li><p>Calcule la probabilidad de que lleguen exactamente dos clientes
+dentro de un intervalo de dos horas continuas, por ejemplo entre 10 AM y
+12 M.</p></li>
+<li><p>Calcule el valor esperado del número de personas que llegan a la
+tienda entre las 2 PM y las 4:30 PM.</p></li>
+</ol>
+</div>
+<p><br/><br/></p>
+<div id="problema-3.8" class="section level3 box4 with-label">
+<h3>Problema 3.8</h3>
+<p>Se está desarrollando una nueva variedad de maíz en una extensión de
+experimentación agrícola. Se espera que tenga una tasa de germinación
+del 90. Para verificar esto, se plantan 20 semillas en suelos de
+idéntica composición y se les dedican los mismos cuidados. Si la cifra
+90 es correcta, ¿cuántas semillas se espera que germinen? Si sólo
+germinan 15 o menos, ¿hay razón para sospechar de la cifra 90?</p>
+</div>
+<p><br/><br/></p>
+<div id="problema-3.9" class="section level3 box4 with-label">
+<h3>Problema 3.9</h3>
+<p>Un examen de Probabilidad consta de 100 preguntas de selección
+múltiple, cada una con cuatro opciones de respuesta. Maria responde cada
+pregunta al azar y sus respuestas son independientes</p>
+<ol style="list-style-type: lower-alpha">
+<li><p>Si para aprobar el examen Maria debe responder mínimo 60
+preguntas correctamente, calcule la probabilidad de que Maria apruebe el
+examen.</p></li>
+<li><p>Calcule la probabilidad de que Maria deba responder 10 preguntas
+hasta responder la primera pregunta correctamente.</p></li>
+<li><p>¿Cuál es el número esperado de preguntas que Maria responderá
+erróneamente hasta responder 5 preguntas correctamente?</p></li>
+</ol>
+</div>
+<p><br/><br/></p>
+<div id="problema-3.10" class="section level3 box4 with-label">
+<h3>Problema 3.10</h3>
+<p>Se sospecha que muchas muestras de agua, todas del mismo tamaño y
+tomadas del Hillbank River, han sido contaminadas por operarios
+irresponsables de una planta de tratamiento de aguas. Se contó el número
+de microorganismos conformes en cada muestra. El número medio de
+microorganismos por muestra fue de 15. Suponiendo que el número de
+microorganismos se distribuye según una distribución de Poisson,
+calcular la probabilidad de que:</p>
+<ol style="list-style-type: lower-alpha">
+<li><p>La siguiente muestra contenga al menos 17
+microorganismos.</p></li>
+<li><p>La siguiente muestra contenga 18 o menos
+microorganismos.</p></li>
+<li><p>La siguiente muestra contenga exactamente dos
+microorganismos.</p></li>
+</ol>
+</div>
+<p><br/><br/></p>
+<div id="problema-3.11" class="section level3 box4 with-label">
+<h3>Problema 3.11</h3>
+<p>Una aéreolinea nacional tiene aviones de 100 asientos para el
+servicio de transporte nacional. Se estima que la probabilidad de que
+una persona llegue al vuelo es de 0.90, debido a lo cual la aereolinea
+vende 105 tiquetes con el fin de minimizar la partida de aviones con
+sillas vacias. ¿cuál es la probabilidad de que todas las personas que
+lleguen para abordar el avión tengan asiento?</p>
+</div>
+<p><br/><br/></p>
+<div id="problema-3.12" class="section level3 box4 with-label">
+<h3>Problema 3.12</h3>
+<p>El número de grietas en un pavimento se estima en una grieta por cada
+100m en promedio. Se desea estimar la probabilidad de:</p>
+<ol style="list-style-type: lower-alpha">
+<li><p>Haya exactamente 8 grietas en una longitud de 500 m</p></li>
+<li><p>No se presente ninguna grieta en 100 m</p></li>
+<li><p>Se presenten menos de 2 grietas en 500 m</p></li>
+</ol>
+</div>
+<p><br/><br/></p>
+<div id="problema-3.13" class="section level3 box4 with-label">
+<h3>Problema 3.13</h3>
+<p>Un sistema de seguridad para casas está diseñado para tener una
+confiabilidad del 95 . Suponga que 10 casas equipadas con este
+dispositivo sufrieron tentativa de robo. Se requiere calcular la
+probabilidad de que en siete de las nueve, la alarma se activará.</p>
+</div>
+<p><br/><br/></p>
+<div id="problema-3.14" class="section level3 box4 with-label">
+<h3>Problema 3.14</h3>
+<p><strong>Modelo uniforme</strong> Para una variable aleatoria <span
+class="math inline">\(X\sim unif(x,a,b)\)</span> con <span
+class="math inline">\(a=10\)</span> y <span
+class="math inline">\(b=20\)</span> determine:</p>
+<ol style="list-style-type: lower-alpha">
+<li><p>Construya un bosquejo de la gráfica de la función de densidad de
+probabilidad <span class="math inline">\(f_{_{X}}(x)\)</span>.</p></li>
+<li><p><span class="math inline">\(P(X \leq 12)\)</span>.</p></li>
+<li><p><span class="math inline">\(P(13\leq X &lt;15)\)</span>.</p></li>
+<li><p><span class="math inline">\(P(X\geq 18)\)</span> .</p></li>
+<li><p><span class="math inline">\(E[X]\)</span> y <span
+class="math inline">\(V[X]\)</span>.</p></li>
+</ol>
+</div>
+<p><br/><br/></p>
+<div id="problema-3.15" class="section level3 box4 with-label">
+<h3>Problema 3.15</h3>
+<p><strong>Modelo normal</strong> Para una variable <span
+class="math inline">\(Z\sim N(0,1)\)</span>, determine el área:</p>
+<ol style="list-style-type: lower-alpha">
+<li>A la derecha de z = - 0.85.</li>
+</ol>
+<pre class="r"><code>pnorm(-0.85, lower.tail = FALSE)</code></pre>
+<pre><code>[1] 0.8023375</code></pre>
+<pre class="r"><code>1-pnorm(-0.85)</code></pre>
+<pre><code>[1] 0.8023375</code></pre>
+<p>b.Entre <span class="math inline">\(z = 0.40\)</span> y <span
+class="math inline">\(z = 1.30\)</span>.</p>
+<ol start="3" style="list-style-type: lower-alpha">
+<li><p>Entre <span class="math inline">\(z = -0.30\)</span> y <span
+class="math inline">\(z = 0.90\)</span>.</p></li>
+<li><p>Desde <span class="math inline">\(z = -1.50\)</span> hasta <span
+class="math inline">\(z = -0.45\)</span>.</p></li>
+</ol>
+<p><strong>Nota</strong>: en cada caso realice un bosquejo del área que
+representa la probabilidad</p>
+</div>
+<p><br/><br/></p>
+<div id="problema-3.16" class="section level3 box4 with-label">
+<h3>Problema 3.16</h3>
+<p><strong>Modelo normal estandar</strong> Para una variable <span
+class="math inline">\(Z\sim N(0,1)\)</span>, determine el área:</p>
+<ol style="list-style-type: lower-alpha">
+<li><p>A la izquierda de <span class="math inline">\(z =
+0.56\)</span>.</p></li>
+<li><p>Entre <span class="math inline">\(z = - 2.93\)</span> y <span
+class="math inline">\(z = -2.06\)</span>.</p></li>
+<li><p>Entre <span class="math inline">\(z = -1.08\)</span> y <span
+class="math inline">\(z = 0.70\)</span>.</p></li>
+<li><p>Desde <span class="math inline">\(z = 0.96\)</span> hasta <span
+class="math inline">\(z = 1.62\)</span>.</p></li>
+</ol>
+<p>Nota: En cada caso represente gráficamente los valores
+solicitados</p>
+</div>
+<p><br/><br/></p>
+<div id="problema-3.17" class="section level3 box4 with-label">
+<h3>Problema 3.17</h3>
+<p><strong>Modelo normal</strong> Para una variable aleatoria continua
+<span class="math inline">\(X\sim norm(\mu=150,
+\sigma^{2}=1000)\)</span> determine:</p>
+<ol style="list-style-type: lower-alpha">
+<li><p>Realice un bosquejo de la gráfica de la función de densidad de
+probabilidad de <span class="math inline">\(X\)</span></p></li>
+<li><p><span class="math inline">\(P(X \leq 130)\)</span>.</p></li>
+</ol>
+<pre class="r"><code>pnorm(130, 150, sqrt(1000))</code></pre>
+<pre><code>[1] 0.2635446</code></pre>
+<ol start="3" style="list-style-type: lower-alpha">
+<li><p><span class="math inline">\(P(300 \leq X \leq
+400)\)</span>.</p></li>
+<li><p><span class="math inline">\(P(X\geq 550)\)</span>.</p></li>
+<li><p>Determine el valor de <span class="math inline">\(k\)</span> que
+cumpla : <span class="math inline">\(P(\mu-k &lt; X &lt; \mu+k)=
+0.90\)</span>.</p></li>
+<li><p>Determine el valor de <span class="math inline">\(k\)</span> que
+cumpla : <span class="math inline">\(P(\mu-k &lt; X &lt; \mu+k)=
+0.95\)</span>.</p></li>
+</ol>
+</div>
+<p><br/><br/></p>
+<div id="problema-3.18" class="section level3 box4 with-label">
+<h3>Problema 3.18</h3>
+<p><strong>Modelo exponencial</strong> Sea <span
+class="math inline">\(X\)</span> una variable aleatoria con distribución
+exponencial . (<span class="math inline">\(X\sim
+exp(\lambda=2)\)</span>). Determine:</p>
+<ol style="list-style-type: lower-alpha">
+<li><span class="math inline">\(P(X \leq 1)\)</span>.</li>
+</ol>
+<pre class="r"><code>pexp(1,2)</code></pre>
+<pre><code>[1] 0.8646647</code></pre>
+<ol start="2" style="list-style-type: lower-alpha">
+<li><p><span class="math inline">\(P(X \geq 2)\)</span>.</p></li>
+<li><p><span class="math inline">\(P(1 &lt; X &lt; 2)\)</span>.</p></li>
+<li><p>Realice un bosquejo de la gráfica de <span
+class="math inline">\(f_{_{X}}(x)\)</span></p></li>
+</ol>
+</div>
+<p><br/><br/></p>
+<div id="problema-3.19" class="section level3 box4 with-label">
+<h3>Problema 3.19</h3>
+<p>Doris y Mauricio quedan en encontrarse entre las 5:00 pm y 6:00 pm en
+Unicentro. Sea <span class="math inline">\(X\)</span> el tiempo que
+transcurre entre las 5:00 pm y el momento en que llega Doris y <span
+class="math inline">\(Y\)</span> el tiempo que transcurre entre las 5:00
+pm y el momento en que llega Mauricio. Suponga que X y Y son variables
+aleatorias independientes uniformemente distribuidas en el intervalo [0;
+60] en minutos.</p>
+<ol style="list-style-type: lower-alpha">
+<li><p>Cuál es la distribución de probabilidad conjunta de X y
+Y?</p></li>
+<li><p>¿Cuál es la probabilidad de que ambos lleguen entre las 5:30 y
+5:40?</p></li>
+<li><p>Sea T = X − Y el tiempo que Mauricio espera a Doris. ¿Cuánto debe
+esperar en promedio Mauricio a Doris?</p></li>
+<li><p>Si Doris y Mauricio acuerdan además, que cada uno esperará al
+otro un máximo 10 minutos. Cuál es la probabilidad de que Mauricio y
+Doris se encuentren?</p></li>
+</ol>
+</div>
+<p><br/><br/></p>
+<div id="problema-3.20" class="section level3 box4 with-label">
+<h3>Problema 3.20</h3>
+<p>Para una variable aleatoria <span class="math inline">\(Y\)</span>
+que representa las puntuaciones obtenidas en una prueba y cuya
+distribución es aproximadamente normal con media de <span
+class="math inline">\(480\)</span> puntos y desviación estándar de <span
+class="math inline">\(90\)</span> puntos, determine:</p>
+<ol style="list-style-type: lower-alpha">
+<li><p>¿Cuál es la proporción de puntuaciones mayores a 700?</p></li>
+<li><p>¿Cuál es el 25o. percentil de las puntuaciones?</p></li>
+<li><p>Si la puntuación de alguien es de 600, ¿en qué percentil se
+encuentra?</p></li>
+<li><p>¿Qué proporción de las puntuaciones se encuentra entre 420 y
+520?</p></li>
+</ol>
+</div>
+<p><br/><br/></p>
+<div id="problema-3.21" class="section level3 box4 with-label">
+<h3>Problema 3.21</h3>
+<p>Suponga que la estatura de las personas en una población sigue la
+curva normal con media de 64.3 pulgadas y desviación estándar de 2.6
+pulgadas.</p>
+<ol style="list-style-type: lower-alpha">
+<li><p>¿Qué proporción de personas en esa región tiene estatura entre 60
+y 66 pulgadas?</p></li>
+<li><p>La estatura de Juan es 0.5 de desviación estándar mayor a la
+media. ¿Qué proporción de personas miden más que Juan?</p></li>
+<li><p>¿Cuánto mide una persona cuya estatura se encuentra en el 90o.
+percentil?</p></li>
+<li><p>Se elige aleatoriamente una persona de esta población. ¿Cuál es
+la probabilidad de que ella mida más de 67 pulgadas?</p></li>
+<li><p>Se elige aleatoriamente a cinco personas de esta población. ¿Cuál
+es la probabilidad de que sólo una de ellas mida más de 67
+pulgadas?</p></li>
+</ol>
+</div>
+<p><br/><br/></p>
+<div id="problema-3.22" class="section level3 box4 with-label">
+<h3>Problema 3.22</h3>
+<p>La resistencia de una aleación de aluminio se distribuye normalmente
+con media de 10 gigapascales (GPa) y desviación estándar de 1.4 GPa.</p>
+<ol style="list-style-type: lower-alpha">
+<li><p>¿Cuál es la probabilidad de que una muestra de esta aleación
+tenga resistencia mayor a 12 GPa?</p></li>
+<li><p>Determine el primer cuartil de la resistencia de esta
+aleación.</p></li>
+<li><p>Determine el 95o. percentil de la resistencia de esta
+aleación.</p></li>
+</ol>
+</div>
+<p><br/><br/></p>
+<div id="problema-3.23" class="section level3 box4 with-label">
+<h3>Problema 3.23</h3>
+<p>La vida útil de una bombilla de un vehículo opera en un ambiente a
+alta temperatura dada su cercania al motor del vehículo. Esta variable
+medida en años sigue aproximadamente una distribución lognormal con
+media <span class="math inline">\(\mu=1.2\)</span> y varianza <span
+class="math inline">\(\sigma^{2} =0.4\)</span> .</p>
+<ol style="list-style-type: lower-alpha">
+<li><p>Determine el tiempo medio de vida de la bombilla</p></li>
+<li><p>Determine la probabilidad de que la bombilla dure entre 3 y 6
+años</p></li>
+<li><p>Determine el valor de la mediana</p></li>
+<li><p>Determine el percentil 95° de los tiempos de vida</p></li>
+</ol>
+</div>
+<p><br/><br/></p>
+<div id="problema-3.24" class="section level3 box4 with-label">
+<h3>Problema 3.24</h3>
+<p>Un indicador importante para el control del estado físico de una
+persona es el Indice de Masa Corporal (IMC). Este indice se obtiene al
+dividir el valor de la masa corporal de una persona (<span
+class="math inline">\(kg\)</span>) entre el cuadrado de la talla de la
+persona (<span class="math inline">\(m^{2}\)</span>). En su artículo
+W.Bolch y E Farfan establecen que este indice (en <span
+class="math inline">\(kg/m^{2}\)</span>)se distribuye aproximadamente
+lognormal con media <span class="math inline">\(\mu=3.215\)</span> y
+<span class="math inline">\(\sigma = 0.157\)</span> para hombre con edad
+entre 17 y 25 años.</p>
+<p>La organización mundial de la salud ha establecido rangos para este
+indice y los ha clasificado de acuerdo al riesgo así:</p>
+<ul>
+<li>De 25.0 a 29.9 : Sobrepeso o no obeso ;</li>
+<li>Entre 30 a 34.9 : Obesidad clase 1 o de bajo riesgo.</li>
+<li>Entre 35 y 39.9 : Obesidad clase 2 o de riesgo medio.</li>
+<li>Más de 40: Obesidad clase 3 o de alto riesgo.</li>
+</ul>
+<p>Con el fin de establecer una campaña sobre buenos hábitos en el
+deporte y la dieta el Centro de Bienestar Universitario desea conocer
+las proporciones de una población de jóvenes con estas edades, en cada
+uno de los rangos establecidos.</p>
+</div>
+<p><br/><br/></p>
+<div id="problema-3.25" class="section level3 box4 with-label">
+<h3>Problema 3.25</h3>
+<p>Un fabricante manifiesta que su producto principal (un ventilador
+para el hogar ) dura más de 9000 horas.de uso. Que si algún cliente
+presenta una avería en su producto antes de este tiempo, él garantiza la
+entrega de otro de similares condiciones como parte de su estrategia de
+venta. Uno de sus asesores le indica que no es adecuado realizar esta
+promoción y que será muy costosa realizarla. Con el fin de validad quien
+tiene la razón, le entregan a Usted la siguiente información: La
+variable tiempo de vida de un ventilador de similares condiciones se
+puede modelar mediante una distribución Weibull con parámetros : <span
+class="math inline">\(\alpha=1.5\)</span> y <span
+class="math inline">\(\beta=0.0001\)</span> . ¿quien tiene la razón?</p>
+</div>
+<p><br/><br/></p>
+<div id="problema-3.26" class="section level3 box4 with-label">
+<h3>Problema 3.26</h3>
+<p>Una de las dificultades que presentan las Empresas Municipales se
+relaciona con la reparación de rupturas de tubos de alcantarillados
+debido especialmente a la antigüedad de las tuberías y a las raíces de
+los árboles que los rompen y generan suspensiones en el servicio de
+agua. Para la reparación de estos daños la empresa contrata con terceros
+los arreglos. La empresa conoce que el tiempo de reparación (en horas)
+se puede modelar mediante una distribución gamma con parámetros <span
+class="math inline">\(\alpha=2\)</span> y <span
+class="math inline">\(\beta=1/2\)</span>, pero además tienen como
+indicador de calidad que el tiempo máximo de reparación no debe exceder
+una hora. ¿Qué tan probable es que se cumpla esta política con las
+actuales condiciones?</p>
+</div>
+<p><br/><br/></p>
+<div id="problema-3.27" class="section level3 box4 with-label">
+<h3>Problema 3.27</h3>
+<p>Uno de los producto más vendidos por IK, fabricantes de cocinas
+integrales, corresponde a un novedoso estilo de puertas para gabinetes.
+Cada una de las puertas se construye ensamblando tres partes de madra
+<span class="math inline">\(P_1\)</span>, <span
+class="math inline">\(P_2\)</span> y <span
+class="math inline">\(P_3\)</span>, que son cortadas y procesadas por
+tres operarios y máquinas diferentes. Un estudio realizado recientemente
+en estos tres procesos determinó que el ancho de cada pieza se
+distribuye aproximadamente normal con medias : <span
+class="math inline">\(10.4\)</span> cm, <span
+class="math inline">\(7.2\)</span> cm y <span
+class="math inline">\(12.2\)</span> respectivamente y con desviaciones
+de : <span class="math inline">\(0.2\)</span> cm, <span
+class="math inline">\(0.1\)</span> cm y <span
+class="math inline">\(0.3\)</span> cm respectivamente. Para pegar las
+piezas se emplea una cinta doble faz de espesor de <span
+class="math inline">\(0.1\)</span> cm, la cual se considera
+constante.</p>
+<p>Para garantizar la calidad de los gabinetes, se debe obtener un ancho
+de la puerta entre 29.6 y 30.3 cm. El producto por debajo de este
+intervalo de ser desechado y no podrá ser reutilizado. Por el contrario
+los producrtos que estén por encima de estas especificaciones descritas,
+deberan ser reprocesados para ser evaluados nuevamente.</p>
+<p>Como politicas de calidad, la empresa tiene que el proceso se
+encuentra bajo control siempre y cuando el porcentaje de material
+desechado no supere el 5% de la producción y el material reprocesado sea
+inferior al 2%.</p>
+<ol style="list-style-type: lower-alpha">
+<li><p>Basados en la información anterior, es posible establecer si el
+proceso de fabricación de las puertas está bajo control? En caso de
+poder hacerlo, realice los cálculos y determine el estado del proceso.
+En todos los casos justifique la respuesta.</p></li>
+<li><p>Actualmente la empresa tiene una capacidad para fabricar 120
+puertas diariamente y se tiene como meta que de ellas por lo menos 100
+se encuentren dentro de los estandares establecidos por la empresa.
+Suponiendo que la pruducción en la empresa se mantiene con las
+características descritas anteriormente, qué tan probable es cumplir la
+meta planteada? Justirique su respuesta.</p></li>
+</ol>
+</div>
+<p><br/><br/></p>
+<p><br/><br/><br/></p>
+<div id="problema-3.28" class="section level3 box4 with-label">
+<h3>Problema 3.28</h3>
+<p>Para una variable <span class="math inline">\(Z\)</span> con
+distribución de probabilidad normal estandar determine el área bajo la
+curva:</p>
+<ol style="list-style-type: lower-alpha">
+<li><p><span class="math inline">\(P(Z &lt; 1.32)\)</span></p></li>
+<li><p><span class="math inline">\(P(Z &gt; 1.45)\)</span>.</p></li>
+<li><p><span class="math inline">\(P(Z &gt; -2.15)\)</span>.</p></li>
+<li><p><span class="math inline">\(P(-2.34 &lt; Z &lt;
+1.76)\)</span>.</p></li>
+<li><p><span class="math inline">\(P( -0.50 &lt; Z &lt;
+-1.35)\)</span></p></li>
+<li><p><span class="math inline">\(P(0.60 &gt; Z &gt;
+1.62)\)</span></p></li>
+<li><p><span class="math inline">\(P(-1 &lt; Z &lt; 1)\)</span></p></li>
+<li><p><span class="math inline">\(P(-2 &lt; Z &lt; 2)\)</span></p></li>
+</ol>
+</div>
+<p><br/><br/></p>
+<div id="problema-3.29" class="section level3 box4 with-label">
+<h3>Problema 3.29</h3>
+<p>Asuma que <span class="math inline">\(Z\)</span> tiene una
+distribución normal estándar. Determine el valor de <span
+class="math inline">\(z\)</span> para las siguientes probabilidades:</p>
+<ol style="list-style-type: lower-alpha">
+<li><span class="math inline">\(P(Z &lt; z) = 0.90\)</span></li>
+</ol>
+<pre class="r"><code>qnorm(0.90)</code></pre>
+<pre><code>[1] 1.281552</code></pre>
+<ol start="2" style="list-style-type: lower-alpha">
+<li><p><span class="math inline">\(P(Z &lt; z ) = 0.50\)</span></p></li>
+<li><p><span class="math inline">\(P(Z &gt; z) = 0.10\)</span></p></li>
+<li><p><span class="math inline">\(P(Z &gt; z) = 0.90\)</span></p></li>
+<li><p><span class="math inline">\(P(-z &lt; Z &lt; z)
+=0.95\)</span></p></li>
+<li><p><span class="math inline">\(P(-z &lt; Z &lt; z)
+=0.99\)</span></p></li>
+<li><p><span class="math inline">\(P(-z &lt; Z &lt; z)
+=0.68\)</span></p></li>
+<li><p><span class="math inline">\(P(-z &lt; Z &lt; z)
+=0.9973\)</span></p></li>
+</ol>
+</div>
+<p><br/><br/></p>
+<div id="problema-3.30" class="section level3 box4 with-label">
+<h3>Problema 3.30</h3>
+<p>Para una variable aleatoria <span class="math inline">\(X\)</span>
+con distribución normal con media 10 y desviación estándar de 2,
+determine:</p>
+<ol style="list-style-type: lower-alpha">
+<li><p><span class="math inline">\(P(X &lt; 13)\)</span></p></li>
+<li><p><span class="math inline">\(P(X &gt; 9)\)</span></p></li>
+<li><p><span class="math inline">\(P( 6 &lt; X &lt;
+14)\)</span></p></li>
+<li><p><span class="math inline">\(P( 2 &lt; X &lt; 4)\)</span></p></li>
+<li><p><span class="math inline">\(P(-2 &lt; X &lt; 8)\)</span></p></li>
+</ol>
+</div>
+<p><br/><br/></p>
+<div id="problema-3.31" class="section level3 box4 with-label">
+<h3>Problema 3.31</h3>
+<p>Para <span class="math inline">\(X \sim N(\mu=10,
+\sigma^{2}=4)\)</span> determine el valor de <span
+class="math inline">\(x\)</span>:</p>
+<ol style="list-style-type: lower-alpha">
+<li><p><span class="math inline">\(P(X &gt; x) = 0.50\)</span></p></li>
+<li><p><span class="math inline">\(P(X &gt; x) = 0.95\)</span></p></li>
+<li><p><span class="math inline">\(P( x &lt; X &lt; 10) =
+0.20\)</span></p></li>
+<li><p><span class="math inline">\(P( -x &lt; X-10 &lt; x) =
+0.95\)</span></p></li>
+<li><p><span class="math inline">\(P(-x &lt; X-10 &lt; x) =
+0.99\)</span></p></li>
+</ol>
+</div>
+<p><br/><br/></p>
+<div id="problema-3.32" class="section level3 box4 with-label">
+<h3>Problema 3.32</h3>
+<p>Para una variable <span class="math inline">\(X \sim N(5,16)\)</span>
+determine:</p>
+<ol style="list-style-type: lower-alpha">
+<li><p><span class="math inline">\(P(X &lt; 11)\)</span></p></li>
+<li><p><span class="math inline">\(P(X &gt; 0)\)</span></p></li>
+<li><p><span class="math inline">\(P(3 &lt; X &lt; 7)\)</span></p></li>
+<li><p><span class="math inline">\(P(-2 &lt; X &lt; 9)\)</span></p></li>
+<li><p><span class="math inline">\(P(2 &lt; X &lt; 8)\)</span></p></li>
+<li><p><span class="math inline">\(P(X &gt; x) = 0.55\)</span></p></li>
+<li><p><span class="math inline">\(P(x &lt; X &lt; 9) =
+0.95\)</span></p></li>
+<li><p><span class="math inline">\(P(3 &lt; X &lt; x) =
+0.99\)</span></p></li>
+</ol>
+</div>
+<p><br/><br/></p>
+<p><br/><br/></p>
 </div>
 
 
