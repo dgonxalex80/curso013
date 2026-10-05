@@ -1,0 +1,235 @@
+---
+title: "<span style='color:#476885 !important;'>Teoría de probabilidades</span>"
+author: <span style="color:#476885">dgonzalez </span> 
+subtitle: <span style="color:#476885"> </span> 
+output:
+  html_document:
+    toc: no
+    toc_depth: 2
+    toc_float: yes
+    code_folding: show
+    theme: flatly
+    css:
+      - style.css
+      - cajas-2.css
+      - cajas_botones.css
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE, comment = NA)
+library(psych)
+library(summarytools)
+library(tidyverse)
+# install.packages("devtools")
+#devtools::install_github("dgonxalex80/paqueteDEG")
+#library(paqueteDEG)
+
+# colores
+source("R/init.R")
+
+# install.packages('gtools')
+# install.packages("TeachingSampling")
+
+#load library
+#library(gtools)
+#library(TeachingSampling)
+#library(readr)
+#base_muestreo <- read_delim("data/base_muestreo.csv", 
+#    delim = ";", escape_double = FALSE, col_types = cols(ID = col_integer()), 
+#    trim_ws = TRUE)
+
+
+```
+
+```{r, echo=FALSE, out.width="100%", fig.align = "center"}
+knitr::include_graphics("img/codigo3.png")
+```
+
+<br/><br/><br/>
+
+<br/><br/>
+
+# Funciones modelos
+
+<br/><br/>
+
+### Código R
+
+Existe un grupo de modelos identificados para las variables aleatorias tanto discretas como continuas que son utilizadas con frecuencia en diferentes contextos. A continuación se relacionan los principales modelos:
+
+<br/><br/>
+
+### Modelos continuos:
+
++ uniforme
++ normal
++ exponencial
++ lognormal
++ gamma
++ beta
++ Weibull
++ Cauchy
++ Gumbel
++ t-Student
++ Ji-cuadrado
++ F de Fisher
++ Empirica o  Kernel
+
+<br/><br/>
+
+En $R$ los nombre de las funciones diseñadas para los cálculos requeridos están conformadas por dos partes:
+
+La primera parte es una letra que identifica el propósito de la función.
+<br/><br/>
+
++ *d* : función de distribución de probabilidad $f(x)= P(X=x)$, para el caso discreto. En el caso de las variables continuas representa la función de densidad de probabilidad $f(x)$
+
++ *p* : función de probbilidad acumulada $F(x) = P(X \leq x)$
+
++ *q* : percentil $X_p$
+
++ *r* : generador de números aleatorios
+
+<br/><br/>
+
+La siguiene tabla presenta estas las funciones para los principales modelos tanto discretos como continuos
+
+<br/><br/>
+
+
+*modelo*            |  $F(x)$  |  $X_{p}$ |  $f(x)$  | aleatorio   |
+--------------------|----------|----------|----------|-------------|
+beta                | pbeta    | qbeta    | dbeta    | rbeta       |
+Cauchy              | pcauchy  | qcauchy  | dcauchy  | rcauchy     |
+exponencial         | pexp     | qexp     | dexp     | rexp        |
+gamma               | pgamma   | qgamma   | dgamma   | rgamma      |
+lognormal           | plnorm   | qlnorm   | dlnorm   | rlnorm      |
+normal              | pnorm    | qnorm    | dnorm    | rnorm       |
+uniforme            | punif    | qunif    | dunif    | runif       |
+Weibull             | pweibull | qweibull | dweibull | rweibull    |
+t-Student           | pt       | qt       | dt       | rt          |
+Ji-cuadrado         | pchisq   | qchisq   | dchisq   | rchisq      |
+F                   | pf       | qf       | df       | rf          |
+
+<br/><br/>
+
+En **R** los nombres de las funciones diseñadas para los cálculos requeridos están conformadas por dos partes: la primera parte con el propósito de la función (primera letra)  y la segunda parte hace referencia al modelo a utilizar (**d** **binom** para el calculo de probabilidad de una variable aleatoria con distribución binomial)
+
+En cada caso si no recuerda las sintaxis de la función puede hacer uso de las ayudas de R así:
+
+<br/><br/>
+
+```{r}
+ help("pbinom")
+```
+
+<br/><br/>
+
+|          |                                           |
+|:--------:|:------------------------------------------|
+|	p        | función de distribución acumulada $F(x)$  |
+|	q        | percentil                                 |  
+|	d        | densidad de probabilidad $P(X=x)$         |
+|	r        | variable aleatoria                        |
+
+<br/><br/>
+
+<br/><br/>
+
+
+<div class="box6 with-label">
+<div class="label">Ejemplo </div>
+
+Ahora supongamos que se tiene una variable continua con distribución normal, con media 50 y varianza 100, es decir desviación estándar 10, lo cual se puede representar como $X\sim N(50,100)$.  
+
+En este caso vamos a hallar los siguientes valores: 
+
+<br/>
+
+1. Calcular la probabilidad de que un valor de $X$ sea menor o igual a 70, 
+2. Calcular la probabilidad de que la variable sea mayor a 70: $P(X>70)$
+3. Genere 10 números aleatorios de la variables $X$
+4. Generar la gráfica de la función de densidad de la variable $X$,  $f(x)$
+5. Generar la gráfica de la función de probabilidad acumulada de la variable $X$,  $F(x)$
+
+</div>
+
+<br/><br/><br/>
+
+### Solución
+
+<br/>
+
+1. Calcular la probabilidad de que un valor de $X$ sea menor o igual a 70, 
+
+$$
+P(X<70) =\displaystyle\int_{-\infty}^{70} \dfrac{1}{\sqrt{200 \pi }} \exp{\frac{1}{200 }(x-50)^{2}} \:dx
+$$ 
+
+```{r}
+ pnorm(70,50,sqrt(100))
+```
+
+<br/>
+
+2. Calcular la probabilidad de que la variable sea mayor a 70: 
+
+$$P(X>70) = \displaystyle\int_{70}^{\infty} \dfrac{1}{\sqrt{200 \pi }} \exp{\frac{1}{200 }(x-50)^{2}} \:dx
+$$ 
+
+```{r}
+pnorm(70,50,sqrt(100),lower.tail=FALSE)
+```
+
+<br/>
+
+3. Genere 10 números aleatorios de la variables $X$
+
+
+```{r}
+rnorm(10,70,sqrt(100))
+```
+
+
+<br/>
+
+4. Generar la gráfica de la función de densidad de la variable $X$,  $f(x)$
+
+```{r, fig.align='center'}
+curve(dnorm(x,50,sqrt(100)), from=0, to=100, 
+col="#476885", main="Distribución Normal(50,100)",
+ylab="f(x)", las=1)
+```
+
+<br/>
+
+5. Generar la gráfica de la función de probabilidad acumulada de la variable $X$,  $F(x)$
+
+```{r, fig.align='center'}
+curve(pnorm(x,50,sqrt(100)), from=20, to=80, 
+col="#476885", main="Distribución Normal(50,100)",las=1,
+ylab="f(x)")
+```
+
+<br/><br/>
+
+### Código
+
+```{r, fig.align='center'}
+# install.package("ggfortify")
+library(ggfortify)
+ggdistribution(dnorm, seq(-4, 4, 0.1), mean = 0, sd = 1,fill = c31)
+```
+
+```{r, fig.align='center'}
+# install.package("ggfortify")
+library(ggfortify)
+ggdistribution(pnorm, seq(-4, 4, 0.1), mean = 0, sd = 1)
+```
+<br/>
+
+
+<br/><br/><br/>
+
+</div>

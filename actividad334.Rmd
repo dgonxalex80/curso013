@@ -24,9 +24,31 @@ source("R/init.R")
 knitr::include_graphics("img/modulo3.png")
 ```
 
+
+# Actividad 334 
+
+<br/>
+
+
+
+Cada estudiante deberá construir un  poster en formato A2 (42 cm x 59.4 cm) para el modelo asignado que contenga sus principales características.
+
+* origen
+* principales características: $f(x)$, $F(x)$, $E(X)$, $V(X)$, .. 
+* aplicaciones del modelo en los diferentes campos
+* un ejemplo desarrollado en el area de conocimiento del estudiante, desarrollado y acompañado con su respectivo código en R
+* referencias bibliográficas
+
+El poster será socializado por cada estudiante en un tiempo no superior a 5 minutos.
+Los archivos fuentes del poster deberán se enviados a la plataforma Bs. 
+
+<br/><br/>
+
 ## Modelos de probabilidad
 
 Asignación de distribuciones de probabilidad para la elaboración de poster
+
+<br/>
 
 |	id estudiante	|	modelo discreto	|	modelo continuo	|
 |--------------:|:----------------|:----------------|

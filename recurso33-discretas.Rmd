@@ -12,6 +12,7 @@ output:
     css:
       - style.css
       - cajas-2.css
+      - cajas_botones.css
 ---
 
 

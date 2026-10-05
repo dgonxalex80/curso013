@@ -35,14 +35,14 @@ knitr::include_graphics("img/guia3.png")
 
 En las unidades 3.1 y 3.2 hemos recorrido los principales conceptos relacionados caracterización de las variables aleatorias tanto discretas como continuas.  Características como:  $f(x)$, $F(x)$, $E[X]$, $V[X]$, en el caso univariado. Para el caso conjunto : $f(x,y)$, $F(x,y)$, $E[XY]$, $Cov[XY]$  y  $\rho$. 
 
-En esta unidad se presentan los principales modelos estadísticos tanto para variables discretas como continuas y sus aplicaciones. En el caso de los modelos discretas se deberá identificar el modelo a través de  las características del experimento que la genera la variable. Para el caso continuo los ejemplos indicaran el modelo correspondiente que genera la variable.
+En esta unidad se presentan los principales modelos estadísticos tanto para variables discretas como continuas y sus aplicaciones. Los modelos discretas se deberá identificar el modelo a través de  las características del experimento que la genera la variable.
 
 
 <br/><br/>
 
 # Objetivos de la unidad
 
-Al finalizar la unidad los estudiantes estarán  en  capacidad de  IDENTIFICAR, CALCULAR y APLICAR los diferentes modelos de probabilidad para la solución de problemas en contexto  y su representación a través de la simulación.
+Al finalizar la unidad los estudiantes estarán  en  capacidad de  IDENTIFICAR, CALCULAR y APLICAR los diferentes modelos de probabilidad para la solución de problemas en contexto.
 
 <br/><br/>
 
@@ -70,7 +70,18 @@ Para alcanzar los objetivos planteados se propone realizar las siguientes activi
 
 |                |                                                                         | 
 |:---------------|:------------------------------------------------------------------------|
-|**Activiad 332**| Cada estudiante deberá desarrollar el taller-331 que recoge los principales conceptos relacionados con variables aleatorias discretas, y sus aplicaciones en la estimación de probabilidades.| 
+|**Activiad 332**| Cada estudiante deberá desarrollar el taller-331 que recoge los principales conceptos relacionados con variables aleatorias **discretas**, y sus aplicaciones en la estimación de probabilidades.| 
+|               | Trabajo individual                                                       |
+|Fecha          | 15 de octubre de 2025                                                      |
+|Hora           | 23:59                                                                    |
+
+
+
+<br/><br/>
+
+|                |                                                                         | 
+|:---------------|:------------------------------------------------------------------------|
+|**Activiad 333**| Cada estudiante deberá desarrollar el taller-333 que recoge los principales conceptos relacionados con variables aleatorias **continuas**, y sus aplicaciones en la estimación de probabilidades.| 
 |               | Trabajo individual                                                       |
 |Fecha          | 15 de octubre de 2025                                                      |
 |Hora           | 23:59                                                                    |
@@ -98,7 +109,7 @@ Para alcanzar los objetivos planteados se propone realizar las siguientes activi
 |:--------------|:----------------------------------------|
 |Actividad 331  | **poster** y presentación del mismo a través de video. 14 de octubre. 
 |Actividad 332  | taller 331 - enlace RPub ||
-
+|Actividad 333  | taller 333 - enlace RPub ||
 
 <br/><br/><br/><br/>
 

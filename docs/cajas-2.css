@@ -251,3 +251,17 @@ CAJAS DEL CURSO
         max-width:200px !important;
     }
 }
+
+
+.img-izquierda {
+  float: left;
+  width: 35%;
+  max-width: 350px;
+  margin: 5px 25px 15px 0;
+}
+
+.img-izquierda img {
+  width: 100%;
+  height: auto;
+  display: block;
+}

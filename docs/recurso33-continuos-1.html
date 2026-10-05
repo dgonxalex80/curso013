@@ -1,0 +1,1333 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="dgonzalez " />
+
+
+<title>Teoría de probabilidades</title>
+
+<script src="site_libs/header-attrs/header-attrs.js"></script>
+<script src="site_libs/jquery/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation/tabsets.js"></script>
+<script src="site_libs/navigation/codefolding.js"></script>
+<link href="site_libs/highlightjs/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs/highlight.js"></script>
+<link href="site_libs/font-awesome/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome/css/v4-shims.min.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+<link rel="stylesheet" href="cajas-2.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html"> </a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">
+    <span class="fa fa-home"></span>
+     
+    Estadística
+  </a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 0
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo0.html">Módulo 0</a>
+    </li>
+    <li>
+      <a href="sumatoria.html">Sumatoria</a>
+    </li>
+    <li>
+      <a href="productoria.html">Productoria</a>
+    </li>
+    <li>
+      <a href="conjuntos.html">Conjuntos</a>
+    </li>
+    <li>
+      <a href="conteo.html">Conteo</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 1
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo1.html">Módulo 1</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="guia11.html">Guía 1.1</a>
+    </li>
+    <li>
+      <a href="recurso11.html">Recursos 1.1</a>
+    </li>
+    <li>
+      <a href="basesdatos.html">Bases de datos</a>
+    </li>
+    <li>
+      <a href="introduccionR.html">Introducción a R</a>
+    </li>
+    <li>
+      <a href="codigo11.html">Código 1.1</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="guia12.html">Guía 1.2</a>
+    </li>
+    <li>
+      <a href="recurso12.html">Recursos 1.2</a>
+    </li>
+    <li>
+      <a href="codigo12.html">Código 1.2</a>
+    </li>
+    <li>
+      <a href="caso1A.html">Caso 1</a>
+    </li>
+    <li>
+      <a href="caso1B.html">Caso 2</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="guia13.html">Guía 1.3</a>
+    </li>
+    <li>
+      <a href="recurso13.html">Recursos 1.3</a>
+    </li>
+    <li>
+      <a href="codigo13.html">Código 1.3</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="monitoria1.html">Monitoria 1</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 2
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo2.html">Módulo 2</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="guia21.html">Guía 2.1</a>
+    </li>
+    <li>
+      <a href="recurso21.html">Recursos 2.1</a>
+    </li>
+    <li>
+      <a href="codigo21.html">Código 2.1</a>
+    </li>
+    <li>
+      <a href="taller211.html">Taller 211</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="guia22.html">Guía 2.2</a>
+    </li>
+    <li>
+      <a href="recurso22.html">Recursos 2.2</a>
+    </li>
+    <li>
+      <a href="taller221.html">Taller 221</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="monitoria2.html">Moitoría 2</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 3
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo3.html">Módulo 3</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="guia31.html">Guía 3.1</a>
+    </li>
+    <li>
+      <a href="recurso31.html">Recursos 3.1</a>
+    </li>
+    <li>
+      <a href="codigo31.html">Código 3.1</a>
+    </li>
+    <li>
+      <a href="taller311.html">Taller 311</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="guia32.html">Guía 3.2</a>
+    </li>
+    <li>
+      <a href="recurso32.html">Recursos 3.2</a>
+    </li>
+    <li>
+      <a href="codigo32.html">Código 3.2</a>
+    </li>
+    <li>
+      <a href="taller321.html">Taller 321</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="guia33.html">Guía 3.3</a>
+    </li>
+    <li>
+      <a href="recurso33-discretas.html">Recursos 3.3-discretas</a>
+    </li>
+    <li>
+      <a href="codigo33_discretas.html">Código 3.32 discretas</a>
+    </li>
+    <li>
+      <a href="taller331.html">Taller 331-discretas</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="guia34.html">Guía 3.4</a>
+    </li>
+    <li>
+      <a href="recurso33-continuos.html">Recursos 3.4-continuas</a>
+    </li>
+    <li>
+      <a href="codigo33_continuos.html">Código 3.4 continuos</a>
+    </li>
+    <li>
+      <a href="taller341.html">Taller 341-continuos</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="actividad334.html">Asignacion A334</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="monitoria3.html">Moitoría 3</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 4
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo4.html">Módulo 4</a>
+    </li>
+    <li class="divider"></li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Proyecto
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="guia_proyecto1.html">Guía proyecto</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore"><span
+style="color:#476885 !important;">Teoría de probabilidades</span></h1>
+<h3 class="subtitle"><span style="color:#476885"> </span></h3>
+<h4 class="author"><span style="color:#476885">dgonzalez </span></h4>
+
+</div>
+
+
+<p><img src="img/recurso3.png" alt="" width="100%" style="display: block; margin: auto;" /></p>
+<div id="modelos-especiales" class="section level1">
+<h1>Modelos especiales</h1>
+<p><br/><br/></p>
+<p>A continuación se presentan los principales conceptos teóricos de
+esta unidad, acompañados de ejemplos resueltos.</p>
+<div id="introducción" class="section level2">
+<h2>Introducción</h2>
+<p><br/><br/></p>
+<p>En las unidades abordadas previamente a esta se han trabajado las
+características de variables aleatorias tanto discretas como continuas
+dentro de las cuales están: la función de distribución de probabilidad
+<span class="math inline">\(f(x)\)</span> , para el caso discreto y la
+función de densidad de probabilidad para las variables continuas. En
+ambos casos la función de probabilidad acumulada <span
+class="math inline">\(F(x)\)</span> que representa <span
+class="math inline">\(P(X \leq x)\)</span>, el valor esperado <span
+class="math inline">\(E[X]\)</span>, la varianza <span
+class="math inline">\(V[X]\)</span>, y en el caso de las variables
+conjuntas la función de distribución conjunta y la función de densidad
+conjunta para los casos discreto-discreto y continuo-continuo,
+respectivamente <span class="math inline">\(f_{_{XY}}(x,y)\)</span>.
+También característica de ellas como son: el valor esperado conjunto
+<span class="math inline">\(E[XY]\)</span> , la covarianza <span
+class="math inline">\(Cov[XY]\)</span> y el coeficiente de correlación
+<span class="math inline">\(\rho_{_{XY}}\)</span> para las variables
+<span class="math inline">\(X\)</span> y <span
+class="math inline">\(Y\)</span>.</p>
+<p><br/><br/> Ahora, el siguiente modelo :</p>
+<p><span class="math display">\[f(x)= \frac{1}{50}e^{-(\frac{x}{50})}
+\]</span></p>
+<p><br/><br/></p>
+<p>Llamado exponencial, puede ser estudiado y asociado a sucesos que
+ocurren diariamente a nuestro alrededor.</p>
+<p>Tener una variable cuyo comportamiento se puede caracterizar tiene la
+ventaja de conocer fácilmente el recorrido teórico en la construcción
+del modelo, las propiedades, tendencias, valor esperado, varianza,
+función de distribución, estimadores de sus parámetros, alternativas que
+facilitan el cálculo de probabilidades, su afinidad con otras variables,
+entre otras, características que facilitan actividades como la
+simulación.</p>
+<p>El siguiente diagrama presenta los principales modelo de probabilidad
+y sus diferentes relaciones</p>
+<p><br/><br/></p>
+<p><img src="img/distribuciones2.png" alt="" width="80%" style="display: block; margin: auto;" /></p>
+<p>Fuente: construcción propia. basado en Univariate Distribution
+Relationships (<a
+href="http://www.math.wm.edu/~leemis/2008amstat.pdf">Lawrence M. LEEMIS
+and Jacquelyn T. MCQUESTON</a>)</p>
+<p><br/><br/></p>
+</div>
+</div>
+<div id="modelos-continuos" class="section level1">
+<h1><strong>Modelos continuos</strong></h1>
+<p><br/><br/></p>
+<div id="algunos-modelos-continuos" class="section level2">
+<h2><strong>Algunos modelos continuos</strong></h2>
+<p>Las variables continuas proceden en su mayoría de la medición y se
+clasifican así debido a que su rango esta formado por un conjunto
+infinito no numerable. A continuación se presentan los principales
+modelos continuos.</p>
+<p><br/></p>
+<table style="width:100%;">
+<colgroup>
+<col width="16%" />
+<col width="16%" />
+<col width="16%" />
+<col width="16%" />
+<col width="16%" />
+<col width="16%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td align="center">Uniforme</td>
+<td align="center">Normal</td>
+<td align="center">Exponencial</td>
+<td align="center">Gamma</td>
+<td align="center">Weibull</td>
+<td align="center">Cauchy</td>
+</tr>
+<tr class="even">
+<td align="center">Lognormal</td>
+<td align="center">Beta</td>
+<td align="center">Erlang</td>
+<td align="center">Gumbel</td>
+<td align="center">Kernel</td>
+<td align="center"></td>
+</tr>
+<tr class="odd">
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+</tbody>
+</table>
+<p><br/><br/></p>
+</div>
+<div id="uniforme" class="section level2">
+<h2><strong>uniforme</strong></h2>
+<div id="reseña-histórica" class="section level3 box4 with-label">
+<h3>Reseña histórica</h3>
+<div class="resena-izquierda">
+<div class="resena-imagen">
+<p><img src="img/kolmogorov.png" alt="Andréi Kolmogórov"></p>
+</div>
+<div class="resena-texto">
+<p>La distribución uniforme continua no tiene un autor único. Su origen
+está relacionado con el principio de equiprobabilidad, según el cual, si
+no existe razón para favorecer un resultado sobre otro, estos pueden
+considerarse igualmente probables.</p>
+<p>Uno de sus principales antecedentes se encuentra en los trabajos de
+Pierre-Simon Laplace a finales del siglo XVIII y comienzos del XIX,
+quien contribuyó a formalizar esta idea dentro de la teoría clásica de
+la probabilidad.</p>
+<p>Posteriormente, el desarrollo matemático de las distribuciones
+continuas y la axiomatización de la probabilidad realizada por Andréi
+Kolmogórov en 1933 permitieron establecer su formulación moderna.</p>
+<p>Actualmente, la distribución uniforme continua es fundamental en
+probabilidad, estadística y simulación, especialmente en la generación
+de números aleatorios.</p>
+</div>
+</div>
+</div>
+<p><br/></p>
+<div id="distribución-uniforme" class="section level3 box4 with-label">
+<h3>Distribución uniforme</h3>
+<p>Se caracteriza porque su función de densidad es constante en su
+recorrido o dominio de definición (intervalo [a,b])</p>
+<p><span class="math display">\[\begin{equation*}
+        f(x)=\left\lbrace
+        \begin{array}{lll}
+            \dfrac{1}{b-a}   &amp;,&amp; a \leq x \leq b   \\
+            &amp;&amp;\\
+            0 &amp;,&amp; \mbox{en otro caso}
+        \end{array}
+        \right.
+    \end{equation*}\]</span></p>
+</div>
+<p><br/><br/></p>
+<p><strong>Distribución uniforme (<span
+class="math inline">\(0,1\)</span>)</strong></p>
+<p><img src="recurso33-continuos-1_files/figure-html/unnamed-chunk-3-1.png" alt="" width="672" style="display: block; margin: auto;" /></p>
+<div id="ejemplo-7" class="section level3 box6 with-label">
+<h3>Ejemplo 7</h3>
+<p>En la fabricación de portaobjetos, que son láminas rectangulares de
+vidrio muy delgada (76x26 mm y 1 mm de espesor), utilizados para la
+observación de sustancias en el microscopio. Una de sus principales
+características está relacionada con su espesor (<span
+class="math inline">\(X\)</span>), el cual tiene una distribución
+uniforme entre 0.95 mm y 1.05 mm. Determine la probabilidad de que un
+portaobjeto determinado tenga un espesor superior a 1.03 mm.|</p>
+</div>
+<p><br/><br/></p>
+<div id="solución" class="section level3">
+<h3><strong>Solución</strong></h3>
+<p><span class="math display">\[P(X\geq 1.03)= (1.05-1.03) \times
+\frac{1}{0.10}=0.20 \]</span></p>
+<p><br/><br/></p>
+</div>
+</div>
+<div id="normal" class="section level2">
+<h2><strong>normal</strong></h2>
+<div id="reseña-histórica-1" class="section level3 box4 with-label">
+<h3>Reseña histórica</h3>
+<div class="resena-izquierda">
+<div class="resena-imagen">
+<p><img src="img/gauss.png" alt="Carl Friedrich Gauss"></p>
+</div>
+<div class="resena-texto">
+<p>La distribución normal tiene sus orígenes en el estudio de los juegos
+de azar. En 1733, Abraham de Moivre encontró una aproximación para la
+distribución binomial que dio origen a la forma matemática de la curva
+normal. Posteriormente, a comienzos del siglo XIX, Carl Friedrich Gauss
+utilizó esta distribución para estudiar los errores de medición en
+astronomía, relacionándola con el método de mínimos cuadrados. Por esta
+razón también se conoce como distribución gaussiana. Pierre-Simon
+Laplace contribuyó significativamente a su desarrollo teórico y a
+demostrar su importancia como aproximación de otras distribuciones.
+Durante los siglos XIX y XX, la distribución normal se convirtió en uno
+de los modelos fundamentales de la probabilidad y la estadística,
+especialmente para representar errores de medición y fenómenos
+naturales, sociales e industriales, y como fundamento de numerosos
+métodos de inferencia estadística.</p>
+</div>
+</div>
+</div>
+</div>
+<p>La distribución normal es uno de los modelos más utilizados en las
+aplicaciones de la Estadística. Estas aplicaciones están relacionadas
+con:</p>
+<p>Usos de la distribución normal</p>
+<ul>
+<li><p>La mayoría de variables en la naturaleza, se distribuyen
+aproximadamente de manera normal</p></li>
+<li><p>A partir de la distribución normal se originan las distribuciones
+<span class="math inline">\(t-student\)</span>, <span
+class="math inline">\(\chi^{2}\)</span> y <span
+class="math inline">\(F\)</span>-Fisher, utilizadas en inferencia
+estadística</p></li>
+<li><p>En general la media muestral de variables que no tienen
+distribución normal, tiende a aproximarse a una distribución normal, a
+medida que el tamaño de muestra aumenta. (Teorema del Límite
+Central)</p></li>
+<li><p>La regla empírica establece que:</p>
+<ul>
+<li><p>Aproximadamente el 68% de la población se encuentra en el
+intervalo centrado <span class="math display">\[(\mu - \sigma ; \mu +
+\sigma)\]</span></p>
+<ul>
+<li><p>Aproximadamente el 95% de la población se encuentra en el
+intervalo centrado <span class="math display">\[(\mu - 2\sigma ; \mu +
+2\sigma)\]</span></p></li>
+<li><p>Aproximadamente el 99.7% de la población se encuentra en el
+intervalo centrado <span class="math display">\[(\mu - 3\sigma ; \mu +
+3\sigma)\]</span></p></li>
+</ul></li>
+</ul></li>
+</ul>
+<p>Su distribución fué planteada por el matemático francés del siglo 18,
+Abraham de Moivre, quien a partir de la distribución Binomial, con <span
+class="math inline">\(n=2\)</span> empezó a aumentar su tamaño hasta
+observar que se formaba una distribución en forma de campana. Este mismo
+comportamiento fué detectado por Galileo en el siglo 17, al observar los
+errores producto de sus mediciones en astronomía. El modelo como se
+conoce actualmente fue propuesto de manera simultánea por los
+cientificos Robert Adrain y Carl Friedrich Gauss, quien finalmente le
+dió el nombre.</p>
+<p>Su función de densidad esta dada por:</p>
+<p><br/></p>
+<div id="distribución-normal" class="section level3 box4 with-label">
+<h3>Distribución normal</h3>
+<p><span class="math display">\[f(x)= \dfrac{1}{\sqrt{2\pi \sigma^{2}}}
+\hspace{.1cm}
+e^{-\big(\frac{1}{2\sigma^{2}}(x-\mu)^{2}\big)}  \hspace{.5cm}  -\infty
+\leq  x \leq \infty \]</span></p>
+<p><span class="math display">\[E[X]=\mu\]</span> <span
+class="math display">\[V[X]=\sigma^{2}\]</span></p>
+</div>
+<p><br/><br/></p>
+<p>En la siguente gráfica se muestra el efecto en la curva normal,
+producto de cambios en la media o en la varianza. A mayor valor de la
+media la curva se desplaza a la derecha, mientras que a menor varianza
+la curva se vuelve mas angosta o puntiaguda</p>
+<p>Distribuciones normales : <span style="color:#00B845"><span
+class="math inline">\(N(0,1)\)</span></span>, <span
+style="color:#F9573F"> <span
+class="math inline">\(N(0,1.5)\)</span></span> y <span
+style="color:#F6BB42"> <span
+class="math inline">\(N(2,1.5)\)</span></span></p>
+<p><img src="recurso33-continuos-1_files/figure-html/unnamed-chunk-4-1.png" alt="" width="672" style="display: block; margin: auto;" /></p>
+<p>Dentro del sin número de posibles curvas que se pueden obtener con
+los parámetros <span class="math inline">\(\mu\)</span> y <span
+class="math inline">\(\sigma^{2}\)</span>, existe una muy especial.
+Normal estándar (<span class="math inline">\(N(0,1)\)</span>) con <span
+class="math inline">\(\mu=0\)</span> y <span
+class="math inline">\(\sigma^{2}=1\)</span>. La gran mayoría de libros
+de Estadística poseen tablas de la función de distribución acumulada de
+la normal estándar.\</p>
+<div id="distribución-normal-estandar-n01"
+class="section level3 box4 with-label">
+<h3>Distribución normal estandar N(0,1)</h3>
+<p>Su función de distribución esta dada por :</p>
+<p><span class="math display">\[f(x)= \dfrac{1}{\sqrt{2\pi}}
+\hspace{.1cm} e^{-\big(\frac{1}{2}(x)^{2}\big)}   \hspace{.5cm}  -\infty
+\leq  x \leq \infty \]</span></p>
+<p>Si <span class="math inline">\(X \sim N(\mu, \sigma^{2})\)</span>,
+entonces <span class="math inline">\(Z= \dfrac{X-\mu}{\sigma} \sim
+N(0,1)\)</span></p>
+<p>a este proceso se le llama comúnmente estandarizar.</p>
+</div>
+<p><strong>normal estándar</strong></p>
+<p><img src="recurso33-continuos-1_files/figure-html/unnamed-chunk-5-1.png" alt="" width="672" style="display: block; margin: auto;" /></p>
+<p><br/><br/></p>
+<p>La propiedad empírica de la distribución normal es de gran ayuda
+cuando una variable de interés se puede aproximar al modelo normal. Ella
+establece un intervalo formado por la media mas o menos una desviación
+estándar contiene el 68% de los datos. Si el intervalo tiene un ancho de
+4 desviaciones estándar contendrá el 95% de los datos y si este
+intervalo corresponde a los valores de la media mas o menos 3
+desviaciones estándar contendrá el 99% de los datos que se representa en
+la siguiente gráfica.</p>
+<div id="propiedad-empírica-de-la-distribución-normal-estandar"
+class="section level3 box4 with-label">
+<h3>Propiedad empírica de la distribución normal estandar</h3>
+<ul>
+<li><span class="math inline">\(P(\mu - \sigma \leq X \mu + \sigma) =
+0.68\)</span></li>
+<li><span class="math inline">\(P(\mu - 2\sigma \leq X \mu + 2\sigma) =
+0.95\)</span></li>
+<li><span class="math inline">\(P(\mu - 3\sigma \leq X \mu + 3\sigma) =
+0.99\)</span></li>
+</ul>
+<p><img src="img/normal_N01.png" alt="" width="60%" style="display: block; margin: auto;" /></p>
+</div>
+<p><br/><br/></p>
+<div id="ejemplo-8" class="section level3 box6 with-label">
+<h3>Ejemplo 8</h3>
+<p>La velocidad de transferencia de archivos desde un servidor en el
+campus de la universidad a un ordenador personal en casa de un
+estudiante en un día laborable, se distribuye normalmente con una media
+de 60 kilobits por segundo y una desviación estándar de 4 kilobits por
+segundo. ¿Cuál es la probabilidad de que el archivo se transfiera a una
+velocidad de 70 kilobits por segundo o más?</p>
+</div>
+<p><br/><br/></p>
+<div id="solución-1" class="section level3">
+<h3><strong>Solución</strong></h3>
+<p>Para una variable <span class="math inline">\(X\)</span> con
+distribución <span class="math inline">\(N(60,16)\)</span>, debemos
+calcular la probabilidad <span class="math inline">\(P(X \geq
+70)\)</span> \</p>
+<p><span class="math display">\[\begin{eqnarray*}
+    P(X \geq 70)&amp;=&amp;P\Bigg(\dfrac{X-\mu}{\sigma} \geq
+\dfrac{70-60}{4}\Bigg)\\
+    &amp;=&amp; P\Bigg(Z \geq \dfrac{70-60}{4}\Bigg)\\
+    &amp;=&amp; P(Z\geq 2.5)=1-P(Z &lt; 2.5 )\\
+    &amp;=&amp; 1-0.9938=0.0062
+\end{eqnarray*}\]</span></p>
+<p>En R se utiliza el siguiente código:</p>
+<pre class="r"><code>pnorm(70, mean=60, sd=4, lower.tail=FALSE)</code></pre>
+<pre><code>[1] 0.006209665</code></pre>
+<p><br/><br/></p>
+</div>
+</div>
+<div id="exponencial" class="section level2">
+<h2><strong>exponencial</strong></h2>
+<div id="reseña-histórica-2" class="section level3 box4 with-label">
+<h3>Reseña histórica</h3>
+<div class="resena-izquierda">
+<div class="resena-imagen">
+<p><img src="img/gauss.png" alt="Reseña histórica de la distribución exponencial"></p>
+</div>
+<div class="resena-texto">
+<p>Este modelo fue planteado por el matemático estadístico e ingeniero
+Agner Kraru Erlang, experto en el trafico de las comunicaciones y la
+teoría de colas. Distribución utilizada para modelar el tiempo entre dos
+eventos consecutivos.</p>
+</div>
+</div>
+</div>
+<p><br/></p>
+<div id="distribución-exponencial"
+class="section level3 box4 with-label">
+<h3>Distribución exponencial</h3>
+<p><span class="math display">\[\begin{equation*}
+        f(x)=\left\lbrace
+        \begin{array}{lll}
+            \lambda e^{-\lambda x}  &amp;,&amp; x &gt; 0   \\
+            &amp;&amp;\\
+            0 &amp;,&amp; x \leq 0
+        \end{array}
+        \right.
+    \end{equation*}\]</span></p>
+<p><span class="math display">\[E[X]=\dfrac{1}{\lambda}\]</span></p>
+<p><span class="math display">\[V[X]=\dfrac{1}{\lambda^{2}}\]</span></p>
+<p>Observación: algunos autores utilizan <span
+class="math inline">\(\frac{1}{\beta}\)</span> en lugar de <span
+class="math inline">\(\lambda\)</span></p>
+<p><span class="math display">\[F(x)=P(X \leq x)=1-e^{-\lambda x}
+\hspace{1cm} x &gt; 0\]</span></p>
+</div>
+<p><br/><br/></p>
+<p>Distribuciones exponenciales : <span style="color:#00B845"> <span
+class="math inline">\(exp(1)\)</span></span>, <span
+style="color:#F9573F"> <span
+class="math inline">\(exp(2)\)</span></span> y <span
+style="color:#F6BB42"> <span
+class="math inline">\(exp(5)\)</span></span></p>
+<p><img src="recurso33-continuos-1_files/figure-html/unnamed-chunk-8-1.png" alt="" width="672" style="display: block; margin: auto;" /></p>
+<p><strong>Distribuciones exponenciales acumuladas</strong></p>
+<p><img src="recurso33-continuos-1_files/figure-html/unnamed-chunk-9-1.png" alt="" width="672" /></p>
+<p><br/><br/></p>
+<div id="ejemplo-9" class="section level3 box6 with-label">
+<h3>Ejemplo 9</h3>
+<p>El tiempo entre llamadas de los clientes a una empresa de turismo
+ecológico tiene una distribución exponencial con un tiempo medio entre
+llamadas de 15 minutos. ¿Cuál es la probabilidad de que transcurra más
+de 20 minutos antes de que se realiza una nueva llamada? (Ejemplo 8 4-77
+Mongomery)</p>
+</div>
+<p><br/><br/></p>
+<div id="solución-2" class="section level3">
+<h3><strong>Solución</strong></h3>
+<p><span class="math inline">\(X\)</span>: el tiempo entre dos llamadas
+consecutivas <span class="math inline">\(\lambda=\frac{1}{15}\)</span>
+minutos.</p>
+<p><span class="math display">\[\begin{eqnarray}
+    P(X \geq 20) &amp;=&amp; 1-P(X &lt; 20) \\
+    &amp;=&amp; 1-(1-e^{-\frac{20}{15}}) \\
+    &amp;=&amp; 0.2636
+\end{eqnarray}\]</span></p>
+<p>En R se utiliza el siguiente código:</p>
+<pre class="r"><code> pexp(20,1/15, lower.tail=FALSE)</code></pre>
+<pre><code>[1] 0.2635971</code></pre>
+<p>Para tratar las distribuciones Gamma y Weibull, es necesario definir
+la función Gamma como:</p>
+<p><span class="math display">\[\Gamma(r)= \int_{0}^{\infty} t^{r-1}
+e^{t} \,dt \]</span></p>
+<p>Con las siguientes propiedades:</p>
+<ul>
+<li><p>Si <span class="math inline">\(r\)</span> es un entero, <span
+class="math inline">\(\Gamma(r)=(r-1)!\)</span></p></li>
+<li><p>para cualquier valor de <span class="math inline">\(r\)</span>,
+<span class="math inline">\(\Gamma(r+1)=r \Gamma(r)\)</span></p></li>
+<li><p><span
+class="math inline">\(\Gamma(1/2)=\sqrt{\pi}\)</span></p></li>
+<li><p><span class="math inline">\(\Gamma(1)=1,\hspace{.1cm}
+\Gamma(2)=1, \hspace{.1cm} \Gamma(3)=2,
+\hspace{.1cm}\Gamma(n+1)=n!\)</span></p></li>
+</ul>
+<p><br/><br/></p>
+</div>
+</div>
+<div id="gamma" class="section level2">
+<h2><strong>gamma</strong></h2>
+<div id="reseña-histórica-3" class="section level3 box4 with-label">
+<h3>Reseña histórica</h3>
+<div class="resena-izquierda">
+<div class="resena-imagen">
+<p><img src="img/gauss.png" alt="Reseña histórica de la distribución gamma"></p>
+</div>
+<div class="resena-texto">
+<p>Esta distribución tiene su origen en la familia de curvas sesgadas
+propuestas por Karl Pearson. Esta distribución es otra alternativa para
+modelar los tiempos de espera de ocurrencia de sucesos o eventos. En
+ocasiones puede relacionarse con la suma de los tiempos de variables
+exponenciales sucesivas con igual media.</p>
+</div>
+</div>
+</div>
+<p><br/><br/></p>
+<div id="distribución-gamma" class="section level3 box4 with-label">
+<h3>Distribución gamma</h3>
+<p>La distribución Gamma se obtiene al sumar <span
+class="math inline">\(r\)</span> variables con distribución exponencial
+con parámetro <span class="math inline">\(\lambda\)</span>.</p>
+<p>Distribución</p>
+<p>Si <span class="math inline">\(Y=X_{1}+X_{2}+....+X_{r}\)</span>,
+<span class="math inline">\(X_{i} \sim Exp(\lambda)\)</span>, entonces
+<span class="math inline">\(Y \sim \Gamma(r,\lambda)\)</span>.</p>
+<p><span class="math display">\[\begin{equation*}
+        f(x)=\left\lbrace
+        \begin{array}{lll}
+            \dfrac{\lambda^{r}x^{r-1} e^{-\lambda
+x}}{\Gamma(r)}  &amp;,&amp; x &gt; 0   \\
+            &amp;&amp;\\
+            0 &amp;,&amp;   x \leq 0
+        \end{array}
+        \right.
+    \end{equation*}\]</span></p>
+<p>Distribuciones exponenciales gamma(3,1)}, gamma(2,1) y gamma(5,1)
+fig_gammas.pdf</p>
+<p>Algunos autores utilizan <span
+class="math inline">\(\frac{1}{\beta}\)</span> en lugar de <span
+class="math inline">\(\lambda\)</span> y <span
+class="math inline">\(\alpha\)</span> en lugar de <span
+class="math inline">\(r\)</span></p>
+<p><span class="math display">\[E[X]=\dfrac{r}{\lambda}\]</span> <span
+class="math display">\[V[X]= \dfrac{r}{\lambda^{2}}\]</span></p>
+</div>
+<p><br/><br/></p>
+<p>Distribuciones : <span style="color:#00B845"> <span
+class="math inline">\(gamma(3,1)\)</span></span>, <span
+style="color:#F9573F"><span
+class="math inline">\(gamma(2,1)\)</span></span> y <span
+style="color:#F6BB42"> <span
+class="math inline">\(gamma(5,1)\)</span></span></p>
+<p><img src="recurso33-continuos-1_files/figure-html/unnamed-chunk-11-1.png" alt="" width="672" style="display: block; margin: auto;" /></p>
+<div id="ejemplo-10" class="section level3 box6 with-label">
+<h3>Ejemplo 10</h3>
+<p>En cierta ciudad el consumo diario de energía eléctrica, en millones
+de kilovatios por hora, puede considerarse como una variable aleatoria
+con distribución Gamma de parámetros <span class="math inline">\(r=
+3\)</span> y <span class="math inline">\(\lambda= 0.5\)</span>. La
+planta de energía de esta ciudad tiene una capacidad diaria de 10
+millones de KW/hora. ¿Cuál es la probabilidad de que este
+abastecimientos sea insuficiente en un día cualquiera?.</p>
+</div>
+<p><br/><br/></p>
+<div id="solución-3" class="section level3">
+<h3><strong>Solución</strong></h3>
+<p><span class="math inline">\(X\)</span>: consumo diario de energia</p>
+<p><span class="math display">\[\begin{eqnarray*}
+    P(X &gt; 10)&amp;=&amp; 1-P(X \leq 10) \\
+    &amp;=&amp; 1 - \dfrac{1}{\Gamma(3)} \int_{0}^{10}
+(0.5)^{3}  x^{3-1} e^{-0.5x} \,dx \\
+    &amp;=&amp; 0.124652
+\end{eqnarray*}\]</span></p>
+<pre class="r"><code>pgamma(10,3,0.5, lower.tail = FALSE)</code></pre>
+<pre><code>[1] 0.124652</code></pre>
+<p><br/><br/></p>
+</div>
+</div>
+<div id="weibull" class="section level2">
+<h2><strong>Weibull</strong></h2>
+<div id="reseña-histórica-4" class="section level3 box4 with-label">
+<h3>Reseña histórica</h3>
+<div class="resena-izquierda">
+<div class="resena-imagen">
+<p><img src="img/wweibull.png" alt="Waloddi Weibull"></p>
+</div>
+<div class="resena-texto">
+<p>Esta distribución fue descubierta Maurice Frechet matemático francés
+y luego trabajada por Rosin y Rammler quienes en 1933 estudiaron el
+tamaño de una partícula y posteriormente recibe su nombre del ingeniero
+y matemático Waloddi Weibull . Esta distribución se utiliza para modelar
+el tiempo de vida de algunos componentes. La Weibull tiene dos
+parámetros <span class="math inline">\(\alpha\)</span> y <span
+class="math inline">\(\beta\)</span>. Su función de distribución y sus
+principales características son:</p>
+</div>
+</div>
+</div>
+<p><br/></p>
+<div id="distribución-weibull" class="section level3 box4 with-label">
+<h3>Distribución Weibull</h3>
+<p><span class="math display">\[\begin{equation*}
+        f(x)=\left\lbrace
+        \begin{array}{lll}
+            \Bigg(\dfrac{\alpha}{\beta}\Bigg)\Bigg(\dfrac{x}{\beta}\Bigg)^{\alpha-1}\exp{\Bigg\{-\Big(\dfrac{x}{\beta}\Big)^{\alpha}\Bigg\}}&amp;,&amp;
+x &gt; 0\\
+            &amp;&amp;\\
+            0 &amp;,&amp; x \leq 0
+        \end{array}
+        \right.
+    \end{equation*}\]</span></p>
+<p><span class="math display">\[E[X]=\beta
+\hspace{.2cm}\Gamma\Bigg(1+\frac{1}{\alpha}\Bigg)\]</span></p>
+<p><span class="math display">\[V[X]=\beta^{2}
+\Bigg(\Gamma\Bigg(1+\frac{2}{\alpha}\Bigg)- \Bigg[\Gamma
+\Bigg(1+\frac{1}{\alpha}\Bigg)\Bigg]^{2}\Bigg) \]</span></p>
+<p><span
+class="math display">\[F(x)=1-\exp{\Big\{-\Big(\dfrac{x}{\beta}\Big)^{\alpha}\Big\}}
+\]</span></p>
+</div>
+<p><br/></p>
+<p>Distribuciones : <span style="color:#00B845"> <span
+class="math inline">\(Weibull(0.8, 1)\)</span></span>, <span
+style="color:#F9573F"> <span
+class="math inline">\(Weibul(2,1)\)</span></span> y <span
+style="color:#F6BB42"> <span
+class="math inline">\(Weibull(2,2)\)</span></span></p>
+<p><img src="recurso33-continuos-1_files/figure-html/unnamed-chunk-13-1.png" alt="" width="672" style="display: block; margin: auto;" /></p>
+<p><br/><br/></p>
+<div id="función-de-riesgo" class="section level3">
+<h3><strong>Función de riesgo</strong></h3>
+<p>Se llama así a la tasa de fallas por unidad de tiempo, expresada como
+la proporción de elementos que no han fallado</p>
+<p><span class="math display">\[h(t)=\dfrac{f(t)}{1-F(t)} \]</span>
+<br/><br/></p>
+</div>
+<div id="ejemplo-11" class="section level3 box6 with-label">
+<h3>Ejemplo 11</h3>
+<p>La duración de una batería se modela mediante una distribución
+Weibull con parámetros: <span class="math inline">\(\alpha=0.1\)</span>
+y <span class="math inline">\(\beta=2\)</span>. Determine la
+probabilidad de que una batería dure más de 10 horas. Determine la
+proporción de baterías que durarán más de 10 horas.</p>
+</div>
+<p><br/><br/></p>
+<div id="solución-4" class="section level3">
+<h3><strong>Solución</strong></h3>
+<p><span class="math display">\[\begin{eqnarray*}
+    P(X &gt; 10) &amp;=&amp; 1- F(10)\\
+    &amp;=&amp; 1-\Big(1-e^{-[10/2]^{0.1}}\Big)\\
+    &amp;=&amp; -e^{[5]^{0.1}}\\
+    &amp;=&amp; 0.3089367
+\end{eqnarray*}\]</span></p>
+<p><br/><br/></p>
+<p>En este caso también se puede obtener la tasa de fallos esta
+determinada por: <span class="math display">\[\begin{eqnarray*}
+    h(10)&amp;=&amp;\dfrac{f(10)}{1-F(10)}\\
+    &amp;&amp;\\
+    &amp;=&amp; \dfrac{0.003628829}{1-0.6910633}\\
+    &amp;&amp;\\
+    &amp;=&amp; 0.01174619
+\end{eqnarray*}\]</span></p>
+<p><br/><br/><br/><br/></p>
+</div>
+<div id="código-r" class="section level3 box3 with-label">
+<h3>Código R</h3>
+<table>
+<thead>
+<tr class="header">
+<th align="left">modelo</th>
+<th align="left"><span class="math inline">\(F(x)\)</span></th>
+<th align="left"><span class="math inline">\(X_{p}\)</span></th>
+<th align="left"><span class="math inline">\(f(x)\)</span></th>
+<th align="left">aleatorio</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Binomial</td>
+<td align="left">pbinom</td>
+<td align="left">qbinom</td>
+<td align="left">dbinom</td>
+<td align="left">rbinom</td>
+</tr>
+<tr class="even">
+<td align="left">Geometrica</td>
+<td align="left">pgeom</td>
+<td align="left">qgeom</td>
+<td align="left">dgeom</td>
+<td align="left">rgeom</td>
+</tr>
+<tr class="odd">
+<td align="left">Hipergeomet.</td>
+<td align="left">phyper</td>
+<td align="left">qhyper</td>
+<td align="left">dhyper</td>
+<td align="left">rhyper</td>
+</tr>
+<tr class="even">
+<td align="left">Poisson</td>
+<td align="left">ppois</td>
+<td align="left">qpois</td>
+<td align="left">dpois</td>
+<td align="left">rpois</td>
+</tr>
+<tr class="odd">
+<td align="left">Binomial Negativa</td>
+<td align="left">pnbinom</td>
+<td align="left">qnbinom</td>
+<td align="left">dnbinom</td>
+<td align="left">rnbinom</td>
+</tr>
+<tr class="even">
+<td align="left">Beta</td>
+<td align="left">pbeta</td>
+<td align="left">qbeta</td>
+<td align="left">dbeta</td>
+<td align="left">rbeta</td>
+</tr>
+<tr class="odd">
+<td align="left">Cauchy</td>
+<td align="left">pcauchy</td>
+<td align="left">qcauchy</td>
+<td align="left">dcauchy</td>
+<td align="left">rcauchy</td>
+</tr>
+<tr class="even">
+<td align="left">Chi-cuadrado</td>
+<td align="left">pchisq</td>
+<td align="left">qchisq</td>
+<td align="left">dchisq</td>
+<td align="left">rchisq</td>
+</tr>
+<tr class="odd">
+<td align="left">Exponencial</td>
+<td align="left">pexp</td>
+<td align="left">qexp</td>
+<td align="left">dexp</td>
+<td align="left">rexp</td>
+</tr>
+<tr class="even">
+<td align="left">F</td>
+<td align="left">pf</td>
+<td align="left">qf</td>
+<td align="left">df</td>
+<td align="left">rf</td>
+</tr>
+<tr class="odd">
+<td align="left">Gamma</td>
+<td align="left">pgamma</td>
+<td align="left">qgamma</td>
+<td align="left">dgamma</td>
+<td align="left">rgamma</td>
+</tr>
+<tr class="even">
+<td align="left">Logistic</td>
+<td align="left">plogis</td>
+<td align="left">qlogis</td>
+<td align="left">dlogis</td>
+<td align="left">rlogis</td>
+</tr>
+<tr class="odd">
+<td align="left">Log Normal</td>
+<td align="left">plnorm</td>
+<td align="left">qlnorm</td>
+<td align="left">dlnorm</td>
+<td align="left">rlnorm</td>
+</tr>
+<tr class="even">
+<td align="left">Normal</td>
+<td align="left">pnorm</td>
+<td align="left">qnorm</td>
+<td align="left">dnorm</td>
+<td align="left">rnorm</td>
+</tr>
+<tr class="odd">
+<td align="left">t-Student</td>
+<td align="left">pt</td>
+<td align="left">qt</td>
+<td align="left">dt</td>
+<td align="left">rt</td>
+</tr>
+<tr class="even">
+<td align="left">Uniforme</td>
+<td align="left">punif</td>
+<td align="left">qunif</td>
+<td align="left">dunif</td>
+<td align="left">runif</td>
+</tr>
+<tr class="odd">
+<td align="left">Weibull</td>
+<td align="left">pweibull</td>
+<td align="left">qweibull</td>
+<td align="left">dweibull</td>
+<td align="left">rweibull</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><br/><br/><br/></p>
+<div id="tabla-normal-estandar" class="section level3">
+<h3>Tabla normal estandar</h3>
+<pre class="r"><code>library(ggplot2)
+
+# Definir rango para la curva normal
+x &lt;- seq(-4, 4, length=1000)
+y &lt;- dnorm(x)
+
+# Valor de z
+z &lt;- -1
+
+# Data frame para la curva
+df &lt;- data.frame(x = x, y = y)
+
+# Data frame para el área sombreada
+df_shade &lt;- subset(df, x &lt;= z)
+
+# Graficar
+ggplot(df, aes(x, y)) +
+  geom_line(size=0.5) +
+  geom_area(data = df_shade, aes(x, y), fill=c31, alpha=0.8) +
+  geom_vline(xintercept = z, linetype=&quot;dashed&quot;) +
+  labs(x=&quot;z&quot;, y=&quot;Densidad&quot;) +
+  annotate(&quot;text&quot;, x = -2.8, y = 0.3, label = &quot;F(-1) =  P(Z &lt; -1)&quot;, size = 3, color=&quot;black&quot;) +
+  theme_minimal(base_size = 10)</code></pre>
+<p><img src="recurso33-continuos-1_files/figure-html/unnamed-chunk-14-1.png" alt="" width="384" style="display: block; margin: auto;" /></p>
+<p><img src="img/tabla-normal1.png" alt="" width="70%" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>library(ggplot2)
+
+# Definir rango para la curva normal
+x &lt;- seq(-4, 4, length=1000)
+y &lt;- dnorm(x)
+
+# Valor de z
+z &lt;- 1
+
+# Data frame para la curva
+df &lt;- data.frame(x = x, y = y)
+
+# Data frame para el área sombreada
+df_shade &lt;- subset(df, x &lt;= z)
+
+# Graficar
+ggplot(df, aes(x, y)) +
+  geom_line(size=0.5) +
+  geom_area(data = df_shade, aes(x, y), fill=c31, alpha=0.8) +
+  geom_vline(xintercept = z, linetype=&quot;dashed&quot;) +
+  labs(x=&quot;z&quot;, y=&quot;Densidad&quot;) +
+  annotate(&quot;text&quot;, x = -2.8, y = 0.3, label = &quot;F(-1) =  P(Z &lt; 1)&quot;, size = 3, color=&quot;black&quot;) +
+  theme_minimal(base_size = 10)</code></pre>
+<p><img src="recurso33-continuos-1_files/figure-html/unnamed-chunk-16-1.png" alt="" width="384" style="display: block; margin: auto;" /></p>
+<p><img src="img/tabla-normal2.png" alt="" width="70%" style="display: block; margin: auto;" /></p>
+<p><br/><br/></p>
+</div>
+</div>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("hide" === "show");
+});
+</script>
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

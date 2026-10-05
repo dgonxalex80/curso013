@@ -1,0 +1,93 @@
+---
+title: " "   
+author: "dgonzalez "
+subtitle: " "   
+output:
+  html_document:
+    toc: no
+    toc_depth: 2
+    toc_float: yes
+    code_folding: hide
+    theme: flatly
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,comment = NA)
+library(ggplot2)
+
+# colores
+source("R/init.R")
+```
+
+<br/><br/>
+
+
+
+```{r, echo=FALSE, out.width="100%", fig.align = "center"}
+knitr::include_graphics("img/guia3.png")
+```
+
+
+<br/><br/>
+
+# Introducción
+
+En las unidades 3.1 y 3.2 hemos recorrido los principales conceptos relacionados caracterización de las variables aleatorias tanto discretas como continuas.  Características como:  $f(x)$, $F(x)$, $E[X]$, $V[X]$, en el caso univariado. Para el caso conjunto : $f(x,y)$, $F(x,y)$, $E[XY]$, $Cov[XY]$  y  $\rho$. 
+
+En esta unidad se presentan los principales modelos estadísticos tanto para variables **continuas** y sus aplicaciones. Los ejemplos indicaran el modelo correspondiente que genera la variable.
+
+
+<br/><br/>
+
+# Objetivos de la unidad
+
+Al finalizar la unidad los estudiantes estarán  en  capacidad de  IDENTIFICAR, CALCULAR y APLICAR los diferentes modelos de probabilidad para la solución de problemas en contexto.
+
+<br/><br/>
+
+# Duración
+
+La presente  unidad será desarrollada durante la comprendida entre 30 de septiembre al 14 de octubre.      
+Ademas del material suministrado  contaran con el acompañamiento del profesor en las  sesiones descritas en el calentadario.
+
+Para alcanzar los objetivos planteados se propone realizar las siguientes actividades
+
+<br/><br/>
+
+# Cronograma de trabajo
+
+<br/>
+
+|                |                                                                         | 
+|:---------------|:------------------------------------------------------------------------|
+|**Activiad 341**| Cada estudiante deberá desarrollar el taller-341 que recoge los principales conceptos relacionados con variables aleatorias **continuas**, y sus aplicaciones en la estimación de probabilidades.| 
+|               | Trabajo individual                                                       |
+|Fecha          | 15 de octubre de 2025                                                      |
+|Hora           | 23:59                                                                    |
+
+<br/><br/>
+
+# Criterios de evaluación
+
+<br/><br/>
+
+
+* Reconoce los modelos especiales asociados a contextos  y problemas reales
+
+* Utiliza las herramientas estadística apropiadas en el calculo de probabilidades en la solución de problemas en contexto
+
+* Utiliza herramientas computacionales que le permita  la solución de problemas en contexto a través de la simulación
+	
+<br/><br/>
+
+# Entregables 
+
+<br/><br/>
+
+|Actividad      | Descripción                             | 
+|:--------------|:----------------------------------------|
+|Actividad 333  | taller 341 - enlace RPub ||
+
+<br/><br/><br/><br/>
+

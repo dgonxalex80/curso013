@@ -1,0 +1,64 @@
+---
+title: "<span style='color:#476885 !important;'>Teoría de probabilidades</span>"
+author: <span style="color:#476885">dgonzalez </span> 
+# subtitle: <span style="color:#476885"> </span> 
+output:
+  html_document:
+    toc: no
+    toc_depth: 2
+    toc_float: yes
+    code_folding: hide
+    theme: flatly
+    css:
+      - style.css
+      - cajas.css
+---     
+
+
+
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+knitr::opts_chunk$set(
+  fig.width=9, fig.height=3.5, fig.retina=3,
+  out.width = "100%",
+  cache = FALSE,
+  echo = TRUE,
+  message = FALSE, 
+  warning = FALSE,
+  hiline = TRUE
+)
+# colores
+source("R/init.R")
+
+paleta4=c(c11,c21,c31,c41)
+
+
+library(forcats)
+library(patchwork)
+library(lubridate)
+library(ggplot2)
+library(gridExtra)
+library(cowplot)
+library(summarytools)
+
+#library(dviz.supp)
+```
+
+
+
+</br></br></br>
+
+```{r, echo=FALSE, out.width="100%", fig.align = "left"}
+knitr::include_graphics("img/taller3.png")
+```
+
+</br></br>
+
+<div class="box4 with-label">
+### Problema 1
+
+
+
+
+</div>
