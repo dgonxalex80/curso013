@@ -124,7 +124,7 @@ navbar:
         - text: "Código 3.4 continuos"  
           href: codigo33_continuos.html
         - text: "Taller 341-continuos"  
-          href: taller341.html 
+          href: taller341_modelos_continuos.html 
         - text: "--------"             
         - text: "Asignacion A334"  
           href: actividad334.html          

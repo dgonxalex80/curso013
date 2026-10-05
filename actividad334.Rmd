@@ -30,7 +30,6 @@ knitr::include_graphics("img/modulo3.png")
 <br/>
 
 
-
 Cada estudiante deberá construir un  poster en formato A2 (42 cm x 59.4 cm) para el modelo asignado que contenga sus principales características.
 
 * origen
@@ -41,6 +40,13 @@ Cada estudiante deberá construir un  poster en formato A2 (42 cm x 59.4 cm) par
 
 El poster será socializado por cada estudiante en un tiempo no superior a 5 minutos.
 Los archivos fuentes del poster deberán se enviados a la plataforma Bs. 
+
+<br/>
+
+Fecha de presentación : octubre 15 de 2026
+
+Hora : 11:30 am
+
 
 <br/><br/>
 

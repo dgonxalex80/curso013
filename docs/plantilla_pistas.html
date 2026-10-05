@@ -9,10 +9,9 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
-<meta name="author" content="dgonzalez" />
 
 
-<title>Teoría de Probabilidades</title>
+<title>Ejemplo de pistas desplegables</title>
 
 <script src="site_libs/header-attrs/header-attrs.js"></script>
 <script src="site_libs/jquery/jquery-3.6.0.min.js"></script>
@@ -31,7 +30,6 @@
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
 <script src="site_libs/navigation/tabsets.js"></script>
-<script src="site_libs/navigation/codefolding.js"></script>
 <link href="site_libs/highlightjs/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs/highlight.js"></script>
 <link href="site_libs/font-awesome/css/all.min.css" rel="stylesheet" />
@@ -222,9 +220,6 @@ $(document).ready(function () {
 </style>
 
 <!-- code folding -->
-<style type="text/css">
-.code-folding-btn { margin-bottom: 4px; }
-</style>
 
 
 
@@ -486,24 +481,81 @@ $(document).ready(function () {
 
 <div id="header">
 
-<div class="btn-group pull-right float-right">
-<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
-<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
-<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
-<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
-</ul>
-</div>
 
 
-
-<h1 class="title toc-ignore"><span style="color:#F6A623">Teoría de
-Probabilidades</span></h1>
-<h4 class="author">dgonzalez</h4>
+<h1 class="title toc-ignore"><span
+style="color:#3498C9 !important;">Ejemplo de pistas
+desplegables</span></h1>
 
 </div>
 
 
-<p><img src="img/enconstruccion.gif" alt="" width="40%" style="display: block; margin: auto;" /></p>
+<p>Las pistas permanecen ocultas hasta pulsar su botón. Pulsa de nuevo
+para cerrarlas. Puedes abrir cada pista de forma independiente.</p>
+<div id="ejemplo-probabilidad-de-una-unión"
+class="section level3 box3 with-label">
+<h3>Ejemplo: probabilidad de una unión</h3>
+<p>En un grupo de 40 estudiantes, 18 estudian inglés, 12 estudian
+francés y 5 estudian ambos idiomas. Si se elige un estudiante al azar,
+¿cuál es la probabilidad de que estudie al menos uno de los dos
+idiomas?</p>
+<div class="botones-ayuda">
+<details class="boton-pista">
+<summary>
+Pista 1
+</summary>
+<div class="contenido">
+<p>Define los eventos <span class="math inline">\(A\)</span>: estudiar
+inglés y <span class="math inline">\(B\)</span>: estudiar francés. La
+expresión <strong>al menos uno</strong> corresponde a la unión <span
+class="math inline">\(A \cup B\)</span>.</p>
+</div>
+</details>
+<details class="boton-pista">
+<summary>
+Pista 2
+</summary>
+<div class="contenido">
+<p>Al sumar los estudiantes de ambos grupos, cuentas dos veces a quienes
+estudian los dos idiomas. Usa:</p>
+<p><span class="math display">\[P(A \cup B)=P(A)+P(B)-P(A \cap
+B).\]</span></p>
+<p>Convierte las cantidades en probabilidades dividiendo entre el total
+de estudiantes.</p>
+</div>
+</details>
+</div>
+</div>
+<div id="bloque-para-copiar-en-los-problemas" class="section level2">
+<h2>Bloque para copiar en los problemas</h2>
+<p>Copia este bloque dentro de la caja del problema, antes de su
+<code>&lt;/div&gt;</code> final, o inmediatamente después de ella.
+Reemplaza el texto por tu pista. Conserva las líneas en blanco alrededor
+del contenido para que R Markdown procese el texto y las fórmulas. No
+agregues el atributo <code>open</code>: así la pista comienza
+cerrada.</p>
+<pre class="html"><code>&lt;div class=&quot;botones-ayuda&quot;&gt;
+&lt;details class=&quot;boton-pista&quot;&gt;
+&lt;summary&gt;Pista&lt;/summary&gt;
+&lt;div class=&quot;contenido&quot;&gt;
+
+Escribe aquí la pista. Puedes usar **negrita** y fórmulas como $P(A)$.
+
+&lt;/div&gt;
+&lt;/details&gt;
+&lt;/div&gt;</code></pre>
+<p>Para ofrecer varias pistas, repite el bloque
+<code>&lt;details&gt;...&lt;/details&gt;</code> dentro del mismo
+<code>div.botones-ayuda</code> y cambia sus títulos a Pista 1, Pista 2,
+etc. También puedes usar las clases <code>boton-solucion</code> y
+<code>boton-codigos</code> con los títulos Solución y Códigos si los
+necesitas.</p>
+<p>El estilo se carga automáticamente desde <code>cajas.css</code> o
+<code>cajas_botones.css</code>. El botón toma el color de la página
+definido en <code>style.css</code>. Para elegir otro color en un bloque,
+usa por ejemplo
+<code>&lt;div class="botones-ayuda" style="--modulo-color:#476885;"&gt;</code>.</p>
+</div>
 
 
 
@@ -538,11 +590,6 @@ $(document).ready(function () {
 </script>
 
 <!-- code folding -->
-<script>
-$(document).ready(function () {
-  window.initializeCodeFolding("hide" === "show");
-});
-</script>
 
 
 <!-- dynamically load mathjax for compatibility with self-contained -->

@@ -1,0 +1,100 @@
+/* =========================================================
+   BOTONES DIDÁCTICOS: PISTA | SOLUCIÓN | CÓDIGOS
+   ========================================================= */
+.botones-ayuda {
+  display:flex !important;
+  flex-wrap:wrap !important;
+  justify-content:flex-end !important;
+  align-items:flex-start !important;
+  gap:6px !important;
+  float:none;
+  width:100% !important;
+  margin:8px 0 1.6rem !important;
+  padding:0 !important;
+  clear:both;
+}
+.botones-ayuda > details {
+  flex:0 0 auto;
+  margin:0 !important;
+  padding:0 !important;
+  border:0 !important;
+  background:transparent !important;
+  box-shadow:none !important;
+}
+.botones-ayuda > details > summary {
+  display:inline-block !important;
+  margin:0 !important;
+  padding:4px 9px !important;
+  border:1px solid var(--modulo-color, var(--module-color, #2C5697)) !important;
+  border-radius:4px !important;
+  color:#fff !important;
+  background:var(--modulo-color, var(--module-color, #2C5697)) !important;
+  font-family:"Source Sans 3","Helvetica Neue",Arial,sans-serif !important;
+  font-size:14px !important;
+  font-weight:400 !important;
+  line-height:1.25 !important;
+  text-align:center !important;
+  cursor:pointer;
+  list-style:none !important;
+  user-select:none;
+}
+.botones-ayuda > details > summary::-webkit-details-marker { display:none !important; }
+.botones-ayuda > details > summary::marker { content:"" !important; }
+.botones-ayuda > details > summary:hover,
+.botones-ayuda > details > summary:focus {
+  color:#fff !important;
+  filter:brightness(.90);
+  text-decoration:none !important;
+}
+.botones-ayuda > details > summary:focus-visible {
+  outline:2px solid #BCCAD3;
+  outline-offset:2px;
+}
+/* Abierto: ocupa una fila completa; botón a la derecha, contenido debajo. */
+.botones-ayuda > details[open] {
+  flex:0 0 100% !important;
+  width:100% !important;
+  display:grid !important;
+  grid-template-columns:1fr auto !important;
+  row-gap:8px !important;
+}
+.botones-ayuda > details[open] > summary {
+  grid-column:2 !important;
+  justify-self:end !important;
+}
+.botones-ayuda > details > .contenido {
+  box-sizing:border-box !important;
+  width:100% !important;
+  min-width:0;
+  overflow-wrap:anywhere;
+  margin:0 !important;
+  padding:1rem 1.2rem !important;
+  border:1px solid #DDE3EA !important;
+  border-left:3px solid var(--modulo-color, var(--module-color, #2C5697)) !important;
+  border-radius:5px !important;
+  color:#243247 !important;
+  background:#fff !important;
+  box-shadow:none !important;
+  overflow-x:auto;
+}
+.botones-ayuda > details[open] > .contenido { grid-column:1 / -1 !important; }
+.botones-ayuda .contenido > :last-child { margin-bottom:0 !important; }
+.botones-ayuda .boton-codigos pre,
+.botones-ayuda .boton-codigos .sourceCode {
+  max-width:100% !important;
+  margin:0 !important;
+  overflow-x:auto !important;
+}
+.botones-ayuda .contenido .MathJax_Display,
+.botones-ayuda .contenido mjx-container[display="true"] {
+  max-width:100% !important;
+  overflow-x:auto !important;
+}
+@media (max-width:640px) {
+  .botones-ayuda { gap:5px !important; }
+  .botones-ayuda > details > summary {
+    padding:5px 9px !important;
+    font-size:13px !important;
+  }
+  .botones-ayuda > details > .contenido { padding:.9rem 1rem !important; }
+}

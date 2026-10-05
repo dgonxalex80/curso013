@@ -1,0 +1,620 @@
+---
+title: "<span style='color:#476885 !important;'>Teoría de probabilidades</span>"
+author: <span style="color:#476885">dgonzalez </span> 
+# subtitle: <span style="color:#476885"> </span> 
+output:
+  html_document:
+    toc: no
+    toc_depth: 2
+    toc_float: yes
+    code_folding: hide
+    theme: flatly
+    css:
+      - style.css
+      - cajas.css
+---     
+
+
+
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+knitr::opts_chunk$set(
+  fig.width=9, fig.height=3.5, fig.retina=3,
+  out.width = "100%",
+  cache = FALSE,
+  echo = TRUE,
+  message = FALSE, 
+  warning = FALSE,
+  hiline = TRUE
+)
+# colores
+source("R/init.R")
+
+paleta4=c(c11,c21,c31,c41)
+
+
+library(forcats)
+library(patchwork)
+library(lubridate)
+library(ggplot2)
+library(gridExtra)
+library(cowplot)
+library(summarytools)
+
+#library(dviz.supp)
+```
+
+
+
+</br></br></br>
+
+```{r, echo=FALSE, out.width="100%", fig.align = "left"}
+knitr::include_graphics("img/taller3.png")
+```
+
+</br></br>
+
+<div class="box4 with-label">
+### Problema 1
+
+Sea una variable aleatoria continua $X$ con distribución uniforme en el intervalo de 20 a 50, es decir, $X \sim U(20,50)$.
+
+Determine:
+
+* La función de densidad asociada a $X$.
+* $P(X \leq 30)$.
+* $P(X > 42)$.
+* $P(25 \leq X < 40)$.
+* El valor de $x$ tal que $P(X \leq x)=0.80$.
+* $E[X]$ y $V[X]$.
+* Construya la gráfica de $f_{_{X}}(x)$.
+
+<div class="botones-ayuda">
+<details class="boton-pista">
+<summary>Pista</summary>
+<div class="contenido">
+
+**Pista 1.** Imagina dos intervalos de igual longitud situados en lugares distintos del rango posible. ¿Qué debería ocurrir con sus probabilidades en este modelo?
+
+**Pista 2.** Distingue los apartados donde conoces un límite de aquellos donde conoces una proporción. Un dibujo del rango puede ayudarte a reconocer qué debes buscar en cada caso.
+
+</div>
+</details>
+</div>
+</div>
+
+<br/><br/>
+
+<div class="box4 with-label">
+### Problema 2
+
+Sea una variable aleatoria $X$ con distribución normal con media $\mu=100$ y desviación estándar $\sigma=15$, es decir, $X \sim N(100,15^2)$.
+
+Determine:
+
+* $P(X \leq 85)$.
+* $P(X > 120)$.
+* $P(90 \leq X < 115)$.
+* El valor de $x$ tal que $P(X \leq x)=0.95$.
+* El intervalo central que contiene aproximadamente el 95\% de los valores de $X$.
+* Construya la gráfica de $f_{_{X}}(x)$.
+
+<div class="botones-ayuda">
+<details class="boton-pista">
+<summary>Pista</summary>
+<div class="contenido">
+
+**Pista 1.** Ubica los límites respecto al centro de la distribución y considera qué tan lejos están en relación con su dispersión.
+
+**Pista 2.** Dibuja por separado una región acumulada y una región central con la misma probabilidad. Observa dónde queda el área que no has sombreado.
+
+</div>
+</details>
+</div>
+</div>
+
+<br/><br/>
+
+<div class="box4 with-label">
+### Problema 3
+
+Suponga que $X$ tiene una distribución normal con media $\mu=72$ y desviación estándar $\sigma=8$, es decir, $X \sim N(72,8^2)$.
+
+Determine:
+
+* $P(X < 60)$.
+* $P(X \geq 80)$.
+* $P(68 \leq X \leq 76)$.
+* El percentil 90 de la distribución.
+* El valor de $x$ que deja por encima el 5\% de las observaciones.
+* Construya la gráfica de $f_{_{X}}(x)$ e identifique sobre ella la media.
+
+<div class="botones-ayuda">
+<details class="boton-pista">
+<summary>Pista</summary>
+<div class="contenido">
+
+**Pista 1.** Compara la posición de los extremos del intervalo respecto a la media. ¿Qué característica de la curva podría ayudarte a relacionarlos?
+
+**Pista 2.** Antes de buscar un punto de corte, señala de qué lado deben quedar las observaciones mencionadas. Comprueba después si su ubicación resulta coherente.
+
+</div>
+</details>
+</div>
+</div>
+
+<br/><br/>
+
+<div class="box4 with-label">
+### Problema 4
+
+Sea $X$ una variable aleatoria con distribución normal con media $\mu=500$ y desviación estándar $\sigma=40$, es decir, $X \sim N(500,40^2)$.
+
+Determine:
+
+* $P(X \leq 450)$.
+* $P(X > 575)$.
+* $P(480 < X < 540)$.
+* Los valores que delimitan el 80\% central de la distribución.
+* El percentil 99 de la distribución.
+* Construya la gráfica de $f_{_{X}}(x)$.
+
+<div class="botones-ayuda">
+<details class="boton-pista">
+<summary>Pista</summary>
+<div class="contenido">
+
+**Pista 1.** Una diferencia respecto a la media necesita interpretarse en el contexto de la variabilidad del modelo. Tenlo presente al comparar los límites del enunciado.
+
+**Pista 2.** Piensa qué condición deben cumplir los dos extremos para que una región sea central. Contrástala con la ubicación de un valor que casi nunca se supera.
+
+</div>
+</details>
+</div>
+</div>
+
+<br/><br/>
+
+<div class="box4 with-label">
+### Problema 5
+
+Sea una variable aleatoria $X$ con distribución exponencial con tasa $\lambda=0.25$, es decir, $X \sim Exp(\lambda=0.25)$.
+
+Determine:
+
+* $P(X \leq 2)$.
+* $P(X > 5)$.
+* $P(2 < X \leq 6)$.
+* El valor de $x$ tal que $P(X \leq x)=0.90$.
+* $E[X]$ y $V[X]$.
+* Construya la gráfica de $f_{_{X}}(x)$.
+
+<div class="botones-ayuda">
+<details class="boton-pista">
+<summary>Pista</summary>
+<div class="contenido">
+
+**Pista 1.** Distingue entre haber observado el evento antes de cierto momento y continuar esperando después de él. Representa ambas situaciones sobre un eje temporal.
+
+**Pista 2.** Revisa qué describe el parámetro y qué unidades tendría. Esa interpretación puede ayudarte a detectar resultados incoherentes para el tiempo promedio y su variabilidad.
+
+</div>
+</details>
+</div>
+</div>
+
+<br/><br/>
+
+<div class="box4 with-label">
+### Problema 6
+
+Sea $X$ una variable aleatoria con distribución lognormal, de manera que $\ln(X)$ tiene distribución normal con parámetros $\mu=3.5$ y $\sigma=0.40$, es decir, $X \sim Lognormal(3.5,0.40^2)$.
+
+Determine:
+
+* $P(X \leq 25)$.
+* $P(X > 50)$.
+* $P(20 \leq X < 40)$.
+* La mediana de $X$.
+* El percentil 90 de $X$.
+* $E[X]$ y $V[X]$.
+* Construya la gráfica de $f_{_{X}}(x)$.
+
+<div class="botones-ayuda">
+<details class="boton-pista">
+<summary>Pista</summary>
+<div class="contenido">
+
+**Pista 1.** Identifica a qué variable se refieren los parámetros del enunciado y en qué escala están expresados los límites que te preguntan.
+
+**Pista 2.** Considera si cambiar de escala conserva de la misma manera el orden de los valores, el centro y las distancias entre ellos.
+
+</div>
+</details>
+</div>
+</div>
+
+<br/><br/>
+
+<div class="box4 with-label">
+### Problema 7
+
+Sea $X$ una variable aleatoria con distribución gamma con parámetro de forma $\alpha=3$ y tasa $\lambda=0.5$, es decir, $X \sim Gamma(\alpha=3,\lambda=0.5)$.
+
+Determine:
+
+* $P(X \leq 4)$.
+* $P(X > 8)$.
+* $P(3 \leq X < 7)$.
+* El percentil 95 de la distribución.
+* $E[X]$ y $V[X]$.
+* Construya la gráfica de $f_{_{X}}(x)$.
+
+<div class="botones-ayuda">
+<details class="boton-pista">
+<summary>Pista</summary>
+<div class="contenido">
+
+**Pista 1.** Revisa cómo está definido el segundo parámetro en el material que consultes. Una misma familia de distribuciones puede presentarse con convenciones diferentes.
+
+**Pista 2.** Distingue entre preguntar cuánto se acumula hasta un valor y buscar el valor que delimita una acumulación. Verifica también que tus resultados respeten el rango posible.
+
+</div>
+</details>
+</div>
+</div>
+
+<br/><br/>
+
+<div class="box4 with-label">
+### Problema 8
+
+Sea $X$ una variable aleatoria con distribución beta con parámetros $\alpha=2.5$ y $\beta=4$, es decir, $X \sim Beta(2.5,4)$.
+
+Determine:
+
+* $P(X \leq 0.30)$.
+* $P(X > 0.60)$.
+* $P(0.20 \leq X < 0.50)$.
+* El percentil 75 de la distribución.
+* $E[X]$ y $V[X]$.
+* Construya la gráfica de $f_{_{X}}(x)$.
+
+<div class="botones-ayuda">
+<details class="boton-pista">
+<summary>Pista</summary>
+<div class="contenido">
+
+**Pista 1.** Piensa qué valores admite esta variable y cómo esa restricción debería reflejarse en el dibujo y en los resultados.
+
+**Pista 2.** Observa si ambos parámetros desempeñan el mismo papel al describir la forma. ¿Qué esperarías sobre la posición del centro y la concentración de los valores?
+
+</div>
+</details>
+</div>
+</div>
+
+<br/><br/>
+
+<div class="box4 with-label">
+### Problema 9
+
+Sea $X$ una variable aleatoria con distribución Weibull con parámetro de forma $k=2$ y parámetro de escala $\lambda=1000$, es decir, $X \sim Weibull(k=2,\lambda=1000)$.
+
+Determine:
+
+* $P(X \leq 500)$.
+* $P(X > 1200)$.
+* $P(600 \leq X < 1000)$.
+* La mediana de $X$.
+* El percentil 90 de la distribución.
+* Construya la gráfica de $f_{_{X}}(x)$.
+
+<div class="botones-ayuda">
+<details class="boton-pista">
+<summary>Pista</summary>
+<div class="contenido">
+
+**Pista 1.** Considera por separado qué aspecto de la distribución describe la forma y cuál establece la escala de los valores.
+
+**Pista 2.** Dibuja qué significa superar un tiempo y qué significa haberlo alcanzado dentro de cierta proporción de casos. Esa distinción te ayudará a interpretar las preguntas.
+
+</div>
+</details>
+</div>
+</div>
+
+<br/><br/>
+
+## Minicasos
+
+<br/><br/>
+
+<div class="box4 with-label">
+### Problema 10
+
+Una plataforma de comercio electrónico ha determinado que, durante periodos de operación estable, el tiempo requerido por su sistema para validar automáticamente un pedido puede considerarse uniformemente distribuido entre 1.5 y 4.5 segundos. El equipo de ingeniería considera satisfactorio el proceso si la probabilidad de que una validación tarde menos de 3 segundos supera el 45\%, y considera excepcionalmente lenta una operación que se encuentre dentro del 10\% de los mayores tiempos de procesamiento.
+
+A partir de esta información:
+
+* Identifique el modelo probabilístico y sus parámetros.
+* Calcule la probabilidad de que una validación tarde menos de 3 segundos.
+* Determine la probabilidad de que el tiempo se encuentre entre 2 y 4 segundos.
+* Determine a partir de qué tiempo una operación pertenece al 10\% de las validaciones más lentas.
+* Evalúe si se cumple el criterio de desempeño establecido por el equipo de ingeniería.
+
+<div class="botones-ayuda">
+<details class="boton-pista">
+<summary>Pista</summary>
+<div class="contenido">
+
+**Pista 1.** Representa los tiempos posibles en una recta y marca los intervalos del enunciado. ¿Qué información aporta que no haya zonas del rango más favorecidas que otras?
+
+**Pista 2.** Aclara qué significa una validación lenta en términos de su posición entre todas las validaciones. Luego revisa con cuidado la condición verbal del criterio de desempeño.
+
+</div>
+</details>
+</div>
+</div>
+
+<br/><br/>
+
+<div class="box4 with-label">
+### Problema 11
+
+Una máquina empacadora está configurada para llenar bolsas con un peso promedio de 500 gramos. Los registros históricos indican que el peso puede modelarse mediante una distribución normal con desviación estándar de 8 gramos. El área de calidad acepta bolsas con pesos entre 485 y 515 gramos. Además, considera que una bolsa debe ser revisada individualmente si su peso se encuentra entre el 2\% de los valores más bajos o entre el 2\% de los valores más altos de la producción.
+
+A partir de esta información:
+
+* Identifique el modelo probabilístico y sus parámetros.
+* Determine la proporción esperada de bolsas que cumplen con el intervalo de aceptación.
+* Calcule la probabilidad de producir una bolsa con peso superior a 520 gramos.
+* Determine los dos pesos que delimitan la región de revisión individual.
+* Si se producen 10000 bolsas, estime cuántas se espera que queden fuera del intervalo de aceptación.
+* Analice si centrar el proceso en 500 gramos garantiza por sí solo una baja proporción de unidades fuera de especificación.
+
+<div class="botones-ayuda">
+<details class="boton-pista">
+<summary>Pista</summary>
+<div class="contenido">
+
+**Pista 1.** Separa las reglas de aceptación y de revisión individual: describe con palabras qué bolsas pertenecen a cada grupo antes de calcular.
+
+**Pista 2.** Imagina dos máquinas con el mismo peso promedio, pero distinta variabilidad. ¿Esperarías el mismo comportamiento frente a los límites de calidad?
+
+</div>
+</details>
+</div>
+</div>
+
+<br/><br/>
+
+<div class="box4 with-label">
+### Problema 12
+
+Las calificaciones de una prueba estandarizada aplicada a estudiantes de ingeniería se aproximan mediante una distribución normal con media 70 puntos y desviación estándar de 10 puntos. La coordinación académica otorgará reconocimiento a los estudiantes ubicados en el 10\% superior y ofrecerá acompañamiento a quienes se encuentren en el 15\% inferior.
+
+A partir de esta información:
+
+* Identifique el modelo probabilístico y sus parámetros.
+* Calcule la probabilidad de que un estudiante obtenga entre 65 y 85 puntos.
+* Determine el puntaje mínimo requerido para pertenecer al 10\% superior.
+* Determine el puntaje máximo correspondiente al 15\% inferior.
+* Calcule la probabilidad de obtener más de 90 puntos.
+* Si presentan la prueba 600 estudiantes, estime cuántos recibirían reconocimiento y cuántos serían convocados a acompañamiento.
+
+<div class="botones-ayuda">
+<details class="boton-pista">
+<summary>Pista</summary>
+<div class="contenido">
+
+**Pista 1.** Señala en un dibujo dónde estarían quienes reciben reconocimiento y quienes requieren acompañamiento. Comprueba qué representa cada frontera.
+
+**Pista 2.** Distingue una proporción del grupo de una cantidad de estudiantes. Piensa también si una cantidad esperada tiene que coincidir exactamente con la observada.
+
+</div>
+</details>
+</div>
+</div>
+
+<br/><br/>
+
+<div class="box4 with-label">
+### Problema 13 
+
+El tiempo, medido en horas, hasta que se presenta una interrupción menor en un servidor puede modelarse mediante una distribución exponencial. Los registros indican que el tiempo medio entre interrupciones es de 200 horas. El área de tecnología desea establecer un mantenimiento preventivo antes de que la probabilidad acumulada de que se haya presentado una interrupción alcance el 20\%.
+
+A partir de esta información:
+
+* Identifique el modelo probabilístico y determine el valor de su parámetro.
+* Calcule la probabilidad de que el servidor opere más de 300 horas sin una interrupción.
+* Determine la probabilidad de que la primera interrupción ocurra entre las horas 100 y 250.
+* Determine el tiempo en el cual la probabilidad acumulada de interrupción alcanza el 20\%.
+* Si el servidor ya ha operado 150 horas sin interrupciones, determine la probabilidad de que opere al menos 100 horas adicionales sin presentar una interrupción.
+* Explique qué propiedad del modelo permite responder el punto anterior.
+
+<div class="botones-ayuda">
+<details class="boton-pista">
+<summary>Pista</summary>
+<div class="contenido">
+
+**Pista 1.** Examina qué información aporta un tiempo medio y cómo se relaciona con el parámetro que utiliza el modelo. Presta atención a las unidades.
+
+**Pista 2.** En la última pregunta ya conoces algo sobre la historia del servidor. Pregúntate cómo trata este modelo la espera restante cuando el evento aún no ha ocurrido.
+
+</div>
+</details>
+</div>
+</div>
+
+<br/><br/>
+
+<div class="box4 with-label">
+### Problema 14
+
+Una empresa de mantenimiento industrial ha observado que los costos de reparación de determinados equipos presentan asimetría positiva. Un análisis histórico sugiere que el costo $X$, expresado en millones de pesos, puede modelarse mediante una distribución lognormal, donde $\ln(X)$ tiene media 1.2 y desviación estándar 0.5.
+
+A partir de esta información:
+
+* Identifique el modelo probabilístico y sus parámetros.
+* Calcule la probabilidad de que una reparación cueste menos de 3 millones de pesos.
+* Determine la probabilidad de que el costo supere los 5 millones de pesos.
+* Determine el costo mediano de una reparación.
+* Determine el valor que solo es superado por el 5\% de las reparaciones.
+* Compare conceptualmente la media y la mediana del costo y explique por qué no se espera que sean iguales.
+
+<div class="botones-ayuda">
+<details class="boton-pista">
+<summary>Pista</summary>
+<div class="contenido">
+
+**Pista 1.** Antes de operar, comprueba en qué escala se describe la distribución y en qué unidades se presentan los costos solicitados.
+
+**Pista 2.** Imagina unas pocas reparaciones extraordinariamente costosas. ¿Cómo afectarían a las distintas medidas de centro y a la elección de un umbral para costos altos?
+
+</div>
+</details>
+</div>
+</div>
+
+<br/><br/>
+
+<div class="box4 with-label">
+### Problema 15
+
+En un centro de soporte técnico, el tiempo total requerido para completar una solicitud incluye varias etapas sucesivas. Los registros muestran que este tiempo puede aproximarse mediante una distribución gamma con parámetro de forma $\alpha=4$ y tasa $\lambda=0.20$ por minuto. La administración promete resolver las solicitudes en menos de 30 minutos y desea que al menos el 80\% cumpla esa promesa.
+
+A partir de esta información:
+
+* Identifique el modelo probabilístico y sus parámetros.
+* Determine el tiempo promedio esperado de atención.
+* Calcule la probabilidad de finalizar una solicitud en menos de 30 minutos.
+* Calcule la probabilidad de que una solicitud tarde entre 15 y 25 minutos.
+* Determine el tiempo que no es superado por el 90\% de las solicitudes.
+* Evalúe si la promesa de servicio cumple la meta establecida por la administración.
+
+<div class="botones-ayuda">
+<details class="boton-pista">
+<summary>Pista</summary>
+<div class="contenido">
+
+**Pista 1.** Relaciona la idea de un tiempo total con las etapas que lo componen. Revisa después el significado de cada parámetro en la convención utilizada.
+
+**Pista 2.** Distingue entre describir un tiempo típico y garantizar que cierta proporción de solicitudes termine dentro del plazo. ¿Qué información exige realmente la promesa?
+
+</div>
+</details>
+</div>
+</div>
+
+<br/><br/>
+
+<div class="box4 with-label">
+### Problema 16
+
+La proporción diaria de utilización de la capacidad de una planta industrial varía entre 0 y 1. A partir de información histórica, esta proporción puede modelarse mediante una distribución beta con parámetros $\alpha=5$ y $\beta=2$. La gerencia considera un día de alta utilización cuando se supera el 80\% de la capacidad y un día de baja utilización cuando se utiliza menos del 50\%.
+
+A partir de esta información:
+
+* Identifique el modelo probabilístico y sus parámetros.
+* Determine la utilización promedio esperada.
+* Calcule la probabilidad de un día de alta utilización.
+* Calcule la probabilidad de un día de baja utilización.
+* Determine el nivel de utilización que es superado únicamente por el 10\% de los días.
+* Si se observan 250 días de operación bajo condiciones semejantes, estime el número esperado de días con utilización superior al 80\%.
+
+<div class="botones-ayuda">
+<details class="boton-pista">
+<summary>Pista</summary>
+<div class="contenido">
+
+**Pista 1.** Comprueba que estás interpretando los niveles de utilización en la misma escala que la variable. Ubica las regiones de alta y baja utilización dentro del rango posible.
+
+**Pista 2.** Una pregunta busca un nivel de utilización y otra una cantidad de días. Identifica qué papel cumple la probabilidad en cada una.
+
+</div>
+</details>
+</div>
+</div>
+
+<br/><br/>
+
+<div class="box4 with-label">
+### Problema 17 
+
+La vida útil, medida en horas, de un tipo de rodamiento empleado en una línea de producción se modela mediante una distribución Weibull con parámetro de forma $k=2.5$ y escala $\lambda=5000$ horas. El departamento de mantenimiento considera programar el reemplazo preventivo en un tiempo para el cual no más del 10\% de los rodamientos haya fallado.
+
+A partir de esta información:
+
+* Identifique el modelo probabilístico y sus parámetros.
+* Calcule la probabilidad de que un rodamiento falle antes de 3000 horas.
+* Determine la probabilidad de que dure más de 6000 horas.
+* Determine el tiempo correspondiente a una probabilidad acumulada de falla del 10\%.
+* Determine la mediana de la vida útil.
+* Interprete el valor del parámetro de forma $k=2.5$ en relación con el comportamiento de la tasa de falla.
+* Proponga, con base en el modelo, un tiempo de reemplazo preventivo coherente con el criterio del departamento de mantenimiento.
+
+<div class="botones-ayuda">
+<details class="boton-pista">
+<summary>Pista</summary>
+<div class="contenido">
+
+**Pista 1.** Piensa qué grupo de rodamientos representa el criterio de mantenimiento: los que ya fallaron o los que siguen funcionando. Ubica ese grupo en un dibujo.
+
+**Pista 2.** Reflexiona sobre cómo puede cambiar el riesgo de falla a medida que envejece un rodamiento y qué papel tiene el parámetro de forma. Revisa si tu propuesta de reemplazo es compatible con el criterio exigido.
+
+</div>
+</details>
+</div>
+</div>
+
+<br/><br/>
+
+<div class="box3 with-label">
+<div class="label">Código R</div>
+<pre>
+# Distribución uniforme continua
+dunif(x, min, max)
+punif(q, min, max, lower.tail = TRUE)
+qunif(p, min, max, lower.tail = TRUE)
+runif(n, min, max)
+
+# Distribución normal
+dnorm(x, mean, sd)
+pnorm(q, mean, sd, lower.tail = TRUE)
+qnorm(p, mean, sd, lower.tail = TRUE)
+rnorm(n, mean, sd)
+
+# Distribución exponencial
+dexp(x, rate)
+pexp(q, rate, lower.tail = TRUE)
+qexp(p, rate, lower.tail = TRUE)
+rexp(n, rate)
+
+# Distribución lognormal
+dlnorm(x, meanlog, sdlog)
+plnorm(q, meanlog, sdlog, lower.tail = TRUE)
+qlnorm(p, meanlog, sdlog, lower.tail = TRUE)
+rlnorm(n, meanlog, sdlog)
+
+# Distribución gamma
+dgamma(x, shape, rate)
+pgamma(q, shape, rate, lower.tail = TRUE)
+qgamma(p, shape, rate, lower.tail = TRUE)
+rgamma(n, shape, rate)
+
+# Distribución beta
+dbeta(x, shape1, shape2)
+pbeta(q, shape1, shape2, lower.tail = TRUE)
+qbeta(p, shape1, shape2, lower.tail = TRUE)
+rbeta(n, shape1, shape2)
+
+# Distribución Weibull
+dweibull(x, shape, scale)
+pweibull(q, shape, scale, lower.tail = TRUE)
+qweibull(p, shape, scale, lower.tail = TRUE)
+rweibull(n, shape, scale)
+</pre>
+
+</div>

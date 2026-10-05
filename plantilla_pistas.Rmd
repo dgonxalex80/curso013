@@ -1,0 +1,80 @@
+---
+title: "<span style='color:#3498C9 !important;'>Ejemplo de pistas desplegables</span>"
+output:
+  html_document:
+    theme: flatly
+    self_contained: false
+    css:
+      - style.css
+      - cajas.css
+---
+
+Las pistas permanecen ocultas hasta pulsar su botón. Pulsa de nuevo para
+cerrarlas. Puedes abrir cada pista de forma independiente.
+
+<div class="box3 with-label">
+
+### Ejemplo: probabilidad de una unión
+
+En un grupo de 40 estudiantes, 18 estudian inglés, 12 estudian francés y
+5 estudian ambos idiomas. Si se elige un estudiante al azar, ¿cuál es la
+probabilidad de que estudie al menos uno de los dos idiomas?
+
+<div class="botones-ayuda">
+<details class="boton-pista">
+<summary>Pista 1</summary>
+<div class="contenido">
+
+Define los eventos $A$: estudiar inglés y $B$: estudiar francés.
+La expresión **al menos uno** corresponde a la unión $A \cup B$.
+
+</div>
+</details>
+
+<details class="boton-pista">
+<summary>Pista 2</summary>
+<div class="contenido">
+
+Al sumar los estudiantes de ambos grupos, cuentas dos veces a quienes
+estudian los dos idiomas. Usa:
+
+$$P(A \cup B)=P(A)+P(B)-P(A \cap B).$$
+
+Convierte las cantidades en probabilidades dividiendo entre el total de
+estudiantes.
+
+</div>
+</details>
+</div>
+</div>
+
+## Bloque para copiar en los problemas
+
+Copia este bloque dentro de la caja del problema, antes de su `</div>`
+final, o inmediatamente después de ella. Reemplaza el texto por tu pista.
+Conserva las líneas en blanco alrededor del contenido para que R Markdown
+procese el texto y las fórmulas. No agregues el atributo `open`: así la pista
+comienza cerrada.
+
+```html
+<div class="botones-ayuda">
+<details class="boton-pista">
+<summary>Pista</summary>
+<div class="contenido">
+
+Escribe aquí la pista. Puedes usar **negrita** y fórmulas como $P(A)$.
+
+</div>
+</details>
+</div>
+```
+
+Para ofrecer varias pistas, repite el bloque `<details>...</details>` dentro
+del mismo `div.botones-ayuda` y cambia sus títulos a Pista 1, Pista 2, etc.
+También puedes usar las clases `boton-solucion` y `boton-codigos` con los
+títulos Solución y Códigos si los necesitas.
+
+El estilo se carga automáticamente desde `cajas.css` o `cajas_botones.css`.
+El botón toma el color de la página definido en `style.css`. Para elegir
+otro color en un bloque, usa por ejemplo
+`<div class="botones-ayuda" style="--modulo-color:#476885;">`.

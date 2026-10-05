@@ -1017,3 +1017,30 @@ $$CV=\frac{\sqrt8}{8}\times100\%\approx35.36\%.$$
 Por estas razones, la información del artículo no justifica todas sus conclusiones.
 
 </details>
+
+
+
+
+<div class="botones-ayuda">
+
+<details class="boton-pista">
+<summary>Pista</summary>
+
+<div class="contenido">
+
+</div>
+</details>
+
+<details class="boton-solucion">
+<summary>Solución</summary>
+<div class="contenido">
+
+</div>
+</details>
+
+</div>
+
+
+
+
+

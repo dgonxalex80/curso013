@@ -1,0 +1,1245 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="dgonzalez " />
+
+
+<title>Teoría de probabilidades</title>
+
+<script src="site_libs/header-attrs/header-attrs.js"></script>
+<script src="site_libs/jquery/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation/tabsets.js"></script>
+<script src="site_libs/navigation/codefolding.js"></script>
+<link href="site_libs/highlightjs/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs/highlight.js"></script>
+<link href="site_libs/font-awesome/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome/css/v4-shims.min.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+<link rel="stylesheet" href="cajas.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html"> </a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">
+    <span class="fa fa-home"></span>
+     
+    Estadística
+  </a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 0
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo0.html">Módulo 0</a>
+    </li>
+    <li>
+      <a href="sumatoria.html">Sumatoria</a>
+    </li>
+    <li>
+      <a href="productoria.html">Productoria</a>
+    </li>
+    <li>
+      <a href="conjuntos.html">Conjuntos</a>
+    </li>
+    <li>
+      <a href="conteo.html">Conteo</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 1
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo1.html">Módulo 1</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="guia11.html">Guía 1.1</a>
+    </li>
+    <li>
+      <a href="recurso11.html">Recursos 1.1</a>
+    </li>
+    <li>
+      <a href="basesdatos.html">Bases de datos</a>
+    </li>
+    <li>
+      <a href="introduccionR.html">Introducción a R</a>
+    </li>
+    <li>
+      <a href="codigo11.html">Código 1.1</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="guia12.html">Guía 1.2</a>
+    </li>
+    <li>
+      <a href="recurso12.html">Recursos 1.2</a>
+    </li>
+    <li>
+      <a href="codigo12.html">Código 1.2</a>
+    </li>
+    <li>
+      <a href="caso1A.html">Caso 1</a>
+    </li>
+    <li>
+      <a href="caso1B.html">Caso 2</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="guia13.html">Guía 1.3</a>
+    </li>
+    <li>
+      <a href="recurso13.html">Recursos 1.3</a>
+    </li>
+    <li>
+      <a href="codigo13.html">Código 1.3</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="monitoria1.html">Monitoria 1</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 2
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo2.html">Módulo 2</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="guia21.html">Guía 2.1</a>
+    </li>
+    <li>
+      <a href="recurso21.html">Recursos 2.1</a>
+    </li>
+    <li>
+      <a href="codigo21.html">Código 2.1</a>
+    </li>
+    <li>
+      <a href="taller211.html">Taller 211</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="guia22.html">Guía 2.2</a>
+    </li>
+    <li>
+      <a href="recurso22.html">Recursos 2.2</a>
+    </li>
+    <li>
+      <a href="taller221.html">Taller 221</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="monitoria2.html">Moitoría 2</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 3
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo3.html">Módulo 3</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="guia31.html">Guía 3.1</a>
+    </li>
+    <li>
+      <a href="recurso31.html">Recursos 3.1</a>
+    </li>
+    <li>
+      <a href="codigo31.html">Código 3.1</a>
+    </li>
+    <li>
+      <a href="taller311.html">Taller 311</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="guia32.html">Guía 3.2</a>
+    </li>
+    <li>
+      <a href="recurso32.html">Recursos 3.2</a>
+    </li>
+    <li>
+      <a href="codigo32.html">Código 3.2</a>
+    </li>
+    <li>
+      <a href="taller321.html">Taller 321</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="guia33.html">Guía 3.3</a>
+    </li>
+    <li>
+      <a href="recurso33-discretas.html">Recursos 3.3-discretas</a>
+    </li>
+    <li>
+      <a href="codigo33_discretas.html">Código 3.32 discretas</a>
+    </li>
+    <li>
+      <a href="taller331.html">Taller 331-discretas</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="guia34.html">Guía 3.4</a>
+    </li>
+    <li>
+      <a href="recurso33-continuos.html">Recursos 3.4-continuas</a>
+    </li>
+    <li>
+      <a href="codigo33_continuos.html">Código 3.4 continuos</a>
+    </li>
+    <li>
+      <a href="taller341_modelos_continuos.html">Taller 341-continuos</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="actividad334.html">Asignacion A334</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="monitoria3.html">Moitoría 3</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 4
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo4.html">Módulo 4</a>
+    </li>
+    <li class="divider"></li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Proyecto
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="guia_proyecto1.html">Guía proyecto</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore"><span
+style="color:#476885 !important;">Teoría de probabilidades</span></h1>
+<h4 class="author"><span style="color:#476885">dgonzalez </span></h4>
+
+</div>
+
+
+<p></br></br></br></p>
+<p><img src="img/taller3.png" alt="" width="100%" style="display: block; margin: auto auto auto 0;" /></p>
+<p></br></br></p>
+<div id="problema-1" class="section level3 box4 with-label">
+<h3>Problema 1</h3>
+<p>Sea una variable aleatoria continua <span
+class="math inline">\(X\)</span> con distribución uniforme en el
+intervalo de 20 a 50, es decir, <span class="math inline">\(X \sim
+U(20,50)\)</span>.</p>
+<p>Determine:</p>
+<ul>
+<li>La función de densidad asociada a <span
+class="math inline">\(X\)</span>.</li>
+<li><span class="math inline">\(P(X \leq 30)\)</span>.</li>
+<li><span class="math inline">\(P(X &gt; 42)\)</span>.</li>
+<li><span class="math inline">\(P(25 \leq X &lt; 40)\)</span>.</li>
+<li>El valor de <span class="math inline">\(x\)</span> tal que <span
+class="math inline">\(P(X \leq x)=0.80\)</span>.</li>
+<li><span class="math inline">\(E[X]\)</span> y <span
+class="math inline">\(V[X]\)</span>.</li>
+<li>Construya la gráfica de <span
+class="math inline">\(f_{_{X}}(x)\)</span>.</li>
+</ul>
+<div class="botones-ayuda">
+<details class="boton-pista">
+<summary>
+Pista
+</summary>
+<div class="contenido">
+<p><strong>Pista 1.</strong> Imagina dos intervalos de igual longitud
+situados en lugares distintos del rango posible. ¿Qué debería ocurrir
+con sus probabilidades en este modelo?</p>
+<p><strong>Pista 2.</strong> Distingue los apartados donde conoces un
+límite de aquellos donde conoces una proporción. Un dibujo del rango
+puede ayudarte a reconocer qué debes buscar en cada caso.</p>
+</div>
+</details>
+</div>
+</div>
+<p><br/><br/></p>
+<div id="problema-2" class="section level3 box4 with-label">
+<h3>Problema 2</h3>
+<p>Sea una variable aleatoria <span class="math inline">\(X\)</span> con
+distribución normal con media <span
+class="math inline">\(\mu=100\)</span> y desviación estándar <span
+class="math inline">\(\sigma=15\)</span>, es decir, <span
+class="math inline">\(X \sim N(100,15^2)\)</span>.</p>
+<p>Determine:</p>
+<ul>
+<li><span class="math inline">\(P(X \leq 85)\)</span>.</li>
+<li><span class="math inline">\(P(X &gt; 120)\)</span>.</li>
+<li><span class="math inline">\(P(90 \leq X &lt; 115)\)</span>.</li>
+<li>El valor de <span class="math inline">\(x\)</span> tal que <span
+class="math inline">\(P(X \leq x)=0.95\)</span>.</li>
+<li>El intervalo central que contiene aproximadamente el 95% de los
+valores de <span class="math inline">\(X\)</span>.</li>
+<li>Construya la gráfica de <span
+class="math inline">\(f_{_{X}}(x)\)</span>.</li>
+</ul>
+<div class="botones-ayuda">
+<details class="boton-pista">
+<summary>
+Pista
+</summary>
+<div class="contenido">
+<p><strong>Pista 1.</strong> Ubica los límites respecto al centro de la
+distribución y considera qué tan lejos están en relación con su
+dispersión.</p>
+<p><strong>Pista 2.</strong> Dibuja por separado una región acumulada y
+una región central con la misma probabilidad. Observa dónde queda el
+área que no has sombreado.</p>
+</div>
+</details>
+</div>
+</div>
+<p><br/><br/></p>
+<div id="problema-3" class="section level3 box4 with-label">
+<h3>Problema 3</h3>
+<p>Suponga que <span class="math inline">\(X\)</span> tiene una
+distribución normal con media <span
+class="math inline">\(\mu=72\)</span> y desviación estándar <span
+class="math inline">\(\sigma=8\)</span>, es decir, <span
+class="math inline">\(X \sim N(72,8^2)\)</span>.</p>
+<p>Determine:</p>
+<ul>
+<li><span class="math inline">\(P(X &lt; 60)\)</span>.</li>
+<li><span class="math inline">\(P(X \geq 80)\)</span>.</li>
+<li><span class="math inline">\(P(68 \leq X \leq 76)\)</span>.</li>
+<li>El percentil 90 de la distribución.</li>
+<li>El valor de <span class="math inline">\(x\)</span> que deja por
+encima el 5% de las observaciones.</li>
+<li>Construya la gráfica de <span
+class="math inline">\(f_{_{X}}(x)\)</span> e identifique sobre ella la
+media.</li>
+</ul>
+<div class="botones-ayuda">
+<details class="boton-pista">
+<summary>
+Pista
+</summary>
+<div class="contenido">
+<p><strong>Pista 1.</strong> Compara la posición de los extremos del
+intervalo respecto a la media. ¿Qué característica de la curva podría
+ayudarte a relacionarlos?</p>
+<p><strong>Pista 2.</strong> Antes de buscar un punto de corte, señala
+de qué lado deben quedar las observaciones mencionadas. Comprueba
+después si su ubicación resulta coherente.</p>
+</div>
+</details>
+</div>
+</div>
+<p><br/><br/></p>
+<div id="problema-4" class="section level3 box4 with-label">
+<h3>Problema 4</h3>
+<p>Sea <span class="math inline">\(X\)</span> una variable aleatoria con
+distribución normal con media <span
+class="math inline">\(\mu=500\)</span> y desviación estándar <span
+class="math inline">\(\sigma=40\)</span>, es decir, <span
+class="math inline">\(X \sim N(500,40^2)\)</span>.</p>
+<p>Determine:</p>
+<ul>
+<li><span class="math inline">\(P(X \leq 450)\)</span>.</li>
+<li><span class="math inline">\(P(X &gt; 575)\)</span>.</li>
+<li><span class="math inline">\(P(480 &lt; X &lt; 540)\)</span>.</li>
+<li>Los valores que delimitan el 80% central de la distribución.</li>
+<li>El percentil 99 de la distribución.</li>
+<li>Construya la gráfica de <span
+class="math inline">\(f_{_{X}}(x)\)</span>.</li>
+</ul>
+<div class="botones-ayuda">
+<details class="boton-pista">
+<summary>
+Pista
+</summary>
+<div class="contenido">
+<p><strong>Pista 1.</strong> Una diferencia respecto a la media necesita
+interpretarse en el contexto de la variabilidad del modelo. Tenlo
+presente al comparar los límites del enunciado.</p>
+<p><strong>Pista 2.</strong> Piensa qué condición deben cumplir los dos
+extremos para que una región sea central. Contrástala con la ubicación
+de un valor que casi nunca se supera.</p>
+</div>
+</details>
+</div>
+</div>
+<p><br/><br/></p>
+<div id="problema-5" class="section level3 box4 with-label">
+<h3>Problema 5</h3>
+<p>Sea una variable aleatoria <span class="math inline">\(X\)</span> con
+distribución exponencial con tasa <span
+class="math inline">\(\lambda=0.25\)</span>, es decir, <span
+class="math inline">\(X \sim Exp(\lambda=0.25)\)</span>.</p>
+<p>Determine:</p>
+<ul>
+<li><span class="math inline">\(P(X \leq 2)\)</span>.</li>
+<li><span class="math inline">\(P(X &gt; 5)\)</span>.</li>
+<li><span class="math inline">\(P(2 &lt; X \leq 6)\)</span>.</li>
+<li>El valor de <span class="math inline">\(x\)</span> tal que <span
+class="math inline">\(P(X \leq x)=0.90\)</span>.</li>
+<li><span class="math inline">\(E[X]\)</span> y <span
+class="math inline">\(V[X]\)</span>.</li>
+<li>Construya la gráfica de <span
+class="math inline">\(f_{_{X}}(x)\)</span>.</li>
+</ul>
+<div class="botones-ayuda">
+<details class="boton-pista">
+<summary>
+Pista
+</summary>
+<div class="contenido">
+<p><strong>Pista 1.</strong> Distingue entre haber observado el evento
+antes de cierto momento y continuar esperando después de él. Representa
+ambas situaciones sobre un eje temporal.</p>
+<p><strong>Pista 2.</strong> Revisa qué describe el parámetro y qué
+unidades tendría. Esa interpretación puede ayudarte a detectar
+resultados incoherentes para el tiempo promedio y su variabilidad.</p>
+</div>
+</details>
+</div>
+</div>
+<p><br/><br/></p>
+<div id="problema-6" class="section level3 box4 with-label">
+<h3>Problema 6</h3>
+<p>Sea <span class="math inline">\(X\)</span> una variable aleatoria con
+distribución lognormal, de manera que <span
+class="math inline">\(\ln(X)\)</span> tiene distribución normal con
+parámetros <span class="math inline">\(\mu=3.5\)</span> y <span
+class="math inline">\(\sigma=0.40\)</span>, es decir, <span
+class="math inline">\(X \sim Lognormal(3.5,0.40^2)\)</span>.</p>
+<p>Determine:</p>
+<ul>
+<li><span class="math inline">\(P(X \leq 25)\)</span>.</li>
+<li><span class="math inline">\(P(X &gt; 50)\)</span>.</li>
+<li><span class="math inline">\(P(20 \leq X &lt; 40)\)</span>.</li>
+<li>La mediana de <span class="math inline">\(X\)</span>.</li>
+<li>El percentil 90 de <span class="math inline">\(X\)</span>.</li>
+<li><span class="math inline">\(E[X]\)</span> y <span
+class="math inline">\(V[X]\)</span>.</li>
+<li>Construya la gráfica de <span
+class="math inline">\(f_{_{X}}(x)\)</span>.</li>
+</ul>
+<div class="botones-ayuda">
+<details class="boton-pista">
+<summary>
+Pista
+</summary>
+<div class="contenido">
+<p><strong>Pista 1.</strong> Identifica a qué variable se refieren los
+parámetros del enunciado y en qué escala están expresados los límites
+que te preguntan.</p>
+<p><strong>Pista 2.</strong> Considera si cambiar de escala conserva de
+la misma manera el orden de los valores, el centro y las distancias
+entre ellos.</p>
+</div>
+</details>
+</div>
+</div>
+<p><br/><br/></p>
+<div id="problema-7" class="section level3 box4 with-label">
+<h3>Problema 7</h3>
+<p>Sea <span class="math inline">\(X\)</span> una variable aleatoria con
+distribución gamma con parámetro de forma <span
+class="math inline">\(\alpha=3\)</span> y tasa <span
+class="math inline">\(\lambda=0.5\)</span>, es decir, <span
+class="math inline">\(X \sim Gamma(\alpha=3,\lambda=0.5)\)</span>.</p>
+<p>Determine:</p>
+<ul>
+<li><span class="math inline">\(P(X \leq 4)\)</span>.</li>
+<li><span class="math inline">\(P(X &gt; 8)\)</span>.</li>
+<li><span class="math inline">\(P(3 \leq X &lt; 7)\)</span>.</li>
+<li>El percentil 95 de la distribución.</li>
+<li><span class="math inline">\(E[X]\)</span> y <span
+class="math inline">\(V[X]\)</span>.</li>
+<li>Construya la gráfica de <span
+class="math inline">\(f_{_{X}}(x)\)</span>.</li>
+</ul>
+<div class="botones-ayuda">
+<details class="boton-pista">
+<summary>
+Pista
+</summary>
+<div class="contenido">
+<p><strong>Pista 1.</strong> Revisa cómo está definido el segundo
+parámetro en el material que consultes. Una misma familia de
+distribuciones puede presentarse con convenciones diferentes.</p>
+<p><strong>Pista 2.</strong> Distingue entre preguntar cuánto se acumula
+hasta un valor y buscar el valor que delimita una acumulación. Verifica
+también que tus resultados respeten el rango posible.</p>
+</div>
+</details>
+</div>
+</div>
+<p><br/><br/></p>
+<div id="problema-8" class="section level3 box4 with-label">
+<h3>Problema 8</h3>
+<p>Sea <span class="math inline">\(X\)</span> una variable aleatoria con
+distribución beta con parámetros <span
+class="math inline">\(\alpha=2.5\)</span> y <span
+class="math inline">\(\beta=4\)</span>, es decir, <span
+class="math inline">\(X \sim Beta(2.5,4)\)</span>.</p>
+<p>Determine:</p>
+<ul>
+<li><span class="math inline">\(P(X \leq 0.30)\)</span>.</li>
+<li><span class="math inline">\(P(X &gt; 0.60)\)</span>.</li>
+<li><span class="math inline">\(P(0.20 \leq X &lt; 0.50)\)</span>.</li>
+<li>El percentil 75 de la distribución.</li>
+<li><span class="math inline">\(E[X]\)</span> y <span
+class="math inline">\(V[X]\)</span>.</li>
+<li>Construya la gráfica de <span
+class="math inline">\(f_{_{X}}(x)\)</span>.</li>
+</ul>
+<div class="botones-ayuda">
+<details class="boton-pista">
+<summary>
+Pista
+</summary>
+<div class="contenido">
+<p><strong>Pista 1.</strong> Piensa qué valores admite esta variable y
+cómo esa restricción debería reflejarse en el dibujo y en los
+resultados.</p>
+<p><strong>Pista 2.</strong> Observa si ambos parámetros desempeñan el
+mismo papel al describir la forma. ¿Qué esperarías sobre la posición del
+centro y la concentración de los valores?</p>
+</div>
+</details>
+</div>
+</div>
+<p><br/><br/></p>
+<div id="problema-9" class="section level3 box4 with-label">
+<h3>Problema 9</h3>
+<p>Sea <span class="math inline">\(X\)</span> una variable aleatoria con
+distribución Weibull con parámetro de forma <span
+class="math inline">\(k=2\)</span> y parámetro de escala <span
+class="math inline">\(\lambda=1000\)</span>, es decir, <span
+class="math inline">\(X \sim Weibull(k=2,\lambda=1000)\)</span>.</p>
+<p>Determine:</p>
+<ul>
+<li><span class="math inline">\(P(X \leq 500)\)</span>.</li>
+<li><span class="math inline">\(P(X &gt; 1200)\)</span>.</li>
+<li><span class="math inline">\(P(600 \leq X &lt; 1000)\)</span>.</li>
+<li>La mediana de <span class="math inline">\(X\)</span>.</li>
+<li>El percentil 90 de la distribución.</li>
+<li>Construya la gráfica de <span
+class="math inline">\(f_{_{X}}(x)\)</span>.</li>
+</ul>
+<div class="botones-ayuda">
+<details class="boton-pista">
+<summary>
+Pista
+</summary>
+<div class="contenido">
+<p><strong>Pista 1.</strong> Considera por separado qué aspecto de la
+distribución describe la forma y cuál establece la escala de los
+valores.</p>
+<p><strong>Pista 2.</strong> Dibuja qué significa superar un tiempo y
+qué significa haberlo alcanzado dentro de cierta proporción de casos.
+Esa distinción te ayudará a interpretar las preguntas.</p>
+</div>
+</details>
+</div>
+</div>
+<p><br/><br/></p>
+<div id="minicasos" class="section level2">
+<h2>Minicasos</h2>
+<p><br/><br/></p>
+<div id="problema-10" class="section level3 box4 with-label">
+<h3>Problema 10</h3>
+<p>Una plataforma de comercio electrónico ha determinado que, durante
+periodos de operación estable, el tiempo requerido por su sistema para
+validar automáticamente un pedido puede considerarse uniformemente
+distribuido entre 1.5 y 4.5 segundos. El equipo de ingeniería considera
+satisfactorio el proceso si la probabilidad de que una validación tarde
+menos de 3 segundos supera el 45%, y considera excepcionalmente lenta
+una operación que se encuentre dentro del 10% de los mayores tiempos de
+procesamiento.</p>
+<p>A partir de esta información:</p>
+<ul>
+<li>Identifique el modelo probabilístico y sus parámetros.</li>
+<li>Calcule la probabilidad de que una validación tarde menos de 3
+segundos.</li>
+<li>Determine la probabilidad de que el tiempo se encuentre entre 2 y 4
+segundos.</li>
+<li>Determine a partir de qué tiempo una operación pertenece al 10% de
+las validaciones más lentas.</li>
+<li>Evalúe si se cumple el criterio de desempeño establecido por el
+equipo de ingeniería.</li>
+</ul>
+<div class="botones-ayuda">
+<details class="boton-pista">
+<summary>
+Pista
+</summary>
+<div class="contenido">
+<p><strong>Pista 1.</strong> Representa los tiempos posibles en una
+recta y marca los intervalos del enunciado. ¿Qué información aporta que
+no haya zonas del rango más favorecidas que otras?</p>
+<p><strong>Pista 2.</strong> Aclara qué significa una validación lenta
+en términos de su posición entre todas las validaciones. Luego revisa
+con cuidado la condición verbal del criterio de desempeño.</p>
+</div>
+</details>
+</div>
+</div>
+<p><br/><br/></p>
+<div id="problema-11" class="section level3 box4 with-label">
+<h3>Problema 11</h3>
+<p>Una máquina empacadora está configurada para llenar bolsas con un
+peso promedio de 500 gramos. Los registros históricos indican que el
+peso puede modelarse mediante una distribución normal con desviación
+estándar de 8 gramos. El área de calidad acepta bolsas con pesos entre
+485 y 515 gramos. Además, considera que una bolsa debe ser revisada
+individualmente si su peso se encuentra entre el 2% de los valores más
+bajos o entre el 2% de los valores más altos de la producción.</p>
+<p>A partir de esta información:</p>
+<ul>
+<li>Identifique el modelo probabilístico y sus parámetros.</li>
+<li>Determine la proporción esperada de bolsas que cumplen con el
+intervalo de aceptación.</li>
+<li>Calcule la probabilidad de producir una bolsa con peso superior a
+520 gramos.</li>
+<li>Determine los dos pesos que delimitan la región de revisión
+individual.</li>
+<li>Si se producen 10000 bolsas, estime cuántas se espera que queden
+fuera del intervalo de aceptación.</li>
+<li>Analice si centrar el proceso en 500 gramos garantiza por sí solo
+una baja proporción de unidades fuera de especificación.</li>
+</ul>
+<div class="botones-ayuda">
+<details class="boton-pista">
+<summary>
+Pista
+</summary>
+<div class="contenido">
+<p><strong>Pista 1.</strong> Separa las reglas de aceptación y de
+revisión individual: describe con palabras qué bolsas pertenecen a cada
+grupo antes de calcular.</p>
+<p><strong>Pista 2.</strong> Imagina dos máquinas con el mismo peso
+promedio, pero distinta variabilidad. ¿Esperarías el mismo
+comportamiento frente a los límites de calidad?</p>
+</div>
+</details>
+</div>
+</div>
+<p><br/><br/></p>
+<div id="problema-12" class="section level3 box4 with-label">
+<h3>Problema 12</h3>
+<p>Las calificaciones de una prueba estandarizada aplicada a estudiantes
+de ingeniería se aproximan mediante una distribución normal con media 70
+puntos y desviación estándar de 10 puntos. La coordinación académica
+otorgará reconocimiento a los estudiantes ubicados en el 10% superior y
+ofrecerá acompañamiento a quienes se encuentren en el 15% inferior.</p>
+<p>A partir de esta información:</p>
+<ul>
+<li>Identifique el modelo probabilístico y sus parámetros.</li>
+<li>Calcule la probabilidad de que un estudiante obtenga entre 65 y 85
+puntos.</li>
+<li>Determine el puntaje mínimo requerido para pertenecer al 10%
+superior.</li>
+<li>Determine el puntaje máximo correspondiente al 15% inferior.</li>
+<li>Calcule la probabilidad de obtener más de 90 puntos.</li>
+<li>Si presentan la prueba 600 estudiantes, estime cuántos recibirían
+reconocimiento y cuántos serían convocados a acompañamiento.</li>
+</ul>
+<div class="botones-ayuda">
+<details class="boton-pista">
+<summary>
+Pista
+</summary>
+<div class="contenido">
+<p><strong>Pista 1.</strong> Señala en un dibujo dónde estarían quienes
+reciben reconocimiento y quienes requieren acompañamiento. Comprueba qué
+representa cada frontera.</p>
+<p><strong>Pista 2.</strong> Distingue una proporción del grupo de una
+cantidad de estudiantes. Piensa también si una cantidad esperada tiene
+que coincidir exactamente con la observada.</p>
+</div>
+</details>
+</div>
+</div>
+<p><br/><br/></p>
+<div id="problema-13" class="section level3 box4 with-label">
+<h3>Problema 13</h3>
+<p>El tiempo, medido en horas, hasta que se presenta una interrupción
+menor en un servidor puede modelarse mediante una distribución
+exponencial. Los registros indican que el tiempo medio entre
+interrupciones es de 200 horas. El área de tecnología desea establecer
+un mantenimiento preventivo antes de que la probabilidad acumulada de
+que se haya presentado una interrupción alcance el 20%.</p>
+<p>A partir de esta información:</p>
+<ul>
+<li>Identifique el modelo probabilístico y determine el valor de su
+parámetro.</li>
+<li>Calcule la probabilidad de que el servidor opere más de 300 horas
+sin una interrupción.</li>
+<li>Determine la probabilidad de que la primera interrupción ocurra
+entre las horas 100 y 250.</li>
+<li>Determine el tiempo en el cual la probabilidad acumulada de
+interrupción alcanza el 20%.</li>
+<li>Si el servidor ya ha operado 150 horas sin interrupciones, determine
+la probabilidad de que opere al menos 100 horas adicionales sin
+presentar una interrupción.</li>
+<li>Explique qué propiedad del modelo permite responder el punto
+anterior.</li>
+</ul>
+<div class="botones-ayuda">
+<details class="boton-pista">
+<summary>
+Pista
+</summary>
+<div class="contenido">
+<p><strong>Pista 1.</strong> Examina qué información aporta un tiempo
+medio y cómo se relaciona con el parámetro que utiliza el modelo. Presta
+atención a las unidades.</p>
+<p><strong>Pista 2.</strong> En la última pregunta ya conoces algo sobre
+la historia del servidor. Pregúntate cómo trata este modelo la espera
+restante cuando el evento aún no ha ocurrido.</p>
+</div>
+</details>
+</div>
+</div>
+<p><br/><br/></p>
+<div id="problema-14" class="section level3 box4 with-label">
+<h3>Problema 14</h3>
+<p>Una empresa de mantenimiento industrial ha observado que los costos
+de reparación de determinados equipos presentan asimetría positiva. Un
+análisis histórico sugiere que el costo <span
+class="math inline">\(X\)</span>, expresado en millones de pesos, puede
+modelarse mediante una distribución lognormal, donde <span
+class="math inline">\(\ln(X)\)</span> tiene media 1.2 y desviación
+estándar 0.5.</p>
+<p>A partir de esta información:</p>
+<ul>
+<li>Identifique el modelo probabilístico y sus parámetros.</li>
+<li>Calcule la probabilidad de que una reparación cueste menos de 3
+millones de pesos.</li>
+<li>Determine la probabilidad de que el costo supere los 5 millones de
+pesos.</li>
+<li>Determine el costo mediano de una reparación.</li>
+<li>Determine el valor que solo es superado por el 5% de las
+reparaciones.</li>
+<li>Compare conceptualmente la media y la mediana del costo y explique
+por qué no se espera que sean iguales.</li>
+</ul>
+<div class="botones-ayuda">
+<details class="boton-pista">
+<summary>
+Pista
+</summary>
+<div class="contenido">
+<p><strong>Pista 1.</strong> Antes de operar, comprueba en qué escala se
+describe la distribución y en qué unidades se presentan los costos
+solicitados.</p>
+<p><strong>Pista 2.</strong> Imagina unas pocas reparaciones
+extraordinariamente costosas. ¿Cómo afectarían a las distintas medidas
+de centro y a la elección de un umbral para costos altos?</p>
+</div>
+</details>
+</div>
+</div>
+<p><br/><br/></p>
+<div id="problema-15" class="section level3 box4 with-label">
+<h3>Problema 15</h3>
+<p>En un centro de soporte técnico, el tiempo total requerido para
+completar una solicitud incluye varias etapas sucesivas. Los registros
+muestran que este tiempo puede aproximarse mediante una distribución
+gamma con parámetro de forma <span
+class="math inline">\(\alpha=4\)</span> y tasa <span
+class="math inline">\(\lambda=0.20\)</span> por minuto. La
+administración promete resolver las solicitudes en menos de 30 minutos y
+desea que al menos el 80% cumpla esa promesa.</p>
+<p>A partir de esta información:</p>
+<ul>
+<li>Identifique el modelo probabilístico y sus parámetros.</li>
+<li>Determine el tiempo promedio esperado de atención.</li>
+<li>Calcule la probabilidad de finalizar una solicitud en menos de 30
+minutos.</li>
+<li>Calcule la probabilidad de que una solicitud tarde entre 15 y 25
+minutos.</li>
+<li>Determine el tiempo que no es superado por el 90% de las
+solicitudes.</li>
+<li>Evalúe si la promesa de servicio cumple la meta establecida por la
+administración.</li>
+</ul>
+<div class="botones-ayuda">
+<details class="boton-pista">
+<summary>
+Pista
+</summary>
+<div class="contenido">
+<p><strong>Pista 1.</strong> Relaciona la idea de un tiempo total con
+las etapas que lo componen. Revisa después el significado de cada
+parámetro en la convención utilizada.</p>
+<p><strong>Pista 2.</strong> Distingue entre describir un tiempo típico
+y garantizar que cierta proporción de solicitudes termine dentro del
+plazo. ¿Qué información exige realmente la promesa?</p>
+</div>
+</details>
+</div>
+</div>
+<p><br/><br/></p>
+<div id="problema-16" class="section level3 box4 with-label">
+<h3>Problema 16</h3>
+<p>La proporción diaria de utilización de la capacidad de una planta
+industrial varía entre 0 y 1. A partir de información histórica, esta
+proporción puede modelarse mediante una distribución beta con parámetros
+<span class="math inline">\(\alpha=5\)</span> y <span
+class="math inline">\(\beta=2\)</span>. La gerencia considera un día de
+alta utilización cuando se supera el 80% de la capacidad y un día de
+baja utilización cuando se utiliza menos del 50%.</p>
+<p>A partir de esta información:</p>
+<ul>
+<li>Identifique el modelo probabilístico y sus parámetros.</li>
+<li>Determine la utilización promedio esperada.</li>
+<li>Calcule la probabilidad de un día de alta utilización.</li>
+<li>Calcule la probabilidad de un día de baja utilización.</li>
+<li>Determine el nivel de utilización que es superado únicamente por el
+10% de los días.</li>
+<li>Si se observan 250 días de operación bajo condiciones semejantes,
+estime el número esperado de días con utilización superior al 80%.</li>
+</ul>
+<div class="botones-ayuda">
+<details class="boton-pista">
+<summary>
+Pista
+</summary>
+<div class="contenido">
+<p><strong>Pista 1.</strong> Comprueba que estás interpretando los
+niveles de utilización en la misma escala que la variable. Ubica las
+regiones de alta y baja utilización dentro del rango posible.</p>
+<p><strong>Pista 2.</strong> Una pregunta busca un nivel de utilización
+y otra una cantidad de días. Identifica qué papel cumple la probabilidad
+en cada una.</p>
+</div>
+</details>
+</div>
+</div>
+<p><br/><br/></p>
+<div id="problema-17" class="section level3 box4 with-label">
+<h3>Problema 17</h3>
+<p>La vida útil, medida en horas, de un tipo de rodamiento empleado en
+una línea de producción se modela mediante una distribución Weibull con
+parámetro de forma <span class="math inline">\(k=2.5\)</span> y escala
+<span class="math inline">\(\lambda=5000\)</span> horas. El departamento
+de mantenimiento considera programar el reemplazo preventivo en un
+tiempo para el cual no más del 10% de los rodamientos haya fallado.</p>
+<p>A partir de esta información:</p>
+<ul>
+<li>Identifique el modelo probabilístico y sus parámetros.</li>
+<li>Calcule la probabilidad de que un rodamiento falle antes de 3000
+horas.</li>
+<li>Determine la probabilidad de que dure más de 6000 horas.</li>
+<li>Determine el tiempo correspondiente a una probabilidad acumulada de
+falla del 10%.</li>
+<li>Determine la mediana de la vida útil.</li>
+<li>Interprete el valor del parámetro de forma <span
+class="math inline">\(k=2.5\)</span> en relación con el comportamiento
+de la tasa de falla.</li>
+<li>Proponga, con base en el modelo, un tiempo de reemplazo preventivo
+coherente con el criterio del departamento de mantenimiento.</li>
+</ul>
+<div class="botones-ayuda">
+<details class="boton-pista">
+<summary>
+Pista
+</summary>
+<div class="contenido">
+<p><strong>Pista 1.</strong> Piensa qué grupo de rodamientos representa
+el criterio de mantenimiento: los que ya fallaron o los que siguen
+funcionando. Ubica ese grupo en un dibujo.</p>
+<p><strong>Pista 2.</strong> Reflexiona sobre cómo puede cambiar el
+riesgo de falla a medida que envejece un rodamiento y qué papel tiene el
+parámetro de forma. Revisa si tu propuesta de reemplazo es compatible
+con el criterio exigido.</p>
+</div>
+</details>
+</div>
+</div>
+<p><br/><br/></p>
+<div class="box3 with-label">
+<div class="label">
+Código R
+</div>
+<pre>
+# Distribución uniforme continua
+dunif(x, min, max)
+punif(q, min, max, lower.tail = TRUE)
+qunif(p, min, max, lower.tail = TRUE)
+runif(n, min, max)
+
+# Distribución normal
+dnorm(x, mean, sd)
+pnorm(q, mean, sd, lower.tail = TRUE)
+qnorm(p, mean, sd, lower.tail = TRUE)
+rnorm(n, mean, sd)
+
+# Distribución exponencial
+dexp(x, rate)
+pexp(q, rate, lower.tail = TRUE)
+qexp(p, rate, lower.tail = TRUE)
+rexp(n, rate)
+
+# Distribución lognormal
+dlnorm(x, meanlog, sdlog)
+plnorm(q, meanlog, sdlog, lower.tail = TRUE)
+qlnorm(p, meanlog, sdlog, lower.tail = TRUE)
+rlnorm(n, meanlog, sdlog)
+
+# Distribución gamma
+dgamma(x, shape, rate)
+pgamma(q, shape, rate, lower.tail = TRUE)
+qgamma(p, shape, rate, lower.tail = TRUE)
+rgamma(n, shape, rate)
+
+# Distribución beta
+dbeta(x, shape1, shape2)
+pbeta(q, shape1, shape2, lower.tail = TRUE)
+qbeta(p, shape1, shape2, lower.tail = TRUE)
+rbeta(n, shape1, shape2)
+
+# Distribución Weibull
+dweibull(x, shape, scale)
+pweibull(q, shape, scale, lower.tail = TRUE)
+qweibull(p, shape, scale, lower.tail = TRUE)
+rweibull(n, shape, scale)
+</pre>
+</div>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("hide" === "show");
+});
+</script>
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

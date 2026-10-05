@@ -58,7 +58,27 @@ knitr::include_graphics("img/taller3.png")
 <div class="box4 with-label">
 ### Problema 1
 
-
-
-
 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

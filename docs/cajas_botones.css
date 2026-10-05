@@ -1,3 +1,5 @@
+@import url("cajas_pistas.css");
+
 /*=========================================================
  THEME.CSS
  Sistema de diseño para cursos (Quarto / RMarkdown / Shiny)
@@ -311,123 +313,6 @@ mjx-container mjx-frac > mjx-frac-line {
 
 /* ======================================================== */
 
-
-/* =========================================================
-   BOTONES PISTA / SOLUCIÓN - ALINEADOS CON SHOW
-   ========================================================= */
-
-.botones-ayuda {
-  display: inline-flex !important;
-  flex-wrap: nowrap !important;
-  align-items: center;
-  justify-content: flex-end;
-  gap: 6px;
-  float: right;
-  width: auto !important;
-  margin: 0 6px 6px 0 !important;
-  padding: 0 !important;
-}
-
-.botones-ayuda > details {
-  display: inline-block !important;
-  flex: 0 0 auto;
-  margin: 0 !important;
-  padding: 0 !important;
-  border: 0 !important;
-  background: transparent !important;
-  box-shadow: none !important;
-}
-
-.botones-ayuda > details > summary {
-  display: inline-block !important;
-  margin: 0 !important;
-  padding: 4px 9px !important;
-  border: 1px solid var(--modulo-color, #2C5697) !important;
-  border-radius: 4px !important;
-  color: #fff !important;
-  background: var(--modulo-color, #2C5697) !important;
-  font-family: "Source Sans 3", "Helvetica Neue", Arial, sans-serif !important;
-  font-size: 14px !important;
-  font-weight: 400 !important;
-  line-height: 1.25 !important;
-  text-align: center;
-  cursor: pointer;
-  list-style: none !important;
-  user-select: none;
-}
-
-.botones-ayuda > details > summary::-webkit-details-marker {
-  display: none !important;
-}
-
-.botones-ayuda > details > summary::marker {
-  content: "" !important;
-}
-
-.botones-ayuda > details > summary:hover,
-.botones-ayuda > details > summary:focus {
-  color: #fff !important;
-  filter: brightness(.90);
-  text-decoration: none !important;
-}
-
-.botones-ayuda > details > summary:focus-visible {
-  outline: 2px solid #BCCAD3;
-  outline-offset: 2px;
-}
-
-/* Mantiene Show compacto y a la derecha. */
-.code-folding-btn {
-  float: right !important;
-  margin-top: 0 !important;
-  margin-left: 0 !important;
-}
-
-/* Panel de Pista/Solución al abrirse. */
-.botones-ayuda > details[open] {
-  position: relative;
-}
-
-.botones-ayuda > details > .contenido {
-  box-sizing: border-box;
-  min-width: min(760px, 80vw);
-  margin-top: 8px !important;
-  padding: 1rem 1.2rem !important;
-  border: 1px solid #DDE3EA !important;
-  border-left: 3px solid var(--modulo-color, #2C5697) !important;
-  border-radius: 5px !important;
-  color: #243247 !important;
-  background: #fff !important;
-  box-shadow: none !important;
-}
-
-.botones-ayuda .contenido > :last-child {
-  margin-bottom: 0 !important;
-}
-
-.botones-ayuda .contenido .MathJax_Display,
-.botones-ayuda .contenido mjx-container[display="true"],
-.botones-ayuda .contenido pre,
-.botones-ayuda .contenido .sourceCode {
-  max-width: 100%;
-  overflow-x: auto;
-}
-
-@media (max-width: 640px) {
-  .botones-ayuda {
-    gap: 5px;
-  }
-
-  .botones-ayuda > details > summary {
-    padding: 5px 9px !important;
-    font-size: 13px !important;
-  }
-
-  .botones-ayuda > details > .contenido {
-    min-width: min(90vw, 560px);
-    padding: .9rem 1rem !important;
-  }
-}
 
 /* =========================================================
    BOTONES PISTA / SOLUCIÓN - IMAGEN A LA DERECHA
