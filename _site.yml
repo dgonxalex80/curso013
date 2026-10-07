@@ -116,6 +116,7 @@ navbar:
           href: codigo33_discretas.html
         - text: "Taller 331-discretas"  
           href: taller331.html 
+          
         - text: "--------"          
         - text: "Guía 3.4"
           href: guia34.html        

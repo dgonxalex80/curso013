@@ -119,7 +119,7 @@ El tablero podría permitir cambiar la cantidad promedio de estudiantes que lleg
 <div class="box5 with-label">
 ## Entrega 1. Tema y objetivo
 
-**30 de septiembre**
+**8 de octubre**
 
 ###  <span style="color:#67C1A8">Informe 1 </span>
 
