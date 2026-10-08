@@ -289,7 +289,9 @@ $(document).ready(function () {
     <li>
       <a href="modulo1.html">Módulo 1</a>
     </li>
-    <li class="divider"></li>
+    <li>
+      <a href="#">Unidad 1.1</a>
+    </li>
     <li>
       <a href="guia11.html">Guía 1.1</a>
     </li>
@@ -305,7 +307,9 @@ $(document).ready(function () {
     <li>
       <a href="codigo11.html">Código 1.1</a>
     </li>
-    <li class="divider"></li>
+    <li>
+      <a href="#">Unidad 1.2</a>
+    </li>
     <li>
       <a href="guia12.html">Guía 1.2</a>
     </li>
@@ -321,7 +325,9 @@ $(document).ready(function () {
     <li>
       <a href="caso1B.html">Caso 2</a>
     </li>
-    <li class="divider"></li>
+    <li>
+      <a href="#">Unidad 1.3</a>
+    </li>
     <li>
       <a href="guia13.html">Guía 1.3</a>
     </li>
@@ -333,7 +339,7 @@ $(document).ready(function () {
     </li>
     <li class="divider"></li>
     <li>
-      <a href="monitoria1.html">Monitoria 1</a>
+      <a href="monitoria1.html">Monitoría 1</a>
     </li>
   </ul>
 </li>
@@ -347,7 +353,9 @@ $(document).ready(function () {
     <li>
       <a href="modulo2.html">Módulo 2</a>
     </li>
-    <li class="divider"></li>
+    <li>
+      <a href="#">Unidad 2.1</a>
+    </li>
     <li>
       <a href="guia21.html">Guía 2.1</a>
     </li>
@@ -360,7 +368,9 @@ $(document).ready(function () {
     <li>
       <a href="taller211.html">Taller 211</a>
     </li>
-    <li class="divider"></li>
+    <li>
+      <a href="#">Unidad 2.2</a>
+    </li>
     <li>
       <a href="guia22.html">Guía 2.2</a>
     </li>
@@ -372,7 +382,7 @@ $(document).ready(function () {
     </li>
     <li class="divider"></li>
     <li>
-      <a href="monitoria2.html">Moitoría 2</a>
+      <a href="monitoria2.html">Monitoría 2</a>
     </li>
   </ul>
 </li>
@@ -386,7 +396,9 @@ $(document).ready(function () {
     <li>
       <a href="modulo3.html">Módulo 3</a>
     </li>
-    <li class="divider"></li>
+    <li>
+      <a href="#">Unidad 3.1</a>
+    </li>
     <li>
       <a href="guia31.html">Guía 3.1</a>
     </li>
@@ -399,7 +411,9 @@ $(document).ready(function () {
     <li>
       <a href="taller311.html">Taller 311</a>
     </li>
-    <li class="divider"></li>
+    <li>
+      <a href="#">Unidad 3.2</a>
+    </li>
     <li>
       <a href="guia32.html">Guía 3.2</a>
     </li>
@@ -412,7 +426,9 @@ $(document).ready(function () {
     <li>
       <a href="taller321.html">Taller 321</a>
     </li>
-    <li class="divider"></li>
+    <li>
+      <a href="#">Unidad 3.3</a>
+    </li>
     <li>
       <a href="guia33.html">Guía 3.3</a>
     </li>
@@ -420,12 +436,14 @@ $(document).ready(function () {
       <a href="recurso33-discretas.html">Recursos 3.3-discretas</a>
     </li>
     <li>
-      <a href="codigo33_discretas.html">Código 3.32 discretas</a>
+      <a href="codigo33_discretas.html">Código 3.3 discretas</a>
     </li>
     <li>
       <a href="taller331.html">Taller 331-discretas</a>
     </li>
-    <li class="divider"></li>
+    <li>
+      <a href="#">Unidad 3.4</a>
+    </li>
     <li>
       <a href="guia34.html">Guía 3.4</a>
     </li>
@@ -438,13 +456,12 @@ $(document).ready(function () {
     <li>
       <a href="taller341_modelos_continuos.html">Taller 341-continuos</a>
     </li>
-    <li class="divider"></li>
     <li>
-      <a href="actividad334.html">Asignacion A334</a>
+      <a href="actividad334.html">Asignación A334</a>
     </li>
     <li class="divider"></li>
     <li>
-      <a href="monitoria3.html">Moitoría 3</a>
+      <a href="monitoria3.html">Monitoría 3</a>
     </li>
   </ul>
 </li>
@@ -682,6 +699,106 @@ datos seleccionada para la actividad112</td>
 </table>
 </div>
 
+<style>
+/* Se incluye en todas las páginas, incluso si definen su propio CSS. */
+.navbar .navbar-nav > .dropdown > .dropdown-menu {
+  max-height: calc(100vh - 90px);
+  overflow-y: auto;
+}
+.navbar .unidad-grupo > button {
+  display: block;
+  width: 100%;
+  padding: 7px 20px;
+  border: 0;
+  background: transparent;
+  color: #263b4b;
+  font: inherit;
+  font-weight: 600;
+  text-align: left;
+}
+.navbar .unidad-grupo > button::after {
+  content: "▸";
+  float: right;
+  margin-left: 16px;
+}
+.navbar .unidad-grupo > button[aria-expanded="true"]::after { content: "▾"; }
+.navbar .unidad-grupo > ul {
+  list-style: none;
+  margin: 0;
+  padding: 0 0 0 12px;
+  background: #f2f6f9;
+}
+.navbar .unidad-grupo > ul[hidden] { display: none !important; }
+.navbar .unidad-grupo > ul > li > a {
+  display: block;
+  padding: 7px 18px;
+  color: #263b4b;
+  text-decoration: none;
+}
+.navbar .unidad-grupo > button:hover,
+.navbar .unidad-grupo > ul > li > a:hover,
+.navbar .unidad-grupo > ul > li.active > a { background: #e2eaf1; }
+.navbar .unidad-grupo > button:focus-visible,
+.navbar .unidad-grupo > ul > li > a:focus-visible {
+  outline: 2px solid #2c5697;
+  outline-offset: -2px;
+}
+</style>
+<script>
+(function () {
+  function prepararUnidades() {
+    var pagina = decodeURIComponent(window.location.pathname.split('/').pop() || 'index.html');
+    document.querySelectorAll('.navbar .navbar-nav > li > ul.dropdown-menu').forEach(function (menu, menuIndex) {
+      var grupo = null;
+      Array.from(menu.children).forEach(function (item, itemIndex) {
+        var enlace = item.querySelector('a');
+        if (enlace && enlace.getAttribute('href') === '#' && /^Unidad\s+\d+\.\d+$/.test(enlace.textContent.trim())) {
+          var boton = document.createElement('button');
+          boton.type = 'button';
+          boton.textContent = enlace.textContent.trim();
+          var lista = document.createElement('ul');
+          lista.id = 'unidad-' + menuIndex + '-' + itemIndex;
+          lista.hidden = true;
+          boton.setAttribute('aria-controls', lista.id);
+          boton.setAttribute('aria-expanded', 'false');
+          item.classList.add('unidad-grupo');
+          item.replaceChild(boton, enlace);
+          item.appendChild(lista);
+          boton.addEventListener('click', function (event) {
+            event.stopPropagation();
+            lista.hidden = !lista.hidden;
+            boton.setAttribute('aria-expanded', String(!lista.hidden));
+          });
+          item.addEventListener('keydown', function (event) {
+            if (event.key === 'Escape' && !lista.hidden) {
+              event.preventDefault();
+              event.stopPropagation();
+              lista.hidden = true;
+              boton.setAttribute('aria-expanded', 'false');
+              boton.focus();
+            }
+          });
+          grupo = lista;
+        } else if (item.classList.contains('divider') || item.classList.contains('dropdown-header')) {
+          grupo = null;
+        } else if (grupo) {
+          grupo.appendChild(item);
+          if (enlace && decodeURIComponent(enlace.getAttribute('href')) === pagina) {
+            item.classList.add('active');
+            grupo.hidden = false;
+            grupo.previousElementSibling.setAttribute('aria-expanded', 'true');
+          }
+        }
+      });
+    });
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', prepararUnidades);
+  } else {
+    prepararUnidades();
+  }
+})();
+</script>
 
 
 
