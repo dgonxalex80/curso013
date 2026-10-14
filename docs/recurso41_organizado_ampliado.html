@@ -1,0 +1,1312 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="dgonzalez " />
+
+
+<title>Teoría de probabilidades</title>
+
+<script src="site_libs/header-attrs/header-attrs.js"></script>
+<script src="site_libs/jquery/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation/tabsets.js"></script>
+<script src="site_libs/navigation/codefolding.js"></script>
+<link href="site_libs/highlightjs/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs/highlight.js"></script>
+<link href="site_libs/font-awesome/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome/css/v4-shims.min.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+<link rel="stylesheet" href="cajas.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html"> </a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">
+    <span class="fa fa-home"></span>
+     
+    Estadística
+  </a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 0
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo0.html">Módulo 0</a>
+    </li>
+    <li>
+      <a href="sumatoria.html">Sumatoria</a>
+    </li>
+    <li>
+      <a href="productoria.html">Productoria</a>
+    </li>
+    <li>
+      <a href="conjuntos.html">Conjuntos</a>
+    </li>
+    <li>
+      <a href="conteo.html">Conteo</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 1
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo1.html">Módulo 1</a>
+    </li>
+    <li>
+      <a href="#">Unidad 1.1</a>
+    </li>
+    <li>
+      <a href="guia11.html">Guía 1.1</a>
+    </li>
+    <li>
+      <a href="recurso11.html">Recursos 1.1</a>
+    </li>
+    <li>
+      <a href="basesdatos.html">Bases de datos</a>
+    </li>
+    <li>
+      <a href="introduccionR.html">Introducción a R</a>
+    </li>
+    <li>
+      <a href="codigo11.html">Código 1.1</a>
+    </li>
+    <li>
+      <a href="#">Unidad 1.2</a>
+    </li>
+    <li>
+      <a href="guia12.html">Guía 1.2</a>
+    </li>
+    <li>
+      <a href="recurso12.html">Recursos 1.2</a>
+    </li>
+    <li>
+      <a href="codigo12.html">Código 1.2</a>
+    </li>
+    <li>
+      <a href="caso1A.html">Caso 1</a>
+    </li>
+    <li>
+      <a href="caso1B.html">Caso 2</a>
+    </li>
+    <li>
+      <a href="#">Unidad 1.3</a>
+    </li>
+    <li>
+      <a href="guia13.html">Guía 1.3</a>
+    </li>
+    <li>
+      <a href="recurso13.html">Recursos 1.3</a>
+    </li>
+    <li>
+      <a href="codigo13.html">Código 1.3</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="monitoria1.html">Monitoría 1</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 2
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo2.html">Módulo 2</a>
+    </li>
+    <li>
+      <a href="#">Unidad 2.1</a>
+    </li>
+    <li>
+      <a href="guia21.html">Guía 2.1</a>
+    </li>
+    <li>
+      <a href="recurso21.html">Recursos 2.1</a>
+    </li>
+    <li>
+      <a href="codigo21.html">Código 2.1</a>
+    </li>
+    <li>
+      <a href="taller211.html">Taller 211</a>
+    </li>
+    <li>
+      <a href="#">Unidad 2.2</a>
+    </li>
+    <li>
+      <a href="guia22.html">Guía 2.2</a>
+    </li>
+    <li>
+      <a href="recurso22.html">Recursos 2.2</a>
+    </li>
+    <li>
+      <a href="taller221.html">Taller 221</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="monitoria2.html">Monitoría 2</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 3
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo3.html">Módulo 3</a>
+    </li>
+    <li>
+      <a href="#">Unidad 3.1</a>
+    </li>
+    <li>
+      <a href="guia31.html">Guía 3.1</a>
+    </li>
+    <li>
+      <a href="recurso31.html">Recursos 3.1</a>
+    </li>
+    <li>
+      <a href="codigo31.html">Código 3.1</a>
+    </li>
+    <li>
+      <a href="taller311.html">Taller 311</a>
+    </li>
+    <li>
+      <a href="#">Unidad 3.2</a>
+    </li>
+    <li>
+      <a href="guia32.html">Guía 3.2</a>
+    </li>
+    <li>
+      <a href="recurso32.html">Recursos 3.2</a>
+    </li>
+    <li>
+      <a href="codigo32.html">Código 3.2</a>
+    </li>
+    <li>
+      <a href="taller321.html">Taller 321</a>
+    </li>
+    <li>
+      <a href="#">Unidad 3.3</a>
+    </li>
+    <li>
+      <a href="guia33.html">Guía 3.3</a>
+    </li>
+    <li>
+      <a href="recurso33-discretas.html">Recursos 3.3-discretas</a>
+    </li>
+    <li>
+      <a href="codigo33_discretas.html">Código 3.3 discretas</a>
+    </li>
+    <li>
+      <a href="taller331.html">Taller 331-discretas</a>
+    </li>
+    <li>
+      <a href="#">Unidad 3.4</a>
+    </li>
+    <li>
+      <a href="guia34.html">Guía 3.4</a>
+    </li>
+    <li>
+      <a href="recurso33-continuos.html">Recursos 3.4-continuas</a>
+    </li>
+    <li>
+      <a href="codigo33_continuos.html">Código 3.4 continuos</a>
+    </li>
+    <li>
+      <a href="taller341_modelos_continuos.html">Taller 341-continuos</a>
+    </li>
+    <li>
+      <a href="actividad334.html">Asignación A334</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="monitoria3.html">Monitoría 3</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 4
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo4.html">Módulo 4</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="#">Unidad 4.1</a>
+    </li>
+    <li>
+      <a href="guia41.html">Guía 4.1</a>
+    </li>
+    <li>
+      <a href="recurso41.html">Recursos 4.1</a>
+    </li>
+    <li>
+      <a href="codigo41.html">Código 4.1</a>
+    </li>
+    <li>
+      <a href="taller411.html">Taller 411</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Proyecto
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="guia_proyecto1.html">Guía proyecto</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore"><span
+style="color:#67C1A8 !important;">Teoría de probabilidades</span></h1>
+<h3 class="subtitle"><span style="color:#67C1A8"> </span></h3>
+<h4 class="author"><span style="color:#67C1A8">dgonzalez </span></h4>
+
+</div>
+
+
+<p><br/><br/></p>
+<div id="método-de-monte-carlo" class="section level1">
+<h1>Método de Monte Carlo</h1>
+<p>El método de Monte Carlo permite responder preguntas cuantitativas
+cuando intervienen fenómenos aleatorios. En lugar de observar una sola
+realización de un proceso, se generan numerosas realizaciones bajo un
+modelo probabilístico y se resumen sus resultados. El propósito de este
+recurso es <strong>comprender, ejecutar e interpretar</strong> ese
+procedimiento mediante experimentos reproducibles en R.</p>
+<p><strong>Resultados de aprendizaje.</strong> Al terminar el recurso,
+el estudiante podrá identificar las entradas aleatorias de un problema,
+construir réplicas de una variable de interés, estimar probabilidades y
+valores esperados, examinar la precisión de las estimaciones e
+interpretar sus implicaciones para una decisión.</p>
+<p><strong>Ruta de lectura.</strong> Primero se presentan los
+fundamentos; después, los experimentos elementales; finalmente, seis
+aplicaciones de ingeniería y administración. Los ejemplos son
+autocontenidos y utilizan funciones de R base.</p>
+<div id="qué-es-el-método-de-monte-carlo" class="section level2">
+<h2>1. ¿Qué es el método de Monte Carlo?</h2>
+<p>Monte Carlo es una familia de procedimientos numéricos basados en la
+<strong>generación repetida de resultados aleatorios</strong>. Su
+desarrollo moderno está asociado con Stanislaw Ulam y John von Neumann,
+a mediados del siglo XX. El método no es una distribución de
+probabilidad: es una forma de utilizar modelos probabilísticos para
+aproximar cantidades de interés.</p>
+<p>Una simulación <em>determinista</em> produce el mismo resultado
+cuando se mantienen fijas las entradas. Una simulación
+<em>estocástica</em> incorpora variables aleatorias; por ello, sus
+resultados pueden variar de una réplica a otra.</p>
+<p>En un estudio de inventarios, por ejemplo, la demanda del próximo día
+es desconocida. Si se adopta una distribución para representarla, es
+posible generar miles de demandas hipotéticas y calcular qué proporción
+excede las existencias. Esa proporción constituye una estimación de la
+probabilidad de faltante <strong>bajo los supuestos del
+modelo</strong>.</p>
+<div id="elementos-de-un-experimento" class="section level3">
+<h3>1.1. Elementos de un experimento</h3>
+<ul>
+<li><strong>Pregunta:</strong> cantidad que se desea conocer
+(probabilidad, media, percentil o pérdida).</li>
+<li><strong>Entradas:</strong> variables aleatorias y parámetros que
+describen el fenómeno.</li>
+<li><strong>Regla de transformación:</strong> operación que convierte
+las entradas en una salida.</li>
+<li><strong>Réplica:</strong> una realización completa del
+experimento.</li>
+<li><strong>Indicador:</strong> resumen numérico de las salidas
+simuladas.</li>
+<li><strong>Interpretación:</strong> conclusión expresada en las
+unidades y el contexto del problema.</li>
+</ul>
+</div>
+<div id="modelo-matemático-general" class="section level3">
+<h3>1.2. Modelo matemático general</h3>
+<p>Sea <span class="math inline">\(\mathbf U=(U_1,\ldots,U_k)\)</span>
+el vector de entradas aleatorias y <span
+class="math inline">\(Y=g(\mathbf U)\)</span> la salida de interés. A
+partir de <span class="math inline">\(n\)</span> réplicas independientes
+<span class="math inline">\(Y_1,\ldots,Y_n\)</span>, la media se estima
+mediante</p>
+<p><span
+class="math display">\[\widehat\mu_n=\frac{1}{n}\sum_{i=1}^{n}Y_i.\]</span></p>
+<p>Si interesa un evento <span class="math inline">\(A\)</span>, se
+define <span class="math inline">\(I_i=1\)</span> cuando ocurre en la
+réplica <span class="math inline">\(i\)</span> y <span
+class="math inline">\(I_i=0\)</span> en caso contrario. Entonces,</p>
+<p><span class="math display">\[\widehat
+P(A)=\frac{1}{n}\sum_{i=1}^{n}I_i.\]</span></p>
+<p>En consecuencia, <strong>estimar una probabilidad consiste en
+calcular la proporción de réplicas que cumplen una
+condición</strong>.</p>
+</div>
+<div id="secuencia-de-trabajo" class="section level3">
+<h3>1.3. Secuencia de trabajo</h3>
+<ol style="list-style-type: decimal">
+<li>Formular la pregunta y precisar las unidades.</li>
+<li>Seleccionar las distribuciones y declarar los supuestos.</li>
+<li>Generar las entradas aleatorias.</li>
+<li>Calcular la salida en cada réplica.</li>
+<li>Resumir las salidas mediante indicadores.</li>
+<li>Examinar la precisión y, cuando exista, contrastar con una solución
+analítica.</li>
+<li>Interpretar el resultado y sus limitaciones.</li>
+</ol>
+</div>
+</div>
+<div id="fundamentos-probabilísticos" class="section level2">
+<h2>2. Fundamentos probabilísticos</h2>
+<div id="ley-de-los-grandes-números" class="section level3">
+<h3>2.1. Ley de los grandes números</h3>
+<p>Si las réplicas son independientes, tienen la misma distribución y
+<span class="math inline">\(E(|Y|)&lt;\infty\)</span>, su promedio
+converge en probabilidad al valor esperado. Por esta razón, al aumentar
+el número de réplicas las estimaciones tienden a estabilizarse.
+<strong>Esto no significa que cada nueva réplica reduzca el error
+observado</strong>: la trayectoria puede subir y bajar antes de
+estabilizarse.</p>
+</div>
+<div id="variabilidad-y-error-estándar" class="section level3">
+<h3>2.2. Variabilidad y error estándar</h3>
+<p>El promedio simulado es aleatorio. Si la desviación estándar de <span
+class="math inline">\(Y\)</span> es <span
+class="math inline">\(\sigma\)</span>, el error estándar del promedio es
+<span class="math inline">\(\sigma/\sqrt n\)</span>. Como normalmente
+<span class="math inline">\(\sigma\)</span> es desconocida, se
+utiliza</p>
+<p><span
+class="math display">\[\widehat{SE}(\widehat\mu)=\frac{s_Y}{\sqrt
+n}.\]</span></p>
+<p>Bajo condiciones apropiadas para aplicar el teorema central del
+límite, un intervalo aproximado del 95% para la media es</p>
+<p><span class="math display">\[\widehat\mu\pm1.96\frac{s_Y}{\sqrt
+n}.\]</span></p>
+<p>Para una probabilidad estimada <span class="math inline">\(\widehat
+p\)</span>,</p>
+<p><span class="math display">\[\widehat{SE}(\widehat
+p)=\sqrt{\frac{\widehat p(1-\widehat p)}{n}}.\]</span></p>
+<p>Este último intervalo normal puede ser poco adecuado cuando la
+probabilidad está cerca de 0 o 1, o el número de éxitos es muy
+pequeño.</p>
+<p><strong>Regla práctica:</strong> para reducir a la mitad el error
+estándar es necesario multiplicar aproximadamente por cuatro el número
+de réplicas, manteniendo el mismo modelo.</p>
+</div>
+<div id="error-de-simulación-y-error-de-modelo" class="section level3">
+<h3>2.3. Error de simulación y error de modelo</h3>
+<p>El <em>error de Monte Carlo</em> se debe al número finito de
+réplicas. El <em>error de modelo</em> aparece cuando los supuestos,
+parámetros o relaciones del modelo no representan adecuadamente el
+fenómeno real. Aumentar <span class="math inline">\(n\)</span> disminuye
+el primero, pero no corrige el segundo.</p>
+</div>
+</div>
+<div id="números-pseudoaleatorios-y-generación-de-variables"
+class="section level2">
+<h2>3. Números pseudoaleatorios y generación de variables</h2>
+<div id="reproducibilidad" class="section level3">
+<h3>3.1. Reproducibilidad</h3>
+<p>Los computadores generan secuencias pseudoaleatorias mediante
+algoritmos. En R, <code>runif()</code> permite obtener valores uniformes
+y <code>set.seed()</code> fija el estado inicial del generador para
+reproducir resultados en un entorno compatible.</p>
+<pre class="r"><code>set.seed(4101)
+u &lt;- runif(1000)
+hist(u, breaks = 20, col = &quot;#B8D7E8&quot;, border = &quot;white&quot;,
+     main = &quot;Valores pseudoaleatorios uniformes&quot;, xlab = &quot;Valor generado&quot;)</code></pre>
+<p><img src="recurso41_organizado_ampliado_files/figure-html/uniformes-1.png" alt="" width="768" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>summary(u)</code></pre>
+<pre><code>##      Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+## 0.0001287 0.2552348 0.5040522 0.4983240 0.7386245 0.9990984</code></pre>
+<p>El histograma no tiene por qué presentar barras exactamente iguales:
+incluso con un generador correcto, el número de observaciones en cada
+intervalo fluctúa.</p>
+</div>
+<div id="funciones-de-generación-en-r" class="section level3">
+<h3>3.2. Funciones de generación en R</h3>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Distribución</th>
+<th align="left">Función</th>
+<th align="left">Parámetros principales</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Bernoulli</td>
+<td align="left"><code>rbinom(n, 1, p)</code></td>
+<td align="left">Probabilidad de éxito</td>
+</tr>
+<tr class="even">
+<td align="left">Binomial</td>
+<td align="left"><code>rbinom(n, size, prob)</code></td>
+<td align="left">Ensayos y probabilidad</td>
+</tr>
+<tr class="odd">
+<td align="left">Poisson</td>
+<td align="left"><code>rpois(n, lambda)</code></td>
+<td align="left">Media del conteo</td>
+</tr>
+<tr class="even">
+<td align="left">Uniforme</td>
+<td align="left"><code>runif(n, min, max)</code></td>
+<td align="left">Límites del intervalo</td>
+</tr>
+<tr class="odd">
+<td align="left">Normal</td>
+<td align="left"><code>rnorm(n, mean, sd)</code></td>
+<td align="left">Media y desviación estándar</td>
+</tr>
+<tr class="even">
+<td align="left">Exponencial</td>
+<td align="left"><code>rexp(n, rate)</code></td>
+<td align="left">Tasa</td>
+</tr>
+<tr class="odd">
+<td align="left">Lognormal</td>
+<td align="left"><code>rlnorm(n, meanlog, sdlog)</code></td>
+<td align="left">Parámetros del logaritmo</td>
+</tr>
+<tr class="even">
+<td align="left">Gamma</td>
+<td align="left"><code>rgamma(n, shape, rate)</code></td>
+<td align="left">Forma y tasa</td>
+</tr>
+<tr class="odd">
+<td align="left">Weibull</td>
+<td align="left"><code>rweibull(n, shape, scale)</code></td>
+<td align="left">Forma y escala</td>
+</tr>
+<tr class="even">
+<td align="left">Beta</td>
+<td align="left"><code>rbeta(n, shape1, shape2)</code></td>
+<td align="left">Dos parámetros de forma</td>
+</tr>
+</tbody>
+</table>
+<p>El argumento <code>n</code> indica cuántos valores se generan.
+<strong>Atención:</strong> <code>rate</code> y <code>scale</code> tienen
+significados distintos. En una exponencial con tasa <span
+class="math inline">\(\lambda\)</span>, la media es <span
+class="math inline">\(1/\lambda\)</span>.</p>
+</div>
+<div id="método-de-la-transformada-inversa" class="section level3">
+<h3>3.3. Método de la transformada inversa</h3>
+<p>Si <span class="math inline">\(U\sim U(0,1)\)</span> y <span
+class="math inline">\(F\)</span> es una función de distribución,
+entonces <span class="math inline">\(X=F^{-1}(U)\)</span>, usando la
+inversa generalizada, tiene distribución <span
+class="math inline">\(F\)</span>. Para una exponencial de tasa <span
+class="math inline">\(\lambda&gt;0\)</span>,</p>
+<p><span class="math display">\[F(x)=1-e^{-\lambda x},\quad
+x\geq0,\]</span></p>
+<p>por lo que</p>
+<p><span
+class="math display">\[X=-\frac{\ln(1-U)}{\lambda}.\]</span></p>
+<pre class="r"><code>set.seed(4104)
+lambda &lt;- 0.25
+u &lt;- runif(10000)
+x_inversa &lt;- -log1p(-u) / lambda
+x_r &lt;- rexp(10000, rate = lambda)
+hist(x_inversa, probability = TRUE, breaks = 40,
+     col = &quot;#B8D7E8&quot;, border = &quot;white&quot;, xlim = c(0, 25),
+     main = &quot;Exponencial por transformada inversa&quot;, xlab = &quot;Tiempo&quot;)
+curve(dexp(x, rate = lambda), add = TRUE, col = &quot;#476885&quot;, lwd = 2)</code></pre>
+<p><img src="recurso41_organizado_ampliado_files/figure-html/inversa-1.png" alt="" width="768" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>c(media_inversa = mean(x_inversa),
+  media_generador_R = mean(x_r), media_teorica = 1/lambda)</code></pre>
+<pre><code>##     media_inversa media_generador_R     media_teorica 
+##          3.978899          3.973005          4.000000</code></pre>
+<p>Las dos medias simuladas pueden diferir entre sí y del valor teórico;
+se trata de muestras independientes con variación aleatoria.</p>
+</div>
+</div>
+<div id="experimentos-introductorios" class="section level2">
+<h2>4. Experimentos introductorios</h2>
+<div id="experimento-1-estimación-geométrica-de-pi"
+class="section level3">
+<h3>4.1. Experimento 1: estimación geométrica de <span
+class="math inline">\(\pi\)</span></h3>
+<p><strong>Pregunta.</strong> ¿Puede estimarse el número <span
+class="math inline">\(\pi\)</span> utilizando puntos aleatorios en un
+cuadrado?</p>
+<p>Sean <span class="math inline">\(X,Y\)</span> independientes y
+uniformes en <span class="math inline">\((0,1)\)</span>. El área del
+cuarto de círculo unitario es <span class="math inline">\(\pi/4\)</span>
+y la del cuadrado es 1. Por tanto,</p>
+<p><span class="math display">\[P(X^2+Y^2\leq1)=\frac{\pi}{4},\qquad
+\widehat\pi=4\frac{\#\{i:X_i^2+Y_i^2\leq1\}}{n}.\]</span></p>
+<pre class="r"><code>set.seed(4102)
+n &lt;- 5000
+x &lt;- runif(n)
+y &lt;- runif(n)
+dentro &lt;- x^2 + y^2 &lt;= 1
+pi_est &lt;- 4 * mean(dentro)
+plot(x, y, pch = 16, cex = 0.35,
+     col = ifelse(dentro, &quot;#476885&quot;, &quot;#C76D59&quot;),
+     asp = 1, xlab = &quot;X&quot;, ylab = &quot;Y&quot;,
+     main = &quot;Estimación geométrica de pi&quot;)
+t &lt;- seq(0, pi/2, length.out = 250)
+lines(cos(t), sin(t), lwd = 2)
+legend(&quot;topright&quot;, legend = paste(&quot;Estimación:&quot;, round(pi_est, 5)), bty = &quot;n&quot;)</code></pre>
+<p><img src="recurso41_organizado_ampliado_files/figure-html/pi-1.png" alt="" width="768" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>c(estimacion = pi_est, valor_referencia = pi, error_absoluto = abs(pi_est-pi))</code></pre>
+<pre><code>##       estimacion valor_referencia   error_absoluto 
+##       3.17120000       3.14159265       0.02960735</code></pre>
+<p><strong>Lectura del resultado.</strong> Los puntos interiores
+representan éxitos. Su proporción, multiplicada por cuatro, aproxima
+<span class="math inline">\(\pi\)</span>. La diferencia con el valor
+conocido es un error de simulación, no evidencia de que el procedimiento
+geométrico sea incorrecto.</p>
+</div>
+<div id="experimento-2-probabilidad-discreta" class="section level3">
+<h3>4.2. Experimento 2: probabilidad discreta</h3>
+<p><strong>Pregunta.</strong> Al lanzar dos dados equilibrados e
+independientes, ¿cuál es la probabilidad de obtener una suma de al menos
+10?</p>
+<p>Los pares favorables son <span class="math inline">\((4,6)\)</span>,
+<span class="math inline">\((5,5)\)</span>, <span
+class="math inline">\((6,4)\)</span>, <span
+class="math inline">\((5,6)\)</span>, <span
+class="math inline">\((6,5)\)</span> y <span
+class="math inline">\((6,6)\)</span>: seis de 36 resultados
+equiprobables. Así, <span
+class="math inline">\(P(D_1+D_2\geq10)=1/6\)</span>.</p>
+<pre class="r"><code>set.seed(4103)
+n &lt;- 10000
+d1 &lt;- sample(1:6, n, replace = TRUE)
+d2 &lt;- sample(1:6, n, replace = TRUE)
+suma &lt;- d1 + d2
+c(probabilidad_simulada = mean(suma &gt;= 10),
+  probabilidad_teorica = 1/6)</code></pre>
+<pre><code>## probabilidad_simulada  probabilidad_teorica 
+##             0.1666000             0.1666667</code></pre>
+<p><strong>Interpretación.</strong> La comparación con <span
+class="math inline">\(1/6\)</span> permite verificar que la simulación
+reproduce razonablemente el comportamiento esperado. No debe exigirse
+coincidencia exacta.</p>
+</div>
+<div id="experimento-3-estimación-de-una-integral"
+class="section level3">
+<h3>4.3. Experimento 3: estimación de una integral</h3>
+<p>Para <span class="math inline">\(U\sim U(0,1)\)</span>, se cumple
+<span class="math inline">\(E[h(U)]=\int_0^1h(x)\,dx\)</span> cuando la
+integral existe. Por ejemplo,</p>
+<p><span class="math display">\[\int_0^1x^2\,dx=\frac13.\]</span></p>
+<pre class="r"><code>set.seed(4105)
+u &lt;- runif(20000)
+y &lt;- u^2
+estimacion &lt;- mean(y)
+se &lt;- sd(y) / sqrt(length(y))
+c(estimacion = estimacion, valor_teorico = 1/3,
+  error_estandar = se,
+  limite_inferior = estimacion - 1.96*se,
+  limite_superior = estimacion + 1.96*se)</code></pre>
+<pre><code>##      estimacion   valor_teorico  error_estandar limite_inferior limite_superior 
+##     0.335141912     0.333333333     0.002103079     0.331019878     0.339263946</code></pre>
+<p><strong>Interpretación.</strong> La integral se transforma en el
+promedio de una variable aleatoria. El intervalo cuantifica la
+incertidumbre debida al número finito de valores simulados, no una
+incertidumbre sobre el valor matemático exacto de la integral.</p>
+</div>
+</div>
+<div id="precisión-y-convergencia" class="section level2">
+<h2>5. Precisión y convergencia</h2>
+<p>El siguiente experimento estima repetidamente la media de una normal
+con media 10 y desviación estándar 3. En cada punto se representa el
+promedio de todas las observaciones generadas hasta ese momento.</p>
+<pre class="r"><code>set.seed(4106)
+z &lt;- rnorm(20000, mean = 10, sd = 3)
+promedio_acumulado &lt;- cumsum(z) / seq_along(z)
+plot(promedio_acumulado, type = &quot;l&quot;, col = &quot;#476885&quot;, lwd = 1.5,
+     xlab = &quot;Número de réplicas&quot;, ylab = &quot;Media estimada&quot;,
+     main = &quot;Estabilización del promedio Monte Carlo&quot;)
+abline(h = 10, col = &quot;#C76D59&quot;, lty = 2, lwd = 2)</code></pre>
+<p><img src="recurso41_organizado_ampliado_files/figure-html/convergencia-1.png" alt="" width="768" style="display: block; margin: auto;" /></p>
+<p>La línea horizontal indica el valor esperado del modelo. Las
+oscilaciones suelen ser más grandes al comienzo y se atenúan conforme
+aumenta el número de observaciones. El gráfico permite estudiar
+visualmente la estabilización, pero no sustituye el cálculo del error
+estándar.</p>
+</div>
+<div id="aplicaciones-administrativas-e-ingenieriles"
+class="section level2">
+<h2>6. Aplicaciones administrativas e ingenieriles</h2>
+<p>Los siguientes casos comparten una misma estructura:
+<strong>contexto, pregunta, modelo, indicador, simulación e
+interpretación</strong>. Los parámetros se adoptan como supuestos
+didácticos y no corresponden a estimaciones empíricas de una empresa
+real.</p>
+<div id="caso-a.-control-de-calidad-proporción-de-lotes-no-conformes"
+class="section level3">
+<h3>6.1. Caso A. Control de calidad: proporción de lotes no
+conformes</h3>
+<p><strong>Contexto.</strong> Una línea de producción fabrica lotes de
+50 artículos. Cada artículo tiene probabilidad 0.04 de resultar
+defectuoso, independientemente de los demás. Se considera crítico
+encontrar al menos cuatro defectuosos en un lote.</p>
+<p><strong>Pregunta y modelo.</strong> Si <span
+class="math inline">\(D\sim\mathrm{Binomial}(50,0.04)\)</span>, el
+indicador es <span class="math inline">\(I(D\geq4)\)</span>. El valor
+teórico de referencia es <span
+class="math inline">\(1-P(D\leq3)\)</span>.</p>
+<p><strong>Procedimiento en R.</strong> Se generan realizaciones del
+fenómeno y se calculan los indicadores mediante promedios, proporciones
+o cuantiles.</p>
+<pre class="r"><code>set.seed(4111)
+d &lt;- rbinom(10000, size = 50, prob = 0.04)
+c(MonteCarlo = mean(d &gt;= 4), teorico = 1-pbinom(3, 50, 0.04))</code></pre>
+<pre><code>## MonteCarlo    teorico 
+##  0.1396000  0.1391308</code></pre>
+<p><strong>Interpretación.</strong> Cada valor simulado de
+<code>d</code> es el número de defectuosos de <strong>un lote
+completo</strong>. <code>mean(d &gt;= 4)</code> representa la proporción
+de lotes críticos. La estimación puede utilizarse para dimensionar
+inspecciones, siempre que el supuesto de independencia sea
+defendible.</p>
+<p><strong>Para analizar.</strong> ¿Qué supuesto del modelo sería más
+importante contrastar con datos observados antes de utilizar estos
+resultados en una decisión?</p>
+</div>
+<div id="caso-b.-demanda-e-inventario" class="section level3">
+<h3>6.2. Caso B. Demanda e inventario</h3>
+<p><strong>Contexto.</strong> Un almacén dispone de 22 unidades para
+atender la demanda diaria. Se supone que el número de unidades
+solicitadas durante un día sigue una Poisson de media 18.</p>
+<p><strong>Pregunta y modelo.</strong> Sea <span
+class="math inline">\(D\sim\mathrm{Poisson}(18)\)</span> y <span
+class="math inline">\(S=22\)</span>. Se estudian <span
+class="math inline">\(P(D&gt;S)\)</span>, <span
+class="math inline">\(E[\max(D-S,0)]\)</span> y <span
+class="math inline">\(E[\min(D,S)]\)</span>.</p>
+<p><strong>Procedimiento en R.</strong> Se generan realizaciones del
+fenómeno y se calculan los indicadores mediante promedios, proporciones
+o cuantiles.</p>
+<pre class="r"><code>set.seed(4112)
+d &lt;- rpois(10000, lambda = 18)
+s &lt;- 22
+c(prob_faltante = mean(d &gt; s), faltante_medio = mean(pmax(d-s, 0)),
+  ventas_medias = mean(pmin(d,s)))</code></pre>
+<pre><code>##  prob_faltante faltante_medio  ventas_medias 
+##         0.1450         0.4199        17.5884</code></pre>
+<p><strong>Interpretación.</strong> La probabilidad de faltante mide la
+frecuencia esperada de días sin inventario suficiente; el faltante medio
+mide cuántas unidades dejan de atenderse por día, en promedio; las
+ventas medias no pueden superar las 22 unidades disponibles. Estos
+indicadores responden preguntas distintas.</p>
+<p><strong>Para analizar.</strong> ¿Qué supuesto del modelo sería más
+importante contrastar con datos observados antes de utilizar estos
+resultados en una decisión?</p>
+</div>
+<div id="caso-c.-confiabilidad-de-un-componente" class="section level3">
+<h3>6.3. Caso C. Confiabilidad de un componente</h3>
+<p><strong>Contexto.</strong> El tiempo hasta la falla de un componente
+se representa mediante una Weibull con parámetro de forma 2 y escala
+1500 horas. Se desea estimar la probabilidad de funcionamiento después
+de 1200 horas.</p>
+<p><strong>Pregunta y modelo.</strong> Si <span
+class="math inline">\(T\sim\mathrm{Weibull}(2,1500)\)</span>, la
+confiabilidad a las <span class="math inline">\(t\)</span> horas es
+<span class="math inline">\(P(T&gt;t)=\exp[-(t/1500)^2]\)</span>.</p>
+<p><strong>Procedimiento en R.</strong> Se generan realizaciones del
+fenómeno y se calculan los indicadores mediante promedios, proporciones
+o cuantiles.</p>
+<pre class="r"><code>set.seed(4113)
+t &lt;- rweibull(20000, shape = 2, scale = 1500)
+c(MonteCarlo = mean(t &gt; 1200), teorico = exp(-(1200/1500)^2))</code></pre>
+<pre><code>## MonteCarlo    teorico 
+##  0.5233000  0.5272924</code></pre>
+<p><strong>Interpretación.</strong> Cada observación simulada representa
+la vida útil de un componente diferente. La proporción de tiempos
+superiores a 1200 horas estima la confiabilidad en ese horizonte. La
+comparación con la fórmula permite comprobar el procedimiento.</p>
+<p><strong>Para analizar.</strong> ¿Qué supuesto del modelo sería más
+importante contrastar con datos observados antes de utilizar estos
+resultados en una decisión?</p>
+</div>
+<div id="caso-d.-tiempos-individuales-de-atención"
+class="section level3">
+<h3>6.4. Caso D. Tiempos individuales de atención</h3>
+<p><strong>Contexto.</strong> En un punto de servicio, la duración de
+una atención individual se modela con una exponencial de media 6
+minutos. Interesa la proporción de servicios que exceden 10 minutos y el
+percentil 90.</p>
+<p><strong>Pregunta y modelo.</strong> Si <span
+class="math inline">\(S\sim\mathrm{Exponencial}(\lambda=1/6)\)</span>,
+se estiman <span class="math inline">\(P(S&gt;10)\)</span> y el cuantil
+de orden 0.90.</p>
+<p><strong>Procedimiento en R.</strong> Se generan realizaciones del
+fenómeno y se calculan los indicadores mediante promedios, proporciones
+o cuantiles.</p>
+<pre class="r"><code>set.seed(4114)
+s &lt;- rexp(10000, rate = 1/6)
+c(prob_mas_10 = mean(s &gt; 10), percentil90 = unname(quantile(s, 0.9)),
+  prob_teorica = pexp(10, rate = 1/6, lower.tail = FALSE))</code></pre>
+<pre><code>##  prob_mas_10  percentil90 prob_teorica 
+##    0.1835000   13.9534525    0.1888756</code></pre>
+<p><strong>Interpretación.</strong> La probabilidad de superar 10
+minutos es un indicador de servicios prolongados. El percentil 90 es un
+umbral tal que aproximadamente el 90% de los servicios dura menos que
+él. <strong>No</strong> se está estimando el tiempo de espera en una
+fila.</p>
+<p><strong>Para analizar.</strong> ¿Qué supuesto del modelo sería más
+importante contrastar con datos observados antes de utilizar estos
+resultados en una decisión?</p>
+</div>
+<div id="caso-e.-pérdidas-económicas-y-riesgo" class="section level3">
+<h3>6.5. Caso E. Pérdidas económicas y riesgo</h3>
+<p><strong>Contexto.</strong> La pérdida monetaria asociada con un
+evento se representa mediante una lognormal con <code>meanlog = 2</code>
+y <code>sdlog = 0.5</code>. Las pérdidas se expresan en millones de
+unidades monetarias.</p>
+<p><strong>Pregunta y modelo.</strong> Si <span
+class="math inline">\(L\sim\mathrm{Lognormal}(2,0.5)\)</span>, se
+estiman <span class="math inline">\(E(L)\)</span>, <span
+class="math inline">\(P(L&gt;15)\)</span> y el percentil 95 de <span
+class="math inline">\(L\)</span>.</p>
+<p><strong>Procedimiento en R.</strong> Se generan realizaciones del
+fenómeno y se calculan los indicadores mediante promedios, proporciones
+o cuantiles.</p>
+<pre class="r"><code>set.seed(4115)
+l &lt;- rlnorm(20000, meanlog = 2, sdlog = 0.5)
+c(perdida_media = mean(l), prob_superar_15 = mean(l &gt; 15),
+  cuantil95 = unname(quantile(l, 0.95)))</code></pre>
+<pre><code>##   perdida_media prob_superar_15       cuantil95 
+##        8.385354        0.079100       16.809976</code></pre>
+<p><strong>Interpretación.</strong> La pérdida media resume el costo
+esperado por evento; la probabilidad de superar 15 describe la
+frecuencia de pérdidas elevadas; el percentil 95 caracteriza un umbral
+de severidad. Son medidas complementarias y no deben confundirse.</p>
+<p><strong>Para analizar.</strong> ¿Qué supuesto del modelo sería más
+importante contrastar con datos observados antes de utilizar estos
+resultados en una decisión?</p>
+</div>
+<div id="caso-f.-cola-de-atención-con-un-servidor"
+class="section level3">
+<h3>6.6. Caso F. Cola de atención con un servidor</h3>
+<p><strong>Contexto.</strong> Se considera un sistema con un solo
+servidor y disciplina de atención por orden de llegada. Los intervalos
+entre llegadas son exponenciales de media 8 minutos y los tiempos de
+servicio son exponenciales de media 6 minutos. Se simulan 100
+clientes.</p>
+<p><strong>Pregunta y modelo.</strong> Sean <span
+class="math inline">\(A_i\)</span> la llegada del cliente <span
+class="math inline">\(i\)</span>, <span
+class="math inline">\(S_i\)</span> su servicio, <span
+class="math inline">\(B_i\)</span> el comienzo de la atención y <span
+class="math inline">\(C_i\)</span> la salida. Se aplican <span
+class="math inline">\(B_i=\max(A_i,C_{i-1})\)</span>, <span
+class="math inline">\(C_i=B_i+S_i\)</span> y <span
+class="math inline">\(W_i=B_i-A_i\)</span>, con <span
+class="math inline">\(C_0=0\)</span>.</p>
+<p><strong>Procedimiento en R.</strong> Se generan realizaciones del
+fenómeno y se calculan los indicadores mediante promedios, proporciones
+o cuantiles.</p>
+<pre class="r"><code>set.seed(4116)
+n &lt;- 100
+llegadas &lt;- cumsum(rexp(n, rate = 1/8))
+servicios &lt;- rexp(n, rate = 1/6)
+inicio &lt;- salida &lt;- espera &lt;- numeric(n)
+for (i in seq_len(n)) {
+  previo &lt;- if (i == 1) 0 else salida[i-1]
+  inicio[i] &lt;- max(llegadas[i], previo)
+  salida[i] &lt;- inicio[i] + servicios[i]
+  espera[i] &lt;- inicio[i] - llegadas[i]
+}
+c(espera_media = mean(espera), prob_esperar = mean(espera &gt; 0),
+  espera_maxima = max(espera))</code></pre>
+<pre><code>##  espera_media  prob_esperar espera_maxima 
+##      23.82483       0.81000      96.75784</code></pre>
+<p><strong>Interpretación.</strong> El inicio de atención depende de la
+llegada del cliente y de la salida del anterior. Por eso se necesita una
+recursión cronológica: simular tiempos de servicio sin relacionarlos con
+las llegadas no reproduce una cola. Los indicadores calculados describen
+<strong>una jornada simulada</strong>; para estimar la incertidumbre
+entre jornadas se deben simular jornadas completas repetidas.</p>
+<p><strong>Para analizar.</strong> ¿Qué supuesto del modelo sería más
+importante contrastar con datos observados antes de utilizar estos
+resultados en una decisión?</p>
+</div>
+</div>
+<div id="de-monte-carlo-a-la-simulación-de-sistemas"
+class="section level2">
+<h2>7. De Monte Carlo a la simulación de sistemas</h2>
+<p>En los primeros casos, una réplica puede corresponder a un lote, un
+día de demanda o la vida de un componente. En el caso de la cola, una
+réplica puede abarcar una <strong>secuencia completa de
+clientes</strong>: el resultado de un cliente depende de lo ocurrido con
+los anteriores. Por eso, el diseño de la réplica debe respetar la
+estructura temporal del sistema.</p>
+<p>Un modelo de colas puede servir como prototipo de un sistema de
+atención real. Para aproximarse a un <strong>gemelo digital</strong>
+sería necesario identificar su contraparte física, incorporar datos
+observados, calibrar los parámetros, validar los indicadores y definir
+un mecanismo de actualización. Monte Carlo es una herramienta para
+estudiar incertidumbre; por sí solo no constituye un gemelo digital.</p>
+</div>
+<div id="síntesis-e-interpretación-de-resultados"
+class="section level2">
+<h2>8. Síntesis e interpretación de resultados</h2>
+<p>En cualquier informe de simulación conviene distinguir: (a) la
+pregunta y sus unidades, (b) la distribución y los parámetros asumidos,
+(c) la unidad que representa una réplica, (d) el número de réplicas, (e)
+el indicador estimado y su precisión, y (f) la conclusión condicionada
+al modelo. Si existe un valor teórico, debe compararse con el resultado
+simulado.</p>
+</div>
+<div id="preguntas-de-reflexión" class="section level2">
+<h2>9. Preguntas de reflexión</h2>
+<ol style="list-style-type: decimal">
+<li>¿Por qué una simulación con muchas réplicas no garantiza que el
+modelo represente correctamente la realidad?</li>
+<li>¿Qué diferencia existe entre la probabilidad de un evento y el valor
+esperado de una pérdida?</li>
+<li>¿Por qué el promedio Monte Carlo no necesariamente mejora después de
+cada nueva réplica?</li>
+<li>¿Qué ocurre aproximadamente con el error estándar si se cuadruplica
+el número de réplicas?</li>
+<li>¿Por qué el tiempo de servicio individual no es lo mismo que el
+tiempo de espera en una cola?</li>
+<li>¿Qué datos reales se necesitarían para validar el modelo de
+inventario o el modelo de atención?</li>
+<li>¿Por qué, en una simulación de colas, es preferible repetir jornadas
+completas para estudiar la variabilidad entre jornadas?</li>
+</ol>
+</div>
+<div id="referencias-y-consulta" class="section level2">
+<h2>10. Referencias y consulta</h2>
+<ul>
+<li>Navidi, W. <em>Estadística para ingenieros y científicos</em>.
+Apartado de simulación, según la edición empleada en el curso.</li>
+<li>Documentación oficial de R: <code>?set.seed</code>,
+<code>?runif</code>, <code>?rbinom</code>, <code>?rpois</code>,
+<code>?rweibull</code>, <code>?rlnorm</code>, <code>?rexp</code> y
+<code>?quantile</code>.</li>
+</ul>
+<p><em>Material didáctico de la Unidad 4.1. Los escenarios numéricos son
+ilustrativos y no reproducen ejercicios textuales de Navidi.</em></p>
+</div>
+</div>
+
+<style>
+/* Se incluye en todas las páginas, incluso si definen su propio CSS. */
+.navbar .navbar-nav > .dropdown > .dropdown-menu {
+  max-height: calc(100vh - 90px);
+  overflow-y: auto;
+}
+.navbar .unidad-grupo > button {
+  display: block;
+  width: 100%;
+  padding: 7px 20px;
+  border: 0;
+  background: transparent;
+  color: #263b4b;
+  font: inherit;
+  font-weight: 600;
+  text-align: left;
+}
+.navbar .unidad-grupo > button::after {
+  content: "▸";
+  float: right;
+  margin-left: 16px;
+}
+.navbar .unidad-grupo > button[aria-expanded="true"]::after { content: "▾"; }
+.navbar .unidad-grupo > ul {
+  list-style: none;
+  margin: 0;
+  padding: 0 0 0 12px;
+  background: #f2f6f9;
+}
+.navbar .unidad-grupo > ul[hidden] { display: none !important; }
+.navbar .unidad-grupo > ul > li > a {
+  display: block;
+  padding: 7px 18px;
+  color: #263b4b;
+  text-decoration: none;
+}
+.navbar .unidad-grupo > button:hover,
+.navbar .unidad-grupo > ul > li > a:hover,
+.navbar .unidad-grupo > ul > li.active > a { background: #e2eaf1; }
+.navbar .unidad-grupo > button:focus-visible,
+.navbar .unidad-grupo > ul > li > a:focus-visible {
+  outline: 2px solid #2c5697;
+  outline-offset: -2px;
+}
+</style>
+<script>
+(function () {
+  function prepararUnidades() {
+    var pagina = decodeURIComponent(window.location.pathname.split('/').pop() || 'index.html');
+    document.querySelectorAll('.navbar .navbar-nav > li > ul.dropdown-menu').forEach(function (menu, menuIndex) {
+      var grupo = null;
+      Array.from(menu.children).forEach(function (item, itemIndex) {
+        var enlace = item.querySelector('a');
+        if (enlace && enlace.getAttribute('href') === '#' && /^Unidad\s+\d+\.\d+$/.test(enlace.textContent.trim())) {
+          var boton = document.createElement('button');
+          boton.type = 'button';
+          boton.textContent = enlace.textContent.trim();
+          var lista = document.createElement('ul');
+          lista.id = 'unidad-' + menuIndex + '-' + itemIndex;
+          lista.hidden = true;
+          boton.setAttribute('aria-controls', lista.id);
+          boton.setAttribute('aria-expanded', 'false');
+          item.classList.add('unidad-grupo');
+          item.replaceChild(boton, enlace);
+          item.appendChild(lista);
+          boton.addEventListener('click', function (event) {
+            event.stopPropagation();
+            lista.hidden = !lista.hidden;
+            boton.setAttribute('aria-expanded', String(!lista.hidden));
+          });
+          item.addEventListener('keydown', function (event) {
+            if (event.key === 'Escape' && !lista.hidden) {
+              event.preventDefault();
+              event.stopPropagation();
+              lista.hidden = true;
+              boton.setAttribute('aria-expanded', 'false');
+              boton.focus();
+            }
+          });
+          grupo = lista;
+        } else if (item.classList.contains('divider') || item.classList.contains('dropdown-header')) {
+          grupo = null;
+        } else if (grupo) {
+          grupo.appendChild(item);
+          if (enlace && decodeURIComponent(enlace.getAttribute('href')) === pagina) {
+            item.classList.add('active');
+            grupo.hidden = false;
+            grupo.previousElementSibling.setAttribute('aria-expanded', 'true');
+          }
+        }
+      });
+    });
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', prepararUnidades);
+  } else {
+    prepararUnidades();
+  }
+})();
+</script>
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("hide" === "show");
+});
+</script>
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

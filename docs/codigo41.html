@@ -1,0 +1,1191 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="dgonzalez " />
+
+
+<title>Teoría de probabilidades</title>
+
+<script src="site_libs/header-attrs/header-attrs.js"></script>
+<script src="site_libs/jquery/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation/tabsets.js"></script>
+<script src="site_libs/navigation/codefolding.js"></script>
+<link href="site_libs/highlightjs/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs/highlight.js"></script>
+<link href="site_libs/font-awesome/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome/css/v4-shims.min.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+<link rel="stylesheet" href="cajas.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html"> </a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">
+    <span class="fa fa-home"></span>
+     
+    Estadística
+  </a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 0
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo0.html">Módulo 0</a>
+    </li>
+    <li>
+      <a href="sumatoria.html">Sumatoria</a>
+    </li>
+    <li>
+      <a href="productoria.html">Productoria</a>
+    </li>
+    <li>
+      <a href="conjuntos.html">Conjuntos</a>
+    </li>
+    <li>
+      <a href="conteo.html">Conteo</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 1
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo1.html">Módulo 1</a>
+    </li>
+    <li>
+      <a href="#">Unidad 1.1</a>
+    </li>
+    <li>
+      <a href="guia11.html">Guía 1.1</a>
+    </li>
+    <li>
+      <a href="recurso11.html">Recursos 1.1</a>
+    </li>
+    <li>
+      <a href="basesdatos.html">Bases de datos</a>
+    </li>
+    <li>
+      <a href="introduccionR.html">Introducción a R</a>
+    </li>
+    <li>
+      <a href="codigo11.html">Código 1.1</a>
+    </li>
+    <li>
+      <a href="#">Unidad 1.2</a>
+    </li>
+    <li>
+      <a href="guia12.html">Guía 1.2</a>
+    </li>
+    <li>
+      <a href="recurso12.html">Recursos 1.2</a>
+    </li>
+    <li>
+      <a href="codigo12.html">Código 1.2</a>
+    </li>
+    <li>
+      <a href="caso1A.html">Caso 1</a>
+    </li>
+    <li>
+      <a href="caso1B.html">Caso 2</a>
+    </li>
+    <li>
+      <a href="#">Unidad 1.3</a>
+    </li>
+    <li>
+      <a href="guia13.html">Guía 1.3</a>
+    </li>
+    <li>
+      <a href="recurso13.html">Recursos 1.3</a>
+    </li>
+    <li>
+      <a href="codigo13.html">Código 1.3</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="monitoria1.html">Monitoría 1</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 2
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo2.html">Módulo 2</a>
+    </li>
+    <li>
+      <a href="#">Unidad 2.1</a>
+    </li>
+    <li>
+      <a href="guia21.html">Guía 2.1</a>
+    </li>
+    <li>
+      <a href="recurso21.html">Recursos 2.1</a>
+    </li>
+    <li>
+      <a href="codigo21.html">Código 2.1</a>
+    </li>
+    <li>
+      <a href="taller211.html">Taller 211</a>
+    </li>
+    <li>
+      <a href="#">Unidad 2.2</a>
+    </li>
+    <li>
+      <a href="guia22.html">Guía 2.2</a>
+    </li>
+    <li>
+      <a href="recurso22.html">Recursos 2.2</a>
+    </li>
+    <li>
+      <a href="taller221.html">Taller 221</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="monitoria2.html">Monitoría 2</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 3
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo3.html">Módulo 3</a>
+    </li>
+    <li>
+      <a href="#">Unidad 3.1</a>
+    </li>
+    <li>
+      <a href="guia31.html">Guía 3.1</a>
+    </li>
+    <li>
+      <a href="recurso31.html">Recursos 3.1</a>
+    </li>
+    <li>
+      <a href="codigo31.html">Código 3.1</a>
+    </li>
+    <li>
+      <a href="taller311.html">Taller 311</a>
+    </li>
+    <li>
+      <a href="#">Unidad 3.2</a>
+    </li>
+    <li>
+      <a href="guia32.html">Guía 3.2</a>
+    </li>
+    <li>
+      <a href="recurso32.html">Recursos 3.2</a>
+    </li>
+    <li>
+      <a href="codigo32.html">Código 3.2</a>
+    </li>
+    <li>
+      <a href="taller321.html">Taller 321</a>
+    </li>
+    <li>
+      <a href="#">Unidad 3.3</a>
+    </li>
+    <li>
+      <a href="guia33.html">Guía 3.3</a>
+    </li>
+    <li>
+      <a href="recurso33-discretas.html">Recursos 3.3-discretas</a>
+    </li>
+    <li>
+      <a href="codigo33_discretas.html">Código 3.3 discretas</a>
+    </li>
+    <li>
+      <a href="taller331.html">Taller 331-discretas</a>
+    </li>
+    <li>
+      <a href="#">Unidad 3.4</a>
+    </li>
+    <li>
+      <a href="guia34.html">Guía 3.4</a>
+    </li>
+    <li>
+      <a href="recurso33-continuos.html">Recursos 3.4-continuas</a>
+    </li>
+    <li>
+      <a href="codigo33_continuos.html">Código 3.4 continuos</a>
+    </li>
+    <li>
+      <a href="taller341_modelos_continuos.html">Taller 341-continuos</a>
+    </li>
+    <li>
+      <a href="actividad334.html">Asignación A334</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="monitoria3.html">Monitoría 3</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 4
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo4.html">Módulo 4</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="#">Unidad 4.1</a>
+    </li>
+    <li>
+      <a href="guia41.html">Guía 4.1</a>
+    </li>
+    <li>
+      <a href="recurso41.html">Recursos 4.1</a>
+    </li>
+    <li>
+      <a href="codigo41.html">Código 4.1</a>
+    </li>
+    <li>
+      <a href="taller411.html">Taller 411</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Proyecto
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="guia_proyecto1.html">Guía proyecto</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore"><span
+style="color:#67C1A8 !important;">Teoría de probabilidades</span></h1>
+<h3 class="subtitle"><span style="color:#67C1A8"> </span></h3>
+<h4 class="author"><span style="color:#67C1A8">dgonzalez </span></h4>
+
+</div>
+
+
+<p><br/><br/></p>
+<p><img src="img/codigo4.png" alt="" width="100%" style="display: block; margin: auto;" /></p>
+<p><br><br><br></p>
+<div id="problema-1" class="section level3 box5 with-label">
+<h3>Problema 1</h3>
+<p>Un equipo de analistas desea aproximar el valor de <span
+class="math inline">\(\pi\)</span> mediante un experimento
+computacional, sin utilizar directamente su fórmula geométrica. Para
+ello genera puntos uniformemente distribuidos en un cuadrado de lado uno
+y registra cuáles quedan dentro de un cuarto de círculo de radio uno. La
+proporción de puntos interiores permite estimar <span
+class="math inline">\(\pi\)</span> y estudiar cómo evoluciona la
+estimación a medida que aumenta el número de simulaciones.</p>
+</div>
+<p><strong>Solución explicada, paso a paso.</strong></p>
+<ol style="list-style-type: decimal">
+<li><strong>Paso 1.</strong> Fijar la semilla y establecer 20000
+réplicas.</li>
+<li><strong>Paso 2.</strong> Generar las coordenadas uniformes de cada
+punto del cuadrado.</li>
+<li><strong>Paso 3.</strong> Clasificar cada punto según su pertenencia
+al cuarto de círculo.</li>
+<li><strong>Paso 4.</strong> Calcular la estimación de π y su
+incertidumbre; mantener n sin escalar.</li>
+<li><strong>Paso 5.</strong> Comparar con π y visualizar la
+convergencia.</li>
+</ol>
+<pre class="r"><code># Fijar la semilla para reproducir el experimento
+set.seed(4201)
+# Definir el número de réplicas independientes
+n &lt;- 20000
+# Generar coordenadas X uniformes
+x &lt;- runif(n); y &lt;- runif(n)
+# Registrar con 1 los puntos dentro del cuarto de círculo
+indicador &lt;- as.numeric(x^2 + y^2 &lt;= 1)
+# Obtener el resumen y transformar la estimación a la escala de π
+resultado_pi &lt;- resumen_mc(indicador)
+resultado_pi[c(&quot;estimacion&quot;, &quot;error_estandar&quot;, &quot;LI&quot;, &quot;LS&quot;)] &lt;- 4 * resultado_pi[c(&quot;estimacion&quot;, &quot;error_estandar&quot;, &quot;LI&quot;, &quot;LS&quot;)]
+# Mostrar los resultados calculados
+print(resultado_pi)</code></pre>
+<pre><code>##              n     estimacion error_estandar             LI             LS 
+##   2.000000e+04   3.148400e+00   1.157867e-02   3.125706e+00   3.171094e+00</code></pre>
+<pre class="r"><code># Presentar el valor de referencia o la medida solicitada
+cat(&quot;Valor de referencia:&quot;, pi, &quot;\n&quot;)</code></pre>
+<pre><code>## Valor de referencia: 3.141593</code></pre>
+<pre class="r"><code># Visualizar la evolución del promedio acumulado
+convergencia_mc(4*indicador, referencia = pi, titulo = &quot;Estimación de pi&quot;)</code></pre>
+<p><img src="codigo41_files/figure-html/pi-1.png" alt="" width="768" style="display: block; margin: auto;" /></p>
+<p><br><br><br></p>
+<div id="problema-2" class="section level3 box5 with-label">
+<h3>Problema 2</h3>
+<p>En una actividad de capacitación sobre riesgo y probabilidad, se
+lanzan simultáneamente dos dados equilibrados. Se considera un resultado
+favorable cuando la suma de las caras es al menos 10. Se desea estimar
+la probabilidad de este evento mediante lanzamientos simulados,
+compararla con el valor teórico y observar la convergencia de la
+frecuencia relativa.</p>
+</div>
+<p><strong>Solución explicada, paso a paso.</strong></p>
+<ol style="list-style-type: decimal">
+<li><strong>Paso 1.</strong> Fijar semilla y número de
+lanzamientos.</li>
+<li><strong>Paso 2.</strong> Simular independientemente las caras de los
+dos dados.</li>
+<li><strong>Paso 3.</strong> Identificar los lanzamientos con suma igual
+o superior a 10.</li>
+<li><strong>Paso 4.</strong> Estimar la probabilidad y su error de
+simulación.</li>
+<li><strong>Paso 5.</strong> Comparar con 1/6 y observar la
+convergencia.</li>
+</ol>
+<pre class="r"><code># Fijar la semilla para reproducir el experimento
+set.seed(4202)
+# Definir el número de réplicas independientes
+n &lt;- 15000
+# Simular las caras del primer dado
+d1 &lt;- sample(1:6, n, replace = TRUE)
+# Simular las caras del segundo dado
+d2 &lt;- sample(1:6, n, replace = TRUE)
+# Construir la variable de interés para la estimación
+y &lt;- as.numeric(d1 + d2 &gt;= 10)
+# Mostrar los resultados calculados
+print(resumen_mc(y))</code></pre>
+<pre><code>##              n     estimacion error_estandar             LI             LS 
+##   1.500000e+04   1.692667e-01   3.061860e-03   1.632655e-01   1.752678e-01</code></pre>
+<pre class="r"><code># Presentar el valor de referencia o la medida solicitada
+cat(&quot;Probabilidad teórica:&quot;, 1/6, &quot;\n&quot;)</code></pre>
+<pre><code>## Probabilidad teórica: 0.1666667</code></pre>
+<pre class="r"><code># Visualizar la evolución del promedio acumulado
+convergencia_mc(y, 1/6, &quot;Probabilidad de suma &gt;= 10&quot;)</code></pre>
+<p><img src="codigo41_files/figure-html/dados-1.png" alt="" width="768" style="display: block; margin: auto;" /></p>
+<p><br><br><br></p>
+<div id="problema-3" class="section level3 box5 with-label">
+<h3>Problema 3</h3>
+<p>Un centro de atención estudia el tiempo que transcurre entre eventos
+sucesivos, suponiendo que puede representarse mediante una distribución
+exponencial con tasa <span class="math inline">\(\lambda=0.2\)</span>
+por unidad de tiempo. El equipo necesita generar observaciones a partir
+de números uniformes mediante el método de la transformada inversa y
+comprobar si el promedio y la forma de la distribución simulada
+concuerdan con el modelo propuesto.</p>
+</div>
+<p><strong>Solución explicada, paso a paso.</strong></p>
+<ol style="list-style-type: decimal">
+<li><strong>Paso 1.</strong> Fijar la semilla, el número de
+observaciones y la tasa exponencial.</li>
+<li><strong>Paso 2.</strong> Generar números uniformes entre cero y
+uno.</li>
+<li><strong>Paso 3.</strong> Aplicar la transformación inversa para
+obtener tiempos exponenciales.</li>
+<li><strong>Paso 4.</strong> Resumir los tiempos simulados.</li>
+<li><strong>Paso 5.</strong> Comparar la distribución y la media
+simuladas con el modelo teórico.</li>
+</ol>
+<pre class="r"><code># Fijar la semilla para reproducir el experimento
+set.seed(4203)
+# Definir el número de réplicas independientes
+n &lt;- 12000
+# Definir la tasa del modelo exponencial
+lambda &lt;- 0.2
+# Generar números uniformes de partida
+u &lt;- runif(n)
+# Aplicar la transformación inversa exponencial
+x &lt;- -log1p(-u)/lambda
+# Mostrar los resultados calculados
+print(resumen_mc(x))</code></pre>
+<pre><code>##              n     estimacion error_estandar             LI             LS 
+##   1.200000e+04   4.891034e+00   4.499630e-02   4.802843e+00   4.979225e+00</code></pre>
+<pre class="r"><code># Dibujar el histograma de los resultados
+hist(x, breaks = 45, probability = TRUE, col = &quot;#B8D7E8&quot;, border = &quot;white&quot;,
+     main = &quot;Exponencial mediante transformada inversa&quot;, xlab = &quot;Tiempo&quot;)
+# Superponer la densidad teórica
+curve(dexp(x, rate = lambda), add = TRUE, col = &quot;#476885&quot;, lwd = 2)</code></pre>
+<p><img src="codigo41_files/figure-html/inversa-1.png" alt="" width="768" style="display: block; margin: auto;" /></p>
+<pre class="r"><code># Presentar el valor de referencia o la medida solicitada
+cat(&quot;Media teórica:&quot;, 1/lambda, &quot;\n&quot;)</code></pre>
+<pre><code>## Media teórica: 5</code></pre>
+<p><br><br><br></p>
+<div id="problema-4" class="section level3 box5 with-label">
+<h3>Problema 4</h3>
+<p>Un grupo de estudiantes necesita aproximar numéricamente el área bajo
+la curva <span class="math inline">\(f(x)=x^2\)</span> entre 0 y 1. En
+lugar de aplicar directamente una regla de integración, genera valores
+uniformes en ese intervalo y calcula el promedio de sus cuadrados. El
+objetivo es obtener una estimación Monte Carlo de la integral y examinar
+su convergencia hacia el valor exacto.</p>
+</div>
+<p><strong>Solución explicada, paso a paso.</strong></p>
+<ol style="list-style-type: decimal">
+<li><strong>Paso 1.</strong> Fijar la semilla y generar valores
+uniformes en [0,1].</li>
+<li><strong>Paso 2.</strong> Evaluar la función x² en cada valor
+generado.</li>
+<li><strong>Paso 3.</strong> Promediar las evaluaciones para aproximar
+la integral.</li>
+<li><strong>Paso 4.</strong> Comparar la estimación con 1/3 y examinar
+su convergencia.</li>
+</ol>
+<pre class="r"><code># Fijar la semilla para reproducir el experimento
+set.seed(4204)
+# Generar números uniformes de partida
+u &lt;- runif(30000)
+# Construir la variable de interés para la estimación
+y &lt;- u^2
+# Mostrar los resultados calculados
+print(resumen_mc(y))</code></pre>
+<pre><code>##              n     estimacion error_estandar             LI             LS 
+##   3.000000e+04   3.325218e-01   1.713326e-03   3.291638e-01   3.358799e-01</code></pre>
+<pre class="r"><code># Visualizar la evolución del promedio acumulado
+convergencia_mc(y, 1/3, &quot;Integral por Monte Carlo&quot;)</code></pre>
+<p><img src="codigo41_files/figure-html/integral-1.png" alt="" width="768" style="display: block; margin: auto;" /></p>
+<p><br><br><br></p>
+<div id="problema-5" class="section level3 box5 with-label">
+<h3>Problema 5</h3>
+<p>Una planta industrial fabrica lotes de 50 unidades y estima que cada
+unidad tiene una probabilidad de defecto de 0.04, de manera
+independiente. Para planear las inspecciones, la gerencia desea conocer
+la probabilidad de encontrar cuatro o más unidades defectuosas en un
+lote. Se simulan numerosos lotes bajo un modelo binomial y se compara la
+frecuencia del evento con la probabilidad calculada analíticamente.</p>
+</div>
+<p><strong>Solución explicada, paso a paso.</strong></p>
+<ol style="list-style-type: decimal">
+<li><strong>Paso 1.</strong> Fijar semilla y número de lotes
+simulados.</li>
+<li><strong>Paso 2.</strong> Simular el número de defectos de cada lote
+mediante la binomial.</li>
+<li><strong>Paso 3.</strong> Identificar los lotes con al menos cuatro
+defectos.</li>
+<li><strong>Paso 4.</strong> Estimar la probabilidad del evento y su
+incertidumbre.</li>
+<li><strong>Paso 5.</strong> Contrastar con la probabilidad binomial
+exacta.</li>
+</ol>
+<pre class="r"><code># Fijar la semilla para reproducir el experimento
+set.seed(4205)
+# Definir el número de réplicas independientes
+n &lt;- 20000
+# Simular el número de defectos por lote
+defectos &lt;- rbinom(n, size = 50, prob = 0.04)
+# Construir la variable de interés para la estimación
+y &lt;- as.numeric(defectos &gt;= 4)
+# Mostrar los resultados calculados
+print(resumen_mc(y))</code></pre>
+<pre><code>##              n     estimacion error_estandar             LI             LS 
+##   2.000000e+04   1.412000e-01   2.462404e-03   1.363738e-01   1.460262e-01</code></pre>
+<pre class="r"><code># Presentar el valor de referencia o la medida solicitada
+cat(&quot;Probabilidad teórica:&quot;, pbinom(3, 50, 0.04, lower.tail = FALSE), &quot;\n&quot;)</code></pre>
+<pre><code>## Probabilidad teórica: 0.1391308</code></pre>
+<p><br><br><br></p>
+<div id="problema-6" class="section level3 box5 with-label">
+<h3>Problema 6</h3>
+<p>Una empresa comercial mantiene un inventario disponible de 22
+unidades para atender la demanda de un periodo. Según sus registros, la
+demanda puede modelarse con una distribución de Poisson de media 18
+unidades por periodo. La administración quiere estimar la probabilidad
+de quedarse sin existencias suficientes, la cantidad promedio de
+unidades faltantes y el volumen promedio efectivamente atendido. Se
+simulan periodos independientes para evaluar estos indicadores.</p>
+</div>
+<p><strong>Solución explicada, paso a paso.</strong></p>
+<ol style="list-style-type: decimal">
+<li><strong>Paso 1.</strong> Definir semilla, número de periodos e
+inventario inicial.</li>
+<li><strong>Paso 2.</strong> Generar la demanda Poisson de cada
+periodo.</li>
+<li><strong>Paso 3.</strong> Calcular las unidades faltantes, evitando
+valores negativos.</li>
+<li><strong>Paso 4.</strong> Estimar probabilidad de faltante, faltante
+medio y ventas atendidas.</li>
+<li><strong>Paso 5.</strong> Representar la demanda, agrupando valores
+de 35 o más solo en el gráfico.</li>
+</ol>
+<pre class="r"><code># Fijar la semilla para reproducir el experimento
+set.seed(4206)
+# Definir el número de réplicas independientes
+n &lt;- 20000
+# Definir las unidades disponibles
+stock &lt;- 22
+# Simular la demanda de cada periodo
+demanda &lt;- rpois(n, lambda = 18)
+# Calcular el déficit no negativo por periodo
+faltante &lt;- pmax(demanda-stock, 0)
+# Mostrar los resultados calculados
+print(resumen_mc(as.numeric(faltante &gt; 0)))</code></pre>
+<pre><code>##              n     estimacion error_estandar             LI             LS 
+##   2.000000e+04   1.445500e-01   2.486579e-03   1.396764e-01   1.494236e-01</code></pre>
+<pre class="r"><code># Mostrar los resultados calculados
+print(resumen_mc(faltante))</code></pre>
+<pre><code>##              n     estimacion error_estandar             LI             LS 
+##   2.000000e+04   4.314000e-01   9.357835e-03   4.130590e-01   4.497410e-01</code></pre>
+<pre class="r"><code># Mostrar los resultados calculados
+print(resumen_mc(pmin(demanda, stock)))</code></pre>
+<pre><code>##              n     estimacion error_estandar             LI             LS 
+##   2.000000e+04   1.761060e+01   2.495775e-02   1.756168e+01   1.765952e+01</code></pre>
+<pre class="r"><code># Graficar las frecuencias de demanda
+barplot(table(factor(pmin(demanda, 35), levels = 0:35)),
+        col = &quot;#476885&quot;, border = NA, space = 0,
+        main = &quot;Distribución simulada de demanda (35 agrupa 35 o más)&quot;,
+        xlab = &quot;Demanda truncada para visualización&quot;, ylab = &quot;Frecuencia&quot;)</code></pre>
+<p><img src="codigo41_files/figure-html/inventario-1.png" alt="" width="768" style="display: block; margin: auto;" /></p>
+<p><br><br><br></p>
+<div id="problema-7" class="section level3 box5 with-label">
+<h3>Problema 7</h3>
+<p>El departamento de mantenimiento de una empresa analiza la vida útil
+de un componente cuya duración se modela mediante una distribución
+Weibull con parámetro de forma 2 y escala 1500 horas. Se desea estimar
+la probabilidad de que el componente siga funcionando después de 1200
+horas. Para ello se simulan vidas útiles independientes y se contrasta
+la proporción de supervivencia con la probabilidad teórica.</p>
+</div>
+<p><strong>Solución explicada, paso a paso.</strong></p>
+<ol style="list-style-type: decimal">
+<li><strong>Paso 1.</strong> Fijar semilla y número de componentes
+simulados.</li>
+<li><strong>Paso 2.</strong> Generar las vidas útiles Weibull.</li>
+<li><strong>Paso 3.</strong> Identificar los componentes que sobreviven
+más de 1200 horas.</li>
+<li><strong>Paso 4.</strong> Estimar la probabilidad de supervivencia y
+su incertidumbre.</li>
+<li><strong>Paso 5.</strong> Comparar con la función de supervivencia
+teórica.</li>
+</ol>
+<pre class="r"><code># Fijar la semilla para reproducir el experimento
+set.seed(4207)
+# Definir el número de réplicas independientes
+n &lt;- 20000
+# Simular las vidas útiles de los componentes
+vida &lt;- rweibull(n, shape = 2, scale = 1500)
+# Construir la variable de interés para la estimación
+y &lt;- as.numeric(vida &gt; 1200)
+# Mostrar los resultados calculados
+print(resumen_mc(y))</code></pre>
+<pre><code>##              n     estimacion error_estandar             LI             LS 
+##   2.000000e+04   5.263500e-01   3.530709e-03   5.194299e-01   5.332701e-01</code></pre>
+<pre class="r"><code># Presentar el valor de referencia o la medida solicitada
+cat(&quot;Supervivencia teórica:&quot;, pweibull(1200, 2, 1500, lower.tail = FALSE), &quot;\n&quot;)</code></pre>
+<pre><code>## Supervivencia teórica: 0.5272924</code></pre>
+<p><br><br><br></p>
+<div id="problema-8" class="section level3 box5 with-label">
+<h3>Problema 8</h3>
+<p>Una oficina de atención al cliente opera con un único servidor y
+atiende 100 clientes por jornada simulada. Se supone que los tiempos
+entre llegadas son exponenciales con media de 8 minutos y los tiempos de
+servicio son exponenciales con media de 6 minutos. La dirección quiere
+estimar el tiempo medio de espera por jornada y conocer su variabilidad
+entre jornadas independientes. Para ello se reproducen 1000 jornadas
+completas, respetando el orden de llegada y la disponibilidad del
+servidor.</p>
+</div>
+<p><strong>Solución explicada, paso a paso.</strong></p>
+<ol style="list-style-type: decimal">
+<li><strong>Paso 1.</strong> Definir una función que simule una jornada
+y comprobar sus parámetros.</li>
+<li><strong>Paso 2.</strong> Generar tiempos entre llegadas y
+acumularlos para obtener las llegadas.</li>
+<li><strong>Paso 3.</strong> Generar los tiempos de servicio y preparar
+los vectores de seguimiento.</li>
+<li><strong>Paso 4.</strong> Recorrer los clientes para calcular inicio,
+salida y espera de cada uno.</li>
+<li><strong>Paso 5.</strong> Devolver los datos de cada cliente y
+repetir 1000 jornadas independientes.</li>
+<li><strong>Paso 6.</strong> Calcular la espera promedio por jornada y
+resumir su distribución.</li>
+</ol>
+<pre class="r"><code># Crear la función que simula una jornada
+simular_jornada &lt;- function(n_clientes = 100, media_interllegada = 8,
+                            media_servicio = 6) {
+  stopifnot(n_clientes &gt;= 1, media_interllegada &gt; 0, media_servicio &gt; 0)
+  a &lt;- cumsum(rexp(n_clientes, rate = 1/media_interllegada))
+  s &lt;- rexp(n_clientes, rate = 1/media_servicio)
+  b &lt;- c_out &lt;- w &lt;- numeric(n_clientes)
+  # Recorrer los clientes en orden de llegada
+  for (i in seq_len(n_clientes)) {
+    # Consultar el instante en que quedó libre el servidor
+    fin_anterior &lt;- if (i == 1) 0 else c_out[i-1]
+    # Iniciar el servicio cuando cliente y servidor estén disponibles
+    b[i] &lt;- max(a[i], fin_anterior)
+    # Calcular el instante de salida del cliente
+    c_out[i] &lt;- b[i] + s[i]
+    # Calcular el tiempo de espera del cliente
+    w[i] &lt;- b[i] - a[i]
+  }
+  data.frame(cliente = seq_len(n_clientes), llegada = a,
+             servicio = s, inicio = b, salida = c_out, espera = w)
+# Cerrar el bloque de instrucciones anterior
+}
+# Fijar la semilla para reproducir el experimento
+set.seed(4208)
+# Definir cuántas jornadas se simulan
+replicas &lt;- 1000
+# Repetir jornadas y calcular su espera media
+espera_media_jornada &lt;- replicate(replicas, {
+  # Simular una jornada completa
+  jornada &lt;- simular_jornada()
+  # Obtener la espera media de esta jornada
+  mean(jornada$espera)
+# Cerrar el bloque de instrucciones anterior
+})
+# Mostrar los resultados calculados
+print(resumen_mc(espera_media_jornada))</code></pre>
+<pre><code>##              n     estimacion error_estandar             LI             LS 
+##   1000.0000000     14.8161393      0.3234935     14.1821038     15.4501748</code></pre>
+<pre class="r"><code># Dibujar el histograma de los resultados
+hist(espera_media_jornada, breaks = 35, col = &quot;#B8D7E8&quot;, border = &quot;white&quot;,
+     main = &quot;Espera media por jornada&quot;, xlab = &quot;Minutos&quot;)</code></pre>
+<p><img src="codigo41_files/figure-html/cola-1.png" alt="" width="768" style="display: block; margin: auto;" /></p>
+<p><br><br><br></p>
+<div id="problema-9" class="section level3 box5 with-label">
+<h3>Problema 9</h3>
+<p>Un analista utiliza una distribución normal con media 10 y desviación
+estándar 3 para estudiar la precisión de un estimador obtenido por
+simulación. Repite el cálculo del promedio con distintos tamaños de
+muestra y registra el error estándar y el error absoluto respecto de la
+media conocida. El propósito es examinar cómo cambia la precisión al
+aumentar el número de observaciones simuladas.</p>
+</div>
+<p><strong>Solución explicada, paso a paso.</strong></p>
+<ol style="list-style-type: decimal">
+<li><strong>Paso 1.</strong> Fijar la semilla y definir los tamaños de
+muestra.</li>
+<li><strong>Paso 2.</strong> Generar una muestra normal independiente
+para cada tamaño.</li>
+<li><strong>Paso 3.</strong> Calcular la media, el error estándar y el
+error absoluto de cada muestra.</li>
+<li><strong>Paso 4.</strong> Reunir los resultados en una tabla
+comparativa.</li>
+<li><strong>Paso 5.</strong> Graficar cómo cambia el error estándar al
+aumentar n.</li>
+</ol>
+<pre class="r"><code># Fijar la semilla para reproducir el experimento
+set.seed(4209)
+# Definir los tamaños muestrales que se comparan
+tamanos &lt;- c(100, 500, 1000, 5000, 20000)
+# Repetir el análisis para cada tamaño de muestra
+comparacion &lt;- do.call(rbind, lapply(tamanos, function(n) {
+  # Construir la variable de interés para la estimación
+  y &lt;- rnorm(n, mean = 10, sd = 3)
+  data.frame(n = n, estimacion = mean(y), error_estandar = sd(y)/sqrt(n),
+             error_absoluto = abs(mean(y)-10))
+# Continuar la operación definida en el paso actual
+}))
+# Mostrar los resultados calculados
+print(comparacion)</code></pre>
+<pre><code>##       n estimacion error_estandar error_absoluto
+## 1   100  10.131473     0.25047447    0.131472807
+## 2   500   9.975967     0.13624056    0.024033292
+## 3  1000   9.994644     0.09481060    0.005355827
+## 4  5000   9.951121     0.04206834    0.048878588
+## 5 20000  10.007426     0.02121661    0.007426031</code></pre>
+<pre class="r"><code># Representar gráficamente los resultados
+plot(comparacion$n, comparacion$error_estandar, log = &quot;xy&quot;, type = &quot;b&quot;,
+     col = &quot;#476885&quot;, pch = 19, xlab = &quot;n (escala log)&quot;,
+     ylab = &quot;Error estándar (escala log)&quot;, main = &quot;Precisión y tamaño muestral&quot;)</code></pre>
+<p><img src="codigo41_files/figure-html/tamanos-1.png" alt="" width="768" style="display: block; margin: auto;" /></p>
+<p><br><br><br></p>
+<div id="problema-10" class="section level3 box5 with-label">
+<h3>Problema 10</h3>
+<p>En una sesión de laboratorio se propone construir una interfaz que
+permita experimentar con la estimación de <span
+class="math inline">\(\pi\)</span> mediante puntos aleatorios. El
+estudiante podrá elegir el número de puntos, ejecutar una nueva
+simulación y observar tanto la estimación como su error absoluto y la
+ubicación de los puntos dentro y fuera del cuarto de círculo. Este
+programa es opcional y se ejecuta por separado mediante Shiny.</p>
+</div>
+<p>Este bloque no se ejecuta al tejer el Rmd. Copiarlo en un archivo
+<code>app.R</code> y ejecutarlo con <code>shiny::runApp()</code> una vez
+instalado el paquete <code>shiny</code>.</p>
+<p><strong>Solución explicada, paso a paso.</strong></p>
+<ol style="list-style-type: decimal">
+<li><strong>Paso 1.</strong> Cargar Shiny y construir los controles y
+salidas de la interfaz.</li>
+<li><strong>Paso 2.</strong> Definir el servidor y generar los puntos
+cuando se activa la simulación.</li>
+<li><strong>Paso 3.</strong> Calcular la estimación de π y el error
+absoluto.</li>
+<li><strong>Paso 4.</strong> Representar los puntos y el arco del cuarto
+de círculo.</li>
+<li><strong>Paso 5.</strong> Iniciar la aplicación de forma
+independiente al tejido del R Markdown.</li>
+</ol>
+<pre class="r"><code># Cargar el paquete necesario para la aplicación
+library(shiny)
+# Definir la interfaz de usuario
+ui &lt;- fluidPage(
+  titlePanel(&quot;Monte Carlo: aproximación de pi&quot;),
+  sidebarLayout(
+    sidebarPanel(sliderInput(&quot;n&quot;, &quot;Número de puntos&quot;, min = 100,
+                             max = 20000, value = 1000, step = 100),
+                 actionButton(&quot;nuevo&quot;, &quot;Simular&quot;)),
+    mainPanel(verbatimTextOutput(&quot;resultado&quot;), plotOutput(&quot;grafico&quot;))
+  )
+# Cerrar el bloque de instrucciones anterior
+)
+# Definir la lógica del servidor
+server &lt;- function(input, output, session) {
+  datos &lt;- eventReactive(list(input$n, input$nuevo), {
+    x &lt;- runif(input$n); y &lt;- runif(input$n)
+    data.frame(x = x, y = y, dentro = x*x + y*y &lt;= 1)
+  }, ignoreInit = FALSE)
+  output$resultado &lt;- renderPrint({
+    # Consultar los datos simulados
+    d &lt;- datos()
+    # Presentar el valor de referencia o la medida solicitada
+    cat(&quot;Estimación de pi:&quot;, 4*mean(d$dentro), &quot;\n&quot;)
+    # Presentar el valor de referencia o la medida solicitada
+    cat(&quot;Error absoluto:&quot;, abs(4*mean(d$dentro)-pi), &quot;\n&quot;)
+  })
+  output$grafico &lt;- renderPlot({
+    # Consultar los datos simulados
+    d &lt;- datos()
+    # Representar gráficamente los resultados
+    plot(d$x, d$y, pch = 16, cex = 0.4,
+         col = ifelse(d$dentro, &quot;#476885&quot;, &quot;#C76D59&quot;),
+         asp = 1, xlab = &quot;X&quot;, ylab = &quot;Y&quot;)
+    # Crear los ángulos para dibujar el arco
+    t &lt;- seq(0, pi/2, length.out = 200)
+    # Dibujar el arco del cuarto de círculo
+    lines(cos(t), sin(t), lwd = 2)
+  })
+# Cerrar el bloque de instrucciones anterior
+}
+# Iniciar la aplicación interactiva
+shinyApp(ui, server)</code></pre>
+<p><br><br><br></p>
+<div id="preguntas-para-el-análisis-del-código" class="section level1">
+<h1>Preguntas para el análisis del código</h1>
+<ol style="list-style-type: decimal">
+<li>¿Qué resultados cambian al modificar la semilla?</li>
+<li>¿Qué sucede con la amplitud del intervalo al multiplicar <span
+class="math inline">\(n\)</span> por cuatro?</li>
+<li>¿Por qué la unidad independiente del problema 8 es la
+<strong>jornada</strong>?</li>
+<li>¿Qué cambiaría si la llegada de clientes no siguiera una
+distribución exponencial?</li>
+<li>¿Qué indicadores permitirían validar el modelo frente a
+observaciones reales?</li>
+</ol>
+</div>
+
+<style>
+/* Se incluye en todas las páginas, incluso si definen su propio CSS. */
+.navbar .navbar-nav > .dropdown > .dropdown-menu {
+  max-height: calc(100vh - 90px);
+  overflow-y: auto;
+}
+.navbar .unidad-grupo > button {
+  display: block;
+  width: 100%;
+  padding: 7px 20px;
+  border: 0;
+  background: transparent;
+  color: #263b4b;
+  font: inherit;
+  font-weight: 600;
+  text-align: left;
+}
+.navbar .unidad-grupo > button::after {
+  content: "▸";
+  float: right;
+  margin-left: 16px;
+}
+.navbar .unidad-grupo > button[aria-expanded="true"]::after { content: "▾"; }
+.navbar .unidad-grupo > ul {
+  list-style: none;
+  margin: 0;
+  padding: 0 0 0 12px;
+  background: #f2f6f9;
+}
+.navbar .unidad-grupo > ul[hidden] { display: none !important; }
+.navbar .unidad-grupo > ul > li > a {
+  display: block;
+  padding: 7px 18px;
+  color: #263b4b;
+  text-decoration: none;
+}
+.navbar .unidad-grupo > button:hover,
+.navbar .unidad-grupo > ul > li > a:hover,
+.navbar .unidad-grupo > ul > li.active > a { background: #e2eaf1; }
+.navbar .unidad-grupo > button:focus-visible,
+.navbar .unidad-grupo > ul > li > a:focus-visible {
+  outline: 2px solid #2c5697;
+  outline-offset: -2px;
+}
+</style>
+<script>
+(function () {
+  function prepararUnidades() {
+    var pagina = decodeURIComponent(window.location.pathname.split('/').pop() || 'index.html');
+    document.querySelectorAll('.navbar .navbar-nav > li > ul.dropdown-menu').forEach(function (menu, menuIndex) {
+      var grupo = null;
+      Array.from(menu.children).forEach(function (item, itemIndex) {
+        var enlace = item.querySelector('a');
+        if (enlace && enlace.getAttribute('href') === '#' && /^Unidad\s+\d+\.\d+$/.test(enlace.textContent.trim())) {
+          var boton = document.createElement('button');
+          boton.type = 'button';
+          boton.textContent = enlace.textContent.trim();
+          var lista = document.createElement('ul');
+          lista.id = 'unidad-' + menuIndex + '-' + itemIndex;
+          lista.hidden = true;
+          boton.setAttribute('aria-controls', lista.id);
+          boton.setAttribute('aria-expanded', 'false');
+          item.classList.add('unidad-grupo');
+          item.replaceChild(boton, enlace);
+          item.appendChild(lista);
+          boton.addEventListener('click', function (event) {
+            event.stopPropagation();
+            lista.hidden = !lista.hidden;
+            boton.setAttribute('aria-expanded', String(!lista.hidden));
+          });
+          item.addEventListener('keydown', function (event) {
+            if (event.key === 'Escape' && !lista.hidden) {
+              event.preventDefault();
+              event.stopPropagation();
+              lista.hidden = true;
+              boton.setAttribute('aria-expanded', 'false');
+              boton.focus();
+            }
+          });
+          grupo = lista;
+        } else if (item.classList.contains('divider') || item.classList.contains('dropdown-header')) {
+          grupo = null;
+        } else if (grupo) {
+          grupo.appendChild(item);
+          if (enlace && decodeURIComponent(enlace.getAttribute('href')) === pagina) {
+            item.classList.add('active');
+            grupo.hidden = false;
+            grupo.previousElementSibling.setAttribute('aria-expanded', 'true');
+          }
+        }
+      });
+    });
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', prepararUnidades);
+  } else {
+    prepararUnidades();
+  }
+})();
+</script>
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("hide" === "show");
+});
+</script>
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

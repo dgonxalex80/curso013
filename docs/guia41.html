@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="dgonzalez " />
+
+
+<title>Teoría de probabilidades</title>
+
+<script src="site_libs/header-attrs/header-attrs.js"></script>
+<script src="site_libs/jquery/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation/tabsets.js"></script>
+<script src="site_libs/navigation/codefolding.js"></script>
+<link href="site_libs/highlightjs/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs/highlight.js"></script>
+<link href="site_libs/font-awesome/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome/css/v4-shims.min.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+<link rel="stylesheet" href="cajas.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html"> </a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">
+    <span class="fa fa-home"></span>
+     
+    Estadística
+  </a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 0
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo0.html">Módulo 0</a>
+    </li>
+    <li>
+      <a href="sumatoria.html">Sumatoria</a>
+    </li>
+    <li>
+      <a href="productoria.html">Productoria</a>
+    </li>
+    <li>
+      <a href="conjuntos.html">Conjuntos</a>
+    </li>
+    <li>
+      <a href="conteo.html">Conteo</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 1
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo1.html">Módulo 1</a>
+    </li>
+    <li>
+      <a href="#">Unidad 1.1</a>
+    </li>
+    <li>
+      <a href="guia11.html">Guía 1.1</a>
+    </li>
+    <li>
+      <a href="recurso11.html">Recursos 1.1</a>
+    </li>
+    <li>
+      <a href="basesdatos.html">Bases de datos</a>
+    </li>
+    <li>
+      <a href="introduccionR.html">Introducción a R</a>
+    </li>
+    <li>
+      <a href="codigo11.html">Código 1.1</a>
+    </li>
+    <li>
+      <a href="#">Unidad 1.2</a>
+    </li>
+    <li>
+      <a href="guia12.html">Guía 1.2</a>
+    </li>
+    <li>
+      <a href="recurso12.html">Recursos 1.2</a>
+    </li>
+    <li>
+      <a href="codigo12.html">Código 1.2</a>
+    </li>
+    <li>
+      <a href="caso1A.html">Caso 1</a>
+    </li>
+    <li>
+      <a href="caso1B.html">Caso 2</a>
+    </li>
+    <li>
+      <a href="#">Unidad 1.3</a>
+    </li>
+    <li>
+      <a href="guia13.html">Guía 1.3</a>
+    </li>
+    <li>
+      <a href="recurso13.html">Recursos 1.3</a>
+    </li>
+    <li>
+      <a href="codigo13.html">Código 1.3</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="monitoria1.html">Monitoría 1</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 2
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo2.html">Módulo 2</a>
+    </li>
+    <li>
+      <a href="#">Unidad 2.1</a>
+    </li>
+    <li>
+      <a href="guia21.html">Guía 2.1</a>
+    </li>
+    <li>
+      <a href="recurso21.html">Recursos 2.1</a>
+    </li>
+    <li>
+      <a href="codigo21.html">Código 2.1</a>
+    </li>
+    <li>
+      <a href="taller211.html">Taller 211</a>
+    </li>
+    <li>
+      <a href="#">Unidad 2.2</a>
+    </li>
+    <li>
+      <a href="guia22.html">Guía 2.2</a>
+    </li>
+    <li>
+      <a href="recurso22.html">Recursos 2.2</a>
+    </li>
+    <li>
+      <a href="taller221.html">Taller 221</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="monitoria2.html">Monitoría 2</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 3
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo3.html">Módulo 3</a>
+    </li>
+    <li>
+      <a href="#">Unidad 3.1</a>
+    </li>
+    <li>
+      <a href="guia31.html">Guía 3.1</a>
+    </li>
+    <li>
+      <a href="recurso31.html">Recursos 3.1</a>
+    </li>
+    <li>
+      <a href="codigo31.html">Código 3.1</a>
+    </li>
+    <li>
+      <a href="taller311.html">Taller 311</a>
+    </li>
+    <li>
+      <a href="#">Unidad 3.2</a>
+    </li>
+    <li>
+      <a href="guia32.html">Guía 3.2</a>
+    </li>
+    <li>
+      <a href="recurso32.html">Recursos 3.2</a>
+    </li>
+    <li>
+      <a href="codigo32.html">Código 3.2</a>
+    </li>
+    <li>
+      <a href="taller321.html">Taller 321</a>
+    </li>
+    <li>
+      <a href="#">Unidad 3.3</a>
+    </li>
+    <li>
+      <a href="guia33.html">Guía 3.3</a>
+    </li>
+    <li>
+      <a href="recurso33-discretas.html">Recursos 3.3-discretas</a>
+    </li>
+    <li>
+      <a href="codigo33_discretas.html">Código 3.3 discretas</a>
+    </li>
+    <li>
+      <a href="taller331.html">Taller 331-discretas</a>
+    </li>
+    <li>
+      <a href="#">Unidad 3.4</a>
+    </li>
+    <li>
+      <a href="guia34.html">Guía 3.4</a>
+    </li>
+    <li>
+      <a href="recurso33-continuos.html">Recursos 3.4-continuas</a>
+    </li>
+    <li>
+      <a href="codigo33_continuos.html">Código 3.4 continuos</a>
+    </li>
+    <li>
+      <a href="taller341_modelos_continuos.html">Taller 341-continuos</a>
+    </li>
+    <li>
+      <a href="actividad334.html">Asignación A334</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="monitoria3.html">Monitoría 3</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 4
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo4.html">Módulo 4</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="#">Unidad 4.1</a>
+    </li>
+    <li>
+      <a href="guia41.html">Guía 4.1</a>
+    </li>
+    <li>
+      <a href="recurso41.html">Recursos 4.1</a>
+    </li>
+    <li>
+      <a href="codigo41.html">Código 4.1</a>
+    </li>
+    <li>
+      <a href="taller411.html">Taller 411</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Proyecto
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="guia_proyecto1.html">Guía proyecto</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore"><span
+style="color:#67C1A8 !important;">Teoría de probabilidades</span></h1>
+<h3 class="subtitle"><span style="color:#67C1A8"> </span></h3>
+<h4 class="author"><span style="color:#67C1A8">dgonzalez </span></h4>
+
+</div>
+
+
+<p><br/><br/></p>
+<p><img src="img/guia4.png" alt="" width="100%" style="display: block; margin: auto;" /></p>
+<p><br/><br/></p>
+<div id="introducción" class="section level1">
+<h1>Introducción</h1>
+<p>En las unidades 3.1, 3.2 y 3.3 se estudiaron los principales
+conceptos para caracterizar variables aleatorias discretas y continuas.
+En el caso univariado se abordaron la función de probabilidad o densidad
+<span class="math inline">\(f(x)\)</span>, la función de distribución
+acumulada <span class="math inline">\(F(x)\)</span>, el valor esperado
+<span class="math inline">\(E[X]\)</span> y la varianza <span
+class="math inline">\(V[X]\)</span>. Para variables aleatorias conjuntas
+se estudiaron <span class="math inline">\(f(x,y)\)</span>, <span
+class="math inline">\(F(x,y)\)</span>, <span
+class="math inline">\(E[XY]\)</span>, la covarianza <span
+class="math inline">\(Cov(X,Y)\)</span> y el coeficiente de correlación
+<span class="math inline">\(\rho\)</span>.</p>
+<p>También se presentaron los principales modelos de probabilidad, tanto
+discretos como continuos, y sus aplicaciones en situaciones reales.</p>
+<p>En esta unidad se aplicarán los modelos estudiados mediante
+experimentos de Monte Carlo. A partir de la generación de valores
+aleatorios y la repetición de experimentos, se estimarán probabilidades
+y medidas de interés para analizar situaciones de incertidumbre y apoyar
+la toma de decisiones.</p>
+<p><br/><br/></p>
+</div>
+<div id="objetivos-de-la-unidad" class="section level1">
+<h1>Objetivos de la unidad</h1>
+<p>Al finalizar la unidad, los estudiantes estarán en capacidad de:</p>
+<ul>
+<li>Explicar el propósito de los experimentos de Monte Carlo y su
+utilidad para analizar fenómenos aleatorios.</li>
+<li>Generar observaciones simuladas a partir de modelos de probabilidad
+discretos y continuos previamente estudiados.</li>
+<li>Estimar probabilidades, valores esperados y medidas de variabilidad
+mediante simulaciones repetidas.</li>
+<li>Interpretar los resultados de la simulación y utilizarlos como apoyo
+para la toma de decisiones en problemas contextualizados.</li>
+</ul>
+<p><br/><br/></p>
+</div>
+<div id="duración" class="section level1">
+<h1>Duración</h1>
+<p>La presente unidad se desarrollará del 14 al 27 de octubre de
+2026.</p>
+<p>Además del material suministrado, los estudiantes contarán con el
+acompañamiento del profesor durante las sesiones previstas en el
+calendario del curso.</p>
+<p>Para alcanzar los objetivos planteados, se propone desarrollar la
+actividad indicada a continuación.</p>
+<p><br/><br/></p>
+</div>
+<div id="cronograma-de-trabajo" class="section level1">
+<h1>Cronograma de trabajo</h1>
+<p><br/></p>
+<table>
+<colgroup>
+<col width="17%" />
+<col width="82%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td align="left"><strong>Actividad 411</strong></td>
+<td align="left">Cada estudiante deberá desarrollar el taller 411, que
+reúne problemas en los cuales se emplea la simulación de variables
+aleatorias para estimar resultados y apoyar la toma de decisiones.</td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left">Trabajo parejas</td>
+</tr>
+<tr class="odd">
+<td align="left">Fecha</td>
+<td align="left">20 de octubre de 2026</td>
+</tr>
+<tr class="even">
+<td align="left">Hora</td>
+<td align="left">23:59</td>
+</tr>
+</tbody>
+</table>
+<p><br/><br/></p>
+</div>
+<div id="criterios-de-evaluación" class="section level1">
+<h1>Criterios de evaluación</h1>
+<p><br/><br/></p>
+<ul>
+<li><p>Identifica y selecciona modelos de probabilidad adecuados para
+los contextos y problemas propuestos.</p></li>
+<li><p>Emplea procedimientos estadísticos apropiados para estimar
+probabilidades y otras medidas mediante experimentos de Monte
+Carlo.</p></li>
+<li><p>Utiliza correctamente herramientas computacionales para generar
+variables aleatorias, repetir experimentos y presentar resultados de
+simulación.</p></li>
+<li><p>Interpreta los resultados obtenidos y formula conclusiones
+coherentes con el problema planteado.</p></li>
+</ul>
+<p><br/><br/></p>
+</div>
+<div id="entregables" class="section level1">
+<h1>Entregables</h1>
+<p><br/><br/></p>
+<table>
+<colgroup>
+<col width="26%" />
+<col width="73%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Actividad</th>
+<th align="left">Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Actividad 411</td>
+<td align="left">Enlace a la publicación en RPubs del desarrollo
+individual del taller 411, con procedimientos, resultados e
+interpretación.Cada estudiante deberá subir a la plataforma Bs enlace
+con la solución del taller publicados en RPubls</td>
+</tr>
+</tbody>
+</table>
+<p><br/><br/><br/><br/></p>
+</div>
+
+<style>
+/* Se incluye en todas las páginas, incluso si definen su propio CSS. */
+.navbar .navbar-nav > .dropdown > .dropdown-menu {
+  max-height: calc(100vh - 90px);
+  overflow-y: auto;
+}
+.navbar .unidad-grupo > button {
+  display: block;
+  width: 100%;
+  padding: 7px 20px;
+  border: 0;
+  background: transparent;
+  color: #263b4b;
+  font: inherit;
+  font-weight: 600;
+  text-align: left;
+}
+.navbar .unidad-grupo > button::after {
+  content: "▸";
+  float: right;
+  margin-left: 16px;
+}
+.navbar .unidad-grupo > button[aria-expanded="true"]::after { content: "▾"; }
+.navbar .unidad-grupo > ul {
+  list-style: none;
+  margin: 0;
+  padding: 0 0 0 12px;
+  background: #f2f6f9;
+}
+.navbar .unidad-grupo > ul[hidden] { display: none !important; }
+.navbar .unidad-grupo > ul > li > a {
+  display: block;
+  padding: 7px 18px;
+  color: #263b4b;
+  text-decoration: none;
+}
+.navbar .unidad-grupo > button:hover,
+.navbar .unidad-grupo > ul > li > a:hover,
+.navbar .unidad-grupo > ul > li.active > a { background: #e2eaf1; }
+.navbar .unidad-grupo > button:focus-visible,
+.navbar .unidad-grupo > ul > li > a:focus-visible {
+  outline: 2px solid #2c5697;
+  outline-offset: -2px;
+}
+</style>
+<script>
+(function () {
+  function prepararUnidades() {
+    var pagina = decodeURIComponent(window.location.pathname.split('/').pop() || 'index.html');
+    document.querySelectorAll('.navbar .navbar-nav > li > ul.dropdown-menu').forEach(function (menu, menuIndex) {
+      var grupo = null;
+      Array.from(menu.children).forEach(function (item, itemIndex) {
+        var enlace = item.querySelector('a');
+        if (enlace && enlace.getAttribute('href') === '#' && /^Unidad\s+\d+\.\d+$/.test(enlace.textContent.trim())) {
+          var boton = document.createElement('button');
+          boton.type = 'button';
+          boton.textContent = enlace.textContent.trim();
+          var lista = document.createElement('ul');
+          lista.id = 'unidad-' + menuIndex + '-' + itemIndex;
+          lista.hidden = true;
+          boton.setAttribute('aria-controls', lista.id);
+          boton.setAttribute('aria-expanded', 'false');
+          item.classList.add('unidad-grupo');
+          item.replaceChild(boton, enlace);
+          item.appendChild(lista);
+          boton.addEventListener('click', function (event) {
+            event.stopPropagation();
+            lista.hidden = !lista.hidden;
+            boton.setAttribute('aria-expanded', String(!lista.hidden));
+          });
+          item.addEventListener('keydown', function (event) {
+            if (event.key === 'Escape' && !lista.hidden) {
+              event.preventDefault();
+              event.stopPropagation();
+              lista.hidden = true;
+              boton.setAttribute('aria-expanded', 'false');
+              boton.focus();
+            }
+          });
+          grupo = lista;
+        } else if (item.classList.contains('divider') || item.classList.contains('dropdown-header')) {
+          grupo = null;
+        } else if (grupo) {
+          grupo.appendChild(item);
+          if (enlace && decodeURIComponent(enlace.getAttribute('href')) === pagina) {
+            item.classList.add('active');
+            grupo.hidden = false;
+            grupo.previousElementSibling.setAttribute('aria-expanded', 'true');
+          }
+        }
+      });
+    });
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', prepararUnidades);
+  } else {
+    prepararUnidades();
+  }
+})();
+</script>
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("hide" === "show");
+});
+</script>
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

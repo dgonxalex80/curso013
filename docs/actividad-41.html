@@ -1,0 +1,992 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="dgonzalez " />
+
+
+<title>Teoría de probabilidades</title>
+
+<script src="site_libs/header-attrs-2.31/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-6.5.2/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+<link rel="stylesheet" href="cajas.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html"> </a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">
+    <span class="fa fa-home"></span>
+     
+    Estadística
+  </a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 0
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo0.html">Módulo 0</a>
+    </li>
+    <li>
+      <a href="sumatoria.html">Sumatoria</a>
+    </li>
+    <li>
+      <a href="productoria.html">Productoria</a>
+    </li>
+    <li>
+      <a href="conjuntos.html">Conjuntos</a>
+    </li>
+    <li>
+      <a href="conteo.html">Conteo</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 1
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo1.html">Módulo 1</a>
+    </li>
+    <li>
+      <a href="#">Unidad 1.1</a>
+    </li>
+    <li>
+      <a href="guia11.html">Guía 1.1</a>
+    </li>
+    <li>
+      <a href="recurso11.html">Recursos 1.1</a>
+    </li>
+    <li>
+      <a href="basesdatos.html">Bases de datos</a>
+    </li>
+    <li>
+      <a href="introduccionR.html">Introducción a R</a>
+    </li>
+    <li>
+      <a href="codigo11.html">Código 1.1</a>
+    </li>
+    <li>
+      <a href="#">Unidad 1.2</a>
+    </li>
+    <li>
+      <a href="guia12.html">Guía 1.2</a>
+    </li>
+    <li>
+      <a href="recurso12.html">Recursos 1.2</a>
+    </li>
+    <li>
+      <a href="codigo12.html">Código 1.2</a>
+    </li>
+    <li>
+      <a href="caso1A.html">Caso 1</a>
+    </li>
+    <li>
+      <a href="caso1B.html">Caso 2</a>
+    </li>
+    <li>
+      <a href="#">Unidad 1.3</a>
+    </li>
+    <li>
+      <a href="guia13.html">Guía 1.3</a>
+    </li>
+    <li>
+      <a href="recurso13.html">Recursos 1.3</a>
+    </li>
+    <li>
+      <a href="codigo13.html">Código 1.3</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="monitoria1.html">Monitoría 1</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 2
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo2.html">Módulo 2</a>
+    </li>
+    <li>
+      <a href="#">Unidad 2.1</a>
+    </li>
+    <li>
+      <a href="guia21.html">Guía 2.1</a>
+    </li>
+    <li>
+      <a href="recurso21.html">Recursos 2.1</a>
+    </li>
+    <li>
+      <a href="codigo21.html">Código 2.1</a>
+    </li>
+    <li>
+      <a href="taller211.html">Taller 211</a>
+    </li>
+    <li>
+      <a href="#">Unidad 2.2</a>
+    </li>
+    <li>
+      <a href="guia22.html">Guía 2.2</a>
+    </li>
+    <li>
+      <a href="recurso22.html">Recursos 2.2</a>
+    </li>
+    <li>
+      <a href="taller221.html">Taller 221</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="monitoria2.html">Monitoría 2</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 3
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo3.html">Módulo 3</a>
+    </li>
+    <li>
+      <a href="#">Unidad 3.1</a>
+    </li>
+    <li>
+      <a href="guia31.html">Guía 3.1</a>
+    </li>
+    <li>
+      <a href="recurso31.html">Recursos 3.1</a>
+    </li>
+    <li>
+      <a href="codigo31.html">Código 3.1</a>
+    </li>
+    <li>
+      <a href="taller311.html">Taller 311</a>
+    </li>
+    <li>
+      <a href="#">Unidad 3.2</a>
+    </li>
+    <li>
+      <a href="guia32.html">Guía 3.2</a>
+    </li>
+    <li>
+      <a href="recurso32.html">Recursos 3.2</a>
+    </li>
+    <li>
+      <a href="codigo32.html">Código 3.2</a>
+    </li>
+    <li>
+      <a href="taller321.html">Taller 321</a>
+    </li>
+    <li>
+      <a href="#">Unidad 3.3</a>
+    </li>
+    <li>
+      <a href="guia33.html">Guía 3.3</a>
+    </li>
+    <li>
+      <a href="recurso33-discretas.html">Recursos 3.3-discretas</a>
+    </li>
+    <li>
+      <a href="codigo33_discretas.html">Código 3.3 discretas</a>
+    </li>
+    <li>
+      <a href="taller331.html">Taller 331-discretas</a>
+    </li>
+    <li>
+      <a href="#">Unidad 3.4</a>
+    </li>
+    <li>
+      <a href="guia34.html">Guía 3.4</a>
+    </li>
+    <li>
+      <a href="recurso33-continuos.html">Recursos 3.4-continuas</a>
+    </li>
+    <li>
+      <a href="codigo33_continuos.html">Código 3.4 continuos</a>
+    </li>
+    <li>
+      <a href="taller341_modelos_continuos.html">Taller 341-continuos</a>
+    </li>
+    <li>
+      <a href="actividad334.html">Asignación A334</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="monitoria3.html">Monitoría 3</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 4
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo4.html">Módulo 4</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="#">Unidad 4.1</a>
+    </li>
+    <li>
+      <a href="guia41.html">Guía 4.1</a>
+    </li>
+    <li>
+      <a href="recurso41.html">Recursos 4.1</a>
+    </li>
+    <li>
+      <a href="codigo41.html">Código 4.1</a>
+    </li>
+    <li>
+      <a href="taller411.html">Taller 411</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Proyecto
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="guia_proyecto1.html">Guía proyecto</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore"><span
+style="color:#67C1A8 !important;">Teoría de probabilidades</span></h1>
+<h3 class="subtitle"><span style="color:#67C1A8"> </span></h3>
+<h4 class="author"><span style="color:#67C1A8">dgonzalez </span></h4>
+
+</div>
+
+
+<p><br/><br/></p>
+<p><img src="img/taller4.png" alt="" width="100%" style="display: block; margin: auto;" /></p>
+<p><br><br><br></p>
+<div id="problema-1.-lanzamiento-de-monedas"
+class="section level3 box5 with-label">
+<h3>Problema 1. Lanzamiento de monedas</h3>
+<p>Una moneda equilibrada se lanza 12 veces. Sea <span
+class="math inline">\(X\)</span> el número de caras.</p>
+<ul>
+<li><ol style="list-style-type: lower-alpha">
+<li>Estime <span class="math inline">\(P(X\geq 9)\)</span> mediante
+1000, 5000 y 20000 réplicas.</li>
+</ol></li>
+<li><ol start="2" style="list-style-type: lower-alpha">
+<li>Calcule la probabilidad teórica con la binomial.</li>
+</ol></li>
+<li><ol start="3" style="list-style-type: lower-alpha">
+<li>Grafique la convergencia del estimador. (d) Explique la variación
+entre ejecuciones.</li>
+</ol></li>
+</ul>
+</div>
+<p><br><br><br></p>
+<div id="problema-2.-suma-de-dos-dados"
+class="section level3 box5 with-label">
+<h3>Problema 2. Suma de dos dados</h3>
+<p>Se lanzan dos dados justos. Estime <span
+class="math inline">\(P(D_1+D_2\in\{7,11\})\)</span> usando Monte Carlo.
+Determine el valor teórico por enumeración de los 36 resultados
+equiprobables. Construya un grafico de <span
+class="math inline">\(f(x)\)</span>.</p>
+</div>
+<p><br><br><br></p>
+<div id="problema-3.-estimación-de-pi"
+class="section level3 box5 with-label">
+<h3>Problema 3. Estimación de <span
+class="math inline">\(\pi\)</span></h3>
+<p>Genere puntos independientes uniformes en el cuadrado unitario.
+Estime <span class="math inline">\(\pi\)</span> con <span
+class="math inline">\(n=100\)</span>, <span
+class="math inline">\(1000\)</span>, <span
+class="math inline">\(10000\)</span> y <span
+class="math inline">\(100000\)</span>. Para cada <span
+class="math inline">\(n\)</span>, reporte el error absoluto. Repita el
+experimento completo 30 veces para cada tamaño y compare la distribución
+de los errores.</p>
+</div>
+<p><br><br><br></p>
+<div id="problema-4.-integral-por-monte-carlo"
+class="section level3 box5 with-label">
+<h3>Problema 4. Integral por Monte Carlo</h3>
+<p>Estime</p>
+<p><span class="math display">\[I=\int_0^1 e^{-x^2}\,dx\]</span></p>
+<p>con 10000 réplicas. Explique por qué el promedio de <span
+class="math inline">\(e^{-U^2}\)</span>, con <span
+class="math inline">\(U\sim U(0,1)\)</span>, estima <span
+class="math inline">\(I\)</span>. Compare con
+<code>integrate(function(x) exp(-x^2), 0, 1)</code>.</p>
+</div>
+<p><br><br><br></p>
+<div id="problema-5.-transformada-inversa-exponencial"
+class="section level3 box5 with-label">
+<h3>Problema 5. Transformada inversa exponencial</h3>
+<p>Los tiempos entre eventos siguen una distribución exponencial de
+media 5 minutos.</p>
+<ul>
+<li><ol style="list-style-type: lower-alpha">
+<li>Obtenga la función de distribución.</li>
+</ol></li>
+<li><ol start="2" style="list-style-type: lower-alpha">
+<li>Deduzca la transformación de una uniforme para generar tiempos.</li>
+</ol></li>
+<li><ol start="3" style="list-style-type: lower-alpha">
+<li>Simule 10000 valores por transformada inversa y por
+<code>rexp()</code>.</li>
+</ol></li>
+<li><ol start="4" style="list-style-type: lower-alpha">
+<li>Compare medias, histogramas y <span
+class="math inline">\(P(T&gt;8)\)</span>.</li>
+</ol></li>
+</ul>
+</div>
+<p><br><br><br></p>
+<div id="problema-6.-variable-discreta-por-inversa-generalizada"
+class="section level3 box5 with-label">
+<h3>Problema 6. Variable discreta por inversa generalizada</h3>
+<p>Una máquina presenta el siguiente número de interrupciones por
+turno:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Interrupciones <span
+class="math inline">\(x\)</span></th>
+<th align="right">0</th>
+<th align="right">1</th>
+<th align="right">2</th>
+<th align="right">3</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><span class="math inline">\(P(X=x)\)</span></td>
+<td align="right">0.50</td>
+<td align="right">0.30</td>
+<td align="right">0.15</td>
+<td align="right">0.05</td>
+</tr>
+</tbody>
+</table>
+<p>Construya la función acumulada <span
+class="math inline">\(F(x)\)</span>, divida el intervalo <span
+class="math inline">\((0,1)\)</span> en subintervalos asociados a cada
+resultado y simule 10000 turnos a partir de <code>runif()</code>.
+Compare frecuencias relativas y probabilidades teóricas.</p>
+</div>
+<p><br><br><br></p>
+<div id="problema-7.-distribuciones-continuas"
+class="section level3 box5 with-label">
+<h3>Problema 7. Distribuciones continuas</h3>
+<p>Simule 20000 observaciones de cada modelo: <span
+class="math inline">\(N(50,8^2)\)</span>, <span
+class="math inline">\(\mathrm{Gamma}(3,\text{rate}=0.5)\)</span>, <span
+class="math inline">\(\mathrm{Beta}(2,5)\)</span> y Weibull de forma 1.8
+y escala 100. Presente histogramas con densidades teóricas superpuestas.
+Compare medias y varianzas simuladas con las teóricas.</p>
+</div>
+<p><br><br><br></p>
+<div id="problema-8" class="section level3 box5 with-label">
+<h3>Problema 8</h3>
+<p>Una planta fabrica componentes electrónicos. Cada unidad tiene
+probabilidad de defecto 0.035, de manera independiente. Los lotes
+contienen 80 unidades. La política de inspección rechaza un lote cuando
+contiene 5 o más unidades defectuosas.</p>
+<ul>
+<li><ol style="list-style-type: lower-alpha">
+<li>Identifique la distribución del número de defectuosos.</li>
+</ol></li>
+<li><ol start="2" style="list-style-type: lower-alpha">
+<li>Estime la probabilidad de rechazo con 20000 lotes simulados.</li>
+</ol></li>
+<li><ol start="3" style="list-style-type: lower-alpha">
+<li>Compare con <code>pbinom()</code>.</li>
+</ol></li>
+<li><ol start="4" style="list-style-type: lower-alpha">
+<li>Estime cuántos lotes serían rechazados en un día de 120 lotes,
+aclarando qué representa esa estimación.</li>
+</ol></li>
+<li><ol start="5" style="list-style-type: lower-alpha">
+<li>Analice el efecto de disminuir la probabilidad de defecto a
+0.025.</li>
+</ol></li>
+</ul>
+</div>
+<p><br><br><br></p>
+<div id="problema-9" class="section level3 box5 with-label">
+<h3>Problema 9</h3>
+<p>La demanda diaria de un producto sigue una Poisson con media 24
+unidades. La cafetería dispone de 28 unidades al iniciar cada jornada.
+Cada venta genera un margen de $4500 COP; cada unidad no vendida implica
+un costo de desperdicio de $1200 COP. No se permiten ventas por encima
+del inventario.</p>
+<ul>
+<li><ol style="list-style-type: lower-alpha">
+<li>Simule 10000 jornadas.</li>
+</ol></li>
+<li><ol start="2" style="list-style-type: lower-alpha">
+<li>Estime probabilidad de faltante, ventas medias y desperdicio
+medio.</li>
+</ol></li>
+<li><ol start="3" style="list-style-type: lower-alpha">
+<li>Defina y estime la utilidad diaria <span
+class="math inline">\(U=4500\min(D,28)-1200\max(28-D,0)\)</span>.</li>
+</ol></li>
+<li><ol start="4" style="list-style-type: lower-alpha">
+<li>Compare niveles de inventario de 24, 28 y 32 unidades usando
+<strong>las mismas demandas simuladas</strong> para una comparación más
+estable.</li>
+</ol></li>
+<li><ol start="5" style="list-style-type: lower-alpha">
+<li>Recomiende un nivel de inventario y justifique los criterios
+considerados.</li>
+</ol></li>
+</ul>
+</div>
+<p><br><br><br></p>
+<div id="problema-10" class="section level3 box5 with-label">
+<h3>Problema 10</h3>
+<p>La duración de un rodamiento, en horas, sigue Weibull con forma 2.2 y
+escala 1800. Una intervención preventiva está prevista a las 1500
+horas.</p>
+<ul>
+<li><ol style="list-style-type: lower-alpha">
+<li>Estime <span class="math inline">\(P(T&lt;1500)\)</span> por Monte
+Carlo.</li>
+</ol></li>
+<li><ol start="2" style="list-style-type: lower-alpha">
+<li>Compare con <code>pweibull()</code>.</li>
+</ol></li>
+<li><ol start="3" style="list-style-type: lower-alpha">
+<li>Estime el percentil 10 de vida útil.</li>
+</ol></li>
+<li><ol start="4" style="list-style-type: lower-alpha">
+<li>Evalúe intervalos de mantenimiento de 1200, 1500 y 1800 horas.</li>
+</ol></li>
+<li><ol start="5" style="list-style-type: lower-alpha">
+<li>Discuta qué información real permitiría validar la distribución
+asumida.</li>
+</ol></li>
+</ul>
+</div>
+<p><br><br><br></p>
+<div id="problema-11" class="section level3 box5 with-label">
+<h3>Problema 11</h3>
+<p>Una oficina tiene un único servidor. Los intervalos entre llegadas
+son exponenciales con media 7 minutos y los servicios son exponenciales
+con media 5 minutos. Al comenzar la jornada el sistema está vacío. Se
+observarán los primeros 100 clientes.</p>
+<ul>
+<li><ol style="list-style-type: lower-alpha">
+<li>Construya una simulación cronológica de llegadas, inicios y finales
+de servicio.</li>
+</ol></li>
+<li><ol start="2" style="list-style-type: lower-alpha">
+<li>Estime tiempo medio de espera y proporción que espera.</li>
+</ol></li>
+<li><ol start="3" style="list-style-type: lower-alpha">
+<li>Repita 1000 jornadas completas e informe el intervalo de confianza
+para la <strong>espera media por jornada</strong>.</li>
+</ol></li>
+<li><ol start="4" style="list-style-type: lower-alpha">
+<li>Repita el análisis si el servicio medio baja a 4 minutos.</li>
+</ol></li>
+<li><ol start="5" style="list-style-type: lower-alpha">
+<li>Explique por qué el análisis de una jornada aislada no permite medir
+adecuadamente la variabilidad entre jornadas.</li>
+</ol></li>
+</ul>
+</div>
+<p><br><br><br></p>
+<div id="problema-12" class="section level3 box5 with-label">
+<h3>Problema 12</h3>
+<p>El costo de una reparación técnica (en millones de COP) sigue una
+lognormal con <code>meanlog = 1.5</code> y <code>sdlog = 0.6</code>. Una
+empresa debe financiar los costos que superen 8 millones.</p>
+<ul>
+<li><ol style="list-style-type: lower-alpha">
+<li>Simule 20000 costos.</li>
+</ol></li>
+<li><ol start="2" style="list-style-type: lower-alpha">
+<li>Estime la probabilidad de superar 8 millones.</li>
+</ol></li>
+<li><ol start="3" style="list-style-type: lower-alpha">
+<li>Estime el costo promedio y el percentil 95.</li>
+</ol></li>
+<li><ol start="4" style="list-style-type: lower-alpha">
+<li>Estime el desembolso esperado por evento definido como <span
+class="math inline">\(\max(C-8,0)\)</span>.</li>
+</ol></li>
+<li><ol start="5" style="list-style-type: lower-alpha">
+<li>Explique por qué una media baja no descarta eventos de alto
+costo.</li>
+</ol></li>
+</ul>
+</div>
+<p><br><br><br></p>
+<div id="problema-13" class="section level3 box5 with-label">
+<h3>Problema 13</h3>
+<p>Seleccione <strong>un</strong> sistema real: cafetería, parqueadero,
+sala de computadores, fila de atención, inventario o componente
+mecánico. Desarrolle:</p>
+<ol style="list-style-type: decimal">
+<li><strong>Descripción:</strong> propósito, frontera del sistema y
+pregunta de decisión.</li>
+<li><strong>Datos y supuestos:</strong> variables observables,
+distribuciones candidatas, parámetros y fuentes.</li>
+<li><strong>Modelo:</strong> entradas aleatorias, reglas del proceso,
+estados y salidas.</li>
+<li><strong>Simulación:</strong> mínimo 1000 réplicas independientes del
+indicador pertinente; si existe dinámica temporal, cada réplica debe ser
+una trayectoria o jornada completa.</li>
+<li><strong>Resultados:</strong> tablas, gráficos, estimación,
+incertidumbre y análisis de sensibilidad.</li>
+<li><strong>Validación:</strong> comparación propuesta con datos del
+sistema real; limitaciones de la simulación.</li>
+<li><strong>Extensión:</strong> describa cómo integrar datos reales y
+actualizar parámetros para evolucionar hacia un gemelo digital.</li>
+</ol>
+</div>
+<div id="preguntas-finales-de-reflexión" class="section level1">
+<h1>Preguntas finales de reflexión</h1>
+<ol style="list-style-type: decimal">
+<li>¿Qué diferencia hay entre incertidumbre inherente al proceso y error
+de Monte Carlo?</li>
+<li>¿Por qué es indispensable identificar las unidades de réplica
+independientes?</li>
+<li>¿Qué ocurre si el modelo probabilístico elegido es incorrecto aunque
+se ejecuten millones de réplicas?</li>
+<li>¿Cómo se relacionan simulación, calibración, validación y gemelos
+digitales?</li>
+</ol>
+</div>
+
+<style>
+/* Se incluye en todas las páginas, incluso si definen su propio CSS. */
+.navbar .navbar-nav > .dropdown > .dropdown-menu {
+  max-height: calc(100vh - 90px);
+  overflow-y: auto;
+}
+.navbar .unidad-grupo > button {
+  display: block;
+  width: 100%;
+  padding: 7px 20px;
+  border: 0;
+  background: transparent;
+  color: #263b4b;
+  font: inherit;
+  font-weight: 600;
+  text-align: left;
+}
+.navbar .unidad-grupo > button::after {
+  content: "▸";
+  float: right;
+  margin-left: 16px;
+}
+.navbar .unidad-grupo > button[aria-expanded="true"]::after { content: "▾"; }
+.navbar .unidad-grupo > ul {
+  list-style: none;
+  margin: 0;
+  padding: 0 0 0 12px;
+  background: #f2f6f9;
+}
+.navbar .unidad-grupo > ul[hidden] { display: none !important; }
+.navbar .unidad-grupo > ul > li > a {
+  display: block;
+  padding: 7px 18px;
+  color: #263b4b;
+  text-decoration: none;
+}
+.navbar .unidad-grupo > button:hover,
+.navbar .unidad-grupo > ul > li > a:hover,
+.navbar .unidad-grupo > ul > li.active > a { background: #e2eaf1; }
+.navbar .unidad-grupo > button:focus-visible,
+.navbar .unidad-grupo > ul > li > a:focus-visible {
+  outline: 2px solid #2c5697;
+  outline-offset: -2px;
+}
+</style>
+<script>
+(function () {
+  function prepararUnidades() {
+    var pagina = decodeURIComponent(window.location.pathname.split('/').pop() || 'index.html');
+    document.querySelectorAll('.navbar .navbar-nav > li > ul.dropdown-menu').forEach(function (menu, menuIndex) {
+      var grupo = null;
+      Array.from(menu.children).forEach(function (item, itemIndex) {
+        var enlace = item.querySelector('a');
+        if (enlace && enlace.getAttribute('href') === '#' && /^Unidad\s+\d+\.\d+$/.test(enlace.textContent.trim())) {
+          var boton = document.createElement('button');
+          boton.type = 'button';
+          boton.textContent = enlace.textContent.trim();
+          var lista = document.createElement('ul');
+          lista.id = 'unidad-' + menuIndex + '-' + itemIndex;
+          lista.hidden = true;
+          boton.setAttribute('aria-controls', lista.id);
+          boton.setAttribute('aria-expanded', 'false');
+          item.classList.add('unidad-grupo');
+          item.replaceChild(boton, enlace);
+          item.appendChild(lista);
+          boton.addEventListener('click', function (event) {
+            event.stopPropagation();
+            lista.hidden = !lista.hidden;
+            boton.setAttribute('aria-expanded', String(!lista.hidden));
+          });
+          item.addEventListener('keydown', function (event) {
+            if (event.key === 'Escape' && !lista.hidden) {
+              event.preventDefault();
+              event.stopPropagation();
+              lista.hidden = true;
+              boton.setAttribute('aria-expanded', 'false');
+              boton.focus();
+            }
+          });
+          grupo = lista;
+        } else if (item.classList.contains('divider') || item.classList.contains('dropdown-header')) {
+          grupo = null;
+        } else if (grupo) {
+          grupo.appendChild(item);
+          if (enlace && decodeURIComponent(enlace.getAttribute('href')) === pagina) {
+            item.classList.add('active');
+            grupo.hidden = false;
+            grupo.previousElementSibling.setAttribute('aria-expanded', 'true');
+          }
+        }
+      });
+    });
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', prepararUnidades);
+  } else {
+    prepararUnidades();
+  }
+})();
+</script>
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("hide" === "show");
+});
+</script>
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

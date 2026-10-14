@@ -137,6 +137,17 @@ navbar:
     - text: Módulo 4
       href: modulo4.html
     - text: '---------'
+    - text: Unidad 4.1
+      href: '#'
+    - text: Guía 4.1
+      href: guia41.html
+    - text: Recursos 4.1
+      href: recurso41.html
+    - text: Código 4.1 
+      href: codigo41.html
+    - text: Taller 411
+      href: taller411.html
+
   - text: Proyecto
     menu:
     - text: Guía proyecto

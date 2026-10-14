@@ -1,0 +1,103 @@
+---
+title: "<span style='color:#67C1A8 !important;'>Teoría de probabilidades</span>"
+author: <span style="color:#67C1A8">dgonzalez </span> 
+subtitle: <span style="color:#67C1A8"> </span> 
+output:
+  html_document:
+    toc: no
+    toc_depth: 2
+    toc_float: yes
+    code_folding: hide
+    theme: flatly
+    css:
+      - style.css
+      - cajas.css
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE,
+                      fig.width = 8, fig.height = 5, fig.align = "center")
+```
+
+
+<br/><br/>
+
+
+
+```{r, echo=FALSE, out.width="100%", fig.align = "center"}
+knitr::include_graphics("img/guia4.png")
+```
+
+
+
+<br/><br/>
+
+# Introducción
+
+En las unidades 3.1, 3.2 y 3.3 se estudiaron los principales conceptos para caracterizar variables aleatorias discretas y continuas. En el caso univariado se abordaron la función de probabilidad o densidad $f(x)$, la función de distribución acumulada $F(x)$, el valor esperado $E[X]$ y la varianza $V[X]$. Para variables aleatorias conjuntas se estudiaron $f(x,y)$, $F(x,y)$, $E[XY]$, la covarianza $Cov(X,Y)$ y el coeficiente de correlación $\rho$. 
+
+También se presentaron los principales modelos de probabilidad, tanto discretos como continuos, y sus aplicaciones en situaciones reales.
+
+En esta unidad se aplicarán los modelos estudiados mediante experimentos de Monte Carlo. A partir de la generación de valores aleatorios y la repetición de experimentos, se estimarán probabilidades y medidas de interés para analizar situaciones de incertidumbre y apoyar la toma de decisiones.
+
+<br/><br/>
+
+# Objetivos de la unidad
+
+Al finalizar la unidad, los estudiantes estarán en capacidad de:
+
+* Explicar el propósito de los experimentos de Monte Carlo y su utilidad para analizar fenómenos aleatorios.
+* Generar observaciones simuladas a partir de modelos de probabilidad discretos y continuos previamente estudiados.
+* Estimar probabilidades, valores esperados y medidas de variabilidad mediante simulaciones repetidas.
+* Interpretar los resultados de la simulación y utilizarlos como apoyo para la toma de decisiones en problemas contextualizados.
+
+<br/><br/>
+
+# Duración
+
+La presente unidad se desarrollará del 14 al 27 de octubre de 2026.
+
+Además del material suministrado, los estudiantes contarán con el acompañamiento del profesor durante las sesiones previstas en el calendario del curso.
+
+Para alcanzar los objetivos planteados, se propone desarrollar la actividad indicada a continuación.
+
+<br/><br/>
+
+# Cronograma de trabajo
+
+<br/>
+
+|                |                                                                         | 
+|:---------------|:------------------------------------------------------------------------|
+|**Actividad 411**| Cada estudiante deberá desarrollar el taller 411, que reúne problemas en los cuales se emplea la simulación de variables aleatorias para estimar resultados y apoyar la toma de decisiones.| 
+|               | Trabajo parejas                                                       |
+|Fecha          | 20 de octubre de 2026                                                      |
+|Hora           | 23:59                                                                    |
+
+<br/><br/>
+
+# Criterios de evaluación
+
+<br/><br/>
+
+
+* Identifica y selecciona modelos de probabilidad adecuados para los contextos y problemas propuestos.
+
+* Emplea procedimientos estadísticos apropiados para estimar probabilidades y otras medidas mediante experimentos de Monte Carlo.
+
+* Utiliza correctamente herramientas computacionales para generar variables aleatorias, repetir experimentos y presentar resultados de simulación.
+
+* Interpreta los resultados obtenidos y formula conclusiones coherentes con el problema planteado.
+	
+<br/><br/>
+
+# Entregables 
+
+<br/><br/>
+
+|Actividad      | Descripción                             | 
+|:--------------|:----------------------------------------|
+|Actividad 411  | Enlace a la publicación en RPubs del desarrollo individual del taller 411, con procedimientos, resultados e interpretación.Cada estudiante deberá subir a la plataforma Bs enlace con la solución del taller publicados en RPubls |
+
+<br/><br/><br/><br/>
+
