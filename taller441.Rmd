@@ -1,7 +1,7 @@
 ---
-title: " "  
-subtitle: " "  
-author: "dgonzalez "
+title: "<span style='color:#67C1A8 !important;'>Teoría de probabilidades</span>"
+author: <span style="color:#67C1A8">dgonzalez </span> 
+subtitle: <span style="color:#67C1A8"> </span> 
 output:
   html_document:
     toc: no
@@ -9,8 +9,10 @@ output:
     toc_float: yes
     code_folding: hide
     theme: flatly
-    css: style.css
----      
+    css:
+      - style.css
+      - cajas.css
+---
 
 
 
@@ -51,21 +53,11 @@ library(summarytools)
 ```
 </br></br></br>
 
-# **Actividad 332**
-
-Cada estudiante tiene a su cargo la solución de cuatro problemas utilizando simulación de modelos estadísticos (ver tabla al final).
-Después de revisar los problemas asignados, podrá intercambiar uno de ellos por otro de los no asignados, si así lo desea.
-
-En caso de realizar el cambio, será necesario incluir una nota al inicio del documento indicando el ejercicio sustituido y el nuevo ejercicio resuelto.
+# Problemas de simulación
 
 <br/><br/>
 
-
-# **Problemas de simulación**
-
-<br/><br/>
-
-<div class="box2 with-label">
+<div class="box4 with-label">
 <div class="label">Problema 1</div>
 
 
@@ -92,7 +84,7 @@ e. Construya una gráfica de probabilidad normal para el número total de unidad
 <br/><br/><br/><br/>
 
 
-<div class="box2 with-label">
+<div class="box4 with-label">
 <div class="label">Problema 2</div>
 
 La edad de una antigua pieza de materia orgánica se puede estimar a partir de la tasa a la que emite partículas beta como resultado del decaimiento del carbono-14. Por ejemplo , si X es el número de partículas emitidas durante diez minutos por un fragmento óseo con 10000 años de antigüedad  que contiene 1 g de carbono, entonces X tiene una distribución de Poisson con media $\lambda=45.62$ . Un arqueólogo descubrió un pequeño fragmento óseo que contiene 1 g de carbono. Si t es la edad desconocida del hueso, en años, el arqueólogo contar{a el número X de partículas emitidas en diez minutos y calculará una edad estimada $\widehat{t}$ con la fórmula:
@@ -119,7 +111,7 @@ d. Estime la probabilidad de que $\widehat{t}$ esté a 1000 años con una edad r
 
 <br/><br/><br/><br/>
 	
-<div class="box2 with-label">
+<div class="box4 with-label">
 <div class="label">Problema 3</div>
 	
 Tres sistemas están compuestos por los componentes `R1`,`R2`, `R3` y `R4` conectados,  como lo muestra las siguientes figuras. El tiempo de vida en meses de los componentes `R1` y `R3` sigue una distribución lognormal con $\mu=2$ y $\sigma=1$ y la distribución en meses de los componentes `R2` y `R4` una distribución lognormal con $\mu=1$ y $\sigma=0.1$. El sistema solo funciona si `A` y `B` lo hacen.
@@ -142,7 +134,7 @@ f. Construya un histograma de los tiempos de vida de los sistemas. ¿Están sesg
 	
 <br/><br/><br/><br/>
 	
-<div class="box2 with-label">
+<div class="box4 with-label">
 <div class="label">Problema 4  </div>
 	
 	
@@ -172,7 +164,8 @@ Ejercicios tomados de Navidi(2006)
 	
 <br/><br/><br/>
 
-<div class="box2 with-label"> <div class="label">Problema 5 </div>
+<div class="box4 with-label"> 
+<div class="label">Problema 5 </div>
 	
 Una planta de manufactura produce pistones para motores de combustión interna. El diámetro de los pistones debe ser de 10 cm, pero debido a variaciones en el proceso de producción, sigue una distribución normal con media $\mu = 10$ cm y desviación estándar $\sigma = 0.02$ cm. Un pistón es rechazado si su diámetro está fuera del rango de 9.97 cm a 10.03 cm.
 	
@@ -190,7 +183,8 @@ e. ¿Qué estrategias podrían implementarse para reducir el número de pistones
 
 <br/><br/><br/><br/>
 
-<div class="box2 with-label"> <div class="label">Problema 6</div>
+<div class="box4 with-label"> 
+<div class="label">Problema 6</div>
 
 Un servidor web recibe en promedio 30 solicitudes por minuto. Se ha determinado que el número de solicitudes sigue una distribución de Poisson. Un equipo de desarrolladores desea simular el comportamiento del servidor durante las horas pico.
 
@@ -211,7 +205,8 @@ e. Construya un histograma con la distribución de solicitudes por minuto. ¿Qu�
 
 <br/><br/><br/><br/>
 
-<div class="box2 with-label"> <div class="label">Problema 7</div>
+<div class="box4 with-label"> 
+<div class="label">Problema 7</div>
 
 Una constructora está evaluando la resistencia a la compresión de cilindros de concreto a los 28 días de curado. La resistencia sigue una distribución normal con media $\mu = 30$ MPa y desviación estándar $\sigma = 5$ MPa. Se requiere que el 95% de los cilindros superen los 25 MPa.
 
@@ -232,7 +227,8 @@ e. ¿Qué medidas de control de calidad sugerirías implementar para mejorar el 
 
 <br/><br/><br/><br/>
 
-<div class="box2 with-label"> <div class="label">Problema 8 </div>
+<div class="box4 with-label"> 
+<div class="label">Problema 8 </div>
 
 Una turbina de gas tiene cuatro componentes críticos que fallan de manera independiente. Los tiempos de vida (en horas) de cada componente siguen distribuciones exponenciales:
 
@@ -260,7 +256,8 @@ e. ¿Qué estrategias de mantenimiento preventivo se pueden considerar?
 <br/><br/><br/><br/>
 
 
-<div class="box2 with-label"> <div class="label">Problema 9</div>
+<div class="box4 with-label"> 
+<div class="label">Problema 9</div>
 
 El caudal máximo diario de un río se modela como una distribución Gumbel con parámetros $\mu = 500$ m³/s y $\beta = 100$ m³/s. Un puente ha sido diseñado para resistir caudales de hasta 750 m³/s. Se desea estimar la probabilidad de que el puente sea superado en los próximos 10 años.
 
@@ -281,46 +278,4 @@ e. ¿Qué medidas adicionales de mitigación podría implementar el ingeniero ci
 
 	
 <br/><br/><br/>
-
-
-## Asignación de problemas
-
-```{r, eval=FALSE,message=FALSE, warning=FALSE}
-
-set.seed(123)
-library(dplyr)
-library(kableExtra)
-
-n <- 21 # Número de estudiantes
-m <- 4  # Número de problemas asignados por estudiante
-
-# Genera la matriz de problemas SIN repetidos en cada fila
-# problema <- t(
-#   replicate(n, sample(1:9, m, replace = FALSE))
-# )
-# 
-# problemas =saveRDS(problema, "data/problemas.RDS")
-
-# Lista de nombres (verifica que la cantidad de nombres sea igual a n)
-nombres <- c("Esteban	Arismendi Giglioli", "Maria	Chaves Raymond", "Samuel	Cuervo Peña", "Miguel Angel	Davila Muelas", "Juan	Espinosa Arias", "Santiago	Guevara Idarraga", "Tomas	Henao Rincon", "Sebastian	Hidalgo Jimenez", "Juan	Iglesias Martinez", "Salome	Lema Franco", "Santiago	Mazo Andrade", "Jose	Mesa Velasquez", "Cristian	Osorio Martinez", "Santiago	Otalvaro Garcia", "Miguel	Padilla Rosero", "Juan	Ramirez Rivas", "Estevan	Rubio Urrego", "Lis	Saavedra Hernandez", "Juan	Sanchez Morillo",
-"Jose	Silva Hurtado", "Mariana	Simons Gonzalez")
-
-problema <-readRDS("data/problemas.RDS")
-problema <- problema[1:21,]
-
-# Crea el data.frame combinando nombres e ID con los problemas
-datos <- data.frame(
-  ID = 1:n,
-  Nombre = nombres,
-  Problema1 = problema[, 1],
-  Problema2 = problema[, 2],
-  Problema3 = problema[, 3],
-  Problema4 = problema[, 4]
-)
-
-# Muestra la tabla en formato bonito
-datos %>%
-  kbl() %>%
-  kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"))
-```
 

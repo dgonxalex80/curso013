@@ -492,7 +492,7 @@ $(document).ready(function () {
       <a href="codigo41.html">Código 4.1</a>
     </li>
     <li>
-      <a href="taller411.html">Taller 411</a>
+      <a href="taller-441A.html">Taller 411</a>
     </li>
   </ul>
 </li>
@@ -814,13 +814,13 @@ grid()</code></pre>
 fx=round(rep(1,6)/6,6)
 Fx=round(cumsum(fx),4)
 data.frame(x,fx,Fx)</code></pre>
-<pre><code>  x       fx     Fx
-1 1 0.166667 0.1667
-2 2 0.166667 0.3333
-3 3 0.166667 0.5000
-4 4 0.166667 0.6667
-5 5 0.166667 0.8333
-6 6 0.166667 1.0000</code></pre>
+<pre><code>  x     fx     Fx
+1 1 0.1667 0.1667
+2 2 0.1667 0.3333
+3 3 0.1667 0.5000
+4 4 0.1667 0.6667
+5 5 0.1667 0.8333
+6 6 0.1667 1.0000</code></pre>
 <p><br/><br/></p>
 <div id="ejemplo-4" class="section level3 box with-label">
 <h3>Ejemplo 4</h3>
@@ -875,58 +875,58 @@ knitr::kable(tabla)</code></pre>
 <tbody>
 <tr class="odd">
 <td align="right">0</td>
-<td align="right">0.0000059</td>
-<td align="right">0.0000059</td>
+<td align="right">0.0000</td>
+<td align="right">0.0000</td>
 </tr>
 <tr class="even">
 <td align="right">1</td>
-<td align="right">0.0001378</td>
-<td align="right">0.0001437</td>
+<td align="right">0.0001</td>
+<td align="right">0.0001</td>
 </tr>
 <tr class="odd">
 <td align="right">2</td>
-<td align="right">0.0014467</td>
-<td align="right">0.0015904</td>
+<td align="right">0.0014</td>
+<td align="right">0.0016</td>
 </tr>
 <tr class="even">
 <td align="right">3</td>
-<td align="right">0.0090017</td>
-<td align="right">0.0105921</td>
+<td align="right">0.0090</td>
+<td align="right">0.0106</td>
 </tr>
 <tr class="odd">
 <td align="right">4</td>
-<td align="right">0.0367569</td>
-<td align="right">0.0473490</td>
+<td align="right">0.0368</td>
+<td align="right">0.0473</td>
 </tr>
 <tr class="even">
 <td align="right">5</td>
-<td align="right">0.1029193</td>
-<td align="right">0.1502683</td>
+<td align="right">0.1029</td>
+<td align="right">0.1503</td>
 </tr>
 <tr class="odd">
 <td align="right">6</td>
-<td align="right">0.2001209</td>
-<td align="right">0.3503893</td>
+<td align="right">0.2001</td>
+<td align="right">0.3504</td>
 </tr>
 <tr class="even">
 <td align="right">7</td>
-<td align="right">0.2668279</td>
-<td align="right">0.6172172</td>
+<td align="right">0.2668</td>
+<td align="right">0.6172</td>
 </tr>
 <tr class="odd">
 <td align="right">8</td>
-<td align="right">0.2334744</td>
-<td align="right">0.8506917</td>
+<td align="right">0.2335</td>
+<td align="right">0.8507</td>
 </tr>
 <tr class="even">
 <td align="right">9</td>
-<td align="right">0.1210608</td>
-<td align="right">0.9717525</td>
+<td align="right">0.1211</td>
+<td align="right">0.9718</td>
 </tr>
 <tr class="odd">
 <td align="right">10</td>
-<td align="right">0.0282475</td>
-<td align="right">1.0000000</td>
+<td align="right">0.0282</td>
+<td align="right">1.0000</td>
 </tr>
 </tbody>
 </table>
@@ -952,7 +952,7 @@ Fx=round(cumsum(fx),4)
 cat(&quot;P(X=0)  = &quot;,fx[1], &quot;\n&quot;)</code></pre>
 <pre><code>P(X=0)  =  6e-06 </code></pre>
 <pre class="r"><code>cat(&quot;P(X=7) = &quot;, fx[8], &quot;\n&quot;)</code></pre>
-<pre><code>P(X=7) =  0.266828 </code></pre>
+<pre><code>P(X=7) =  0.2668 </code></pre>
 <pre class="r"><code>cat(&quot;P(X&lt;7) = P(X&lt;=6) = &quot;, Fx[7], &quot;\n&quot;)</code></pre>
 <pre><code>P(X&lt;7) = P(X&lt;=6) =  0.3504 </code></pre>
 <pre class="r"><code>cat(&quot;P(X&gt;7) = 1 - P(X&lt;=7) =&quot;, 1-Fx[8])</code></pre>
@@ -1160,9 +1160,9 @@ fx=round(choose(40,x)*0.70^x*0.30^(40-x),6)
 Ex=sum(x*fx)
 Ex2=sum(x^2*fx)
 cat(&quot;E[X] =&quot;,Ex, &quot;\n&quot;)</code></pre>
-<pre><code>E[X] = 27.99995 </code></pre>
+<pre><code>E[X] = 28 </code></pre>
 <pre class="r"><code>cat(&quot;V[X] = &quot;, Ex2-Ex^2)</code></pre>
-<pre><code>V[X] =  8.401435</code></pre>
+<pre><code>V[X] =  8.401</code></pre>
 </div>
 <p>Este resultado nos indica que en promedio asisten al restaurante 28
 personas de las cuarenta reservas aceptadas, con una varianza de 8.4 de

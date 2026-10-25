@@ -501,7 +501,7 @@ $(document).ready(function () {
       <a href="codigo41.html">Código 4.1</a>
     </li>
     <li>
-      <a href="taller411.html">Taller 411</a>
+      <a href="taller-441A.html">Taller 411</a>
     </li>
   </ul>
 </li>
@@ -1122,7 +1122,7 @@ class="math inline">\(\bar{z}=a\bar{x}+b\bar{y}\)</span>.</p></li>
 ingresos = c(112050,  80072, 104099,  54530, 145251, 101929,  69718, 103675, 109683, 114460, 98434, 141044, 136072,  67489, 119350,  95647, 106056, 145291,  70400,  37984, 121469,  91926, 125635, 150000, 132742,  52620, 132933, 146043, 128391, 113604,  91400, 128127,  84802,  57368, 141404, 100410, 127152,  53548,  96133, 104872,  99625, 134255,  58500, 128575,  83955, 108677, 118430, 131466, 71134, 128893)
 
 mean(ingresos, na.rm = TRUE)</code></pre>
-<pre><code>[1] 105146.5</code></pre>
+<pre><code>[1] 105146</code></pre>
 <p><br/> <br/></p>
 </div>
 <div id="ejemplo-3" class="section level3">
@@ -1318,7 +1318,7 @@ library(psych)
 
 x &lt;- c(0.0562,0.1312,0.0928,0.0520,0.0510)
 psych::geometric.mean(x, na.rm = TRUE)</code></pre>
-<pre><code>[1] 0.07108179</code></pre>
+<pre><code>[1] 0.07108</code></pre>
 <p><span class="math display">\[\text{inflación promedio : } 7.11
 \%\]</span></p>
 <p><br/><br/></p>
@@ -1475,9 +1475,9 @@ de dispersión.</p>
 <h3>Nota :</h3>
 <p>no aplican todas las propiedades de la varianza</p>
 <pre class="r"><code>cat( &quot;Varianza            :&quot;,var(clientes$edad_cliente),&quot;años cuadrados&quot;, &quot;\n&quot; )</code></pre>
-<pre><code>Varianza            : 226.2682 años cuadrados </code></pre>
+<pre><code>Varianza            : 226.3 años cuadrados </code></pre>
 <pre class="r"><code>cat(&quot;Desviación estándar :&quot;,sd(clientes$edad_cliente),&quot;años&quot;)</code></pre>
-<pre><code>Desviación estándar : 15.04221 años</code></pre>
+<pre><code>Desviación estándar : 15.04 años</code></pre>
 <p>Aunque la desviación estándar reduce el problema debido a tener las
 mismas unidades de la variable, es útil para comparación de dos
 grupos</p>
@@ -1496,7 +1496,7 @@ separar los grupos homogéneos de los heterogéneos. Por lo general se
 utiliza un valor hasta el 20% para determinar que un grupo de datos es
 homogéneo; de lo contrario, se calificará como heterogéneo.</p>
 <pre class="r"><code>cat(&quot;Coeficiente de variación :&quot;,sd(clientes$edad_cliente)/mean(clientes$edad_cliente)*100, &quot; %&quot;)</code></pre>
-<pre><code>Coeficiente de variación : 34.35629  %</code></pre>
+<pre><code>Coeficiente de variación : 34.36  %</code></pre>
 <p>En este caso se obtiene un valor del coeficiente de variación que
 indica la dispersión relativa de la edad de los clientes, pudiendo
 calificar la variable como más homogénea o heterogénea según el valor
@@ -1530,7 +1530,7 @@ style="color:#21B5E4"><strong>CA&lt;0</strong></span>)</p></li>
 <p><span class="math display">\[CA = \dfrac{1}{s^{4}}\Bigg(\dfrac{1}{n}
 \sum_{i=1}^{n} (x-\bar{x})^{4} \Bigg) - 3\]</span> <br/><br/></p>
 <pre class="r"><code>rapportools::kurtosis(clientes$edad_cliente)</code></pre>
-<pre><code>[1] -1.19632</code></pre>
+<pre><code>[1] -1.196</code></pre>
 <p><br/><br/></p>
 </div>
 <div id="asimetría-o-sesgo" class="section level2">
@@ -1563,7 +1563,7 @@ mucho</li>
 \sum_{i=1}^{n} (x-\bar{x})^{4} \Bigg) - 3\]</span></p>
 <p><br/><br/></p>
 <pre class="r"><code>rapportools::skewness(clientes$edad_cliente)</code></pre>
-<pre><code>[1] -0.04586223</code></pre>
+<pre><code>[1] -0.04586</code></pre>
 <p><br/><br/></p>
 <p>El valor obtenido para el sesgo nos indica que existe un sesgo
 positivo o a la derecha (mucho con poco - poco con mucho). Este
@@ -1807,15 +1807,15 @@ Hi=Ni/150
 
 t=data.frame(LI,LS,ni,hi,Ni,Hi)
 t</code></pre>
-<pre><code>  LI  LS ni         hi  Ni         Hi
-1 20  30  2 0.01333333   2 0.01333333
-2 30  40 11 0.07333333  13 0.08666667
-3 40  50 22 0.14666667  35 0.23333333
-4 50  60 41 0.27333333  76 0.50666667
-5 60  70 44 0.29333333 120 0.80000000
-6 70  80 18 0.12000000 138 0.92000000
-7 80  90  8 0.05333333 146 0.97333333
-8 90 100  4 0.02666667 150 1.00000000</code></pre>
+<pre><code>  LI  LS ni      hi  Ni      Hi
+1 20  30  2 0.01333   2 0.01333
+2 30  40 11 0.07333  13 0.08667
+3 40  50 22 0.14667  35 0.23333
+4 50  60 41 0.27333  76 0.50667
+5 60  70 44 0.29333 120 0.80000
+6 70  80 18 0.12000 138 0.92000
+7 80  90  8 0.05333 146 0.97333
+8 90 100  4 0.02667 150 1.00000</code></pre>
 <p><strong>Tercera forma</strong> : utilizando la funciones :
 <code>cut</code> y <code>cbind</code></p>
 <pre class="r"><code>nivans1=cut(data$nivans, breaks = c(20,29.99,39.99,49.99,59.99,69.99,79.99,89.99,100))
@@ -1823,15 +1823,15 @@ t2=table(nivans1)
 t2=cbind(t2, t2/sum(t2),cumsum(t2), cumsum(t2)/sum(t2))
 colnames(t2)=c(&quot;n&quot;,&quot;h&quot;,&quot;N&quot;,&quot;H&quot;)
 t2</code></pre>
-<pre><code>          n          h   N          H
-(20,30]   2 0.01333333   2 0.01333333
-(30,40]  11 0.07333333  13 0.08666667
-(40,50]  22 0.14666667  35 0.23333333
-(50,60]  41 0.27333333  76 0.50666667
-(60,70]  44 0.29333333 120 0.80000000
-(70,80]  18 0.12000000 138 0.92000000
-(80,90]   8 0.05333333 146 0.97333333
-(90,100]  4 0.02666667 150 1.00000000</code></pre>
+<pre><code>          n       h   N       H
+(20,30]   2 0.01333   2 0.01333
+(30,40]  11 0.07333  13 0.08667
+(40,50]  22 0.14667  35 0.23333
+(50,60]  41 0.27333  76 0.50667
+(60,70]  44 0.29333 120 0.80000
+(70,80]  18 0.12000 138 0.92000
+(80,90]   8 0.05333 146 0.97333
+(90,100]  4 0.02667 150 1.00000</code></pre>
 <p>El grupo observado corresponde a un total de 150 estudiantes de las
 cuatro facultades de la universidad (aún no estaba la Facultad de
 Hábitat) y presentan un valor promedio de 59.5 puntos que corresponde a

@@ -9,10 +9,10 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
-<meta name="author" content="dgonzalez" />
+<meta name="author" content="dgonzalez " />
 
 
-<title>actividad332.knit</title>
+<title>Teoría de probabilidades</title>
 
 <script src="site_libs/header-attrs/header-attrs.js"></script>
 <script src="site_libs/jquery/jquery-3.6.0.min.js"></script>
@@ -63,6 +63,7 @@ if (window.hljs) {
 
 
 <link rel="stylesheet" href="style.css" type="text/css" />
+<link rel="stylesheet" href="cajas_pistas.css" type="text/css" />
 
 
 
@@ -491,7 +492,7 @@ $(document).ready(function () {
       <a href="codigo41.html">Código 4.1</a>
     </li>
     <li>
-      <a href="taller411.html">Taller 411</a>
+      <a href="taller-441A.html">Taller 411</a>
     </li>
   </ul>
 </li>
@@ -527,69 +528,83 @@ $(document).ready(function () {
 
 
 
+<h1 class="title toc-ignore"><span
+style="color:#67C1A8 !important;">Teoría de probabilidades</span></h1>
+<h3 class="subtitle"><span style="color:#67C1A8"> </span></h3>
+<h4 class="author"><span style="color:#67C1A8">dgonzalez </span></h4>
 
 </div>
 
 
 <p></br></br></br></p>
 <p></br></br></br></p>
-<div id="actividad-332" class="section level1">
-<h1><strong>Actividad 332</strong></h1>
-<p>Cada estudiante tiene a su cargo la solución de cuatro problemas
-utilizando simulación de modelos estadísticos (ver tabla al final).
-Después de revisar los problemas asignados, podrá intercambiar uno de
-ellos por otro de los no asignados, si así lo desea.</p>
-<p>En caso de realizar el cambio, será necesario incluir una nota al
-inicio del documento indicando el ejercicio sustituido y el nuevo
-ejercicio resuelto.</p>
-<p><br/><br/></p>
-</div>
 <div id="problemas-de-simulación" class="section level1">
-<h1><strong>Problemas de simulación</strong></h1>
+<h1>Problemas de simulación</h1>
+<!-- Controles nativos: cerrados inicialmente y accesibles con teclado.
+     cajas.css contiene las cajas generales, pero no estos desplegables. -->
+<style>
+details.taller-ayuda { margin: 1rem 0; border: 1px solid #7A6DB2;
+  border-radius: 8px; padding: .75rem 1rem; background: #f7f5fb; }
+details.taller-ayuda > summary { cursor: pointer; font-weight: bold;
+  color: #51457e; padding: .4rem; }
+details.taller-ayuda > summary:focus-visible { outline: 3px solid #21B5E4; }
+details.taller-ayuda[open] > summary { margin-bottom: .75rem; }
+details.taller-ayuda pre { overflow-x: auto; }
+</style>
+<p>Las pistas y el código de apoyo están ocultos inicialmente. Pulse
+cada botón para mostrarlos u ocultarlos. El código se presenta para
+ejecutarlo en R; no se ejecuta al compilar el taller.</p>
 <p><br/><br/></p>
-<div class="box2 with-label">
-<div class="label">
-Problema 1
-</div>
-<p>Alejandra es la persona encargada de las compras para un gran
-laboratorio de investigaciones biológicas. Uno de los principales
-insumos utilizados en el laboratorio son reactivos especializados, los
-cuales se compran a dos fabricantes internacionales de gran renombre.
-Debido a problemas logísticos durante el transporte, se estima que cada
-unidad de reactivo tiene una probabilidad de <span
-class="math inline">\(0.03\)</span> de estar contaminada o defectuosa en
-el caso del primer fabricante, y una probabilidad de <span
-class="math inline">\(0.05\)</span> para el segundo fabricante. Usted
-recibe un envío de <span class="math inline">\(100\)</span>
-reactivos.</p>
-<p><br/></p>
-<p><br/></p>
+<div id="problema-1" class="section level3 box5 with-label">
+<h3>Problema 1</h3>
+<p>En un centro de atención de una empresa de servicios, una ingeniera
+industrial compara dos módulos. En cada módulo se observan 100 clientes.
+Cada cliente tiene una probabilidad de requerir una segunda atención de
+<span class="math inline">\(0.03\)</span> en el módulo 1 y de <span
+class="math inline">\(0.05\)</span> en el módulo 2. Suponga
+independencia entre clientes y entre módulos; cada segunda atención
+genera un nuevo ingreso a la fila.</p>
 <ol style="list-style-type: lower-alpha">
-<li>Sea <span class="math inline">\(X\)</span> el número de unidades
-defectuosas en el envío del fabricante 1 y <span
-class="math inline">\(Y\)</span> del número de unidades defectuosas
-provenientes del fabricante 2 . ¿Cuáles son las distribuciones de las
-variables <span class="math inline">\(X\)</span> y <span
-class="math inline">\(Y\)</span>?</li>
-<li>Genere muestras simuladas de tamaño <span
-class="math inline">\(1000\)</span> a partir de las distribuciones de
-<span class="math inline">\(X\)</span> y <span
-class="math inline">\(Y\)</span>.</li>
-<li>Utilice las muestras para estimar la probabilidad de que el número
-total de unidades defectuosas sea menor a diez.</li>
-<li>Utilice las muestras para estimar la probabilidad de que el envío
-del primer fabricante se presentaran más unidades defectuosas que el
-envío realizado por el segundo fabricante.</li>
-<li>Construya una gráfica de probabilidad normal para el número total de
-unidades defectuosas. ¿Sigue una distribución normal?</li>
+<li>Sea <span class="math inline">\(X\)</span> el número de clientes que
+requieren una segunda atención en el módulo 1 y <span
+class="math inline">\(Y\)</span> el correspondiente al módulo 2. ¿Cuáles
+son sus distribuciones?</li>
+<li>Genere 1000 réplicas independientes de los dos grupos de 100
+clientes.</li>
+<li>Estime la probabilidad de que el número total de clientes que
+requieren una segunda atención sea menor que diez.</li>
+<li>Estime la probabilidad de que el módulo 1 registre más clientes con
+segunda atención que el módulo 2.</li>
+<li>Construya una gráfica de probabilidad normal para el total de
+segundas atenciones. ¿Es razonable aproximarlo mediante una distribución
+normal? ¿Qué implicaciones tiene este reproceso sobre la demanda de
+atención?</li>
 </ol>
-</div>
+<details class="taller-ayuda">
+<summary>
+pista
+</summary>
+<p>Use dos binomiales con n=100 y probabilidades distintas. Cada
+posición de los vectores representa una réplica conjunta. Las medias de
+condiciones lógicas estiman probabilidades.</p>
+</details>
+<details class="taller-ayuda">
+<summary>
+código
+</summary>
+<pre class="r fold-show"><code>set.seed(44101)
+B &lt;- 1000
+X &lt;- rbinom(B, size = 100, prob = 0.03)
+Y &lt;- rbinom(B, size = 100, prob = 0.05)
+total &lt;- X + Y
+c(prob_total_menor_10 = mean(total &lt; 10),
+  prob_modulo1_mayor = mean(X &gt; Y))
+qqnorm(total); qqline(total, col = 2)</code></pre>
+</details>
 </div>
 <p><br/><br/><br/><br/></p>
-<div class="box2 with-label">
-<div class="label">
-Problema 2
-</div>
+<div id="problema-2" class="section level3 box5 with-label">
+<h3>Problema 2</h3>
 <p>La edad de una antigua pieza de materia orgánica se puede estimar a
 partir de la tasa a la que emite partículas beta como resultado del
 decaimiento del carbono-14. Por ejemplo , si X es el número de
@@ -621,12 +636,33 @@ class="math inline">\(\widehat{t}\)</span>.</li>
 class="math inline">\(\widehat{t}\)</span> esté a 1000 años con una edad
 real de 10000 años.</li>
 </ol>
+<details class="taller-ayuda">
+<summary>
+pista
+</summary>
+<p>Genere X con rpois(). Aplique la transformación a cada réplica.
+Interprete el inciso d como <span
+class="math inline">\(P(|\widehat{t}-10000|\leq1000)\)</span>. Si X=0,
+la edad estimada es infinita: no elimine esos casos sin advertirlo.</p>
+</details>
+<details class="taller-ayuda">
+<summary>
+código
+</summary>
+<pre class="r fold-show"><code>set.seed(44102)
+X &lt;- rpois(10000, lambda = 45.62)
+t_est &lt;- (log(15.3) - log(X / 10)) / 0.0001210
+if (any(X == 0)) {
+  message(&quot;Hay edades infinitas: la media no es finita y la DE no se resume como usual.&quot;)
+} else {
+  print(c(media = mean(t_est), desviacion = sd(t_est)))
+}
+mean(abs(t_est - 10000) &lt;= 1000)</code></pre>
+</details>
 </div>
 <p><br/><br/><br/><br/></p>
-<div class="box2 with-label">
-<div class="label">
-Problema 3
-</div>
+<div id="problema-3" class="section level3 box5 with-label">
+<h3>Problema 3</h3>
 <p>Tres sistemas están compuestos por los componentes
 <code>R1</code>,<code>R2</code>, <code>R3</code> y <code>R4</code>
 conectados, como lo muestra las siguientes figuras. El tiempo de vida en
@@ -656,12 +692,45 @@ distribución aproximadamente normal?</li>
 ¿Están sesgados a la izquierda, sesgados a la derecha, o son
 aproximadamente simétricos?</li>
 </ol>
+<details class="taller-ayuda">
+<summary>
+pista
+</summary>
+<p>En R, meanlog y sdlog son los parámetros de la normal del logaritmo.
+En una conexión en serie se usa el mínimo; en paralelo, el máximo. La
+figura está comentada en el archivo: recupérela antes de definir los
+tres sistemas. La independencia entre componentes sería un supuesto
+adicional que debe discutirse.</p>
+</details>
+<details class="taller-ayuda">
+<summary>
+código
+</summary>
+<pre class="r fold-show"><code># Plantilla: complete las conexiones tras consultar la figura.
+set.seed(44103)
+n &lt;- 10000
+R1 &lt;- rlnorm(n, meanlog = 2, sdlog = 1)
+R3 &lt;- rlnorm(n, meanlog = 2, sdlog = 1)
+R2 &lt;- rlnorm(n, meanlog = 1, sdlog = 0.1)
+R4 &lt;- rlnorm(n, meanlog = 1, sdlog = 0.1)
+# Las generaciones anteriores suponen independencia.
+serie &lt;- function(...) pmin(...)
+paralelo &lt;- function(...) pmax(...)
+# Ejemplo ilustrativo, NO corresponde necesariamente a la figura:
+# T_ejemplo &lt;- serie(paralelo(R1, R2), paralelo(R3, R4))
+resumir &lt;- function(T) {
+  c(media = mean(T), prob_falla_antes_2 = mean(T &lt; 2),
+    P20 = unname(quantile(T, 0.20)))
+}
+# Defina T1, T2 y T3 de acuerdo con la figura y después ejecute:
+# lapply(list(T1, T2, T3), resumir)
+# qqnorm(T1); qqline(T1, col = 2)
+# hist(T1, main = &quot;Tiempo de vida: sistema 1&quot;, xlab = &quot;Meses&quot;)</code></pre>
+</details>
 </div>
 <p><br/><br/><br/><br/></p>
-<div class="box2 with-label">
-<div class="label">
-Problema 4
-</div>
+<div id="problema-4" class="section level3 box5 with-label">
+<h3>Problema 4</h3>
 <p>Estimación del valor de <span class="math inline">\(\pi\)</span> . LA
 siguiente figura sugiere como estimar el valor de <span
 class="math inline">\(\pi\)</span> con una simulación. En la figura, un
@@ -713,14 +782,34 @@ Una simulación con 10000 y 100000 puntos tiene mayores probabilidades de
 dar como resultado una estimación muy cercana al valor
 verdadero</p></li>
 </ol>
+<details class="taller-ayuda">
+<summary>
+pista
+</summary>
+<p>Simule dos uniformes independientes y use el indicador de pertenencia
+al círculo. Multiplique su promedio por cuatro. Nota sobre el enunciado
+conservado: 79/100=0.79 y 4(0.79)=3.16; aparecen inconsistencias
+aritméticas en el texto original.</p>
+</details>
+<details class="taller-ayuda">
+<summary>
+código
+</summary>
+<pre class="r fold-show"><code>set.seed(44104)
+n &lt;- 1000
+x &lt;- runif(n)
+y &lt;- runif(n)
+dentro &lt;- (x - 0.5)^2 + (y - 0.5)^2 &lt; 0.25
+c(puntos_dentro = sum(dentro), pi_estimado = 4 * mean(dentro))
+plot(x, y, col = ifelse(dentro, &quot;#7A6DB2&quot;, &quot;#B8D7E8&quot;),
+     pch = 16, asp = 1, main = &quot;Estimación de pi&quot;)</code></pre>
+</details>
 </div>
 <p><br/></p>
 <p>Ejercicios tomados de Navidi(2006)</p>
 <p><br/><br/><br/></p>
-<div class="box2 with-label">
-<div class="label">
-Problema 5
-</div>
+<div id="problema-5" class="section level3 box5 with-label">
+<h3>Problema 5</h3>
 <p>Una planta de manufactura produce pistones para motores de combustión
 interna. El diámetro de los pistones debe ser de 10 cm, pero debido a
 variaciones en el proceso de producción, sigue una distribución normal
@@ -740,64 +829,146 @@ ajusta a la distribución normal.</li>
 <li>¿Qué estrategias podrían implementarse para reducir el número de
 pistones rechazados?</li>
 </ol>
+<details class="taller-ayuda">
+<summary>
+pista
+</summary>
+<p>El rechazo ocurre en cualquiera de las dos colas. Para un lote, el
+costo es 15 por el número de rechazos; el costo esperado puede estimarse
+como 5000 por la proporción de rechazo por 15.</p>
+</details>
+<details class="taller-ayuda">
+<summary>
+código
+</summary>
+<pre class="r fold-show"><code>set.seed(44105)
+n &lt;- 5000
+diametro &lt;- rnorm(n, mean = 10, sd = 0.02)
+rechazo &lt;- diametro &lt; 9.97 | diametro &gt; 10.03
+c(proporcion_rechazo = mean(rechazo),
+  costo_lote_USD = 15 * sum(rechazo))
+hist(diametro, probability = TRUE, breaks = 30,
+     main = &quot;Diámetro de los pistones&quot;, xlab = &quot;cm&quot;)
+curve(dnorm(x, 10, 0.02), add = TRUE, col = 2, lwd = 2)</code></pre>
+</details>
 </div>
 <p><br/><br/><br/><br/></p>
-<div class="box2 with-label">
-<div class="label">
-Problema 6
-</div>
-<p>Un servidor web recibe en promedio 30 solicitudes por minuto. Se ha
-determinado que el número de solicitudes sigue una distribución de
-Poisson. Un equipo de desarrolladores desea simular el comportamiento
-del servidor durante las horas pico.</p>
-<p><br/></p>
-<p><br/></p>
+<div id="problema-6" class="section level3 box5 with-label">
+<h3>Problema 6</h3>
+<p>En un centro de atención llegan en promedio 30 clientes por minuto
+durante una franja de alta demanda. El número de llegadas en cada minuto
+sigue una distribución de Poisson con <span
+class="math inline">\(\lambda=30\)</span> y las llegadas en minutos
+distintos son independientes. El conjunto de puestos puede atender hasta
+35 clientes por minuto. Para un modelo simplificado por intervalos,
+suponga que los clientes no atendidos permanecen en una fila única, la
+fila comienza vacía y la capacidad se aplica después de las llegadas de
+cada minuto.</p>
 <ol style="list-style-type: lower-alpha">
-<li>Simule 10000 minutos de solicitudes utilizando la distribución de
-Poisson con <span class="math inline">\(\lambda = 30\)</span>.</li>
-<li>Estime la probabilidad de que en un minuto lleguen más de 40
-solicitudes.</li>
-<li>Si el servidor puede manejar hasta 35 solicitudes por minuto sin
-colapsar, estime la proporción de minutos en los que se sobrecarga el
-servidor.</li>
-<li>¿Qué mejoras podría implementar el equipo de sistemas para disminuir
-el riesgo de sobrecarga?</li>
-<li>Construya un histograma con la distribución de solicitudes por
-minuto. ¿Qué tan dispersa es la demanda?</li>
+<li>Simule las llegadas durante 10000 minutos.</li>
+<li>Estime la probabilidad de que lleguen más de 40 clientes en un
+minuto.</li>
+<li>Estime la proporción de minutos en que las llegadas superan la
+capacidad de 35. Calcule además la fila al final de cada minuto usando
+<span class="math inline">\(Q_t=\max(0,Q_{t-1}+A_t-35)\)</span>, con
+<span class="math inline">\(Q_0=0\)</span>, y estime su longitud
+promedio y máxima.</li>
+<li>Repita el cálculo de la fila con capacidad de 40 clientes por minuto
+y compare. ¿Qué decisiones sobre capacidad y turnos recomendaría?</li>
+<li>Construya un histograma de llegadas por minuto y una gráfica de la
+fila a lo largo del tiempo. Distinga entre exceso de llegadas en un
+minuto y acumulación de clientes en la fila.</li>
 </ol>
+<details class="taller-ayuda">
+<summary>
+pista
+</summary>
+<p>rpois() simula llegadas, no tiempos de espera. Actualice la fila de
+forma secuencial: la fila anterior se suma a las llegadas antes de
+restar la capacidad. Use las mismas llegadas para comparar
+capacidades.</p>
+</details>
+<details class="taller-ayuda">
+<summary>
+código
+</summary>
+<pre class="r fold-show"><code>set.seed(44106)
+llegadas &lt;- rpois(10000, lambda = 30)
+simular_fila &lt;- function(llegadas, capacidad) {
+  fila &lt;- numeric(length(llegadas))
+  anterior &lt;- 0
+  for (t in seq_along(llegadas)) {
+    fila[t] &lt;- max(0, anterior + llegadas[t] - capacidad)
+    anterior &lt;- fila[t]
+  }
+  fila
+}
+q35 &lt;- simular_fila(llegadas, 35)
+q40 &lt;- simular_fila(llegadas, 40)
+c(prob_mas_40 = mean(llegadas &gt; 40),
+  proporcion_exceso_35 = mean(llegadas &gt; 35))
+data.frame(capacidad = c(35, 40),
+           fila_promedio = c(mean(q35), mean(q40)),
+           fila_maxima = c(max(q35), max(q40)))
+hist(llegadas, breaks = 30, main = &quot;Llegadas por minuto&quot;, xlab = &quot;Clientes&quot;)
+matplot(cbind(q35, q40), type = &quot;l&quot;, lty = 1,
+        col = c(&quot;#7A6DB2&quot;, &quot;#21B5E4&quot;),
+        xlab = &quot;Minuto&quot;, ylab = &quot;Clientes al final del minuto&quot;)
+legend(&quot;topright&quot;, c(&quot;Capacidad 35&quot;, &quot;Capacidad 40&quot;),
+       col = c(&quot;#7A6DB2&quot;, &quot;#21B5E4&quot;), lty = 1)</code></pre>
+</details>
 </div>
 <p><br/><br/><br/><br/></p>
-<div class="box2 with-label">
-<div class="label">
-Problema 7
-</div>
-<p>Una constructora está evaluando la resistencia a la compresión de
-cilindros de concreto a los 28 días de curado. La resistencia sigue una
-distribución normal con media <span class="math inline">\(\mu =
-30\)</span> MPa y desviación estándar <span class="math inline">\(\sigma
-= 5\)</span> MPa. Se requiere que el 95% de los cilindros superen los 25
-MPa.</p>
-<p><br/></p>
-<p><br/></p>
+<div id="problema-7" class="section level3 box5 with-label">
+<h3>Problema 7</h3>
+<p>Una ingeniera industrial estudia el tiempo de atención de clientes en
+un módulo de trámites. El tiempo de servicio sigue una distribución
+normal con media <span class="math inline">\(\mu=30\)</span> minutos y
+desviación estándar <span class="math inline">\(\sigma=5\)</span>
+minutos. La meta es atender al menos al 95% de los clientes en un tiempo
+de servicio de máximo 35 minutos. El tiempo de servicio no incluye la
+espera en la fila. Para esta simulación, descarte y vuelva a generar
+cualquier tiempo negativo.</p>
 <ol style="list-style-type: lower-alpha">
-<li>Genere una muestra simulada de 10000 cilindros de concreto.</li>
-<li>Estime el porcentaje de cilindros que cumplen con la resistencia
-mínima de 25 MPa.</li>
-<li>Estime el <span class="math inline">\(10^{o}\)</span> percentil
-(<span class="math inline">\(P_{10}\)</span>) de la resistencia a la
-compresión.</li>
-<li>Si un cilindro que no cumple cuesta $50 USD en reprocesamiento,
-estime el costo promedio asociado a los rechazos en 10000
-cilindros.</li>
-<li>¿Qué medidas de control de calidad sugerirías implementar para
-mejorar el desempeño de la mezcla de concreto?</li>
+<li>Genere tiempos de servicio para 10000 clientes.</li>
+<li>Estime el porcentaje atendido en máximo 35 minutos. ¿Se cumple la
+meta del 95%?</li>
+<li>Estime el percentil 90 (<span class="math inline">\(P_{90}\)</span>)
+del tiempo de servicio e interprételo.</li>
+<li>Si cada atención que supera los 35 minutos genera un costo adicional
+de 50 USD, estime el costo total para los 10000 clientes y el costo
+promedio por cliente.</li>
+<li>¿Qué mejoras en el proceso podrían reducir el tiempo de servicio y
+su variabilidad? Explique por qué estos datos, por sí solos, no permiten
+estimar la espera en la fila.</li>
 </ol>
+<details class="taller-ayuda">
+<summary>
+pista
+</summary>
+<p>Use rnorm() y regenere los valores negativos. Un percentil es un
+tiempo, mientras que la proporción de cumplimiento es una probabilidad.
+No confunda tiempo de servicio con tiempo total en el sistema.</p>
+</details>
+<details class="taller-ayuda">
+<summary>
+código
+</summary>
+<pre class="r fold-show"><code>set.seed(44107)
+tiempo &lt;- rnorm(10000, mean = 30, sd = 5)
+while (any(tiempo &lt; 0)) {
+  negativos &lt;- tiempo &lt; 0
+  tiempo[negativos] &lt;- rnorm(sum(negativos), 30, 5)
+}
+c(cumplimiento_porcentaje = 100 * mean(tiempo &lt;= 35),
+  P90_minutos = unname(quantile(tiempo, 0.90)),
+  costo_total_USD = 50 * sum(tiempo &gt; 35),
+  costo_promedio_por_cliente_USD = 50 * mean(tiempo &gt; 35))</code></pre>
+</details>
 </div>
 <p><br/><br/><br/><br/></p>
-<div class="box2 with-label">
-<div class="label">
-Problema 8
-</div>
+<div class="box5 with-label">
+<p>###Problema 8</p>
 <p>Una turbina de gas tiene cuatro componentes críticos que fallan de
 manera independiente. Los tiempos de vida (en horas) de cada componente
 siguen distribuciones exponenciales:</p>
@@ -818,72 +989,91 @@ sobre su forma.</li>
 <li>¿Qué estrategias de mantenimiento preventivo se pueden
 considerar?</li>
 </ol>
+<details class="taller-ayuda">
+<summary>
+pista
+</summary>
+<p>Genere cuatro exponenciales independientes por réplica. Como basta la
+primera falla para detener la turbina, use el mínimo. El parámetro rate
+es el inverso de la vida media.</p>
+</details>
+<details class="taller-ayuda">
+<summary>
+código
+</summary>
+<pre class="r fold-show"><code>set.seed(44108)
+n &lt;- 5000
+T1 &lt;- rexp(n, rate = 1/5000)
+T2 &lt;- rexp(n, rate = 1/4000)
+T3 &lt;- rexp(n, rate = 1/6000)
+T4 &lt;- rexp(n, rate = 1/5500)
+T_turbina &lt;- pmin(T1, T2, T3, T4)
+c(vida_media = mean(T_turbina), prob_antes_4000 = mean(T_turbina &lt; 4000))
+hist(T_turbina, breaks = 40, main = &quot;Vida de la turbina&quot;, xlab = &quot;Horas&quot;)</code></pre>
+</details>
 </div>
 <p><br/><br/><br/><br/></p>
-<div class="box2 with-label">
-<div class="label">
-Problema 9
-</div>
-<p>El caudal máximo diario de un río se modela como una distribución
-Gumbel con parámetros <span class="math inline">\(\mu = 500\)</span>
-m³/s y <span class="math inline">\(\beta = 100\)</span> m³/s. Un puente
-ha sido diseñado para resistir caudales de hasta 750 m³/s. Se desea
-estimar la probabilidad de que el puente sea superado en los próximos 10
-años.</p>
-<p><br/></p>
-<p><br/></p>
+<div id="problema-9" class="section level3 box5 with-label">
+<h3>Problema 9</h3>
+<p>En un centro de atención, el máximo diario del tiempo de espera en la
+fila se modela mediante una distribución Gumbel con parámetro de
+localización <span class="math inline">\(\mu=20\)</span> minutos y
+escala <span class="math inline">\(\beta=5\)</span> minutos. Suponga
+independencia entre máximos de días distintos. La meta operativa
+establece que el máximo diario no debe superar 35 minutos. Se desea
+evaluar un horizonte de 30 días.</p>
 <ol style="list-style-type: lower-alpha">
-<li>Genere 3650 simulaciones (equivalente a 10 años) del caudal máximo
-diario.</li>
-<li>Estime la probabilidad de que en al menos un día en los próximos 10
-años el caudal supere los 750 m³/s.</li>
-<li>Si se desea reducir el riesgo de superación al 1%, ¿qué caudal
-máximo debería resistir el nuevo diseño del puente?</li>
-<li>Construya el histograma de los caudales simulados y analice la
-distribución.</li>
-<li>¿Qué medidas adicionales de mitigación podría implementar el
-ingeniero civil a cargo?</li>
+<li>Genere 10000 réplicas de periodos de 30 días de máximos diarios de
+espera.</li>
+<li>Estime la probabilidad de que, al menos un día de un periodo de 30
+días, el máximo supere 35 minutos. Distíngala de la probabilidad de
+superar el límite en un solo día.</li>
+<li>Determine el umbral de espera que tendría una probabilidad de
+superación de apenas 1% en todo el periodo de 30 días, bajo el modelo
+actual. Explique por qué este umbral describe el riesgo y no implica que
+sea una meta de servicio aceptable.</li>
+<li>Construya un histograma de los máximos diarios y otro del máximo de
+cada periodo de 30 días.</li>
+<li>¿Qué medidas de capacidad, programación de personal y gestión de
+filas propondría para reducir los máximos de espera?</li>
 </ol>
+<details class="taller-ayuda">
+<summary>
+pista
+</summary>
+<p>La inversa Gumbel es <span class="math inline">\(\mu-\beta\log(-\log
+U)\)</span>. Para 30 días independientes, <span
+class="math inline">\(P(M_{30}\leq z)=F(z)^{30}\)</span>. Para el inciso
+c resuelva <span class="math inline">\(F(z)^{30}=0.99\)</span>. El
+modelo permite tiempos negativos, aunque con estos parámetros su
+probabilidad es extremadamente pequeña; es una limitación de la
+aproximación.</p>
+</details>
+<details class="taller-ayuda">
+<summary>
+código
+</summary>
+<pre class="r fold-show"><code>set.seed(44109)
+B &lt;- 10000
+dias &lt;- 30
+mu &lt;- 20
+beta &lt;- 5
+U &lt;- matrix(runif(B * dias), nrow = B, ncol = dias)
+maximos_diarios &lt;- mu - beta * log(-log(U))
+maximos_periodo &lt;- apply(maximos_diarios, 1, max)
+F35 &lt;- exp(-exp(-(35 - mu) / beta))
+umbral &lt;- mu - beta * log(-log(0.99) / dias)
+c(prob_diaria_simulada = mean(maximos_diarios &gt; 35),
+  prob_periodo_simulada = mean(maximos_periodo &gt; 35),
+  prob_periodo_teorica = 1 - F35^dias,
+  umbral_riesgo_1_por_ciento = umbral)
+hist(as.vector(maximos_diarios), breaks = 40,
+     main = &quot;Máximos diarios&quot;, xlab = &quot;Minutos&quot;)
+hist(maximos_periodo, breaks = 40,
+     main = &quot;Máximos en periodos de 30 días&quot;, xlab = &quot;Minutos&quot;)</code></pre>
+</details>
 </div>
 <p><br/><br/><br/></p>
-<div id="asignación-de-problemas" class="section level2">
-<h2>Asignación de problemas</h2>
-<pre class="r"><code>set.seed(123)
-library(dplyr)
-library(kableExtra)
-
-n &lt;- 21 # Número de estudiantes
-m &lt;- 4  # Número de problemas asignados por estudiante
-
-# Genera la matriz de problemas SIN repetidos en cada fila
-# problema &lt;- t(
-#   replicate(n, sample(1:9, m, replace = FALSE))
-# )
-# 
-# problemas =saveRDS(problema, &quot;data/problemas.RDS&quot;)
-
-# Lista de nombres (verifica que la cantidad de nombres sea igual a n)
-nombres &lt;- c(&quot;Esteban   Arismendi Giglioli&quot;, &quot;Maria Chaves Raymond&quot;, &quot;Samuel    Cuervo Peña&quot;, &quot;Miguel Angel Davila Muelas&quot;, &quot;Juan   Espinosa Arias&quot;, &quot;Santiago  Guevara Idarraga&quot;, &quot;Tomas   Henao Rincon&quot;, &quot;Sebastian   Hidalgo Jimenez&quot;, &quot;Juan Iglesias Martinez&quot;, &quot;Salome Lema Franco&quot;, &quot;Santiago Mazo Andrade&quot;, &quot;Jose    Mesa Velasquez&quot;, &quot;Cristian  Osorio Martinez&quot;, &quot;Santiago Otalvaro Garcia&quot;, &quot;Miguel   Padilla Rosero&quot;, &quot;Juan  Ramirez Rivas&quot;, &quot;Estevan    Rubio Urrego&quot;, &quot;Lis Saavedra Hernandez&quot;, &quot;Juan  Sanchez Morillo&quot;,
-&quot;Jose   Silva Hurtado&quot;, &quot;Mariana    Simons Gonzalez&quot;)
-
-problema &lt;-readRDS(&quot;data/problemas.RDS&quot;)
-problema &lt;- problema[1:21,]
-
-# Crea el data.frame combinando nombres e ID con los problemas
-datos &lt;- data.frame(
-  ID = 1:n,
-  Nombre = nombres,
-  Problema1 = problema[, 1],
-  Problema2 = problema[, 2],
-  Problema3 = problema[, 3],
-  Problema4 = problema[, 4]
-)
-
-# Muestra la tabla en formato bonito
-datos %&gt;%
-  kbl() %&gt;%
-  kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;, &quot;condensed&quot;, &quot;responsive&quot;))</code></pre>
-</div>
 </div>
 
 <style>

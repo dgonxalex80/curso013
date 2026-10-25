@@ -492,7 +492,7 @@ $(document).ready(function () {
       <a href="codigo41.html">Código 4.1</a>
     </li>
     <li>
-      <a href="taller411.html">Taller 411</a>
+      <a href="taller-441A.html">Taller 411</a>
     </li>
   </ul>
 </li>
@@ -666,8 +666,8 @@ probabilidad teórica <span class="math inline">\(6/36=1/6\)</span>.</p>
 n &lt;- 10000
 suma &lt;- sample(1:6, n, replace = TRUE) + sample(1:6, n, replace = TRUE)
 c(estimada = mean(suma &gt;= 10), teorica = 1/6)</code></pre>
-<pre><code>##  estimada   teorica 
-## 0.1666000 0.1666667</code></pre>
+<pre><code>## estimada  teorica 
+##   0.1666   0.1667</code></pre>
 <p><br/><br/><br/></p>
 </div>
 <div id="generación-de-variables-aleatorias" class="section level1">
@@ -699,7 +699,7 @@ curve(dexp(x, rate = lambda), add = TRUE, col = &quot;#476885&quot;, lwd = 2)</c
 <p><img src="recurso41_files/figure-html/inversa-1.png" alt="" width="768" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>c(media_inversa = mean(x_inversa), media_rexp = mean(x_r), media_teorica = 1/lambda)</code></pre>
 <pre><code>## media_inversa    media_rexp media_teorica 
-##      3.978899      3.973005      4.000000</code></pre>
+##         3.979         3.973         4.000</code></pre>
 <p><br/><br/></p>
 </div>
 <div id="funciones-de-r-para-distribuciones" class="section level2">
@@ -782,7 +782,7 @@ c(estimacion = estimacion, teorico = 1/3,
 limite_inferior = estimacion - 1.96*error_estandar,
 limite_superior = estimacion + 1.96*error_estandar)</code></pre>
 <pre><code>##      estimacion         teorico limite_inferior limite_superior 
-##       0.3351419       0.3333333       0.3310199       0.3392639</code></pre>
+##          0.3351          0.3333          0.3310          0.3393</code></pre>
 <p><br/><br/><br/></p>
 </div>
 <div id="precisión-convergencia-y-diagnóstico" class="section level1">
@@ -845,7 +845,7 @@ class="math inline">\(1-P(D\leq3)\)</span>.</p>
 d &lt;- rbinom(10000, size = 50, prob = 0.04)
 c(MonteCarlo = mean(d &gt;= 4), teorico = 1-pbinom(3, 50, 0.04))</code></pre>
 <pre><code>## MonteCarlo    teorico 
-##  0.1396000  0.1391308</code></pre>
+##     0.1396     0.1391</code></pre>
 <p><br/><br/><br/></p>
 </div>
 <div id="recurso-b-demanda-e-inventario" class="section level1">
@@ -882,7 +882,7 @@ class="math display">\[P(T&gt;t)=\exp[-(t/\eta)^k].\]</span></p>
 t &lt;- rweibull(20000, shape = 2, scale = 1500)
 c(MonteCarlo = mean(t &gt; 1200), teorico = exp(-(1200/1500)^2))</code></pre>
 <pre><code>## MonteCarlo    teorico 
-##  0.5233000  0.5272924</code></pre>
+##     0.5233     0.5273</code></pre>
 <p><br/><br/><br/></p>
 </div>
 <div id="recurso-d-tiempos-de-atención" class="section level1">
@@ -896,7 +896,7 @@ s &lt;- rexp(10000, rate = 1/6)
 c(prob_mas_10 = mean(s &gt; 10), percentil90 = unname(quantile(s, 0.9)),
   prob_teorica = pexp(10, rate = 1/6, lower.tail = FALSE))</code></pre>
 <pre><code>##  prob_mas_10  percentil90 prob_teorica 
-##    0.1835000   13.9534525    0.1888756</code></pre>
+##       0.1835      13.9535       0.1889</code></pre>
 <p><strong>Precaución:</strong> este ejemplo estudia tiempos de servicio
 individuales; no constituye todavía una simulación de cola con llegadas
 y espera.</p>
@@ -914,7 +914,7 @@ l &lt;- rlnorm(20000, meanlog = 2, sdlog = 0.5)
 c(perdida_media = mean(l), prob_superar_15 = mean(l &gt; 15),
   cuantil95 = unname(quantile(l, 0.95)))</code></pre>
 <pre><code>##   perdida_media prob_superar_15       cuantil95 
-##        8.385354        0.079100       16.809976</code></pre>
+##          8.3854          0.0791         16.8100</code></pre>
 <p><br/><br/><br/></p>
 </div>
 <div id="recurso-f-cola-de-un-servidor-eventos-discretos"
@@ -949,7 +949,7 @@ for (i in seq_len(n)) {
 c(espera_media = mean(espera), prob_esperar = mean(espera &gt; 0),
   espera_maxima = max(espera))</code></pre>
 <pre><code>##  espera_media  prob_esperar espera_maxima 
-##      23.82483       0.81000      96.75784</code></pre>
+##         23.82          0.81         96.76</code></pre>
 <p><br/><br/><br/></p>
 </div>
 <div id="relación-con-gemelos-digitales" class="section level1">

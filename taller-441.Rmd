@@ -1,0 +1,532 @@
+---
+title: "<span style='color:#67C1A8 !important;'>Teoría de probabilidades</span>"
+author: <span style="color:#67C1A8">dgonzalez </span> 
+subtitle: <span style="color:#67C1A8"> </span> 
+output:
+  html_document:
+    toc: no
+    toc_depth: 2
+    toc_float: yes
+    code_folding: hide
+    theme: flatly
+    css:
+      - style.css
+      - cajas_pistas.css
+---
+
+
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+knitr::opts_chunk$set(
+  fig.width=9, fig.height=3.5, fig.retina=3,
+  out.width = "100%",
+  cache = FALSE,
+  echo = TRUE,
+  message = FALSE, 
+  warning = FALSE,
+  hiline = TRUE
+)
+# colores
+source("R/init.R")
+
+paleta4=c(c11,c21,c31,c41)
+
+
+library(forcats)
+library(patchwork)
+library(lubridate)
+library(ggplot2)
+library(gridExtra)
+library(cowplot)
+library(summarytools)
+
+#library(dviz.supp)
+```
+
+
+
+</br></br></br>
+
+```{r, echo=FALSE, out.width="100%", fig.align = "left"}
+# nitr::include_graphics("img/taller3.png")
+```
+</br></br></br>
+
+# Problemas de simulación
+
+<!-- Controles nativos: cerrados inicialmente y accesibles con teclado.
+     cajas.css contiene las cajas generales, pero no estos desplegables. -->
+<style>
+details.taller-ayuda { margin: 1rem 0; border: 1px solid #7A6DB2;
+  border-radius: 8px; padding: .75rem 1rem; background: #f7f5fb; }
+details.taller-ayuda > summary { cursor: pointer; font-weight: bold;
+  color: #51457e; padding: .4rem; }
+details.taller-ayuda > summary:focus-visible { outline: 3px solid #21B5E4; }
+details.taller-ayuda[open] > summary { margin-bottom: .75rem; }
+details.taller-ayuda pre { overflow-x: auto; }
+</style>
+
+Las pistas y el código de apoyo están ocultos inicialmente. Pulse cada botón para mostrarlos u ocultarlos. El código se presenta para ejecutarlo en R; no se ejecuta al compilar el taller.
+
+
+
+<br/><br/>
+
+<div class="box5 with-label">
+### Problema 1
+
+En un centro de atención de una empresa de servicios, una ingeniera industrial compara dos módulos. En cada módulo se observan 100 clientes. Cada cliente tiene una probabilidad de requerir una segunda atención de $0.03$ en el módulo 1 y de $0.05$ en el módulo 2. Suponga independencia entre clientes y entre módulos; cada segunda atención genera un nuevo ingreso a la fila.
+
+a. Sea $X$ el número de clientes que requieren una segunda atención en el módulo 1 y $Y$ el correspondiente al módulo 2. ¿Cuáles son sus distribuciones?
+b. Genere 1000 réplicas independientes de los dos grupos de 100 clientes.
+c. Estime la probabilidad de que el número total de clientes que requieren una segunda atención sea menor que diez.
+d. Estime la probabilidad de que el módulo 1 registre más clientes con segunda atención que el módulo 2.
+e. Construya una gráfica de probabilidad normal para el total de segundas atenciones. ¿Es razonable aproximarlo mediante una distribución normal? ¿Qué implicaciones tiene este reproceso sobre la demanda de atención?
+
+
+
+<details class="taller-ayuda">
+<summary> pista</summary>
+
+Use dos binomiales con n=100 y probabilidades distintas. Cada posición de los vectores representa una réplica conjunta. Las medias de condiciones lógicas estiman probabilidades.
+
+</details>
+
+<details class="taller-ayuda">
+<summary>código</summary>
+
+```{r apoyo-1, eval=FALSE, echo=TRUE, class.source="fold-show"}
+set.seed(44101)
+B <- 1000
+X <- rbinom(B, size = 100, prob = 0.03)
+Y <- rbinom(B, size = 100, prob = 0.05)
+total <- X + Y
+c(prob_total_menor_10 = mean(total < 10),
+  prob_modulo1_mayor = mean(X > Y))
+qqnorm(total); qqline(total, col = 2)
+```
+
+</details>
+
+</div>
+
+<br/><br/><br/><br/>
+
+
+<div class="box5 with-label">
+### Problema 2
+
+La edad de una antigua pieza de materia orgánica se puede estimar a partir de la tasa a la que emite partículas beta como resultado del decaimiento del carbono-14. Por ejemplo , si X es el número de partículas emitidas durante diez minutos por un fragmento óseo con 10000 años de antigüedad  que contiene 1 g de carbono, entonces X tiene una distribución de Poisson con media $\lambda=45.62$ . Un arqueólogo descubrió un pequeño fragmento óseo que contiene 1 g de carbono. Si t es la edad desconocida del hueso, en años, el arqueólogo contar{a el número X de partículas emitidas en diez minutos y calculará una edad estimada $\widehat{t}$ con la fórmula:
+	
+$$\widehat{t}=\dfrac{\ln 15.3 - \ln (X/10)}{0.0001210} $$ 
+	
+El arqueólogo no lo sabe, pero el hueso tiene exactamente $10000$ años de antigüedad, por lo que $X$ tiene una distribución de Poisson con $\lambda=45.62$.
+	
+<br/>
+	
+```{r, echo=FALSE, out.width="30%", fig.align = "center"}
+# knitr::include_graphics("img/piezas.png")
+```
+	
+<br/>
+
+a. Genere una muestra simulada de 10000 valores de $X$ y sus correspondientes valores de $\widehat{t}$.
+b. Estime la media de $\widehat{t}$.
+c. Estime la desviación estándar de $\widehat{t}$.
+d. Estime la probabilidad de que $\widehat{t}$ esté a 1000 años con una edad real de 10000 años.
+	
+
+
+<details class="taller-ayuda">
+<summary> pista</summary>
+
+Genere X con rpois(). Aplique la transformación a cada réplica. Interprete el inciso d como $P(|\widehat{t}-10000|\leq1000)$. Si X=0, la edad estimada es infinita: no elimine esos casos sin advertirlo.
+
+</details>
+
+<details class="taller-ayuda">
+<summary>código</summary>
+
+```{r apoyo-2, eval=FALSE, echo=TRUE, class.source="fold-show"}
+set.seed(44102)
+X <- rpois(10000, lambda = 45.62)
+t_est <- (log(15.3) - log(X / 10)) / 0.0001210
+if (any(X == 0)) {
+  message("Hay edades infinitas: la media no es finita y la DE no se resume como usual.")
+} else {
+  print(c(media = mean(t_est), desviacion = sd(t_est)))
+}
+mean(abs(t_est - 10000) <= 1000)
+```
+
+</details>
+
+</div>
+	
+
+<br/><br/><br/><br/>
+	
+<div class="box5 with-label">
+### Problema 3
+	
+Tres sistemas están compuestos por los componentes `R1`,`R2`, `R3` y `R4` conectados,  como lo muestra las siguientes figuras. El tiempo de vida en meses de los componentes `R1` y `R3` sigue una distribución lognormal con $\mu=2$ y $\sigma=1$ y la distribución en meses de los componentes `R2` y `R4` una distribución lognormal con $\mu=1$ y $\sigma=0.1$. El sistema solo funciona si `A` y `B` lo hacen.
+	
+<br/>
+	
+```{r, echo=FALSE, out.width="40%", fig.align = "center"}
+# knitr::include_graphics("img/circuitos.png")
+```
+	
+<br/>
+	
+a. Genere por simulación un gran número  (al menos $1000$) de los tiempos de vida de los sistemas
+b. Estime la media del tiempo de vida para cada sistema.
+c. Estime la probabilidad de que los sistemas fallen en un tiempo inferior a dos meses.
+d. Estime el $20^{o}$ percentil ($P_{20}$) de los tiempos de vida del primer sistema .
+e. Construya una gráfica de probabilidad normal de los tiempo de vida para cada sistema. ¿Los tiempos de vida de los sistemas tienen una distribución aproximadamente normal?
+f. Construya un histograma de los tiempos de vida de los sistemas. ¿Están sesgados a la izquierda, sesgados a la derecha, o son aproximadamente simétricos?
+
+
+<details class="taller-ayuda">
+<summary> pista</summary>
+
+En R, meanlog y sdlog son los parámetros de la normal del logaritmo. En una conexión en serie se usa el mínimo; en paralelo, el máximo. La figura está comentada en el archivo: recupérela antes de definir los tres sistemas. La independencia entre componentes sería un supuesto adicional que debe discutirse.
+
+</details>
+
+<details class="taller-ayuda">
+<summary>código</summary>
+
+```{r apoyo-3, eval=FALSE, echo=TRUE, class.source="fold-show"}
+# Plantilla: complete las conexiones tras consultar la figura.
+set.seed(44103)
+n <- 10000
+R1 <- rlnorm(n, meanlog = 2, sdlog = 1)
+R3 <- rlnorm(n, meanlog = 2, sdlog = 1)
+R2 <- rlnorm(n, meanlog = 1, sdlog = 0.1)
+R4 <- rlnorm(n, meanlog = 1, sdlog = 0.1)
+# Las generaciones anteriores suponen independencia.
+serie <- function(...) pmin(...)
+paralelo <- function(...) pmax(...)
+# Ejemplo ilustrativo, NO corresponde necesariamente a la figura:
+# T_ejemplo <- serie(paralelo(R1, R2), paralelo(R3, R4))
+resumir <- function(T) {
+  c(media = mean(T), prob_falla_antes_2 = mean(T < 2),
+    P20 = unname(quantile(T, 0.20)))
+}
+# Defina T1, T2 y T3 de acuerdo con la figura y después ejecute:
+# lapply(list(T1, T2, T3), resumir)
+# qqnorm(T1); qqline(T1, col = 2)
+# hist(T1, main = "Tiempo de vida: sistema 1", xlab = "Meses")
+```
+
+</details>
+
+</div>
+	
+<br/><br/><br/><br/>
+	
+<div class="box5 with-label">
+### Problema 4  
+	
+Estimación del valor de $\pi$ . LA siguiente figura sugiere como estimar el valor de $\pi$ con una simulación. En la figura, un círculo con área igual a $\pi/4$, está inscrito en un cuadrado cuya área es igual a 1. Se elige de forma aleatoria 100 puntos dentro del cuadrado . La probabilidad de que un punto esté dentro del círculo es igual a la fracción del área del cuadrado que abarca a este, la cual es $\pi/4$. Por tanto, se puede estimar el valor de $\pi/4$ al contar el número de puntos dentro del círculo, que es 79 para obtener la estimación de $\pi/4 \approx 0.76$ . De este último resultado se concluye que $\pi \approx 4(0.79) =3.14$ . Este ejercicio presenta un experimento de simulación que fue diseñado para estimar el valor de $\pi$ al generar 1000 puntos en el cuadrado.
+	
+<br/>
+	
+```{r, echo=FALSE, out.width="40%", fig.align = "center"}
+# knitr::include_graphics("img/fig_pi.png")
+```
+	
+<br/>
+	
+a. Genere 1000 coordenadas $x$:  $X_{1}$, . . . , $X_{1000}$. Utilice la distribución uniforme con valor mínimo de $0$ y valor máximo de $1$. La distribución uniforme genera variables aleatorias que tienen la misma probabilidad de venir de cualquier parte del intervalo $(0, 1)$.
+	
+b. Genere $1000$ coordenadas $y$ : $Y_{1}, . . . , Y_{1000}$, utilizando nuevamente la distribución uniforme con valor mínimo de $0$ y valor máximo de $1$.
+	
+c. Cada punto $(X_{i},Y_{i})$ se encuentra dentro del círculo si su distancia desde el centro $(0.5, 0.5)$ es menor a $0.5$. Para cada par $(X_{i},Y_{i})$ determine si la distancia desde el centro es menor a $0.5$. Esto último se puede realizar al calcular el valor $(X_{i}-0.5)^{2}+(Y_{i}-0.5)^{2}$, que es el cuadrado de la distancia, y al determinar si es menor que $0.25$.
+	
+d. ¿Cuántos de los puntos están dentro del círculo? ¿Cuál es su estimación de $\pi$? (Nota: Con sólo 1000 puntos, es probable que su estimación sea inferior por 0.05 o más. Una simulación con 10000 y 100000 puntos tiene mayores probabilidades de dar como resultado una estimación muy cercana al valor verdadero
+	
+
+
+<details class="taller-ayuda">
+<summary> pista</summary>
+
+Simule dos uniformes independientes y use el indicador de pertenencia al círculo. Multiplique su promedio por cuatro. Nota sobre el enunciado conservado: 79/100=0.79 y 4(0.79)=3.16; aparecen inconsistencias aritméticas en el texto original.
+
+</details>
+
+<details class="taller-ayuda">
+<summary>código</summary>
+
+```{r apoyo-4, eval=FALSE, echo=TRUE, class.source="fold-show"}
+set.seed(44104)
+n <- 1000
+x <- runif(n)
+y <- runif(n)
+dentro <- (x - 0.5)^2 + (y - 0.5)^2 < 0.25
+c(puntos_dentro = sum(dentro), pi_estimado = 4 * mean(dentro))
+plot(x, y, col = ifelse(dentro, "#7A6DB2", "#B8D7E8"),
+     pch = 16, asp = 1, main = "Estimación de pi")
+```
+
+</details>
+
+</div>
+	
+<br/>
+	
+Ejercicios tomados de Navidi(2006)
+	
+<br/><br/><br/>
+
+<div class="box5 with-label"> 
+### Problema 5 
+	
+Una planta de manufactura produce pistones para motores de combustión interna. El diámetro de los pistones debe ser de 10 cm, pero debido a variaciones en el proceso de producción, sigue una distribución normal con media $\mu = 10$ cm y desviación estándar $\sigma = 0.02$ cm. Un pistón es rechazado si su diámetro está fuera del rango de 9.97 cm a 10.03 cm.
+	
+```{r, echo=FALSE, out.width="40%", fig.align = "center"}
+# knitr::include_graphics("img/piston.png")
+```
+	
+a. Genere una muestra simulada de 5000 pistones.
+b. Estime la proporción de pistones rechazados por no cumplir con las especificaciones.
+c. Si el costo de reprocesamiento de un pistón defectuoso es de $15 USD, estime el costo promedio de reprocesamiento por cada 5000 pistones fabricados.
+d. Genere un histograma del diámetro de los pistones y evalúe si se ajusta a la distribución normal.
+e. ¿Qué estrategias podrían implementarse para reducir el número de pistones rechazados?
+
+
+
+<details class="taller-ayuda">
+<summary> pista</summary>
+
+El rechazo ocurre en cualquiera de las dos colas. Para un lote, el costo es 15 por el número de rechazos; el costo esperado puede estimarse como 5000 por la proporción de rechazo por 15.
+
+</details>
+
+<details class="taller-ayuda">
+<summary>código</summary>
+
+```{r apoyo-5, eval=FALSE, echo=TRUE, class.source="fold-show"}
+set.seed(44105)
+n <- 5000
+diametro <- rnorm(n, mean = 10, sd = 0.02)
+rechazo <- diametro < 9.97 | diametro > 10.03
+c(proporcion_rechazo = mean(rechazo),
+  costo_lote_USD = 15 * sum(rechazo))
+hist(diametro, probability = TRUE, breaks = 30,
+     main = "Diámetro de los pistones", xlab = "cm")
+curve(dnorm(x, 10, 0.02), add = TRUE, col = 2, lwd = 2)
+```
+
+</details>
+
+</div>
+
+<br/><br/><br/><br/>
+
+<div class="box5 with-label"> 
+### Problema 6
+
+En un centro de atención llegan en promedio 30 clientes por minuto durante una franja de alta demanda. El número de llegadas en cada minuto sigue una distribución de Poisson con $\lambda=30$ y las llegadas en minutos distintos son independientes. El conjunto de puestos puede atender hasta 35 clientes por minuto. Para un modelo simplificado por intervalos, suponga que los clientes no atendidos permanecen en una fila única, la fila comienza vacía y la capacidad se aplica después de las llegadas de cada minuto.
+
+a. Simule las llegadas durante 10000 minutos.
+b. Estime la probabilidad de que lleguen más de 40 clientes en un minuto.
+c. Estime la proporción de minutos en que las llegadas superan la capacidad de 35. Calcule además la fila al final de cada minuto usando $Q_t=\max(0,Q_{t-1}+A_t-35)$, con $Q_0=0$, y estime su longitud promedio y máxima.
+d. Repita el cálculo de la fila con capacidad de 40 clientes por minuto y compare. ¿Qué decisiones sobre capacidad y turnos recomendaría?
+e. Construya un histograma de llegadas por minuto y una gráfica de la fila a lo largo del tiempo. Distinga entre exceso de llegadas en un minuto y acumulación de clientes en la fila.
+
+
+
+<details class="taller-ayuda">
+<summary> pista</summary>
+
+rpois() simula llegadas, no tiempos de espera. Actualice la fila de forma secuencial: la fila anterior se suma a las llegadas antes de restar la capacidad. Use las mismas llegadas para comparar capacidades.
+
+</details>
+
+<details class="taller-ayuda">
+<summary>código</summary>
+
+```{r apoyo-6, eval=FALSE, echo=TRUE, class.source="fold-show"}
+set.seed(44106)
+llegadas <- rpois(10000, lambda = 30)
+simular_fila <- function(llegadas, capacidad) {
+  fila <- numeric(length(llegadas))
+  anterior <- 0
+  for (t in seq_along(llegadas)) {
+    fila[t] <- max(0, anterior + llegadas[t] - capacidad)
+    anterior <- fila[t]
+  }
+  fila
+}
+q35 <- simular_fila(llegadas, 35)
+q40 <- simular_fila(llegadas, 40)
+c(prob_mas_40 = mean(llegadas > 40),
+  proporcion_exceso_35 = mean(llegadas > 35))
+data.frame(capacidad = c(35, 40),
+           fila_promedio = c(mean(q35), mean(q40)),
+           fila_maxima = c(max(q35), max(q40)))
+hist(llegadas, breaks = 30, main = "Llegadas por minuto", xlab = "Clientes")
+matplot(cbind(q35, q40), type = "l", lty = 1,
+        col = c("#7A6DB2", "#21B5E4"),
+        xlab = "Minuto", ylab = "Clientes al final del minuto")
+legend("topright", c("Capacidad 35", "Capacidad 40"),
+       col = c("#7A6DB2", "#21B5E4"), lty = 1)
+```
+
+</details>
+
+</div>
+
+<br/><br/><br/><br/>
+
+<div class="box5 with-label"> 
+### Problema 7
+
+Una ingeniera industrial estudia el tiempo de atención de clientes en un módulo de trámites. El tiempo de servicio sigue una distribución normal con media $\mu=30$ minutos y desviación estándar $\sigma=5$ minutos. La meta es atender al menos al 95% de los clientes en un tiempo de servicio de máximo 35 minutos. El tiempo de servicio no incluye la espera en la fila. Para esta simulación, descarte y vuelva a generar cualquier tiempo negativo.
+
+a. Genere tiempos de servicio para 10000 clientes.
+b. Estime el porcentaje atendido en máximo 35 minutos. ¿Se cumple la meta del 95%?
+c. Estime el percentil 90 ($P_{90}$) del tiempo de servicio e interprételo.
+d. Si cada atención que supera los 35 minutos genera un costo adicional de 50 USD, estime el costo total para los 10000 clientes y el costo promedio por cliente.
+e. ¿Qué mejoras en el proceso podrían reducir el tiempo de servicio y su variabilidad? Explique por qué estos datos, por sí solos, no permiten estimar la espera en la fila.
+
+
+
+<details class="taller-ayuda">
+<summary> pista</summary>
+
+Use rnorm() y regenere los valores negativos. Un percentil es un tiempo, mientras que la proporción de cumplimiento es una probabilidad. No confunda tiempo de servicio con tiempo total en el sistema.
+
+</details>
+
+<details class="taller-ayuda">
+<summary>código</summary>
+
+```{r apoyo-7, eval=FALSE, echo=TRUE, class.source="fold-show"}
+set.seed(44107)
+tiempo <- rnorm(10000, mean = 30, sd = 5)
+while (any(tiempo < 0)) {
+  negativos <- tiempo < 0
+  tiempo[negativos] <- rnorm(sum(negativos), 30, 5)
+}
+c(cumplimiento_porcentaje = 100 * mean(tiempo <= 35),
+  P90_minutos = unname(quantile(tiempo, 0.90)),
+  costo_total_USD = 50 * sum(tiempo > 35),
+  costo_promedio_por_cliente_USD = 50 * mean(tiempo > 35))
+```
+
+</details>
+
+</div>
+
+<br/><br/><br/><br/>
+
+<div class="box5 with-label"> 
+###Problema 8 
+
+Una turbina de gas tiene cuatro componentes críticos que fallan de manera independiente. Los tiempos de vida (en horas) de cada componente siguen distribuciones exponenciales:
+
+Componente 1: $\lambda = 1/5000$
+Componente 2: $\lambda = 1/4000$
+Componente 3: $\lambda = 1/6000$
+Componente 4: $\lambda = 1/5500$
+
+La turbina deja de funcionar cuando el primer componente falla.
+
+<br/>
+```{r, echo=FALSE, out.width="40%", fig.align = "center"}
+# knitr::include_graphics("img/turbina.png")
+```
+<br/>
+
+a. Genere 5000 simulaciones del tiempo de vida de la turbina.
+b. Estime la vida media de la turbina.
+c. Estime la probabilidad de que la turbina falle antes de 4000 horas.
+d. Construya el histograma del tiempo de vida de la turbina y comente sobre su forma.
+e. ¿Qué estrategias de mantenimiento preventivo se pueden considerar?
+
+
+
+<details class="taller-ayuda">
+<summary> pista</summary>
+
+Genere cuatro exponenciales independientes por réplica. Como basta la primera falla para detener la turbina, use el mínimo. El parámetro rate es el inverso de la vida media.
+
+</details>
+
+<details class="taller-ayuda">
+<summary>código</summary>
+
+```{r apoyo-8, eval=FALSE, echo=TRUE, class.source="fold-show"}
+set.seed(44108)
+n <- 5000
+T1 <- rexp(n, rate = 1/5000)
+T2 <- rexp(n, rate = 1/4000)
+T3 <- rexp(n, rate = 1/6000)
+T4 <- rexp(n, rate = 1/5500)
+T_turbina <- pmin(T1, T2, T3, T4)
+c(vida_media = mean(T_turbina), prob_antes_4000 = mean(T_turbina < 4000))
+hist(T_turbina, breaks = 40, main = "Vida de la turbina", xlab = "Horas")
+```
+
+</details>
+
+</div>
+
+<br/><br/><br/><br/>
+
+
+<div class="box5 with-label"> 
+### Problema 9
+
+En un centro de atención, el máximo diario del tiempo de espera en la fila se modela mediante una distribución Gumbel con parámetro de localización $\mu=20$ minutos y escala $\beta=5$ minutos. Suponga independencia entre máximos de días distintos. La meta operativa establece que el máximo diario no debe superar 35 minutos. Se desea evaluar un horizonte de 30 días.
+
+a. Genere 10000 réplicas de periodos de 30 días de máximos diarios de espera.
+b. Estime la probabilidad de que, al menos un día de un periodo de 30 días, el máximo supere 35 minutos. Distíngala de la probabilidad de superar el límite en un solo día.
+c. Determine el umbral de espera que tendría una probabilidad de superación de apenas 1% en todo el periodo de 30 días, bajo el modelo actual. Explique por qué este umbral describe el riesgo y no implica que sea una meta de servicio aceptable.
+d. Construya un histograma de los máximos diarios y otro del máximo de cada periodo de 30 días.
+e. ¿Qué medidas de capacidad, programación de personal y gestión de filas propondría para reducir los máximos de espera?
+
+
+
+<details class="taller-ayuda">
+<summary> pista</summary>
+
+La inversa Gumbel es $\mu-\beta\log(-\log U)$. Para 30 días independientes, $P(M_{30}\leq z)=F(z)^{30}$. Para el inciso c resuelva $F(z)^{30}=0.99$. El modelo permite tiempos negativos, aunque con estos parámetros su probabilidad es extremadamente pequeña; es una limitación de la aproximación.
+
+</details>
+
+<details class="taller-ayuda">
+<summary>código</summary>
+
+```{r apoyo-9, eval=FALSE, echo=TRUE, class.source="fold-show"}
+set.seed(44109)
+B <- 10000
+dias <- 30
+mu <- 20
+beta <- 5
+U <- matrix(runif(B * dias), nrow = B, ncol = dias)
+maximos_diarios <- mu - beta * log(-log(U))
+maximos_periodo <- apply(maximos_diarios, 1, max)
+F35 <- exp(-exp(-(35 - mu) / beta))
+umbral <- mu - beta * log(-log(0.99) / dias)
+c(prob_diaria_simulada = mean(maximos_diarios > 35),
+  prob_periodo_simulada = mean(maximos_periodo > 35),
+  prob_periodo_teorica = 1 - F35^dias,
+  umbral_riesgo_1_por_ciento = umbral)
+hist(as.vector(maximos_diarios), breaks = 40,
+     main = "Máximos diarios", xlab = "Minutos")
+hist(maximos_periodo, breaks = 40,
+     main = "Máximos en periodos de 30 días", xlab = "Minutos")
+```
+
+</details>
+
+</div>
+
+	
+<br/><br/><br/>
+

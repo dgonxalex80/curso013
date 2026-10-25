@@ -492,7 +492,7 @@ $(document).ready(function () {
       <a href="codigo41.html">Código 4.1</a>
     </li>
     <li>
-      <a href="taller411.html">Taller 411</a>
+      <a href="taller-441A.html">Taller 411</a>
     </li>
   </ul>
 </li>
@@ -747,7 +747,7 @@ conforma la función. Por ejemplo:</p>
 <p><span class="math display">\[f(x)=\dfrac{1}{(x-1)^{2}} \]</span></p>
 <pre class="r"><code>fx=function(x){1/(x-1)^2} #&lt;&lt;
 fx(100) # función evaluada en x=100</code></pre>
-<pre><code>## [1] 0.0001020304</code></pre>
+<pre><code>## [1] 0.000102</code></pre>
 <p>En este caso la función es evaluada dentro de un otra función en la
 construcción de un gráfico</p>
 <pre class="r"><code>x=seq(from=2,to=10, by=0.01)  # genera secuencia de numeros entre 2 y 10 con paso 0.01
@@ -756,7 +756,7 @@ plot(x, fx(x), type=&quot;l&quot;, col=c11, las=1) # genera gráfica</code></pre
 <p>El siguiente ejemplo construye una función para la realización de un
 gráfico. En este caso los valores de entrada están conformados por un
 vector de datos y un color</p>
-<pre class="r"><code>y=sample(1:6,100, replace = T)  # generación de datos
+<pre class="r"><code>y=sample(1:6,100, replace = TRUE)  # generación de datos
 # función definida para la construcción de gráficos
 grafica=function(x,color){
         barplot(x,

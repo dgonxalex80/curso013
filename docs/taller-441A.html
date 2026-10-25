@@ -1,0 +1,1529 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="dgonzalez " />
+
+
+<title>Teoría de probabilidades</title>
+
+<script src="site_libs/header-attrs/header-attrs.js"></script>
+<script src="site_libs/jquery/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation/tabsets.js"></script>
+<link href="site_libs/highlightjs/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs/highlight.js"></script>
+<link href="site_libs/font-awesome/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome/css/v4-shims.min.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+<link rel="stylesheet" href="cajas_pistas.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html"> </a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">
+    <span class="fa fa-home"></span>
+     
+    Estadística
+  </a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 0
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo0.html">Módulo 0</a>
+    </li>
+    <li>
+      <a href="sumatoria.html">Sumatoria</a>
+    </li>
+    <li>
+      <a href="productoria.html">Productoria</a>
+    </li>
+    <li>
+      <a href="conjuntos.html">Conjuntos</a>
+    </li>
+    <li>
+      <a href="conteo.html">Conteo</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 1
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo1.html">Módulo 1</a>
+    </li>
+    <li>
+      <a href="#">Unidad 1.1</a>
+    </li>
+    <li>
+      <a href="guia11.html">Guía 1.1</a>
+    </li>
+    <li>
+      <a href="recurso11.html">Recursos 1.1</a>
+    </li>
+    <li>
+      <a href="basesdatos.html">Bases de datos</a>
+    </li>
+    <li>
+      <a href="introduccionR.html">Introducción a R</a>
+    </li>
+    <li>
+      <a href="codigo11.html">Código 1.1</a>
+    </li>
+    <li>
+      <a href="#">Unidad 1.2</a>
+    </li>
+    <li>
+      <a href="guia12.html">Guía 1.2</a>
+    </li>
+    <li>
+      <a href="recurso12.html">Recursos 1.2</a>
+    </li>
+    <li>
+      <a href="codigo12.html">Código 1.2</a>
+    </li>
+    <li>
+      <a href="caso1A.html">Caso 1</a>
+    </li>
+    <li>
+      <a href="caso1B.html">Caso 2</a>
+    </li>
+    <li>
+      <a href="#">Unidad 1.3</a>
+    </li>
+    <li>
+      <a href="guia13.html">Guía 1.3</a>
+    </li>
+    <li>
+      <a href="recurso13.html">Recursos 1.3</a>
+    </li>
+    <li>
+      <a href="codigo13.html">Código 1.3</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="monitoria1.html">Monitoría 1</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 2
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo2.html">Módulo 2</a>
+    </li>
+    <li>
+      <a href="#">Unidad 2.1</a>
+    </li>
+    <li>
+      <a href="guia21.html">Guía 2.1</a>
+    </li>
+    <li>
+      <a href="recurso21.html">Recursos 2.1</a>
+    </li>
+    <li>
+      <a href="codigo21.html">Código 2.1</a>
+    </li>
+    <li>
+      <a href="taller211.html">Taller 211</a>
+    </li>
+    <li>
+      <a href="#">Unidad 2.2</a>
+    </li>
+    <li>
+      <a href="guia22.html">Guía 2.2</a>
+    </li>
+    <li>
+      <a href="recurso22.html">Recursos 2.2</a>
+    </li>
+    <li>
+      <a href="taller221.html">Taller 221</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="monitoria2.html">Monitoría 2</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 3
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo3.html">Módulo 3</a>
+    </li>
+    <li>
+      <a href="#">Unidad 3.1</a>
+    </li>
+    <li>
+      <a href="guia31.html">Guía 3.1</a>
+    </li>
+    <li>
+      <a href="recurso31.html">Recursos 3.1</a>
+    </li>
+    <li>
+      <a href="codigo31.html">Código 3.1</a>
+    </li>
+    <li>
+      <a href="taller311.html">Taller 311</a>
+    </li>
+    <li>
+      <a href="#">Unidad 3.2</a>
+    </li>
+    <li>
+      <a href="guia32.html">Guía 3.2</a>
+    </li>
+    <li>
+      <a href="recurso32.html">Recursos 3.2</a>
+    </li>
+    <li>
+      <a href="codigo32.html">Código 3.2</a>
+    </li>
+    <li>
+      <a href="taller321.html">Taller 321</a>
+    </li>
+    <li>
+      <a href="#">Unidad 3.3</a>
+    </li>
+    <li>
+      <a href="guia33.html">Guía 3.3</a>
+    </li>
+    <li>
+      <a href="recurso33-discretas.html">Recursos 3.3-discretas</a>
+    </li>
+    <li>
+      <a href="codigo33_discretas.html">Código 3.3 discretas</a>
+    </li>
+    <li>
+      <a href="taller331.html">Taller 331-discretas</a>
+    </li>
+    <li>
+      <a href="#">Unidad 3.4</a>
+    </li>
+    <li>
+      <a href="guia34.html">Guía 3.4</a>
+    </li>
+    <li>
+      <a href="recurso33-continuos.html">Recursos 3.4-continuas</a>
+    </li>
+    <li>
+      <a href="codigo33_continuos.html">Código 3.4 continuos</a>
+    </li>
+    <li>
+      <a href="taller341_modelos_continuos.html">Taller 341-continuos</a>
+    </li>
+    <li>
+      <a href="actividad334.html">Asignación A334</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="monitoria3.html">Monitoría 3</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 4
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo4.html">Módulo 4</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="#">Unidad 4.1</a>
+    </li>
+    <li>
+      <a href="guia41.html">Guía 4.1</a>
+    </li>
+    <li>
+      <a href="recurso41.html">Recursos 4.1</a>
+    </li>
+    <li>
+      <a href="codigo41.html">Código 4.1</a>
+    </li>
+    <li>
+      <a href="taller-441A.html">Taller 411</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Proyecto
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="guia_proyecto1.html">Guía proyecto</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore"><span
+style="color:#67C1A8 !important;">Teoría de probabilidades</span></h1>
+<h3 class="subtitle"><span style="color:#67C1A8"> </span></h3>
+<h4 class="author"><span style="color:#67C1A8">dgonzalez </span></h4>
+
+</div>
+
+
+<p></br></br></br></p>
+<p></br></br></br></p>
+<div id="problemas-de-simulación" class="section level1">
+<h1>Problemas de simulación</h1>
+<p>Las pistas y el código de apoyo están ocultos inicialmente. Pulse
+cada botón para mostrarlos u ocultarlos. El código se presenta para
+ejecutarlo en R; no se ejecuta al compilar el taller.</p>
+<p><br/><br/></p>
+<div id="problema-1" class="section level3 box5 with-label">
+<h3>Problema 1</h3>
+<p>En un centro de atención de una empresa de servicios, una ingeniera
+industrial compara dos módulos. En cada módulo se observan 100 clientes.
+Cada cliente tiene una probabilidad de requerir una segunda atención de
+<span class="math inline">\(0.03\)</span> en el módulo 1 y de <span
+class="math inline">\(0.05\)</span> en el módulo 2. Suponga
+independencia entre clientes y entre módulos; cada segunda atención
+genera un nuevo ingreso a la fila.</p>
+<ol style="list-style-type: lower-alpha">
+<li>Sea <span class="math inline">\(X\)</span> el número de clientes que
+requieren una segunda atención en el módulo 1 y <span
+class="math inline">\(Y\)</span> el correspondiente al módulo 2. ¿Cuáles
+son sus distribuciones?</li>
+<li>Genere 1000 réplicas independientes de los dos grupos de 100
+clientes.</li>
+<li>Estime la probabilidad de que el número total de clientes que
+requieren una segunda atención sea menor que diez.</li>
+<li>Estime la probabilidad de que el módulo 1 registre más clientes con
+segunda atención que el módulo 2.</li>
+<li>Construya una gráfica de probabilidad normal para el total de
+segundas atenciones. ¿Es razonable aproximarlo mediante una distribución
+normal? ¿Qué implicaciones tiene este reproceso sobre la demanda de
+atención?</li>
+</ol>
+<div class="botones-ayuda" style="--modulo-color: var(--c51, #79C45A);">
+<details class="boton-pista">
+<summary>
+Pista
+</summary>
+<div class="contenido">
+<p>Use dos binomiales con n=100 y probabilidades distintas. Cada
+posición de los vectores representa una réplica conjunta. Las medias de
+condiciones lógicas estiman probabilidades.</p>
+</div>
+</details>
+<details class="boton-codigos">
+<summary>
+Código R
+</summary>
+<div class="contenido">
+<p>Ejecute los incisos en orden dentro de cada problema: los posteriores
+utilizan objetos creados en los anteriores. En <code>apply()</code>,
+<code>MARGIN = 1</code> recorre filas y <code>MARGIN = 2</code> recorre
+columnas. <code>as.numeric()</code> convierte indicadores lógicos en 0/1
+o retira etiquetas de cuantiles.</p>
+<p><strong>a. Distribuciones de X y Y</strong></p>
+<pre class="r"><code># Paso 1: identificar 100 ensayos independientes en cada módulo.
+n_clientes &lt;- 100
+p1 &lt;- 0.03
+p2 &lt;- 0.05
+# Paso 2: X ~ Binomial(100, 0.03); Y ~ Binomial(100, 0.05).
+# X e Y son independientes por el supuesto del enunciado.</code></pre>
+<p><strong>b. Simular los dos módulos</strong></p>
+<pre class="r"><code># Paso 1: fijar la semilla y el número de réplicas.
+set.seed(44101)
+B &lt;- 1000
+# Paso 2: cada fila representa una réplica; cada columna, un módulo.
+atenciones &lt;- cbind(X = rbinom(B, n_clientes, p1),
+                    Y = rbinom(B, n_clientes, p2))
+head(atenciones)</code></pre>
+<p><strong>c. Probabilidad de menos de diez segundas
+atenciones</strong></p>
+<pre class="r"><code># Paso 1: sumar los dos módulos por fila (MARGIN = 1).
+total &lt;- apply(atenciones, 1, sum)
+# Paso 2: convertir TRUE/FALSE en 1/0; el promedio estima la probabilidad.
+indicador &lt;- as.numeric(total &lt; 10)
+mean(indicador)</code></pre>
+<p><strong>d. Comparar los módulos</strong></p>
+<pre class="r"><code># Paso 1: comparar X e Y dentro de cada réplica.
+indicador &lt;- apply(atenciones, 1, function(fila) {
+  as.numeric(fila[&quot;X&quot;] &gt; fila[&quot;Y&quot;])
+})
+# Paso 2: promediar los indicadores de X &gt; Y.
+mean(indicador)</code></pre>
+<p><strong>e. Gráfica normal e interpretación</strong></p>
+<pre class="r"><code># Paso 1: comparar los cuantiles del total con cuantiles normales.
+qqnorm(total, main = &quot;Total de segundas atenciones&quot;)
+qqline(total, col = 2)
+# Paso 2: buscar curvatura sistemática; la variable es discreta y puede ser sesgada.
+# Paso 3: resumir la demanda adicional; no equivale a medir espera en la fila.
+mean(total)</code></pre>
+</div>
+</details>
+</div>
+</div>
+<p><br/><br/><br/><br/></p>
+<div id="problema-2" class="section level3 box5 with-label">
+<h3>Problema 2</h3>
+<p>La edad de una antigua pieza de materia orgánica se puede estimar a
+partir de la tasa a la que emite partículas beta como resultado del
+decaimiento del carbono-14. Por ejemplo , si X es el número de
+partículas emitidas durante diez minutos por un fragmento óseo con 10000
+años de antigüedad que contiene 1 g de carbono, entonces X tiene una
+distribución de Poisson con media <span
+class="math inline">\(\lambda=45.62\)</span> . Un arqueólogo descubrió
+un pequeño fragmento óseo que contiene 1 g de carbono. Si t es la edad
+desconocida del hueso, en años, el arqueólogo contar{a el número X de
+partículas emitidas en diez minutos y calculará una edad estimada <span
+class="math inline">\(\widehat{t}\)</span> con la fórmula:</p>
+<p><span class="math display">\[\widehat{t}=\dfrac{\ln 15.3 - \ln
+(X/10)}{0.0001210} \]</span></p>
+<p>El arqueólogo no lo sabe, pero el hueso tiene exactamente <span
+class="math inline">\(10000\)</span> años de antigüedad, por lo que
+<span class="math inline">\(X\)</span> tiene una distribución de Poisson
+con <span class="math inline">\(\lambda=45.62\)</span>.</p>
+<p><br/></p>
+<p><br/></p>
+<ol style="list-style-type: lower-alpha">
+<li>Genere una muestra simulada de 10000 valores de <span
+class="math inline">\(X\)</span> y sus correspondientes valores de <span
+class="math inline">\(\widehat{t}\)</span>.</li>
+<li>Estime la media de <span
+class="math inline">\(\widehat{t}\)</span>.</li>
+<li>Estime la desviación estándar de <span
+class="math inline">\(\widehat{t}\)</span>.</li>
+<li>Estime la probabilidad de que <span
+class="math inline">\(\widehat{t}\)</span> esté a 1000 años con una edad
+real de 10000 años.</li>
+</ol>
+<div class="botones-ayuda" style="--modulo-color: var(--c51, #79C45A);">
+<details class="boton-pista">
+<summary>
+Pista
+</summary>
+<div class="contenido">
+<p>Genere X con rpois(). Aplique la transformación a cada réplica.
+Interprete el inciso d como <span
+class="math inline">\(P(|\widehat{t}-10000|\leq1000)\)</span>. Si X=0,
+la edad estimada es infinita: no elimine esos casos sin advertirlo.</p>
+</div>
+</details>
+<details class="boton-codigos">
+<summary>
+Código R
+</summary>
+<div class="contenido">
+<p>Ejecute los incisos en orden dentro de cada problema: los posteriores
+utilizan objetos creados en los anteriores. En <code>apply()</code>,
+<code>MARGIN = 1</code> recorre filas y <code>MARGIN = 2</code> recorre
+columnas. <code>as.numeric()</code> convierte indicadores lógicos en 0/1
+o retira etiquetas de cuantiles.</p>
+<p><strong>a. Simular emisiones y estimar edades</strong></p>
+<pre class="r"><code># Paso 1: simular el número de partículas emitidas en diez minutos.
+set.seed(44102)
+X &lt;- rpois(10000, lambda = 45.62)
+# Paso 2: transformar cada conteo en una edad estimada (log natural).
+t_est &lt;- (log(15.3) - log(X / 10)) / 0.0001210
+# Paso 3: advertir si X = 0, caso que produce una edad infinita.
+sum(as.numeric(X == 0))</code></pre>
+<p><strong>b. Media de la edad estimada</strong></p>
+<pre class="r"><code># Paso 1: calcular la media sin eliminar observaciones.
+mean(t_est)
+# Paso 2: si hay edades infinitas, la media muestral será infinita.
+# No confundir la media de esta muestra con una esperanza teórica finita.</code></pre>
+<p><strong>c. Desviación estándar de la edad estimada</strong></p>
+<pre class="r"><code># Paso 1: comprobar que todas las edades sean finitas.
+if (all(is.finite(t_est))) {
+  # Paso 2: calcular la desviación estándar muestral, en años.
+  print(sd(t_est))
+} else {
+  message(&quot;La desviación estándar usual no está definida con edades infinitas.&quot;)
+}</code></pre>
+<p><strong>d. Probabilidad de un error máximo de 1000 años</strong></p>
+<pre class="r"><code># Paso 1: calcular el error absoluto respecto a 10000 años.
+error &lt;- abs(t_est - 10000)
+# Paso 2: usar 1 si el error es de máximo 1000 años; 0 en otro caso.
+indicador &lt;- as.numeric(error &lt;= 1000)
+# Paso 3: el promedio estima la probabilidad solicitada.
+mean(indicador)</code></pre>
+</div>
+</details>
+</div>
+</div>
+<p><br/><br/><br/><br/></p>
+<div id="problema-3" class="section level3 box5 with-label">
+<h3>Problema 3</h3>
+<p>Tres sistemas están compuestos por los componentes
+<code>R1</code>,<code>R2</code>, <code>R3</code> y <code>R4</code>
+conectados, como lo muestra las siguientes figuras. El tiempo de vida en
+meses de los componentes <code>R1</code> y <code>R3</code> sigue una
+distribución lognormal con <span class="math inline">\(\mu=2\)</span> y
+<span class="math inline">\(\sigma=1\)</span> y la distribución en meses
+de los componentes <code>R2</code> y <code>R4</code> una distribución
+lognormal con <span class="math inline">\(\mu=1\)</span> y <span
+class="math inline">\(\sigma=0.1\)</span>. El sistema solo funciona si
+<code>A</code> y <code>B</code> lo hacen.</p>
+<p><br/></p>
+<p><br/></p>
+<ol style="list-style-type: lower-alpha">
+<li>Genere por simulación un gran número (al menos <span
+class="math inline">\(1000\)</span>) de los tiempos de vida de los
+sistemas</li>
+<li>Estime la media del tiempo de vida para cada sistema.</li>
+<li>Estime la probabilidad de que los sistemas fallen en un tiempo
+inferior a dos meses.</li>
+<li>Estime el <span class="math inline">\(20^{o}\)</span> percentil
+(<span class="math inline">\(P_{20}\)</span>) de los tiempos de vida del
+primer sistema .</li>
+<li>Construya una gráfica de probabilidad normal de los tiempo de vida
+para cada sistema. ¿Los tiempos de vida de los sistemas tienen una
+distribución aproximadamente normal?</li>
+<li>Construya un histograma de los tiempos de vida de los sistemas.
+¿Están sesgados a la izquierda, sesgados a la derecha, o son
+aproximadamente simétricos?</li>
+</ol>
+<div class="botones-ayuda" style="--modulo-color: var(--c51, #79C45A);">
+<details class="boton-pista">
+<summary>
+Pista
+</summary>
+<div class="contenido">
+<p>En R, meanlog y sdlog son los parámetros de la normal del logaritmo.
+En una conexión en serie se usa el mínimo; en paralelo, el máximo. La
+figura está comentada en el archivo: recupérela antes de definir los
+tres sistemas. La independencia entre componentes sería un supuesto
+adicional que debe discutirse.</p>
+</div>
+</details>
+<details class="boton-codigos">
+<summary>
+Código R
+</summary>
+<div class="contenido">
+<p>Ejecute los incisos en orden dentro de cada problema: los posteriores
+utilizan objetos creados en los anteriores. En <code>apply()</code>,
+<code>MARGIN = 1</code> recorre filas y <code>MARGIN = 2</code> recorre
+columnas. <code>as.numeric()</code> convierte indicadores lógicos en 0/1
+o retira etiquetas de cuantiles.</p>
+<p><strong>Requisito del problema 3:</strong> recuperar la figura y
+completar las conexiones de los sistemas en el inciso a antes de
+ejecutar b–f.</p>
+<p><strong>a. Simular componentes y definir conexiones</strong></p>
+<pre class="r"><code># Paso 1: generar componentes; aquí se añade el supuesto de independencia.
+set.seed(44103)
+n &lt;- 10000
+componentes &lt;- cbind(R1 = rlnorm(n, 2, 1), R2 = rlnorm(n, 1, 0.1),
+                     R3 = rlnorm(n, 2, 1), R4 = rlnorm(n, 1, 0.1))
+# meanlog y sdlog parametrizan el logaritmo del tiempo de vida.
+# Paso 2: definir operaciones por fila: serie = mínimo; paralelo = máximo.
+serie &lt;- function(matriz) apply(matriz, 1, min)
+paralelo &lt;- function(matriz) apply(matriz, 1, max)
+# Paso 3: recuperar la figura y definir T1, T2 y T3 según sus conexiones.
+# Ejemplo de operación, sin atribuirla a ninguno de los sistemas:
+# paralelo(componentes[, c(&quot;R1&quot;, &quot;R2&quot;)])
+# Paso 4: SOLO después de definirlos, descomentar:
+# sistemas &lt;- cbind(Sistema1 = T1, Sistema2 = T2, Sistema3 = T3)</code></pre>
+<p><strong>b. Vida media de cada sistema</strong></p>
+<pre class="r"><code># Requisito: crear la matriz sistemas del inciso a con las conexiones reales.
+# Paso 1: recorrer las columnas (MARGIN = 2), una por sistema.
+# Paso 2: obtener la media de cada columna, en meses.
+apply(sistemas, 2, mean)</code></pre>
+<p><strong>c. Falla antes de dos meses</strong></p>
+<pre class="r"><code># Paso 1: convertir los eventos de falla de cada columna en indicadores 0/1.
+# Paso 2: promediarlos por sistema.
+apply(sistemas, 2, function(tiempo) mean(as.numeric(tiempo &lt; 2)))</code></pre>
+<p><strong>d. Percentil 20 del primer sistema</strong></p>
+<pre class="r"><code># Paso 1: seleccionar los tiempos del primer sistema.
+# Paso 2: obtener el cuantil 0.20 y retirar su etiqueta con as.numeric().
+P20 &lt;- as.numeric(quantile(sistemas[, &quot;Sistema1&quot;], probs = 0.20))
+P20
+# Aproximadamente 20% de las vidas simuladas no supera este valor.</code></pre>
+<p><strong>e. Gráficas de probabilidad normal</strong></p>
+<pre class="r"><code># Paso 1: guardar la configuración gráfica y disponer tres paneles.
+op &lt;- par(mfrow = c(1, 3))
+# Paso 2: apply() recorre las columnas y dibuja cada gráfico normal.
+invisible(apply(sistemas, 2, function(tiempo) {
+  qqnorm(tiempo, main = &quot;Evaluación de normalidad&quot;)
+  qqline(tiempo, col = 2)
+}))
+# Paso 3: restaurar los gráficos; evaluar curvaturas, en especial en las colas.
+par(op)
+# Los paneles siguen el orden de las columnas de sistemas.</code></pre>
+<p><strong>f. Histogramas de vida útil</strong></p>
+<pre class="r"><code># Paso 1: disponer un panel por sistema, en el orden de las columnas.
+op &lt;- par(mfrow = c(1, 3))
+# Paso 2: construir el histograma de cada columna con apply().
+invisible(apply(sistemas, 2, function(tiempo) {
+  hist(tiempo, breaks = 30, main = &quot;Vida del sistema&quot;, xlab = &quot;Meses&quot;)
+}))
+# Paso 3: restaurar y comparar la extensión de las colas para describir el sesgo.
+par(op)</code></pre>
+</div>
+</details>
+</div>
+</div>
+<p><br/><br/><br/><br/></p>
+<div id="problema-4" class="section level3 box5 with-label">
+<h3>Problema 4</h3>
+<p>Estimación del valor de <span class="math inline">\(\pi\)</span> . LA
+siguiente figura sugiere como estimar el valor de <span
+class="math inline">\(\pi\)</span> con una simulación. En la figura, un
+círculo con área igual a <span class="math inline">\(\pi/4\)</span>,
+está inscrito en un cuadrado cuya área es igual a 1. Se elige de forma
+aleatoria 100 puntos dentro del cuadrado . La probabilidad de que un
+punto esté dentro del círculo es igual a la fracción del área del
+cuadrado que abarca a este, la cual es <span
+class="math inline">\(\pi/4\)</span>. Por tanto, se puede estimar el
+valor de <span class="math inline">\(\pi/4\)</span> al contar el número
+de puntos dentro del círculo, que es 79 para obtener la estimación de
+<span class="math inline">\(\pi/4 \approx 0.76\)</span> . De este último
+resultado se concluye que <span class="math inline">\(\pi \approx
+4(0.79) =3.14\)</span> . Este ejercicio presenta un experimento de
+simulación que fue diseñado para estimar el valor de <span
+class="math inline">\(\pi\)</span> al generar 1000 puntos en el
+cuadrado.</p>
+<p><br/></p>
+<p><br/></p>
+<ol style="list-style-type: lower-alpha">
+<li><p>Genere 1000 coordenadas <span class="math inline">\(x\)</span>:
+<span class="math inline">\(X_{1}\)</span>, . . . , <span
+class="math inline">\(X_{1000}\)</span>. Utilice la distribución
+uniforme con valor mínimo de <span class="math inline">\(0\)</span> y
+valor máximo de <span class="math inline">\(1\)</span>. La distribución
+uniforme genera variables aleatorias que tienen la misma probabilidad de
+venir de cualquier parte del intervalo <span class="math inline">\((0,
+1)\)</span>.</p></li>
+<li><p>Genere <span class="math inline">\(1000\)</span> coordenadas
+<span class="math inline">\(y\)</span> : <span
+class="math inline">\(Y_{1}, . . . , Y_{1000}\)</span>, utilizando
+nuevamente la distribución uniforme con valor mínimo de <span
+class="math inline">\(0\)</span> y valor máximo de <span
+class="math inline">\(1\)</span>.</p></li>
+<li><p>Cada punto <span class="math inline">\((X_{i},Y_{i})\)</span> se
+encuentra dentro del círculo si su distancia desde el centro <span
+class="math inline">\((0.5, 0.5)\)</span> es menor a <span
+class="math inline">\(0.5\)</span>. Para cada par <span
+class="math inline">\((X_{i},Y_{i})\)</span> determine si la distancia
+desde el centro es menor a <span class="math inline">\(0.5\)</span>.
+Esto último se puede realizar al calcular el valor <span
+class="math inline">\((X_{i}-0.5)^{2}+(Y_{i}-0.5)^{2}\)</span>, que es
+el cuadrado de la distancia, y al determinar si es menor que <span
+class="math inline">\(0.25\)</span>.</p></li>
+<li><p>¿Cuántos de los puntos están dentro del círculo? ¿Cuál es su
+estimación de <span class="math inline">\(\pi\)</span>? (Nota: Con sólo
+1000 puntos, es probable que su estimación sea inferior por 0.05 o más.
+Una simulación con 10000 y 100000 puntos tiene mayores probabilidades de
+dar como resultado una estimación muy cercana al valor
+verdadero</p></li>
+</ol>
+<div class="botones-ayuda" style="--modulo-color: var(--c51, #79C45A);">
+<details class="boton-pista">
+<summary>
+Pista
+</summary>
+<div class="contenido">
+<p>Simule dos uniformes independientes y use el indicador de pertenencia
+al círculo. Multiplique su promedio por cuatro. Nota sobre el enunciado
+conservado: 79/100=0.79 y 4(0.79)=3.16; aparecen inconsistencias
+aritméticas en el texto original.</p>
+</div>
+</details>
+<details class="boton-codigos">
+<summary>
+Código R
+</summary>
+<div class="contenido">
+<p>Ejecute los incisos en orden dentro de cada problema: los posteriores
+utilizan objetos creados en los anteriores. En <code>apply()</code>,
+<code>MARGIN = 1</code> recorre filas y <code>MARGIN = 2</code> recorre
+columnas. <code>as.numeric()</code> convierte indicadores lógicos en 0/1
+o retira etiquetas de cuantiles.</p>
+<p><strong>a. Simular coordenadas x</strong></p>
+<pre class="r"><code># Paso 1: fijar la semilla y el número de puntos.
+set.seed(44104)
+n &lt;- 1000
+# Paso 2: simular coordenadas uniformes en el intervalo (0, 1).
+x &lt;- runif(n, min = 0, max = 1)</code></pre>
+<p><strong>b. Simular coordenadas y</strong></p>
+<pre class="r"><code># Paso 1: generar nuevas uniformes independientes de las anteriores.
+y &lt;- runif(n, min = 0, max = 1)
+# Paso 2: organizar una pareja de coordenadas por fila.
+puntos &lt;- cbind(x = x, y = y)</code></pre>
+<p><strong>c. Identificar puntos dentro del círculo</strong></p>
+<pre class="r"><code># Paso 1: calcular la distancia al cuadrado por fila con apply().
+distancia2 &lt;- apply(puntos, 1, function(punto) sum((punto - 0.5)^2))
+# Paso 2: convertir la condición de pertenencia en un indicador 0/1.
+dentro &lt;- as.numeric(distancia2 &lt; 0.25)</code></pre>
+<p><strong>d. Contar puntos y estimar pi</strong></p>
+<pre class="r"><code># Paso 1: sumar los indicadores para contar los puntos interiores.
+sum(dentro)
+# Paso 2: estimar pi como cuatro veces la proporción interior.
+pi_estimado &lt;- 4 * mean(dentro)
+pi_estimado
+# Paso 3: visualizar el resultado; asp = 1 conserva la geometría.
+plot(puntos, col = ifelse(dentro == 1, &quot;#7A6DB2&quot;, &quot;#B8D7E8&quot;),
+     pch = 16, asp = 1, main = &quot;Estimación de pi&quot;)</code></pre>
+</div>
+</details>
+</div>
+</div>
+<p><br/></p>
+<p>Ejercicios tomados de Navidi(2006)</p>
+<p><br/><br/><br/></p>
+<div id="problema-5" class="section level3 box5 with-label">
+<h3>Problema 5</h3>
+<p>Una planta de manufactura produce pistones para motores de combustión
+interna. El diámetro de los pistones debe ser de 10 cm, pero debido a
+variaciones en el proceso de producción, sigue una distribución normal
+con media <span class="math inline">\(\mu = 10\)</span> cm y desviación
+estándar <span class="math inline">\(\sigma = 0.02\)</span> cm. Un
+pistón es rechazado si su diámetro está fuera del rango de 9.97 cm a
+10.03 cm.</p>
+<ol style="list-style-type: lower-alpha">
+<li>Genere una muestra simulada de 5000 pistones.</li>
+<li>Estime la proporción de pistones rechazados por no cumplir con las
+especificaciones.</li>
+<li>Si el costo de reprocesamiento de un pistón defectuoso es de $15
+USD, estime el costo promedio de reprocesamiento por cada 5000 pistones
+fabricados.</li>
+<li>Genere un histograma del diámetro de los pistones y evalúe si se
+ajusta a la distribución normal.</li>
+<li>¿Qué estrategias podrían implementarse para reducir el número de
+pistones rechazados?</li>
+</ol>
+<div class="botones-ayuda" style="--modulo-color: var(--c51, #79C45A);">
+<details class="boton-pista">
+<summary>
+Pista
+</summary>
+<div class="contenido">
+<p>El rechazo ocurre en cualquiera de las dos colas. Para un lote, el
+costo es 15 por el número de rechazos; el costo esperado puede estimarse
+como 5000 por la proporción de rechazo por 15.</p>
+</div>
+</details>
+<details class="boton-codigos">
+<summary>
+Código R
+</summary>
+<div class="contenido">
+<p>Ejecute los incisos en orden dentro de cada problema: los posteriores
+utilizan objetos creados en los anteriores. En <code>apply()</code>,
+<code>MARGIN = 1</code> recorre filas y <code>MARGIN = 2</code> recorre
+columnas. <code>as.numeric()</code> convierte indicadores lógicos en 0/1
+o retira etiquetas de cuantiles.</p>
+<p><strong>a. Simular diámetros</strong></p>
+<pre class="r"><code># Paso 1: fijar la semilla y el tamaño del lote.
+set.seed(44105)
+n &lt;- 5000
+# Paso 2: simular los diámetros, medidos en centímetros.
+diametro &lt;- rnorm(n, mean = 10, sd = 0.02)</code></pre>
+<p><strong>b. Estimar la proporción rechazada</strong></p>
+<pre class="r"><code># Paso 1: identificar el incumplimiento en cualquiera de las dos colas.
+rechazo &lt;- as.numeric(diametro &lt; 9.97 | diametro &gt; 10.03)
+# Paso 2: promediar los indicadores 0/1.
+proporcion_rechazo &lt;- mean(rechazo)
+proporcion_rechazo</code></pre>
+<p><strong>c. Estimar el costo por lote</strong></p>
+<pre class="r"><code># Paso 1: multiplicar cada indicador por el costo de reprocesar un pistón.
+costo_por_piston &lt;- 15 * rechazo
+# Paso 2: sumar para obtener el costo del lote simulado de 5000 pistones.
+sum(costo_por_piston)
+# Paso 3: estimar el costo esperado por lote usando la proporción simulada.
+n * proporcion_rechazo * 15
+# Para este lote ambos cálculos coinciden.</code></pre>
+<p><strong>d. Histograma y comparación normal</strong></p>
+<pre class="r"><code># Paso 1: usar escala de densidad para poder superponer la curva normal.
+hist(diametro, probability = TRUE, breaks = 30,
+     main = &quot;Diámetro de los pistones&quot;, xlab = &quot;cm&quot;)
+# Paso 2: agregar la densidad teórica del modelo generador.
+curve(dnorm(x, mean = 10, sd = 0.02), add = TRUE, col = 2, lwd = 2)
+# La coincidencia es esperable: los datos fueron generados con ese modelo.</code></pre>
+<p><strong>e. Evaluar una mejora del proceso</strong></p>
+<pre class="r"><code># Paso 1: considerar, como escenario adicional, reducir sigma a 0.015 cm.
+# Paso 2: comparar probabilidades teóricas de rechazo manteniendo la media.
+sigmas &lt;- c(actual = 0.02, mejora = 0.015)
+escenarios &lt;- matrix(sigmas, ncol = 1,
+                     dimnames = list(names(sigmas), &quot;sigma&quot;))
+apply(escenarios, 1, function(fila) {
+  pnorm(9.97, 10, fila[1]) + 1 - pnorm(10.03, 10, fila[1])
+})
+# Paso 3: discutir calibración, mantenimiento y reducción de variabilidad.
+# La mejora hipotética requiere validación con datos reales.</code></pre>
+</div>
+</details>
+</div>
+</div>
+<p><br/><br/><br/><br/></p>
+<div id="problema-6" class="section level3 box5 with-label">
+<h3>Problema 6</h3>
+<p>En un centro de atención llegan en promedio 30 clientes por minuto
+durante una franja de alta demanda. El número de llegadas en cada minuto
+sigue una distribución de Poisson con <span
+class="math inline">\(\lambda=30\)</span> y las llegadas en minutos
+distintos son independientes. El conjunto de puestos puede atender hasta
+35 clientes por minuto. Para un modelo simplificado por intervalos,
+suponga que los clientes no atendidos permanecen en una fila única, la
+fila comienza vacía y la capacidad se aplica después de las llegadas de
+cada minuto.</p>
+<ol style="list-style-type: lower-alpha">
+<li>Simule las llegadas durante 10000 minutos.</li>
+<li>Estime la probabilidad de que lleguen más de 40 clientes en un
+minuto.</li>
+<li>Estime la proporción de minutos en que las llegadas superan la
+capacidad de 35. Calcule además la fila al final de cada minuto usando
+<span class="math inline">\(Q_t=\max(0,Q_{t-1}+A_t-35)\)</span>, con
+<span class="math inline">\(Q_0=0\)</span>, y estime su longitud
+promedio y máxima.</li>
+<li>Repita el cálculo de la fila con capacidad de 40 clientes por minuto
+y compare. ¿Qué decisiones sobre capacidad y turnos recomendaría?</li>
+<li>Construya un histograma de llegadas por minuto y una gráfica de la
+fila a lo largo del tiempo. Distinga entre exceso de llegadas en un
+minuto y acumulación de clientes en la fila.</li>
+</ol>
+<div class="botones-ayuda" style="--modulo-color: var(--c51, #79C45A);">
+<details class="boton-pista">
+<summary>
+Pista
+</summary>
+<div class="contenido">
+<p>rpois() simula llegadas, no tiempos de espera. Actualice la fila de
+forma secuencial: la fila anterior se suma a las llegadas antes de
+restar la capacidad. Use las mismas llegadas para comparar
+capacidades.</p>
+</div>
+</details>
+<details class="boton-codigos">
+<summary>
+Código R
+</summary>
+<div class="contenido">
+<p>Ejecute los incisos en orden dentro de cada problema: los posteriores
+utilizan objetos creados en los anteriores. En <code>apply()</code>,
+<code>MARGIN = 1</code> recorre filas y <code>MARGIN = 2</code> recorre
+columnas. <code>as.numeric()</code> convierte indicadores lógicos en 0/1
+o retira etiquetas de cuantiles.</p>
+<p><strong>a. Simular llegadas</strong></p>
+<pre class="r"><code># Paso 1: fijar la semilla para comparar escenarios con iguales llegadas.
+set.seed(44106)
+# Paso 2: generar 10000 conteos, uno por minuto.
+llegadas &lt;- rpois(10000, lambda = 30)</code></pre>
+<p><strong>b. Probabilidad de más de 40 llegadas</strong></p>
+<pre class="r"><code># Paso 1: convertir el evento en un indicador 0/1 por minuto.
+mas_40 &lt;- as.numeric(llegadas &gt; 40)
+# Paso 2: promediar para estimar la probabilidad.
+mean(mas_40)</code></pre>
+<p><strong>c. Exceso de demanda y fila con capacidad 35</strong></p>
+<pre class="r"><code># Paso 1: estimar la proporción de minutos con llegadas mayores que 35.
+mean(as.numeric(llegadas &gt; 35))
+# Paso 2: definir la recurrencia; requiere orden temporal, no filas independientes.
+simular_fila &lt;- function(llegadas, capacidad) {
+  fila &lt;- numeric(length(llegadas))
+  anterior &lt;- 0
+  for (t in seq_along(llegadas)) {
+    # Sumar fila anterior y llegadas; restar capacidad sin permitir negativos.
+    fila[t] &lt;- max(0, anterior + llegadas[t] - capacidad)
+    anterior &lt;- fila[t]
+  }
+  fila
+}
+# Paso 3: calcular la fila y resumir su longitud al final de cada minuto.
+q35 &lt;- simular_fila(llegadas, capacidad = 35)
+c(promedio = mean(q35), maxima = max(q35))</code></pre>
+<p><strong>d. Comparar capacidades 35 y 40</strong></p>
+<pre class="r"><code># Paso 1: reutilizar las mismas llegadas para la capacidad alternativa.
+q40 &lt;- simular_fila(llegadas, capacidad = 40)
+filas &lt;- cbind(Capacidad35 = q35, Capacidad40 = q40)
+# Paso 2: aplicar un resumen a cada columna (MARGIN = 2).
+apply(filas, 2, function(fila) {
+  c(promedio = mean(fila), maxima = max(fila),
+    proporcion_minutos_con_fila = mean(as.numeric(fila &gt; 0)))
+})
+# Paso 3: valorar la reducción de la fila frente al costo de capacidad adicional.</code></pre>
+<p><strong>e. Visualizar llegadas y fila</strong></p>
+<pre class="r"><code># Paso 1: representar la variabilidad de llegadas por minuto.
+hist(llegadas, breaks = 30, main = &quot;Llegadas por minuto&quot;, xlab = &quot;Clientes&quot;)
+# Paso 2: representar las dos filas en orden temporal.
+matplot(filas, type = &quot;l&quot;, lty = 1, col = c(&quot;#7A6DB2&quot;, &quot;#21B5E4&quot;),
+        xlab = &quot;Minuto&quot;, ylab = &quot;Clientes al final del minuto&quot;)
+legend(&quot;topright&quot;, colnames(filas), col = c(&quot;#7A6DB2&quot;, &quot;#21B5E4&quot;), lty = 1)
+# Paso 3: distinguir llegadas &gt; capacidad de una fila heredada de minutos previos.
+# Este modelo por intervalos no estima tiempos individuales de espera.</code></pre>
+</div>
+</details>
+</div>
+</div>
+<p><br/><br/><br/><br/></p>
+<div id="problema-7" class="section level3 box5 with-label">
+<h3>Problema 7</h3>
+<p>Una ingeniera industrial estudia el tiempo de atención de clientes en
+un módulo de trámites. El tiempo de servicio sigue una distribución
+normal con media <span class="math inline">\(\mu=30\)</span> minutos y
+desviación estándar <span class="math inline">\(\sigma=5\)</span>
+minutos. La meta es atender al menos al 95% de los clientes en un tiempo
+de servicio de máximo 35 minutos. El tiempo de servicio no incluye la
+espera en la fila. Para esta simulación, descarte y vuelva a generar
+cualquier tiempo negativo.</p>
+<ol style="list-style-type: lower-alpha">
+<li>Genere tiempos de servicio para 10000 clientes.</li>
+<li>Estime el porcentaje atendido en máximo 35 minutos. ¿Se cumple la
+meta del 95%?</li>
+<li>Estime el percentil 90 (<span class="math inline">\(P_{90}\)</span>)
+del tiempo de servicio e interprételo.</li>
+<li>Si cada atención que supera los 35 minutos genera un costo adicional
+de 50 USD, estime el costo total para los 10000 clientes y el costo
+promedio por cliente.</li>
+<li>¿Qué mejoras en el proceso podrían reducir el tiempo de servicio y
+su variabilidad? Explique por qué estos datos, por sí solos, no permiten
+estimar la espera en la fila.</li>
+</ol>
+<div class="botones-ayuda" style="--modulo-color: var(--c51, #79C45A);">
+<details class="boton-pista">
+<summary>
+Pista
+</summary>
+<div class="contenido">
+<p>Use rnorm() y regenere los valores negativos. Un percentil es un
+tiempo, mientras que la proporción de cumplimiento es una probabilidad.
+No confunda tiempo de servicio con tiempo total en el sistema.</p>
+</div>
+</details>
+<details class="boton-codigos">
+<summary>
+Código R
+</summary>
+<div class="contenido">
+<p>Ejecute los incisos en orden dentro de cada problema: los posteriores
+utilizan objetos creados en los anteriores. En <code>apply()</code>,
+<code>MARGIN = 1</code> recorre filas y <code>MARGIN = 2</code> recorre
+columnas. <code>as.numeric()</code> convierte indicadores lógicos en 0/1
+o retira etiquetas de cuantiles.</p>
+<p><strong>a. Simular tiempos de servicio</strong></p>
+<pre class="r"><code># Paso 1: simular tiempos normales con semilla reproducible.
+set.seed(44107)
+tiempo &lt;- rnorm(10000, mean = 30, sd = 5)
+# Paso 2: regenerar únicamente los negativos hasta obtener tiempos válidos.
+while (any(tiempo &lt; 0)) {
+  negativos &lt;- tiempo &lt; 0
+  tiempo[negativos] &lt;- rnorm(sum(as.numeric(negativos)), 30, 5)
+}
+# El resultado corresponde a la normal condicionada a ser no negativa.</code></pre>
+<p><strong>b. Cumplimiento de la meta</strong></p>
+<pre class="r"><code># Paso 1: construir indicadores de atención en máximo 35 minutos.
+cumple &lt;- as.numeric(tiempo &lt;= 35)
+# Paso 2: expresar la frecuencia relativa como porcentaje.
+porcentaje &lt;- 100 * mean(cumple)
+porcentaje
+# Paso 3: comprobar si alcanza el 95% solicitado.
+porcentaje &gt;= 95</code></pre>
+<p><strong>c. Percentil 90 del servicio</strong></p>
+<pre class="r"><code># Paso 1: calcular el percentil y convertirlo en número sin etiqueta.
+P90 &lt;- as.numeric(quantile(tiempo, probs = 0.90))
+P90
+# Paso 2: interpretar: aproximadamente 90% de las atenciones dura hasta P90 minutos.</code></pre>
+<p><strong>d. Costo total y promedio</strong></p>
+<pre class="r"><code># Paso 1: asignar 50 USD a cada atención que supera el límite.
+costos &lt;- 50 * as.numeric(tiempo &gt; 35)
+# Paso 2: sumar para el costo total y promediar para el costo por cliente.
+c(total_USD = sum(costos), promedio_cliente_USD = mean(costos))</code></pre>
+<p><strong>e. Proponer mejoras e identificar datos
+faltantes</strong></p>
+<pre class="r"><code># Paso 1: resumir el nivel y la variabilidad del servicio.
+resumen &lt;- c(media_minutos = mean(tiempo), desviacion_minutos = sd(tiempo))
+resumen
+# Paso 2: proponer estandarización de trámites y eliminación de reprocesos.
+# Paso 3: para estimar espera se necesitan llegadas, puestos disponibles,
+# disciplina de la fila y condiciones iniciales, además de tiempos de servicio.</code></pre>
+</div>
+</details>
+</div>
+</div>
+<p><br/><br/><br/><br/></p>
+<div id="problema-8" class="section level3 box5 with-label">
+<h3>Problema 8</h3>
+<p>Una turbina de gas tiene cuatro componentes críticos que fallan de
+manera independiente. Los tiempos de vida (en horas) de cada componente
+siguen distribuciones exponenciales:</p>
+<p>Componente 1: <span class="math inline">\(\lambda = 1/5000\)</span>
+Componente 2: <span class="math inline">\(\lambda = 1/4000\)</span>
+Componente 3: <span class="math inline">\(\lambda = 1/6000\)</span>
+Componente 4: <span class="math inline">\(\lambda = 1/5500\)</span></p>
+<p>La turbina deja de funcionar cuando el primer componente falla.</p>
+<p><br/></p>
+<p><br/></p>
+<ol style="list-style-type: lower-alpha">
+<li>Genere 5000 simulaciones del tiempo de vida de la turbina.</li>
+<li>Estime la vida media de la turbina.</li>
+<li>Estime la probabilidad de que la turbina falle antes de 4000
+horas.</li>
+<li>Construya el histograma del tiempo de vida de la turbina y comente
+sobre su forma.</li>
+<li>¿Qué estrategias de mantenimiento preventivo se pueden
+considerar?</li>
+</ol>
+<div class="botones-ayuda" style="--modulo-color: var(--c51, #79C45A);">
+<details class="boton-pista">
+<summary>
+Pista
+</summary>
+<div class="contenido">
+<p>Genere cuatro exponenciales independientes por réplica. Como basta la
+primera falla para detener la turbina, use el mínimo. El parámetro rate
+es el inverso de la vida media.</p>
+</div>
+</details>
+<details class="boton-codigos">
+<summary>
+Código R
+</summary>
+<div class="contenido">
+<p>Ejecute los incisos en orden dentro de cada problema: los posteriores
+utilizan objetos creados en los anteriores. En <code>apply()</code>,
+<code>MARGIN = 1</code> recorre filas y <code>MARGIN = 2</code> recorre
+columnas. <code>as.numeric()</code> convierte indicadores lógicos en 0/1
+o retira etiquetas de cuantiles.</p>
+<p><strong>a. Simular la vida de la turbina</strong></p>
+<pre class="r"><code># Paso 1: generar una columna por componente; cada fila es una réplica.
+set.seed(44108)
+n &lt;- 5000
+componentes &lt;- cbind(C1 = rexp(n, rate = 1/5000),
+                     C2 = rexp(n, rate = 1/4000),
+                     C3 = rexp(n, rate = 1/6000),
+                     C4 = rexp(n, rate = 1/5500))
+# Paso 2: tomar el mínimo por fila: la primera falla detiene la turbina.
+T_turbina &lt;- apply(componentes, 1, min)</code></pre>
+<p><strong>b. Estimar la vida media</strong></p>
+<pre class="r"><code># Paso 1: promediar los tiempos de vida simulados, en horas.
+mean(T_turbina)</code></pre>
+<p><strong>c. Probabilidad de falla antes de 4000 horas</strong></p>
+<pre class="r"><code># Paso 1: codificar con 1 las fallas anteriores a 4000 horas y con 0 las demás.
+falla &lt;- as.numeric(T_turbina &lt; 4000)
+# Paso 2: promediar los indicadores.
+mean(falla)</code></pre>
+<p><strong>d. Histograma de la vida útil</strong></p>
+<pre class="r"><code># Paso 1: representar las vidas simuladas.
+hist(T_turbina, breaks = 40, main = &quot;Vida de la turbina&quot;, xlab = &quot;Horas&quot;)
+# Paso 2: identificar la cola hacia la derecha, propia del mínimo de exponenciales.
+# Bajo independencia, la tasa del sistema es la suma de las cuatro tasas.</code></pre>
+<p><strong>e. Discutir mantenimiento preventivo</strong></p>
+<pre class="r"><code># Paso 1: comparar las tasas de falla constantes de los componentes.
+tasas &lt;- c(C1 = 1/5000, C2 = 1/4000, C3 = 1/6000, C4 = 1/5500)
+sort(tasas, decreasing = TRUE)
+# Paso 2: priorizar monitoreo y disponibilidad de repuestos según criticidad.
+# Paso 3: recordar que la exponencial no tiene memoria: un reemplazo por edad
+# no reduce por sí solo la tasa constante. Evaluar costos, inspecciones,
+# redundancia y si el modelo de falla representa el desgaste real.</code></pre>
+</div>
+</details>
+</div>
+</div>
+<p><br/><br/><br/><br/></p>
+<div id="problema-9" class="section level3 box5 with-label">
+<h3>Problema 9</h3>
+<p>En un centro de atención, el máximo diario del tiempo de espera en la
+fila se modela mediante una distribución Gumbel con parámetro de
+localización <span class="math inline">\(\mu=20\)</span> minutos y
+escala <span class="math inline">\(\beta=5\)</span> minutos. Suponga
+independencia entre máximos de días distintos. La meta operativa
+establece que el máximo diario no debe superar 35 minutos. Se desea
+evaluar un horizonte de 30 días.</p>
+<ol style="list-style-type: lower-alpha">
+<li>Genere 10000 réplicas de periodos de 30 días de máximos diarios de
+espera.</li>
+<li>Estime la probabilidad de que, al menos un día de un periodo de 30
+días, el máximo supere 35 minutos. Distíngala de la probabilidad de
+superar el límite en un solo día.</li>
+<li>Determine el umbral de espera que tendría una probabilidad de
+superación de apenas 1% en todo el periodo de 30 días, bajo el modelo
+actual. Explique por qué este umbral describe el riesgo y no implica que
+sea una meta de servicio aceptable.</li>
+<li>Construya un histograma de los máximos diarios y otro del máximo de
+cada periodo de 30 días.</li>
+<li>¿Qué medidas de capacidad, programación de personal y gestión de
+filas propondría para reducir los máximos de espera?</li>
+</ol>
+<div class="botones-ayuda" style="--modulo-color: var(--c51, #79C45A);">
+<details class="boton-pista">
+<summary>
+Pista
+</summary>
+<div class="contenido">
+<p>La inversa Gumbel es <span class="math inline">\(\mu-\beta\log(-\log
+U)\)</span>. Para 30 días independientes, <span
+class="math inline">\(P(M_{30}\leq z)=F(z)^{30}\)</span>. Para el inciso
+c resuelva <span class="math inline">\(F(z)^{30}=0.99\)</span>. El
+modelo permite tiempos negativos, aunque con estos parámetros su
+probabilidad es extremadamente pequeña; es una limitación de la
+aproximación.</p>
+</div>
+</details>
+<details class="boton-codigos">
+<summary>
+Código R
+</summary>
+<div class="contenido">
+<p>Ejecute los incisos en orden dentro de cada problema: los posteriores
+utilizan objetos creados en los anteriores. En <code>apply()</code>,
+<code>MARGIN = 1</code> recorre filas y <code>MARGIN = 2</code> recorre
+columnas. <code>as.numeric()</code> convierte indicadores lógicos en 0/1
+o retira etiquetas de cuantiles.</p>
+<p><strong>a. Simular periodos de 30 días</strong></p>
+<pre class="r"><code># Paso 1: fijar parámetros y generar uniformes independientes.
+set.seed(44109)
+B &lt;- 10000
+dias &lt;- 30
+mu &lt;- 20
+beta &lt;- 5
+U &lt;- matrix(runif(B * dias), nrow = B, ncol = dias)
+# Paso 2: aplicar la inversa Gumbel; cada fila es un periodo de 30 días.
+maximos_diarios &lt;- mu - beta * log(-log(U))
+# Paso 3: extraer el máximo por periodo usando MARGIN = 1.
+maximos_periodo &lt;- apply(maximos_diarios, 1, max)</code></pre>
+<p><strong>b. Riesgo diario y riesgo del periodo</strong></p>
+<pre class="r"><code># Paso 1: calcular el evento de al menos una superación por fila.
+indicador_periodo &lt;- apply(maximos_diarios, 1, function(fila) {
+  as.numeric(any(fila &gt; 35))
+})
+# Paso 2: estimar la probabilidad por periodo y la probabilidad diaria.
+p_periodo &lt;- mean(indicador_periodo)
+p_diaria &lt;- mean(as.numeric(maximos_diarios &gt; 35))
+c(diaria = p_diaria, periodo_30_dias = p_periodo)
+# Paso 3: contrastar con la expresión teórica para días independientes.
+F35 &lt;- exp(-exp(-(35 - mu) / beta))
+1 - F35^dias</code></pre>
+<p><strong>c. Umbral con riesgo de superación de 1%</strong></p>
+<pre class="r"><code># Paso 1: fijar P(maximo de 30 dias &lt;= umbral) = 0.99.
+# Paso 2: despejar la CDF diaria objetivo por independencia.
+p_diaria_objetivo &lt;- 0.99^(1 / dias)
+# Paso 3: aplicar la inversa Gumbel a esa probabilidad.
+umbral &lt;- mu - beta * log(-log(p_diaria_objetivo))
+umbral
+# Paso 4: comprobar el riesgo teórico del periodo.
+F_umbral &lt;- exp(-exp(-(umbral - mu) / beta))
+1 - F_umbral^dias
+# Es un umbral de riesgo del modelo actual, no una meta aceptable de servicio.</code></pre>
+<p><strong>d. Histogramas diarios y por periodo</strong></p>
+<pre class="r"><code># Paso 1: convertir la matriz en un vector para reunir los máximos diarios.
+hist(as.numeric(maximos_diarios), breaks = 40,
+     main = &quot;Máximos diarios&quot;, xlab = &quot;Minutos&quot;)
+# Paso 2: representar el máximo de cada uno de los 10000 periodos.
+hist(maximos_periodo, breaks = 40,
+     main = &quot;Máximos de periodos de 30 días&quot;, xlab = &quot;Minutos&quot;)
+# Paso 3: comparar la posición y la cola de ambas distribuciones.</code></pre>
+<p><strong>e. Proponer medidas operativas</strong></p>
+<pre class="r"><code># Paso 1: resumir los máximos de los periodos simulados.
+c(media = mean(maximos_periodo),
+  P95 = as.numeric(quantile(maximos_periodo, 0.95)))
+# Paso 2: proponer refuerzos en horas pico, citas y reducción de reprocesos.
+# Paso 3: medir de nuevo y recalibrar mu y beta tras los cambios.
+# Este modelo de máximos no predice por sí solo el efecto de agregar puestos.</code></pre>
+</div>
+</details>
+</div>
+</div>
+<p><br/><br/><br/></p>
+</div>
+
+<style>
+/* Se incluye en todas las páginas, incluso si definen su propio CSS. */
+.navbar .navbar-nav > .dropdown > .dropdown-menu {
+  max-height: calc(100vh - 90px);
+  overflow-y: auto;
+}
+.navbar .unidad-grupo > button {
+  display: block;
+  width: 100%;
+  padding: 7px 20px;
+  border: 0;
+  background: transparent;
+  color: #263b4b;
+  font: inherit;
+  font-weight: 600;
+  text-align: left;
+}
+.navbar .unidad-grupo > button::after {
+  content: "▸";
+  float: right;
+  margin-left: 16px;
+}
+.navbar .unidad-grupo > button[aria-expanded="true"]::after { content: "▾"; }
+.navbar .unidad-grupo > ul {
+  list-style: none;
+  margin: 0;
+  padding: 0 0 0 12px;
+  background: #f2f6f9;
+}
+.navbar .unidad-grupo > ul[hidden] { display: none !important; }
+.navbar .unidad-grupo > ul > li > a {
+  display: block;
+  padding: 7px 18px;
+  color: #263b4b;
+  text-decoration: none;
+}
+.navbar .unidad-grupo > button:hover,
+.navbar .unidad-grupo > ul > li > a:hover,
+.navbar .unidad-grupo > ul > li.active > a { background: #e2eaf1; }
+.navbar .unidad-grupo > button:focus-visible,
+.navbar .unidad-grupo > ul > li > a:focus-visible {
+  outline: 2px solid #2c5697;
+  outline-offset: -2px;
+}
+</style>
+<script>
+(function () {
+  function prepararUnidades() {
+    var pagina = decodeURIComponent(window.location.pathname.split('/').pop() || 'index.html');
+    document.querySelectorAll('.navbar .navbar-nav > li > ul.dropdown-menu').forEach(function (menu, menuIndex) {
+      var grupo = null;
+      Array.from(menu.children).forEach(function (item, itemIndex) {
+        var enlace = item.querySelector('a');
+        if (enlace && enlace.getAttribute('href') === '#' && /^Unidad\s+\d+\.\d+$/.test(enlace.textContent.trim())) {
+          var boton = document.createElement('button');
+          boton.type = 'button';
+          boton.textContent = enlace.textContent.trim();
+          var lista = document.createElement('ul');
+          lista.id = 'unidad-' + menuIndex + '-' + itemIndex;
+          lista.hidden = true;
+          boton.setAttribute('aria-controls', lista.id);
+          boton.setAttribute('aria-expanded', 'false');
+          item.classList.add('unidad-grupo');
+          item.replaceChild(boton, enlace);
+          item.appendChild(lista);
+          boton.addEventListener('click', function (event) {
+            event.stopPropagation();
+            lista.hidden = !lista.hidden;
+            boton.setAttribute('aria-expanded', String(!lista.hidden));
+          });
+          item.addEventListener('keydown', function (event) {
+            if (event.key === 'Escape' && !lista.hidden) {
+              event.preventDefault();
+              event.stopPropagation();
+              lista.hidden = true;
+              boton.setAttribute('aria-expanded', 'false');
+              boton.focus();
+            }
+          });
+          grupo = lista;
+        } else if (item.classList.contains('divider') || item.classList.contains('dropdown-header')) {
+          grupo = null;
+        } else if (grupo) {
+          grupo.appendChild(item);
+          if (enlace && decodeURIComponent(enlace.getAttribute('href')) === pagina) {
+            item.classList.add('active');
+            grupo.hidden = false;
+            grupo.previousElementSibling.setAttribute('aria-expanded', 'true');
+          }
+        }
+      });
+    });
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', prepararUnidades);
+  } else {
+    prepararUnidades();
+  }
+})();
+</script>
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

@@ -272,7 +272,7 @@ plot(x, fx(x), type="l", col=c11, las=1) # genera gráfica
 El siguiente ejemplo construye una función para la realización de un gráfico. En este caso los valores de entrada están conformados por un vector de datos y un color
 
 ```{r}
-y=sample(1:6,100, replace = T)  # generación de datos
+y=sample(1:6,100, replace = TRUE)  # generación de datos
 # función definida para la construcción de gráficos
 grafica=function(x,color){
         barplot(x,

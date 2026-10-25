@@ -492,7 +492,7 @@ $(document).ready(function () {
       <a href="codigo41.html">Código 4.1</a>
     </li>
     <li>
-      <a href="taller411.html">Taller 411</a>
+      <a href="taller-441A.html">Taller 411</a>
     </li>
   </ul>
 </li>
@@ -685,8 +685,8 @@ hist(u, breaks = 20, col = &quot;#B8D7E8&quot;, border = &quot;white&quot;,
      main = &quot;Valores pseudoaleatorios uniformes&quot;, xlab = &quot;Valor generado&quot;)</code></pre>
 <p><img src="recurso41_organizado_ampliado_files/figure-html/uniformes-1.png" alt="" width="768" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>summary(u)</code></pre>
-<pre><code>##      Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
-## 0.0001287 0.2552348 0.5040522 0.4983240 0.7386245 0.9990984</code></pre>
+<pre><code>##     Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
+## 0.000129 0.255235 0.504052 0.498324 0.738625 0.999098</code></pre>
 <p>El histograma no tiene por qué presentar barras exactamente iguales:
 incluso con un generador correcto, el número de observaciones en cada
 intervalo fluctúa.</p>
@@ -786,7 +786,7 @@ curve(dexp(x, rate = lambda), add = TRUE, col = &quot;#476885&quot;, lwd = 2)</c
 <pre class="r"><code>c(media_inversa = mean(x_inversa),
   media_generador_R = mean(x_r), media_teorica = 1/lambda)</code></pre>
 <pre><code>##     media_inversa media_generador_R     media_teorica 
-##          3.978899          3.973005          4.000000</code></pre>
+##             3.979             3.973             4.000</code></pre>
 <p>Las dos medias simuladas pueden diferir entre sí y del valor teórico;
 se trata de muestras independientes con variación aleatoria.</p>
 </div>
@@ -822,7 +822,7 @@ legend(&quot;topright&quot;, legend = paste(&quot;Estimación:&quot;, round(pi_e
 <p><img src="recurso41_organizado_ampliado_files/figure-html/pi-1.png" alt="" width="768" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>c(estimacion = pi_est, valor_referencia = pi, error_absoluto = abs(pi_est-pi))</code></pre>
 <pre><code>##       estimacion valor_referencia   error_absoluto 
-##       3.17120000       3.14159265       0.02960735</code></pre>
+##          3.17120          3.14159          0.02961</code></pre>
 <p><strong>Lectura del resultado.</strong> Los puntos interiores
 representan éxitos. Su proporción, multiplicada por cuatro, aproxima
 <span class="math inline">\(\pi\)</span>. La diferencia con el valor
@@ -850,7 +850,7 @@ suma &lt;- d1 + d2
 c(probabilidad_simulada = mean(suma &gt;= 10),
   probabilidad_teorica = 1/6)</code></pre>
 <pre><code>## probabilidad_simulada  probabilidad_teorica 
-##             0.1666000             0.1666667</code></pre>
+##                0.1666                0.1667</code></pre>
 <p><strong>Interpretación.</strong> La comparación con <span
 class="math inline">\(1/6\)</span> permite verificar que la simulación
 reproduce razonablemente el comportamiento esperado. No debe exigirse
@@ -873,7 +873,7 @@ c(estimacion = estimacion, valor_teorico = 1/3,
   limite_inferior = estimacion - 1.96*se,
   limite_superior = estimacion + 1.96*se)</code></pre>
 <pre><code>##      estimacion   valor_teorico  error_estandar limite_inferior limite_superior 
-##     0.335141912     0.333333333     0.002103079     0.331019878     0.339263946</code></pre>
+##        0.335142        0.333333        0.002103        0.331020        0.339264</code></pre>
 <p><strong>Interpretación.</strong> La integral se transforma en el
 promedio de una variable aleatoria. El intervalo cuantifica la
 incertidumbre debida al número finito de valores simulados, no una
@@ -927,7 +927,7 @@ o cuantiles.</p>
 d &lt;- rbinom(10000, size = 50, prob = 0.04)
 c(MonteCarlo = mean(d &gt;= 4), teorico = 1-pbinom(3, 50, 0.04))</code></pre>
 <pre><code>## MonteCarlo    teorico 
-##  0.1396000  0.1391308</code></pre>
+##     0.1396     0.1391</code></pre>
 <p><strong>Interpretación.</strong> Cada valor simulado de
 <code>d</code> es el número de defectuosos de <strong>un lote
 completo</strong>. <code>mean(d &gt;= 4)</code> representa la proporción
@@ -985,7 +985,7 @@ o cuantiles.</p>
 t &lt;- rweibull(20000, shape = 2, scale = 1500)
 c(MonteCarlo = mean(t &gt; 1200), teorico = exp(-(1200/1500)^2))</code></pre>
 <pre><code>## MonteCarlo    teorico 
-##  0.5233000  0.5272924</code></pre>
+##     0.5233     0.5273</code></pre>
 <p><strong>Interpretación.</strong> Cada observación simulada representa
 la vida útil de un componente diferente. La proporción de tiempos
 superiores a 1200 horas estima la confiabilidad en ese horizonte. La
@@ -1013,7 +1013,7 @@ s &lt;- rexp(10000, rate = 1/6)
 c(prob_mas_10 = mean(s &gt; 10), percentil90 = unname(quantile(s, 0.9)),
   prob_teorica = pexp(10, rate = 1/6, lower.tail = FALSE))</code></pre>
 <pre><code>##  prob_mas_10  percentil90 prob_teorica 
-##    0.1835000   13.9534525    0.1888756</code></pre>
+##       0.1835      13.9535       0.1889</code></pre>
 <p><strong>Interpretación.</strong> La probabilidad de superar 10
 minutos es un indicador de servicios prolongados. El percentil 90 es un
 umbral tal que aproximadamente el 90% de los servicios dura menos que
@@ -1042,7 +1042,7 @@ l &lt;- rlnorm(20000, meanlog = 2, sdlog = 0.5)
 c(perdida_media = mean(l), prob_superar_15 = mean(l &gt; 15),
   cuantil95 = unname(quantile(l, 0.95)))</code></pre>
 <pre><code>##   perdida_media prob_superar_15       cuantil95 
-##        8.385354        0.079100       16.809976</code></pre>
+##          8.3854          0.0791         16.8100</code></pre>
 <p><strong>Interpretación.</strong> La pérdida media resume el costo
 esperado por evento; la probabilidad de superar 15 describe la
 frecuencia de pérdidas elevadas; el percentil 95 caracteriza un umbral
@@ -1086,7 +1086,7 @@ for (i in seq_len(n)) {
 c(espera_media = mean(espera), prob_esperar = mean(espera &gt; 0),
   espera_maxima = max(espera))</code></pre>
 <pre><code>##  espera_media  prob_esperar espera_maxima 
-##      23.82483       0.81000      96.75784</code></pre>
+##         23.82          0.81         96.76</code></pre>
 <p><strong>Interpretación.</strong> El inicio de atención depende de la
 llegada del cliente y de la salida del anterior. Por eso se necesita una
 recursión cronológica: simular tiempos de servicio sin relacionarlos con

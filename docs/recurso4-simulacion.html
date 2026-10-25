@@ -492,7 +492,7 @@ $(document).ready(function () {
       <a href="codigo41.html">Código 4.1</a>
     </li>
     <li>
-      <a href="taller411.html">Taller 411</a>
+      <a href="taller-441A.html">Taller 411</a>
     </li>
   </ul>
 </li>
@@ -759,8 +759,8 @@ f_U(u)=
 generarse mediante <code>runif()</code>.</p>
 <pre class="r"><code>set.seed(123)
 runif(10)</code></pre>
-<pre><code> [1] 0.2875775 0.7883051 0.4089769 0.8830174 0.9404673 0.0455565 0.5281055
- [8] 0.8924190 0.5514350 0.4566147</code></pre>
+<pre><code> [1] 0.28758 0.78831 0.40898 0.88302 0.94047 0.04556 0.52811 0.89242 0.55144
+[10] 0.45661</code></pre>
 </div>
 <div id="la-semilla-de-simulación" class="section level1">
 <h1>La semilla de simulación</h1>
@@ -773,12 +773,12 @@ ser necesario reproducir exactamente una secuencia de resultados. Para
 ello se utiliza una <strong>semilla</strong>.</p>
 <pre class="r"><code>set.seed(2026)
 runif(5)</code></pre>
-<pre><code>[1] 0.6986735 0.5565305 0.1401400 0.2857233 0.5553690</code></pre>
+<pre><code>[1] 0.6987 0.5565 0.1401 0.2857 0.5554</code></pre>
 <p>Si se vuelve a utilizar la misma semilla, R genera nuevamente la
 misma secuencia.</p>
 <pre class="r"><code>set.seed(2026)
 runif(5)</code></pre>
-<pre><code>[1] 0.6986735 0.5565305 0.1401400 0.2857233 0.5553690</code></pre>
+<pre><code>[1] 0.6987 0.5565 0.1401 0.2857 0.5554</code></pre>
 <div id="importancia-para-el-proyecto"
 class="section level3 box6 with-label">
 <h3>Importancia para el proyecto</h3>
@@ -917,7 +917,7 @@ fallas &lt;- rbinom(1000, size = 100, prob = 0.05)
 mean(fallas)</code></pre>
 <pre><code>[1] 4.987</code></pre>
 <pre class="r"><code>var(fallas)</code></pre>
-<pre><code>[1] 4.635466</code></pre>
+<pre><code>[1] 4.635</code></pre>
 <p>Teóricamente,</p>
 <p><span class="math display">\[
 E[X]=np=100(0.05)=5
@@ -1068,8 +1068,8 @@ round(X, 2)</code></pre>
 <p>R realiza directamente este procedimiento mediante</p>
 <pre class="r"><code>set.seed(123)
 rexp(10, rate = 0.5)</code></pre>
-<pre><code> [1] 1.68691452 1.15322054 2.65810974 0.06315472 0.11242195 0.63300243
- [7] 0.62845458 0.29053361 5.45247293 0.05830689</code></pre>
+<pre><code> [1] 1.68691 1.15322 2.65811 0.06315 0.11242 0.63300 0.62845 0.29053 5.45247
+[10] 0.05831</code></pre>
 </div>
 <div id="simulación-monte-carlo" class="section level1">
 <h1>Simulación Monte Carlo</h1>
@@ -1127,7 +1127,7 @@ y <code>FALSE</code>. R interpreta <code>TRUE</code> como 1 y
 proporción de simulaciones en las que la capacidad fue superada.</p>
 <p>El valor exacto puede obtenerse mediante</p>
 <pre class="r"><code>1 - ppois(15, lambda = 12)</code></pre>
-<pre><code>[1] 0.1555843</code></pre>
+<pre><code>[1] 0.1556</code></pre>
 <p>La comparación entre ambos resultados permite comprender una idea
 fundamental: <strong>la simulación aproxima cantidades probabilísticas
 mediante repetición</strong>.</p>
@@ -1154,10 +1154,10 @@ estimaciones &lt;- sapply(B, function(n){
 data.frame(repeticiones = B,
            probabilidad_estimada = estimaciones)</code></pre>
 <pre><code>  repeticiones probabilidad_estimada
-1        1e+02               0.12000
-2        1e+03               0.14700
-3        1e+04               0.15700
-4        1e+05               0.15657</code></pre>
+1        1e+02                0.1200
+2        1e+03                0.1470
+3        1e+04                0.1570
+4        1e+05                0.1566</code></pre>
 <p>En general, un mayor número de repeticiones produce resultados más
 estables, aunque también incrementa el esfuerzo computacional.</p>
 </div>
@@ -1326,7 +1326,7 @@ simulacion</code></pre>
 20      20          12.12   48.67     3.12  54.26   5.59  57.38</code></pre>
 <p>El tiempo promedio de espera es</p>
 <pre class="r"><code>mean(espera)</code></pre>
-<pre><code>[1] 8.14979</code></pre>
+<pre><code>[1] 8.15</code></pre>
 <p>y la proporción de usuarios que tuvieron que esperar es</p>
 <pre class="r"><code>mean(espera &gt; 0)</code></pre>
 <pre><code>[1] 0.95</code></pre>

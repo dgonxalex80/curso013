@@ -568,7 +568,7 @@ div.tocify {
       <a href="codigo41.html">Código 4.1</a>
     </li>
     <li>
-      <a href="taller411.html">Taller 411</a>
+      <a href="taller-441A.html">Taller 411</a>
     </li>
   </ul>
 </li>
@@ -1604,7 +1604,7 @@ p=0.2)\)</span> Determine:</p>
 #        prob)  # probabilidad de exito
 
 dbinom(5,10,0.2)</code></pre>
-<pre><code>[1] 0.02642412</code></pre>
+<pre><code>[1] 0.02642</code></pre>
 <p><br/><br/></p>
 <ol start="2" style="list-style-type: lower-alpha">
 <li><span class="math inline">\(P(X \leq 2)\)</span></li>
@@ -1613,7 +1613,7 @@ dbinom(5,10,0.2)</code></pre>
 \sum_{x=0}^{2}\displaystyle\binom{10}{x} 0.2^{x} (1-0.2)^{10-x}
 =f(0)+f(1)+f(2)\]</span></p>
 <pre class="r"><code>pbinom(2,10,0.2)</code></pre>
-<pre><code>[1] 0.6777995</code></pre>
+<pre><code>[1] 0.6778</code></pre>
 <p><br/><br/></p>
 <ol start="3" style="list-style-type: lower-alpha">
 <li><span class="math inline">\(P(3 \leq  X &lt; 5)\)</span></li>
@@ -1621,7 +1621,7 @@ dbinom(5,10,0.2)</code></pre>
 <p><span class="math display">\[P(3 \leq  X &lt; 5) = F(4) - F(2) = f(3)
 + f(4)\]</span></p>
 <pre class="r"><code>pbinom(4,10,0.2)-pbinom(2,10,0.2)</code></pre>
-<pre><code>[1] 0.289407</code></pre>
+<pre><code>[1] 0.2894</code></pre>
 <p><br/><br/></p>
 <ol start="4" style="list-style-type: lower-alpha">
 <li><span class="math inline">\(P(X \geq 8)\)</span></li>
@@ -1629,7 +1629,7 @@ dbinom(5,10,0.2)</code></pre>
 <p><span class="math display">\[P(X \geq 8) = f(8) + f(9) + f(10) = 1 -
 F(7)\]</span></p>
 <pre class="r"><code>pbinom(7,10,0.2, lower.tail = FALSE)</code></pre>
-<pre><code>[1] 7.79264e-05</code></pre>
+<pre><code>[1] 7.793e-05</code></pre>
 <p><br/><br/></p>
 <ol start="5" style="list-style-type: lower-alpha">
 <li>Construya la gráfica de <span
@@ -1684,7 +1684,7 @@ hyper(x,N=100,n=4,k=20)\)</span>) Determine:</p>
 # m*n = N : total de la urna  : 100
 #
 dhyper(1, m=20, n=80, k=4 )</code></pre>
-<pre><code>[1] 0.4190527</code></pre>
+<pre><code>[1] 0.4191</code></pre>
 <ol start="2" style="list-style-type: lower-alpha">
 <li><p><span class="math inline">\(P(X = 6)\)</span></p></li>
 <li><p><span class="math inline">\(P(X \geq 1)\)</span></p></li>
@@ -1706,7 +1706,7 @@ class="math inline">\(X \sim pois(x,lambda=4)\)</span>). Determine:</p>
 <pre class="r"><code>#  dpois(x,       # valor de x
 #        lambda)  # media o lambda
 dpois(0,4)</code></pre>
-<pre><code>[1] 0.01831564</code></pre>
+<pre><code>[1] 0.01832</code></pre>
 <ol start="2" style="list-style-type: lower-alpha">
 <li><p><span class="math inline">\(P(X = 4)\)</span></p></li>
 <li><p><span class="math inline">\(P(X \geq 2)\)</span></p></li>
@@ -1877,9 +1877,9 @@ class="math inline">\(Z\sim N(0,1)\)</span>, determine el área:</p>
 <li>A la derecha de z = - 0.85.</li>
 </ol>
 <pre class="r"><code>pnorm(-0.85, lower.tail = FALSE)</code></pre>
-<pre><code>[1] 0.8023375</code></pre>
+<pre><code>[1] 0.8023</code></pre>
 <pre class="r"><code>1-pnorm(-0.85)</code></pre>
-<pre><code>[1] 0.8023375</code></pre>
+<pre><code>[1] 0.8023</code></pre>
 <p>b.Entre <span class="math inline">\(z = 0.40\)</span> y <span
 class="math inline">\(z = 1.30\)</span>.</p>
 <ol start="3" style="list-style-type: lower-alpha">
@@ -1921,7 +1921,7 @@ probabilidad de <span class="math inline">\(X\)</span></p></li>
 <li><p><span class="math inline">\(P(X \leq 130)\)</span>.</p></li>
 </ol>
 <pre class="r"><code>pnorm(130, 150, sqrt(1000))</code></pre>
-<pre><code>[1] 0.2635446</code></pre>
+<pre><code>[1] 0.2635</code></pre>
 <ol start="3" style="list-style-type: lower-alpha">
 <li><p><span class="math inline">\(P(300 \leq X \leq
 400)\)</span>.</p></li>
@@ -1945,7 +1945,7 @@ exp(\lambda=2)\)</span>). Determine:</p>
 <li><span class="math inline">\(P(X \leq 1)\)</span>.</li>
 </ol>
 <pre class="r"><code>pexp(1,2)</code></pre>
-<pre><code>[1] 0.8646647</code></pre>
+<pre><code>[1] 0.8647</code></pre>
 <ol start="2" style="list-style-type: lower-alpha">
 <li><p><span class="math inline">\(P(X \geq 2)\)</span>.</p></li>
 <li><p><span class="math inline">\(P(1 &lt; X &lt; 2)\)</span>.</p></li>
@@ -2173,7 +2173,7 @@ class="math inline">\(z\)</span> para las siguientes probabilidades:</p>
 <li><span class="math inline">\(P(Z &lt; z) = 0.90\)</span></li>
 </ol>
 <pre class="r"><code>qnorm(0.90)</code></pre>
-<pre><code>[1] 1.281552</code></pre>
+<pre><code>[1] 1.282</code></pre>
 <ol start="2" style="list-style-type: lower-alpha">
 <li><p><span class="math inline">\(P(Z &lt; z ) = 0.50\)</span></p></li>
 <li><p><span class="math inline">\(P(Z &gt; z) = 0.10\)</span></p></li>
