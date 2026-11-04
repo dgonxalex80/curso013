@@ -1,0 +1,1123 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="dgonzalez " />
+
+
+<title>Teoría de probabilidades</title>
+
+<script src="site_libs/header-attrs/header-attrs.js"></script>
+<script src="site_libs/jquery/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation/tabsets.js"></script>
+<script src="site_libs/navigation/codefolding.js"></script>
+<link href="site_libs/highlightjs/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs/highlight.js"></script>
+<link href="site_libs/font-awesome/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome/css/v4-shims.min.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+<link rel="stylesheet" href="cajas.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html"> </a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">
+    <span class="fa fa-home"></span>
+     
+    Estadística
+  </a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 0
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo0.html">Módulo 0</a>
+    </li>
+    <li>
+      <a href="sumatoria.html">Sumatoria</a>
+    </li>
+    <li>
+      <a href="productoria.html">Productoria</a>
+    </li>
+    <li>
+      <a href="conjuntos.html">Conjuntos</a>
+    </li>
+    <li>
+      <a href="conteo.html">Conteo</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 1
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo1.html">Módulo 1</a>
+    </li>
+    <li>
+      <a href="#">Unidad 1.1</a>
+    </li>
+    <li>
+      <a href="guia11.html">Guía 1.1</a>
+    </li>
+    <li>
+      <a href="recurso11.html">Recursos 1.1</a>
+    </li>
+    <li>
+      <a href="basesdatos.html">Bases de datos</a>
+    </li>
+    <li>
+      <a href="introduccionR.html">Introducción a R</a>
+    </li>
+    <li>
+      <a href="codigo11.html">Código 1.1</a>
+    </li>
+    <li>
+      <a href="#">Unidad 1.2</a>
+    </li>
+    <li>
+      <a href="guia12.html">Guía 1.2</a>
+    </li>
+    <li>
+      <a href="recurso12.html">Recursos 1.2</a>
+    </li>
+    <li>
+      <a href="codigo12.html">Código 1.2</a>
+    </li>
+    <li>
+      <a href="caso1A.html">Caso 1</a>
+    </li>
+    <li>
+      <a href="caso1B.html">Caso 2</a>
+    </li>
+    <li>
+      <a href="#">Unidad 1.3</a>
+    </li>
+    <li>
+      <a href="guia13.html">Guía 1.3</a>
+    </li>
+    <li>
+      <a href="recurso13.html">Recursos 1.3</a>
+    </li>
+    <li>
+      <a href="codigo13.html">Código 1.3</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="monitoria1.html">Monitoría 1</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 2
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo2.html">Módulo 2</a>
+    </li>
+    <li>
+      <a href="#">Unidad 2.1</a>
+    </li>
+    <li>
+      <a href="guia21.html">Guía 2.1</a>
+    </li>
+    <li>
+      <a href="recurso21.html">Recursos 2.1</a>
+    </li>
+    <li>
+      <a href="codigo21.html">Código 2.1</a>
+    </li>
+    <li>
+      <a href="taller211.html">Taller 211</a>
+    </li>
+    <li>
+      <a href="#">Unidad 2.2</a>
+    </li>
+    <li>
+      <a href="guia22.html">Guía 2.2</a>
+    </li>
+    <li>
+      <a href="recurso22.html">Recursos 2.2</a>
+    </li>
+    <li>
+      <a href="taller221.html">Taller 221</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="monitoria2.html">Monitoría 2</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 3
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo3.html">Módulo 3</a>
+    </li>
+    <li>
+      <a href="#">Unidad 3.1</a>
+    </li>
+    <li>
+      <a href="guia31.html">Guía 3.1</a>
+    </li>
+    <li>
+      <a href="recurso31.html">Recursos 3.1</a>
+    </li>
+    <li>
+      <a href="codigo31.html">Código 3.1</a>
+    </li>
+    <li>
+      <a href="taller311.html">Taller 311</a>
+    </li>
+    <li>
+      <a href="#">Unidad 3.2</a>
+    </li>
+    <li>
+      <a href="guia32.html">Guía 3.2</a>
+    </li>
+    <li>
+      <a href="recurso32.html">Recursos 3.2</a>
+    </li>
+    <li>
+      <a href="codigo32.html">Código 3.2</a>
+    </li>
+    <li>
+      <a href="taller321.html">Taller 321</a>
+    </li>
+    <li>
+      <a href="#">Unidad 3.3</a>
+    </li>
+    <li>
+      <a href="guia33.html">Guía 3.3</a>
+    </li>
+    <li>
+      <a href="recurso33-discretas.html">Recursos 3.3-discretas</a>
+    </li>
+    <li>
+      <a href="codigo33_discretas.html">Código 3.3 discretas</a>
+    </li>
+    <li>
+      <a href="taller331.html">Taller 331-discretas</a>
+    </li>
+    <li>
+      <a href="#">Unidad 3.4</a>
+    </li>
+    <li>
+      <a href="guia34.html">Guía 3.4</a>
+    </li>
+    <li>
+      <a href="recurso33-continuos.html">Recursos 3.4-continuas</a>
+    </li>
+    <li>
+      <a href="codigo33_continuos.html">Código 3.4 continuos</a>
+    </li>
+    <li>
+      <a href="taller341_modelos_continuos.html">Taller 341-continuos</a>
+    </li>
+    <li>
+      <a href="actividad334.html">Asignación A334</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="monitoria3.html">Monitoría 3</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 4
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo4.html">Módulo 4</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="#">Unidad 4.1</a>
+    </li>
+    <li>
+      <a href="guia41.html">Guía 4.1</a>
+    </li>
+    <li>
+      <a href="recurso41.html">Recursos 4.1</a>
+    </li>
+    <li>
+      <a href="codigo41.html">Código 4.1</a>
+    </li>
+    <li>
+      <a href="taller-441A.html">Taller 411</a>
+    </li>
+    <li>
+      <a href="taller421.html">Taller 421</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Proyecto
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="guia_proyecto1.html">Guía proyecto</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore"><span
+style="color:#67C1A8 !important;">Teoría de probabilidades</span></h1>
+<h3 class="subtitle"><span style="color:#67C1A8"> </span></h3>
+<h4 class="author"><span style="color:#67C1A8">dgonzalez </span></h4>
+
+</div>
+
+
+<p><br/><br/><br/></p>
+<p><img src="img/taller4.png" alt="" width="100%" style="display: block; margin: auto auto auto 0;" /></p>
+<p><br/><br/></p>
+<div id="fila-de-servicio-en-excel" class="section level1">
+<h1>Fila de servicio en Excel</h1>
+<p><br/><br/></p>
+<p><img src="img/cola-restaurante.png" alt="" width="50%" style="display: block; margin: auto;" /></p>
+<p><br/><br/></p>
+<div id="actividad" class="section level2">
+<h2>Actividad</h2>
+<p><br/></p>
+<p>Construir en <strong>Excel</strong> una simulación de una fila de
+servicio de <strong>20 clientes</strong> con un único servidor y
+disciplina <strong>FIFO</strong> (primero en llegar, primero en ser
+atendido). Se modelan los <strong>intervalos entre llegadas</strong> con
+una distribución exponencial y los <strong>tiempos de servicio</strong>
+con una distribución normal. Se calculan la hora de llegada, la espera y
+el tiempo total en el sistema.</p>
+<p><br/><br/></p>
+</div>
+<div id="objetivos-de-aprendizaje" class="section level2">
+<h2>Objetivos de aprendizaje</h2>
+<ul>
+<li>Generar variables aleatorias exponenciales y normales en Excel.</li>
+<li>Diferenciar intervalo entre llegadas, instante de llegada, servicio,
+espera y permanencia total.</li>
+<li>Implementar una simulación de eventos discretos mediante fórmulas
+recursivas.</li>
+<li>Interpretar indicadores y explorar escenarios alternativos.</li>
+</ul>
+</div>
+<div id="supuestos-y-parámetros" class="section level2">
+<h2>Supuestos y parámetros</h2>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Parámetro</th>
+<th align="right">Valor inicial</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Clientes</td>
+<td align="right">20</td>
+</tr>
+<tr class="even">
+<td align="left">Servidores</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td align="left">Tiempo medio entre llegadas</td>
+<td align="right">3 min</td>
+</tr>
+<tr class="even">
+<td align="left">Tiempo medio de servicio</td>
+<td align="right">2,5 min</td>
+</tr>
+<tr class="odd">
+<td align="left">Desviación estándar del servicio</td>
+<td align="right">0,5 min</td>
+</tr>
+<tr class="even">
+<td align="left">Disciplina</td>
+<td align="right">FIFO</td>
+</tr>
+</tbody>
+</table>
+<p>Sean <span class="math inline">\(A_i\)</span> los intervalos entre
+llegadas y <span class="math inline">\(S_i\)</span> los tiempos de
+servicio:</p>
+<p><span class="math display">\[
+A_i\sim\operatorname{Exponencial}(\lambda=1/3),\qquad
+S_i\sim N(2.5,0.5^2).
+\]</span></p>
+<p><strong>Importante:</strong> la exponencial modela el <strong>tiempo
+entre llegadas</strong>, no la hora acumulada de llegada. Aunque una
+normal puede producir valores negativos, con estos parámetros la
+probabilidad es extremadamente pequeña. Para evitar tiempos imposibles,
+la fórmula propuesta usa <code>MAX(0;...)</code>, que
+<strong>recorta</strong> valores negativos a cero; no constituye una
+normal truncada exacta.</p>
+<p><br/><br/></p>
+</div>
+<div id="organización-de-la-hoja-excel" class="section level2">
+<h2>Organización de la hoja Excel</h2>
+<p><br/></p>
+<p>Escriba los siguientes encabezados en la fila 1:</p>
+<table>
+<colgroup>
+<col width="40%" />
+<col width="30%" />
+<col width="30%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">Columna</th>
+<th align="left">Encabezado</th>
+<th align="left">Significado</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">A</td>
+<td align="left">Cliente</td>
+<td align="left">Identificador 1 a 20</td>
+</tr>
+<tr class="even">
+<td align="center">B</td>
+<td align="left">Entre llegadas</td>
+<td align="left">Intervalo aleatorio desde la llegada anterior
+(min)</td>
+</tr>
+<tr class="odd">
+<td align="center">C</td>
+<td align="left">Tiempo de llegada</td>
+<td align="left">Instante acumulado de llegada (min)</td>
+</tr>
+<tr class="even">
+<td align="center">D</td>
+<td align="left">Tiempo de servicio</td>
+<td align="left">Duración de atención (min)</td>
+</tr>
+<tr class="odd">
+<td align="center">E</td>
+<td align="left">Inicio de atención</td>
+<td align="left">Instante en que empieza el servicio (min)</td>
+</tr>
+<tr class="even">
+<td align="center">F</td>
+<td align="left">Tiempo en fila</td>
+<td align="left">Espera antes del servicio (min)</td>
+</tr>
+<tr class="odd">
+<td align="center">G</td>
+<td align="left">Fin de atención</td>
+<td align="left">Instante de salida (min)</td>
+</tr>
+<tr class="even">
+<td align="center">H</td>
+<td align="left">Tiempo total de atención</td>
+<td align="left">Tiempo total en el sistema: espera + servicio
+(min)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Nota terminológica:</strong> en esta guía, «tiempo total de
+atención» significa <strong>tiempo total en el sistema</strong>,
+incluyendo espera y servicio. Si solo interesa la duración del servicio,
+corresponde a la columna D.</p>
+<p><br/><br/></p>
+</div>
+<div id="construcción-paso-a-paso" class="section level2">
+<h2>Construcción paso a paso</h2>
+<div id="paso-1.-identificar-los-20-clientes" class="section level5">
+<h5>Paso 1. Identificar los 20 clientes</h5>
+<p>En <code>A2</code> escriba <code>1</code> y en <code>A3</code>
+escriba <code>=A2+1</code>. Arrastre hasta <code>A21</code>.</p>
+<p><br/><br/></p>
+</div>
+<div id="paso-2.-generar-intervalos-entre-llegadas-exponenciales"
+class="section level5">
+<h5>Paso 2. Generar intervalos entre llegadas exponenciales</h5>
+<p>En <code>B2</code> escriba:</p>
+<pre class="text"><code>=-3*LN(1-ALEATORIO())</code></pre>
+<p>Copie hasta <code>B21</code>. La transformación inversa <span
+class="math inline">\(A=-\mu\ln(1-U)\)</span>, con <span
+class="math inline">\(U\sim U(0,1)\)</span> y <span
+class="math inline">\(\mu=3\)</span>, genera intervalos exponenciales de
+media 3 minutos.</p>
+<p><br/><br/></p>
+</div>
+<div id="paso-3.-acumular-los-instantes-de-llegada"
+class="section level5">
+<h5>Paso 3. Acumular los instantes de llegada</h5>
+<p>En <code>C2</code>:</p>
+<pre class="text"><code>=B2</code></pre>
+<p>En <code>C3</code>:</p>
+<pre class="text"><code>=C2+B3</code></pre>
+<p>Copie <code>C3</code> hasta <code>C21</code>. El instante de llegada
+del cliente <span class="math inline">\(i\)</span> es la suma de sus
+intervalos previos y el propio.</p>
+<p><br/><br/></p>
+</div>
+<div id="paso-4.-generar-tiempos-de-servicio-normales"
+class="section level5">
+<h5>Paso 4. Generar tiempos de servicio normales</h5>
+<p>En <code>D2</code>:</p>
+<pre class="text"><code>=MAX(0;INV.NORM(ALEATORIO();2,5;0,5))</code></pre>
+<p>Copie hasta <code>D21</code>. La función <code>INV.NORM</code>
+transforma un uniforme en una normal de media 2,5 y desviación 0,5
+minutos. <code>MAX</code> evita tiempos negativos. <strong>Según la
+versión o configuración regional de Excel</strong>, el nombre de la
+función o el separador de argumentos puede variar.</p>
+<p><br/><br/></p>
+</div>
+<div id="paso-5.-determinar-el-inicio-de-atención"
+class="section level5">
+<h5>Paso 5. Determinar el inicio de atención</h5>
+<p>Para el primer cliente, en <code>E2</code>:</p>
+<pre class="text"><code>=C2</code></pre>
+<p>Para el segundo, en <code>E3</code>:</p>
+<pre class="text"><code>=MAX(C3;G2)</code></pre>
+<p>Copie <code>E3</code> hasta <code>E21</code>. El cliente solo puede
+comenzar cuando haya llegado y el servidor esté libre:</p>
+<p><span class="math display">\[
+I_1=L_1,\qquad I_i=\max(L_i,F_{i-1}),\quad i\ge 2,
+\]</span></p>
+<p>donde <span class="math inline">\(L_i\)</span> es el instante de
+llegada, <span class="math inline">\(I_i\)</span> el inicio del servicio
+y <span class="math inline">\(F_{i-1}\)</span> la salida del cliente
+anterior.</p>
+<p><br/><br/></p>
+</div>
+<div id="paso-6.-calcular-la-espera" class="section level5">
+<h5>Paso 6. Calcular la espera</h5>
+<p>En <code>F2</code>:</p>
+<pre class="text"><code>=E2-C2</code></pre>
+<p>Copie hasta <code>F21</code>. Esta columna representa el tiempo en
+fila.</p>
+<p><br/><br/></p>
+</div>
+<div id="paso-7.-calcular-el-fin-de-atención" class="section level5">
+<h5>Paso 7. Calcular el fin de atención</h5>
+<p>En <code>G2</code>:</p>
+<pre class="text"><code>=E2+D2</code></pre>
+<p>Copie hasta <code>G21</code>.</p>
+<p><br/><br/></p>
+</div>
+<div id="paso-8.-calcular-el-tiempo-total-en-el-sistema"
+class="section level5">
+<h5>Paso 8. Calcular el tiempo total en el sistema</h5>
+<p>En <code>H2</code>:</p>
+<pre class="text"><code>=G2-C2</code></pre>
+<p>Copie hasta <code>H21</code>. Verifique que se cumple:</p>
+<p><span class="math display">\[
+T_{\text{total},i}=T_{\text{fila},i}+T_{\text{servicio},i}.
+\]</span></p>
+<p><br/><br/><br/></p>
+</div>
+</div>
+<div id="ejemplo-manual-de-verificación" class="section level2">
+<h2>Ejemplo manual de verificación</h2>
+<p>Los siguientes valores son <strong>ilustrativos</strong>, no una
+ejecución particular de Excel:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="right">Cliente</th>
+<th align="right">Llegada</th>
+<th align="right">Servicio</th>
+<th align="right">Inicio</th>
+<th align="right">Espera</th>
+<th align="right">Fin</th>
+<th align="right">Total</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1</td>
+<td align="right">1,20</td>
+<td align="right">2,30</td>
+<td align="right">1,20</td>
+<td align="right">0,00</td>
+<td align="right">3,50</td>
+<td align="right">2,30</td>
+</tr>
+<tr class="even">
+<td align="right">2</td>
+<td align="right">2,50</td>
+<td align="right">2,70</td>
+<td align="right">3,50</td>
+<td align="right">1,00</td>
+<td align="right">6,20</td>
+<td align="right">3,70</td>
+</tr>
+<tr class="odd">
+<td align="right">3</td>
+<td align="right">5,80</td>
+<td align="right">2,40</td>
+<td align="right">6,20</td>
+<td align="right">0,40</td>
+<td align="right">8,60</td>
+<td align="right">2,80</td>
+</tr>
+<tr class="even">
+<td align="right">4</td>
+<td align="right">6,30</td>
+<td align="right">2,60</td>
+<td align="right">8,60</td>
+<td align="right">2,30</td>
+<td align="right">11,20</td>
+<td align="right">4,90</td>
+</tr>
+<tr class="odd">
+<td align="right">5</td>
+<td align="right">10,00</td>
+<td align="right">2,50</td>
+<td align="right">11,20</td>
+<td align="right">1,20</td>
+<td align="right">13,70</td>
+<td align="right">3,70</td>
+</tr>
+</tbody>
+</table>
+<p>Observe que el cliente 4 llega en el minuto 6,30, pero no puede
+iniciar hasta el minuto 8,60.</p>
+<p><br/><br/><br/></p>
+</div>
+<div id="indicadores-de-desempeño" class="section level2">
+<h2>Indicadores de desempeño</h2>
+<p>Coloque estas fórmulas fuera de la tabla (por ejemplo, en
+<code>J2:K9</code>):</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Indicador</th>
+<th align="left">Fórmula en Excel</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Intervalo medio entre llegadas</td>
+<td align="left"><code>=PROMEDIO(B2:B21)</code></td>
+</tr>
+<tr class="even">
+<td align="left">Servicio medio</td>
+<td align="left"><code>=PROMEDIO(D2:D21)</code></td>
+</tr>
+<tr class="odd">
+<td align="left">Espera media</td>
+<td align="left"><code>=PROMEDIO(F2:F21)</code></td>
+</tr>
+<tr class="even">
+<td align="left">Tiempo medio total</td>
+<td align="left"><code>=PROMEDIO(H2:H21)</code></td>
+</tr>
+<tr class="odd">
+<td align="left">Espera máxima</td>
+<td align="left"><code>=MAX(F2:F21)</code></td>
+</tr>
+<tr class="even">
+<td align="left">Clientes que esperaron</td>
+<td align="left"><code>=CONTAR.SI(F2:F21;"&gt;0")</code></td>
+</tr>
+<tr class="odd">
+<td align="left">Proporción que esperó</td>
+<td align="left"><code>=CONTAR.SI(F2:F21;"&gt;0")/20</code></td>
+</tr>
+<tr class="even">
+<td align="left">Duración hasta la última salida</td>
+<td align="left"><code>=G21</code></td>
+</tr>
+</tbody>
+</table>
+<p>La proporción de clientes que esperan es una <strong>estimación
+empírica</strong> basada en solo 20 clientes; no debe interpretarse como
+una probabilidad exacta del sistema.</p>
+<p><br/><br/><br/></p>
+</div>
+<div id="gráficos-sugeridos" class="section level2">
+<h2>Gráficos sugeridos</h2>
+<ol style="list-style-type: decimal">
+<li><strong>Dispersión:</strong> número de cliente (A) frente a tiempo
+de llegada (C).</li>
+<li><strong>Columnas:</strong> número de cliente (A) frente a tiempo en
+fila (F).</li>
+<li><strong>Columnas agrupadas:</strong> servicio (D) y espera (F) por
+cliente.</li>
+<li><strong>Histograma:</strong> distribución observada de los tiempos
+de servicio (D).</li>
+</ol>
+<p>En Excel, seleccione las columnas correspondientes y use
+<strong>Insertar → Gráficos</strong>.</p>
+<p><br/><br/></p>
+</div>
+<div id="actividades-de-experimentación" class="section level2">
+<h2>Actividades de experimentación</h2>
+<ol style="list-style-type: decimal">
+<li>Construya y verifique la tabla completa de 20 clientes.</li>
+<li>Identifique los clientes que esperaron y el de mayor tiempo
+total.</li>
+<li>Recalcule cinco veces (tecla <code>F9</code>) y registre la espera
+media y la proporción que esperó. Explique por qué varían.</li>
+<li>Cambie el tiempo medio entre llegadas de <strong>3 a 2
+minutos</strong> (sustituya <code>-3</code> por <code>-2</code> en B) y
+compare los indicadores.</li>
+<li>Restablezca la media entre llegadas a 3 minutos y aumente el
+servicio medio de <strong>2,5 a 3,5 minutos</strong> (modifique D).
+Compare nuevamente.</li>
+<li>Explique qué ocurre si el servidor atiende, en promedio, más
+lentamente de lo que llegan los clientes.</li>
+</ol>
+<p><strong>Recomendación:</strong> para comparar escenarios con la misma
+secuencia de aleatorios, copie los valores de las columnas aleatorias y
+péguelos como valores en otra hoja antes de recalcular. Si cambia una
+distribución, genere la nueva muestra y documente el escenario.</p>
+<p><br/><br/></p>
+</div>
+<div id="preguntas-de-reflexión" class="section level2">
+<h2>Preguntas de reflexión</h2>
+<ul>
+<li>¿En qué se diferencia el intervalo entre llegadas del instante de
+llegada?</li>
+<li>¿Por qué la espera de un cliente depende de los clientes
+anteriores?</li>
+<li>¿Puede haber espera cuando la media de servicio es menor que la
+media entre llegadas?</li>
+<li>¿Por qué 20 clientes no son suficientes para estimar con gran
+precisión las medidas de largo plazo?</li>
+<li>¿Qué datos reales de la cafetería permitirían calibrar y validar
+este prototipo de gemelo digital?</li>
+</ul>
+<p><br/><br/></p>
+</div>
+<div id="entregable" class="section level2">
+<h2>Entregable</h2>
+<p>Un libro de Excel con la tabla de 20 clientes, las fórmulas, al menos
+dos gráficos, los indicadores y una interpretación breve de los
+escenarios. Se recomienda conservar una hoja de
+<strong>parámetros</strong> y otra de <strong>resultados</strong>.</p>
+<blockquote>
+<p><strong>Alcance:</strong> esta actividad construye un simulador
+probabilístico inicial de una fila. Para evolucionar hacia un gemelo
+digital de la cafetería será necesario contrastar los parámetros y las
+salidas con observaciones reales y actualizar el modelo
+periódicamente.</p>
+</blockquote>
+</div>
+</div>
+
+<style>
+/* Se incluye en todas las páginas, incluso si definen su propio CSS. */
+.navbar .navbar-nav > .dropdown > .dropdown-menu {
+  max-height: calc(100vh - 90px);
+  overflow-y: auto;
+}
+.navbar .unidad-grupo > button {
+  display: block;
+  width: 100%;
+  padding: 7px 20px;
+  border: 0;
+  background: transparent;
+  color: #263b4b;
+  font: inherit;
+  font-weight: 600;
+  text-align: left;
+}
+.navbar .unidad-grupo > button::after {
+  content: "▸";
+  float: right;
+  margin-left: 16px;
+}
+.navbar .unidad-grupo > button[aria-expanded="true"]::after { content: "▾"; }
+.navbar .unidad-grupo > ul {
+  list-style: none;
+  margin: 0;
+  padding: 0 0 0 12px;
+  background: #f2f6f9;
+}
+.navbar .unidad-grupo > ul[hidden] { display: none !important; }
+.navbar .unidad-grupo > ul > li > a {
+  display: block;
+  padding: 7px 18px;
+  color: #263b4b;
+  text-decoration: none;
+}
+.navbar .unidad-grupo > button:hover,
+.navbar .unidad-grupo > ul > li > a:hover,
+.navbar .unidad-grupo > ul > li.active > a { background: #e2eaf1; }
+.navbar .unidad-grupo > button:focus-visible,
+.navbar .unidad-grupo > ul > li > a:focus-visible {
+  outline: 2px solid #2c5697;
+  outline-offset: -2px;
+}
+</style>
+<script>
+(function () {
+  function prepararUnidades() {
+    var pagina = decodeURIComponent(window.location.pathname.split('/').pop() || 'index.html');
+    document.querySelectorAll('.navbar .navbar-nav > li > ul.dropdown-menu').forEach(function (menu, menuIndex) {
+      var grupo = null;
+      Array.from(menu.children).forEach(function (item, itemIndex) {
+        var enlace = item.querySelector('a');
+        if (enlace && enlace.getAttribute('href') === '#' && /^Unidad\s+\d+\.\d+$/.test(enlace.textContent.trim())) {
+          var boton = document.createElement('button');
+          boton.type = 'button';
+          boton.textContent = enlace.textContent.trim();
+          var lista = document.createElement('ul');
+          lista.id = 'unidad-' + menuIndex + '-' + itemIndex;
+          lista.hidden = true;
+          boton.setAttribute('aria-controls', lista.id);
+          boton.setAttribute('aria-expanded', 'false');
+          item.classList.add('unidad-grupo');
+          item.replaceChild(boton, enlace);
+          item.appendChild(lista);
+          boton.addEventListener('click', function (event) {
+            event.stopPropagation();
+            lista.hidden = !lista.hidden;
+            boton.setAttribute('aria-expanded', String(!lista.hidden));
+          });
+          item.addEventListener('keydown', function (event) {
+            if (event.key === 'Escape' && !lista.hidden) {
+              event.preventDefault();
+              event.stopPropagation();
+              lista.hidden = true;
+              boton.setAttribute('aria-expanded', 'false');
+              boton.focus();
+            }
+          });
+          grupo = lista;
+        } else if (item.classList.contains('divider') || item.classList.contains('dropdown-header')) {
+          grupo = null;
+        } else if (grupo) {
+          grupo.appendChild(item);
+          if (enlace && decodeURIComponent(enlace.getAttribute('href')) === pagina) {
+            item.classList.add('active');
+            grupo.hidden = false;
+            grupo.previousElementSibling.setAttribute('aria-expanded', 'true');
+          }
+        }
+      });
+    });
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', prepararUnidades);
+  } else {
+    prepararUnidades();
+  }
+})();
+</script>
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("hide" === "show");
+});
+</script>
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

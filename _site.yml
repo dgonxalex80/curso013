@@ -147,6 +147,8 @@ navbar:
       href: codigo41.html
     - text: Taller 411
       href: taller-441A.html
+    - text: Taller 421
+      href: taller421.html      
 
   - text: Proyecto
     menu:

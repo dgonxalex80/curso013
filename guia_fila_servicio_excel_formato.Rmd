@@ -1,0 +1,301 @@
+---
+title: "<span style='color:#67C1A8 !important;'>Teoría de probabilidades</span>"
+author: <span style="color:#67C1A8">dgonzalez </span> 
+subtitle: <span style="color:#67C1A8"> </span> 
+output:
+  html_document:
+    toc: no
+    toc_depth: 2
+    toc_float: yes
+    code_folding: hide
+    theme: flatly
+    css:
+      - style.css
+      - cajas.css
+---
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+knitr::opts_chunk$set(
+  fig.width=9, fig.height=3.5, fig.retina=3,
+  out.width="100%", cache=FALSE,
+  echo=TRUE, message=FALSE, warning=FALSE
+)
+# Mantener compatibilidad con el estilo del curso013.
+# Si existe R/init.R, se cargan sus colores institucionales.
+if (file.exists("R/init.R")) {
+  try(source("R/init.R"), silent=TRUE)
+}
+```
+
+<br/><br/><br/>
+
+```{r encabezado, echo=FALSE, out.width="100%", fig.align="left"}
+# Encabezado opcional con el estilo de actividad331.Rmd.
+# Si desea usar una imagen, guárdela como img/taller3.png.
+if (file.exists("img/taller4.png")) {
+  knitr::include_graphics("img/taller4.png")
+}
+```
+
+<br/><br/>
+
+# Fila de servicio en Excel
+
+<br/><br/>
+
+
+```{r, echo=FALSE, out.width="50%", fig.align = "center"}
+knitr::include_graphics("img/cola-restaurante.png")
+```
+
+
+<br/><br/>
+
+## Actividad
+
+<br/>
+
+Construir en **Excel** una simulación de una fila de servicio de **20 clientes** con un único servidor y disciplina **FIFO** (primero en llegar, primero en ser atendido). Se modelan los **intervalos entre llegadas** con una distribución exponencial y los **tiempos de servicio** con una distribución normal. Se calculan la hora de llegada, la espera y el tiempo total en el sistema.
+
+<br/><br/>
+
+## Objetivos de aprendizaje
+
+- Generar variables aleatorias exponenciales y normales en Excel.
+- Diferenciar intervalo entre llegadas, instante de llegada, servicio, espera y permanencia total.
+- Implementar una simulación de eventos discretos mediante fórmulas recursivas.
+- Interpretar indicadores y explorar escenarios alternativos.
+
+## Supuestos y parámetros
+
+| Parámetro | Valor inicial |
+|:--|--:|
+| Clientes | 20 |
+| Servidores | 1 |
+| Tiempo medio entre llegadas | 3 min |
+| Tiempo medio de servicio | 2,5 min |
+| Desviación estándar del servicio | 0,5 min |
+| Disciplina | FIFO |
+
+Sean $A_i$ los intervalos entre llegadas y $S_i$ los tiempos de servicio:
+
+$$
+A_i\sim\operatorname{Exponencial}(\lambda=1/3),\qquad
+S_i\sim N(2.5,0.5^2).
+$$
+
+**Importante:** la exponencial modela el **tiempo entre llegadas**, no la hora acumulada de llegada. Aunque una normal puede producir valores negativos, con estos parámetros la probabilidad es extremadamente pequeña. Para evitar tiempos imposibles, la fórmula propuesta usa `MAX(0;...)`, que **recorta** valores negativos a cero; no constituye una normal truncada exacta.
+
+<br/><br/>
+
+## Organización de la hoja Excel
+
+<br/>
+
+Escriba los siguientes encabezados en la fila 1:
+
+| Columna | Encabezado | Significado |
+|:--:|:--|:--|
+| A | Cliente | Identificador 1 a 20 |
+| B | Entre llegadas | Intervalo aleatorio desde la llegada anterior (min) |
+| C | Tiempo de llegada | Instante acumulado de llegada (min) |
+| D | Tiempo de servicio | Duración de atención (min) |
+| E | Inicio de atención | Instante en que empieza el servicio (min) |
+| F | Tiempo en fila | Espera antes del servicio (min) |
+| G | Fin de atención | Instante de salida (min) |
+| H | Tiempo total de atención | Tiempo total en el sistema: espera + servicio (min) |
+
+**Nota terminológica:** en esta guía, «tiempo total de atención» significa **tiempo total en el sistema**, incluyendo espera y servicio. Si solo interesa la duración del servicio, corresponde a la columna D.
+
+<br/><br/>
+
+## Construcción paso a paso
+
+##### Paso 1. Identificar los 20 clientes
+
+En `A2` escriba `1` y en `A3` escriba `=A2+1`. Arrastre hasta `A21`.
+
+<br/><br/>
+
+##### Paso 2. Generar intervalos entre llegadas exponenciales
+
+En `B2` escriba:
+
+```text
+=-3*LN(1-ALEATORIO())
+```
+
+Copie hasta `B21`. La transformación inversa $A=-\mu\ln(1-U)$, con $U\sim U(0,1)$ y $\mu=3$, genera intervalos exponenciales de media 3 minutos.
+
+<br/><br/>
+
+##### Paso 3. Acumular los instantes de llegada
+
+En `C2`:
+
+```text
+=B2
+```
+
+En `C3`:
+
+```text
+=C2+B3
+```
+
+Copie `C3` hasta `C21`. El instante de llegada del cliente $i$ es la suma de sus intervalos previos y el propio.
+
+<br/><br/>
+
+##### Paso 4. Generar tiempos de servicio normales
+
+En `D2`:
+
+```text
+=MAX(0;INV.NORM(ALEATORIO();2,5;0,5))
+```
+
+Copie hasta `D21`. La función `INV.NORM` transforma un uniforme en una normal de media 2,5 y desviación 0,5 minutos. `MAX` evita tiempos negativos. **Según la versión o configuración regional de Excel**, el nombre de la función o el separador de argumentos puede variar.
+
+<br/><br/>
+
+##### Paso 5. Determinar el inicio de atención
+
+Para el primer cliente, en `E2`:
+
+```text
+=C2
+```
+
+Para el segundo, en `E3`:
+
+```text
+=MAX(C3;G2)
+```
+
+Copie `E3` hasta `E21`. El cliente solo puede comenzar cuando haya llegado y el servidor esté libre:
+
+$$
+I_1=L_1,\qquad I_i=\max(L_i,F_{i-1}),\quad i\ge 2,
+$$
+
+donde $L_i$ es el instante de llegada, $I_i$ el inicio del servicio y $F_{i-1}$ la salida del cliente anterior.
+
+<br/><br/>
+
+##### Paso 6. Calcular la espera
+
+En `F2`:
+
+```text
+=E2-C2
+```
+
+Copie hasta `F21`. Esta columna representa el tiempo en fila.
+
+<br/><br/>
+
+##### Paso 7. Calcular el fin de atención
+
+En `G2`:
+
+```text
+=E2+D2
+```
+
+Copie hasta `G21`.
+
+<br/><br/>
+
+##### Paso 8. Calcular el tiempo total en el sistema
+
+En `H2`:
+
+```text
+=G2-C2
+```
+
+Copie hasta `H21`. Verifique que se cumple:
+
+$$
+T_{\text{total},i}=T_{\text{fila},i}+T_{\text{servicio},i}.
+$$
+
+<br/><br/><br/>
+
+## Ejemplo manual de verificación
+
+Los siguientes valores son **ilustrativos**, no una ejecución particular de Excel:
+
+| Cliente | Llegada | Servicio | Inicio | Espera | Fin | Total |
+|--:|--:|--:|--:|--:|--:|--:|
+| 1 | 1,20 | 2,30 | 1,20 | 0,00 | 3,50 | 2,30 |
+| 2 | 2,50 | 2,70 | 3,50 | 1,00 | 6,20 | 3,70 |
+| 3 | 5,80 | 2,40 | 6,20 | 0,40 | 8,60 | 2,80 |
+| 4 | 6,30 | 2,60 | 8,60 | 2,30 | 11,20 | 4,90 |
+| 5 | 10,00 | 2,50 | 11,20 | 1,20 | 13,70 | 3,70 |
+
+Observe que el cliente 4 llega en el minuto 6,30, pero no puede iniciar hasta el minuto 8,60.
+
+<br/><br/><br/>
+
+## Indicadores de desempeño
+
+Coloque estas fórmulas fuera de la tabla (por ejemplo, en `J2:K9`):
+
+| Indicador | Fórmula en Excel |
+|:--|:--|
+| Intervalo medio entre llegadas | `=PROMEDIO(B2:B21)` |
+| Servicio medio | `=PROMEDIO(D2:D21)` |
+| Espera media | `=PROMEDIO(F2:F21)` |
+| Tiempo medio total | `=PROMEDIO(H2:H21)` |
+| Espera máxima | `=MAX(F2:F21)` |
+| Clientes que esperaron | `=CONTAR.SI(F2:F21;">0")` |
+| Proporción que esperó | `=CONTAR.SI(F2:F21;">0")/20` |
+| Duración hasta la última salida | `=G21` |
+
+La proporción de clientes que esperan es una **estimación empírica** basada en solo 20 clientes; no debe interpretarse como una probabilidad exacta del sistema.
+
+<br/><br/><br/>
+
+## Gráficos sugeridos
+
+1. **Dispersión:** número de cliente (A) frente a tiempo de llegada (C).
+2. **Columnas:** número de cliente (A) frente a tiempo en fila (F).
+3. **Columnas agrupadas:** servicio (D) y espera (F) por cliente.
+4. **Histograma:** distribución observada de los tiempos de servicio (D).
+
+En Excel, seleccione las columnas correspondientes y use **Insertar → Gráficos**.
+
+<br/><br/>
+
+## Actividades de experimentación
+
+1. Construya y verifique la tabla completa de 20 clientes.
+2. Identifique los clientes que esperaron y el de mayor tiempo total.
+3. Recalcule cinco veces (tecla `F9`) y registre la espera media y la proporción que esperó. Explique por qué varían.
+4. Cambie el tiempo medio entre llegadas de **3 a 2 minutos** (sustituya `-3` por `-2` en B) y compare los indicadores.
+5. Restablezca la media entre llegadas a 3 minutos y aumente el servicio medio de **2,5 a 3,5 minutos** (modifique D). Compare nuevamente.
+6. Explique qué ocurre si el servidor atiende, en promedio, más lentamente de lo que llegan los clientes.
+
+**Recomendación:** para comparar escenarios con la misma secuencia de aleatorios, copie los valores de las columnas aleatorias y péguelos como valores en otra hoja antes de recalcular. Si cambia una distribución, genere la nueva muestra y documente el escenario.
+
+<br/><br/>
+
+## Preguntas de reflexión
+
+- ¿En qué se diferencia el intervalo entre llegadas del instante de llegada?
+- ¿Por qué la espera de un cliente depende de los clientes anteriores?
+- ¿Puede haber espera cuando la media de servicio es menor que la media entre llegadas?
+- ¿Por qué 20 clientes no son suficientes para estimar con gran precisión las medidas de largo plazo?
+- ¿Qué datos reales de la cafetería permitirían calibrar y validar este prototipo de gemelo digital?
+
+<br/><br/>
+
+## Entregable
+
+Un libro de Excel con la tabla de 20 clientes, las fórmulas, al menos dos gráficos, los indicadores y una interpretación breve de los escenarios. Se recomienda conservar una hoja de **parámetros** y otra de **resultados**.
+
+
+> **Alcance:** esta actividad construye un simulador probabilístico inicial de una fila. Para evolucionar hacia un gemelo digital de la cafetería será necesario contrastar los parámetros y las salidas con observaciones reales y actualizar el modelo periódicamente.

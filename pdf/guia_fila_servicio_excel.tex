@@ -1,0 +1,102 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish]{babel}
+\usepackage{lmodern}
+\usepackage{geometry}
+\usepackage{amsmath,amssymb,booktabs,array,longtable,xcolor,hyperref,enumitem,fancyhdr}
+\geometry{margin=2.3cm}
+\definecolor{azul}{HTML}{476885}
+\hypersetup{colorlinks=true,linkcolor=azul,urlcolor=azul}
+\pagestyle{fancy}\fancyhf{}\lhead{Teoría de Probabilidades}\rhead{Simulación en Excel}\cfoot{\thepage}
+\newcommand{\excel}[1]{\par\smallskip\noindent\fcolorbox{azul}{azul!5}{\parbox{0.94\linewidth}{\ttfamily\small\detokenize{#1}}}\smallskip}
+\title{\textcolor{azul}{Guía de aprendizaje}\\Simulación de una fila de servicio en Excel}
+\author{Curso de Teoría de Probabilidades}
+\date{}
+\begin{document}\maketitle
+\noindent\textbf{Actividad:} Simulación de 20 clientes. \quad \textbf{Modelo:} un servidor, una fila FIFO.\\
+\textbf{Herramienta:} Microsoft Excel en español. \quad \textbf{Unidad:} minutos.
+\section{Objetivo}
+Construir una simulación de eventos discretos de una fila de servicio. Los tiempos \emph{entre llegadas} siguen una distribución exponencial y los tiempos de servicio se generan mediante una distribución normal. Se calculan las horas de llegada, las esperas y el tiempo total de cada cliente en el sistema.
+\section{Supuestos y variables}
+\begin{center}\begin{tabular}{ll}\toprule Parámetro & Valor inicial\\\midrule Número de clientes & 20\\ Tiempo medio entre llegadas & 3 minutos\\ Media del tiempo de servicio & 2,5 minutos\\ Desviación estándar del servicio & 0,5 minutos\\ Número de servidores & 1\\ Disciplina de atención & FIFO\\\bottomrule\end{tabular}\end{center}
+Sea $X_i\sim\operatorname{Exp}(\lambda=1/3)$ el tiempo entre las llegadas de los clientes $i-1$ e $i$. El tiempo de llegada acumulado es $A_i=\sum_{j=1}^{i}X_j$. El tiempo de servicio se genera desde $S_i^*\sim N(2.5,0.5^2)$ y se usa $S_i=\max(0,S_i^*)$ para evitar duraciones negativas. Esta última transformación no es una normal estrictamente truncada: asigna a cero la probabilidad de valores negativos, que aquí es muy pequeña.
+
+El inicio de servicio $B_i$, la espera $W_i$, la salida $D_i$ y el tiempo total $T_i$ se calculan como
+\[
+B_1=A_1,\qquad B_i=\max(A_i,D_{i-1})\quad(i\ge2),
+\]
+\[
+W_i=B_i-A_i,\qquad D_i=B_i+S_i,\qquad T_i=D_i-A_i=W_i+S_i.
+\]
+\section{Estructura de la hoja de Excel}
+En la fila 1 escriba estos encabezados:
+\begin{center}\small\begin{tabular}{cl}\toprule Columna & Contenido\\\midrule A & Cliente\\ B & Tiempo entre llegadas\\ C & Tiempo de llegada acumulado\\ D & Tiempo de servicio\\ E & Inicio de atención\\ F & Tiempo de espera\\ G & Fin de atención\\ H & Tiempo total en el sistema\\\bottomrule\end{tabular}\end{center}
+La fila 2 corresponde al cliente 1 y la fila 21 al cliente 20. En \texttt{A2} escriba 1 y en \texttt{A3} escriba \texttt{=A2+1}; copie hasta \texttt{A21}.
+\section{Procedimiento paso a paso}
+\subsection*{Paso 1. Tiempo entre llegadas: columna B}
+En \texttt{B2} escriba:
+\excel{=-3*LN(1-ALEATORIO())}
+Copie hasta \texttt{B21}. La transformación inversa $-3\ln(1-U)$, con $U\sim\operatorname{Uniforme}(0,1)$, genera tiempos exponenciales con media 3 minutos.
+\subsection*{Paso 2. Llegada acumulada: columna C}
+En \texttt{C2} escriba:
+\excel{=B2}
+En \texttt{C3} escriba:
+\excel{=C2+B3}
+Copie \texttt{C3} hasta \texttt{C21}. La llegada es un instante medido desde el inicio de la observación, no el intervalo entre llegadas.
+\subsection*{Paso 3. Tiempo de servicio: columna D}
+En \texttt{D2} escriba:
+\excel{=MAX(0;INV.NORM(ALEATORIO();2,5;0,5))}
+Copie hasta \texttt{D21}. La función \texttt{INV.NORM} convierte un uniforme en una variable normal con media 2,5 y desviación 0,5. El \texttt{MAX} evita valores negativos. Dependiendo de la versión de Excel, el nombre de la función puede variar.
+\subsection*{Paso 4. Inicio de atención: columna E}
+En \texttt{E2} escriba:
+\excel{=C2}
+En \texttt{E3} escriba:
+\excel{=MAX(C3;G2)}
+Copie hasta \texttt{E21}. El servidor atiende al cliente cuando este llega o cuando termina el servicio anterior, lo que ocurra después.
+\subsection*{Paso 5. Tiempo de espera: columna F}
+En \texttt{F2} escriba:
+\excel{=E2-C2}
+Copie hasta \texttt{F21}. Una espera de cero indica atención inmediata.
+\subsection*{Paso 6. Fin de atención: columna G}
+En \texttt{G2} escriba:
+\excel{=E2+D2}
+Copie hasta \texttt{G21}.
+\subsection*{Paso 7. Tiempo total en el sistema: columna H}
+En \texttt{H2} escriba:
+\excel{=G2-C2}
+Copie hasta \texttt{H21}. Este tiempo incluye espera más servicio; no debe confundirse con el tiempo de servicio exclusivamente.
+\section{Ejemplo ilustrativo}
+Los siguientes valores son una realización posible, no resultados fijos. Cada recálculo genera una simulación diferente.
+\begin{center}\small\begin{tabular}{rrrrr}\toprule Cliente & Llegada & Servicio & Espera & Total\\\midrule 1&1,20&2,30&0,00&2,30\\2&2,50&2,70&1,00&3,70\\3&5,80&2,40&0,40&2,80\\4&6,30&2,60&2,30&4,90\\5&10,00&2,50&1,20&3,70\\\bottomrule\end{tabular}\end{center}
+\section{Indicadores de la simulación}
+En una zona libre de la hoja, registre los siguientes indicadores:
+\begin{itemize}[leftmargin=*]
+\item Tiempo medio entre llegadas: \texttt{=PROMEDIO(B2:B21)}
+\item Tiempo medio de servicio: \texttt{=PROMEDIO(D2:D21)}
+\item Tiempo medio de espera: \texttt{=PROMEDIO(F2:F21)}
+\item Tiempo medio total en el sistema: \texttt{=PROMEDIO(H2:H21)}
+\item Mayor tiempo de espera: \texttt{=MAX(F2:F21)}
+\item Número de clientes que esperan: \texttt{=CONTAR.SI(F2:F21;">0")}
+\item Proporción de clientes que esperan: \texttt{=CONTAR.SI(F2:F21;">0")/20}
+\end{itemize}
+\section{Actividades de experimentación}
+\begin{enumerate}[leftmargin=*]
+\item Complete la tabla para los 20 clientes y verifique que $T_i=W_i+S_i$.
+\item Identifique el cliente con la espera máxima y explique por qué ocurrió.
+\item Recalcule cinco veces con \texttt{F9} y anote en cada repetición la espera media y la proporción que esperó. Si desea conservar los resultados, cópielos y péguelos como valores.
+\item Cambie la media entre llegadas de 3 a 2 minutos (reemplace el factor 3 por 2 en la fórmula de B). Compare los indicadores.
+\item Restaure la media entre llegadas a 3 y aumente la media de servicio de 2,5 a 3,5 minutos. Compare los indicadores.
+\item Explique por qué los resultados cambian entre simulaciones, incluso sin modificar los parámetros.
+\end{enumerate}
+\section{Preguntas para discusión}
+\begin{enumerate}[leftmargin=*]
+\item ¿Qué diferencia existe entre tiempo entre llegadas, instante de llegada y tiempo de espera?
+\item ¿Por qué el tiempo de espera no tiene que seguir una distribución exponencial ni normal?
+\item ¿Qué efecto tiene la variabilidad del servicio sobre la congestión?
+\item ¿Qué ocurre cuando el servicio medio dura más que el intervalo medio entre llegadas?
+\item ¿Por qué 20 clientes no son suficientes para obtener estimaciones muy precisas del desempeño a largo plazo?
+\end{enumerate}
+\section{Alcance del modelo}
+El sistema tiene llegadas con intervalos exponenciales y servicios de distribución aproximadamente normal; por ello puede describirse como un modelo de cola \textbf{M/G/1} con disciplina FIFO. Se trata de una simulación didáctica de 20 clientes, no de una validación con datos reales. Para aproximarse a un gemelo digital de una cafetería real sería necesario observar tiempos efectivos, calibrar parámetros y contrastar resultados.
+\end{document}
