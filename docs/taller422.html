@@ -14,13 +14,13 @@
 
 <title>Teoría de probabilidades</title>
 
-<script src="site_libs/header-attrs/header-attrs.js"></script>
-<script src="site_libs/jquery/jquery-3.6.0.min.js"></script>
+<script src="site_libs/header-attrs-2.31/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="site_libs/bootstrap/css/flatly.min.css" rel="stylesheet" />
-<script src="site_libs/bootstrap/js/bootstrap.min.js"></script>
-<script src="site_libs/bootstrap/shim/html5shiv.min.js"></script>
-<script src="site_libs/bootstrap/shim/respond.min.js"></script>
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
 <style>h1 {font-size: 34px;}
        h1.title {font-size: 38px;}
        h2 {font-size: 30px;}
@@ -30,12 +30,12 @@
        h6 {font-size: 12px;}
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
-<script src="site_libs/navigation/tabsets.js"></script>
-<script src="site_libs/navigation/codefolding.js"></script>
-<link href="site_libs/highlightjs/default.css" rel="stylesheet" />
-<script src="site_libs/highlightjs/highlight.js"></script>
-<link href="site_libs/font-awesome/css/all.min.css" rel="stylesheet" />
-<link href="site_libs/font-awesome/css/v4-shims.min.css" rel="stylesheet" />
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-6.5.2/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet" />
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -1894,6 +1894,922 @@ sistema bajo supuestos. Un <strong>gemelo digital</strong> requiere,
 además, una relación verificable con el sistema físico mediante datos
 observados, calibración y actualización. El proyecto debe documentar qué
 parte es un supuesto y qué parte se sustenta en mediciones reales.</p>
+<p><br/><br/><br></p>
+</div>
+<div id="simulación-sucursal-bancaria" class="section level1">
+<h1>Simulación sucursal bancaria</h1>
+<pre class="r"><code># ============================================================
+# GEMELO DIGITAL DIDÁCTICO
+# FILA DE ESPERA EN UNA SUCURSAL BANCARIA
+# ============================================================
+
+# Instalar si es necesario:
+# install.packages(c(&quot;shiny&quot;, &quot;dplyr&quot;))
+
+library(shiny)
+library(dplyr)
+
+# ============================================================
+# INTERFAZ
+# ============================================================
+
+ui &lt;- fluidPage(
+  
+  tags$head(
+    
+    tags$style(HTML(&quot;
+
+      body {
+        background-color: #f4f6f8;
+        font-family: Arial, Helvetica, sans-serif;
+      }
+
+      .titulo {
+        font-size: 30px;
+        font-weight: bold;
+        margin-bottom: 20px;
+      }
+
+      .panel-control {
+        background: white;
+        border-radius: 12px;
+        padding: 18px;
+        box-shadow: 0px 2px 8px rgba(0,0,0,0.12);
+      }
+
+      .banco {
+        background: white;
+        border-radius: 14px;
+        padding: 20px;
+        min-height: 450px;
+        box-shadow: 0px 2px 8px rgba(0,0,0,0.12);
+        position: relative;
+      }
+
+      .zona-titulo {
+        font-weight: bold;
+        font-size: 18px;
+        margin-bottom: 8px;
+      }
+
+      .entrada {
+        position: absolute;
+        left: 25px;
+        top: 180px;
+        text-align: center;
+      }
+
+      .salida {
+        position: absolute;
+        right: 30px;
+        bottom: 25px;
+        text-align: center;
+      }
+
+      .persona-grande {
+        font-size: 42px;
+      }
+
+      .fila {
+        position: absolute;
+        left: 100px;
+        top: 180px;
+        right: 270px;
+        min-height: 100px;
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+
+      .cliente {
+        font-size: 38px;
+        text-align: center;
+        min-width: 48px;
+      }
+
+      .cliente-id {
+        font-size: 11px;
+        margin-top: -4px;
+      }
+
+      .cajeros {
+        position: absolute;
+        right: 25px;
+        top: 55px;
+        width: 230px;
+      }
+
+      .caja {
+        border: 2px solid #444;
+        border-radius: 10px;
+        margin-bottom: 12px;
+        padding: 8px;
+        background: #fafafa;
+      }
+
+      .caja-titulo {
+        font-weight: bold;
+        margin-bottom: 5px;
+      }
+
+      .cajero {
+        font-size: 36px;
+        display: inline-block;
+        margin-right: 12px;
+      }
+
+      .cliente-atendido {
+        font-size: 34px;
+        display: inline-block;
+      }
+
+      .libre {
+        font-size: 13px;
+        font-weight: bold;
+      }
+
+      .metric-card {
+        background: white;
+        border-radius: 10px;
+        padding: 12px;
+        margin-bottom: 10px;
+        box-shadow: 0px 2px 6px rgba(0,0,0,0.10);
+        text-align: center;
+      }
+
+      .metric-title {
+        font-size: 14px;
+        font-weight: bold;
+      }
+
+      .metric-value {
+        font-size: 26px;
+        margin-top: 5px;
+      }
+
+      .estado {
+        background: white;
+        border-radius: 12px;
+        padding: 14px;
+        box-shadow: 0px 2px 8px rgba(0,0,0,0.12);
+      }
+
+    &quot;))
+  ),
+  
+  div(
+    class = &quot;titulo&quot;,
+    &quot;Gemelo Digital - Sistema de Fila de Espera&quot;
+  ),
+  
+  fluidRow(
+    
+    column(
+      width = 3,
+      
+      div(
+        class = &quot;panel-control&quot;,
+        
+        h4(&quot;Parámetros del sistema&quot;),
+        
+        sliderInput(
+          &quot;lambda&quot;,
+          &quot;Llegadas promedio por minuto:&quot;,
+          min = 0.1,
+          max = 2,
+          value = 0.5,
+          step = 0.1
+        ),
+        
+        sliderInput(
+          &quot;servicio&quot;,
+          &quot;Tiempo promedio de atención (min):&quot;,
+          min = 1,
+          max = 10,
+          value = 2,
+          step = 0.5
+        ),
+        
+        sliderInput(
+          &quot;cajeros&quot;,
+          &quot;Número de cajeros:&quot;,
+          min = 1,
+          max = 5,
+          value = 2,
+          step = 1
+        ),
+        
+        hr(),
+        
+        actionButton(
+          &quot;reiniciar&quot;,
+          &quot;Reiniciar simulación&quot;,
+          class = &quot;btn btn-primary&quot;
+        ),
+        
+        br(),
+        br(),
+        
+        actionButton(
+          &quot;pausar&quot;,
+          &quot;Pausar / continuar&quot;,
+          class = &quot;btn btn-warning&quot;
+        )
+      )
+    ),
+    
+    column(
+      width = 9,
+      
+      uiOutput(&quot;banco&quot;),
+      
+      br(),
+      
+      fluidRow(
+        
+        column(
+          2,
+          div(
+            class = &quot;metric-card&quot;,
+            div(class = &quot;metric-title&quot;, &quot;Tiempo&quot;),
+            div(class = &quot;metric-value&quot;, textOutput(&quot;tiempo&quot;))
+          )
+        ),
+        
+        column(
+          2,
+          div(
+            class = &quot;metric-card&quot;,
+            div(class = &quot;metric-title&quot;, &quot;En fila&quot;),
+            div(class = &quot;metric-value&quot;, textOutput(&quot;ncola&quot;))
+          )
+        ),
+        
+        column(
+          2,
+          div(
+            class = &quot;metric-card&quot;,
+            div(class = &quot;metric-title&quot;, &quot;En servicio&quot;),
+            div(class = &quot;metric-value&quot;, textOutput(&quot;servicio_actual&quot;))
+          )
+        ),
+        
+        column(
+          2,
+          div(
+            class = &quot;metric-card&quot;,
+            div(class = &quot;metric-title&quot;, &quot;Atendidos&quot;),
+            div(class = &quot;metric-value&quot;, textOutput(&quot;atendidos&quot;))
+          )
+        ),
+        
+        column(
+          2,
+          div(
+            class = &quot;metric-card&quot;,
+            div(class = &quot;metric-title&quot;, &quot;Utilización&quot;),
+            div(class = &quot;metric-value&quot;, textOutput(&quot;utilizacion&quot;))
+          )
+        ),
+        
+        column(
+          2,
+          div(
+            class = &quot;metric-card&quot;,
+            div(class = &quot;metric-title&quot;, &quot;Estado&quot;),
+            div(class = &quot;metric-value&quot;, textOutput(&quot;estado_sistema&quot;))
+          )
+        )
+      ),
+      
+      br(),
+      
+      div(
+        class = &quot;estado&quot;,
+        
+        h4(&quot;Interpretación del sistema&quot;),
+        
+        textOutput(&quot;interpretacion&quot;)
+      )
+    )
+  )
+)
+
+# ============================================================
+# SERVIDOR
+# ============================================================
+
+server &lt;- function(input, output, session) {
+  
+  estado &lt;- reactiveValues(
+    
+    tiempo = 0,
+    
+    cola = data.frame(
+      id = integer(),
+      llegada = numeric()
+    ),
+    
+    servicio = data.frame(
+      id = integer(),
+      restante = numeric(),
+      cajero = integer(),
+      llegada = numeric()
+    ),
+    
+    atendidos = 0,
+    
+    siguiente_id = 1,
+    
+    ocupado_total = 0,
+    
+    pausado = FALSE
+  )
+  
+  # ============================================================
+  # TEMPORIZADOR
+  # ============================================================
+  
+  timer &lt;- reactiveTimer(
+    800,
+    session = session
+  )
+  
+  # ============================================================
+  # MOTOR DE SIMULACIÓN
+  # ============================================================
+  
+  observe({
+    
+    timer()
+    
+    req(
+      input$lambda,
+      input$servicio,
+      input$cajeros
+    )
+    
+    isolate({
+      
+      if (estado$pausado) {
+        return()
+      }
+      
+      # --------------------------------------------------------
+      # Avanzar tiempo
+      # --------------------------------------------------------
+      
+      estado$tiempo &lt;- estado$tiempo + 1
+      
+      # --------------------------------------------------------
+      # Registrar ocupación
+      # --------------------------------------------------------
+      
+      estado$ocupado_total &lt;-
+        estado$ocupado_total +
+        nrow(estado$servicio)
+      
+      # --------------------------------------------------------
+      # Reducir tiempo restante de clientes en servicio
+      # --------------------------------------------------------
+      
+      if (nrow(estado$servicio) &gt; 0) {
+        
+        estado$servicio$restante &lt;-
+          estado$servicio$restante - 1
+        
+        finalizados &lt;-
+          estado$servicio$restante &lt;= 0
+        
+        estado$atendidos &lt;-
+          estado$atendidos +
+          sum(finalizados)
+        
+        estado$servicio &lt;-
+          estado$servicio[
+            !finalizados,
+            ,
+            drop = FALSE
+          ]
+      }
+      
+      # --------------------------------------------------------
+      # Generar llegadas
+      # --------------------------------------------------------
+      
+      nuevas_llegadas &lt;-
+        rpois(
+          1,
+          lambda = input$lambda
+        )
+      
+      if (nuevas_llegadas &gt; 0) {
+        
+        ids_nuevos &lt;-
+          seq(
+            from = estado$siguiente_id,
+            length.out = nuevas_llegadas
+          )
+        
+        nuevos_clientes &lt;-
+          data.frame(
+            id = ids_nuevos,
+            llegada = rep(
+              estado$tiempo,
+              nuevas_llegadas
+            )
+          )
+        
+        estado$cola &lt;-
+          bind_rows(
+            estado$cola,
+            nuevos_clientes
+          )
+        
+        estado$siguiente_id &lt;-
+          estado$siguiente_id +
+          nuevas_llegadas
+      }
+      
+      # --------------------------------------------------------
+      # Cajeros disponibles
+      # --------------------------------------------------------
+      
+      todos_cajeros &lt;-
+        seq_len(input$cajeros)
+      
+      cajeros_ocupados &lt;-
+        estado$servicio$cajero
+      
+      cajeros_libres &lt;-
+        setdiff(
+          todos_cajeros,
+          cajeros_ocupados
+        )
+      
+      # --------------------------------------------------------
+      # Pasar clientes de fila a servicio
+      # --------------------------------------------------------
+      
+      while (
+        length(cajeros_libres) &gt; 0 &amp;&amp;
+        nrow(estado$cola) &gt; 0
+      ) {
+        
+        cliente_id &lt;-
+          estado$cola$id[1]
+        
+        llegada_cliente &lt;-
+          estado$cola$llegada[1]
+        
+        estado$cola &lt;-
+          estado$cola[
+            -1,
+            ,
+            drop = FALSE
+          ]
+        
+        cajero &lt;-
+          cajeros_libres[1]
+        
+        duracion &lt;-
+          max(
+            1,
+            ceiling(
+              rexp(
+                1,
+                rate = 1 / input$servicio
+              )
+            )
+          )
+        
+        estado$servicio &lt;-
+          bind_rows(
+            
+            estado$servicio,
+            
+            data.frame(
+              id = cliente_id,
+              restante = duracion,
+              cajero = cajero,
+              llegada = llegada_cliente
+            )
+          )
+        
+        cajeros_ocupados &lt;-
+          estado$servicio$cajero
+        
+        cajeros_libres &lt;-
+          setdiff(
+            todos_cajeros,
+            cajeros_ocupados
+          )
+      }
+    })
+  })
+  
+  # ============================================================
+  # PAUSAR / CONTINUAR
+  # ============================================================
+  
+  observeEvent(
+    input$pausar,
+    {
+      estado$pausado &lt;-
+        !estado$pausado
+    }
+  )
+  
+  # ============================================================
+  # REINICIAR
+  # ============================================================
+  
+  observeEvent(
+    input$reiniciar,
+    {
+      
+      estado$tiempo &lt;- 0
+      
+      estado$cola &lt;-
+        data.frame(
+          id = integer(),
+          llegada = numeric()
+        )
+      
+      estado$servicio &lt;-
+        data.frame(
+          id = integer(),
+          restante = numeric(),
+          cajero = integer(),
+          llegada = numeric()
+        )
+      
+      estado$atendidos &lt;- 0
+      
+      estado$siguiente_id &lt;- 1
+      
+      estado$ocupado_total &lt;- 0
+      
+      estado$pausado &lt;- FALSE
+    }
+  )
+  
+  # ============================================================
+  # VISUALIZACIÓN DEL BANCO
+  # ============================================================
+  
+  output$banco &lt;- renderUI({
+    
+    # ----------------------------------------------------------
+    # Clientes esperando
+    # ----------------------------------------------------------
+    
+    clientes_fila &lt;- NULL
+    
+    if (nrow(estado$cola) == 0) {
+      
+      clientes_fila &lt;-
+        tags$div(
+          style = &quot;
+            font-size:16px;
+            margin-top:30px;
+          &quot;,
+          &quot;No hay clientes esperando&quot;
+        )
+      
+    } else {
+      
+      clientes_fila &lt;-
+        lapply(
+          seq_len(nrow(estado$cola)),
+          function(i) {
+            
+            tags$div(
+              class = &quot;cliente&quot;,
+              
+              tags$div(&quot;🧍&quot;),
+              
+              tags$div(
+                class = &quot;cliente-id&quot;,
+                paste0(
+                  &quot;C&quot;,
+                  estado$cola$id[i]
+                )
+              )
+            )
+          }
+        )
+    }
+    
+    # ----------------------------------------------------------
+    # Construir cajas
+    # ----------------------------------------------------------
+    
+    cajas_ui &lt;-
+      lapply(
+        seq_len(input$cajeros),
+        function(j) {
+          
+          cliente_actual &lt;-
+            estado$servicio[
+              estado$servicio$cajero == j,
+              ,
+              drop = FALSE
+            ]
+          
+          if (nrow(cliente_actual) == 0) {
+            
+            contenido_cliente &lt;-
+              tags$span(
+                class = &quot;libre&quot;,
+                &quot;LIBRE&quot;
+              )
+            
+          } else {
+            
+            contenido_cliente &lt;-
+              tags$span(
+                
+                tags$span(
+                  class = &quot;cliente-atendido&quot;,
+                  &quot;🧍&quot;
+                ),
+                
+                tags$span(
+                  style = &quot;
+                    font-size:12px;
+                    margin-left:5px;
+                  &quot;,
+                  paste0(
+                    &quot;C&quot;,
+                    cliente_actual$id,
+                    &quot; · &quot;,
+                    cliente_actual$restante,
+                    &quot; min&quot;
+                  )
+                )
+              )
+          }
+          
+          tags$div(
+            class = &quot;caja&quot;,
+            
+            tags$div(
+              class = &quot;caja-titulo&quot;,
+              paste(
+                &quot;Caja&quot;,
+                j
+              )
+            ),
+            
+            tags$span(
+              class = &quot;cajero&quot;,
+              &quot;🧑‍💼&quot;
+            ),
+            
+            contenido_cliente
+          )
+        }
+      )
+    
+    # ----------------------------------------------------------
+    # Banco
+    # ----------------------------------------------------------
+    
+    div(
+      class = &quot;banco&quot;,
+      
+      tags$div(
+        style = &quot;
+          text-align:center;
+          font-size:22px;
+          font-weight:bold;
+        &quot;,
+        &quot;Sucursal Bancaria&quot;
+      ),
+      
+      tags$div(
+        class = &quot;entrada&quot;,
+        
+        tags$div(
+          class = &quot;zona-titulo&quot;,
+          &quot;Entrada&quot;
+        ),
+        
+        tags$div(
+          class = &quot;persona-grande&quot;,
+          &quot;🚶&quot;
+        ),
+        
+        tags$div(
+          &quot;↓&quot;
+        )
+      ),
+      
+      tags$div(
+        class = &quot;fila&quot;,
+        
+        tags$div(
+          style = &quot;
+            width:100%;
+            font-weight:bold;
+            margin-bottom:8px;
+          &quot;,
+          paste0(
+            &quot;Fila de espera: &quot;,
+            nrow(estado$cola),
+            &quot; clientes&quot;
+          )
+        ),
+        
+        clientes_fila
+      ),
+      
+      tags$div(
+        class = &quot;cajeros&quot;,
+        
+        tags$div(
+          class = &quot;zona-titulo&quot;,
+          &quot;Puestos de atención&quot;
+        ),
+        
+        cajas_ui
+      ),
+      
+      tags$div(
+        class = &quot;salida&quot;,
+        
+        tags$div(
+          class = &quot;persona-grande&quot;,
+          &quot;🚶&quot;
+        ),
+        
+        tags$div(
+          &quot;Salida&quot;
+        )
+      )
+    )
+  })
+  
+  # ============================================================
+  # INDICADORES
+  # ============================================================
+  
+  output$tiempo &lt;- renderText({
+    
+    paste0(
+      estado$tiempo,
+      &quot; min&quot;
+    )
+  })
+  
+  output$ncola &lt;- renderText({
+    
+    nrow(
+      estado$cola
+    )
+  })
+  
+  output$servicio_actual &lt;- renderText({
+    
+    nrow(
+      estado$servicio
+    )
+  })
+  
+  output$atendidos &lt;- renderText({
+    
+    estado$atendidos
+  })
+  
+  # ============================================================
+  # UTILIZACIÓN
+  # ============================================================
+  
+  output$utilizacion &lt;- renderText({
+    
+    if (
+      estado$tiempo == 0 ||
+      input$cajeros == 0
+    ) {
+      
+      return(&quot;0 %&quot;)
+    }
+    
+    util &lt;-
+      estado$ocupado_total /
+      (
+        estado$tiempo *
+          input$cajeros
+      )
+    
+    util &lt;-
+      min(
+        1,
+        util
+      )
+    
+    paste0(
+      round(
+        100 * util,
+        1
+      ),
+      &quot; %&quot;
+    )
+  })
+  
+  # ============================================================
+  # ESTADO DEL SISTEMA
+  # ============================================================
+  
+  output$estado_sistema &lt;- renderText({
+    
+    lambda &lt;-
+      input$lambda
+    
+    mu &lt;-
+      1 / input$servicio
+    
+    capacidad &lt;-
+      input$cajeros * mu
+    
+    rho &lt;-
+      lambda / capacidad
+    
+    if (rho &lt; 0.7) {
+      
+      &quot;Estable&quot;
+      
+    } else if (rho &lt; 1) {
+      
+      &quot;Alta carga&quot;
+      
+    } else {
+      
+      &quot;Saturado&quot;
+    }
+  })
+  
+  # ============================================================
+  # INTERPRETACIÓN
+  # ============================================================
+  
+  output$interpretacion &lt;- renderText({
+    
+    lambda &lt;-
+      input$lambda
+    
+    mu &lt;-
+      1 / input$servicio
+    
+    capacidad &lt;-
+      input$cajeros * mu
+    
+    rho &lt;-
+      lambda / capacidad
+    
+    paste0(
+      
+      &quot;La tasa de llegada es λ = &quot;,
+      round(lambda, 2),
+      &quot; clientes/min. &quot;,
+      
+      &quot;Cada cajero tiene una tasa promedio de servicio μ = &quot;,
+      round(mu, 2),
+      &quot; clientes/min. &quot;,
+      
+      &quot;Con &quot;,
+      input$cajeros,
+      &quot; cajero(s), la capacidad total aproximada es &quot;,
+      round(capacidad, 2),
+      &quot; clientes/min. &quot;,
+      
+      &quot;La intensidad de tráfico es ρ = &quot;,
+      round(rho, 2),
+      &quot;. &quot;,
+      
+      if (rho &lt; 1) {
+        
+        &quot;Como ρ &lt; 1, el sistema tiene capacidad promedio suficiente para atender la demanda.&quot;
+        
+      } else {
+        
+        &quot;Como ρ ≥ 1, la demanda iguala o supera la capacidad de atención y la fila tenderá a crecer.&quot;
+      }
+    )
+  })
+}
+
+# ============================================================
+# EJECUTAR APP
+# ============================================================
+
+shinyApp(
+  ui = ui,
+  server = server
+)</code></pre>
+<div style="width: 100% ; height: 400px ; text-align: center; box-sizing: border-box; -moz-box-sizing: border-box; -webkit-box-sizing: border-box;" class="muted well">Shiny applications not supported in static R Markdown documents</div>
 </div>
 
 <style>
