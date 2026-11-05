@@ -1,0 +1,486 @@
+---
+title: "Laboratorio: construcción progresiva de un gemelo digital con Shiny"
+subtitle: "Teoría de Probabilidades · Cafetería universitaria · De cero a un tablero interactivo"
+author: "Material de aprendizaje — curso013"
+output:
+  html_document:
+    theme: flatly
+    toc: true
+    toc_depth: 3
+    toc_float: true
+    number_sections: true
+    code_folding: show
+    df_print: paged
+    self_contained: true
+    css: null
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+```
+
+> **Propósito.** Construir paso a paso un prototipo de gemelo digital de una cafetería universitaria. Cada versión funciona por sí sola: copie el código indicado en un archivo `app.R` y ejecútelo. La guía se puede publicar como HTML en GitHub Pages, pero las aplicaciones Shiny requieren ejecutarse en R local o en un servidor compatible.
+
+> **Alcance.** Primero se trabaja con un solo servidor y una fila FIFO. Los tiempos **entre llegadas** son exponenciales y los tiempos de **servicio** se generan con una normal positiva aproximada. El modelo es inicialmente una **simulación digital**; se convierte en un gemelo digital del sistema real cuando se alimenta y calibra con mediciones de la cafetería.
+
+# Organización del laboratorio
+
+| Etapa | Producto | Concepto central |
+|:--|:--|:--|
+| 0 | Entorno preparado | Instalación y ejecución |
+| 1 | Tablero mínimo | Interfaz y reactividad |
+| 2 | Simulador de 20 clientes | Llegadas, servicio y espera |
+| 3 | Gráficos e indicadores | Análisis de la fila |
+| 4 | Escenarios comparables | Experimentación y Monte Carlo |
+| 5 | Datos observados y calibración | Aproximación al gemelo digital |
+
+**Duración sugerida:** dos sesiones de 90 minutos para construir las etapas 1 a 3; las etapas 4 y 5 son ampliaciones o trabajo autónomo. Para cada versión, conserve una copia en una carpeta distinta (`v1`, `v2`, etc.).
+
+# 0. Preparación del entorno
+
+1. Abra RStudio o Positron en Ubuntu.
+2. En la consola de R, instale Shiny y ggplot2 una sola vez:
+
+```{r instalar, eval=FALSE}
+install.packages(c("shiny", "ggplot2"))
+```
+
+3. Cree una carpeta llamada `gemelo_cafeteria` y, dentro, un archivo **`app.R`**.
+4. Copie el código de una versión completa en `app.R`, guarde y ejecute:
+
+```{r ejecutar, eval=FALSE}
+shiny::runApp("gemelo_cafeteria")
+```
+
+Si la consola ya está situada dentro de `gemelo_cafeteria`, puede usar `shiny::runApp()` sin argumentos o pulsar **Run App**. **No** ejecute las aplicaciones dentro de los chunks del Rmd: los ejemplos están marcados `eval=FALSE` para que la página HTML se genere sin abrir aplicaciones.
+
+# 1. Versión 1: tablero mínimo
+
+**Objetivo:** reconocer `ui`, `server`, `fluidPage()`, `sliderInput()` y `renderText()`.
+
+```{r version1, eval=FALSE}
+library(shiny)
+
+ui <- fluidPage(
+  titlePanel("Cafetería universitaria | Versión 1"),
+  sidebarLayout(
+    sidebarPanel(
+      sliderInput("n", "Número de clientes:",
+                  min = 5, max = 100, value = 20, step = 1)
+    ),
+    mainPanel(
+      h3("Mi primer tablero"),
+      textOutput("mensaje")
+    )
+  )
+)
+
+server <- function(input, output, session) {
+  output$mensaje <- renderText({
+    paste("El modelo representará", input$n, "clientes.")
+  })
+}
+
+shinyApp(ui, server)
+```
+
+**¿Qué hace cada componente?** `ui` define lo que ve el estudiante; `server` contiene los cálculos; `input$n` recibe el valor del control; `renderText()` actualiza el resultado sin recargar la página; `shinyApp()` pone en marcha la aplicación.
+
+**Prueba:** mueva el control de 20 a 40. ¿Qué cambia? ¿Se está simulando todavía una fila? **No**: únicamente existe una interfaz reactiva.
+
+# 2. Versión 2: simulación de una fila FIFO
+
+**Objetivo:** representar 20 clientes con intervalos entre llegadas exponenciales y tiempos de servicio normales, y calcular los eventos de una fila con un servidor.
+
+## 2.1. Modelo matemático
+
+Sea $B_i$ el tiempo entre llegadas del cliente $i$ y $S_i$ su tiempo de servicio. Suponemos:
+
+$$B_i \sim \mathrm{Exp}(\lambda = 1/\mu_A), \qquad S_i \approx \max\{0,N(\mu_S,\sigma_S^2)\}. $$
+
+La aproximación con `pmax(0, rnorm(...))` evita tiempos negativos; no es una normal estrictamente truncada. En la práctica de clase, con media 2,5 y desviación 0,5, el efecto es despreciable.
+
+Definimos $C_i$ (llegada acumulada), $E_i$ (inicio de atención), $G_i$ (fin), $W_i$ (espera) y $T_i$ (permanencia total):
+
+$$ C_i = \sum_{j=1}^i B_j, \quad E_1=C_1, \quad E_i=\max(C_i,G_{i-1})\quad(i>1). $$
+$$ W_i=E_i-C_i, \qquad G_i=E_i+S_i, \qquad T_i=G_i-C_i. $$
+
+**Advertencia:** la distribución exponencial describe los *intervalos* entre llegadas, no los instantes acumulados de llegada ni el tiempo de espera.
+
+## 2.2. Aplicación completa `app.R`
+
+```{r version2, eval=FALSE}
+library(shiny)
+
+simular_fila <- function(n, media_llegadas, media_servicio,
+                         sd_servicio, semilla = 123) {
+  set.seed(semilla)
+  entre_llegadas <- rexp(n, rate = 1 / media_llegadas)
+  servicio <- pmax(0, rnorm(n, mean = media_servicio,
+                            sd = sd_servicio))
+  llegada <- cumsum(entre_llegadas)
+  inicio <- fin <- numeric(n)
+  for (i in seq_len(n)) {
+    inicio[i] <- if (i == 1) llegada[i] else max(llegada[i], fin[i - 1])
+    fin[i] <- inicio[i] + servicio[i]
+  }
+  data.frame(cliente = seq_len(n), entre_llegadas, llegada,
+             servicio, inicio, espera = inicio - llegada,
+             fin, total = fin - llegada)
+}
+
+ui <- fluidPage(
+  titlePanel("Cafetería | Versión 2: fila FIFO"),
+  sidebarLayout(
+    sidebarPanel(
+      numericInput("n", "Clientes:", 20, min = 1, max = 500),
+      numericInput("a", "Media entre llegadas (min):", 3, min = 0.1),
+      numericInput("s", "Media del servicio (min):", 2.5, min = 0.1),
+      numericInput("sd", "Desviación del servicio (min):", 0.5, min = 0),
+      numericInput("seed", "Semilla:", 123, min = 1),
+      actionButton("simular", "Simular")
+    ),
+    mainPanel(h4("Eventos por cliente (minutos)"),
+              tableOutput("tabla"))
+  )
+)
+
+server <- function(input, output, session) {
+  datos <- eventReactive(input$simular, {
+    simular_fila(input$n, input$a, input$s, input$sd, input$seed)
+  }, ignoreNULL = FALSE)
+  output$tabla <- renderTable(round(data.frame(
+    cliente = datos()$cliente,
+    entre_llegadas = datos()$entre_llegadas,
+    llegada = datos()$llegada,
+    servicio = datos()$servicio,
+    inicio = datos()$inicio,
+    espera = datos()$espera,
+    fin = datos()$fin,
+    total = datos()$total), 2))
+}
+
+shinyApp(ui, server)
+```
+
+**Explicación.** `rexp()` genera intervalos exponenciales, `rnorm()` genera tiempos de servicio, `cumsum()` acumula los instantes de llegada y el ciclo `for` garantiza que cada cliente comience cuando haya llegado **y** el servidor esté libre. `eventReactive()` ejecuta la simulación al pulsar el botón; `set.seed()` permite reproducir la misma realización.
+
+**Comprobación manual:** en cualquier fila debe cumplirse `espera >= 0` y `total = espera + servicio` (salvo redondeo visual). El primer cliente siempre tiene espera cero.
+
+# 3. Versión 3: indicadores y visualizaciones
+
+**Objetivo:** convertir la tabla en un tablero de análisis. Se agrega un histograma de esperas, una curva de llegadas y salidas y métricas básicas.
+
+**Instrucción:** reemplace **todo** el contenido de `app.R` por esta versión; no es necesario conservar el código anterior.
+
+```{r version3, eval=FALSE}
+library(shiny)
+library(ggplot2)
+
+simular_fila <- function(n, media_llegadas, media_servicio,
+                         sd_servicio, semilla = 123) {
+  set.seed(semilla)
+  b <- rexp(n, rate = 1 / media_llegadas)
+  s <- pmax(0, rnorm(n, media_servicio, sd_servicio))
+  c <- cumsum(b)
+  e <- g <- numeric(n)
+  for (i in seq_len(n)) {
+    e[i] <- if (i == 1) c[i] else max(c[i], g[i - 1])
+    g[i] <- e[i] + s[i]
+  }
+  data.frame(cliente = seq_len(n), entre_llegadas = b,
+             llegada = c, servicio = s, inicio = e,
+             espera = e - c, fin = g, total = g - c)
+}
+
+ui <- fluidPage(
+  titlePanel("Cafetería | Versión 3: indicadores"),
+  sidebarLayout(
+    sidebarPanel(
+      numericInput("n", "Clientes", 20, min = 1, max = 500),
+      numericInput("a", "Media entre llegadas", 3, min = 0.1),
+      numericInput("s", "Media servicio", 2.5, min = 0.1),
+      numericInput("sd", "Desviación servicio", 0.5, min = 0),
+      numericInput("seed", "Semilla", 123, min = 1),
+      actionButton("go", "Actualizar simulación")
+    ),
+    mainPanel(
+      h4("Indicadores de los clientes simulados"),
+      verbatimTextOutput("resumen"),
+      plotOutput("histograma", height = "260px"),
+      plotOutput("eventos", height = "280px"),
+      h4("Tabla de eventos"), tableOutput("tabla")
+    )
+  )
+)
+
+server <- function(input, output, session) {
+  d <- eventReactive(input$go, {
+    simular_fila(input$n, input$a, input$s, input$sd, input$seed)
+  }, ignoreNULL = FALSE)
+  output$resumen <- renderPrint({
+    x <- d()
+    cat("Espera media:", round(mean(x$espera), 2), "min\n")
+    cat("Servicio medio:", round(mean(x$servicio), 2), "min\n")
+    cat("Tiempo total medio:", round(mean(x$total), 2), "min\n")
+    cat("Espera máxima:", round(max(x$espera), 2), "min\n")
+    cat("Proporción que espera:", round(mean(x$espera > 0), 3), "\n")
+  })
+  output$histograma <- renderPlot({
+    ggplot(d(), aes(x = espera)) +
+      geom_histogram(bins = 12, fill = "grey75", color = "black") +
+      labs(title = "Distribución de las esperas", x = "Minutos", y = "Clientes") +
+      theme_minimal()
+  })
+  output$eventos <- renderPlot({
+    x <- d()
+    plot(x$cliente, x$llegada, type = "b", pch = 16,
+         xlab = "Cliente", ylab = "Minuto acumulado",
+         main = "Llegada y finalización por cliente")
+    lines(x$cliente, x$fin, type = "b", pch = 1, lty = 2)
+    legend("topleft", c("Llegada", "Fin"), pch = c(16, 1),
+           lty = c(1, 2), bty = "n")
+  })
+  output$tabla <- renderTable(round(d(), 2))
+}
+
+shinyApp(ui, server)
+```
+
+**Interpretación:** el histograma muestra la distribución empírica de las esperas; la separación vertical entre las curvas de fin y llegada de un mismo cliente es su permanencia total. La proporción que espera es una estimación basada en esta única realización, **no** una probabilidad exacta.
+
+# 4. Versión 4: escenarios y réplicas de Monte Carlo
+
+**Objetivo:** comparar dos políticas con los **mismos números aleatorios subyacentes** y resumir varias réplicas. Esto ayuda a distinguir variabilidad aleatoria de efectos debidos a los parámetros.
+
+En este ejemplo, el escenario B reduce el tiempo medio de servicio. Se utiliza la misma semilla en A y B para que la comparación sea más estable. Cada réplica emplea una semilla diferente.
+
+```{r version4, eval=FALSE}
+library(shiny)
+library(ggplot2)
+
+simular_fila <- function(n, media_llegadas, media_servicio,
+                         sd_servicio, semilla) {
+  set.seed(semilla)
+  # Los mismos U y Z generan escenarios comparables.
+  u <- runif(n)
+  z <- rnorm(n)
+  b <- -media_llegadas * log(u)
+  s <- pmax(0, media_servicio + sd_servicio * z)
+  llegada <- cumsum(b)
+  inicio <- fin <- numeric(n)
+  for (i in seq_len(n)) {
+    inicio[i] <- if (i == 1) llegada[i] else max(llegada[i], fin[i-1])
+    fin[i] <- inicio[i] + s[i]
+  }
+  data.frame(cliente = seq_len(n), llegada, servicio = s,
+             espera = inicio - llegada, total = fin - llegada)
+}
+
+ui <- fluidPage(
+  titlePanel("Cafetería | Versión 4: experimentación"),
+  sidebarLayout(
+    sidebarPanel(
+      numericInput("n", "Clientes por réplica", 20, min = 2, max = 1000),
+      numericInput("a", "Media entre llegadas", 3, min = 0.1),
+      numericInput("sA", "Servicio medio A", 2.5, min = 0.1),
+      numericInput("sB", "Servicio medio B", 2.0, min = 0.1),
+      numericInput("sd", "Desviación del servicio", 0.5, min = 0),
+      numericInput("R", "Réplicas", 100, min = 1, max = 2000),
+      numericInput("seed", "Semilla base", 123, min = 1),
+      actionButton("go", "Comparar escenarios")
+    ),
+    mainPanel(
+      h4("Indicadores promedio entre réplicas"),
+      tableOutput("resumen"),
+      plotOutput("comparacion"),
+      h4("Resultados por réplica"), tableOutput("detalle")
+    )
+  )
+)
+
+server <- function(input, output, session) {
+  resultados <- eventReactive(input$go, {
+    do.call(rbind, lapply(seq_len(input$R), function(r) {
+      semilla <- input$seed + r - 1
+      a <- simular_fila(input$n, input$a, input$sA, input$sd, semilla)
+      b <- simular_fila(input$n, input$a, input$sB, input$sd, semilla)
+      data.frame(replica = r, escenario = c("A", "B"),
+                 espera_media = c(mean(a$espera), mean(b$espera)),
+                 total_medio = c(mean(a$total), mean(b$total)),
+                 prob_esperar = c(mean(a$espera > 0), mean(b$espera > 0)))
+    }))
+  }, ignoreNULL = FALSE)
+  output$resumen <- renderTable({
+    x <- resultados()
+    resumen <- aggregate(cbind(espera_media, total_medio, prob_esperar) ~ escenario,
+                         data = x, FUN = mean)
+    resumen[, -1] <- round(resumen[, -1], 3)
+    resumen
+  })
+  output$comparacion <- renderPlot({
+    ggplot(resultados(), aes(x = escenario, y = espera_media)) +
+      geom_boxplot(fill = "grey85") +
+      labs(x = "Escenario", y = "Espera media (min)",
+           title = "Variación entre réplicas") + theme_minimal()
+  })
+  output$detalle <- renderTable(head(resultados(), 12), digits = 3)
+}
+
+shinyApp(ui, server)
+```
+
+**Preguntas:** ¿cuánto cambia la espera media al reducir el servicio? ¿Por qué los resultados no son idénticos entre réplicas? ¿Qué ocurre si se aumentan las réplicas de 20 a 200?
+
+# 5. Versión 5: calibración con datos observados
+
+**Objetivo:** conectar la simulación con mediciones reales de la cafetería. En una primera fase puede utilizarse un archivo CSV con dos columnas: `entre_llegadas` y `servicio`, ambas en minutos y con valores positivos.
+
+**Ejemplo de CSV** (guardar como `observaciones.csv`):
+
+```text
+entre_llegadas,servicio
+2.8,2.3
+3.1,2.7
+1.9,2.4
+4.0,3.0
+2.5,2.6
+```
+
+El siguiente `app.R` permite cargar el CSV, estimar la media de los intervalos y la media/desviación de los servicios, y ejecutar una simulación con esos parámetros. Es una **calibración por momentos**, no una validación completa ni una sincronización en tiempo real.
+
+```{r version5, eval=FALSE}
+library(shiny)
+library(ggplot2)
+
+simular <- function(n, media_a, media_s, sd_s, semilla) {
+  set.seed(semilla)
+  b <- rexp(n, rate = 1/media_a)
+  s <- pmax(0, rnorm(n, media_s, sd_s))
+  llegada <- cumsum(b)
+  inicio <- fin <- numeric(n)
+  for (i in seq_len(n)) {
+    inicio[i] <- if (i == 1) llegada[i] else max(llegada[i], fin[i-1])
+    fin[i] <- inicio[i] + s[i]
+  }
+  data.frame(cliente = seq_len(n), llegada, servicio = s,
+             espera = inicio-llegada, fin, total = fin-llegada)
+}
+
+ui <- fluidPage(
+  titlePanel("Cafetería | Versión 5: calibración"),
+  sidebarLayout(
+    sidebarPanel(
+      fileInput("archivo", "CSV de observaciones", accept = ".csv"),
+      numericInput("n", "Clientes simulados", 20, min = 1, max = 1000),
+      numericInput("seed", "Semilla", 123, min = 1),
+      actionButton("go", "Simular con parámetros estimados")
+    ),
+    mainPanel(
+      h4("Parámetros estimados"), tableOutput("parametros"),
+      h4("Indicadores simulados"), tableOutput("indicadores"),
+      plotOutput("histograma"),
+      h4("Eventos simulados"), tableOutput("tabla")
+    )
+  )
+)
+
+server <- function(input, output, session) {
+  observaciones <- reactive({
+    req(input$archivo)
+    x <- read.csv(input$archivo$datapath)
+    validate(need(all(c("entre_llegadas", "servicio") %in% names(x)),
+                  "El CSV debe contener entre_llegadas y servicio."))
+    x <- x[complete.cases(x[, c("entre_llegadas", "servicio")]), ]
+    validate(need(nrow(x) >= 2, "Se necesitan al menos dos observaciones completas."),
+             need(is.numeric(x$entre_llegadas) && is.numeric(x$servicio),
+                  "Las columnas deben ser numéricas."),
+             need(all(x$entre_llegadas > 0) && all(x$servicio > 0),
+                  "Los tiempos observados deben ser positivos."))
+    x
+  })
+  parametros <- reactive({
+    x <- observaciones()
+    list(a = mean(x$entre_llegadas), s = mean(x$servicio),
+         sd = sd(x$servicio))
+  })
+  output$parametros <- renderTable({
+    p <- parametros()
+    data.frame(parametro = c("Media entre llegadas", "Media servicio", "DE servicio"),
+               minutos = round(c(p$a, p$s, p$sd), 3))
+  })
+  datos <- eventReactive(input$go, {
+    p <- parametros()
+    simular(input$n, p$a, p$s, p$sd, input$seed)
+  })
+  output$indicadores <- renderTable({
+    x <- datos()
+    data.frame(indicador = c("Espera media", "Total medio", "Proporción que espera"),
+               valor = round(c(mean(x$espera), mean(x$total),
+                               mean(x$espera > 0)), 3))
+  })
+  output$histograma <- renderPlot({
+    ggplot(datos(), aes(espera)) +
+      geom_histogram(bins = 12, fill = "grey80", color = "black") +
+      labs(title = "Espera simulada", x = "Minutos", y = "Clientes") +
+      theme_minimal()
+  })
+  output$tabla <- renderTable(head(datos(), 20), digits = 2)
+}
+
+shinyApp(ui, server)
+```
+
+**Para aproximarse a un gemelo digital real:** registrar observaciones en distintos horarios, comprobar el ajuste de las distribuciones, comparar tiempos de espera **observados** con simulados, recalibrar periódicamente y documentar cambios de operación. Una actualización automática requeriría una fuente de datos conectada y no está implementada en esta versión.
+
+# 6. Actividades de aprendizaje
+
+## Sesión A (90 minutos): versiones 1 y 2
+
+- **15 min:** identificar componentes de Shiny y ejecutar la versión 1.
+- **20 min:** relacionar las variables del modelo con las columnas de Excel.
+- **40 min:** ejecutar la versión 2, verificar fórmulas y observar 20 clientes.
+- **15 min:** responder: ¿por qué `inicio = max(llegada, fin anterior)`?
+
+**Entregable:** captura del tablero y tabla con 20 clientes; comprobar manualmente las primeras tres filas.
+
+## Sesión B (90 minutos): versión 3 y exploración
+
+- **20 min:** incorporar y explicar indicadores.
+- **30 min:** interpretar los dos gráficos.
+- **25 min:** comparar medias entre llegadas de 3 y 2 minutos, manteniendo la semilla.
+- **15 min:** redactar conclusiones y discutir limitaciones.
+
+**Entregable:** aplicación de la versión 3 y una tabla de comparación de escenarios. Las versiones 4 y 5 pueden emplearse como ampliación.
+
+# 7. Lista de verificación y evaluación
+
+- [ ] La aplicación abre sin errores.
+- [ ] Se simulan exactamente 20 clientes cuando `n = 20`.
+- [ ] Los tiempos entre llegadas y los tiempos de servicio se generan correctamente.
+- [ ] Los instantes de llegada están ordenados.
+- [ ] Los tiempos de espera no son negativos.
+- [ ] Para cada cliente se cumple `total = espera + servicio`.
+- [ ] Los controles permiten modificar los parámetros y ejecutar otra simulación.
+- [ ] Se interpretan indicadores y gráficos sin confundir simulación con observación.
+- [ ] Se explican los supuestos y las limitaciones del modelo.
+
+**Rúbrica sugerida:** formulación probabilística (30 %), simulación correcta (30 %), interfaz y gráficos (20 %), interpretación y validación (20 %).
+
+# 8. Problemas frecuentes
+
+**`there is no package called 'shiny'`:** ejecute `install.packages("shiny")` en la consola de R.
+
+**`object 'input' not found`:** el código de `input` debe estar dentro de `server` y de un contexto reactivo.
+
+**`could not find function 'ggplot'`:** instale y cargue `ggplot2`.
+
+**El tablero no cambia al mover los controles:** en las versiones 2 a 5, pulse el botón de simulación.
+
+**La guía HTML no muestra una aplicación funcionando:** es lo esperado; GitHub Pages sirve contenido estático. Ejecute el archivo `app.R` en RStudio/Positron o despliegue la aplicación en un servicio Shiny.
+
+**La aplicación se detiene al leer el CSV:** verifique nombres exactos de columnas, separador de comas y valores numéricos con punto decimal. Si el archivo utiliza punto y coma y coma decimal, adapte la lectura con `read.csv2()`.
+
+# 9. Reflexión final
+
+Una **simulación** reproduce el comportamiento de un sistema bajo supuestos. Un **gemelo digital** requiere, además, una relación verificable con el sistema físico mediante datos observados, calibración y actualización. El proyecto debe documentar qué parte es un supuesto y qué parte se sustenta en mediciones reales.

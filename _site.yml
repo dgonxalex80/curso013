@@ -149,7 +149,9 @@ navbar:
       href: taller-441A.html
     - text: Taller 421
       href: taller421.html      
-
+    - text: Taller 422
+      href: taller422.html   
+      
   - text: Proyecto
     menu:
     - text: Guía proyecto

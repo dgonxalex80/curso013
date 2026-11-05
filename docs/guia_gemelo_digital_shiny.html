@@ -1,0 +1,1407 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Material de aprendizaje — curso013" />
+
+
+<title>Laboratorio: construcción progresiva de un gemelo digital con Shiny</title>
+
+<script src="site_libs/header-attrs/header-attrs.js"></script>
+<script src="site_libs/jquery/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui/jquery-ui.min.js"></script>
+<link href="site_libs/tocify/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify/jquery.tocify.js"></script>
+<script src="site_libs/navigation/tabsets.js"></script>
+<script src="site_libs/navigation/codefolding.js"></script>
+<link href="site_libs/highlightjs/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs/highlight.js"></script>
+<link href="site_libs/pagedtable/css/pagedtable.css" rel="stylesheet" />
+<script src="site_libs/pagedtable/js/pagedtable.js"></script>
+<link href="site_libs/font-awesome/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome/css/v4-shims.min.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html"> </a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">
+    <span class="fa fa-home"></span>
+     
+    Estadística
+  </a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 0
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo0.html">Módulo 0</a>
+    </li>
+    <li>
+      <a href="sumatoria.html">Sumatoria</a>
+    </li>
+    <li>
+      <a href="productoria.html">Productoria</a>
+    </li>
+    <li>
+      <a href="conjuntos.html">Conjuntos</a>
+    </li>
+    <li>
+      <a href="conteo.html">Conteo</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 1
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo1.html">Módulo 1</a>
+    </li>
+    <li>
+      <a href="#">Unidad 1.1</a>
+    </li>
+    <li>
+      <a href="guia11.html">Guía 1.1</a>
+    </li>
+    <li>
+      <a href="recurso11.html">Recursos 1.1</a>
+    </li>
+    <li>
+      <a href="basesdatos.html">Bases de datos</a>
+    </li>
+    <li>
+      <a href="introduccionR.html">Introducción a R</a>
+    </li>
+    <li>
+      <a href="codigo11.html">Código 1.1</a>
+    </li>
+    <li>
+      <a href="#">Unidad 1.2</a>
+    </li>
+    <li>
+      <a href="guia12.html">Guía 1.2</a>
+    </li>
+    <li>
+      <a href="recurso12.html">Recursos 1.2</a>
+    </li>
+    <li>
+      <a href="codigo12.html">Código 1.2</a>
+    </li>
+    <li>
+      <a href="caso1A.html">Caso 1</a>
+    </li>
+    <li>
+      <a href="caso1B.html">Caso 2</a>
+    </li>
+    <li>
+      <a href="#">Unidad 1.3</a>
+    </li>
+    <li>
+      <a href="guia13.html">Guía 1.3</a>
+    </li>
+    <li>
+      <a href="recurso13.html">Recursos 1.3</a>
+    </li>
+    <li>
+      <a href="codigo13.html">Código 1.3</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="monitoria1.html">Monitoría 1</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 2
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo2.html">Módulo 2</a>
+    </li>
+    <li>
+      <a href="#">Unidad 2.1</a>
+    </li>
+    <li>
+      <a href="guia21.html">Guía 2.1</a>
+    </li>
+    <li>
+      <a href="recurso21.html">Recursos 2.1</a>
+    </li>
+    <li>
+      <a href="codigo21.html">Código 2.1</a>
+    </li>
+    <li>
+      <a href="taller211.html">Taller 211</a>
+    </li>
+    <li>
+      <a href="#">Unidad 2.2</a>
+    </li>
+    <li>
+      <a href="guia22.html">Guía 2.2</a>
+    </li>
+    <li>
+      <a href="recurso22.html">Recursos 2.2</a>
+    </li>
+    <li>
+      <a href="taller221.html">Taller 221</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="monitoria2.html">Monitoría 2</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 3
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo3.html">Módulo 3</a>
+    </li>
+    <li>
+      <a href="#">Unidad 3.1</a>
+    </li>
+    <li>
+      <a href="guia31.html">Guía 3.1</a>
+    </li>
+    <li>
+      <a href="recurso31.html">Recursos 3.1</a>
+    </li>
+    <li>
+      <a href="codigo31.html">Código 3.1</a>
+    </li>
+    <li>
+      <a href="taller311.html">Taller 311</a>
+    </li>
+    <li>
+      <a href="#">Unidad 3.2</a>
+    </li>
+    <li>
+      <a href="guia32.html">Guía 3.2</a>
+    </li>
+    <li>
+      <a href="recurso32.html">Recursos 3.2</a>
+    </li>
+    <li>
+      <a href="codigo32.html">Código 3.2</a>
+    </li>
+    <li>
+      <a href="taller321.html">Taller 321</a>
+    </li>
+    <li>
+      <a href="#">Unidad 3.3</a>
+    </li>
+    <li>
+      <a href="guia33.html">Guía 3.3</a>
+    </li>
+    <li>
+      <a href="recurso33-discretas.html">Recursos 3.3-discretas</a>
+    </li>
+    <li>
+      <a href="codigo33_discretas.html">Código 3.3 discretas</a>
+    </li>
+    <li>
+      <a href="taller331.html">Taller 331-discretas</a>
+    </li>
+    <li>
+      <a href="#">Unidad 3.4</a>
+    </li>
+    <li>
+      <a href="guia34.html">Guía 3.4</a>
+    </li>
+    <li>
+      <a href="recurso33-continuos.html">Recursos 3.4-continuas</a>
+    </li>
+    <li>
+      <a href="codigo33_continuos.html">Código 3.4 continuos</a>
+    </li>
+    <li>
+      <a href="taller341_modelos_continuos.html">Taller 341-continuos</a>
+    </li>
+    <li>
+      <a href="actividad334.html">Asignación A334</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="monitoria3.html">Monitoría 3</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Módulo 4
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="modulo4.html">Módulo 4</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="#">Unidad 4.1</a>
+    </li>
+    <li>
+      <a href="guia41.html">Guía 4.1</a>
+    </li>
+    <li>
+      <a href="recurso41.html">Recursos 4.1</a>
+    </li>
+    <li>
+      <a href="codigo41.html">Código 4.1</a>
+    </li>
+    <li>
+      <a href="taller-441A.html">Taller 411</a>
+    </li>
+    <li>
+      <a href="taller421.html">Taller 421</a>
+    </li>
+    <li>
+      <a href="taller422.html">Taller 422</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Proyecto
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="guia_proyecto1.html">Guía proyecto</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore">Laboratorio: construcción progresiva de un
+gemelo digital con Shiny</h1>
+<h3 class="subtitle">Teoría de Probabilidades · Cafetería universitaria
+· De cero a un tablero interactivo</h3>
+<h4 class="author">Material de aprendizaje — curso013</h4>
+
+</div>
+
+
+<blockquote>
+<p><strong>Propósito.</strong> Construir paso a paso un prototipo de
+gemelo digital de una cafetería universitaria. Cada versión funciona por
+sí sola: copie el código indicado en un archivo <code>app.R</code> y
+ejecútelo. La guía se puede publicar como HTML en GitHub Pages, pero las
+aplicaciones Shiny requieren ejecutarse en R local o en un servidor
+compatible.</p>
+</blockquote>
+<blockquote>
+<p><strong>Alcance.</strong> Primero se trabaja con un solo servidor y
+una fila FIFO. Los tiempos <strong>entre llegadas</strong> son
+exponenciales y los tiempos de <strong>servicio</strong> se generan con
+una normal positiva aproximada. El modelo es inicialmente una
+<strong>simulación digital</strong>; se convierte en un gemelo digital
+del sistema real cuando se alimenta y calibra con mediciones de la
+cafetería.</p>
+</blockquote>
+<div id="organización-del-laboratorio" class="section level1"
+number="1">
+<h1><span class="header-section-number">1</span> Organización del
+laboratorio</h1>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Etapa</th>
+<th align="left">Producto</th>
+<th align="left">Concepto central</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">0</td>
+<td align="left">Entorno preparado</td>
+<td align="left">Instalación y ejecución</td>
+</tr>
+<tr class="even">
+<td align="left">1</td>
+<td align="left">Tablero mínimo</td>
+<td align="left">Interfaz y reactividad</td>
+</tr>
+<tr class="odd">
+<td align="left">2</td>
+<td align="left">Simulador de 20 clientes</td>
+<td align="left">Llegadas, servicio y espera</td>
+</tr>
+<tr class="even">
+<td align="left">3</td>
+<td align="left">Gráficos e indicadores</td>
+<td align="left">Análisis de la fila</td>
+</tr>
+<tr class="odd">
+<td align="left">4</td>
+<td align="left">Escenarios comparables</td>
+<td align="left">Experimentación y Monte Carlo</td>
+</tr>
+<tr class="even">
+<td align="left">5</td>
+<td align="left">Datos observados y calibración</td>
+<td align="left">Aproximación al gemelo digital</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Duración sugerida:</strong> dos sesiones de 90 minutos para
+construir las etapas 1 a 3; las etapas 4 y 5 son ampliaciones o trabajo
+autónomo. Para cada versión, conserve una copia en una carpeta distinta
+(<code>v1</code>, <code>v2</code>, etc.).</p>
+</div>
+<div id="preparación-del-entorno" class="section level1" number="2">
+<h1><span class="header-section-number">2</span> 0. Preparación del
+entorno</h1>
+<ol style="list-style-type: decimal">
+<li>Abra RStudio o Positron en Ubuntu.</li>
+<li>En la consola de R, instale Shiny y ggplot2 una sola vez:</li>
+</ol>
+<pre class="r"><code>install.packages(c(&quot;shiny&quot;, &quot;ggplot2&quot;))</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li>Cree una carpeta llamada <code>gemelo_cafeteria</code> y, dentro, un
+archivo <strong><code>app.R</code></strong>.</li>
+<li>Copie el código de una versión completa en <code>app.R</code>,
+guarde y ejecute:</li>
+</ol>
+<pre class="r"><code>shiny::runApp(&quot;gemelo_cafeteria&quot;)</code></pre>
+<p>Si la consola ya está situada dentro de
+<code>gemelo_cafeteria</code>, puede usar <code>shiny::runApp()</code>
+sin argumentos o pulsar <strong>Run App</strong>. <strong>No</strong>
+ejecute las aplicaciones dentro de los chunks del Rmd: los ejemplos
+están marcados <code>eval=FALSE</code> para que la página HTML se genere
+sin abrir aplicaciones.</p>
+</div>
+<div id="versión-1-tablero-mínimo" class="section level1" number="3">
+<h1><span class="header-section-number">3</span> 1. Versión 1: tablero
+mínimo</h1>
+<p><strong>Objetivo:</strong> reconocer <code>ui</code>,
+<code>server</code>, <code>fluidPage()</code>,
+<code>sliderInput()</code> y <code>renderText()</code>.</p>
+<pre class="r"><code>library(shiny)
+
+ui &lt;- fluidPage(
+  titlePanel(&quot;Cafetería universitaria | Versión 1&quot;),
+  sidebarLayout(
+    sidebarPanel(
+      sliderInput(&quot;n&quot;, &quot;Número de clientes:&quot;,
+                  min = 5, max = 100, value = 20, step = 1)
+    ),
+    mainPanel(
+      h3(&quot;Mi primer tablero&quot;),
+      textOutput(&quot;mensaje&quot;)
+    )
+  )
+)
+
+server &lt;- function(input, output, session) {
+  output$mensaje &lt;- renderText({
+    paste(&quot;El modelo representará&quot;, input$n, &quot;clientes.&quot;)
+  })
+}
+
+shinyApp(ui, server)</code></pre>
+<p><strong>¿Qué hace cada componente?</strong> <code>ui</code> define lo
+que ve el estudiante; <code>server</code> contiene los cálculos;
+<code>input$n</code> recibe el valor del control;
+<code>renderText()</code> actualiza el resultado sin recargar la página;
+<code>shinyApp()</code> pone en marcha la aplicación.</p>
+<p><strong>Prueba:</strong> mueva el control de 20 a 40. ¿Qué cambia?
+¿Se está simulando todavía una fila? <strong>No</strong>: únicamente
+existe una interfaz reactiva.</p>
+</div>
+<div id="versión-2-simulación-de-una-fila-fifo" class="section level1"
+number="4">
+<h1><span class="header-section-number">4</span> 2. Versión 2:
+simulación de una fila FIFO</h1>
+<p><strong>Objetivo:</strong> representar 20 clientes con intervalos
+entre llegadas exponenciales y tiempos de servicio normales, y calcular
+los eventos de una fila con un servidor.</p>
+<div id="modelo-matemático" class="section level2" number="4.1">
+<h2><span class="header-section-number">4.1</span> 2.1. Modelo
+matemático</h2>
+<p>Sea <span class="math inline">\(B_i\)</span> el tiempo entre llegadas
+del cliente <span class="math inline">\(i\)</span> y <span
+class="math inline">\(S_i\)</span> su tiempo de servicio. Suponemos:</p>
+<p><span class="math display">\[B_i \sim \mathrm{Exp}(\lambda =
+1/\mu_A), \qquad S_i \approx \max\{0,N(\mu_S,\sigma_S^2)\}.
+\]</span></p>
+<p>La aproximación con <code>pmax(0, rnorm(...))</code> evita tiempos
+negativos; no es una normal estrictamente truncada. En la práctica de
+clase, con media 2,5 y desviación 0,5, el efecto es despreciable.</p>
+<p>Definimos <span class="math inline">\(C_i\)</span> (llegada
+acumulada), <span class="math inline">\(E_i\)</span> (inicio de
+atención), <span class="math inline">\(G_i\)</span> (fin), <span
+class="math inline">\(W_i\)</span> (espera) y <span
+class="math inline">\(T_i\)</span> (permanencia total):</p>
+<p><span class="math display">\[ C_i = \sum_{j=1}^i B_j, \quad E_1=C_1,
+\quad E_i=\max(C_i,G_{i-1})\quad(i&gt;1). \]</span> <span
+class="math display">\[ W_i=E_i-C_i, \qquad G_i=E_i+S_i, \qquad
+T_i=G_i-C_i. \]</span></p>
+<p><strong>Advertencia:</strong> la distribución exponencial describe
+los <em>intervalos</em> entre llegadas, no los instantes acumulados de
+llegada ni el tiempo de espera.</p>
+</div>
+<div id="aplicación-completa-app.r" class="section level2" number="4.2">
+<h2><span class="header-section-number">4.2</span> 2.2. Aplicación
+completa <code>app.R</code></h2>
+<pre class="r"><code>library(shiny)
+
+simular_fila &lt;- function(n, media_llegadas, media_servicio,
+                         sd_servicio, semilla = 123) {
+  set.seed(semilla)
+  entre_llegadas &lt;- rexp(n, rate = 1 / media_llegadas)
+  servicio &lt;- pmax(0, rnorm(n, mean = media_servicio,
+                            sd = sd_servicio))
+  llegada &lt;- cumsum(entre_llegadas)
+  inicio &lt;- fin &lt;- numeric(n)
+  for (i in seq_len(n)) {
+    inicio[i] &lt;- if (i == 1) llegada[i] else max(llegada[i], fin[i - 1])
+    fin[i] &lt;- inicio[i] + servicio[i]
+  }
+  data.frame(cliente = seq_len(n), entre_llegadas, llegada,
+             servicio, inicio, espera = inicio - llegada,
+             fin, total = fin - llegada)
+}
+
+ui &lt;- fluidPage(
+  titlePanel(&quot;Cafetería | Versión 2: fila FIFO&quot;),
+  sidebarLayout(
+    sidebarPanel(
+      numericInput(&quot;n&quot;, &quot;Clientes:&quot;, 20, min = 1, max = 500),
+      numericInput(&quot;a&quot;, &quot;Media entre llegadas (min):&quot;, 3, min = 0.1),
+      numericInput(&quot;s&quot;, &quot;Media del servicio (min):&quot;, 2.5, min = 0.1),
+      numericInput(&quot;sd&quot;, &quot;Desviación del servicio (min):&quot;, 0.5, min = 0),
+      numericInput(&quot;seed&quot;, &quot;Semilla:&quot;, 123, min = 1),
+      actionButton(&quot;simular&quot;, &quot;Simular&quot;)
+    ),
+    mainPanel(h4(&quot;Eventos por cliente (minutos)&quot;),
+              tableOutput(&quot;tabla&quot;))
+  )
+)
+
+server &lt;- function(input, output, session) {
+  datos &lt;- eventReactive(input$simular, {
+    simular_fila(input$n, input$a, input$s, input$sd, input$seed)
+  }, ignoreNULL = FALSE)
+  output$tabla &lt;- renderTable(round(data.frame(
+    cliente = datos()$cliente,
+    entre_llegadas = datos()$entre_llegadas,
+    llegada = datos()$llegada,
+    servicio = datos()$servicio,
+    inicio = datos()$inicio,
+    espera = datos()$espera,
+    fin = datos()$fin,
+    total = datos()$total), 2))
+}
+
+shinyApp(ui, server)</code></pre>
+<p><strong>Explicación.</strong> <code>rexp()</code> genera intervalos
+exponenciales, <code>rnorm()</code> genera tiempos de servicio,
+<code>cumsum()</code> acumula los instantes de llegada y el ciclo
+<code>for</code> garantiza que cada cliente comience cuando haya llegado
+<strong>y</strong> el servidor esté libre. <code>eventReactive()</code>
+ejecuta la simulación al pulsar el botón; <code>set.seed()</code>
+permite reproducir la misma realización.</p>
+<p><strong>Comprobación manual:</strong> en cualquier fila debe
+cumplirse <code>espera &gt;= 0</code> y
+<code>total = espera + servicio</code> (salvo redondeo visual). El
+primer cliente siempre tiene espera cero.</p>
+</div>
+</div>
+<div id="versión-3-indicadores-y-visualizaciones" class="section level1"
+number="5">
+<h1><span class="header-section-number">5</span> 3. Versión 3:
+indicadores y visualizaciones</h1>
+<p><strong>Objetivo:</strong> convertir la tabla en un tablero de
+análisis. Se agrega un histograma de esperas, una curva de llegadas y
+salidas y métricas básicas.</p>
+<p><strong>Instrucción:</strong> reemplace <strong>todo</strong> el
+contenido de <code>app.R</code> por esta versión; no es necesario
+conservar el código anterior.</p>
+<pre class="r"><code>library(shiny)
+library(ggplot2)
+
+simular_fila &lt;- function(n, media_llegadas, media_servicio,
+                         sd_servicio, semilla = 123) {
+  set.seed(semilla)
+  b &lt;- rexp(n, rate = 1 / media_llegadas)
+  s &lt;- pmax(0, rnorm(n, media_servicio, sd_servicio))
+  c &lt;- cumsum(b)
+  e &lt;- g &lt;- numeric(n)
+  for (i in seq_len(n)) {
+    e[i] &lt;- if (i == 1) c[i] else max(c[i], g[i - 1])
+    g[i] &lt;- e[i] + s[i]
+  }
+  data.frame(cliente = seq_len(n), entre_llegadas = b,
+             llegada = c, servicio = s, inicio = e,
+             espera = e - c, fin = g, total = g - c)
+}
+
+ui &lt;- fluidPage(
+  titlePanel(&quot;Cafetería | Versión 3: indicadores&quot;),
+  sidebarLayout(
+    sidebarPanel(
+      numericInput(&quot;n&quot;, &quot;Clientes&quot;, 20, min = 1, max = 500),
+      numericInput(&quot;a&quot;, &quot;Media entre llegadas&quot;, 3, min = 0.1),
+      numericInput(&quot;s&quot;, &quot;Media servicio&quot;, 2.5, min = 0.1),
+      numericInput(&quot;sd&quot;, &quot;Desviación servicio&quot;, 0.5, min = 0),
+      numericInput(&quot;seed&quot;, &quot;Semilla&quot;, 123, min = 1),
+      actionButton(&quot;go&quot;, &quot;Actualizar simulación&quot;)
+    ),
+    mainPanel(
+      h4(&quot;Indicadores de los clientes simulados&quot;),
+      verbatimTextOutput(&quot;resumen&quot;),
+      plotOutput(&quot;histograma&quot;, height = &quot;260px&quot;),
+      plotOutput(&quot;eventos&quot;, height = &quot;280px&quot;),
+      h4(&quot;Tabla de eventos&quot;), tableOutput(&quot;tabla&quot;)
+    )
+  )
+)
+
+server &lt;- function(input, output, session) {
+  d &lt;- eventReactive(input$go, {
+    simular_fila(input$n, input$a, input$s, input$sd, input$seed)
+  }, ignoreNULL = FALSE)
+  output$resumen &lt;- renderPrint({
+    x &lt;- d()
+    cat(&quot;Espera media:&quot;, round(mean(x$espera), 2), &quot;min\n&quot;)
+    cat(&quot;Servicio medio:&quot;, round(mean(x$servicio), 2), &quot;min\n&quot;)
+    cat(&quot;Tiempo total medio:&quot;, round(mean(x$total), 2), &quot;min\n&quot;)
+    cat(&quot;Espera máxima:&quot;, round(max(x$espera), 2), &quot;min\n&quot;)
+    cat(&quot;Proporción que espera:&quot;, round(mean(x$espera &gt; 0), 3), &quot;\n&quot;)
+  })
+  output$histograma &lt;- renderPlot({
+    ggplot(d(), aes(x = espera)) +
+      geom_histogram(bins = 12, fill = &quot;grey75&quot;, color = &quot;black&quot;) +
+      labs(title = &quot;Distribución de las esperas&quot;, x = &quot;Minutos&quot;, y = &quot;Clientes&quot;) +
+      theme_minimal()
+  })
+  output$eventos &lt;- renderPlot({
+    x &lt;- d()
+    plot(x$cliente, x$llegada, type = &quot;b&quot;, pch = 16,
+         xlab = &quot;Cliente&quot;, ylab = &quot;Minuto acumulado&quot;,
+         main = &quot;Llegada y finalización por cliente&quot;)
+    lines(x$cliente, x$fin, type = &quot;b&quot;, pch = 1, lty = 2)
+    legend(&quot;topleft&quot;, c(&quot;Llegada&quot;, &quot;Fin&quot;), pch = c(16, 1),
+           lty = c(1, 2), bty = &quot;n&quot;)
+  })
+  output$tabla &lt;- renderTable(round(d(), 2))
+}
+
+shinyApp(ui, server)</code></pre>
+<p><strong>Interpretación:</strong> el histograma muestra la
+distribución empírica de las esperas; la separación vertical entre las
+curvas de fin y llegada de un mismo cliente es su permanencia total. La
+proporción que espera es una estimación basada en esta única
+realización, <strong>no</strong> una probabilidad exacta.</p>
+</div>
+<div id="versión-4-escenarios-y-réplicas-de-monte-carlo"
+class="section level1" number="6">
+<h1><span class="header-section-number">6</span> 4. Versión 4:
+escenarios y réplicas de Monte Carlo</h1>
+<p><strong>Objetivo:</strong> comparar dos políticas con los
+<strong>mismos números aleatorios subyacentes</strong> y resumir varias
+réplicas. Esto ayuda a distinguir variabilidad aleatoria de efectos
+debidos a los parámetros.</p>
+<p>En este ejemplo, el escenario B reduce el tiempo medio de servicio.
+Se utiliza la misma semilla en A y B para que la comparación sea más
+estable. Cada réplica emplea una semilla diferente.</p>
+<pre class="r"><code>library(shiny)
+library(ggplot2)
+
+simular_fila &lt;- function(n, media_llegadas, media_servicio,
+                         sd_servicio, semilla) {
+  set.seed(semilla)
+  # Los mismos U y Z generan escenarios comparables.
+  u &lt;- runif(n)
+  z &lt;- rnorm(n)
+  b &lt;- -media_llegadas * log(u)
+  s &lt;- pmax(0, media_servicio + sd_servicio * z)
+  llegada &lt;- cumsum(b)
+  inicio &lt;- fin &lt;- numeric(n)
+  for (i in seq_len(n)) {
+    inicio[i] &lt;- if (i == 1) llegada[i] else max(llegada[i], fin[i-1])
+    fin[i] &lt;- inicio[i] + s[i]
+  }
+  data.frame(cliente = seq_len(n), llegada, servicio = s,
+             espera = inicio - llegada, total = fin - llegada)
+}
+
+ui &lt;- fluidPage(
+  titlePanel(&quot;Cafetería | Versión 4: experimentación&quot;),
+  sidebarLayout(
+    sidebarPanel(
+      numericInput(&quot;n&quot;, &quot;Clientes por réplica&quot;, 20, min = 2, max = 1000),
+      numericInput(&quot;a&quot;, &quot;Media entre llegadas&quot;, 3, min = 0.1),
+      numericInput(&quot;sA&quot;, &quot;Servicio medio A&quot;, 2.5, min = 0.1),
+      numericInput(&quot;sB&quot;, &quot;Servicio medio B&quot;, 2.0, min = 0.1),
+      numericInput(&quot;sd&quot;, &quot;Desviación del servicio&quot;, 0.5, min = 0),
+      numericInput(&quot;R&quot;, &quot;Réplicas&quot;, 100, min = 1, max = 2000),
+      numericInput(&quot;seed&quot;, &quot;Semilla base&quot;, 123, min = 1),
+      actionButton(&quot;go&quot;, &quot;Comparar escenarios&quot;)
+    ),
+    mainPanel(
+      h4(&quot;Indicadores promedio entre réplicas&quot;),
+      tableOutput(&quot;resumen&quot;),
+      plotOutput(&quot;comparacion&quot;),
+      h4(&quot;Resultados por réplica&quot;), tableOutput(&quot;detalle&quot;)
+    )
+  )
+)
+
+server &lt;- function(input, output, session) {
+  resultados &lt;- eventReactive(input$go, {
+    do.call(rbind, lapply(seq_len(input$R), function(r) {
+      semilla &lt;- input$seed + r - 1
+      a &lt;- simular_fila(input$n, input$a, input$sA, input$sd, semilla)
+      b &lt;- simular_fila(input$n, input$a, input$sB, input$sd, semilla)
+      data.frame(replica = r, escenario = c(&quot;A&quot;, &quot;B&quot;),
+                 espera_media = c(mean(a$espera), mean(b$espera)),
+                 total_medio = c(mean(a$total), mean(b$total)),
+                 prob_esperar = c(mean(a$espera &gt; 0), mean(b$espera &gt; 0)))
+    }))
+  }, ignoreNULL = FALSE)
+  output$resumen &lt;- renderTable({
+    x &lt;- resultados()
+    resumen &lt;- aggregate(cbind(espera_media, total_medio, prob_esperar) ~ escenario,
+                         data = x, FUN = mean)
+    resumen[, -1] &lt;- round(resumen[, -1], 3)
+    resumen
+  })
+  output$comparacion &lt;- renderPlot({
+    ggplot(resultados(), aes(x = escenario, y = espera_media)) +
+      geom_boxplot(fill = &quot;grey85&quot;) +
+      labs(x = &quot;Escenario&quot;, y = &quot;Espera media (min)&quot;,
+           title = &quot;Variación entre réplicas&quot;) + theme_minimal()
+  })
+  output$detalle &lt;- renderTable(head(resultados(), 12), digits = 3)
+}
+
+shinyApp(ui, server)</code></pre>
+<p><strong>Preguntas:</strong> ¿cuánto cambia la espera media al reducir
+el servicio? ¿Por qué los resultados no son idénticos entre réplicas?
+¿Qué ocurre si se aumentan las réplicas de 20 a 200?</p>
+</div>
+<div id="versión-5-calibración-con-datos-observados"
+class="section level1" number="7">
+<h1><span class="header-section-number">7</span> 5. Versión 5:
+calibración con datos observados</h1>
+<p><strong>Objetivo:</strong> conectar la simulación con mediciones
+reales de la cafetería. En una primera fase puede utilizarse un archivo
+CSV con dos columnas: <code>entre_llegadas</code> y
+<code>servicio</code>, ambas en minutos y con valores positivos.</p>
+<p><strong>Ejemplo de CSV</strong> (guardar como
+<code>observaciones.csv</code>):</p>
+<pre class="text"><code>entre_llegadas,servicio
+2.8,2.3
+3.1,2.7
+1.9,2.4
+4.0,3.0
+2.5,2.6</code></pre>
+<p>El siguiente <code>app.R</code> permite cargar el CSV, estimar la
+media de los intervalos y la media/desviación de los servicios, y
+ejecutar una simulación con esos parámetros. Es una <strong>calibración
+por momentos</strong>, no una validación completa ni una sincronización
+en tiempo real.</p>
+<pre class="r"><code>library(shiny)
+library(ggplot2)
+
+simular &lt;- function(n, media_a, media_s, sd_s, semilla) {
+  set.seed(semilla)
+  b &lt;- rexp(n, rate = 1/media_a)
+  s &lt;- pmax(0, rnorm(n, media_s, sd_s))
+  llegada &lt;- cumsum(b)
+  inicio &lt;- fin &lt;- numeric(n)
+  for (i in seq_len(n)) {
+    inicio[i] &lt;- if (i == 1) llegada[i] else max(llegada[i], fin[i-1])
+    fin[i] &lt;- inicio[i] + s[i]
+  }
+  data.frame(cliente = seq_len(n), llegada, servicio = s,
+             espera = inicio-llegada, fin, total = fin-llegada)
+}
+
+ui &lt;- fluidPage(
+  titlePanel(&quot;Cafetería | Versión 5: calibración&quot;),
+  sidebarLayout(
+    sidebarPanel(
+      fileInput(&quot;archivo&quot;, &quot;CSV de observaciones&quot;, accept = &quot;.csv&quot;),
+      numericInput(&quot;n&quot;, &quot;Clientes simulados&quot;, 20, min = 1, max = 1000),
+      numericInput(&quot;seed&quot;, &quot;Semilla&quot;, 123, min = 1),
+      actionButton(&quot;go&quot;, &quot;Simular con parámetros estimados&quot;)
+    ),
+    mainPanel(
+      h4(&quot;Parámetros estimados&quot;), tableOutput(&quot;parametros&quot;),
+      h4(&quot;Indicadores simulados&quot;), tableOutput(&quot;indicadores&quot;),
+      plotOutput(&quot;histograma&quot;),
+      h4(&quot;Eventos simulados&quot;), tableOutput(&quot;tabla&quot;)
+    )
+  )
+)
+
+server &lt;- function(input, output, session) {
+  observaciones &lt;- reactive({
+    req(input$archivo)
+    x &lt;- read.csv(input$archivo$datapath)
+    validate(need(all(c(&quot;entre_llegadas&quot;, &quot;servicio&quot;) %in% names(x)),
+                  &quot;El CSV debe contener entre_llegadas y servicio.&quot;))
+    x &lt;- x[complete.cases(x[, c(&quot;entre_llegadas&quot;, &quot;servicio&quot;)]), ]
+    validate(need(nrow(x) &gt;= 2, &quot;Se necesitan al menos dos observaciones completas.&quot;),
+             need(is.numeric(x$entre_llegadas) &amp;&amp; is.numeric(x$servicio),
+                  &quot;Las columnas deben ser numéricas.&quot;),
+             need(all(x$entre_llegadas &gt; 0) &amp;&amp; all(x$servicio &gt; 0),
+                  &quot;Los tiempos observados deben ser positivos.&quot;))
+    x
+  })
+  parametros &lt;- reactive({
+    x &lt;- observaciones()
+    list(a = mean(x$entre_llegadas), s = mean(x$servicio),
+         sd = sd(x$servicio))
+  })
+  output$parametros &lt;- renderTable({
+    p &lt;- parametros()
+    data.frame(parametro = c(&quot;Media entre llegadas&quot;, &quot;Media servicio&quot;, &quot;DE servicio&quot;),
+               minutos = round(c(p$a, p$s, p$sd), 3))
+  })
+  datos &lt;- eventReactive(input$go, {
+    p &lt;- parametros()
+    simular(input$n, p$a, p$s, p$sd, input$seed)
+  })
+  output$indicadores &lt;- renderTable({
+    x &lt;- datos()
+    data.frame(indicador = c(&quot;Espera media&quot;, &quot;Total medio&quot;, &quot;Proporción que espera&quot;),
+               valor = round(c(mean(x$espera), mean(x$total),
+                               mean(x$espera &gt; 0)), 3))
+  })
+  output$histograma &lt;- renderPlot({
+    ggplot(datos(), aes(espera)) +
+      geom_histogram(bins = 12, fill = &quot;grey80&quot;, color = &quot;black&quot;) +
+      labs(title = &quot;Espera simulada&quot;, x = &quot;Minutos&quot;, y = &quot;Clientes&quot;) +
+      theme_minimal()
+  })
+  output$tabla &lt;- renderTable(head(datos(), 20), digits = 2)
+}
+
+shinyApp(ui, server)</code></pre>
+<p><strong>Para aproximarse a un gemelo digital real:</strong> registrar
+observaciones en distintos horarios, comprobar el ajuste de las
+distribuciones, comparar tiempos de espera <strong>observados</strong>
+con simulados, recalibrar periódicamente y documentar cambios de
+operación. Una actualización automática requeriría una fuente de datos
+conectada y no está implementada en esta versión.</p>
+</div>
+<div id="actividades-de-aprendizaje" class="section level1" number="8">
+<h1><span class="header-section-number">8</span> 6. Actividades de
+aprendizaje</h1>
+<div id="sesión-a-90-minutos-versiones-1-y-2" class="section level2"
+number="8.1">
+<h2><span class="header-section-number">8.1</span> Sesión A (90
+minutos): versiones 1 y 2</h2>
+<ul>
+<li><strong>15 min:</strong> identificar componentes de Shiny y ejecutar
+la versión 1.</li>
+<li><strong>20 min:</strong> relacionar las variables del modelo con las
+columnas de Excel.</li>
+<li><strong>40 min:</strong> ejecutar la versión 2, verificar fórmulas y
+observar 20 clientes.</li>
+<li><strong>15 min:</strong> responder: ¿por qué
+<code>inicio = max(llegada, fin anterior)</code>?</li>
+</ul>
+<p><strong>Entregable:</strong> captura del tablero y tabla con 20
+clientes; comprobar manualmente las primeras tres filas.</p>
+</div>
+<div id="sesión-b-90-minutos-versión-3-y-exploración"
+class="section level2" number="8.2">
+<h2><span class="header-section-number">8.2</span> Sesión B (90
+minutos): versión 3 y exploración</h2>
+<ul>
+<li><strong>20 min:</strong> incorporar y explicar indicadores.</li>
+<li><strong>30 min:</strong> interpretar los dos gráficos.</li>
+<li><strong>25 min:</strong> comparar medias entre llegadas de 3 y 2
+minutos, manteniendo la semilla.</li>
+<li><strong>15 min:</strong> redactar conclusiones y discutir
+limitaciones.</li>
+</ul>
+<p><strong>Entregable:</strong> aplicación de la versión 3 y una tabla
+de comparación de escenarios. Las versiones 4 y 5 pueden emplearse como
+ampliación.</p>
+</div>
+</div>
+<div id="lista-de-verificación-y-evaluación" class="section level1"
+number="9">
+<h1><span class="header-section-number">9</span> 7. Lista de
+verificación y evaluación</h1>
+<ul class="task-list">
+<li><label><input type="checkbox" />La aplicación abre sin
+errores.</label></li>
+<li><label><input type="checkbox" />Se simulan exactamente 20 clientes
+cuando <code>n = 20</code>.</label></li>
+<li><label><input type="checkbox" />Los tiempos entre llegadas y los
+tiempos de servicio se generan correctamente.</label></li>
+<li><label><input type="checkbox" />Los instantes de llegada están
+ordenados.</label></li>
+<li><label><input type="checkbox" />Los tiempos de espera no son
+negativos.</label></li>
+<li><label><input type="checkbox" />Para cada cliente se cumple
+<code>total = espera + servicio</code>.</label></li>
+<li><label><input type="checkbox" />Los controles permiten modificar los
+parámetros y ejecutar otra simulación.</label></li>
+<li><label><input type="checkbox" />Se interpretan indicadores y
+gráficos sin confundir simulación con observación.</label></li>
+<li><label><input type="checkbox" />Se explican los supuestos y las
+limitaciones del modelo.</label></li>
+</ul>
+<p><strong>Rúbrica sugerida:</strong> formulación probabilística (30 %),
+simulación correcta (30 %), interfaz y gráficos (20 %), interpretación y
+validación (20 %).</p>
+</div>
+<div id="problemas-frecuentes" class="section level1" number="10">
+<h1><span class="header-section-number">10</span> 8. Problemas
+frecuentes</h1>
+<p><strong><code>there is no package called 'shiny'</code>:</strong>
+ejecute <code>install.packages("shiny")</code> en la consola de R.</p>
+<p><strong><code>object 'input' not found</code>:</strong> el código de
+<code>input</code> debe estar dentro de <code>server</code> y de un
+contexto reactivo.</p>
+<p><strong><code>could not find function 'ggplot'</code>:</strong>
+instale y cargue <code>ggplot2</code>.</p>
+<p><strong>El tablero no cambia al mover los controles:</strong> en las
+versiones 2 a 5, pulse el botón de simulación.</p>
+<p><strong>La guía HTML no muestra una aplicación funcionando:</strong>
+es lo esperado; GitHub Pages sirve contenido estático. Ejecute el
+archivo <code>app.R</code> en RStudio/Positron o despliegue la
+aplicación en un servicio Shiny.</p>
+<p><strong>La aplicación se detiene al leer el CSV:</strong> verifique
+nombres exactos de columnas, separador de comas y valores numéricos con
+punto decimal. Si el archivo utiliza punto y coma y coma decimal, adapte
+la lectura con <code>read.csv2()</code>.</p>
+</div>
+<div id="reflexión-final" class="section level1" number="11">
+<h1><span class="header-section-number">11</span> 9. Reflexión
+final</h1>
+<p>Una <strong>simulación</strong> reproduce el comportamiento de un
+sistema bajo supuestos. Un <strong>gemelo digital</strong> requiere,
+además, una relación verificable con el sistema físico mediante datos
+observados, calibración y actualización. El proyecto debe documentar qué
+parte es un supuesto y qué parte se sustenta en mediciones reales.</p>
+</div>
+
+<style>
+/* Se incluye en todas las páginas, incluso si definen su propio CSS. */
+.navbar .navbar-nav > .dropdown > .dropdown-menu {
+  max-height: calc(100vh - 90px);
+  overflow-y: auto;
+}
+.navbar .unidad-grupo > button {
+  display: block;
+  width: 100%;
+  padding: 7px 20px;
+  border: 0;
+  background: transparent;
+  color: #263b4b;
+  font: inherit;
+  font-weight: 600;
+  text-align: left;
+}
+.navbar .unidad-grupo > button::after {
+  content: "▸";
+  float: right;
+  margin-left: 16px;
+}
+.navbar .unidad-grupo > button[aria-expanded="true"]::after { content: "▾"; }
+.navbar .unidad-grupo > ul {
+  list-style: none;
+  margin: 0;
+  padding: 0 0 0 12px;
+  background: #f2f6f9;
+}
+.navbar .unidad-grupo > ul[hidden] { display: none !important; }
+.navbar .unidad-grupo > ul > li > a {
+  display: block;
+  padding: 7px 18px;
+  color: #263b4b;
+  text-decoration: none;
+}
+.navbar .unidad-grupo > button:hover,
+.navbar .unidad-grupo > ul > li > a:hover,
+.navbar .unidad-grupo > ul > li.active > a { background: #e2eaf1; }
+.navbar .unidad-grupo > button:focus-visible,
+.navbar .unidad-grupo > ul > li > a:focus-visible {
+  outline: 2px solid #2c5697;
+  outline-offset: -2px;
+}
+</style>
+<script>
+(function () {
+  function prepararUnidades() {
+    var pagina = decodeURIComponent(window.location.pathname.split('/').pop() || 'index.html');
+    document.querySelectorAll('.navbar .navbar-nav > li > ul.dropdown-menu').forEach(function (menu, menuIndex) {
+      var grupo = null;
+      Array.from(menu.children).forEach(function (item, itemIndex) {
+        var enlace = item.querySelector('a');
+        if (enlace && enlace.getAttribute('href') === '#' && /^Unidad\s+\d+\.\d+$/.test(enlace.textContent.trim())) {
+          var boton = document.createElement('button');
+          boton.type = 'button';
+          boton.textContent = enlace.textContent.trim();
+          var lista = document.createElement('ul');
+          lista.id = 'unidad-' + menuIndex + '-' + itemIndex;
+          lista.hidden = true;
+          boton.setAttribute('aria-controls', lista.id);
+          boton.setAttribute('aria-expanded', 'false');
+          item.classList.add('unidad-grupo');
+          item.replaceChild(boton, enlace);
+          item.appendChild(lista);
+          boton.addEventListener('click', function (event) {
+            event.stopPropagation();
+            lista.hidden = !lista.hidden;
+            boton.setAttribute('aria-expanded', String(!lista.hidden));
+          });
+          item.addEventListener('keydown', function (event) {
+            if (event.key === 'Escape' && !lista.hidden) {
+              event.preventDefault();
+              event.stopPropagation();
+              lista.hidden = true;
+              boton.setAttribute('aria-expanded', 'false');
+              boton.focus();
+            }
+          });
+          grupo = lista;
+        } else if (item.classList.contains('divider') || item.classList.contains('dropdown-header')) {
+          grupo = null;
+        } else if (grupo) {
+          grupo.appendChild(item);
+          if (enlace && decodeURIComponent(enlace.getAttribute('href')) === pagina) {
+            item.classList.add('active');
+            grupo.hidden = false;
+            grupo.previousElementSibling.setAttribute('aria-expanded', 'true');
+          }
+        }
+      });
+    });
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', prepararUnidades);
+  } else {
+    prepararUnidades();
+  }
+})();
+</script>
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("show" === "show");
+});
+</script>
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
